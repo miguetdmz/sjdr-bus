@@ -147,6 +147,10 @@
   let sel = 0;        // lugar elegido
   let candSel = 0;    // candidato elegido dentro del lugar
   let punto = null;   // coordenada actual del marcador grande [lat, lon] (o null)
+  // Punto movido o puesto que todavía no se aprueba (19 nov 2026: antes se
+  // guardaba solo al soltarlo y «Aprobar» parecía no hacer nada).
+  let borrador = null;
+  let avisoGuardado = false;
 
   const lugar = () => lugares[sel];
 
@@ -215,9 +219,15 @@
     const hayPunto = punto !== null;
     el('b-aprobar').textContent = l.candidatos.length ? 'Aprobar' : 'Guardar este punto';
     el('b-aprobar').disabled = !hayPunto;
-    el('estado-actual').textContent = d
-      ? `Estado: ${ETIQUETA[d.estado]}${d.coordenada ? ` · ${d.coordenada[0]}, ${d.coordenada[1]}` : ''}`
-      : 'Estado: pendiente';
+    el('estado-actual').textContent = avisoGuardado
+      ? 'Guardado ✓ · pasando al siguiente…'
+      : borrador
+        ? `Punto ${l.candidatos.length ? 'movido' : 'puesto'} · falta ${l.candidatos.length ? 'aprobar' : 'guardar'} ↓`
+        : d
+          ? `Estado: ${ETIQUETA[d.estado]}${d.coordenada ? ` · ${d.coordenada[0]}, ${d.coordenada[1]}` : ''}`
+          : 'Estado: pendiente';
+    el('estado-actual').style.fontWeight = borrador || avisoGuardado ? '700' : '';
+    el('estado-actual').style.color = avisoGuardado ? 'var(--primario)' : borrador ? '#8a5300' : '';
     el('b-borrar').style.visibility = d ? 'visible' : 'hidden';
   }
 
@@ -227,7 +237,7 @@
     const d = decisiones[l.nombre];
     const c = l.candidatos[candSel];
     // Punto del marcador grande: decisión guardada con coordenada, si no el candidato elegido.
-    punto = d?.coordenada ?? (c ? c.centro : null);
+    punto = borrador ?? d?.coordenada ?? (c ? c.centro : null);
     l.candidatos.forEach((x, i) => {
       if (i === candSel) return;
       const m = L.marker(x.centro, { icon: icono('m-chico', 16), title: x.nombre }).addTo(capa);
@@ -239,8 +249,9 @@
       m.bindTooltip(c ? `${c.nombre} (arrástralo para moverlo)` : 'Tu punto (arrástralo para moverlo)', { className: 'tip' });
       m.on('dragend', () => {
         const p = m.getLatLng();
-        punto = [redondeo(p.lat), redondeo(p.lng)];
-        guardar(l.nombre, { estado: c ? 'movido' : 'ubicado', coordenada: punto, candidato_osm: c ? c.osm : null });
+        borrador = [redondeo(p.lat), redondeo(p.lng)];
+        punto = borrador;
+        pintarFicha();
       });
     }
   }
@@ -253,6 +264,8 @@
   function elegir(i) {
     sel = i;
     candSel = 0;
+    borrador = null;
+    avisoGuardado = false;
     const d = decisiones[lugar().nombre];
     if (d?.candidato_osm) {
       const k = lugar().candidatos.findIndex((c) => c.osm === d.candidato_osm);
@@ -262,6 +275,7 @@
   }
   function elegirCandidato(i) {
     candSel = i;
+    borrador = null;
     // Cambiar de candidato antes de decidir: el marcador grande pasa al nuevo.
     const l = lugar();
     const d = decisiones[l.nombre];
@@ -282,7 +296,15 @@
     } else {
       guardar(l.nombre, { estado: 'ubicado', coordenada: punto, candidato_osm: null });
     }
+    borrador = null;
+    avisoGuardado = true;
     dibujar();
+    pintarFicha();
+    // Pasa solo al siguiente lugar pendiente.
+    const siguiente = lugares.findIndex((x, i) => i > sel && estadoDe(x.nombre) === 'pendiente');
+    const primero = lugares.findIndex((x) => estadoDe(x.nombre) === 'pendiente');
+    const destino = siguiente >= 0 ? siguiente : primero;
+    setTimeout(() => { avisoGuardado = false; if (destino >= 0) elegir(destino); else pintarFicha(); }, 900);
   });
   el('b-rechazar').addEventListener('click', () => {
     guardar(lugar().nombre, { estado: 'rechazado', coordenada: null, candidato_osm: null });
@@ -297,9 +319,9 @@
   mapa.on('click', (ev) => {
     const l = lugar();
     if (l.candidatos.length) return;
-    punto = [redondeo(ev.latlng.lat), redondeo(ev.latlng.lng)];
-    guardar(l.nombre, { estado: 'ubicado', coordenada: punto, candidato_osm: null });
+    borrador = [redondeo(ev.latlng.lat), redondeo(ev.latlng.lng)];
     dibujar();
+    pintarFicha();
   });
 
   elegir(0);
