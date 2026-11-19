@@ -484,3 +484,19 @@ Miguel).
   19 nov 2026 por la tarde.
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** D-20, `docs/COLA-NOCTURNA.md`, `docs/PLAN.md`.
+
+## D-32 · 19 nov 2026 · R-03: una consulta a Overpass con nombres y trazos de calles · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, ~2:37 pm; pregunta a de R-03):** se
+  aprueba **una sola consulta** a Overpass con los nombres y los trazos de las
+  calles del municipio de San Juan del Río, para (1) separar los cruces de
+  las listas oficiales de R-01, que vienen pegados solo con espacios, y (2)
+  ubicar cada cruce en el mapa como punto de paso para R-04.
+- **Cómo:** sesión de día, desde la computadora de Miguel, $0. La respuesta
+  completa va a `referencias/` (fuera de git, lección 8); al repositorio entra
+  solo lo extraído (nombre y trazo de cada calle) con la huella sha256 de la
+  respuesta. La app nunca consulta Overpass (regla 7).
+- **Regla de calidad:** un cruce que no coincida con un nombre de calle queda
+  «sin separar» o POR VERIFICAR; nunca se adivina (lección 4). Las calles que
+  falten en OpenStreetMap dejan la ruta incompleta, a la vista.
+- **Decidió:** Miguel, 19 nov 2026.
+- **Impacta:** R-03, R-04, `datos/cache/overpass/`.
