@@ -442,3 +442,34 @@ Miguel).
 - **Impacta:** D-02, D-26, D-28, `datos/gtfs-sjr/feed_info.txt`, rutinas del
   turno y del inspector, `docs/PLAN.md`.
 
+
+## D-30 · 19 nov 2026 · Estilo visual aprobado: la muestra patrón · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, ~1:15 pm):** la app se construye con el
+  estilo de la **muestra patrón** (`web/muestra-patron.html`, capturas en
+  ancho de teléfono). Miguel: «Me encanta… se ve espectacular».
+- **Qué fija:**
+  - Mapa a pantalla completa con teselas de OpenStreetMap en tonos suaves
+    (filtro gris en el navegador; mismas teselas, sin proveedor nuevo).
+  - Barra superior flotante con «SJDR Bus» y la leyenda de iniciativa
+    independiente.
+  - Hoja inferior que se desliza: en el inicio, buscador de ruta y
+    control de sentido (regla 5: sin scroll); con ruta elegida, tiempo
+    estimado grande con sello ESTIMADO y línea de tiempo de paradas;
+    deslizada hacia arriba, lista de paradas con su tiempo.
+  - Recorrido punteado (regla 8) y camión ámbar que avanza sobre la línea,
+    siempre ESTIMADO, nunca «en vivo» (regla 2).
+  - Paleta propia, sin colores oficiales (regla 4): tinta `#12262d`,
+    verde azulado `#0d7a72`, ámbar `#f0a032`, fondo `#f4f2ec`. Letra del
+    sistema (regla 6: sin fuentes de Google).
+  - Dos pestañas abajo: «Rutas» y «Calcula tu ruta» (D-15, M-06).
+- **Lo que NO es dato:** la muestra es ESQUEMÁTICA. Ruta «00X», paradas con
+  letra y tiempos son de ejemplo. La línea es un tramo de una relación de
+  OpenStreetMap (consulta única del 19 nov 2026, guardada fuera del
+  repositorio) usado solo para que el dibujo siga calles reales; no se usa
+  como trazo de ninguna ruta.
+- **Pendiente:** una tarea nueva para aplicar el estilo a la app (Miguel
+  decide cuándo y si va al turno nocturno). El tiempo estimado y el camión
+  necesitan B3 (trazos) y B4 (estimador): mientras falten, la app no muestra
+  tiempos.
+- **Decidió:** Miguel, 19 nov 2026.
+- **Impacta:** `web/`, M-05 a M-08, R-06, B2, B4.

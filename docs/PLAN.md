@@ -4,14 +4,14 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (19 nov 2026, 8:40 am)
+## Estado actual (19 nov 2026, 1:20 pm)
 
 | Bloque | Qué es | Estado |
 |---|---|---|
 | B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado. Desde el 19 nov 2026 el repositorio es **público**: `miguetdmz/sjdr-bus` (D-29), con candado en `main` (solo entra un PR con la puerta en verde). El anterior, `miguetdmz/sjdrbus-sjr`, queda **privado** como archivo con su historial y los PR #1 a #9 |
 | B1 | Datos base del GTFS-SJR | **7 de 7 tareas hechas.** 49 paradas de OSM, POR VERIFICAR. El validador quedó en 2 errores conocidos (faltan viajes y horas de paso; no se inventan) |
 | B2a | Mockup navegable (PWA, Vite + Leaflet) | **4 de 8.** M-01 a M-04 hechas y **en línea** en https://sjdrbus-sjr.vercel.app (D-26, D-27). M-05 a M-08 APROBADA: las toma el turno del 19 nov, 11:30 pm |
-| B2 | Primera pantalla publicable | Sin iniciar |
+| B2 | Primera pantalla publicable | **Estilo aprobado** (D-30): la muestra patrón `web/muestra-patron.html`. Falta la tarea que lo aplica a la app |
 | B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. R-03 BLOQUEADA (3 preguntas para Miguel); R-04 en otro chat de día; R-05 y R-06 dependen de R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar |
@@ -19,7 +19,13 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (19 nov 2026, 8:40 am)
+### Relevo para la siguiente sesión (19 nov 2026, 1:20 pm)
+
+**Nuevo · estilo visual aprobado (D-30, 19 nov 2026, 1:15 pm).** Miguel
+aprobó la muestra patrón (`web/muestra-patron.html`; se ve con `npm run dev` en
+`/muestra-patron.html`). Siguiente paso: escribir la tarea que aplica el
+estilo a la app y que Miguel decida si va al turno nocturno. El turno del
+19 nov no rediseña nada; solo M-07 usa la paleta en el ícono.
 
 1. **Turno del 19 nov, 11:30 pm** (`noche/2026-11-20`): ya apunta al
    repositorio nuevo `miguetdmz/sjdr-bus`. Sale del PR abierto más reciente
