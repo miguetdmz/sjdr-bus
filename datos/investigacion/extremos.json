@@ -8,9 +8,9 @@
   ],
   "resumen": {
     "rutas": 42,
-    "lugares": 40,
+    "lugares": 39,
     "con_coordenada": 12,
-    "sin_coordenada": 28
+    "sin_coordenada": 27
   },
   "lugares": [
     {
@@ -41,7 +41,7 @@
       "consulta": "Universidad Tecnológica de San Juan del Río"
     },
     {
-      "lugar": "Col. Industrial Nuevo San Juan",
+      "lugar": "Nuevo Parque Industrial",
       "lat": null,
       "lon": null,
       "estado": "SIN COORDENADA · POR VERIFICAR",
@@ -384,18 +384,6 @@
       "consulta": "IMSS, San Juan del Río"
     },
     {
-      "lugar": "La Rueda",
-      "lat": null,
-      "lon": null,
-      "estado": "SIN COORDENADA · POR VERIFICAR",
-      "motivo": "ningún resultado de Nominatim pasa las reglas",
-      "descartes": [
-        "«Avenida La Rueda»: el nombre no coincide",
-        "«Avenida La Rueda»: el nombre no coincide"
-      ],
-      "consulta": "La Rueda, San Juan del Río"
-    },
-    {
       "lugar": "San Juan del Río",
       "lat": "20.38883",
       "lon": "-99.99639",
@@ -442,8 +430,9 @@
       "route_id": "U-004",
       "numero": "004",
       "nombre": "Col. Industrial Nuevo San Juan – Centro",
-      "origen": "Col. Industrial Nuevo San Juan",
+      "origen": "Nuevo Parque Industrial",
       "destino": "Centro",
+      "correccion": "D-35: «Col. Industrial Nuevo San Juan» se ubica como «Nuevo Parque Industrial» (Miguel, 19 nov 2026)",
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {
@@ -739,8 +728,9 @@
       "route_id": "U-047",
       "numero": "047",
       "nombre": "La Rueda – Central de Autobuses",
-      "origen": "La Rueda",
+      "origen": "Fracc. La Rueda",
       "destino": "Central de Autobuses",
+      "correccion": "D-35: «La Rueda» se ubica como «Fracc. La Rueda» (Miguel, 19 nov 2026)",
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {

@@ -31,12 +31,12 @@ test('si existe la respuesta completa (fuera de git), coincide con la huella', {
   assert.equal(h, HUELLA);
 });
 
-test('propuestas: están exactamente los 28 lugares sin coordenada', () => {
+test('propuestas: están exactamente los 27 lugares sin coordenada (28 menos el duplicado de La Rueda, D-35)', () => {
   const sin = ext.lugares.filter((l) => l.lat === null).map((l) => l.lugar).sort();
-  assert.equal(sin.length, 28);
+  assert.equal(sin.length, 27);
   assert.deepEqual(prop.lugares.map((l) => l.nombre).sort(), sin);
-  assert.equal(prop.resumen.lugares, 28);
-  assert.equal(prop.resumen.con_candidato + prop.resumen.sin_candidato, 28);
+  assert.equal(prop.resumen.lugares, 27);
+  assert.equal(prop.resumen.con_candidato + prop.resumen.sin_candidato, 27);
 });
 
 test('propuestas: el archivo coincide con lo que genera el programa (segunda corrida idempotente)', () => {
@@ -86,4 +86,14 @@ test('la página de confirmación existe, usa la clave acordada y no entra a la 
   assert.match(h, /POR VERIFICAR EN CAMPO aunque las apruebes/);
   assert.match(h, /Tus respuestas se guardan solas en esta computadora\. Al terminar, avísale a Claude en el chat\./);
   assert.doesNotMatch(leer('web/index.html'), /confirmar-extremos/);
+});
+
+test('D-35: «Nuevo Parque Industrial» reemplaza a «Col. Industrial Nuevo San Juan» y La Rueda no se duplica', () => {
+  const ext = JSON.parse(readFileSync(new URL('../../datos/investigacion/extremos.json', import.meta.url), 'utf8'));
+  const nombres = ext.lugares.map((l) => l.lugar);
+  assert.ok(nombres.includes('Nuevo Parque Industrial'));
+  assert.ok(!nombres.includes('Col. Industrial Nuevo San Juan'));
+  assert.ok(nombres.includes('Fracc. La Rueda'));
+  assert.ok(!nombres.includes('La Rueda'));
+  assert.equal(ext.rutas.find((r) => r.numero === '004').origen, 'Nuevo Parque Industrial');
 });

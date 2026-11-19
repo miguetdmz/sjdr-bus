@@ -53,6 +53,8 @@ export const LUGARES = {
   'Valle Real': { q: 'Valle Real, San Juan del Río', nombres: ['VALLE REAL'] },
   'La Peña': { q: 'La Peña, San Juan del Río', nombres: ['LA PENA'] },
   'Francisco Villa': { q: 'Francisco Villa, San Juan del Río', nombres: ['FRANCISCO VILLA', 'COLONIA FRANCISCO VILLA'] },
+  // D-35: Miguel corrige el nombre del lugar (el inventario dice «Col. Industrial Nuevo San Juan»).
+  'Nuevo Parque Industrial': { q: 'Nuevo San Juan, San Juan del Río', nombres: ['NUEVO PARQUE INDUSTRIAL', 'PARQUE INDUSTRIAL NUEVO SAN JUAN', 'INDUSTRIAL NUEVO SAN JUAN'] },
   'Col. Industrial Nuevo San Juan': { q: 'Nuevo San Juan, San Juan del Río', nombres: ['INDUSTRIAL NUEVO SAN JUAN', 'COLONIA INDUSTRIAL NUEVO SAN JUAN', 'NUEVO SAN JUAN'] },
   'Pedregoso 2ª Sección': { q: 'Pedregoso 2a Sección, San Juan del Río', nombres: ['PEDREGOSO 2A SECCION', 'PEDREGOSO SEGUNDA SECCION', 'EL PEDREGOSO 2A SECCION'] },
   'San Isidro': { q: 'San Isidro, San Juan del Río', nombres: ['SAN ISIDRO'] },
@@ -151,18 +153,30 @@ function resolver(lugar) {
   };
 }
 
+// D-35 (Miguel, 19 nov 2026): correcciones de conocimiento local. El nombre
+// de la ruta en routes.txt no cambia (es el del inventario y la página oficial);
+// solo el lugar donde se ubica el extremo.
+const CORRECCIONES = {
+  'Col. Industrial Nuevo San Juan': 'Nuevo Parque Industrial',
+  'La Rueda': 'Fracc. La Rueda', // es el mismo lugar: se elimina el duplicado
+};
+const corregir = (n) => CORRECCIONES[n] ?? n;
+
 const rutas = leerCSV(`${raiz}datos/gtfs-sjr/routes.txt`);
 const resueltos = new Map();
 const rut = rutas.map((r) => {
   const partes = r.route_long_name.split(' – ');
-  const [origen, destino] = [partes[0], partes.slice(1).join(' – ')];
+  const [origenInv, destinoInv] = [partes[0], partes.slice(1).join(' – ')];
   // «Manantiales – Nogales – IMSS» tiene tres nombres: origen = el primero,
   // destino = el último; el de en medio no es extremo.
-  const fin = partes.length > 2 ? partes.at(-1) : destino;
+  const finInv = partes.length > 2 ? partes.at(-1) : destinoInv;
+  const [origen, fin] = [corregir(origenInv), corregir(finInv)];
+  const corregidos = [origenInv, finInv].filter((n) => corregir(n) !== n);
   for (const l of [origen, fin]) if (!resueltos.has(l)) resueltos.set(l, resolver(l));
   return {
     route_id: r.route_id, numero: r.route_short_name, nombre: r.route_long_name,
     origen: origen, destino: fin,
+    correccion: corregidos.length ? `D-35: ${corregidos.map((n) => `«${n}» se ubica como «${corregir(n)}»`).join('; ')} (Miguel, 19 nov 2026)` : undefined,
     nota: partes.length > 2 ? `el nombre trae ${partes.length} lugares; «${partes.slice(1, -1).join(', ')}» queda como punto intermedio, no extremo` : undefined,
     sentidos: 'sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido',
   };

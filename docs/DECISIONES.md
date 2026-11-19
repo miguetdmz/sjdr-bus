@@ -533,3 +533,17 @@ Miguel).
   camión: se dice así en la ficha.
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-02, R-03, R-04, `datos/investigacion/extremos.json`.
+
+## D-35 · 19 nov 2026 · Extremos: «Nuevo Parque Industrial» y La Rueda sin duplicado · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, ~5:25 pm; conocimiento local):**
+  - El extremo de la ruta 004 no es «Col. Industrial Nuevo San Juan»: es
+    **Nuevo Parque Industrial**.
+  - «La Rueda» y «Fracc. La Rueda» son el mismo lugar: queda uno solo,
+    **Fracc. La Rueda** (rutas 009B y 047).
+- **Cómo:** `scripts/extremos.mjs` aplica las dos correcciones (tabla
+  `CORRECCIONES`) y deja la marca D-35 en cada ruta corregida. El nombre de la
+  ruta en `routes.txt` no cambia: es el del inventario y de la página oficial.
+  Quedan 39 lugares, 27 sin coordenada.
+- **Decidió:** Miguel, 19 nov 2026.
+- **Impacta:** `datos/investigacion/extremos.json`, `extremos-propuestas.json`,
+  página de confirmación, R-03.

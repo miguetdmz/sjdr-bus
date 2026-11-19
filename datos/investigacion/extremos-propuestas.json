@@ -15,9 +15,9 @@
     "Los lugares sin candidato se quedan sin coordenada (no se completan con datos supuestos)."
   ],
   "resumen": {
-    "lugares": 28,
+    "lugares": 27,
     "con_candidato": 6,
-    "sin_candidato": 22
+    "sin_candidato": 21
   },
   "lugares": [
     {
@@ -128,6 +128,16 @@
       "descartados": []
     },
     {
+      "nombre": "Fracc. La Rueda",
+      "rutas": [
+        "009B",
+        "047"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
       "nombre": "Francisco Villa",
       "rutas": [
         "039",
@@ -223,30 +233,12 @@
       "descartados": []
     },
     {
-      "nombre": "Col. Industrial Nuevo San Juan",
-      "rutas": [
-        "004"
-      ],
-      "candidatos": [],
-      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
-      "descartados": []
-    },
-    {
       "nombre": "Ezequiel Montes",
       "rutas": [
         "023"
       ],
       "candidatos": [],
       "nota": "fuera del municipio: sin candidato (la consulta cubre solo San Juan del Río; no se inventa)",
-      "descartados": []
-    },
-    {
-      "nombre": "Fracc. La Rueda",
-      "rutas": [
-        "009B"
-      ],
-      "candidatos": [],
-      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
       "descartados": []
     },
     {
@@ -299,15 +291,6 @@
       "descartados": []
     },
     {
-      "nombre": "La Rueda",
-      "rutas": [
-        "047"
-      ],
-      "candidatos": [],
-      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
-      "descartados": []
-    },
-    {
       "nombre": "Las Torres",
       "rutas": [
         "024C"
@@ -338,6 +321,15 @@
       "nombre": "Manantiales / Nogales",
       "rutas": [
         "042"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Nuevo Parque Industrial",
+      "rutas": [
+        "004"
       ],
       "candidatos": [],
       "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
