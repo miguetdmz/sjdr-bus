@@ -23,9 +23,10 @@ Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
 **Nuevo · estilo visual aprobado (D-30, 19 nov 2026, 1:15 pm).** Miguel
 aprobó la muestra patrón (`web/muestra-patron.html`; se ve con `npm run dev` en
-`/muestra-patron.html`). Siguiente paso: escribir la tarea que aplica el
-estilo a la app y que Miguel decida si va al turno nocturno. El turno del
-19 nov no rediseña nada; solo M-07 usa la paleta en el ícono.
+`/muestra-patron.html`). La tarea E-01 lo aplica a la app y se hace en la
+sesión de día del 19 nov (D-31: mientras Miguel trabaja, se avanza de día;
+a las 10:30 pm Claude avisa para el relevo). M-05 a M-08 se construyen con
+ese estilo; M-07 usa la paleta en el ícono.
 
 1. **Turno del 19 nov, 11:30 pm** (`noche/2026-11-20`): ya apunta al
    repositorio nuevo `miguetdmz/sjdr-bus`. Sale del PR abierto más reciente

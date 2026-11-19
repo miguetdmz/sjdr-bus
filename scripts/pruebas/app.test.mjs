@@ -3,7 +3,7 @@
 // OpenStreetMap con atribución y centro en Plaza Independencia (HANDOFF §11.3).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 
 const leer = (r) => readFileSync(new URL(`../../web/${r}`, import.meta.url), 'utf8');
 const html = leer('index.html');
@@ -26,4 +26,28 @@ test('app: mapa de OpenStreetMap con atribución, centrado en Plaza Independenci
 test('app: fuentes del sistema, ninguna fuente descargada', () => {
   assert.match(css, /font-family: system-ui/);
   assert.doesNotMatch(css + html, /@font-face|@import url|\.woff2?/);
+});
+
+// E-01 (D-30): ningún texto de tiempo calculado ni «en vivo» (llegan con R-06 y B4).
+test('app: sin tiempo calculado ni «en vivo» en el HTML ni en el código', () => {
+  const dir = new URL('../../web/src/', import.meta.url);
+  const fuentes = [['index.html', html.replace(/<!--[\s\S]*?-->/g, '')]];
+  for (const f of readdirSync(dir).filter((n) => n.endsWith('.ts'))) {
+    const t = readFileSync(new URL(f, dir), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+    fuentes.push([f, t]);
+  }
+  for (const [nombre, texto] of fuentes) {
+    assert.doesNotMatch(texto, /≈\s*\d+\s*min/, `${nombre}: tiempo calculado`);
+    assert.doesNotMatch(texto, /en vivo/i, `${nombre}: «en vivo» sin GPS real`);
+  }
+});
+
+test('app: sin franja de ejemplo y con la paleta D-30', () => {
+  assert.doesNotMatch(html, /EJEMPLO DE DISEÑO/);
+  for (const c of ['--tinta: #12262d', '--primario: #0d7a72', '--acento: #f0a032', '--fondo: #f4f2ec']) {
+    assert.ok(css.includes(c), c);
+  }
+  assert.match(css, /\.leaflet-tile-pane \{ filter: grayscale/);
+  assert.match(css, /\.m-gris/);
+  assert.match(css, /\.pestanas/);
 });

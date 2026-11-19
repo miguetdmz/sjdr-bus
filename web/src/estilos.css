@@ -1,166 +1,170 @@
-/* Fuentes del sistema: no se descarga ninguna fuente (cero Google).
-   Colores neutros propios: sin escudo ni colores oficiales. */
+/* SJDR Bus · estilo aprobado D-30 (patrón: web/muestra-patron.html).
+   Fuentes del sistema: no se descarga ninguna fuente (cero Google).
+   Colores propios: sin escudo ni colores oficiales. */
 :root {
-  --tinta: #1d232b;
-  --tinta-suave: #4a5561;
-  --fondo: #ffffff;
-  --borde: #d5dae0;
-  --acento: #1d232b;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --tinta: #12262d;
+  --primario: #0d7a72;
+  --primario-suave: #e3f2ef;
+  --acento: #f0a032;
+  --acento-suave: #fdf0dc;
+  --fondo: #f4f2ec;
+  --tarjeta: #ffffff;
+  --suave: #566870;
+  --borde: #e3e0d8;
+  --sombra: 0 10px 30px rgba(18, 38, 45, 0.16);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: var(--tinta);
   background: var(--fondo);
 }
 
 * { box-sizing: border-box; }
 
-html, body { margin: 0; height: 100%; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
 
-.app {
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-  overflow: hidden;
+.app { position: fixed; inset: 0; overflow: hidden; background: var(--fondo); }
+
+.solo-lector, .buscador label {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 
+/* Mapa a pantalla completa, detrás de todo, con teselas suaves. */
+.mapa { position: absolute; inset: 0; }
+.leaflet-tile-pane { filter: grayscale(.82) brightness(1.05) contrast(.9) sepia(.08); }
+.leaflet-control-attribution { font-size: 10px; background: rgba(255, 255, 255, 0.9) !important; color: var(--tinta); }
+/* La atribución va debajo de la barra flotante y nunca bajo la hoja. */
+.leaflet-top.leaflet-right { top: calc(max(10px, env(safe-area-inset-top)) + 62px); }
+
+/* Barra superior flotante */
 .barra {
-  flex: none;
-  padding: 8px 12px;
-  padding-top: max(8px, env(safe-area-inset-top));
-  border-bottom: 1px solid var(--borde);
-  background: var(--fondo);
+  position: absolute; z-index: 1000; left: 14px; right: 14px;
+  top: max(10px, env(safe-area-inset-top));
+  display: flex; align-items: center; gap: 10px;
+  pointer-events: none;
+}
+.marca {
+  flex: 1; display: flex; align-items: center; gap: 10px; background: var(--tarjeta);
+  border-radius: 16px; padding: 8px 12px; box-shadow: var(--sombra);
+}
+.logo {
+  width: 34px; height: 34px; border-radius: 10px; background: var(--primario);
+  display: grid; place-items: center; flex: 0 0 auto;
+}
+.nombre { margin: 0; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
+.leyenda { margin: 0; font-size: 11px; color: var(--suave); }
+
+/* Hoja inferior */
+.hoja {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1100;
+  background: var(--tarjeta); border-radius: 26px 26px 0 0;
+  box-shadow: 0 -8px 30px rgba(18, 38, 45, 0.14);
+  padding: 0 18px;
+  padding-bottom: max(14px, env(safe-area-inset-bottom));
+  display: flex; flex-direction: column;
+  max-height: 46dvh;
+}
+.hoja.expandida { max-height: 80dvh; }
+
+.asa {
+  flex: none; display: grid; place-items: center; width: 100%; height: 44px;
+  margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
+}
+.asa span { width: 40px; height: 5px; border-radius: 3px; background: #b9b5ab; }
+
+/* El scroll es de la hoja, nunca de la página. */
+.hoja-cuerpo { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+
+.hoja-titulo { margin: 0 0 12px; font-size: 21px; letter-spacing: -0.02em; }
+.hoja-titulo[hidden], .encabezado-ruta[hidden] { display: none; }
+
+/* Buscador: el <select> nativo con aspecto de buscador (regla 9: las 42 rutas). */
+.controles { margin: 0; }
+.buscador { position: relative; }
+.buscador select {
+  appearance: none; -webkit-appearance: none;
+  width: 100%; min-width: 0; min-height: 52px;
+  padding: 0 42px 0 44px;
+  font: inherit; font-size: 16px; color: var(--tinta);
+  background: var(--fondo); border: 1.5px solid var(--borde); border-radius: 14px;
+  text-overflow: ellipsis;
+}
+.icono-izq, .icono-der { position: absolute; top: 50%; transform: translateY(-50%); pointer-events: none; }
+.icono-izq { left: 14px; }
+.icono-der { right: 14px; }
+
+.sentido { margin: 0; padding: 0; border: 0; min-width: 0; }
+.sentido legend {
+  padding: 0; font-size: 12px; font-weight: 700; color: var(--suave);
+  text-transform: uppercase; letter-spacing: 0.06em; margin: 14px 0 7px;
 }
 
-.nombre { margin: 0; font-size: 1.05rem; line-height: 1.2; }
-.provisional { font-weight: 400; font-size: 0.8rem; color: var(--tinta-suave); }
-.leyenda { margin: 2px 0 0; font-size: 0.8rem; color: var(--tinta-suave); }
-
-.mapa { flex: 1 1 auto; min-height: 0; }
-
-/* M-03: selector de ruta y control de sentido. Áreas táctiles de 44 px o más. */
-.controles {
-  flex: none;
-  display: grid;
-  gap: 6px;
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--borde);
-  background: var(--fondo);
+/* Segmento Ida / Vuelta (mismos radios name="sentido"). */
+.segmento {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px;
+  background: var(--fondo); border-radius: 13px;
 }
-
-.campo, .sentido {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-width: 0;
-}
-
-.campo label, .sentido legend {
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-/* La leyenda de un fieldset no entra a la rejilla: se coloca a mano. */
-.sentido legend { float: left; padding: 0; }
-
-select {
-  width: 100%;
-  min-width: 0;
-  min-height: 44px;
-  padding: 0 10px;
-  font: inherit;
-  font-size: 1rem;
-  color: var(--tinta);
-  background: var(--fondo);
-  border: 1px solid var(--tinta-suave);
-  border-radius: 8px;
-}
-
-.segmentos {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border: 1px solid var(--tinta-suave);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.segmento { position: relative; display: block; }
-
-.segmento input {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
+.segmento label { position: relative; display: block; }
+.segmento input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
 .segmento span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  font-size: 1rem;
+  display: block; min-height: 48px; padding: 9px 6px; text-align: center;
+  border-radius: 10px; font-weight: 700; font-size: 15px; color: var(--suave);
+}
+.segmento small { display: block; margin-top: 1px; font-weight: 500; font-size: 11.5px; overflow-wrap: anywhere; }
+.segmento small:empty { display: none; }
+.segmento input:checked + span { background: var(--tarjeta); color: var(--tinta); box-shadow: 0 2px 8px rgba(18, 38, 45, 0.12); }
+.segmento.apagado { opacity: 0.55; }
+.segmento input:focus-visible + span,
+.buscador select:focus-visible,
+.asa:focus-visible,
+.cerrar:focus-visible,
+.pestanas button:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
+
+/* Ruta elegida: insignia, nombre y botón cerrar. */
+.encabezado-ruta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.insignia {
+  flex: none; min-width: 52px; height: 52px; padding: 0 6px; border-radius: 14px;
+  background: var(--primario); color: #fff; display: grid; place-items: center;
+  font-weight: 800; font-size: 19px; letter-spacing: -0.02em;
+}
+.encabezado-texto { min-width: 0; font-size: 17px; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.cerrar {
+  flex: none; margin-left: auto; width: 44px; height: 44px; border: 0; border-radius: 50%;
+  background: var(--fondo); display: grid; place-items: center; cursor: pointer;
 }
 
-.segmento + .segmento span { border-left: 1px solid var(--tinta-suave); }
-
-.segmento input:checked + span {
-  background: var(--acento);
-  color: var(--fondo);
-  font-weight: 600;
-}
-
-/* Foco visible para quien usa teclado. */
-select:focus-visible,
-.segmento input:focus-visible + span {
-  outline: 3px solid #2f6fd6;
-  outline-offset: -3px;
-}
-
-/* M-04: detalle de la ruta elegida, debajo del mapa. Si no cabe, se desplaza
-   dentro de su propio panel: la página nunca hace scroll. */
-.detalle {
-  flex: none;
-  max-height: 42dvh;
-  overflow-y: auto;
-  padding: 10px 12px;
-  padding-bottom: max(10px, env(safe-area-inset-bottom));
-  border-top: 1px solid var(--borde);
-  background: var(--fondo);
-}
-
+/* Detalle de la ruta (M-04) con estilo de tarjeta. */
+.detalle { margin-top: 12px; padding: 14px 16px; border-radius: 18px; background: var(--primario-suave); }
 .detalle[hidden] { display: none; }
-
-.detalle-titulo { margin: 0; font-size: 1rem; line-height: 1.3; }
-
-.detalle-etiquetas { margin: 6px 0 0; }
-
+.detalle-titulo { margin: 0; font-size: 15px; line-height: 1.3; }
+.detalle-etiquetas { margin: 8px 0 0; }
 .etiqueta {
-  display: inline-block;
-  padding: 2px 8px;
-  font-size: 0.8rem;
-  border: 1px dashed var(--tinta-suave);
-  border-radius: 999px;
+  display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
+  border-radius: 5px; background: var(--acento-suave); color: #8a5300; border: 1px solid #f3cf95;
 }
+.detalle-filas { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; margin: 10px 0 0; font-size: 14px; }
+.detalle-filas dt { color: var(--suave); }
+.detalle-filas dd { margin: 0; font-weight: 700; }
+.fuente { display: block; font-weight: 400; font-size: 11px; line-height: 1.4; color: var(--suave); }
+.detalle-aviso { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--borde); font-size: 12.5px; color: var(--suave); }
 
-.detalle-filas {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 4px 12px;
-  margin: 8px 0 0;
-  font-size: 0.95rem;
+/* Listos para M-05 y M-06 (todavía no se muestran en la app). */
+.m-gris { width: 9px; height: 9px; border-radius: 50%; background: #fff; border: 2px solid #8fa0a3; }
+
+.pestanas {
+  display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--borde);
+  margin: 14px -18px 0; padding: 8px 0 0;
 }
-
-.detalle-filas dt { color: var(--tinta-suave); }
-.detalle-filas dd { margin: 0; font-weight: 600; }
-
-.fuente {
-  display: block;
-  font-weight: 400;
-  font-size: 0.75rem;
-  color: var(--tinta-suave);
+.pestanas button {
+  min-height: 48px; border: 0; background: none; font: inherit; font-size: 11.5px; font-weight: 600;
+  color: var(--suave); text-align: center; cursor: pointer;
 }
+.pestanas button svg { display: block; margin: 0 auto 3px; }
+.pestanas .activo { color: var(--primario); }
 
-.detalle-aviso { margin: 8px 0 0; font-size: 0.85rem; color: var(--tinta-suave); }
+/* Revisión de E-01 (19 nov 2026): el encabezado ya muestra número y nombre,
+   así que la tarjeta no los repite; la barra de scroll de la hoja no se ve
+   (el scroll sigue funcionando); más aire entre el selector y «Sentido». */
+.detalle-titulo { display: none; }
+.hoja-cuerpo { scrollbar-width: none; }
+.hoja-cuerpo::-webkit-scrollbar { display: none; }
+.sentido { margin-top: 10px; }

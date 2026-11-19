@@ -473,3 +473,14 @@ Miguel).
   tiempos.
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** `web/`, M-05 a M-08, R-06, B2, B4.
+
+## D-31 · 19 nov 2026 · De día se avanza en sesión; el turno toma lo que quede · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, 1:36 pm):** mientras Miguel esté
+  trabajando, las tareas aprobadas se hacen **en la sesión de día**, sin
+  esperar al turno nocturno. A partir de las **10:30 pm** Claude le avisa que
+  puede dejar de trabajar y hace el relevo antes de las 11:30 pm (D-20); el
+  turno toma lo APROBADA que quede.
+- **Primera aplicación:** E-01 (estilo de D-30) se hace en la sesión del
+  19 nov 2026 por la tarde.
+- **Decidió:** Miguel, 19 nov 2026.
+- **Impacta:** D-20, `docs/COLA-NOCTURNA.md`, `docs/PLAN.md`.

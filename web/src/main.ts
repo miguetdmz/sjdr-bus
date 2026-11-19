@@ -9,11 +9,12 @@ import L from 'leaflet';
 import { cargarDatos, type Ruta } from './datos';
 import { detalleRuta, type NombreSentido } from './detalle';
 import { gruposSelector } from './selector';
+import { ICONO_CERRAR } from './iconos';
 
 // Plaza Independencia: coordenada verificada de HANDOFF §11.3.
 const PLAZA_INDEPENDENCIA: L.LatLngTuple = [20.38883, -99.99639];
 
-const mapa = L.map('mapa', { zoomControl: true }).setView(PLAZA_INDEPENDENCIA, 15);
+const mapa = L.map('mapa', { zoomControl: false, attributionControl: false }).setView(PLAZA_INDEPENDENCIA, 15);
 
 // Teselas estándar de OpenStreetMap: solo las del área visible, con la caché
 // normal del navegador (HANDOFF §11.6).
@@ -22,13 +23,23 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">Colaboradores de OpenStreetMap</a>',
 }).addTo(mapa);
 
-mapa.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
+// La hoja inferior taparía la atribución abajo: va arriba a la derecha, siempre visible.
+L.control
+  .attribution({ position: 'topright', prefix: '<a href="https://leafletjs.com">Leaflet</a>' })
+  .addTo(mapa);
 
 // --- Selector de ruta y sentido ---------------------------------------------
 
 const selector = document.querySelector<HTMLSelectElement>('#ruta')!;
 const controles = document.querySelector<HTMLFormElement>('#controles')!;
 const panel = document.querySelector<HTMLElement>('#detalle')!;
+const hoja = document.querySelector<HTMLElement>('#hoja')!;
+const asa = document.querySelector<HTMLButtonElement>('#asa')!;
+const tituloHoja = document.querySelector<HTMLElement>('#hoja-titulo')!;
+const encabezado = document.querySelector<HTMLElement>('#encabezado-ruta')!;
+const segmento = document.querySelector<HTMLElement>('#segmento')!;
+const subIda = document.querySelector<HTMLElement>('#sub-ida')!;
+const subVuelta = document.querySelector<HTMLElement>('#sub-vuelta')!;
 
 interface Estado {
   ruta: Ruta | null;
@@ -60,13 +71,57 @@ function alCambiar(): void {
   mostrarDetalle();
 }
 
+// D-18: la ida sale del origen. «Origen – Destino» → Ida va hacia el destino y
+// Vuelta hacia el origen. Si el nombre no trae « – », sin subtítulo.
+function extremos(nombre: string): { origen: string; destino: string } | null {
+  const partes = nombre.split(' – ');
+  if (partes.length !== 2 || !partes[0].trim() || !partes[1].trim()) return null;
+  return { origen: partes[0].trim(), destino: partes[1].trim() };
+}
+
+function ponerSubtitulos(ruta: Ruta | null): void {
+  const e = ruta ? extremos(ruta.nombre) : null;
+  subIda.textContent = e ? `hacia ${e.destino}` : '';
+  subVuelta.textContent = e ? `hacia ${e.origen}` : '';
+}
+
+function ponerEncabezado(ruta: Ruta): void {
+  const insignia = document.createElement('div');
+  insignia.className = 'insignia';
+  insignia.textContent = ruta.numero;
+  const texto = document.createElement('div');
+  texto.className = 'encabezado-texto';
+  const nombre = document.createElement('b');
+  nombre.textContent = ruta.nombre;
+  texto.append(nombre);
+  const cerrar = document.createElement('button');
+  cerrar.type = 'button';
+  cerrar.className = 'cerrar';
+  cerrar.setAttribute('aria-label', 'Cerrar la ruta y volver al inicio');
+  cerrar.innerHTML = ICONO_CERRAR;
+  cerrar.addEventListener('click', () => {
+    selector.selectedIndex = 0;
+    alCambiar();
+  });
+  encabezado.replaceChildren(insignia, texto, cerrar);
+}
+
 // Cambiar de ruta o de sentido reemplaza TODO el detalle: no quedan restos.
 function mostrarDetalle(): void {
+  ponerSubtitulos(estado.ruta);
+  segmento.classList.toggle('apagado', !estado.ruta);
+  hoja.classList.toggle('con-ruta', !!estado.ruta);
   if (!estado.ruta) {
     panel.replaceChildren();
     panel.hidden = true;
+    encabezado.replaceChildren();
+    encabezado.hidden = true;
+    tituloHoja.hidden = false;
     return;
   }
+  ponerEncabezado(estado.ruta);
+  encabezado.hidden = false;
+  tituloHoja.hidden = true;
   const d = detalleRuta(estado.ruta, estado.sentido);
   const titulo = document.createElement('h2');
   titulo.className = 'detalle-titulo';
@@ -106,8 +161,13 @@ function mostrarDetalle(): void {
   }
   panel.replaceChildren(...nodos);
   panel.hidden = false;
-  mapa.invalidateSize();
 }
+
+// El asa alterna hoja compacta / expandida (el scroll es interno de la hoja).
+asa.addEventListener('click', () => {
+  const abierta = hoja.classList.toggle('expandida');
+  asa.setAttribute('aria-expanded', String(abierta));
+});
 
 controles.addEventListener('change', alCambiar);
 controles.addEventListener('submit', (e) => e.preventDefault());

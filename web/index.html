@@ -8,27 +8,43 @@
   </head>
   <body>
     <div class="app">
-      <header class="barra">
-        <h1 class="nombre">SJDR Bus</h1>
-        <p class="leyenda">Iniciativa ciudadana independiente</p>
-      </header>
-      <form class="controles" id="controles" aria-label="Elige ruta y sentido">
-        <div class="campo">
-          <label for="ruta">Ruta</label>
-          <select id="ruta" name="ruta">
-            <option value="" disabled selected>Selecciona tu ruta</option>
-          </select>
-        </div>
-        <fieldset class="sentido">
-          <legend>Sentido</legend>
-          <div class="segmentos">
-            <label class="segmento"><input type="radio" name="sentido" value="ida" checked /><span>Ida</span></label>
-            <label class="segmento"><input type="radio" name="sentido" value="vuelta" /><span>Vuelta</span></label>
-          </div>
-        </fieldset>
-      </form>
       <main id="mapa" class="mapa" aria-label="Mapa de San Juan del Río"></main>
-      <section id="detalle" class="detalle" aria-live="polite" aria-label="Detalle de la ruta" hidden></section>
+      <header class="barra">
+        <div class="marca">
+          <div class="logo" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 21v-3M16 21v-3"/><circle cx="8" cy="14.5" r=".6" fill="#fff"/><circle cx="16" cy="14.5" r=".6" fill="#fff"/></svg>
+          </div>
+          <div>
+            <h1 class="nombre">SJDR Bus</h1>
+            <p class="leyenda">Iniciativa ciudadana independiente</p>
+          </div>
+        </div>
+      </header>
+      <section class="hoja" id="hoja" aria-label="Elige tu ruta">
+        <button type="button" class="asa" id="asa" aria-label="Ampliar o reducir el panel" aria-expanded="false"><span></span></button>
+        <div class="hoja-cuerpo">
+          <h2 class="hoja-titulo" id="hoja-titulo">¿Qué camión tomas?</h2>
+          <div class="encabezado-ruta" id="encabezado-ruta" hidden></div>
+          <form class="controles" id="controles" aria-label="Elige ruta y sentido">
+            <div class="buscador">
+              <label for="ruta">Ruta</label>
+              <svg class="icono-izq" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#66767c" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+              <select id="ruta" name="ruta">
+                <option value="" disabled selected>Selecciona tu ruta</option>
+              </select>
+              <svg class="icono-der" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#66767c" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+            <fieldset class="sentido">
+              <legend>Sentido</legend>
+              <div class="segmento apagado" id="segmento">
+                <label><input type="radio" name="sentido" value="ida" checked /><span>Ida<small id="sub-ida"></small></span></label>
+                <label><input type="radio" name="sentido" value="vuelta" /><span>Vuelta<small id="sub-vuelta"></small></span></label>
+              </div>
+            </fieldset>
+          </form>
+          <section id="detalle" class="detalle" aria-live="polite" aria-label="Detalle de la ruta" hidden></section>
+        </div>
+      </section>
     </div>
     <script type="module" src="./src/main.ts"></script>
   </body>
