@@ -1,0 +1,28 @@
+{
+  "consulta": "Nuevo San Juan, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Nuevo+San+Juan%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:12-06:00",
+  "respuesta": [
+    {
+      "place_id": 422995836,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 14005863902,
+      "lat": "20.3875636",
+      "lon": "-99.9696585",
+      "category": "leisure",
+      "type": "park",
+      "place_rank": 24,
+      "importance": 0.08004969787136641,
+      "addresstype": "park",
+      "name": "Parque Nuevo San Juan",
+      "display_name": "Parque Nuevo San Juan, San Juan del Río, Querétaro, 76804, México",
+      "boundingbox": [
+        "20.3875136",
+        "20.3876136",
+        "-99.9697085",
+        "-99.9696085"
+      ]
+    }
+  ]
+}

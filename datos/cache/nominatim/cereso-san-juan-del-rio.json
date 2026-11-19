@@ -1,0 +1,28 @@
+{
+  "consulta": "CERESO San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=CERESO+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:40-06:00",
+  "respuesta": [
+    {
+      "place_id": 314778084,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 704964261,
+      "lat": "20.4453238",
+      "lon": "-99.9729573",
+      "category": "highway",
+      "type": "tertiary",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "tertiary",
+      "name": "Acceso a Visthá",
+      "display_name": "Acceso a Visthá, San Juan del Río, Querétaro, 76804, México",
+      "boundingbox": [
+        "20.4448341",
+        "20.4458136",
+        "-99.9739961",
+        "-99.9719184"
+      ]
+    }
+  ]
+}

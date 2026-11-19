@@ -1,0 +1,41 @@
+name: Puerta de calidad
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  # gitleaks-action lee la lista de commits del PR (solo lectura).
+  pull-requests: read
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Dependencias (solo open source)
+        run: npm ci
+      - name: Reglas del proyecto
+        run: npm run reglas
+      - name: Licencias (solo open source)
+        run: node scripts/licencias.mjs
+      # El validador GTFS de MobilityData necesita Java (gratuito).
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Pruebas (incluye el validador GTFS)
+        run: npm test
+      - name: Compilación de la app (web/)
+        run: npm run build
+      - name: Gitleaks (secretos)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

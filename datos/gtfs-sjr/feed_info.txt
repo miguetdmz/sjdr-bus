@@ -1,0 +1,2 @@
+feed_publisher_name,feed_publisher_url,feed_lang,feed_start_date,feed_end_date,feed_version,feed_contact_url
+Colaboradores de SJDRbus,https://github.com/miguetdmz/sjdr-bus,es,20261117,20270516,0.1.0,https://github.com/miguetdmz/sjdr-bus/issues

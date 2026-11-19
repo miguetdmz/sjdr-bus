@@ -1,0 +1,28 @@
+{
+  "consulta": "Visthá, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Visth%C3%A1%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:39-06:00",
+  "respuesta": [
+    {
+      "place_id": 314437206,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "relation",
+      "osm_id": 4063470,
+      "lat": "20.4472753",
+      "lon": "-99.9748735",
+      "category": "boundary",
+      "type": "administrative",
+      "place_rank": 16,
+      "importance": 0.18671636453803309,
+      "addresstype": "village",
+      "name": "Visthá",
+      "display_name": "Visthá, San Juan del Río, Querétaro, México",
+      "boundingbox": [
+        "20.4416860",
+        "20.4514786",
+        "-99.9797731",
+        "-99.9674335"
+      ]
+    }
+  ]
+}

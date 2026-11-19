@@ -1,0 +1,28 @@
+{
+  "consulta": "PITSA, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=PITSA%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:37-06:00",
+  "respuesta": [
+    {
+      "place_id": 313398666,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 705266516,
+      "lat": "20.4046121",
+      "lon": "-100.0055432",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Privada Departamental Pitsa",
+      "display_name": "Privada Departamental Pitsa, San Juan del Río, Querétaro, 76803, México",
+      "boundingbox": [
+        "20.4046004",
+        "20.4046214",
+        "-100.0059117",
+        "-100.0051746"
+      ]
+    }
+  ]
+}

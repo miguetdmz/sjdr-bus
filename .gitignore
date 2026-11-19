@@ -1,0 +1,29 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
+
+# Material de la práctica (handoff PDF y mockup HTML). Se queda solo en esta
+# computadora: el mockup trae listas de paradas copiadas de Moovit y la
+# marca "Qrobús". No se publica mientras no se decida D-07 (docs/DECISIONES.md).
+/referencias/
+
+# Capturas temporales para la revisión de Miguel.
+/capturas-*/
+
+# Herramientas descargadas por los scripts (validador GTFS, ~40 MB).
+/.cache/
+
+# Datos de la app: los genera scripts/datos-app.mjs antes de compilar (M-02).
+/web/public/datos/
+
+# Vínculo local con el proyecto de Vercel y su compilación (D-26). No se sube.
+/.vercel/
+.vercel
+.env*

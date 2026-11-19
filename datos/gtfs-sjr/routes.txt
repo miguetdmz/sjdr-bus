@@ -1,0 +1,43 @@
+route_id,agency_id,route_short_name,route_long_name,route_type
+U-001,SJR-CONC,001,Pedregoso – Centro,3
+U-002,SJR-CONC,002,Pedregoso – Universidad Tecnológica (UTSJR),3
+U-004,SJR-CONC,004,Col. Industrial Nuevo San Juan – Centro,3
+U-005,SJR-CONC,005,Pedregoso 2ª Sección – Central de Autobuses,3
+U-007,SJR-CONC,007,Central de Autobuses – Parque Industrial,3
+U-008,SJR-CONC,008,Central de Autobuses – San Isidro,3
+U-009,SJR-CONC,009,San Pedro Ahuacatlán – Central de Autobuses,3
+U-009B,SJR-CONC,009B,Fracc. La Rueda – Centro,3
+U-010,SJR-CONC,010,Cerro Gordo – 5 de Mayo,3
+U-011,SJR-CONC,011,Loma Alta – Central de Autobuses,3
+U-011B,SJR-CONC,011B,Loma Alta – Centro,3
+U-012,SJR-CONC,012,Hospital General – Centro,3
+U-013,SJR-CONC,013,Carrizo – 5 de Mayo,3
+U-014,SJR-CONC,014,Granjas Banthí – Centro,3
+U-015B,SJR-CONC,015B,Solares Banthí – 5 de Mayo,3
+U-016,SJR-CONC,016,Infonavit La Paz – Centro,3
+U-017,SJR-CONC,017,Barrio de la Cruz – Centro,3
+U-018,SJR-CONC,018,Nuevo San Isidro – Centro,3
+U-019,SJR-CONC,019,Pedregoso – Valle Real,3
+U-020,SJR-CONC,020,Valle Real – Central de Autobuses,3
+U-022,SJR-CONC,022,Pedregoso – Centro,3
+U-23,SJR-CONC,23,Lomas del Pedregal – Centro,3
+U-024,SJR-CONC,024,Praderas del Sol – Centro,3
+U-024C,SJR-CONC,024C,Las Torres – Central de Autobuses,3
+U-025,SJR-CONC,025,Las Águilas – Centro,3
+U-028,SJR-CONC,028,Rancho de Enmedio – Central de Autobuses,3
+U-030,SJR-CONC,030,Infonavit La Paz – Central de Autobuses,3
+U-031,SJR-CONC,031,Pedregoso – PITSA,3
+U-032,SJR-CONC,032,Visthá – Central de Autobuses,3
+U-036,SJR-CONC,036,Visthá (CERESO) – 5 de Mayo,3
+U-037,SJR-CONC,037,La Peña – Centro,3
+U-038,SJR-CONC,038,La Peña – Central de Autobuses,3
+U-039,SJR-CONC,039,Francisco Villa – Central de Autobuses,3
+U-040,SJR-CONC,040,Las Águilas – Universidad Tecnológica (UTSJR),3
+U-041,SJR-CONC,041,Francisco Villa – Centro,3
+U-042,SJR-CONC,042,Manantiales / Nogales – Centro,3
+U-043,SJR-CONC,043,Valle Dorado I – Central de Autobuses,3
+U-044,SJR-CONC,044,Valle Dorado II – Centro,3
+U-046,SJR-CONC,046,Manantiales – Nogales – IMSS,3
+U-047,SJR-CONC,047,La Rueda – Central de Autobuses,3
+I-062,SJR-INTER,062,San Juan del Río – Tequisquiapan,3
+I-023,SJR-INTER,023,Tequisquiapan – Ezequiel Montes,3

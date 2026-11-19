@@ -1,0 +1,172 @@
+{
+  "descripcion": "I-01 (lote de investigación, D-22): catálogo de fuentes sobre las rutas de San Juan del Río. Cada fuente con URL, fechas, si es oficial, tipo de dato y qué cubre. Lo no confirmado dice [sin verificar].",
+  "actualizado": "2026-11-19",
+  "fuentes": [
+    {
+      "id": "pet-2022",
+      "titulo": "Programa Estatal de Transporte 2021-2027, tabla «San Juan del Río / Transporte colectivo urbano»",
+      "url": "https://lasombradearteaga.segobqueretaro.gob.mx/getfile.php?p1=20220963-01.pdf",
+      "publicado": "2022-09-05",
+      "consultado": "2026-11-19",
+      "oficial": true,
+      "editor": "Periódico Oficial «La Sombra de Arteaga», Instituto Queretano del Transporte",
+      "paginas": "21740-21741",
+      "sha256_pdf": "75c0d2f6991a063cf8e64cc69c19fd773a7dd6005f5f6e6276fd4910c0c33fd0",
+      "tipo": [
+        "vehiculos",
+        "km por sentido",
+        "minutos por sentido"
+      ],
+      "cubre": "41 renglones de rutas urbanas (copiados en pet-2022-sjr-urbano.csv); sin itinerario por calles",
+      "confianza": "alta para las cifras tal como se publicaron; es de 2022 y puede no reflejar cambios posteriores",
+      "notas": "La ruta 25 repite exactamente las cifras de la 11 (13.18/15.91 km, 40/50 min): posible error de captura en la fuente. Hay dos renglones con número 14 y dos con número 32. Se asume que «ida» es del origen al destino escritos en la tabla [sin verificar]."
+    },
+    {
+      "id": "sombra-2025-10-24",
+      "titulo": "Acuerdos de tarifa de las rutas San Juan del Río – Tequisquiapan y Tequisquiapan – Ezequiel Montes y programa de apoyo",
+      "url": "https://lasombradearteaga.segobqueretaro.gob.mx/getfile.php?p1=20251083-01.pdf",
+      "publicado": "2025-10-24",
+      "consultado": "2026-11-19",
+      "oficial": true,
+      "editor": "Periódico Oficial «La Sombra de Arteaga» No. 83, AMEQ",
+      "paginas": "38439 (Tequisquiapan – Ezequiel Montes), 38444 (San Juan del Río – Tequisquiapan), 38455-38456 (conteo de rutas)",
+      "sha256_pdf": "9185bde35531a659b9be741f0b5130f534b160462d67dea6238a54b8bb8245d8",
+      "tipo": [
+        "km por sentido",
+        "conteo de rutas"
+      ],
+      "cubre": "062 San Juan del Río – Tequisquiapan: 21.69 km ida / 21.23 km vuelta. 023 Tequisquiapan – Ezequiel Montes: 18.62 km ida / 18.55 km vuelta. Conteo: 41 urbanas y 43 suburbanas (cita al PET 2022)",
+      "confianza": "alta",
+      "notas": "Sin itinerario por calles ni tiempos. Cita dos estudios técnicos no publicados (feb 2024 y nov 2024)."
+    },
+    {
+      "id": "gtfs-qrobus-v25",
+      "titulo": "GTFS oficial de Qrobús, versión 25",
+      "url": "https://qrobus.gob.mx/gtfs/latest",
+      "publicado": "2026-04-13",
+      "consultado": "2026-11-19",
+      "oficial": true,
+      "editor": "Agencia de Movilidad del Estado de Querétaro",
+      "sha256_zip": "1d0304fb197007a668a455eba8f97f3766767348e0227cc568751115aff3e88c",
+      "tipo": [
+        "nombre de ruta"
+      ],
+      "cubre": "40 rutas urbanas de San Juan del Río (color a9745b) solo con número y nombre: 0 viajes, 0 horas de paso y 0 paradas dentro de San Juan",
+      "confianza": "alta para los nombres; no aporta recorridos",
+      "notas": "Sin licencia declarada: no se copia al repositorio; solo se usa para comparar nombres. feed_end_date 2026-03-24 (vencido). Su «023» es Lomas del Pedregal – Centro (nuestra U-23, D-08); no trae la 062 ni la intermunicipal 023."
+    },
+    {
+      "id": "qrobus-rutas",
+      "titulo": "Página «Rutas» de Qrobús",
+      "url": "https://qrobus.gob.mx/Rutas",
+      "publicado": "[sin verificar]",
+      "consultado": "2026-11-19",
+      "oficial": true,
+      "editor": "AMEQ",
+      "tipo": [
+        "nombre de ruta",
+        "paradas por cruce de calles en el HTML",
+        "mapa por sentido (consulta interna de la página)"
+      ],
+      "cubre": "42 entradas (las del inventario de HANDOFF §4)",
+      "confianza": "media: 21 de las 42 listas mezclan calles de la ciudad de Querétaro (R-01, consulta 2026-11-19T01:36-06:00; criterio de calles [sin verificar con mapa]); son justo los 21 renglones con identificador interno 1 a 36; las otras 21 (428 a 449) no traen esas calles",
+      "notas": "Descargada una sola vez el 19 nov 2026 (R-01): 42 renglones de San Juan en datos/cache/qrobus/, la página completa fuera de git (trae llave de sesión). Las listas no separan ida y vuelta ni cada cruce. Las consultas internas del mapa no se llaman: Miguel decidió usar solo las listas visibles (D-25)."
+    },
+    {
+      "id": "osm-relaciones-bus",
+      "titulo": "Relaciones de ruta de autobús (route=bus) de OpenStreetMap dentro del municipio",
+      "url": "https://www.openstreetmap.org/relation/10614278",
+      "publicado": "varias fechas (edición colaborativa) [sin verificar por relación]",
+      "consultado": "2026-11-19T01:44:38-06:00",
+      "oficial": false,
+      "editor": "colaboradores de OpenStreetMap (ODbL 1.0)",
+      "tipo": [
+        "mapa (lista de vías y paradas de cada relación)"
+      ],
+      "cubre": "16 relaciones: 14 con número igual a una ruta del inventario (001, 002, 004, 005, 007, 008, 009, 011, 014, 23, 025, 028, 039, 041), 1 suburbana fuera del inventario (Ruta Suburbana 6, El Organal) y 1 sin etiquetas",
+      "confianza": "media para ubicar calles; ninguna indica el sentido, así que no sube la confianza por sentido (regla 10). Emparejadas solo por número [sin verificar contra el recorrido]",
+      "notas": "I-04: una sola consulta a Overpass guardada en datos/cache/overpass/rutas-respuesta.json (sin geometría). La URL apunta a una de las relaciones como ejemplo; la lista completa está en la caché. No se convierten en trazos todavía."
+    },
+    {
+      "id": "nota-ameq-2025-09-29",
+      "titulo": "La AMEQ fortalece la movilidad estudiantil en San Juan del Río",
+      "url": "https://qrobus.gob.mx/Nota/la-ameq-fortalece-la-movilidad-estudiantil-en-san-juan-del-rio",
+      "publicado": "2025-09-29",
+      "consultado": "2026-11-19",
+      "oficial": true,
+      "editor": "AMEQ",
+      "tipo": [
+        "itinerario en texto (parcial)",
+        "horario"
+      ],
+      "cubre": "Ruta 48 (nueva, fusión de la 40 y la 48: Valle Dorado – Las Águilas – parque industrial – Av. Juárez – centro – Vista Hermosa – UT San Juan); extensión de la 17 de Barrio de la Cruz a la UT; ruta 2",
+      "confianza": "alta para lo que dice; parcial (sin sentido ni paradas)",
+      "notas": "La ruta 48 no está en el inventario de 42 (HANDOFF §4). Leída por el agente de búsqueda; [sin verificar] por Claude directamente."
+    },
+    {
+      "id": "sombra-2026-03-31",
+      "titulo": "Acuerdos de la AMEQ, tarifa «Unidos» 2026",
+      "url": "https://www.iqt.gob.mx/wp-content/uploads/2026/09/ACUERDOS-TARIFA-UNIDOS-AMEQ-T2026.pdf",
+      "publicado": "2026-03-31",
+      "consultado": "2026-11-19",
+      "oficial": true,
+      "editor": "Periódico Oficial «La Sombra de Arteaga» Tomo CLIX No. 27",
+      "tipo": [
+        "conteo de rutas"
+      ],
+      "cubre": "41 urbanas y 43 suburbanas; cita un estudio de la AMEQ de enero 2026 (no publicado)",
+      "confianza": "alta (solo conteos)",
+      "notas": "Leído por el agente de búsqueda; [sin verificar] por Claude directamente."
+    },
+    {
+      "id": "estudio-ameq-2022-12",
+      "titulo": "Estudio Técnico y Estratégicas de Mejora del servicio de transporte público de San Juan del Río, Querétaro",
+      "url": null,
+      "publicado": "2022-12 (no publicado)",
+      "consultado": "2026-11-19",
+      "oficial": true,
+      "editor": "Dirección Técnica de la AMEQ",
+      "tipo": [],
+      "cubre": "Desconocido: el texto no es público",
+      "confianza": "no aplica",
+      "notas": "Se cita en el Proyecto AMEQ 109/2024 de CEMER (cemer.queretaro.gob.mx, hoy error 404) [verificación parcial]. Se pedirá por transparencia (tarea abierta, Miguel)."
+    },
+    {
+      "id": "osm-paradas",
+      "titulo": "Paradas de autobús en OpenStreetMap (N-08)",
+      "url": "https://www.openstreetmap.org",
+      "publicado": "2026-11-19 (base de datos de OSM)",
+      "consultado": "2026-11-18",
+      "oficial": false,
+      "editor": "Colaboradores de OpenStreetMap (ODbL 1.0)",
+      "tipo": [
+        "paradas con coordenada"
+      ],
+      "cubre": "49 paradas sin ruta asignada (datos/gtfs-sjr/stops.txt)",
+      "confianza": "media",
+      "notas": "No dicen qué ruta pasa por cada parada."
+    },
+    {
+      "id": "osm-rutas",
+      "titulo": "Relaciones de ruta de autobús en OpenStreetMap (I-04)",
+      "url": "https://overpass-api.de/api/interpreter",
+      "publicado": "[sin verificar]",
+      "consultado": "2026-11-19 (sin respuesta)",
+      "oficial": false,
+      "editor": "Colaboradores de OpenStreetMap (ODbL 1.0)",
+      "tipo": [],
+      "cubre": "Pendiente: Overpass respondió 502 «servidor a su capacidad» dos veces el 19 nov 2026, 12:16 am. Se reintenta en otra sesión con datos/cache/overpass/rutas.overpassql",
+      "confianza": "no aplica",
+      "notas": ""
+    }
+  ],
+  "aparte": [
+    {
+      "id": "moovit",
+      "titulo": "Moovit (referencia, no es fuente abierta ni oficial)",
+      "consultado": "2026-11 (HANDOFF §5.1)",
+      "cubre": "10 rutas con paradas, duración y horario por sentido (datos/fichas/rutas.json)",
+      "notas": "D-07 y D-22: solo para contrastar; nunca se atribuye a una fuente abierta."
+    }
+  ]
+}

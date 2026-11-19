@@ -1,0 +1,3 @@
+agency_id,agency_name,agency_url,agency_timezone,agency_lang
+SJR-CONC,Concesionarios del transporte público de San Juan del Río (por verificar),https://qrobus.gob.mx/Rutas,America/Mexico_City,es
+SJR-INTER,Operador intermunicipal QroVan (por verificar),https://qrobus.gob.mx/Rutas,America/Mexico_City,es

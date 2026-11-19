@@ -1,0 +1,28 @@
+{
+  "consulta": "San Isidro, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=San+Isidro%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:15-06:00",
+  "respuesta": [
+    {
+      "place_id": 313560123,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 711074763,
+      "lat": "20.4721021",
+      "lon": "-99.9930684",
+      "category": "highway",
+      "type": "service",
+      "place_rank": 27,
+      "importance": 0.04004969787136643,
+      "addresstype": "road",
+      "name": "San Isidro",
+      "display_name": "San Isidro, San Juan del Río, Querétaro, México",
+      "boundingbox": [
+        "20.4720925",
+        "20.4721118",
+        "-99.9938840",
+        "-99.9922528"
+      ]
+    }
+  ]
+}

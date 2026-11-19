@@ -1,0 +1,9 @@
+{
+  "tarea": "N-08 (D-16)",
+  "servicio": "https://overpass-api.de/api/interpreter",
+  "consulta": "datos/cache/overpass/paradas.overpassql",
+  "respuesta": "datos/cache/overpass/paradas-respuesta.json",
+  "consultado": "2026-11-18T23:52:56-06:00",
+  "peticiones": 1,
+  "nota": "Una sola consulta, desde la computadora de Miguel, en sesión de día. La respuesta no se vuelve a pedir (HANDOFF §11.6). Datos © colaboradores de OpenStreetMap, licencia ODbL 1.0."
+}

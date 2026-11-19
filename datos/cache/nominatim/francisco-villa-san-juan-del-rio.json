@@ -1,0 +1,28 @@
+{
+  "consulta": "Francisco Villa, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Francisco+Villa%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:10-06:00",
+  "respuesta": [
+    {
+      "place_id": 313402296,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 1068251576,
+      "lat": "20.4702502",
+      "lon": "-99.9965523",
+      "category": "highway",
+      "type": "service",
+      "place_rank": 27,
+      "importance": 0.04004969787136643,
+      "addresstype": "road",
+      "name": "Francisco Villa",
+      "display_name": "Francisco Villa, San Juan del Río, Querétaro, México",
+      "boundingbox": [
+        "20.4698877",
+        "20.4706126",
+        "-99.9966729",
+        "-99.9964316"
+      ]
+    }
+  ]
+}

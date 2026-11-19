@@ -1,0 +1,112 @@
+{
+  "consulta": "Manantiales, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Manantiales%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:41-06:00",
+  "respuesta": [
+    {
+      "place_id": 313964978,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 705237147,
+      "lat": "20.4140852",
+      "lon": "-100.0004303",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle Manantiales de Ojo de Agua",
+      "display_name": "Calle Manantiales de Ojo de Agua, San Juan del Río, Querétaro, 76803, México",
+      "boundingbox": [
+        "20.4135526",
+        "20.4146143",
+        "-100.0006686",
+        "-100.0001469"
+      ]
+    },
+    {
+      "place_id": 313290381,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 289570135,
+      "lat": "20.4148205",
+      "lon": "-100.0006746",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle Manantiales de Tlacote",
+      "display_name": "Calle Manantiales de Tlacote, San Juan del Río, Querétaro, 76803, México",
+      "boundingbox": [
+        "20.4146143",
+        "20.4149924",
+        "-100.0012180",
+        "-100.0001469"
+      ]
+    },
+    {
+      "place_id": 314106494,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 289570133,
+      "lat": "20.4135462",
+      "lon": "-99.9996086",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle Manantiales de Agua Dulce",
+      "display_name": "Calle Manantiales de Agua Dulce, San Juan del Río, Querétaro, 76803, México",
+      "boundingbox": [
+        "20.4125617",
+        "20.4145334",
+        "-99.9997086",
+        "-99.9995407"
+      ]
+    },
+    {
+      "place_id": 314053670,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 705246819,
+      "lat": "20.4116456",
+      "lon": "-99.9997477",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle Manantiales de Palo Bolero",
+      "display_name": "Calle Manantiales de Palo Bolero, San Juan del Río, Querétaro, 76803, México",
+      "boundingbox": [
+        "20.4115933",
+        "20.4116978",
+        "-100.0005582",
+        "-99.9989373"
+      ]
+    },
+    {
+      "place_id": 316485413,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 289570128,
+      "lat": "20.4125595",
+      "lon": "-99.9996661",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle Manantiales de San Lorenzo",
+      "display_name": "Calle Manantiales de San Lorenzo, San Juan del Río, Querétaro, 76803, México",
+      "boundingbox": [
+        "20.4125180",
+        "20.4126123",
+        "-100.0004794",
+        "-99.9988522"
+      ]
+    }
+  ]
+}

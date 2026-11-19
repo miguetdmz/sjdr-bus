@@ -1,0 +1,28 @@
+{
+  "consulta": "Las Torres, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Las+Torres%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:34-06:00",
+  "respuesta": [
+    {
+      "place_id": 425262862,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 1548937870,
+      "lat": "20.3764476",
+      "lon": "-99.9667457",
+      "category": "leisure",
+      "type": "park",
+      "place_rank": 24,
+      "importance": 0.08004969787136641,
+      "addresstype": "park",
+      "name": "Las Torres",
+      "display_name": "Las Torres, INFONAVIT Pedregoso, San Juan del Río, Querétaro, México",
+      "boundingbox": [
+        "20.3763606",
+        "20.3766828",
+        "-99.9669878",
+        "-99.9664882"
+      ]
+    }
+  ]
+}

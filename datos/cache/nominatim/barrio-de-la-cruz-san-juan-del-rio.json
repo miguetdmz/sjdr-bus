@@ -1,0 +1,28 @@
+{
+  "consulta": "Barrio de la Cruz, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Barrio+de+la+Cruz%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:25-06:00",
+  "respuesta": [
+    {
+      "place_id": 313850555,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 2176751083,
+      "lat": "20.3742994",
+      "lon": "-100.0057338",
+      "category": "place",
+      "type": "neighbourhood",
+      "place_rank": 24,
+      "importance": 0.08004969787136641,
+      "addresstype": "neighbourhood",
+      "name": "Barrio De la Cruz",
+      "display_name": "Barrio De la Cruz, San Juan del Río, Querétaro, 76801, México",
+      "boundingbox": [
+        "20.3642994",
+        "20.3842994",
+        "-100.0157338",
+        "-99.9957338"
+      ]
+    }
+  ]
+}

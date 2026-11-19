@@ -1,0 +1,9 @@
+# D-26: a Vercel solo sube la compilación (vercel build + vercel deploy --prebuilt).
+# Este archivo es la segunda barrera por si alguien despliega sin --prebuilt:
+# nada de esto debe salir de la computadora.
+/referencias/
+/capturas-*/
+/.cache/
+.env
+.env.*
+*recovery*

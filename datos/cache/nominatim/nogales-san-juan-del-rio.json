@@ -1,0 +1,112 @@
+{
+  "consulta": "Nogales, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Nogales%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:43-06:00",
+  "respuesta": [
+    {
+      "place_id": 309547765,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 700945948,
+      "lat": "20.5059452",
+      "lon": "-100.0252724",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle Nogales",
+      "display_name": "Calle Nogales, La Valla, San Juan del Río, Querétaro, México",
+      "boundingbox": [
+        "20.5024060",
+        "20.5095123",
+        "-100.0264530",
+        "-100.0240101"
+      ]
+    },
+    {
+      "place_id": 313649591,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 700919241,
+      "lat": "20.3879049",
+      "lon": "-99.9409203",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle Nogales",
+      "display_name": "Calle Nogales, San Juan del Río, Querétaro, 76805, México",
+      "boundingbox": [
+        "20.3862853",
+        "20.3896516",
+        "-99.9425599",
+        "-99.9392080"
+      ]
+    },
+    {
+      "place_id": 316411902,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 379033678,
+      "lat": "20.3712297",
+      "lon": "-100.0009775",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Prolongación Nogales",
+      "display_name": "Prolongación Nogales, Barrio De la Cruz, San Juan del Río, Querétaro, 76801, México",
+      "boundingbox": [
+        "20.3695994",
+        "20.3727333",
+        "-100.0028013",
+        "-100.0008943"
+      ]
+    },
+    {
+      "place_id": 313721364,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 289425248,
+      "lat": "20.4028095",
+      "lon": "-99.9728873",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle Nogales",
+      "display_name": "Calle Nogales, San Juan del Río, Querétaro, 76804, México",
+      "boundingbox": [
+        "20.4005860",
+        "20.4050287",
+        "-99.9733974",
+        "-99.9723694"
+      ]
+    },
+    {
+      "place_id": 311815616,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 700897867,
+      "lat": "20.4183298",
+      "lon": "-100.0586223",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle Nogales",
+      "display_name": "Calle Nogales, La Estancia, San Juan del Río, Querétaro, 76815, México",
+      "boundingbox": [
+        "20.4174550",
+        "20.4192053",
+        "-100.0589757",
+        "-100.0582702"
+      ]
+    }
+  ]
+}

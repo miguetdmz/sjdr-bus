@@ -1,0 +1,6 @@
+{
+  "name": "ejemplo-sin-anotar",
+  "private": true,
+  "description": "Ejemplo de prueba para scripts/licencias.mjs. No es un proyecto real.",
+  "dependencies": { "paquete-de-prueba-sin-anotar": "1.0.0" }
+}

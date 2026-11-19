@@ -1,0 +1,11 @@
+{
+  "url": "https://qrobus.gob.mx/Rutas",
+  "consultado": "2026-11-19T01:36:02-06:00",
+  "metodo": "una sola descarga GET de la página pública (curl), sin llamar consultas internas (D-25)",
+  "bytes": 1648208,
+  "sha256": "6f4e10efa559bda5811cc82a664424b59029a5a48188db26b539141fdf608fb3",
+  "renglones_en_pagina": 215,
+  "renglones_guardados": 42,
+  "pagina_completa": "referencias/fuentes-2026-11-19/qrobus-rutas/ (fuera de git: trae una llave de sesión csrf)",
+  "nota": "rutas-sjr.json copia tal cual los atributos data-id, data-ruta, data-nombre y data-buscar de los renglones cuyo número coincide con routes.txt."
+}

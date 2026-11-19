@@ -1,0 +1,2 @@
+feed_publisher_name,feed_publisher_url,feed_lang,feed_start_date,feed_end_date,feed_version,feed_contact_url
+Pruebas de SJDRbus,https://example.com,es,20260101,20271231,prueba-1,https://example.com

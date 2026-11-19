@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="SJDRbus (nombre provisional): tiempos estimados de autobús para San Juan del Río, Qro. Iniciativa ciudadana independiente." />
+    <title>SJDRbus (nombre provisional)</title>
+  </head>
+  <body>
+    <div class="app">
+      <header class="barra">
+        <h1 class="nombre">SJDRbus <span class="provisional">(nombre provisional)</span></h1>
+        <p class="leyenda">Iniciativa ciudadana independiente</p>
+      </header>
+      <form class="controles" id="controles" aria-label="Elige ruta y sentido">
+        <div class="campo">
+          <label for="ruta">Ruta</label>
+          <select id="ruta" name="ruta">
+            <option value="" disabled selected>Selecciona tu ruta</option>
+          </select>
+        </div>
+        <fieldset class="sentido">
+          <legend>Sentido</legend>
+          <div class="segmentos">
+            <label class="segmento"><input type="radio" name="sentido" value="ida" checked /><span>Ida</span></label>
+            <label class="segmento"><input type="radio" name="sentido" value="vuelta" /><span>Vuelta</span></label>
+          </div>
+        </fieldset>
+      </form>
+      <main id="mapa" class="mapa" aria-label="Mapa de San Juan del Río"></main>
+      <section id="detalle" class="detalle" aria-live="polite" aria-label="Detalle de la ruta" hidden></section>
+    </div>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

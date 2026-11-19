@@ -1,0 +1,49 @@
+{
+  "consulta": "IMSS, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=IMSS%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:44-06:00",
+  "respuesta": [
+    {
+      "place_id": 313444924,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 51652707,
+      "lat": "20.3767126",
+      "lon": "-99.9868716",
+      "category": "amenity",
+      "type": "hospital",
+      "place_rank": 30,
+      "importance": 0.0000496978713663999,
+      "addresstype": "amenity",
+      "name": "IMSS Hospital General de Zona 3",
+      "display_name": "IMSS Hospital General de Zona 3, Avenida Tecnológico, San Juan del Río, Querétaro, 76801, México",
+      "boundingbox": [
+        "20.3759995",
+        "20.3773146",
+        "-99.9875476",
+        "-99.9862231"
+      ]
+    },
+    {
+      "place_id": 313386864,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 584496880,
+      "lat": "20.3794977",
+      "lon": "-99.9638512",
+      "category": "amenity",
+      "type": "hospital",
+      "place_rank": 30,
+      "importance": 0.0000496978713663999,
+      "addresstype": "amenity",
+      "name": "IMSS Unidad de Medicina Familiar No.7",
+      "display_name": "IMSS Unidad de Medicina Familiar No.7, Calle Sierra Paracaima, INFONAVIT Pedregoso, San Juan del Río, Querétaro, 76835, México",
+      "boundingbox": [
+        "20.3790185",
+        "20.3799254",
+        "-99.9643240",
+        "-99.9633804"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+service_id,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,end_date
+DIARIO_POR_VERIFICAR,1,1,1,1,1,1,1,20261117,20270516

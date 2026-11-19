@@ -1,0 +1,70 @@
+{
+  "consulta": "Cerro Gordo, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Cerro+Gordo%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:19-06:00",
+  "respuesta": [
+    {
+      "place_id": 314788897,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 9371360317,
+      "lat": "20.3925238",
+      "lon": "-99.9247436",
+      "category": "natural",
+      "type": "peak",
+      "place_rank": 18,
+      "importance": 0.16004969787136644,
+      "addresstype": "peak",
+      "name": "Cerro Gordo",
+      "display_name": "Cerro Gordo, San Juan del Río, Querétaro, 76830, México",
+      "boundingbox": [
+        "20.3924738",
+        "20.3925738",
+        "-99.9247936",
+        "-99.9246936"
+      ]
+    },
+    {
+      "place_id": 421365629,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 13983749255,
+      "lat": "20.3838907",
+      "lon": "-99.9095482",
+      "category": "place",
+      "type": "village",
+      "place_rank": 19,
+      "importance": 0.14671636453803308,
+      "addresstype": "village",
+      "name": "Cerro Gordo",
+      "display_name": "Cerro Gordo, San Juan del Río, Querétaro, 76830, México",
+      "boundingbox": [
+        "20.3638907",
+        "20.4038907",
+        "-99.9295482",
+        "-99.8895482"
+      ]
+    },
+    {
+      "place_id": 314928470,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 551554262,
+      "lat": "20.3948671",
+      "lon": "-99.9229247",
+      "category": "natural",
+      "type": "wood",
+      "place_rank": 22,
+      "importance": 0.10671636453803308,
+      "addresstype": "wood",
+      "name": "Cerro Gordo",
+      "display_name": "Cerro Gordo, San Juan del Río, Querétaro, México",
+      "boundingbox": [
+        "20.3847502",
+        "20.4087240",
+        "-99.9308456",
+        "-99.9142803"
+      ]
+    }
+  ]
+}

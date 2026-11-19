@@ -1,0 +1,28 @@
+{
+  "consulta": "Rancho de Enmedio, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Rancho+de+Enmedio%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:36-06:00",
+  "respuesta": [
+    {
+      "place_id": 313961876,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 611902238,
+      "lat": "20.3770510",
+      "lon": "-99.9427421",
+      "category": "highway",
+      "type": "tertiary",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "tertiary",
+      "name": "Camino a Rancho de enmedio",
+      "display_name": "Camino a Rancho de enmedio, San Juan del Río, Querétaro, 76805, México",
+      "boundingbox": [
+        "20.3762129",
+        "20.3778890",
+        "-99.9427542",
+        "-99.9427299"
+      ]
+    }
+  ]
+}

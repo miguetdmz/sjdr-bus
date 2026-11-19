@@ -1,0 +1,28 @@
+{
+  "consulta": "5 de Mayo, San Juan del Río, Querétaro",
+  "url": "https://nominatim.openstreetmap.org/search?q=5+de+Mayo%2C+San+Juan+del+R%C3%ADo%2C+Quer%C3%A9taro&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:02-06:00",
+  "respuesta": [
+    {
+      "place_id": 422064328,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 13976108729,
+      "lat": "20.3927924",
+      "lon": "-99.9934684",
+      "category": "amenity",
+      "type": "marketplace",
+      "place_rank": 30,
+      "importance": 0.0000496978713663999,
+      "addresstype": "amenity",
+      "name": "5 de Mayo",
+      "display_name": "5 de Mayo, Calle 5 de Mayo, San Juan del Río, Querétaro, 76803, México",
+      "boundingbox": [
+        "20.3927424",
+        "20.3928424",
+        "-99.9935184",
+        "-99.9934184"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "consulta": "Central de Autobuses, San Juan del Río, Querétaro",
+  "url": "https://nominatim.openstreetmap.org/search?q=Central+de+Autobuses%2C+San+Juan+del+R%C3%ADo%2C+Quer%C3%A9taro&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:01-06:00",
+  "respuesta": [
+    {
+      "place_id": 314648153,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 3340799237,
+      "lat": "20.7004425",
+      "lon": "-99.8130864",
+      "category": "amenity",
+      "type": "bus_station",
+      "place_rank": 30,
+      "importance": 0.00003750133516437045,
+      "addresstype": "amenity",
+      "name": "Central de Autobuses",
+      "display_name": "Central de Autobuses, 28, Calle Federal Libre 120 San Juan del Río - Xilitla, Cadereyta de Montes, Querétaro, 76500, México",
+      "boundingbox": [
+        "20.7003925",
+        "20.7004925",
+        "-99.8131364",
+        "-99.8130364"
+      ]
+    }
+  ]
+}

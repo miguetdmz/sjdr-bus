@@ -1,0 +1,49 @@
+{
+  "consulta": "Ezequiel Montes, Querétaro",
+  "url": "https://nominatim.openstreetmap.org/search?q=Ezequiel+Montes%2C+Quer%C3%A9taro&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:48-06:00",
+  "respuesta": [
+    {
+      "place_id": 314834385,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "relation",
+      "osm_id": 5605789,
+      "lat": "20.6529044",
+      "lon": "-99.9083904",
+      "category": "boundary",
+      "type": "administrative",
+      "place_rank": 12,
+      "importance": 0.3644234137366019,
+      "addresstype": "county",
+      "name": "Ezequiel Montes",
+      "display_name": "Ezequiel Montes, Querétaro, México",
+      "boundingbox": [
+        "20.5386062",
+        "20.7671512",
+        "-99.9915718",
+        "-99.7352735"
+      ]
+    },
+    {
+      "place_id": 314659823,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "relation",
+      "osm_id": 4063575,
+      "lat": "20.6658195",
+      "lon": "-99.8979199",
+      "category": "boundary",
+      "type": "administrative",
+      "place_rank": 16,
+      "importance": 0.18671166781109327,
+      "addresstype": "town",
+      "name": "Ezequiel Montes",
+      "display_name": "Ezequiel Montes, Querétaro, 76650, México",
+      "boundingbox": [
+        "20.6452828",
+        "20.6829704",
+        "-99.9103184",
+        "-99.8879121"
+      ]
+    }
+  ]
+}

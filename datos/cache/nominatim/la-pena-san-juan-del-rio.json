@@ -1,0 +1,70 @@
+{
+  "consulta": "La Peña, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=La+Pe%C3%B1a%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:09-06:00",
+  "respuesta": [
+    {
+      "place_id": 312109240,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 8316150701,
+      "lat": "20.3974933",
+      "lon": "-99.9622129",
+      "category": "leisure",
+      "type": "park",
+      "place_rank": 24,
+      "importance": 0.08004969787136641,
+      "addresstype": "park",
+      "name": "Parque La Peña",
+      "display_name": "Parque La Peña, San Juan del Río, Querétaro, 76835, México",
+      "boundingbox": [
+        "20.3974433",
+        "20.3975433",
+        "-99.9622629",
+        "-99.9621629"
+      ]
+    },
+    {
+      "place_id": 310782504,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 700931804,
+      "lat": "20.4372703",
+      "lon": "-99.8912036",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle La Peña",
+      "display_name": "Calle La Peña, Santa Rosa Xajay, San Juan del Río, Querétaro, México",
+      "boundingbox": [
+        "20.4366570",
+        "20.4378339",
+        "-99.8913458",
+        "-99.8911031"
+      ]
+    },
+    {
+      "place_id": 313357467,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 288816712,
+      "lat": "20.3731595",
+      "lon": "-99.9532059",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle de la Pena",
+      "display_name": "Calle de la Pena, San Juan del Río, Querétaro, 76805, México",
+      "boundingbox": [
+        "20.3724969",
+        "20.3738216",
+        "-99.9532626",
+        "-99.9531560"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+route_id,numero,sentido,nombre,gtfs_oficial_v25,pet_2022,sombra_2025,nota_ameq_2025,moovit,osm_relacion,km_oficial,min_oficial,vehiculos_oficial,moovit_min,moovit_paradas,confianza,motivo
+U-001,001,0,Pedregoso – Centro,N,K T V,,,P D H,M rel/10655612,6.84,25,8,20,29,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-001,001,1,Pedregoso – Centro,N,K T V,,,P D H,M rel/10655612,5.79,18,8,16,23,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-002,002,0,Pedregoso – Universidad Tecnológica (UTSJR),N,K T V,,I parcial,P D H,M rel/16659178,11.83,45,8,30,42,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-002,002,1,Pedregoso – Universidad Tecnológica (UTSJR),N,K T V,,I parcial,P D H,M rel/16659178,10.90,45,8,33,39,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-004,004,0,Col. Industrial Nuevo San Juan – Centro,N,K T V,,,P D H,M rel/16640434,8.45,25,3,30,34,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-004,004,1,Col. Industrial Nuevo San Juan – Centro,N,K T V,,,P D H,M rel/16640434,12.32,35,3,22,31,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-005,005,0,Pedregoso 2ª Sección – Central de Autobuses,N,K T V,,,P D H,M rel/10758238,8.53,26,4,29,42,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-005,005,1,Pedregoso 2ª Sección – Central de Autobuses,N,K T V,,,P D H,M rel/10758238,10.56,32,4,22,34,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-007,007,0,Central de Autobuses – Parque Industrial,N,K T V,,,,M rel/10790036,10.25,35,5,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-007,007,1,Central de Autobuses – Parque Industrial,N,K T V,,,,M rel/10790036,8.20,15,5,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-008,008,0,Central de Autobuses – San Isidro,N,K T V,,,,M rel/10614278,5.40,25,8,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-008,008,1,Central de Autobuses – San Isidro,N,K T V,,,,M rel/10614278,4.20,20,8,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-009,009,0,San Pedro Ahuacatlán – Central de Autobuses,N,K T V,,,P D H,M rel/10620755,12.49,40,6,28,25,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-009,009,1,San Pedro Ahuacatlán – Central de Autobuses,N,K T V,,,P D H,M rel/10620755,10.62,35,6,28,25,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-009B,009B,0,Fracc. La Rueda – Centro,N,K T V,,,,,10.90,29,9,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-009B,009B,1,Fracc. La Rueda – Centro,N,K T V,,,,,11.10,29,9,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-010,010,0,Cerro Gordo – 5 de Mayo,N,K T V,,,,,11.53,25,1,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-010,010,1,Cerro Gordo – 5 de Mayo,N,K T V,,,,,10.36,23,1,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-011,011,0,Loma Alta – Central de Autobuses,N,,,,P D H,M rel/16844499,,,,41,48,baja,el PET 2022 repite exactamente las cifras de otra ruta (posible error de captura); solo Moovit como dato por sentido
+U-011,011,1,Loma Alta – Central de Autobuses,N,,,,P D H,M rel/16844499,,,,33,35,baja,el PET 2022 repite exactamente las cifras de otra ruta (posible error de captura); solo Moovit como dato por sentido
+U-011B,011B,0,Loma Alta – Centro,N,,,,,,,,,,,baja,el PET 2022 no trae este número
+U-011B,011B,1,Loma Alta – Centro,N,,,,,,,,,,,baja,el PET 2022 no trae este número
+U-012,012,0,Hospital General – Centro,N,K T V,,,P D H,,8.85,25,1,19,25,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-012,012,1,Hospital General – Centro,N,K T V,,,P D H,,8.27,35,1,23,32,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-013,013,0,Carrizo – 5 de Mayo,N,K T V,,,,,6.55,25,7,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-013,013,1,Carrizo – 5 de Mayo,N,K T V,,,,,5.20,25,7,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-014,014,0,Granjas Banthí – Centro,N,K T V,,,,M rel/16646071,8.72,40,3,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-014,014,1,Granjas Banthí – Centro,N,K T V,,,,M rel/16646071,9.18,40,3,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-015B,015B,0,Solares Banthí – 5 de Mayo,N,K T V,,,,,11.60,25,4,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-015B,015B,1,Solares Banthí – 5 de Mayo,N,K T V,,,,,13.00,25,4,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-016,016,0,Infonavit La Paz – Centro,N,K T V,,,,,7.84,25,5,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-016,016,1,Infonavit La Paz – Centro,N,K T V,,,,,9.23,30,5,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-017,017,0,Barrio de la Cruz – Centro,N,K T V,,I parcial,,,4.61,20,4,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-017,017,1,Barrio de la Cruz – Centro,N,K T V,,I parcial,,,4.50,20,4,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-018,018,0,Nuevo San Isidro – Centro,N,K T V,,,,,5.95,18,1,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-018,018,1,Nuevo San Isidro – Centro,N,K T V,,,,,9.41,28,1,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-019,019,0,Pedregoso – Valle Real,N,K T V,,,,,10.60,32,7,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-019,019,1,Pedregoso – Valle Real,N,K T V,,,,,11.90,36,7,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-020,020,0,Valle Real – Central de Autobuses,N,K T V,,,,,12.80,38,7,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-020,020,1,Valle Real – Central de Autobuses,N,K T V,,,,,12.90,39,7,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-022,022,0,Pedregoso – Centro,N,K T V,,,,,8.33,25,1,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-022,022,1,Pedregoso – Centro,N,K T V,,,,,7.25,22,1,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-23,23,0,Lomas del Pedregal – Centro,N,K T V,,,,M rel/16659179,5.00,18,5,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-23,23,1,Lomas del Pedregal – Centro,N,K T V,,,,M rel/16659179,4.00,12,5,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-024,024,0,Praderas del Sol – Centro,N,K T V,,,,,8.80,26,9,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-024,024,1,Praderas del Sol – Centro,N,K T V,,,,,5.56,17,9,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-024C,024C,0,Las Torres – Central de Autobuses,N,K T V,,,,,9.58,30,1,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-024C,024C,1,Las Torres – Central de Autobuses,N,K T V,,,,,13.20,40,1,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-025,025,0,Las Águilas – Centro,N,,,,,M rel/16639735,,,,,,baja,el PET 2022 repite exactamente las cifras de otra ruta (posible error de captura)
+U-025,025,1,Las Águilas – Centro,N,,,,,M rel/16639735,,,,,,baja,el PET 2022 repite exactamente las cifras de otra ruta (posible error de captura)
+U-028,028,0,Rancho de Enmedio – Central de Autobuses,N,K T V,,,,M rel/16681124,10.90,33,4,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-028,028,1,Rancho de Enmedio – Central de Autobuses,N,K T V,,,,M rel/16681124,12.60,38,4,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-030,030,0,Infonavit La Paz – Central de Autobuses,N,K T V,,,,,8.84,27,1,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-030,030,1,Infonavit La Paz – Central de Autobuses,N,K T V,,,,,12.44,37,1,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-031,031,0,Pedregoso – PITSA,N,K T V,,,,,6.75,20,4,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-031,031,1,Pedregoso – PITSA,N,K T V,,,,,5.71,25,4,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-032,032,0,Visthá – Central de Autobuses,N,K T V,,,,,13.00,30,7,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-032,032,1,Visthá – Central de Autobuses,N,K T V,,,,,13.00,30,7,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-036,036,0,Visthá (CERESO) – 5 de Mayo,N,K T V,,,,,9.00,25,7,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-036,036,1,Visthá (CERESO) – 5 de Mayo,N,K T V,,,,,8.00,25,7,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-037,037,0,La Peña – Centro,N,,,,,,,,,,,baja,el PET 2022 trae el número con otro nombre: «VILLAS DEL PUENTE CENTRO»
+U-037,037,1,La Peña – Centro,N,,,,,,,,,,,baja,el PET 2022 trae el número con otro nombre: «VILLAS DEL PUENTE CENTRO»
+U-038,038,0,La Peña – Central de Autobuses,N,,,,,,,,,,,baja,el PET 2022 trae el número con otro nombre: «VILLAS DEL PUENTE CENTRAL DE AUTOBUSES»
+U-038,038,1,La Peña – Central de Autobuses,N,,,,,,,,,,,baja,el PET 2022 trae el número con otro nombre: «VILLAS DEL PUENTE CENTRAL DE AUTOBUSES»
+U-039,039,0,Francisco Villa – Central de Autobuses,N,K T V,,,,M rel/16640433,7.35,22,1,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-039,039,1,Francisco Villa – Central de Autobuses,N,K T V,,,,M rel/16640433,7.29,22,1,,,media,"PET 2022 pág. 21740: km, minutos y vehículos de este sentido"
+U-040,040,0,Las Águilas – Universidad Tecnológica (UTSJR),N,,,I parcial,P D H,,,,,24,36,baja,el PET 2022 trae el número con otro nombre: «FRANCISCO VILLA UNIVERSIDAD TECNOLÓGICA»; solo Moovit como dato por sentido
+U-040,040,1,Las Águilas – Universidad Tecnológica (UTSJR),N,,,I parcial,P D H,,,,,29,34,baja,el PET 2022 trae el número con otro nombre: «FRANCISCO VILLA UNIVERSIDAD TECNOLÓGICA»; solo Moovit como dato por sentido
+U-041,041,0,Francisco Villa – Centro,N,K T V,,,P D H,M rel/16639736,8.84,27,1,23,28,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-041,041,1,Francisco Villa – Centro,N,K T V,,,P D H,M rel/16639736,7.58,23,1,16,25,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-042,042,0,Manantiales / Nogales – Centro,N,K T V,,,,,6.06,20,6,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-042,042,1,Manantiales / Nogales – Centro,N,K T V,,,,,4.04,20,6,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-043,043,0,Valle Dorado I – Central de Autobuses,N,K T V,,,,,18.87,55,2,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-043,043,1,Valle Dorado I – Central de Autobuses,N,K T V,,,,,18.87,55,2,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-044,044,0,Valle Dorado II – Centro,N,K T V,,,,,14.76,44,2,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-044,044,1,Valle Dorado II – Centro,N,K T V,,,,,11.53,35,2,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-046,046,0,Manantiales – Nogales – IMSS,N,,,,,,,,,,,baja,el PET 2022 trae el número con otro nombre: «MANANTIALES IMSS»
+U-046,046,1,Manantiales – Nogales – IMSS,N,,,,,,,,,,,baja,el PET 2022 trae el número con otro nombre: «MANANTIALES IMSS»
+U-047,047,0,La Rueda – Central de Autobuses,N,K T V,,,,,14.32,43,2,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+U-047,047,1,La Rueda – Central de Autobuses,N,K T V,,,,,14.35,43,2,,,media,"PET 2022 pág. 21741: km, minutos y vehículos de este sentido"
+I-062,062,0,San Juan del Río – Tequisquiapan,,,K,,P D H,,21.69,,,29,17,media,La Sombra de Arteaga 24 oct 2025 pág. 38444: km de este sentido
+I-062,062,1,San Juan del Río – Tequisquiapan,,,K,,P D H,,21.23,,,29,17,media,La Sombra de Arteaga 24 oct 2025 pág. 38444: km de este sentido
+I-023,023,0,Tequisquiapan – Ezequiel Montes,,,K,,,,18.62,,,,,media,La Sombra de Arteaga 24 oct 2025 pág. 38439: km de este sentido
+I-023,023,1,Tequisquiapan – Ezequiel Montes,,,K,,,,18.55,,,,,media,La Sombra de Arteaga 24 oct 2025 pág. 38439: km de este sentido

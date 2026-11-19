@@ -1,0 +1,28 @@
+{
+  "consulta": "Valle Real, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Valle+Real%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:07-06:00",
+  "respuesta": [
+    {
+      "place_id": 313389203,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 703467245,
+      "lat": "20.4451642",
+      "lon": "-99.9818153",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Avenida Valle Real",
+      "display_name": "Avenida Valle Real, San Juan del Río, Querétaro, 76804, México",
+      "boundingbox": [
+        "20.4435984",
+        "20.4463808",
+        "-99.9841092",
+        "-99.9800488"
+      ]
+    }
+  ]
+}

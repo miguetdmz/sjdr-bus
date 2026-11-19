@@ -1,0 +1,14 @@
+Datos del GTFS-SJR (todo lo que está dentro de la carpeta datos/)
+
+Licencia: Open Database License (ODbL) v1.0
+Texto completo: https://opendatacommons.org/licenses/odbl/1-0/
+
+Puedes copiar, distribuir, usar y adaptar estos datos, siempre que:
+  - des crédito a "Colaboradores de SJDRbus" y a "colaboradores de OpenStreetMap";
+  - compartas bajo la misma licencia lo que derives de ellos;
+  - no impidas su reutilización con medidas técnicas.
+
+Los trazos se calculan sobre datos de OpenStreetMap
+(© colaboradores de OpenStreetMap, ODbL): https://www.openstreetmap.org/copyright
+
+Decisión: docs/DECISIONES.md, D-05 (vigente desde el 17 nov 2026).

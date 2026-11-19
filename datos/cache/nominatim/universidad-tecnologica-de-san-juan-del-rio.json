@@ -1,0 +1,28 @@
+{
+  "consulta": "Universidad Tecnológica de San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Universidad+Tecnol%C3%B3gica+de+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:04-06:00",
+  "respuesta": [
+    {
+      "place_id": 313464298,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 10791340913,
+      "lat": "20.3912203",
+      "lon": "-99.9934500",
+      "category": "amenity",
+      "type": "university",
+      "place_rank": 30,
+      "importance": 0.0000496978713663999,
+      "addresstype": "amenity",
+      "name": "Universidad Tecnológica Bridge",
+      "display_name": "Universidad Tecnológica Bridge, Calle José María Morelos, San Juan del Río, Querétaro, 76803, México",
+      "boundingbox": [
+        "20.3911703",
+        "20.3912703",
+        "-99.9935000",
+        "-99.9934000"
+      ]
+    }
+  ]
+}

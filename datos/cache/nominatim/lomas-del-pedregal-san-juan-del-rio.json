@@ -1,0 +1,28 @@
+{
+  "consulta": "Lomas del Pedregal, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Lomas+del+Pedregal%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:30-06:00",
+  "respuesta": [
+    {
+      "place_id": 313409614,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 711719158,
+      "lat": "20.2941951",
+      "lon": "-99.9660482",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Calle Lomas del Pedregal",
+      "display_name": "Calle Lomas del Pedregal, Santa Bárbara de la Cueva, San Juan del Río, Querétaro, México",
+      "boundingbox": [
+        "20.2937475",
+        "20.2946651",
+        "-99.9661876",
+        "-99.9660292"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "consulta": "La Rueda, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=La+Rueda%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:17-06:00",
+  "respuesta": [
+    {
+      "place_id": 314986303,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 289578627,
+      "lat": "20.4284981",
+      "lon": "-99.9895063",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Avenida La Rueda",
+      "display_name": "Avenida La Rueda, San Juan del Río, Querétaro, 76804, México",
+      "boundingbox": [
+        "20.4278322",
+        "20.4291696",
+        "-99.9920299",
+        "-99.9869813"
+      ]
+    },
+    {
+      "place_id": 314942036,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 701091308,
+      "lat": "20.4271739",
+      "lon": "-99.9916541",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05338303120469974,
+      "addresstype": "residential",
+      "name": "Avenida La Rueda",
+      "display_name": "Avenida La Rueda, El Carrizal, San Juan del Río, Querétaro, 76804, México",
+      "boundingbox": [
+        "20.4269914",
+        "20.4273565",
+        "-99.9922600",
+        "-99.9910483"
+      ]
+    }
+  ]
+}

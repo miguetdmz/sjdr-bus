@@ -1,0 +1,6 @@
+{
+  "name": "ejemplo-no-permitida",
+  "private": true,
+  "description": "Ejemplo de prueba para scripts/licencias.mjs. No es un proyecto real.",
+  "dependencies": { "paquete-de-prueba-gpl": "1.0.0" }
+}

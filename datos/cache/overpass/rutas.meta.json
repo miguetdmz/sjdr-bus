@@ -1,0 +1,10 @@
+{
+  "tarea": "I-04 (D-23)",
+  "servicio": "https://overpass-api.de/api/interpreter",
+  "consulta": "datos/cache/overpass/rutas.overpassql",
+  "respuesta": "datos/cache/overpass/rutas-respuesta.json",
+  "consultado": "2026-11-19T01:44:38-06:00",
+  "peticiones": 1,
+  "intentos_previos": "2 respuestas 502 («servidor a su capacidad») el 19 nov 2026, 12:16 am; este fue el único reintento.",
+  "nota": "Una sola consulta, desde la computadora de Miguel, en sesión de día. La respuesta no se vuelve a pedir (HANDOFF §11.6). Datos © colaboradores de OpenStreetMap, licencia ODbL 1.0."
+}

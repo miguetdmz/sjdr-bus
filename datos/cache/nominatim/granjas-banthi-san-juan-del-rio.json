@@ -1,0 +1,112 @@
+{
+  "consulta": "Granjas Banthí, San Juan del Río",
+  "url": "https://nominatim.openstreetmap.org/search?q=Granjas+Banth%C3%AD%2C+San+Juan+del+R%C3%ADo&format=jsonv2&limit=5&countrycodes=mx&addressdetails=0&accept-language=es",
+  "consultado": "2026-11-19T01:42:22-06:00",
+  "respuesta": [
+    {
+      "place_id": 314170629,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 611902751,
+      "lat": "20.3812868",
+      "lon": "-99.9415489",
+      "category": "leisure",
+      "type": "park",
+      "place_rank": 24,
+      "importance": 0.08004969787136641,
+      "addresstype": "park",
+      "name": "Parque Granjas Banthi",
+      "display_name": "Parque Granjas Banthi, San Juan del Río, Querétaro, México",
+      "boundingbox": [
+        "20.3811812",
+        "20.3814992",
+        "-99.9417119",
+        "-99.9414490"
+      ]
+    },
+    {
+      "place_id": 313493009,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 550987823,
+      "lat": "20.3792912",
+      "lon": "-99.9405182",
+      "category": "leisure",
+      "type": "park",
+      "place_rank": 24,
+      "importance": 0.08004969787136641,
+      "addresstype": "park",
+      "name": "Virguen Granjas Banthi",
+      "display_name": "Virguen Granjas Banthi, San Juan del Río, Querétaro, México",
+      "boundingbox": [
+        "20.3792390",
+        "20.3793453",
+        "-99.9406027",
+        "-99.9404336"
+      ]
+    },
+    {
+      "place_id": 314188022,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 5326021514,
+      "lat": "20.3812800",
+      "lon": "-99.9415260",
+      "category": "leisure",
+      "type": "park",
+      "place_rank": 24,
+      "importance": 0.08004969787136641,
+      "addresstype": "park",
+      "name": "Parque Granjas Banthi",
+      "display_name": "Parque Granjas Banthi, San Juan del Río, Querétaro, 76805, México",
+      "boundingbox": [
+        "20.3812300",
+        "20.3813300",
+        "-99.9415760",
+        "-99.9414760"
+      ]
+    },
+    {
+      "place_id": 314644158,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 5326021512,
+      "lat": "20.3792968",
+      "lon": "-99.9405222",
+      "category": "shop",
+      "type": "religion",
+      "place_rank": 30,
+      "importance": 0.0000496978713663999,
+      "addresstype": "shop",
+      "name": "Vrigen Granjas Banthi",
+      "display_name": "Vrigen Granjas Banthi, Calle San Vicente, San Juan del Río, Querétaro, 76805, México",
+      "boundingbox": [
+        "20.3792468",
+        "20.3793468",
+        "-99.9405722",
+        "-99.9404722"
+      ]
+    },
+    {
+      "place_id": 313539957,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 5371420435,
+      "lat": "20.3803039",
+      "lon": "-99.9412969",
+      "category": "information",
+      "type": "map",
+      "place_rank": 30,
+      "importance": 0.0000496978713663999,
+      "addresstype": "information",
+      "name": "Granjas Banthi 3era Seccion",
+      "display_name": "Granjas Banthi 3era Seccion, Calle San Martin, San Juan del Río, Querétaro, 76805, México",
+      "boundingbox": [
+        "20.3802539",
+        "20.3803539",
+        "-99.9413469",
+        "-99.9412469"
+      ]
+    }
+  ]
+}

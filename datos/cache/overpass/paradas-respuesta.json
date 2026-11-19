@@ -1,0 +1,544 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-19T05:51:43Z",
+    "timestamp_areas_base": "2026-11-18T23:29:01Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 658984869,
+  "lat": 20.3759926,
+  "lon": -99.9853916,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 2923738502,
+  "lat": 20.3757563,
+  "lon": -99.9482108,
+  "tags": {
+    "bus": "yes",
+    "departures_board": "no",
+    "highway": "bus_stop",
+    "name": "Plazita de las Águilas",
+    "public_transport": "platform",
+    "shelter": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 2923738527,
+  "lat": 20.3753018,
+  "lon": -99.9552561,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 2923738538,
+  "lat": 20.3742023,
+  "lon": -99.9443898,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 2923781404,
+  "lat": 20.3758880,
+  "lon": -99.9481779,
+  "tags": {
+    "bus": "yes",
+    "departures_board": "no",
+    "highway": "bus_stop",
+    "name": "Las Águilas",
+    "public_transport": "platform",
+    "shelter": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 5341166013,
+  "lat": 20.3812944,
+  "lon": -99.9416157,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 6651783919,
+  "lat": 20.3684550,
+  "lon": -100.0151445,
+  "tags": {
+    "bench": "yes",
+    "bin": "no",
+    "bus": "yes",
+    "highway": "bus_stop",
+    "lit": "yes",
+    "name": "Parada escolar",
+    "public_transport": "platform",
+    "shelter": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6651783920,
+  "lat": 20.3675150,
+  "lon": -100.0119768,
+  "tags": {
+    "bench": "no",
+    "bin": "no",
+    "bus": "yes",
+    "highway": "bus_stop",
+    "lit": "yes",
+    "name:signed": "no",
+    "public_transport": "platform",
+    "shelter": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6651783921,
+  "lat": 20.3694048,
+  "lon": -100.0183690,
+  "tags": {
+    "bench": "no",
+    "bin": "no",
+    "bus": "yes",
+    "highway": "bus_stop",
+    "lit": "yes",
+    "name:signed": "no",
+    "public_transport": "platform",
+    "shelter": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 6724731929,
+  "lat": 20.3755524,
+  "lon": -99.9515132,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 6724895522,
+  "lat": 20.3752052,
+  "lon": -99.9569325,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 7149850786,
+  "lat": 20.3865061,
+  "lon": -99.9954745,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Parada",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 7149854885,
+  "lat": 20.4022977,
+  "lon": -99.9939986,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Parada",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 7149854886,
+  "lat": 20.3758945,
+  "lon": -100.0018337,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Parada_Central",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 7149854887,
+  "lat": 20.3758656,
+  "lon": -100.0012242,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Parada_fin",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 7149854985,
+  "lat": 20.3848775,
+  "lon": -99.9975867,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "parada",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 7150327037,
+  "lat": 20.3887649,
+  "lon": -99.9904734,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Parada",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 7150327038,
+  "lat": 20.3850284,
+  "lon": -99.9963905,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Parada",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 7267296101,
+  "lat": 20.3757525,
+  "lon": -99.9835477,
+  "tags": {
+    "bench": "yes",
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Parada",
+    "public_transport": "platform",
+    "shelter": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9369537885,
+  "lat": 20.3758892,
+  "lon": -99.9482393,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 11189975472,
+  "lat": 20.3761110,
+  "lon": -99.9863760,
+  "tags": {
+    "bench": "yes",
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "Parada del Seguro de Kimberly",
+    "public_transport": "platform",
+    "shelter": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11309112772,
+  "lat": 20.3756101,
+  "lon": -99.9489777,
+  "tags": {
+    "bus": "yes",
+    "departures_board": "no",
+    "highway": "bus_stop",
+    "public_transport": "platform",
+    "shelter": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 11309112773,
+  "lat": 20.3777927,
+  "lon": -99.9575820,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 11309112774,
+  "lat": 20.3781669,
+  "lon": -99.9608692,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 11309112775,
+  "lat": 20.3785651,
+  "lon": -99.9643396,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 11309112776,
+  "lat": 20.3792848,
+  "lon": -99.9689145,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 11309112777,
+  "lat": 20.3756565,
+  "lon": -99.9835248,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 14005801901,
+  "lat": 20.3904037,
+  "lon": -99.9653684,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14005863101,
+  "lat": 20.3946305,
+  "lon": -99.9650141,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14005863201,
+  "lat": 20.3943651,
+  "lon": -99.9641292,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14005863401,
+  "lat": 20.3974981,
+  "lon": -99.9646073,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14005863501,
+  "lat": 20.3946006,
+  "lon": -99.9651752,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14006610401,
+  "lat": 20.3904633,
+  "lon": -99.9685852,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14006610603,
+  "lat": 20.3780352,
+  "lon": -99.9427464,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14006627301,
+  "lat": 20.3791608,
+  "lon": -99.9136408,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14013490901,
+  "lat": 20.3846442,
+  "lon": -99.9904457,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14013491001,
+  "lat": 20.3801145,
+  "lon": -99.9864706,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14013491101,
+  "lat": 20.3804271,
+  "lon": -99.9855109,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14021519301,
+  "lat": 20.3799990,
+  "lon": -99.9858539,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14021519406,
+  "lat": 20.3859083,
+  "lon": -99.9850116,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14021519408,
+  "lat": 20.3816102,
+  "lon": -99.9876687,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14021519506,
+  "lat": 20.3882566,
+  "lon": -99.9829188,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14021519509,
+  "lat": 20.3842741,
+  "lon": -99.9900487,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14021520102,
+  "lat": 20.3805855,
+  "lon": -99.9869201,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14027852202,
+  "lat": 20.3876706,
+  "lon": -99.9844957,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14027852501,
+  "lat": 20.3914678,
+  "lon": -99.9950242,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14027852502,
+  "lat": 20.3921048,
+  "lon": -99.9950023,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14027852803,
+  "lat": 20.3847707,
+  "lon": -99.9903788,
+  "tags": {
+    "highway": "bus_stop"
+  }
+},
+{
+  "type": "node",
+  "id": 14027852804,
+  "lat": 20.3839946,
+  "lon": -99.9900203,
+  "tags": {
+    "highway": "bus_stop"
+  }
+}
+
+  ]
+}

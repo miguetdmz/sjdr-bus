@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Se ejecuta solo antes de cada "git push". Si algo falla, no hay push.
+exec npm run verificar

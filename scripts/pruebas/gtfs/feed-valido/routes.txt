@@ -1,0 +1,2 @@
+route_id,agency_id,route_short_name,route_long_name,route_type
+R-PRUEBA,PRUEBA,900,Ruta de prueba (no es real),3

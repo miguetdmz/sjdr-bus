@@ -1,0 +1,3 @@
+stop_id,stop_name,stop_lat,stop_lon
+P-A,Parada de prueba A (no es real),20.38883,-99.99639
+P-B,Parada de prueba B (no es real),20.37609,-99.96421
