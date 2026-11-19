@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Confirmar extremos · SJDR Bus (herramienta de trabajo)</title>
+<!--
+  HERRAMIENTA DE TRABAJO (D-34), no es parte de la app: Vite solo compila web/index.html,
+  así que esta página no se publica. Muestra las propuestas de
+  datos/investigacion/extremos-propuestas.json (OpenStreetMap) para que Miguel
+  apruebe, mueva o rechace cada una. Las respuestas quedan en localStorage.
+-->
+<style>
+  :root {
+    --tinta: #12262d; --primario: #0d7a72; --primario-suave: #e3f2ef;
+    --acento: #f0a032; --acento-suave: #fdf0dc; --fondo: #f4f2ec;
+    --tarjeta: #fff; --suave: #66767c; --borde: #e3e0d8; --rojo: #b3402f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--tinta);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--fondo); }
+  body { display: grid; grid-template-rows: auto auto 1fr; height: 100vh; height: 100dvh; }
+
+  .leyenda { background: var(--acento); color: #2b1a00; font-weight: 700; font-size: 13px; padding: 7px 16px; line-height: 1.3; }
+  .aviso { background: var(--primario-suave); font-size: 13px; padding: 6px 16px; border-bottom: 1px solid var(--borde); display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .aviso b { color: var(--primario); }
+
+  main { display: grid; grid-template-columns: 330px 1fr; min-height: 0; }
+  #lista-caja { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--borde); background: var(--tarjeta); }
+  #lista-caja h1 { font-size: 16px; margin: 0; padding: 10px 14px 4px; }
+  #contador { padding: 0 14px 8px; font-size: 13px; color: var(--suave); }
+  #contador b { color: var(--tinta); font-size: 15px; }
+  #lista { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; }
+  #lista li { margin: 0; }
+  #lista button { all: unset; box-sizing: border-box; display: flex; width: 100%; align-items: center; gap: 8px; padding: 9px 14px; cursor: pointer; border-top: 1px solid var(--borde); font-size: 14px; }
+  #lista button:hover { background: var(--fondo); }
+  #lista button[aria-current="true"] { background: var(--primario-suave); box-shadow: inset 4px 0 0 var(--primario); }
+  #lista .nom { flex: 1; min-width: 0; }
+  #lista .nom small { display: block; color: var(--suave); font-size: 11px; }
+  .chip { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
+  .chip.pendiente { background: #eceae3; color: #55646a; }
+  .chip.aprobado { background: var(--primario); color: #fff; }
+  .chip.movido { background: #2b6cb0; color: #fff; }
+  .chip.ubicado { background: #6b4fa1; color: #fff; }
+  .chip.rechazado { background: var(--rojo); color: #fff; }
+
+  #derecha { display: grid; grid-template-rows: auto 1fr; min-height: 0; min-width: 0; }
+  #ficha { background: var(--tarjeta); border-bottom: 1px solid var(--borde); padding: 10px 16px; display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: start; }
+  #ficha h2 { margin: 0; font-size: 19px; }
+  #ficha .rutas { font-size: 12px; color: var(--suave); margin-top: 2px; }
+  #cand { grid-column: 1; font-size: 13px; line-height: 1.4; }
+  #cand .nota { color: var(--suave); }
+  .fila-cand { display: inline-block; margin: 2px 6px 2px 0; padding: 3px 9px; border: 1px solid var(--borde); border-radius: 8px; background: var(--fondo); font-size: 12px; cursor: pointer; }
+  .fila-cand[aria-pressed="true"] { border-color: var(--primario); background: var(--primario-suave); font-weight: 700; }
+  #acciones { grid-column: 2; grid-row: 1 / span 2; display: flex; flex-direction: column; gap: 6px; min-width: 230px; }
+  #acciones button { font: inherit; font-weight: 800; font-size: 15px; padding: 11px 14px; border-radius: 10px; border: 2px solid transparent; cursor: pointer; }
+  #acciones button:disabled { opacity: .4; cursor: not-allowed; }
+  #b-aprobar { background: var(--primario); color: #fff; }
+  #b-rechazar { background: #fff; color: var(--rojo); border-color: var(--rojo) !important; }
+  #b-borrar { background: none; color: var(--suave); font-size: 12px !important; font-weight: 600 !important; padding: 2px !important; text-decoration: underline; }
+  .ayuda { font-size: 12px; color: var(--suave); }
+  #estado-actual { font-size: 12px; font-weight: 700; }
+
+  #mapa { min-height: 0; }
+  .leaflet-control-attribution { font-size: 10px; background: rgba(255,255,255,.85) !important; }
+  .m-grande { width: 30px; height: 30px; border-radius: 50%; background: var(--primario); border: 4px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+  .m-grande.ubicado { background: #6b4fa1; }
+  .m-chico { width: 16px; height: 16px; border-radius: 50%; background: var(--acento); border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); cursor: pointer; }
+  .tip { font-size: 12px; }
+
+  @media (max-width: 800px) {
+    body { height: auto; display: block; }
+    main { grid-template-columns: 1fr; }
+    #lista-caja { max-height: 220px; border-right: 0; border-bottom: 1px solid var(--borde); }
+    #ficha { grid-template-columns: 1fr; }
+    #acciones { grid-column: 1; grid-row: auto; flex-direction: row; flex-wrap: wrap; min-width: 0; }
+    #acciones button { flex: 1; }
+    #mapa { height: 55vh; }
+  }
+</style>
+</head>
+<body>
+<div class="leyenda">Herramienta de trabajo · las propuestas vienen de OpenStreetMap y quedan POR VERIFICAR EN CAMPO aunque las apruebes</div>
+<div class="aviso">
+  <span><b>Tus respuestas se guardan solas en esta computadora.</b> Al terminar, avísale a Claude en el chat.</span>
+  <span class="ayuda">Aprobar = el punto está bien · arrastra el punto para moverlo · Rechazar = no es aquí</span>
+</div>
+<main>
+  <section id="lista-caja" aria-label="Lugares por confirmar">
+    <h1>Lugares sin ubicar</h1>
+    <div id="contador"></div>
+    <ul id="lista"></ul>
+  </section>
+  <section id="derecha">
+    <div id="ficha">
+      <div>
+        <h2 id="f-nombre"></h2>
+        <div class="rutas" id="f-rutas"></div>
+      </div>
+      <div id="cand"></div>
+      <div id="acciones">
+        <div id="estado-actual"></div>
+        <button id="b-aprobar" type="button">Aprobar</button>
+        <button id="b-rechazar" type="button">Rechazar (no es aquí)</button>
+        <button id="b-borrar" type="button">Volver a pendiente</button>
+      </div>
+    </div>
+    <div id="mapa"></div>
+  </section>
+</main>
+
+<script type="module">
+  import 'leaflet/dist/leaflet.css';
+  import L from 'leaflet';
+  import propuestas from '../datos/investigacion/extremos-propuestas.json';
+
+  const CLAVE = 'sjdr-extremos-decisiones-v1';
+  const ETIQUETA = { pendiente: 'pendiente', aprobado: 'aprobado', movido: 'movido', rechazado: 'rechazado', ubicado: 'ubicado por Miguel' };
+  const lugares = propuestas.lugares;
+  const redondeo = (n) => Number(n.toFixed(5));
+  const el = (id) => document.getElementById(id);
+
+  function leer() {
+    try { return JSON.parse(localStorage.getItem(CLAVE)) ?? {}; } catch { return {}; }
+  }
+  let decisiones = leer();
+  function guardar(nombre, d) {
+    if (d) decisiones[nombre] = { ...d, fecha: new Date().toISOString() };
+    else delete decisiones[nombre];
+    localStorage.setItem(CLAVE, JSON.stringify(decisiones));
+    pintarLista();
+    pintarFicha();
+  }
+  const estadoDe = (n) => decisiones[n]?.estado ?? 'pendiente';
+
+  // Mapa
+  const mapa = L.map('mapa', { zoomControl: true }).setView([20.39, -99.99], 13);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">Colaboradores de OpenStreetMap</a>',
+  }).addTo(mapa);
+  mapa.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
+  const capa = L.layerGroup().addTo(mapa);
+  const icono = (clase, t) => L.divIcon({ className: '', html: `<div class="${clase}"></div>`, iconSize: [t, t], iconAnchor: [t / 2, t / 2] });
+
+  let sel = 0;        // lugar elegido
+  let candSel = 0;    // candidato elegido dentro del lugar
+  let punto = null;   // coordenada actual del marcador grande [lat, lon] (o null)
+
+  const lugar = () => lugares[sel];
+
+  function pintarLista() {
+    const hechos = lugares.filter((l) => estadoDe(l.nombre) !== 'pendiente').length;
+    el('contador').innerHTML = `<b>${hechos} de ${lugares.length}</b> respondidos`;
+    const ul = el('lista');
+    ul.replaceChildren();
+    lugares.forEach((l, i) => {
+      const li = document.createElement('li');
+      const b = document.createElement('button');
+      b.type = 'button';
+      if (i === sel) b.setAttribute('aria-current', 'true');
+      const nom = document.createElement('span');
+      nom.className = 'nom';
+      nom.textContent = l.nombre;
+      const peq = document.createElement('small');
+      peq.textContent = `${l.rutas.length ? `${l.rutas.length} ruta${l.rutas.length > 1 ? 's' : ''}` : 'sin rutas'} · ${l.candidatos.length ? `${l.candidatos.length} propuesta${l.candidatos.length > 1 ? 's' : ''}` : 'sin propuesta'}`;
+      nom.append(peq);
+      const e = estadoDe(l.nombre);
+      const chip = document.createElement('span');
+      chip.className = `chip ${e}`;
+      chip.textContent = ETIQUETA[e];
+      b.append(nom, chip);
+      b.addEventListener('click', () => elegir(i));
+      li.append(b);
+      ul.append(li);
+    });
+  }
+
+  function pintarFicha() {
+    const l = lugar();
+    const d = decisiones[l.nombre];
+    el('f-nombre').textContent = l.nombre;
+    el('f-rutas').textContent = l.rutas.length ? `Lo usan las rutas ${l.rutas.join(', ')}` : 'Sin rutas en el inventario';
+    const cont = el('cand');
+    cont.replaceChildren();
+    if (l.candidatos.length) {
+      const c = l.candidatos[candSel];
+      const t = document.createElement('div');
+      const nombre = document.createElement('b');
+      nombre.textContent = c.nombre;
+      t.append(nombre, ` · ${c.tipo ?? 'sin tipo'} · puntaje ${c.puntaje}/100 (ESTIMADO) · ${c.osm}`);
+      const r = document.createElement('div');
+      r.textContent = `Por qué se propone: ${c.razon}.`;
+      cont.append(t, r);
+      if (l.candidatos.length > 1) {
+        const otros = document.createElement('div');
+        l.candidatos.forEach((x, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'fila-cand';
+          b.setAttribute('aria-pressed', String(i === candSel));
+          b.textContent = `${i + 1}. ${x.nombre} (${x.puntaje})`;
+          b.addEventListener('click', () => elegirCandidato(i));
+          otros.append(b);
+        });
+        cont.append(otros);
+      }
+    } else {
+      const n = document.createElement('div');
+      n.className = 'nota';
+      n.textContent = `${l.nota} Si sabes dónde está, toca el mapa para poner un punto.`;
+      cont.append(n);
+    }
+    const hayPunto = punto !== null;
+    el('b-aprobar').textContent = l.candidatos.length ? 'Aprobar' : 'Guardar este punto';
+    el('b-aprobar').disabled = !hayPunto;
+    el('estado-actual').textContent = d
+      ? `Estado: ${ETIQUETA[d.estado]}${d.coordenada ? ` · ${d.coordenada[0]}, ${d.coordenada[1]}` : ''}`
+      : 'Estado: pendiente';
+    el('b-borrar').style.visibility = d ? 'visible' : 'hidden';
+  }
+
+  function dibujar() {
+    capa.clearLayers();
+    const l = lugar();
+    const d = decisiones[l.nombre];
+    const c = l.candidatos[candSel];
+    // Punto del marcador grande: decisión guardada con coordenada, si no el candidato elegido.
+    punto = d?.coordenada ?? (c ? c.centro : null);
+    l.candidatos.forEach((x, i) => {
+      if (i === candSel) return;
+      const m = L.marker(x.centro, { icon: icono('m-chico', 16), title: x.nombre }).addTo(capa);
+      m.bindTooltip(`${x.nombre} · ${x.tipo ?? ''}`, { className: 'tip' });
+      m.on('click', () => elegirCandidato(i));
+    });
+    if (punto) {
+      const m = L.marker(punto, { icon: icono(`m-grande ${c ? '' : 'ubicado'}`, 30), draggable: true, zIndexOffset: 1000 }).addTo(capa);
+      m.bindTooltip(c ? `${c.nombre} (arrástralo para moverlo)` : 'Tu punto (arrástralo para moverlo)', { className: 'tip' });
+      m.on('dragend', () => {
+        const p = m.getLatLng();
+        punto = [redondeo(p.lat), redondeo(p.lng)];
+        guardar(l.nombre, { estado: c ? 'movido' : 'ubicado', coordenada: punto, candidato_osm: c ? c.osm : null });
+      });
+    }
+  }
+
+  function centrar() {
+    if (punto) mapa.setView(punto, 16, { animate: false });
+    else mapa.setView([20.39, -99.99], 13, { animate: false });
+  }
+
+  function elegir(i) {
+    sel = i;
+    candSel = 0;
+    const d = decisiones[lugar().nombre];
+    if (d?.candidato_osm) {
+      const k = lugar().candidatos.findIndex((c) => c.osm === d.candidato_osm);
+      if (k >= 0) candSel = k;
+    }
+    dibujar(); centrar(); pintarLista(); pintarFicha();
+  }
+  function elegirCandidato(i) {
+    candSel = i;
+    // Cambiar de candidato antes de decidir: el marcador grande pasa al nuevo.
+    const l = lugar();
+    const d = decisiones[l.nombre];
+    if (d?.coordenada && d.candidato_osm !== l.candidatos[i].osm) {
+      delete decisiones[l.nombre];
+      localStorage.setItem(CLAVE, JSON.stringify(decisiones));
+    }
+    dibujar(); centrar(); pintarLista(); pintarFicha();
+  }
+
+  el('b-aprobar').addEventListener('click', () => {
+    const l = lugar();
+    const c = l.candidatos[candSel];
+    if (!punto) return;
+    if (c) {
+      const igual = punto[0] === c.centro[0] && punto[1] === c.centro[1];
+      guardar(l.nombre, { estado: igual ? 'aprobado' : 'movido', coordenada: punto, candidato_osm: c.osm });
+    } else {
+      guardar(l.nombre, { estado: 'ubicado', coordenada: punto, candidato_osm: null });
+    }
+    dibujar();
+  });
+  el('b-rechazar').addEventListener('click', () => {
+    guardar(lugar().nombre, { estado: 'rechazado', coordenada: null, candidato_osm: null });
+    dibujar();
+  });
+  el('b-borrar').addEventListener('click', () => {
+    guardar(lugar().nombre, null);
+    dibujar(); centrar(); pintarFicha();
+  });
+
+  // Tocar el mapa solo pone punto si el lugar no tiene candidato (ubicado por Miguel).
+  mapa.on('click', (ev) => {
+    const l = lugar();
+    if (l.candidatos.length) return;
+    punto = [redondeo(ev.latlng.lat), redondeo(ev.latlng.lng)];
+    guardar(l.nombre, { estado: 'ubicado', coordenada: punto, candidato_osm: null });
+    dibujar();
+  });
+
+  elegir(0);
+  window.addEventListener('resize', () => mapa.invalidateSize());
+</script>
+</body>
+</html>

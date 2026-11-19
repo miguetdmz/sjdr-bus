@@ -1,0 +1,466 @@
+{
+  "tarea": "R-03 (D-34)",
+  "fuente": {
+    "extremos": "datos/investigacion/extremos.json",
+    "lugares_osm": "datos/cache/overpass/lugares.json",
+    "sha256_lugares_osm": "4a52d85b51f0468f982ed4545b502ea79d31e452085626f51c86545efa9aa5d7",
+    "consultado": "2026-11-19T15:16:47-06:00",
+    "generado": "2026-11-19",
+    "licencia": "Datos © colaboradores de OpenStreetMap, ODbL 1.0"
+  },
+  "como_leer": [
+    "PROPUESTAS, no ubicaciones: ninguna entra a los datos sin que Miguel la apruebe, la mueva o la rechace en web/confirmar-extremos.html (D-34).",
+    "puntaje 0-100 (ESTIMADO): solo ordena candidatos; no mide qué tan correcto es. La razón dice por qué se propuso.",
+    "El punto de una colonia es su centro en OSM, no donde da vuelta el camión. Todo queda POR VERIFICAR EN CAMPO aunque se apruebe.",
+    "Los lugares sin candidato se quedan sin coordenada (no se completan con datos supuestos)."
+  ],
+  "resumen": {
+    "lugares": 28,
+    "con_candidato": 6,
+    "sin_candidato": 22
+  },
+  "lugares": [
+    {
+      "nombre": "Central de Autobuses",
+      "rutas": [
+        "005",
+        "007",
+        "008",
+        "009",
+        "011",
+        "020",
+        "024C",
+        "028",
+        "030",
+        "032",
+        "038",
+        "039",
+        "043",
+        "047"
+      ],
+      "candidatos": [
+        {
+          "osm": "way/551487177",
+          "nombre": "central Camionera",
+          "tipo": "station",
+          "etiquetas": {
+            "public_transport": "station",
+            "operator": "desconocido"
+          },
+          "centro": [
+            20.39296,
+            -99.9925
+          ],
+          "puntaje": 85,
+          "razon": "tipo coincide: estación de autobuses; el nombre dice «camionera» (sinónimo de central de autobuses)"
+        },
+        {
+          "osm": "node/13996339213",
+          "nombre": "5 de Mayo central",
+          "tipo": "station",
+          "etiquetas": {
+            "public_transport": "station"
+          },
+          "centro": [
+            20.39259,
+            -99.9927
+          ],
+          "puntaje": 60,
+          "razon": "tipo coincide: estación de autobuses"
+        }
+      ],
+      "nota": null,
+      "descartados": []
+    },
+    {
+      "nombre": "5 de Mayo",
+      "rutas": [
+        "010",
+        "013",
+        "015B",
+        "036"
+      ],
+      "candidatos": [
+        {
+          "osm": "node/13976108729",
+          "nombre": "5 de Mayo",
+          "tipo": "marketplace",
+          "etiquetas": {
+            "amenity": "marketplace"
+          },
+          "centro": [
+            20.39279,
+            -99.99347
+          ],
+          "puntaje": 80,
+          "razon": "nombre igual; tipo distinto (marketplace): coincide solo el nombre"
+        },
+        {
+          "osm": "node/13996339213",
+          "nombre": "5 de Mayo central",
+          "tipo": "station",
+          "etiquetas": {
+            "public_transport": "station"
+          },
+          "centro": [
+            20.39259,
+            -99.9927
+          ],
+          "puntaje": 65,
+          "razon": "un nombre contiene al otro; tipo distinto (station): coincide solo el nombre"
+        },
+        {
+          "osm": "node/14027852601",
+          "nombre": "Mercado 5 de mayo",
+          "tipo": "marketplace",
+          "etiquetas": {
+            "amenity": "marketplace"
+          },
+          "centro": [
+            20.39287,
+            -99.99387
+          ],
+          "puntaje": 65,
+          "razon": "un nombre contiene al otro; tipo distinto (marketplace): coincide solo el nombre"
+        }
+      ],
+      "nota": null,
+      "descartados": []
+    },
+    {
+      "nombre": "Francisco Villa",
+      "rutas": [
+        "039",
+        "041"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Infonavit La Paz",
+      "rutas": [
+        "016",
+        "030"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "La Peña",
+      "rutas": [
+        "037",
+        "038"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Universidad Tecnológica (UTSJR)",
+      "rutas": [
+        "002",
+        "040"
+      ],
+      "candidatos": [
+        {
+          "osm": "way/707866085",
+          "nombre": "UT San Juan del Río",
+          "tipo": "university",
+          "etiquetas": {
+            "amenity": "university"
+          },
+          "centro": [
+            20.3678,
+            -100.00858
+          ],
+          "puntaje": 60,
+          "razon": "tipo coincide: universidad, y el nombre dice UT / Universidad Tecnológica"
+        }
+      ],
+      "nota": null,
+      "descartados": [
+        {
+          "osm": "node/10791340913",
+          "nombre": "Universidad Tecnológica Bridge",
+          "razon": "«Universidad Tecnológica Bridge» es un lugar distinto (lección 4)"
+        }
+      ]
+    },
+    {
+      "nombre": "Valle Real",
+      "rutas": [
+        "019",
+        "020"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Carrizo",
+      "rutas": [
+        "013"
+      ],
+      "candidatos": [
+        {
+          "osm": "node/12626681980",
+          "nombre": "El Carrizal",
+          "tipo": "neighbourhood",
+          "etiquetas": {
+            "place": "neighbourhood"
+          },
+          "centro": [
+            20.42385,
+            -99.99699
+          ],
+          "puntaje": 60,
+          "razon": "nombre parecido («El Carrizal»); es colonia o localidad en OSM"
+        }
+      ],
+      "nota": null,
+      "descartados": []
+    },
+    {
+      "nombre": "Col. Industrial Nuevo San Juan",
+      "rutas": [
+        "004"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Ezequiel Montes",
+      "rutas": [
+        "023"
+      ],
+      "candidatos": [],
+      "nota": "fuera del municipio: sin candidato (la consulta cubre solo San Juan del Río; no se inventa)",
+      "descartados": []
+    },
+    {
+      "nombre": "Fracc. La Rueda",
+      "rutas": [
+        "009B"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Granjas Banthí",
+      "rutas": [
+        "014"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "IMSS",
+      "rutas": [
+        "046"
+      ],
+      "candidatos": [
+        {
+          "osm": "way/51652707",
+          "nombre": "IMSS Hospital General de Zona 3",
+          "tipo": "hospital",
+          "etiquetas": {
+            "amenity": "hospital",
+            "operator": "Instituto Mexicano del Seguro Social"
+          },
+          "centro": [
+            20.37666,
+            -99.98689
+          ],
+          "puntaje": 85,
+          "razon": "un nombre contiene al otro; tipo coincide: hospital o clínica del IMSS"
+        },
+        {
+          "osm": "way/584496880",
+          "nombre": "IMSS Unidad de Medicina Familiar No.7",
+          "tipo": "hospital",
+          "etiquetas": {
+            "amenity": "hospital",
+            "operator": "Instituto Mexicano del Seguro Social"
+          },
+          "centro": [
+            20.37947,
+            -99.96385
+          ],
+          "puntaje": 85,
+          "razon": "un nombre contiene al otro; tipo coincide: hospital o clínica del IMSS"
+        }
+      ],
+      "nota": null,
+      "descartados": []
+    },
+    {
+      "nombre": "La Rueda",
+      "rutas": [
+        "047"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Las Torres",
+      "rutas": [
+        "024C"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Lomas del Pedregal",
+      "rutas": [
+        "23"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Manantiales",
+      "rutas": [
+        "046"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Manantiales / Nogales",
+      "rutas": [
+        "042"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Nuevo San Isidro",
+      "rutas": [
+        "018"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Pedregoso 2ª Sección",
+      "rutas": [
+        "005"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "PITSA",
+      "rutas": [
+        "031"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Praderas del Sol",
+      "rutas": [
+        "024"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Rancho de Enmedio",
+      "rutas": [
+        "028"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "San Isidro",
+      "rutas": [
+        "008"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Solares Banthí",
+      "rutas": [
+        "015B"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Valle Dorado I",
+      "rutas": [
+        "043"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Valle Dorado II",
+      "rutas": [
+        "044"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Visthá (CERESO)",
+      "rutas": [
+        "036"
+      ],
+      "candidatos": [
+        {
+          "osm": "way/1533273705",
+          "nombre": "C.E.R.E.S.O San Juan del Río",
+          "tipo": "prison",
+          "etiquetas": {
+            "amenity": "prison"
+          },
+          "centro": [
+            20.44323,
+            -99.97096
+          ],
+          "puntaje": 80,
+          "razon": "tipo coincide: penal (amenity=prison); el nombre dice CERESO"
+        },
+        {
+          "osm": "node/3094265967",
+          "nombre": "Visthá",
+          "tipo": "village",
+          "etiquetas": {
+            "place": "village"
+          },
+          "centro": [
+            20.44728,
+            -99.97487
+          ],
+          "puntaje": 65,
+          "razon": "un nombre contiene al otro"
+        }
+      ],
+      "nota": null,
+      "descartados": []
+    }
+  ]
+}
