@@ -51,3 +51,17 @@ test('app: sin franja de ejemplo y con la paleta D-30', () => {
   assert.match(css, /\.m-gris/);
   assert.match(css, /\.pestanas/);
 });
+
+// E-02: menú lateral animado desde 768 px.
+test('app: botón de menú accesible y panel lateral animado desde 768 px', () => {
+  assert.match(html, /<button[^>]*id="boton-menu"[^>]*aria-label="Menú de rutas"/);
+  assert.match(html, /id="boton-menu"[^>]*aria-expanded=/);
+  assert.match(html, /id="boton-menu"[^>]*aria-controls="hoja"/);
+  assert.equal((html.match(/id="ruta"/g) ?? []).length, 1);
+  const ancho = css.slice(css.indexOf('@media (min-width: 768px)'));
+  assert.ok(css.includes('@media (min-width: 768px)'));
+  assert.match(ancho, /transform: translateX/);
+  assert.match(ancho, /transition: transform/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
+  assert.match(main, /key === 'Escape'/);
+});

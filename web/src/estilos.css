@@ -168,3 +168,40 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 .hoja-cuerpo { scrollbar-width: none; }
 .hoja-cuerpo::-webkit-scrollbar { display: none; }
 .sentido { margin-top: 10px; }
+
+/* E-02: menú lateral animado desde 768 px. En teléfono (< 768 px) nada cambia:
+   el botón de menú no se ve y la hoja de abajo sigue igual que en E-01. */
+.boton-menu {
+  display: none; flex: none; width: 44px; height: 44px; min-height: 44px; padding: 0;
+  border: 0; border-radius: 12px; background: var(--fondo); cursor: pointer;
+  place-items: center; pointer-events: auto;
+}
+.boton-menu:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
+
+@media (min-width: 768px) {
+  .boton-menu { display: grid; }
+  .marca { pointer-events: auto; }
+  .hoja {
+    left: 14px; right: auto; width: 380px; max-width: 90vw;
+    top: calc(max(10px, env(safe-area-inset-top)) + 70px); bottom: 14px;
+    max-height: none; border-radius: 22px; box-shadow: var(--sombra);
+    padding: 18px 18px 14px;
+    transform: translateX(0); opacity: 1; visibility: visible;
+    transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 0s;
+  }
+  .hoja.cerrada {
+    transform: translateX(calc(-100% - 24px)); opacity: 0; visibility: hidden;
+    transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 280ms;
+  }
+  .asa { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hoja, .hoja.cerrada { transition: none; }
+}
+
+/* Revisión de E-02 (19 nov 2026): en pantallas anchas la barra superior
+   mide lo mismo que el panel, para que no sea una tira de lado a lado. */
+@media (min-width: 768px) {
+  .barra { right: auto; width: min(380px, 90vw); }
+}

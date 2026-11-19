@@ -9,7 +9,7 @@ import L from 'leaflet';
 import { cargarDatos, type Ruta } from './datos';
 import { detalleRuta, type NombreSentido } from './detalle';
 import { gruposSelector } from './selector';
-import { ICONO_CERRAR } from './iconos';
+import { ICONO_CERRAR, ICONO_MENU } from './iconos';
 
 // Plaza Independencia: coordenada verificada de HANDOFF §11.3.
 const PLAZA_INDEPENDENCIA: L.LatLngTuple = [20.38883, -99.99639];
@@ -168,6 +168,30 @@ asa.addEventListener('click', () => {
   const abierta = hoja.classList.toggle('expandida');
   asa.setAttribute('aria-expanded', String(abierta));
 });
+
+// --- Menú lateral (E-02): solo desde 768 px; en teléfono la hoja de abajo no cambia ---
+const botonMenu = document.querySelector<HTMLButtonElement>('#boton-menu')!;
+botonMenu.innerHTML = ICONO_MENU;
+const pantallaAncha = window.matchMedia('(min-width: 768px)');
+
+function panelAbierto(): boolean {
+  return !hoja.classList.contains('cerrada');
+}
+
+function ponerPanel(abierto: boolean): void {
+  hoja.classList.toggle('cerrada', !abierto);
+  botonMenu.setAttribute('aria-expanded', String(abierto));
+}
+
+botonMenu.addEventListener('click', () => ponerPanel(!panelAbierto()));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && pantallaAncha.matches && panelAbierto()) {
+    ponerPanel(false);
+    botonMenu.focus();
+  }
+});
+// Al cruzar los 768 px el estado queda coherente: el panel vuelve a empezar abierto.
+pantallaAncha.addEventListener('change', () => ponerPanel(true));
 
 controles.addEventListener('change', alCambiar);
 controles.addEventListener('submit', (e) => e.preventDefault());
