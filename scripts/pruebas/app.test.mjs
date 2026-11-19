@@ -1,5 +1,5 @@
 // M-01: esqueleto de la app. Comprueba en el código fuente de web/ lo que pide la
-// cola: nombre provisional, leyenda de iniciativa independiente, mapa de
+// cola: nombre visible (D-28), leyenda de iniciativa independiente, mapa de
 // OpenStreetMap con atribución y centro en Plaza Independencia (HANDOFF §11.3).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -10,9 +10,10 @@ const html = leer('index.html');
 const main = leer('src/main.ts');
 const css = leer('src/estilos.css');
 
-test('app: nombre provisional y leyenda de iniciativa independiente visibles', () => {
-  assert.match(html, /SJDRbus <span[^>]*>\(nombre provisional\)<\/span>/);
-  assert.match(html, /<title>SJDRbus \(nombre provisional\)<\/title>/);
+test('app: nombre visible «SJDR Bus» (D-28) y leyenda de iniciativa independiente', () => {
+  assert.match(html, /<h1 class="nombre">SJDR Bus<\/h1>/);
+  assert.match(html, /<title>SJDR Bus<\/title>/);
+  assert.doesNotMatch(html, /nombre provisional/);
   assert.match(html, /Iniciativa ciudadana independiente/);
 });
 

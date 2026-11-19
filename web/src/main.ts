@@ -1,4 +1,4 @@
-// SJDRbus (nombre provisional).
+// SJDR Bus (D-28).
 // M-01: mapa real de OpenStreetMap con Leaflet (HANDOFF §11.1). La atribución de
 //       OpenStreetMap queda visible en todo momento.
 // M-03: selector de ruta y control de sentido (HANDOFF §11.8, D-18).

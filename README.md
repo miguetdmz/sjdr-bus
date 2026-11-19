@@ -1,4 +1,4 @@
-# SJDRbus · ¿Cuándo pasa mi camión en San Juan del Río?
+# SJDR Bus · ¿Cuándo pasa mi camión en San Juan del Río?
 
 > Nombre provisional. Proyecto en construcción: todavía no hay app publicada.
 

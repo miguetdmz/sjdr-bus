@@ -1,6 +1,6 @@
-# SJDRbus · Reglas de trabajo
+# SJDR Bus · Reglas de trabajo
 
-Nombre de trabajo: **SJDRbus** (provisional; el nombre visible está pendiente, D-02).
+Nombre visible: **SJDR Bus** (D-28). Repositorio público: `miguetdmz/sjdr-bus` (D-29).
 App ciudadana de tiempos **estimados** de autobús para San Juan del Río, Qro.,
 construida sobre un GTFS propio (GTFS-SJR). Proyecto de código abierto.
 

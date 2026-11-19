@@ -54,7 +54,7 @@ test('archivos base: agency.txt, feed_info.txt y calendar.txt', () => {
   }
 
   const [info] = leerCSV(dato('gtfs-sjr/feed_info.txt'));
-  assert.equal(info.feed_publisher_name, 'Colaboradores de SJDRbus');
+  assert.equal(info.feed_publisher_name, 'Colaboradores de SJDR Bus');
   assert.equal(info.feed_publisher_url, 'https://github.com/miguetdmz/sjdr-bus');
   assert.equal(info.feed_lang, 'es');
   assert.match(info.feed_version, /^\d+\.\d+\.\d+$/);

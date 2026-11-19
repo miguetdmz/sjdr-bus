@@ -1,84 +1,57 @@
-# PLAN · Construcción de SJDRbus
+# PLAN · Construcción de SJDR Bus
 
 Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (19 nov 2026, 2:00 am)
+## Estado actual (19 nov 2026, 8:40 am)
 
 | Bloque | Qué es | Estado |
 |---|---|---|
-| B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado el 16 nov 2026. Repositorio **privado** en GitHub (`miguetdmz/sjdrbus-sjr`); público cuando se decida D-02 |
-| B1 | Datos base del GTFS-SJR | **7 de 7 tareas hechas.** N-08 integrada con el #7 (49 paradas de OSM, POR VERIFICAR). El validador quedó en 2 errores conocidos (faltan viajes y horas de paso; no se inventan), así que «pasa el validador sin errores» **todavía no** se cumple |
-| B2a | Mockup navegable (PWA, Vite + Leaflet) | **4 de 8 integradas** (M-01 a M-04). M-05 a M-08 APROBADA: las toma el turno del 19 nov, 11:30 pm |
+| B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado. Desde el 19 nov 2026 el repositorio es **público**: `miguetdmz/sjdr-bus` (D-29), con candado en `main` (solo entra un PR con la puerta en verde). El anterior, `miguetdmz/sjdrbus-sjr`, queda **privado** como archivo con su historial y los PR #1 a #9 |
+| B1 | Datos base del GTFS-SJR | **7 de 7 tareas hechas.** 49 paradas de OSM, POR VERIFICAR. El validador quedó en 2 errores conocidos (faltan viajes y horas de paso; no se inventan) |
+| B2a | Mockup navegable (PWA, Vite + Leaflet) | **4 de 8.** M-01 a M-04 hechas y **en línea** en https://sjdrbus-sjr.vercel.app (D-26, D-27). M-05 a M-08 APROBADA: las toma el turno del 19 nov, 11:30 pm |
 | B2 | Primera pantalla publicable | Sin iniciar |
-| B3 | Trazos de las rutas (lote R, D-24) | **R-01 y R-02 integradas** (#8). R-03 BLOQUEADA (espera decisión de Miguel); R-04 en otro chat de día; R-05 y R-06 dependen de R-03 |
+| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. R-03 BLOQUEADA (3 preguntas para Miguel); R-04 en otro chat de día; R-05 y R-06 dependen de R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar |
-| B6 | Calcula tu ruta (D-15) | Sin iniciar. Depende de las paradas de cada ruta en orden |
+| B6 | Calcula tu ruta (D-15) | Sin iniciar |
 
-PR: #3, #4, #5, #7 y #8 integrados a `main` por Miguel el 19 nov 2026 (el #8
-a la 1:54 am, con R-01, R-02, I-04 y D-25); el #6 quedó cerrado. Abierto:
-**#9** (`cierre/2026-11-19-b`, borrador) con la lección 8 y su prueba.
+Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (19 nov 2026, 2:00 am)
+### Relevo para la siguiente sesión (19 nov 2026, 8:40 am)
 
-1. **Turno del 19 nov, 11:30 pm** (`noche/2026-11-20`): sale de la rama del
-   PR abierto más reciente (hoy `cierre/2026-11-19-b`; si se integra, de
-   `main`) y toma **solo M-05 a M-08**. R-03 está BLOQUEADA y el turno no la
-   toma. La sesión del día rehace el relevo antes de las 11:30 pm si cambia algo.
-2. **Integrar (Miguel, en GitHub):** el #9 cuando lo revise. Pasos: «Ready
-   for review» → «Merge pull request» con **Create a merge commit** →
-   «Delete branch». Claude no puede integrar (lección 6).
-   **Lección 8 (19 nov 2026):** una página descargada traía una llave de
-   sesión; ahora `scripts/reglas.mjs` lo rechaza.
-3. **Lote R, lo hecho el 19 nov (sesión de 1:15 a 1:50 am):**
-   - D-25: Miguel decidió usar **solo las calles visibles** de la página
-     oficial, no su trazo interno.
-   - R-01: 42 de 42 rutas con lista; **21 marcadas REVISAR** porque mezclan
-     calles de la ciudad de Querétaro (son justo los 21 renglones viejos de la
-     página, identificador interno 1 a 36). La página trae una llave de sesión:
-     la copia completa se quedó en `referencias/`, fuera de git.
-   - R-02: 40 lugares; 12 con coordenada (9 de HANDOFF §11.3 y 3 de
-     Nominatim, POR VERIFICAR) y **28 sin coordenada**. Nominatim volvió a
-     dar la Central de Cadereyta y la «Universidad Tecnológica Bridge»; el
-     filtro las rechazó (lección 4).
-   - I-04: Overpass respondió al único reintento; 16 relaciones, 14 con
-     número del inventario. No suben la confianza porque no dicen el sentido.
+1. **Turno del 19 nov, 11:30 pm** (`noche/2026-11-20`): ya apunta al
+   repositorio nuevo `miguetdmz/sjdr-bus`. Sale del PR abierto más reciente
+   (`cierre/2026-11-19-publico`) y toma **solo M-05 a M-08**. M-07 usa el
+   nombre «SJDR Bus». R-03 sigue BLOQUEADA.
+2. **Cómo se publica desde ahora (D-26, D-29):** cada PR crea una vista
+   previa en Vercel; al integrarlo a `main`, la app pública se actualiza sola.
+   `main` tiene candado: si la puerta de calidad no pasa, GitHub no deja
+   integrar (también a Miguel). Integrar sigue siendo solo de Miguel
+   (lección 6).
+3. **Sin comprobar:** que la nube de los turnos tenga acceso al repositorio
+   nuevo (la corrida de prueba del inspector la negó el modo automático). Se
+   sabrá a las 11:39 pm; si el turno falla al clonar, Miguel da acceso a la
+   app de Claude en GitHub (Settings → Applications → Claude → sjdr-bus).
 4. **Preguntas abiertas para destrabar R-03 (Miguel, una a la vez):**
    a) ¿Se aprueba una consulta a Overpass con los **nombres de calles** de San
-      Juan para separar cada cruce de las listas? Es una consulta de sesión de
-      día, gratis y en caché.
-   b) ¿Qué hacer con las 21 listas mezcladas? Por ejemplo, usar solo sus
-      cruces escritos al estilo de San Juan («CALLE-CRUCE»), o tomarlas de las
-      relaciones de OSM.
-   c) ¿Cómo se ubican los 28 extremos sin coordenada? Empezando por la Central
-      de Autobuses: Blvd. Hidalgo #4, según HANDOFF §11.3. Nada se corrige a ojo.
+      Juan para separar cada cruce de las listas? Gratis y en caché.
+   b) ¿Qué hacer con las 21 listas que mezclan calles de Querétaro?
+   c) ¿Cómo se ubican los 28 extremos sin coordenada, empezando por la
+      Central de Autobuses (Blvd. Hidalgo #4, HANDOFF §11.3)?
 5. **R-04 (OSRM)** va en otro chat de día y necesita R-03.
-6. **Desvío del turno del 18 nov (para que Miguel decida):** con N-08
-   BLOQUEADA, el turno saltó a M-01 a M-04. Propuesta: aclarar la regla 2 de
-   la cola así: «una tarea BLOQUEADA se salta solo si las siguientes no
+6. **Desvío del turno del 18 nov (para que Miguel decida):** aclarar la regla
+   2 de la cola: «una tarea BLOQUEADA se salta solo si las siguientes no
    dependen de ella; si una depende, el turno se detiene ahí».
 7. **Preguntas que venían del PR 5** (sin confirmar): aceptar `lightningcss`
-   (MPL-2.0, pieza indirecta de Vite) como aviso; `package.json` pide Node 24
-   y la nube del turno trae Node 22 (pasa igual).
+   (MPL-2.0, pieza indirecta de Vite) como aviso; Node 24 en `package.json`.
 8. **Tarea abierta de Miguel:** la solicitud de transparencia del estudio
-   técnico de dic 2022 (D-23: se hará, todavía no).
-9. **Consumo del plan:** medido al hacer este relevo (19 nov 2026, 1:50 am):
-   semanal 42 % (se renueva el 21 nov, 10:00 am), ventana de 5 horas 72 %.
-   Medir otra vez en la mañana; la diferencia es lo que gastó el turno + el
-   inspector.
-10. **Idea para la versión de producción (Miguel, 19 nov 2026; sin decidir):**
-    ver los recorridos en 3D sobre el mapa que se desarrolla en otro proyecto
-    («Taín y San Juan del Río», nombre [sin verificar]). Esta versión se queda
-    plana: Leaflet + OpenStreetMap (D-04, regla 6). Los trazos del GTFS-SJR no
-    dependen del mapa de fondo, así que después se pueden dibujar sobre otro
-    sin rehacerlos. Antes de producción se evalúa con su propia decisión:
-    licencia y origen de ese mapa, costo de servirlo ($0 o aviso), peso en el
-    teléfono y que los proyectos sigan separados.
-11. Pendiente de Miguel: D-02 (nombre visible); hacer público el repositorio
-    cuando lo decida.
-12. Si una corrida falla, revisar su registro con RemoteTrigger (`list_runs`
+   técnico de dic 2022 (D-23).
+9. **Idea para la versión de producción (sin decidir):** recorridos en 3D
+   sobre el mapa de otro proyecto. Esta versión se queda plana (Leaflet +
+   OpenStreetMap, D-04, regla 6).
+10. Si una corrida falla, revisar su registro con RemoteTrigger (`list_runs`
     y `get_run_log`) de `trig_01TQ5dA2RtFfQaYGVmwgvYJY` (turno) y
     `trig_01F8RbVpgf3NtuUeMe63nZa7` (inspector).
 

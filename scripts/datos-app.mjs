@@ -33,7 +33,7 @@ export function armarDatosApp() {
 
   return {
     descripcion:
-      'Datos de la app SJDRbus (nombre provisional). Archivo generado por scripts/datos-app.mjs desde datos/gtfs-sjr/routes.txt y datos/fichas/rutas.json; no se edita a mano. Las cifras por sentido son referencia Moovit (D-07), no fuente oficial.',
+      'Datos de la app SJDR Bus. Archivo generado por scripts/datos-app.mjs desde datos/gtfs-sjr/routes.txt y datos/fichas/rutas.json; no se edita a mano. Las cifras por sentido son referencia Moovit (D-07), no fuente oficial.',
     licencia: fichas.licencia,
     actualizado: fichas.actualizado,
     rutas: rutas.map((r) => {
