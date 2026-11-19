@@ -500,3 +500,36 @@ Miguel).
   falten en OpenStreetMap dejan la ruta incompleta, a la vista.
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, R-04, `datos/cache/overpass/`.
+
+## D-33 · 19 nov 2026 · R-03: las 21 listas mezcladas con Querétaro no se usan · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, ~2:48 pm; pregunta b de R-03):** las 21
+  listas oficiales marcadas REVISAR en `datos/investigacion/calles-oficiales.json`
+  (empiezan con calles de la ciudad de Querétaro, p. ej. Hércules, Blvd. de las
+  Américas, TAQ) **no se usan** para la secuencia de R-03.
+- **Por qué:** lo más probable es que la página oficial mezcle rutas de
+  Querétaro con el mismo número. Muchas calles se llaman igual en las dos
+  ciudades (Hidalgo, Benito Juárez, Manzano, Fresno): usar «los trozos que
+  parezcan de San Juan» pondría puntos falsos que parecen verdaderos.
+- **Cómo:** esas 21 rutas se trabajan con las otras fuentes (relaciones de
+  OpenStreetMap, extremos de R-02; Moovit solo para contrastar, D-22) y su
+  ficha dice «lista oficial descartada: mezcla calles de Querétaro». Ninguna
+  se oculta del menú (regla 9); sin dato suficiente siguen «en verificación».
+- **Decidió:** Miguel, 19 nov 2026.
+- **Impacta:** R-03, R-05, R-06, fichas de las 21 rutas.
+
+## D-34 · 19 nov 2026 · R-03: extremos sin coordenada, OSM propone y Miguel confirma · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, ~3:14 pm; pregunta c de R-03):** los 28
+  extremos sin coordenada de `datos/investigacion/extremos.json` se ubican
+  así: **una consulta más a Overpass** ($0, sesión de día, guardada igual que
+  D-32) trae los lugares que OpenStreetMap ya tiene en el municipio (central
+  de autobuses, escuelas, hospitales, penal, colonias y localidades); un
+  programa propone el candidato de cada extremo, y **Miguel lo aprueba, lo
+  mueve o lo rechaza** en una página con mapa. Se empieza por la Central de
+  Autobuses (Blvd. Hidalgo #4, HANDOFF §11.3).
+- **Regla de calidad (poka-yoke):** ninguna propuesta entra sin la
+  confirmación de Miguel. Lo aprobado queda «ubicado por Miguel, POR
+  VERIFICAR EN CAMPO» con su fuente; lo rechazado queda sin coordenada. El
+  punto de una colonia es su centro en OSM, no el lugar donde da vuelta el
+  camión: se dice así en la ficha.
+- **Decidió:** Miguel, 19 nov 2026.
+- **Impacta:** R-02, R-03, R-04, `datos/investigacion/extremos.json`.
