@@ -3,13 +3,16 @@
 //       OpenStreetMap queda visible en todo momento.
 // M-03: selector de ruta y control de sentido (HANDOFF §11.8, D-18).
 // M-04: detalle de la ruta elegida, del sentido elegido. Sin trazo en el mapa.
+// M-05: paradas de OpenStreetMap como puntos grises, no ligadas a ninguna ruta,
+//       con un control para mostrar u ocultar la capa.
 import 'leaflet/dist/leaflet.css';
 import './estilos.css';
 import L from 'leaflet';
 import { cargarDatos, type Ruta } from './datos';
 import { detalleRuta, type NombreSentido } from './detalle';
 import { gruposSelector } from './selector';
-import { ICONO_CERRAR, ICONO_MENU } from './iconos';
+import { ICONO_CERRAR, ICONO_MENU, ICONO_PARADAS } from './iconos';
+import { cargarParadas, fichaParada, type Parada } from './paradas';
 
 // Plaza Independencia: coordenada verificada de HANDOFF §11.3.
 const PLAZA_INDEPENDENCIA: L.LatLngTuple = [20.38883, -99.99639];
@@ -27,6 +30,79 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 L.control
   .attribution({ position: 'topright', prefix: '<a href="https://leafletjs.com">Leaflet</a>' })
   .addTo(mapa);
+
+// --- Paradas de OpenStreetMap (M-05) -----------------------------------------
+
+const capaParadas = L.layerGroup();
+// Punto gris de 9 px dentro de un área de toque de 28 px.
+const iconoParada = L.divIcon({ className: 'parada-toque', html: '<span class="m-gris"></span>', iconSize: [28, 28] });
+
+function contenidoParada(p: Parada): HTMLElement {
+  const f = fichaParada(p);
+  const caja = document.createElement('div');
+  caja.className = 'ficha-parada';
+  const nombre = document.createElement('b');
+  nombre.textContent = f.nombre;
+  caja.append(nombre);
+  for (const linea of f.lineas) {
+    const renglon = document.createElement('span');
+    renglon.textContent = linea;
+    if (linea === f.lineas[2]) renglon.className = 'marca-verificar';
+    caja.append(renglon);
+  }
+  return caja;
+}
+
+// La ficha de la parada nunca queda debajo de la barra, del control o de la hoja:
+// el mapa se mueve lo necesario según lo que tape la pantalla en ese momento.
+function margenesFicha(): { arriba: L.Point; abajo: L.Point } {
+  const h = document.querySelector<HTMLElement>('#hoja');
+  if (window.matchMedia('(min-width: 768px)').matches) {
+    const derechaPanel = h && !h.classList.contains('cerrada') ? h.getBoundingClientRect().right : 0;
+    return { arriba: L.point(derechaPanel + 16, 90), abajo: L.point(16, 16) };
+  }
+  return { arriba: L.point(16, 150), abajo: L.point(16, (h?.offsetHeight ?? 0) + 16) };
+}
+
+function dibujarParadas(paradas: Parada[]): void {
+  for (const p of paradas) {
+    const nombre = p.nombre ?? 'Parada sin nombre';
+    const ficha = L.popup({ maxWidth: 260 });
+    Object.defineProperty(ficha.options, 'autoPanPaddingTopLeft', { get: () => margenesFicha().arriba });
+    Object.defineProperty(ficha.options, 'autoPanPaddingBottomRight', { get: () => margenesFicha().abajo });
+    ficha.setContent(() => contenidoParada(p));
+    L.marker([p.lat, p.lon], { icon: iconoParada, title: nombre, alt: `Parada: ${nombre}`, keyboard: true })
+      .bindPopup(ficha)
+      .addTo(capaParadas);
+  }
+}
+
+// Control para mostrar u ocultar la capa: un botón con estado (aria-pressed).
+const ControlParadas = L.Control.extend({
+  onAdd() {
+    const boton = L.DomUtil.create('button', 'control-paradas');
+    boton.type = 'button';
+    boton.id = 'control-paradas';
+    boton.setAttribute('aria-pressed', 'true');
+    boton.title = 'Mostrar u ocultar las paradas de OpenStreetMap';
+    boton.innerHTML = `${ICONO_PARADAS}<span>Paradas</span>`;
+    L.DomEvent.disableClickPropagation(boton);
+    boton.addEventListener('click', () => {
+      const visible = mapa.hasLayer(capaParadas);
+      if (visible) capaParadas.remove();
+      else capaParadas.addTo(mapa);
+      boton.setAttribute('aria-pressed', String(!visible));
+    });
+    return boton;
+  },
+});
+
+capaParadas.addTo(mapa);
+new ControlParadas({ position: 'topright' }).addTo(mapa);
+
+cargarParadas()
+  .then((datos) => dibujarParadas(datos.paradas))
+  .catch((error: unknown) => console.error(error));
 
 // --- Selector de ruta y sentido ---------------------------------------------
 
