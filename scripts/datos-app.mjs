@@ -7,11 +7,13 @@
 // Fuentes:
 //   datos/gtfs-sjr/routes.txt  → orden, route_id, número y nombre (HANDOFF §4, D-08)
 //   datos/fichas/rutas.json    → grupo, nivel, fuente, fecha y cifras por sentido
+//   datos/gtfs-sjr/stops.txt   → paradas de OpenStreetMap (M-05, N-08), POR
+//                                VERIFICAR EN CAMPO y sin asignar a ninguna ruta
 //
 // No calcula nada: no hay tiempos, frecuencias ni trazos. Solo copia.
 //
 // Uso:
-//   node scripts/datos-app.mjs            escribe web/public/datos/rutas.json
+//   node scripts/datos-app.mjs            escribe web/public/datos/rutas.json y paradas.json
 //   node scripts/datos-app.mjs --salida=<archivo>
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -60,6 +62,39 @@ export function armarDatosApp() {
   };
 }
 
+// M-05: paradas de OpenStreetMap para la capa del mapa. Se copian tal cual de
+// stops.txt: ninguna coordenada se mueve y ninguna parada se liga a una ruta
+// (el orden por ruta y sentido sale de campo o de la AMEQ).
+// Cuando OSM no trae nombre, N-08 escribió «Parada sin nombre en OSM (…)»; la
+// app no lo presenta como nombre: queda en null.
+const SIN_NOMBRE = /^Parada sin nombre en OSM \(/;
+
+export function armarParadasApp() {
+  const paradas = leerCSV(join(raiz, 'datos/gtfs-sjr/stops.txt'));
+  return {
+    descripcion:
+      'Paradas de autobús que ya existen en OpenStreetMap dentro de San Juan del Río. Archivo generado por scripts/datos-app.mjs desde datos/gtfs-sjr/stops.txt; no se edita a mano. Todas POR VERIFICAR EN CAMPO y sin asignar a ninguna ruta.',
+    licencia: 'ODbL 1.0 · © colaboradores de OpenStreetMap',
+    paradas: paradas.map((p) => {
+      const lat = Number(p.stop_lat);
+      const lon = Number(p.stop_lon);
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) throw new Error(`parada sin coordenada: ${p.stop_id}`);
+      if (!p.osm_id || !p.fuente || !p.fecha || !p.estado) throw new Error(`parada sin identificador, fuente, fecha o estado: ${p.stop_id}`);
+      return {
+        stop_id: p.stop_id,
+        nombre: SIN_NOMBRE.test(p.stop_name) ? null : p.stop_name,
+        lat,
+        lon,
+        osm_id: p.osm_id,
+        url: p.stop_url,
+        fuente: p.fuente,
+        fecha: p.fecha,
+        estado: p.estado,
+      };
+    }),
+  };
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const arg = process.argv.find((a) => a.startsWith('--salida='));
   const salida = arg ? arg.slice(9) : join(raiz, 'web/public/datos/rutas.json');
@@ -67,4 +102,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   mkdirSync(dirname(salida), { recursive: true });
   writeFileSync(salida, JSON.stringify(datos, null, 2) + '\n');
   console.log(`DATOS DE LA APP: ${datos.rutas.length} rutas → ${salida.replace(raiz, '')}`);
+  const salidaParadas = join(dirname(salida), 'paradas.json');
+  const paradas = armarParadasApp();
+  writeFileSync(salidaParadas, JSON.stringify(paradas, null, 2) + '\n');
+  console.log(`DATOS DE LA APP: ${paradas.paradas.length} paradas → ${salidaParadas.replace(raiz, '')}`);
 }

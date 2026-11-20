@@ -147,12 +147,27 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 .fuente { display: block; font-weight: 400; font-size: 11px; line-height: 1.4; color: var(--suave); }
 .detalle-aviso { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--borde); font-size: 12.5px; color: var(--suave); }
 
-/* Listos para M-05 y M-06 (todavía no se muestran en la app). */
-.m-gris { width: 9px; height: 9px; border-radius: 50%; background: #fff; border: 2px solid #8fa0a3; }
+/* M-05: paradas de OpenStreetMap, puntos grises (D-30), no ligadas a ninguna ruta. */
+.m-gris { display: block; width: 9px; height: 9px; border-radius: 50%; background: #fff; border: 2px solid #8fa0a3; }
+.parada-toque { display: grid; place-items: center; background: none; border: 0; }
+.parada-toque:focus-visible { outline: 3px solid var(--primario); outline-offset: 0; border-radius: 50%; }
+.ficha-parada { display: grid; gap: 2px; font: 13px/1.4 system-ui, -apple-system, sans-serif; color: var(--tinta); }
+.ficha-parada b { font-size: 14px; }
+.ficha-parada span { color: var(--suave); }
+.ficha-parada .marca-verificar { color: #8a5300; font-weight: 800; letter-spacing: 0.03em; }
+.control-paradas {
+  display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px;
+  border: 0; border-radius: 12px; background: var(--tarjeta); box-shadow: var(--sombra);
+  font: inherit; font-size: 13px; font-weight: 700; color: var(--suave); cursor: pointer;
+}
+.control-paradas[aria-pressed="true"] { color: var(--primario); }
+.control-paradas:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
 
+/* M-06: pestañas «Rutas» / «Calcula tu ruta», siempre al pie de la hoja. */
+.modo[hidden] { display: none; }
 .pestanas {
-  display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--borde);
-  margin: 14px -18px 0; padding: 8px 0 0;
+  flex: none; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--borde);
+  margin: 12px -18px 0; padding: 6px 0 0;
 }
 .pestanas button {
   min-height: 48px; border: 0; background: none; font: inherit; font-size: 11.5px; font-weight: 600;
@@ -160,6 +175,11 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 }
 .pestanas button svg { display: block; margin: 0 auto 3px; }
 .pestanas .activo { color: var(--primario); }
+.calcula-estado { margin: 0 0 10px; }
+.calcula-lista { margin: 0; font-size: 14px; line-height: 1.45; }
+.calcula-lista dt { margin-top: 10px; font-size: 12px; font-weight: 700; color: var(--suave); text-transform: uppercase; letter-spacing: 0.06em; }
+.calcula-lista dt:first-child { margin-top: 0; }
+.calcula-lista dd { margin: 3px 0 0; }
 
 /* Revisión de E-01 (19 nov 2026): el encabezado ya muestra número y nombre,
    así que la tarjeta no los repite; la barra de scroll de la hoja no se ve

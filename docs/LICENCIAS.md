@@ -12,6 +12,7 @@ columna, con el nombre exacto del paquete).
 | vite | 8.3.8 | MIT | Servidor de desarrollo y compilación de la app (solo desarrollo) |
 | typescript | 5.9.3 | Apache-2.0 | Revisión de tipos del código de la app (solo desarrollo) |
 | @types/leaflet | 1.9.22 | MIT | Tipos de Leaflet para TypeScript (solo desarrollo) |
+| @playwright/test | 1.63.0 | Apache-2.0 | Pruebas en navegador a 390 px (M-08) y conversión de los íconos a PNG (M-07). Solo desarrollo. Trae `playwright` y `playwright-core` (Apache-2.0) |
 
 Herramientas que no son dependencias de `package.json` (se descargan o instalan
 aparte; no se suben al repositorio):
@@ -21,6 +22,7 @@ aparte; no se suben al repositorio):
 | Validador GTFS de MobilityData (`gtfs-validator-cli.jar`) | 8.0.1 | Apache-2.0 | Revisa el feed GTFS-SJR en la puerta de calidad. Lo descarga `scripts/validar-gtfs.mjs` de la página oficial de versiones de MobilityData en GitHub y comprueba su huella SHA-256 |
 | Java (OpenJDK) | 21 en GitHub Actions; 27 en la computadora de Miguel (Homebrew, `brew install openjdk`) | GPL-2.0 con «Classpath Exception» | Solo para correr el validador. No se distribuye con el proyecto |
 | gitleaks | 8.x | MIT | Busca secretos en la puerta de calidad |
+| Chromium de Playwright | el que pide @playwright/test 1.63.0 | BSD-3-Clause | Navegador de las pruebas de M-08 y de `scripts/iconos-pwa.mjs`. Se instala gratis con `npx playwright install chromium`; no se sube al repositorio |
 
 Servicios y datos de terceros (no son dependencias de código):
 

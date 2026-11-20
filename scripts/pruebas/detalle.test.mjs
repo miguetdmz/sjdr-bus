@@ -55,8 +55,16 @@ test('detalle: cambiar de ruta o de sentido reemplaza todo (sin restos) y no se 
   const main = readFileSync(new URL('../../web/src/main.ts', import.meta.url), 'utf8');
   assert.match(main, /panel\.replaceChildren\(\.\.\.nodos\)/);
   assert.match(main, /panel\.replaceChildren\(\);/);
-  // Nivel C: ninguna línea ni marcador de recorrido (regla 8).
-  assert.doesNotMatch(main, /L\.(polyline|polygon|marker|circleMarker|geoJSON)\(/);
+  // Nivel C: ninguna línea de recorrido (regla 8).
+  assert.doesNotMatch(main, /L\.(polyline|polygon|circleMarker|geoJSON)\(/);
+  // Los únicos marcadores son las paradas de OSM de M-05, que no son de ninguna ruta.
+  const marcadores = main.match(/L\.marker\(/g) ?? [];
+  assert.ok(marcadores.length <= 1);
+  if (marcadores.length) {
+    const dibujo = main.slice(main.indexOf('function dibujarParadas'), main.indexOf('// Control para mostrar'));
+    assert.match(dibujo, /L\.marker\(\[p\.lat, p\.lon\]/);
+    assert.match(dibujo, /\.addTo\(capaParadas\)/);
+  }
   // El detalle de la 001 ida no comparte cifras con el de una ruta sin datos.
   const a = detalleRuta(ruta('U-001'), 'ida');
   const b = detalleRuta(ruta('U-007'), 'ida');

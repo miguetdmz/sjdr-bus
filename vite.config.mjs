@@ -2,7 +2,9 @@
 // La app solo lee archivos ya construidos del repositorio (web/public/datos/);
 // nunca consulta OSRM, Nominatim ni Overpass.
 import { defineConfig } from 'vite';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { join, relative } from 'node:path';
 
 // Solo en desarrollo (R-03, D-34): la página de trabajo confirmar-extremos.html
 // guarda las respuestas de Miguel en un archivo del repositorio, no en el
@@ -49,10 +51,41 @@ const guardadoExtremos = {
   },
 };
 
+// M-07: arma el service worker (web/sw.js en la compilación) desde
+// web/sw-plantilla.js con la lista de archivos de la app: lo que sale de la
+// compilación y lo de web/public (datos, manifiesto e íconos). La versión es una
+// huella de todo eso: si cambia un dato o el código, la copia guardada se renueva.
+// No se guardan teselas del mapa ni nada de otro dominio.
+function archivosDe(dir) {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+    e.isDirectory() ? archivosDe(join(dir, e.name)) : [join(dir, e.name)],
+  );
+}
+
+const serviceWorker = {
+  name: 'service-worker',
+  apply: 'build',
+  generateBundle(_opciones, paquete) {
+    const publicos = archivosDe('web/public')
+      .map((a) => relative('web/public', a).split('\\').join('/'))
+      .filter((a) => !a.startsWith('.') && !a.endsWith('.DS_Store'));
+    const compilados = Object.keys(paquete).filter((a) => !a.endsWith('.map'));
+    const archivos = ['./', ...[...compilados, ...publicos].sort().map((a) => `./${a}`)];
+    const huella = createHash('sha256');
+    for (const a of publicos) huella.update(a).update(readFileSync(join('web/public', a)));
+    for (const a of compilados.sort()) huella.update(a);
+    const version = huella.digest('hex').slice(0, 12);
+    const fuente = readFileSync('web/sw-plantilla.js', 'utf8')
+      .replace("'__VERSION__'", JSON.stringify(version))
+      .replace('__ARCHIVOS__', JSON.stringify(archivos, null, 2));
+    this.emitFile({ type: 'asset', fileName: 'sw.js', source: fuente });
+  },
+};
+
 export default defineConfig({
   root: 'web',
   base: './',
-  plugins: [guardadoExtremos],
+  plugins: [guardadoExtremos, serviceWorker],
   build: {
     outDir: 'dist',
     emptyOutDir: true,

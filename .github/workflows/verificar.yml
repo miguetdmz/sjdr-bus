@@ -35,6 +35,13 @@ jobs:
         run: npm test
       - name: Compilación de la app (web/)
         run: npm run build
+      - name: Revisión de la compilación (manifiesto, íconos y service worker)
+        run: node scripts/revisar-compilacion.mjs
+      # M-08: navegador de prueba (Chromium de Playwright, gratuito).
+      - name: Navegador de prueba
+        run: npx playwright install --with-deps chromium
+      - name: Pruebas en navegador a 390 px
+        run: bash scripts/navegador.sh
       - name: Gitleaks (secretos)
         uses: gitleaks/gitleaks-action@v2
         env:

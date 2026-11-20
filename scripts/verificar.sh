@@ -5,16 +5,19 @@ cd "$(dirname "$0")/.."
 
 paso() { printf '\n=== %s ===\n' "$1"; }
 
-paso "1/5 reglas del proyecto"; node scripts/reglas.mjs
-paso "2/5 licencias (solo open source)"; node scripts/licencias.mjs
-paso "3/5 pruebas (incluye el validador GTFS de MobilityData)"; node --test "scripts/pruebas/*.test.mjs"
-paso "4/5 compilación de la app (web/)"
+paso "1/6 reglas del proyecto"; node scripts/reglas.mjs
+paso "2/6 licencias (solo open source)"; node scripts/licencias.mjs
+paso "3/6 pruebas (incluye el validador GTFS de MobilityData)"; node --test "scripts/pruebas/*.test.mjs"
+paso "4/6 compilación de la app (web/)"
 if [ ! -d node_modules ]; then
   echo "Faltan las dependencias de la app: corre «npm ci» (gratis, solo open source)" >&2
   exit 1
 fi
 npm run build
-paso "5/5 gitleaks (secretos)"
+node scripts/revisar-compilacion.mjs
+paso "5/6 pruebas en navegador a 390 px (Playwright)"
+bash scripts/navegador.sh
+paso "6/6 gitleaks (secretos)"
 if ! command -v gitleaks >/dev/null; then
   echo "gitleaks no está instalado: brew install gitleaks" >&2
   exit 1
