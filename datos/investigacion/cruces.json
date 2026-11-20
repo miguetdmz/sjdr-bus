@@ -22,12 +22,12 @@
  "resumen": {
   "rutas_con_lista_usable": 19,
   "cruces": 974,
-  "UBICADO": 626,
+  "UBICADO": 653,
   "UBICADO POR LUGAR": 3,
-  "REFERENCIA": 179,
-  "CALLES SIN CRUCE EN OSM": 93,
-  "SIN UBICAR": 73,
-  "con_correccion": 239
+  "REFERENCIA": 186,
+  "CALLES SIN CRUCE EN OSM": 70,
+  "SIN UBICAR": 62,
+  "con_correccion": 266
  },
  "rutas": [
   {
@@ -654,11 +654,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 82,
    "conteo": {
-    "UBICADO": 57,
+    "UBICADO": 58,
     "UBICADO POR LUGAR": 1,
     "REFERENCIA": 9,
     "CALLES SIN CRUCE EN OSM": 6,
-    "SIN UBICAR": 9
+    "SIN UBICAR": 8
    },
    "cruces": [
     {
@@ -882,11 +882,18 @@
     },
     {
      "orden": 19,
-     "texto": "SIN REFERENCIA JURICA-AV. BENITO JUÁREZ",
-     "calle": "SIN REFERENCIA JURICA",
+     "texto": "JURICA-AV. BENITO JUÁREZ",
+     "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 20,
@@ -1624,11 +1631,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 62,
    "conteo": {
-    "UBICADO": 43,
+    "UBICADO": 47,
     "UBICADO POR LUGAR": 1,
-    "REFERENCIA": 8,
-    "CALLES SIN CRUCE EN OSM": 7,
-    "SIN UBICAR": 3
+    "REFERENCIA": 9,
+    "CALLES SIN CRUCE EN OSM": 4,
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -1870,11 +1877,18 @@
     },
     {
      "orden": 21,
-     "texto": "SIN REFERENCIA JURICA-AV. BENITO JUÁREZ ORIENTE",
-     "calle": "SIN REFERENCIA JURICA",
+     "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
+     "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 22,
@@ -2002,9 +2016,9 @@
     },
     {
      "orden": 32,
-     "texto": "5 DE MAYO-SEUZ SIN REFERENCIA",
+     "texto": "5 DE MAYO-SEUZ",
      "calle": "5 DE MAYO",
-     "cruce_con": "SEUZ SIN REFERENCIA",
+     "cruce_con": "SEUZ",
      "estado": "REFERENCIA",
      "osm_calle": "Calle 5 de Mayo",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
@@ -2014,17 +2028,24 @@
      "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
      "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Privada Jurica",
-     "nota": "las dos calles existen en OSM («Privada Jurica», «Avenida Benito Juaréz Oriente») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 34,
      "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "MONUMENTO A BENITO JUÁREZ",
      "cruce_con": "JURICA",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Belisario Domínguez",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 35,
@@ -2040,9 +2061,15 @@
      "texto": "FERNANDO DE TAPIA-JURICA",
      "calle": "FERNANDO DE TAPIA",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.38313,
+     "lon": -99.99211,
      "osm_calle": "Calle Fernando de Tapia",
-     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 37,
@@ -2070,9 +2097,16 @@
      "texto": "CARR. SAN JUAN DEL RÍO-JURICA",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.3778,
+     "lon": -99.98604,
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (8 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»",
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 40,
@@ -2359,10 +2393,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 37,
    "conteo": {
-    "UBICADO": 26,
+    "UBICADO": 27,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 7,
-    "CALLES SIN CRUCE EN OSM": 3,
+    "CALLES SIN CRUCE EN OSM": 2,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -2731,9 +2765,9 @@
     },
     {
      "orden": 29,
-     "texto": "5 DE MAYO-SEUZ SIN REFERENCIA",
+     "texto": "5 DE MAYO-SEUZ",
      "calle": "5 DE MAYO",
-     "cruce_con": "SEUZ SIN REFERENCIA",
+     "cruce_con": "SEUZ",
      "estado": "REFERENCIA",
      "osm_calle": "Calle 5 de Mayo",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
@@ -2743,9 +2777,15 @@
      "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
      "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Privada Jurica",
-     "nota": "las dos calles existen en OSM («Privada Jurica», «Avenida Benito Juaréz Oriente») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 31,
@@ -2842,10 +2882,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 45,
    "conteo": {
-    "UBICADO": 24,
+    "UBICADO": 27,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 9,
-    "CALLES SIN CRUCE EN OSM": 9,
+    "CALLES SIN CRUCE EN OSM": 6,
     "SIN UBICAR": 3
    },
    "cruces": [
@@ -3094,9 +3134,9 @@
     },
     {
      "orden": 22,
-     "texto": "5 DE MAYO-SEUZ SIN REFERENCIA",
+     "texto": "5 DE MAYO-SEUZ",
      "calle": "5 DE MAYO",
-     "cruce_con": "SEUZ SIN REFERENCIA",
+     "cruce_con": "SEUZ",
      "estado": "REFERENCIA",
      "osm_calle": "Calle 5 de Mayo",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
@@ -3106,9 +3146,15 @@
      "texto": "JURICA-AV. BENITO JUÁREZ",
      "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Privada Jurica",
-     "nota": "las dos calles existen en OSM («Privada Jurica», «Avenida Benito Juárez») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 24,
@@ -3132,9 +3178,15 @@
      "texto": "FERNANDO DE TAPIA-JURICA",
      "calle": "FERNANDO DE TAPIA",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.38313,
+     "lon": -99.99211,
      "osm_calle": "Calle Fernando de Tapia",
-     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 27,
@@ -3162,9 +3214,16 @@
      "texto": "CARR. SAN JUAN DEL RÍO-JURICA",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.3778,
+     "lon": -99.98604,
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (8 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»",
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 30,
@@ -3365,11 +3424,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 80,
    "conteo": {
-    "UBICADO": 51,
+    "UBICADO": 54,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 21,
-    "CALLES SIN CRUCE EN OSM": 6,
-    "SIN UBICAR": 2
+    "REFERENCIA": 22,
+    "CALLES SIN CRUCE EN OSM": 3,
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -3953,9 +4012,9 @@
     },
     {
      "orden": 49,
-     "texto": "5 DE MAYO-SEUZ SIN REFERENCIA",
+     "texto": "5 DE MAYO-SEUZ",
      "calle": "5 DE MAYO",
-     "cruce_con": "SEUZ SIN REFERENCIA",
+     "cruce_con": "SEUZ",
      "estado": "REFERENCIA",
      "osm_calle": "Calle 5 de Mayo",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
@@ -3965,17 +4024,24 @@
      "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
      "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Privada Jurica",
-     "nota": "las dos calles existen en OSM («Privada Jurica», «Avenida Benito Juaréz Oriente») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 51,
      "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "MONUMENTO A BENITO JUÁREZ",
      "cruce_con": "JURICA",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Belisario Domínguez",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 52,
@@ -3991,9 +4057,15 @@
      "texto": "FERNANDO DE TAPIA-JURICA",
      "calle": "FERNANDO DE TAPIA",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.38313,
+     "lon": -99.99211,
      "osm_calle": "Calle Fernando de Tapia",
-     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 54,
@@ -4021,9 +4093,16 @@
      "texto": "CARR. SAN JUAN DEL RÍO-JURICA",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.3778,
+     "lon": -99.98604,
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (8 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»",
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 57,
@@ -5617,11 +5696,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 44,
    "conteo": {
-    "UBICADO": 28,
+    "UBICADO": 31,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 8,
-    "CALLES SIN CRUCE EN OSM": 5,
-    "SIN UBICAR": 3
+    "REFERENCIA": 9,
+    "CALLES SIN CRUCE EN OSM": 3,
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -5902,19 +5981,27 @@
     },
     {
      "orden": 24,
-     "texto": "SIN REFERENCIA JURICA-AV. BENITO JUÁREZ ORIENTE",
-     "calle": "SIN REFERENCIA JURICA",
+     "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
+     "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 25,
      "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "MONUMENTO A BENITO JUÁREZ",
      "cruce_con": "JURICA",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Belisario Domínguez",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 26,
@@ -5930,9 +6017,15 @@
      "texto": "FERNANDO DE TAPIA-JURICA",
      "calle": "FERNANDO DE TAPIA",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.38313,
+     "lon": -99.99211,
      "osm_calle": "Calle Fernando de Tapia",
-     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 28,
@@ -5960,9 +6053,16 @@
      "texto": "CARR. SAN JUAN DEL RÍO-JURICA",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.3778,
+     "lon": -99.98604,
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (8 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»",
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 31,
@@ -6155,10 +6255,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 38,
    "conteo": {
-    "UBICADO": 27,
+    "UBICADO": 28,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 7,
-    "CALLES SIN CRUCE EN OSM": 1,
+    "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 3
    },
    "cruces": [
@@ -6423,9 +6523,9 @@
     },
     {
      "orden": 23,
-     "texto": "5 DE MAYO-SEUZ SIN REFERENCIA",
+     "texto": "5 DE MAYO-SEUZ",
      "calle": "5 DE MAYO",
-     "cruce_con": "SEUZ SIN REFERENCIA",
+     "cruce_con": "SEUZ",
      "estado": "REFERENCIA",
      "osm_calle": "Calle 5 de Mayo",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
@@ -6435,9 +6535,15 @@
      "texto": "JURICA-AV. BENITO JUÁREZ",
      "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Privada Jurica",
-     "nota": "las dos calles existen en OSM («Privada Jurica», «Avenida Benito Juárez») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 25,
@@ -6613,11 +6719,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 35,
    "conteo": {
-    "UBICADO": 17,
+    "UBICADO": 19,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 11,
-    "CALLES SIN CRUCE EN OSM": 2,
-    "SIN UBICAR": 5
+    "REFERENCIA": 12,
+    "CALLES SIN CRUCE EN OSM": 0,
+    "SIN UBICAR": 4
    },
    "cruces": [
     {
@@ -6832,9 +6938,9 @@
     },
     {
      "orden": 19,
-     "texto": "5 DE MAYO-SEUZ SIN REFERENCIA",
+     "texto": "5 DE MAYO-SEUZ",
      "calle": "5 DE MAYO",
-     "cruce_con": "SEUZ SIN REFERENCIA",
+     "cruce_con": "SEUZ",
      "estado": "REFERENCIA",
      "osm_calle": "Calle 5 de Mayo",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
@@ -6844,17 +6950,24 @@
      "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
      "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Privada Jurica",
-     "nota": "las dos calles existen en OSM («Privada Jurica», «Avenida Benito Juaréz Oriente») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 21,
      "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "MONUMENTO A BENITO JUÁREZ",
      "cruce_con": "JURICA",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Belisario Domínguez",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 22,
@@ -6870,9 +6983,15 @@
      "texto": "FERNANDO DE TAPIA-JURICA",
      "calle": "FERNANDO DE TAPIA",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.38313,
+     "lon": -99.99211,
      "osm_calle": "Calle Fernando de Tapia",
-     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 24,
@@ -7014,11 +7133,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 58,
    "conteo": {
-    "UBICADO": 52,
+    "UBICADO": 53,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 4,
     "CALLES SIN CRUCE EN OSM": 1,
-    "SIN UBICAR": 1
+    "SIN UBICAR": 0
    },
    "cruces": [
     {
@@ -7298,11 +7417,18 @@
     },
     {
      "orden": 22,
-     "texto": "SIN REFERENCIA JURICA-AV. BENITO JUÁREZ ORIENTE",
-     "calle": "SIN REFERENCIA JURICA",
+     "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
+     "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 23,
@@ -7797,11 +7923,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 65,
    "conteo": {
-    "UBICADO": 36,
+    "UBICADO": 39,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 16,
-    "CALLES SIN CRUCE EN OSM": 7,
-    "SIN UBICAR": 6
+    "REFERENCIA": 17,
+    "CALLES SIN CRUCE EN OSM": 4,
+    "SIN UBICAR": 5
    },
    "cruces": [
     {
@@ -8310,9 +8436,9 @@
     },
     {
      "orden": 45,
-     "texto": "5 DE MAYO-SEUZ SIN REFERENCIA",
+     "texto": "5 DE MAYO-SEUZ",
      "calle": "5 DE MAYO",
-     "cruce_con": "SEUZ SIN REFERENCIA",
+     "cruce_con": "SEUZ",
      "estado": "REFERENCIA",
      "osm_calle": "Calle 5 de Mayo",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
@@ -8322,17 +8448,24 @@
      "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
      "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Privada Jurica",
-     "nota": "las dos calles existen en OSM («Privada Jurica», «Avenida Benito Juaréz Oriente») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 47,
      "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "MONUMENTO A BENITO JUÁREZ",
      "cruce_con": "JURICA",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Belisario Domínguez",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 48,
@@ -8348,9 +8481,15 @@
      "texto": "FERNANDO DE TAPIA-JURICA",
      "calle": "FERNANDO DE TAPIA",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.38313,
+     "lon": -99.99211,
      "osm_calle": "Calle Fernando de Tapia",
-     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 50,
@@ -8378,9 +8517,16 @@
      "texto": "CARR. SAN JUAN DEL RÍO-JURICA",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.3778,
+     "lon": -99.98604,
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (8 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»",
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 53,
@@ -10116,11 +10262,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 56,
    "conteo": {
-    "UBICADO": 23,
+    "UBICADO": 25,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 18,
-    "CALLES SIN CRUCE EN OSM": 6,
-    "SIN UBICAR": 9
+    "REFERENCIA": 19,
+    "CALLES SIN CRUCE EN OSM": 4,
+    "SIN UBICAR": 8
    },
    "cruces": [
     {
@@ -10239,9 +10385,9 @@
     },
     {
      "orden": 10,
-     "texto": "5 DE MAYO-SEUZ SIN REFERENCIA",
+     "texto": "5 DE MAYO-SEUZ",
      "calle": "5 DE MAYO",
-     "cruce_con": "SEUZ SIN REFERENCIA",
+     "cruce_con": "SEUZ",
      "estado": "REFERENCIA",
      "osm_calle": "Calle 5 de Mayo",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
@@ -10251,17 +10397,24 @@
      "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
      "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Privada Jurica",
-     "nota": "las dos calles existen en OSM («Privada Jurica», «Avenida Benito Juaréz Oriente») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 12,
      "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "MONUMENTO A BENITO JUÁREZ",
      "cruce_con": "JURICA",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Belisario Domínguez",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 13,
@@ -10277,9 +10430,15 @@
      "texto": "FERNANDO DE TAPIA-JURICA",
      "calle": "FERNANDO DE TAPIA",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.38313,
+     "lon": -99.99211,
      "osm_calle": "Calle Fernando de Tapia",
-     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 15,
@@ -10723,10 +10882,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 56,
    "conteo": {
-    "UBICADO": 31,
+    "UBICADO": 32,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 11,
-    "CALLES SIN CRUCE EN OSM": 9,
+    "CALLES SIN CRUCE EN OSM": 8,
     "SIN UBICAR": 5
    },
    "cruces": [
@@ -11008,9 +11167,9 @@
     },
     {
      "orden": 25,
-     "texto": "5 DE MAYO-SEUZ SIN REFERENCIA",
+     "texto": "5 DE MAYO-SEUZ",
      "calle": "5 DE MAYO",
-     "cruce_con": "SEUZ SIN REFERENCIA",
+     "cruce_con": "SEUZ",
      "estado": "REFERENCIA",
      "osm_calle": "Calle 5 de Mayo",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
@@ -11020,9 +11179,15 @@
      "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
      "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Privada Jurica",
-     "nota": "las dos calles existen en OSM («Privada Jurica», «Avenida Benito Juaréz Oriente») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 27,
@@ -11363,11 +11528,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 35,
    "conteo": {
-    "UBICADO": 16,
+    "UBICADO": 18,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 12,
-    "CALLES SIN CRUCE EN OSM": 2,
-    "SIN UBICAR": 5
+    "REFERENCIA": 13,
+    "CALLES SIN CRUCE EN OSM": 0,
+    "SIN UBICAR": 4
    },
    "cruces": [
     {
@@ -11582,9 +11747,9 @@
     },
     {
      "orden": 19,
-     "texto": "5 DE MAYO-SEUZ SIN REFERENCIA",
+     "texto": "5 DE MAYO-SEUZ",
      "calle": "5 DE MAYO",
-     "cruce_con": "SEUZ SIN REFERENCIA",
+     "cruce_con": "SEUZ",
      "estado": "REFERENCIA",
      "osm_calle": "Calle 5 de Mayo",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
@@ -11594,17 +11759,24 @@
      "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
      "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Privada Jurica",
-     "nota": "las dos calles existen en OSM («Privada Jurica», «Avenida Benito Juaréz Oriente») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 21,
      "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "MONUMENTO A BENITO JUÁREZ",
      "cruce_con": "JURICA",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Belisario Domínguez",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 22,
@@ -11620,9 +11792,15 @@
      "texto": "FERNANDO DE TAPIA-JURICA",
      "calle": "FERNANDO DE TAPIA",
      "cruce_con": "JURICA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.38313,
+     "lon": -99.99211,
      "osm_calle": "Calle Fernando de Tapia",
-     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
     },
     {
      "orden": 24,

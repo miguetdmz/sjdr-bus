@@ -681,6 +681,7 @@ Miguel).
   | Paseo Central | Avenida Central | Miguel, 19 nov 2026, 10:05 pm |
   | Independencia (junto al Jardín Independencia) | Avenida Juárez | Miguel, 19 nov 2026, 10:10 pm |
   | Carr. San Juan del Río (dentro de la ciudad) | Avenida Central | Miguel, 19 nov 2026, 10:12 pm |
+  | Jurica | Avenida Belisario Domínguez | Miguel, 20 nov 2026, 12:47 am |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
   pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
   ruta); si no, el cruce sigue POR VERIFICAR.
@@ -688,6 +689,15 @@ Miguel).
   punto). «Independencia – Vicente Rivapalacio»: 13 de 13 ubicados. Total:
   625 de 956 ubicados (65 %), 168 referencias de calle (18 %), 163 POR
   VERIFICAR (17 %).
+- **Jurica (20 nov 2026):** la «Privada Jurica» de OSM está a 4–9 km de la
+  ruta, así que no servía. La única calle de OSM que toca Av. Benito Juárez
+  Oriente, Fernando de Tapia y Av. Central es la Av. Belisario Domínguez (0, 0
+  y 8 m); Miguel confirmó que es esa. De paso, dos limpiezas con evidencia
+  (D-42): «SIN REFERENCIA» es la casilla vacía de la lista y se quita del
+  texto, y «MONUMENTO» cuenta como lugar (confirma la calle, sin punto
+  propio). Efecto en Jurica: 27 de 36 ubicados, 7 referencias, 2 POR
+  VERIFICAR. Total: 656 de 974 con punto (67 %), 186 referencias de calle
+  (19 %), 132 POR VERIFICAR (14 %; antes 166).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 

@@ -79,3 +79,18 @@ test('cruces: el resumen cuadra con el detalle', () => {
   assert.equal(estados.reduce((s, e) => s + resumen[e], 0), todos.length);
   for (const e of estados) assert.equal(resumen[e], todos.filter((c) => c.estado === e).length, e);
 });
+
+test('cruces: «SIN REFERENCIA» es casilla vacía de la lista, nunca parte de un nombre (20 nov 2026)', () => {
+  for (const c of todos) assert.doesNotMatch(c.texto, /SIN REFERENCIA/, `${c.ruta} #${c.orden}: ${c.texto}`);
+});
+
+test('cruces: alias «Jurica» = Av. Belisario Domínguez (D-43) pasa la prueba del mapa y nunca usa la Privada Jurica lejana', () => {
+  const jurica = todos.filter((c) => /JURICA/.test(c.texto));
+  const ubicados = jurica.filter((c) => c.estado === 'UBICADO');
+  assert.ok(ubicados.length >= 27, `solo ${ubicados.length} cruces de Jurica ubicados`);
+  for (const c of ubicados) {
+    assert.ok([c.osm_calle, c.osm_cruce].includes('Avenida Belisario Domínguez'), `${c.ruta} #${c.orden}`);
+    assert.match(c.evidencia, /se tocan en OSM/);
+  }
+  assert.ok(!jurica.some((c) => [c.osm_calle, c.osm_cruce].includes('Privada Jurica')));
+});

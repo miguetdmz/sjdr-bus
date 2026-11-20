@@ -64,7 +64,8 @@ const LUGAR = new Set(['PARQUE', 'PLAZA', 'PRIMARIA', 'SECUNDARIA', 'PREPARATORI
   'INSTITUTO', 'UNIDAD', 'HOSPITAL', 'CLINICA', 'IMSS', 'ISSSTE', 'TIENDA', 'OXXO', 'SORIANA', 'BODEGA',
   'MERCADO', 'IGLESIA', 'TEMPLO', 'PARROQUIA', 'CENTRO', 'GASOLINERA', 'FARMACIA', 'OFFICE', 'WALMART',
   'AURRERA', 'COPPEL', 'ELEKTRA', 'TELMEX', 'CFE', 'PANTEON', 'CAPILLA', 'JARDIN', 'DEPORTIVA', 'AUDITORIO',
-  'PRESIDENCIA', 'TERMINAL', 'FABRICA', 'EMPRESA', 'KINDER', 'JARDIN', 'CBTIS', 'CONALEP', 'COBAQ', 'UTSJR']);
+  'PRESIDENCIA', 'TERMINAL', 'FABRICA', 'EMPRESA', 'KINDER', 'JARDIN', 'CBTIS', 'CONALEP', 'COBAQ', 'UTSJR',
+  'MONUMENTO']);
 const sinAcentos = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '');
 const palabras = (s) => sinAcentos(s).toUpperCase().replace(/[°º]/g, '').replace(/[.,;:"'()#]/g, ' ')
   .split(/\s+/).filter(Boolean).map((w) => ABREV[w] ?? w);
@@ -226,6 +227,7 @@ const ALIAS_MIGUEL = {
   'PASEO CENTRAL': 'Avenida Central', // Miguel, 19 nov 2026, 10:05 pm
   INDEPENDENCIA: 'Avenida Juárez', // junto al Jardín Independencia; Miguel, 19 nov 2026, 10:10 pm
   'CARRETERA SAN JUAN DEL RIO': 'Avenida Central', // dentro de la ciudad; Miguel, 19 nov 2026, 10:12 pm
+  JURICA: 'Avenida Belisario Domínguez', // Miguel, 20 nov 2026, 12:47 am; única calle de OSM que toca Benito Juárez Ote., Fernando de Tapia y Av. Central
 };
 const aliasPorClave = new Map(Object.entries(ALIAS_MIGUEL).map(([k, v]) => [clave(k), v]));
 
@@ -401,6 +403,9 @@ function partido(c, repetidos) {
 }
 
 function separar(texto) {
+  // «SIN REFERENCIA» es la casilla vacía de referencia de la lista oficial, no
+  // parte de un nombre: aparece pegada antes o después de un cruce (R-03, 20 nov 2026).
+  texto = texto.replace(/\bSIN REFERENCIA\b/g, ' ').replace(/\s+/g, ' ').trim();
   const partes = texto.split('-');
   const repetidos = nombresRepetidos(partes);
   const n = partes.length;
