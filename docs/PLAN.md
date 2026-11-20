@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 1:02 am)
+## Estado actual (20 nov 2026, 1:46 am)
 
 | Bloque | Qué es | Estado |
 |---|---|---|
@@ -12,14 +12,36 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | B1 | Datos base del GTFS-SJR | **7 de 7.** Desde D-36/D-39/D-40 son **39 rutas** (37 urbanas + 2 intermunicipales): de baja 031, 024C y 018; la 044 volvió |
 | B2a | Mockup navegable (PWA, Vite + Leaflet) | **8 de 8.** M-05 a M-08 hechas por el turno (PR 2, inspector: **LIBERADO**, 20 nov 2026, 12:17 am). Falta integrarlo y verlo en el teléfono |
 | B2 | Primera pantalla publicable | Estilo D-30 **aplicado** (E-01) y menú lateral en computadora (E-02), EN REVISIÓN en el PR |
-| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de las 19 listas usables separados y ubicados: 670 de 974 con punto (69 %), 116 POR VERIFICAR (12 %) al 20 nov, 1:00 am. Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
+| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de las 19 listas usables separados y ubicados: 693 de 974 con punto (71 %), 196 referencias (20 %), 85 POR VERIFICAR (9 %) al 20 nov, 1:43 am. Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
 | B6 | Calcula tu ruta (D-15) | Sin iniciar |
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (20 nov 2026, 1:02 am)
+### Relevo para la siguiente sesión (20 nov 2026, 1:46 am)
+
+0. **Lo hecho en la sesión de la 1:25 a la 1:46 am del 20 nov (R-03, D-43):**
+   rumbo suelto («CALLE 5 PONIENTE C. CONSTITUYENTES»: 7 cruces nuevos con
+   punto); alias Uruguay = Cerrada de Uruguay en la 015B (8, tolerancia de 50 m
+   solo para ella, tabla `TOLERANCIA_MIGUEL`); Sierra Paracaima y Sierra
+   Tezonco son laterales de Lomas de San Juan (6 a REFERENCIA, tabla
+   `LATERALES_MIGUEL`; pista de sentido para el hallazgo c); la misma calle dos
+   veces seguidas se corta sin duda (8: 20 de Noviembre en la 046 y La Palma en
+   la 002). POR VERIFICAR: de 116 a 85. Pruebas de cruces: 16 de 16.
+1. **Siguiente en R-03:** 046 «C.MIGUEL HIDALGO-20 DE NOVIEMBRE PONIENTE
+   2-ÁLVARO OBREGÓN» (4 cruces; el corte puede ir antes o después de
+   «PONIENTE» y la 008, con el mismo texto, sí los ubica: arreglo de Claude con
+   evidencia). Después, recalcular el Pareto (`npm run cruces`) y seguir una
+   pregunta a la vez. Quedan POR VERIFICAR sin arreglo posible desde OSM:
+   Constituyentes con Calle Tres, 5 y 9 Poniente (OSM no las tiene con
+   nombre) y La Palma – Chabacano (no se tocan). Luego hallazgo b (negocios) y
+   hallazgo c (separar ida y vuelta; regla 10), cada uno con criterio medible.
+2. **Bandera:** queda en EN SESIÓN. La cola no tiene tareas APROBADA que el
+   turno pueda hacer (R-04 es de sesión de día; R-05 y R-06 esperan a R-03),
+   así que esta vez no se entrega ni se dispara el turno.
+
+### Relevo de la madrugada (20 nov 2026, 1:02 am)
 
 0. **Lo hecho en la sesión de la madrugada del 20 nov:** turno M-05 a M-08
    LIBERADO (PR 2); D-44 aprobada y aplicada (relevo por bandera,
