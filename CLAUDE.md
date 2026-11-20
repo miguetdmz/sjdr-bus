@@ -30,8 +30,9 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
 4. Iniciativa independiente: no usar la marca "Qrobús" como nombre de la app
    ni afirmar que la AMEQ/Qrobús opera las unidades de San Juan. Leyenda de
    iniciativa independiente visible. Sin escudo ni colores oficiales.
-5. Móvil primero: la primera pantalla es mapa + selector de ruta + sentido,
-   sin scroll y sin textos de reporte encima.
+5. Móvil primero: la primera pantalla es mapa + selector de ruta, sin scroll y
+   sin textos de reporte encima; el sentido aparece en cuanto se elige la ruta
+   (D-49, cambia HANDOFF §14).
 6. Mapa real o nada: Leaflet + OpenStreetMap con atribución visible. Cero
    Google (ni mapas, ni fuentes, ni geocodificación).
 7. OSRM, Nominatim y Overpass solo al **construir el dato**, con caché en el

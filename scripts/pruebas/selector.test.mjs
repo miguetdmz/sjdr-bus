@@ -37,7 +37,7 @@ test('selector: <select> nativo con <label> «Ruta» y estado inicial sin ruta',
 });
 
 test('sentido: control segmentado aparte, Ida (0) y Vuelta (1), operable con teclado', () => {
-  assert.match(html, /<fieldset class="sentido">\s*<legend>Sentido<\/legend>/);
+  assert.match(html, /<fieldset class="sentido"[^>]*>\s*<legend>Sentido<\/legend>/);
   const radios = [...html.matchAll(/<input type="radio" name="sentido" value="(\w+)"/g)].map((m) => m[1]);
   assert.deepEqual(radios, ['ida', 'vuelta']);
   // Botones de radio nativos: se recorren con Tab y flechas. Foco visible.

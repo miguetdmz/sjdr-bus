@@ -17,7 +17,7 @@ import L from 'leaflet';
 import { cargarDatos, type Ruta } from './datos';
 import { detalleRuta, type NombreSentido } from './detalle';
 import { gruposSelector } from './selector';
-import { ICONO_CALCULA, ICONO_CERRAR, ICONO_MENU, ICONO_PARADAS, ICONO_RUTAS } from './iconos';
+import { ICONO_CALCULA, ICONO_CERRAR, ICONO_MENU, ICONO_PARADAS, ICONO_RUTAS, PIN_PARADA } from './iconos';
 import { avisoCalcula } from './calcula';
 import { cargarParadas, fichaParada, type Parada } from './paradas';
 
@@ -41,8 +41,14 @@ L.control
 // --- Paradas de OpenStreetMap (M-05) -----------------------------------------
 
 const capaParadas = L.layerGroup();
-// Punto gris de 9 px dentro de un área de toque de 28 px.
-const iconoParada = L.divIcon({ className: 'parada-toque', html: '<span class="m-gris"></span>', iconSize: [28, 28] });
+// D-49: pin de parada con el camión de frente; la punta marca el lugar.
+const iconoParada = L.divIcon({
+  className: 'parada-toque',
+  html: PIN_PARADA,
+  iconSize: [30, 38],
+  iconAnchor: [15, 37],
+  popupAnchor: [0, -34],
+});
 
 function contenidoParada(p: Parada): HTMLElement {
   const f = fichaParada(p);
@@ -124,6 +130,7 @@ const verDetalle = document.querySelector<HTMLButtonElement>('#ver-detalle')!;
 const tituloHoja = document.querySelector<HTMLElement>('#hoja-titulo')!;
 const encabezado = document.querySelector<HTMLElement>('#encabezado-ruta')!;
 const segmento = document.querySelector<HTMLElement>('#segmento')!;
+const campoSentido = document.querySelector<HTMLFieldSetElement>('#sentido')!;
 const subIda = document.querySelector<HTMLElement>('#sub-ida')!;
 const subVuelta = document.querySelector<HTMLElement>('#sub-vuelta')!;
 
@@ -152,9 +159,16 @@ function sentidoElegido(): NombreSentido {
 }
 
 function alCambiar(): void {
+  const anterior = estado.ruta;
   estado.ruta = rutasPorId.get(selector.value) ?? null;
   estado.sentido = sentidoElegido();
   mostrarDetalle();
+  // D-49: al elegir una ruta nueva, el menú se abre solo en su detalle (sin
+  // mover el foco: el buscador y el sentido siguen a la mano dentro del menú).
+  if (estado.ruta && estado.ruta !== anterior) {
+    ponerModo('rutas');
+    ponerPanel(true, false);
+  }
 }
 
 // D-18: la ida sale del origen. «Origen – Destino» → Ida va hacia el destino y
@@ -196,9 +210,11 @@ function ponerEncabezado(ruta: Ruta): void {
 function mostrarDetalle(): void {
   ponerSubtitulos(estado.ruta);
   segmento.classList.toggle('apagado', !estado.ruta);
+  // D-49: el sentido aparece en cuanto hay ruta.
+  campoSentido.hidden = !estado.ruta;
   hoja.classList.toggle('con-ruta', !!estado.ruta);
   verDetalle.hidden = !estado.ruta || panelAbierto();
-  verDetalle.textContent = estado.ruta ? `Ver detalle de la ruta ${estado.ruta.numero}` : '';
+  verDetalle.textContent = estado.ruta ? 'Ver detalle' : '';
   if (!estado.ruta) {
     panel.replaceChildren();
     panel.hidden = true;
@@ -266,7 +282,7 @@ function panelAbierto(): boolean {
 
 const app = document.querySelector<HTMLElement>('.app')!;
 
-function ponerPanel(abierto: boolean): void {
+function ponerPanel(abierto: boolean, enfocar = true): void {
   hoja.classList.toggle('cerrada', !abierto);
   app.classList.toggle('menu-abierto', abierto);
   // En computadora el mapa se recorre para quedar completo junto al menú.
@@ -276,7 +292,7 @@ function ponerPanel(abierto: boolean): void {
   verDetalle.hidden = abierto || !estado.ruta;
   botonMenu.setAttribute('aria-expanded', String(abierto));
   verDetalle.setAttribute('aria-expanded', String(abierto));
-  if (abierto) cerrarMenu.focus({ preventScroll: true });
+  if (abierto && enfocar) cerrarMenu.focus({ preventScroll: true });
 }
 
 hoja.toggleAttribute('inert', true);

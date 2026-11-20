@@ -25,7 +25,9 @@ test.beforeEach(async ({ page }) => {
 
 test('primera pantalla: mapa + selector + sentido, sin scroll y sin texto de reporte', async ({ page }) => {
   const alto = page.viewportSize().height;
-  for (const sel of ['#mapa', '#ruta', '#segmento', '#boton-menu']) {
+  // D-49: la primera pantalla es mapa + selector; el sentido aparece con la ruta.
+  await expect(page.locator('#sentido')).toBeHidden();
+  for (const sel of ['#mapa', '#ruta', '#boton-menu']) {
     const caja = await page.locator(sel).boundingBox();
     expect(caja, sel).not.toBeNull();
     expect(caja.y + caja.height, `${sel} dentro de la pantalla`).toBeLessThanOrEqual(alto);
@@ -59,15 +61,22 @@ test('menú lateral (D-48): ☰ lo abre con el nombre; Esc y el velo lo cierran'
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(async () => {
     const hoja = await page.locator('#hoja').boundingBox();
-    for (const sel of ['#ruta', '#segmento']) {
-      const caja = await page.locator(sel).boundingBox();
-      expect(caja.x >= hoja.x && caja.x + caja.width <= hoja.x + hoja.width, `${sel} dentro del menú`).toBe(true);
-    }
+    const caja = await page.locator('#ruta').boundingBox();
+    expect(caja.x >= hoja.x && caja.x + caja.width <= hoja.x + hoja.width, '#ruta dentro del menú').toBe(true);
   }).toPass();
   await page.keyboard.press('Escape');
   await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
   await expect(page.locator('#boton-menu')).toHaveAttribute('aria-expanded', 'false');
-  await page.locator('#boton-menu').click();
+  // D-49: elegir la ruta abre solo el menú en su detalle, con el sentido a la mano.
+  await page.locator('#ruta').selectOption('U-001');
+  await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
+  await expect(page.locator('#detalle')).toBeVisible();
+  await expect(page.locator('#sentido')).toBeVisible();
+  await expect(async () => {
+    const hoja = await page.locator('#hoja').boundingBox();
+    const caja = await page.locator('#segmento').boundingBox();
+    expect(caja.x >= hoja.x && caja.x + caja.width <= hoja.x + hoja.width, '#segmento dentro del menú').toBe(true);
+  }).toPass();
   await expect(page.locator('#velo')).toBeVisible();
   // El menú sale por la izquierda: se toca el mapa velado a la derecha.
   await page.locator('#velo').click({ position: { x: 375, y: 400 } });
@@ -94,7 +103,7 @@ test(`selector: ${rutas.length} opciones en orden, agrupadas ${urbanas.length} +
   // Sin lista, rejilla ni tarjetas de rutas fuera del selector.
   await expect(page.locator('ul li, .tarjeta-ruta, [role="grid"]')).toHaveCount(0);
   // Áreas táctiles de al menos 44 px.
-  for (const sel of ['#ruta', '#segmento label:nth-child(1)', '#segmento label:nth-child(2)', '#boton-menu', '#control-paradas']) {
+  for (const sel of ['#ruta', '#boton-menu', '#control-paradas']) {
     const caja = await page.locator(sel).boundingBox();
     expect(Math.min(caja.width, caja.height), `${sel} mide al menos 44 px`).toBeGreaterThanOrEqual(44);
   }
@@ -126,9 +135,13 @@ test('detalle por sentido: la 001 vuelta 23 paradas / 16 min y la ida sus propia
   await expect(page.locator('#encabezado-ruta .insignia')).toHaveText(r001.numero);
   await expect(page.locator('#encabezado-ruta b')).toHaveText(r001.nombre);
   await captura(page, '2-ruta-001-vuelta-390');
-  // D-48: «Ver detalle» abre el menú lateral en el detalle, que se alcanza entero.
-  await page.locator('#ver-detalle').click();
+  // D-49: el menú ya se abrió solo en el detalle, que se alcanza entero; los
+  // botones del sentido miden al menos 44 px.
   await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
+  for (const sel of ['#segmento label:nth-child(1)', '#segmento label:nth-child(2)']) {
+    const caja = await page.locator(sel).boundingBox();
+    expect(Math.min(caja.width, caja.height), `${sel} mide al menos 44 px`).toBeGreaterThanOrEqual(44);
+  }
   await page.locator('#detalle').scrollIntoViewIfNeeded();
   await expect(page.locator('#detalle')).toBeInViewport();
   await expect(page.locator('#detalle dd').filter({ hasText: '16 min' })).toBeInViewport();
@@ -156,10 +169,18 @@ test('sin restos al cambiar de ruta, ni trazo en el mapa', async ({ page }) => {
   await expect(page.locator('#encabezado-ruta .insignia')).toHaveText(soloInventario.numero);
   // Nivel C: ninguna línea dibujada en el mapa (regla 8).
   await expect(page.locator('.leaflet-overlay-pane path')).toHaveCount(0);
-  // Quitar la ruta (dentro del menú) vuelve al inicio sin restos.
-  await page.locator('#ver-detalle').click();
+  // Quitar la ruta (dentro del menú, ya abierto) vuelve al inicio sin restos.
   await page.locator('#encabezado-ruta .cerrar').click();
   await expect(page.locator('#ver-detalle')).toBeHidden();
+  await expect(page.locator('#sentido')).toBeHidden();
+  await expect(page.locator('#hoja-titulo')).toBeVisible();
+  // Cerrado el menú, «Ver detalle» lo vuelve a abrir.
+  await page.locator('#ruta').selectOption('U-001');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#ver-detalle')).toHaveText('Ver detalle');
+  await page.locator('#ver-detalle').click();
+  await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
+  await page.locator('#encabezado-ruta .cerrar').click();
   await expect(page.locator('#detalle')).toBeHidden();
   await expect(page.locator('#hoja-titulo')).toBeVisible();
 });
@@ -167,6 +188,8 @@ test('sin restos al cambiar de ruta, ni trazo en el mapa', async ({ page }) => {
 test(`paradas de OpenStreetMap: ${paradas.length} puntos con su marca, y se ocultan`, async ({ page }) => {
   const puntos = page.locator('.parada-toque');
   await expect(puntos).toHaveCount(paradas.length);
+  // D-49: cada parada es un pin propio con el camión, no un punto gris.
+  await expect(page.locator('.parada-toque svg')).toHaveCount(paradas.length);
   await puntos.first().evaluate((e) => e.click());
   const ficha = page.locator('.ficha-parada');
   await expect(ficha).toContainText('POR VERIFICAR EN CAMPO');
@@ -192,7 +215,8 @@ test('«Calcula tu ruta»: solo un aviso, sin campos ni cálculo; «Rutas» vuel
   await expect(page.locator('#modo-rutas')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.locator('#ruta')).toBeVisible();
-  await expect(page.locator('#segmento')).toBeVisible();
+  // D-49: sin ruta elegida, el sentido no se muestra.
+  await expect(page.locator('#sentido')).toBeHidden();
 });
 
 test('sin tiempo calculado ni «en vivo» en ninguna pantalla', async ({ page }) => {
@@ -223,6 +247,7 @@ test.describe('computadora 1280 × 800', () => {
     await page.locator('#boton-menu').click();
     await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
     await expect(page.locator('#velo')).toBeHidden();
+    await page.locator('#ruta').selectOption('U-001');
     await expect(async () => {
       const hoja = await page.locator('#hoja').boundingBox();
       const mapa = await page.locator('#mapa').boundingBox();

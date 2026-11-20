@@ -1161,3 +1161,25 @@ Miguel).
 - **Impacta:** `web/index.html`, `web/src/main.ts`, `web/src/estilos.css`,
   `pruebas-navegador/b2a.spec.mjs`, `scripts/pruebas/app.test.mjs`,
   `scripts/pruebas/selector.test.mjs`, `docs/COLA-NOCTURNA.md` (E-03).
+
+## D-49 · 20 nov 2026 · El sentido aparece al elegir la ruta; el detalle se abre solo; pin de parada · VIGENTE
+- **Decisión (Miguel, 20 nov 2026, anotada a las 3:07 pm), al probar D-48:**
+  «actualizar la regla siempre es de sabios»: estos detalles salen conforme se
+  desarrolla y se prueba.
+- **Cambia la regla 5 (HANDOFF §14 y §11.8):** la primera pantalla es mapa +
+  selector de ruta, sin scroll. El control Ida / Vuelta **aparece en cuanto se
+  elige la ruta**, ya no se muestra apagado antes, porque sin ruta el sentido
+  no significa nada.
+- **El detalle se abre solo:** al elegir una ruta, el menú se despliega con su
+  detalle, el buscador y el sentido a la mano. El botón de abajo dice solo
+  «Ver detalle» y sirve para volver a abrirlo.
+- **Pin de parada:** las paradas de OpenStreetMap se dibujan con un pin propio
+  con el pictograma del camión de frente (referencia de Miguel: la señal de
+  parada de autobús en México). Color de la app (verde azulado de D-30), no el
+  azul de la señal, para no parecer señalización oficial (regla 4). Siguen
+  diciendo POR VERIFICAR EN CAMPO al tocarlas. Sustituye el punto gris de D-30.
+- **Queda FALTANTE:** mostrar la trayectoria al elegir el sentido. Llega con
+  B3 (R-03 a R-06); dibujarla antes sería inventarla (reglas 1 y 8).
+- **Decidió:** Miguel, 20 nov 2026.
+- **Impacta:** `CLAUDE.md` (regla 5), `web/`, `pruebas-navegador/b2a.spec.mjs`,
+  `scripts/pruebas/selector.test.mjs`, `scripts/pruebas/app.test.mjs`.

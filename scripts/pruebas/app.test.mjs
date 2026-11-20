@@ -48,7 +48,7 @@ test('app: sin franja de ejemplo y con la paleta D-30', () => {
     assert.ok(css.includes(c), c);
   }
   assert.match(css, /\.leaflet-tile-pane \{ filter: grayscale/);
-  assert.match(css, /\.m-gris/);
+  assert.match(css, /\.parada-toque svg/);
   assert.match(css, /\.pestanas/);
 });
 
@@ -78,4 +78,10 @@ test('app: selector, sentido y leyenda quedan fuera del menú lateral (regla 5, 
     assert.match(fuera, re, `${que} visible fuera del menú`);
   }
   assert.doesNotMatch(menu, /id="ruta"|class="sentido"/);
+});
+
+// D-49: el sentido empieza oculto y aparece solo con ruta elegida.
+test('app: el sentido empieza oculto y lo muestra la ruta elegida (D-49)', () => {
+  assert.match(html, /<fieldset class="sentido" id="sentido" hidden>/);
+  assert.match(main, /campoSentido\.hidden = !estado\.ruta/);
 });

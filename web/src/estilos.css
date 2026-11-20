@@ -299,3 +299,12 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .mapa { transition: none; }
 }
+
+/* D-49: el sentido aparece al elegir la ruta; sin ruta, el menú no reserva su lugar. */
+.sentido[hidden] { display: none; }
+.hoja:not(.con-ruta) .hoja-cuerpo { padding-top: 66px; }
+@media (min-width: 768px) {
+  .hoja:not(.con-ruta) .hoja-cuerpo { padding-top: 76px; }
+}
+/* D-49: pin de parada (sustituye el punto gris de D-30). */
+.parada-toque svg { display: block; filter: drop-shadow(0 2px 3px rgba(18, 38, 45, 0.35)); }
