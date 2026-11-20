@@ -96,9 +96,12 @@ test('detalle por sentido: la 001 vuelta 23 paradas / 16 min y la ida sus propia
   await expect(page.locator('#encabezado-ruta .insignia')).toHaveText(r001.numero);
   await expect(page.locator('#encabezado-ruta b')).toHaveText(r001.nombre);
   await captura(page, '2-ruta-001-vuelta-390');
-  // Con la hoja ampliada (asa) se ve el detalle completo.
+  // Con la hoja ampliada (asa) el detalle se alcanza (la altura exacta cambia con
+  // la letra del sistema: en GitHub Actions la letra de Linux es más alta).
   await page.locator('#asa').click();
-  await expect(page.locator('#detalle')).toBeInViewport({ ratio: 1 });
+  await page.locator('#detalle').scrollIntoViewIfNeeded();
+  await expect(page.locator('#detalle')).toBeInViewport();
+  await expect(page.locator('#detalle dd').filter({ hasText: '16 min' })).toBeInViewport();
   await captura(page, '2b-ruta-001-vuelta-ampliada-390');
 });
 
