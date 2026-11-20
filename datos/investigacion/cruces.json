@@ -22,12 +22,12 @@
  "resumen": {
   "rutas_con_lista_usable": 19,
   "cruces": 974,
-  "UBICADO": 674,
+  "UBICADO": 682,
   "UBICADO POR LUGAR": 3,
   "REFERENCIA": 190,
-  "CALLES SIN CRUCE EN OSM": 62,
+  "CALLES SIN CRUCE EN OSM": 54,
   "SIN UBICAR": 45,
-  "con_correccion": 280
+  "con_correccion": 288
  },
  "rutas": [
   {
@@ -5006,10 +5006,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 61,
    "conteo": {
-    "UBICADO": 44,
+    "UBICADO": 52,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 5,
-    "CALLES SIN CRUCE EN OSM": 11,
+    "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -5108,18 +5108,30 @@
      "texto": "VERACRUZ-URUGUAY",
      "calle": "VERACRUZ",
      "cruce_con": "URUGUAY",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.39955,
+     "lon": -99.95929,
      "osm_calle": "Calle Veracruz",
-     "nota": "las dos calles existen en OSM («Calle Veracruz», «Calle Uruguay») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Cerrada de Uruguay",
+     "evidencia": "las dos calles se tocan en OSM (31 m), dentro del corredor de la ruta; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)",
+     "correcciones": [
+      "alias de Miguel (D-43): «URUGUAY» → «Cerrada de Uruguay»"
+     ]
     },
     {
      "orden": 10,
      "texto": "URUGUAY-FRANCIA",
      "calle": "URUGUAY",
      "cruce_con": "FRANCIA",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Uruguay",
-     "nota": "las dos calles existen en OSM («Calle Uruguay», «Avenida Francia») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39989,
+     "lon": -99.95934,
+     "osm_calle": "Cerrada de Uruguay",
+     "osm_cruce": "Avenida Francia",
+     "evidencia": "las dos calles se tocan en OSM (44 m), dentro del corredor de la ruta; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)",
+     "correcciones": [
+      "alias de Miguel (D-43): «URUGUAY» → «Cerrada de Uruguay»"
+     ]
     },
     {
      "orden": 11,
@@ -5138,18 +5150,30 @@
      "texto": "FRANCIA-URUGUAY",
      "calle": "FRANCIA",
      "cruce_con": "URUGUAY",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.39989,
+     "lon": -99.95934,
      "osm_calle": "Avenida Francia",
-     "nota": "las dos calles existen en OSM («Avenida Francia», «Calle Uruguay») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Cerrada de Uruguay",
+     "evidencia": "las dos calles se tocan en OSM (44 m), dentro del corredor de la ruta; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)",
+     "correcciones": [
+      "alias de Miguel (D-43): «URUGUAY» → «Cerrada de Uruguay»"
+     ]
     },
     {
      "orden": 13,
      "texto": "URUGUAY-VERACRUZ",
      "calle": "URUGUAY",
      "cruce_con": "VERACRUZ",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Uruguay",
-     "nota": "las dos calles existen en OSM («Calle Uruguay», «Calle Veracruz») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39955,
+     "lon": -99.95929,
+     "osm_calle": "Cerrada de Uruguay",
+     "osm_cruce": "Calle Veracruz",
+     "evidencia": "las dos calles se tocan en OSM (31 m), dentro del corredor de la ruta; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)",
+     "correcciones": [
+      "alias de Miguel (D-43): «URUGUAY» → «Cerrada de Uruguay»"
+     ]
     },
     {
      "orden": 14,
@@ -5639,18 +5663,30 @@
      "texto": "VERACRUZ-URUGUAY",
      "calle": "VERACRUZ",
      "cruce_con": "URUGUAY",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.39955,
+     "lon": -99.95929,
      "osm_calle": "Calle Veracruz",
-     "nota": "las dos calles existen en OSM («Calle Veracruz», «Calle Uruguay») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Cerrada de Uruguay",
+     "evidencia": "las dos calles se tocan en OSM (31 m), dentro del corredor de la ruta; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)",
+     "correcciones": [
+      "alias de Miguel (D-43): «URUGUAY» → «Cerrada de Uruguay»"
+     ]
     },
     {
      "orden": 53,
      "texto": "URUGUAY-FRANCIA",
      "calle": "URUGUAY",
      "cruce_con": "FRANCIA",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Uruguay",
-     "nota": "las dos calles existen en OSM («Calle Uruguay», «Avenida Francia») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39989,
+     "lon": -99.95934,
+     "osm_calle": "Cerrada de Uruguay",
+     "osm_cruce": "Avenida Francia",
+     "evidencia": "las dos calles se tocan en OSM (44 m), dentro del corredor de la ruta; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)",
+     "correcciones": [
+      "alias de Miguel (D-43): «URUGUAY» → «Cerrada de Uruguay»"
+     ]
     },
     {
      "orden": 54,
@@ -5669,18 +5705,30 @@
      "texto": "FRANCIA-URUGUAY",
      "calle": "FRANCIA",
      "cruce_con": "URUGUAY",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.39989,
+     "lon": -99.95934,
      "osm_calle": "Avenida Francia",
-     "nota": "las dos calles existen en OSM («Avenida Francia», «Calle Uruguay») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Cerrada de Uruguay",
+     "evidencia": "las dos calles se tocan en OSM (44 m), dentro del corredor de la ruta; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)",
+     "correcciones": [
+      "alias de Miguel (D-43): «URUGUAY» → «Cerrada de Uruguay»"
+     ]
     },
     {
      "orden": 56,
      "texto": "URUGUAY-VERACRUZ",
      "calle": "URUGUAY",
      "cruce_con": "VERACRUZ",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Uruguay",
-     "nota": "las dos calles existen en OSM («Calle Uruguay», «Calle Veracruz») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39955,
+     "lon": -99.95929,
+     "osm_calle": "Cerrada de Uruguay",
+     "osm_cruce": "Calle Veracruz",
+     "evidencia": "las dos calles se tocan en OSM (31 m), dentro del corredor de la ruta; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)",
+     "correcciones": [
+      "alias de Miguel (D-43): «URUGUAY» → «Cerrada de Uruguay»"
+     ]
     },
     {
      "orden": 57,

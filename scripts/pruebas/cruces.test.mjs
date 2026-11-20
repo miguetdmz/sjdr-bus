@@ -34,7 +34,12 @@ test('cruces: todo punto UBICADO trae las dos calles de OSM y su evidencia', () 
     assert.ok(nombresOsm.has(c.osm_calle) && nombresOsm.has(c.osm_cruce), `${id}: calle que no está en OSM`);
     assert.notEqual(c.osm_calle, c.osm_cruce, id);
     assert.match(c.evidencia, /se tocan en OSM \((\d+) m\)/, id);
-    assert.ok(Number(c.evidencia.match(/\((\d+) m\)/)[1]) <= 30, `${id}: cruce a más de 30 m`);
+    // única excepción: calle que OSM dibuja corta y Miguel confirmó (D-43), hasta 50 m y dicho en la evidencia
+    const m = Number(c.evidencia.match(/\((\d+) m\)/)[1]);
+    if (m > 30) {
+      assert.ok([c.osm_calle, c.osm_cruce].includes('Cerrada de Uruguay') && m <= 50, `${id}: cruce a más de 30 m`);
+      assert.match(c.evidencia, /Miguel confirmó que llega \(D-43\)/, id);
+    }
   }
 });
 
@@ -128,4 +133,15 @@ test('cruces: un rumbo suelto («PONIENTE», «ORIENTE») se queda con el nombre
   for (const c of ok) assert.equal(c.osm_calle, 'Avenida Constituyentes');
   // y «PONIENTE 2» (Avenida Dos Poniente, escrita al revés) sigue sirviendo
   assert.ok(todos.some((c) => /^(PONIENTE )?2-ÁLVARO OBREGÓN$/.test(c.texto) && c.osm_calle === 'Avenida Dos Poniente'));
+});
+
+test('cruces: «Uruguay» de la 015B = Cerrada de Uruguay entre Veracruz y Av. Francia (Miguel, D-43), nunca la Calle Uruguay lejana', () => {
+  const u = todos.filter((c) => c.ruta === '015B' && /URUGUAY/.test(c.texto));
+  assert.equal(u.length, 8);
+  for (const c of u) {
+    assert.equal(c.estado, 'UBICADO', `#${c.orden}`);
+    assert.ok([c.osm_calle, c.osm_cruce].includes('Cerrada de Uruguay'), `#${c.orden}`);
+    assert.ok(Math.abs(c.lat - 20.3997) < 0.001 && Math.abs(c.lon + 99.9593) < 0.001, `#${c.orden}: fuera de la cerrada`);
+  }
+  assert.ok(!todos.some((c) => [c.osm_calle, c.osm_cruce].includes('Calle Uruguay')));
 });

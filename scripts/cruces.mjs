@@ -34,6 +34,9 @@ const extremosRutas = leer('datos/investigacion/extremos.json').rutas;
 const extremosFinales = leer('datos/investigacion/extremos-finales.json').lugares;
 
 const UMBRAL_CRUCE_M = 30; // dos calles «se tocan» si sus trazos quedan a ≤ 30 m (ESTIMADO)
+// Calles que OSM dibuja más cortas de lo que son, confirmadas por Miguel (D-43):
+// para ellas el umbral sube, y la evidencia dice la distancia real.
+const TOLERANCIA_MIGUEL = { 'Cerrada de Uruguay': 50 }; // Miguel, 20 nov 2026, 1:39 am (a 31 m de Veracruz y 47 m de Av. Francia)
 const UMBRAL_LUGAR_M = 300; // un lugar de OSM cuenta para el cruce si queda a ≤ 300 m de la calle
 
 // ---------- normalización de nombres ----------
@@ -192,6 +195,7 @@ function crucesEntre(c1, c2) {
   const k = c1.nombre < c2.nombre ? `${c1.nombre}|${c2.nombre}` : `${c2.nombre}|${c1.nombre}`;
   if (memoCruce.has(k)) return memoCruce.get(k);
   const puntos = [];
+  const umbral = Math.max(UMBRAL_CRUCE_M, TOLERANCIA_MIGUEL[c1.nombre] ?? 0, TOLERANCIA_MIGUEL[c2.nombre] ?? 0);
   for (const [ck, idx1] of c1.celdas) {
     for (const vk of vecinas(ck)) {
       const idx2 = c2.celdas.get(vk);
@@ -200,7 +204,7 @@ function crucesEntre(c1, c2) {
         const s1 = c1.segs[i], s2 = c2.segs[j];
         for (const [p, s] of [[s1[0], s2], [s1[1], s2], [s2[0], s1], [s2[1], s1]]) {
           const { d, q } = distPuntoSeg(p, s);
-          if (d <= UMBRAL_CRUCE_M) puntos.push({ d, p: [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2] });
+          if (d <= umbral) puntos.push({ d, p: [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2] });
         }
       }
     }
@@ -232,6 +236,7 @@ const ALIAS_MIGUEL = {
   INDEPENDENCIA: 'Avenida Juárez', // junto al Jardín Independencia; Miguel, 19 nov 2026, 10:10 pm
   'CARRETERA SAN JUAN DEL RIO': 'Avenida Central', // dentro de la ciudad; Miguel, 19 nov 2026, 10:12 pm
   JURICA: 'Avenida Belisario Domínguez', // Miguel, 20 nov 2026, 12:47 am; única calle de OSM que toca Benito Juárez Ote., Fernando de Tapia y Av. Central
+  URUGUAY: 'Cerrada de Uruguay', // une Veracruz con Av. Francia (ruta 015B); Miguel, 20 nov 2026, 1:39 am
 };
 const aliasPorClave = new Map(Object.entries(ALIAS_MIGUEL).map(([k, v]) => [clave(k), v]));
 // Continuaciones confirmadas por Miguel: la calle sigue con otro nombre en OSM.
@@ -562,7 +567,8 @@ function ubicar(pares, numero) {
       return {
         ...base, estado: 'UBICADO', lat: Number(par.x.p[0].toFixed(5)), lon: Number(par.x.p[1].toFixed(5)),
         osm_calle: par.a.calle.nombre, osm_cruce: par.b.calle.nombre,
-        evidencia: `las dos calles se tocan en OSM (${Math.round(par.x.d)} m), dentro del corredor de la ruta`,
+        evidencia: `las dos calles se tocan en OSM (${Math.round(par.x.d)} m), dentro del corredor de la ruta`
+          + (par.x.d > UMBRAL_CRUCE_M ? '; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)' : ''),
         correcciones: correcciones.length ? correcciones : undefined,
       };
     }

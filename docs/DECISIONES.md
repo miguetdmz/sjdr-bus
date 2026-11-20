@@ -684,6 +684,7 @@ Miguel).
   | Jurica | Avenida Belisario Domínguez | Miguel, 20 nov 2026, 12:47 am |
   | Av. Río Moctezuma (al llegar a la Av. Central) | sigue como Calle General Francisco Villa (continuación, no reemplazo) | Miguel, 20 nov 2026, 12:55 am |
   | Sagitario (sobre la Av. Hidalgo, en el centro) | es un **negocio**, no una calle (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 1:00 am |
+  | Uruguay (ruta 015B, entre Veracruz y Av. Francia) | Cerrada de Uruguay (OSM la dibuja corta: queda a 31 m de Veracruz y 44 m de Av. Francia; tolerancia de 50 m solo para ella) | Miguel, 20 nov 2026, 1:39 am |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
   pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
   ruta); si no, el cruce sigue POR VERIFICAR.
@@ -733,6 +734,14 @@ Miguel).
   Poniente (6 cruces): OSM no tiene esas calles con nombre junto a la Av.
   Constituyentes (sí tiene Uno, Dos, 4 Poniente y 8 Oriente). No se
   interpolan (D-41).
+- **Uruguay (20 nov 2026, 1:39 am):** la «Calle Uruguay» de OSM está a 10 km,
+  en otra localidad. En el circuito de la 015B (Veracruz → Uruguay → Francia →
+  Brasil) OSM solo tiene la «Cerrada de Uruguay», de unos 40 m, a 31 m de
+  Veracruz y 44 m de Av. Francia. Miguel confirmó que es esa y que sí une las
+  dos calles. Tabla `TOLERANCIA_MIGUEL`: para esa calle el umbral sube de 30 a
+  50 m y la evidencia de cada cruce dice la distancia real. Efecto: 8 cruces
+  nuevos con punto, ninguno movido ni perdido. Total: 685 de 974 con punto
+  (70 %), 190 referencias (20 %), 99 POR VERIFICAR (10 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 
