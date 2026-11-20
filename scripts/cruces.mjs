@@ -238,7 +238,12 @@ const ALIAS_MIGUEL = {
   JURICA: 'Avenida Belisario Domínguez', // Miguel, 20 nov 2026, 12:47 am; única calle de OSM que toca Benito Juárez Ote., Fernando de Tapia y Av. Central
   URUGUAY: 'Cerrada de Uruguay', // une Veracruz con Av. Francia (ruta 015B); Miguel, 20 nov 2026, 1:39 am
   'MEXICAN FEDERAL HWY 120': 'San Juan del Río - Xilitla', // Carretera Federal 120 (ruta 032); Miguel, 20 nov 2026, 2:25 am
+  // el Walmart del km 3.2 está sobre el Paseo Central (009B, 016 y 030); Miguel, 20 nov 2026, 2:34 am
+  'CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2': 'Avenida Central',
 };
+// Nombres que traen su propio guion, confirmados por Miguel: el guion se cambia
+// por una raya (–) para que no se tome como separador de cruces.
+const UNIDOS_MIGUEL = ['CARRETERA SAN JUAN DEL RÍO-TEQUISQUIAPAN']; // Miguel, 20 nov 2026, 2:34 am
 const aliasPorClave = new Map(Object.entries(ALIAS_MIGUEL).map(([k, v]) => [clave(k), v]));
 // Continuaciones confirmadas por Miguel: la calle sigue con otro nombre en OSM.
 // No reemplazan al nombre original: se agregan como opción y solo ganan si
@@ -402,7 +407,10 @@ function nombresRepetidos(partes) {
 // Negocios que Miguel confirmó (no son calles). Una calle de OSM con el mismo
 // nombre exacto sigue valiendo en otro barrio («Calle Sagitario», colonia de
 // los signos): solo se descarta la búsqueda aproximada.
-const NEGOCIOS_MIGUEL = new Set(['SAGITARIO']); // sobre la Av. Hidalgo, en el centro; Miguel, 20 nov 2026, 1:00 am
+const NEGOCIOS_MIGUEL = new Set([
+  'SAGITARIO', // sobre la Av. Hidalgo, en el centro; Miguel, 20 nov 2026, 1:00 am
+  'WALMART', // km 3.2 de la carretera a Tequisquiapan, sobre el Paseo Central; Miguel, 20 nov 2026, 2:34 am
+]);
 const esLugar = (texto) => LUGAR.has(palabras(texto)[0]) || NEGOCIOS_MIGUEL.has(clave(texto));
 // Un negocio o lugar («PLAZA MORELOS», «PARQUE LAS GARZAS») solo se toma como
 // calle si OSM tiene una calle con ese nombre exacto.
@@ -471,6 +479,7 @@ function separar(texto) {
   // «SIN REFERENCIA» es la casilla vacía de referencia de la lista oficial, no
   // parte de un nombre: aparece pegada antes o después de un cruce (R-03, 20 nov 2026).
   texto = texto.replace(/\bSIN REFERENCIA\b/g, ' ').replace(/\s+/g, ' ').trim();
+  for (const u of UNIDOS_MIGUEL) texto = texto.split(u).join(u.replace('-', '–'));
   const partes = texto.split('-');
   const repetidos = nombresRepetidos(partes);
   const n = partes.length;

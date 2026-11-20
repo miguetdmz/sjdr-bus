@@ -687,6 +687,7 @@ Miguel).
   | Sierra Paracaima y Sierra Tezonco (con la Av. Lomas de San Juan) | **laterales** de la avenida, no cruces: Paracaima del lado oriente, Tezonco del poniente (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 1:41 am |
   | Uruguay (ruta 015B, entre Veracruz y Av. Francia) | Cerrada de Uruguay (OSM la dibuja corta: queda a 31 m de Veracruz y 44 m de Av. Francia; tolerancia de 50 m solo para ella) | Miguel, 20 nov 2026, 1:39 am |
   | Mexican Federal Hwy 120 (ruta 032) | San Juan del Río - Xilitla (Carretera Federal 120) | Miguel, 20 nov 2026, 2:25 am |
+  | Carretera San Juan del Río-Tequisquiapan km 3.2 – Walmart (009B, 016 y 030) | una sola parada: el Walmart (negocio) sobre el Paseo Central = Avenida Central (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 2:34 am |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
   pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
   ruta); si no, el cruce sigue POR VERIFICAR.
@@ -837,6 +838,17 @@ Miguel).
   casos (Romero Soto, que difiere en 10 m, y Hacienda Los Arrayanes –
   Hacienda Piedras Negras en la 022 y la 039, a 330 m). Total: 685 de 939 con
   punto (73 %), 187 referencias (20 %), 67 POR VERIFICAR (7 %).
+- **Walmart del km 3.2 (Miguel, 20 nov 2026, 2:34 am):** en «…CARRETERA SAN
+  JUAN DEL RÍO-TEQUISQUIAPAN KM 3.2-WALMART…» el primer guion es parte del
+  nombre de la carretera, así que el programa partía una sola parada en dos
+  cruces POR VERIFICAR. Miguel confirmó que ese Walmart está sobre el Paseo
+  Central. Tabla `UNIDOS_MIGUEL`: el guion de ese nombre se cambia por una
+  raya (–) antes de separar; la parada queda como REFERENCIA sobre la Avenida
+  Central (Walmart no está en OSM, tabla `NEGOCIOS_MIGUEL`). Efecto: en la
+  009B, la 016 y la 030, dos POR VERIFICAR se vuelven una REFERENCIA (3 cruces
+  menos en total); ningún punto nuevo, movido ni perdido (comparado por texto,
+  porque el orden se recorre un lugar). Total: 685 de 936 con punto (73 %),
+  190 referencias (20 %), 61 POR VERIFICAR (7 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 

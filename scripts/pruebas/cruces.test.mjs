@@ -224,3 +224,11 @@ test('cruces: Matamoros sigue como Calle Fundadores hasta la Av. Hidalgo; la mis
   const ag = todos.find((c) => c.ruta === '039' && c.texto === 'AGUÍLA AFRICANA-AGUÍLA BLANCA');
   assert.equal(ag.osm_calle, 'Calle Águila Africana');
 });
+
+test('cruces: «CARRETERA SAN JUAN DEL RÍO-TEQUISQUIAPAN KM 3.2-WALMART» es una sola parada: el Walmart sobre el Paseo Central (Miguel, D-43), sin punto propio', () => {
+  for (const ruta of ['009B', '016', '030']) {
+    const w = todos.filter((c) => c.ruta === ruta && /WALMART|TEQUISQUIAPAN/.test(c.texto));
+    assert.equal(w.length, 1, `${ruta}: el guion de la carretera no debe partir la parada en dos`);
+    assert.deepEqual([w[0].texto, w[0].estado, w[0].osm_calle, w[0].lat], ['CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2-WALMART', 'REFERENCIA', 'Avenida Central', undefined], ruta);
+  }
+});

@@ -21,12 +21,12 @@
  ],
  "resumen": {
   "rutas_con_lista_usable": 18,
-  "cruces": 939,
+  "cruces": 936,
   "UBICADO": 682,
   "UBICADO POR LUGAR": 3,
-  "REFERENCIA": 187,
-  "CALLES SIN CRUCE EN OSM": 45,
-  "SIN UBICAR": 22,
+  "REFERENCIA": 190,
+  "CALLES SIN CRUCE EN OSM": 42,
+  "SIN UBICAR": 19,
   "con_correccion": 290
  },
  "rutas": [
@@ -2926,13 +2926,13 @@
    "numero": "009B",
    "nombre": "Fracc. La Rueda – Centro",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 45,
+   "total": 44,
    "conteo": {
     "UBICADO": 28,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 10,
-    "CALLES SIN CRUCE EN OSM": 5,
-    "SIN UBICAR": 2
+    "REFERENCIA": 11,
+    "CALLES SIN CRUCE EN OSM": 4,
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -3343,23 +3343,15 @@
     },
     {
      "orden": 35,
-     "texto": "CARRETERA SAN JUAN DEL RÍO-TEQUISQUIAPAN",
-     "calle": "CARRETERA SAN JUAN DEL RÍO",
-     "cruce_con": "TEQUISQUIAPAN",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "texto": "CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2-WALMART",
+     "calle": "CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2",
+     "cruce_con": "WALMART",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Hacienda Tequisquiapan») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 36,
-     "texto": "KM 3.2-WALMART",
-     "calle": "KM 3.2",
-     "cruce_con": "WALMART",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
-    },
-    {
-     "orden": 37,
      "texto": "PASEO CENTRAL-CAMINO A SANTA CRUZ",
      "calle": "PASEO CENTRAL",
      "cruce_con": "CAMINO A SANTA CRUZ",
@@ -3375,7 +3367,7 @@
      ]
     },
     {
-     "orden": 38,
+     "orden": 37,
      "texto": "PASEO CENTRAL-CALLE 7 ORIENTE",
      "calle": "PASEO CENTRAL",
      "cruce_con": "CALLE 7 ORIENTE",
@@ -3384,7 +3376,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 39,
+     "orden": 38,
      "texto": "CARR. MÉXICO 120-AV. 8 ORIENTE",
      "calle": "CARR. MÉXICO 120",
      "cruce_con": "AV. 8 ORIENTE",
@@ -3392,7 +3384,7 @@
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
-     "orden": 40,
+     "orden": 39,
      "texto": "PASEO CENTRAL-CONDUMEX",
      "calle": "PASEO CENTRAL",
      "cruce_con": "CONDUMEX",
@@ -3401,7 +3393,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 41,
+     "orden": 40,
      "texto": "BENITO JUÁREZ-FELIPE MÁRQUEZ",
      "calle": "BENITO JUÁREZ",
      "cruce_con": "FELIPE MÁRQUEZ",
@@ -3413,7 +3405,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 42,
+     "orden": 41,
      "texto": "BENITO JUÁREZ-FERNANDO DE TAPIA",
      "calle": "BENITO JUÁREZ",
      "cruce_con": "FERNANDO DE TAPIA",
@@ -3425,7 +3417,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 43,
+     "orden": 42,
      "texto": "BENITO JUÁREZ-VICENTE SUÁREZ",
      "calle": "BENITO JUÁREZ",
      "cruce_con": "VICENTE SUÁREZ",
@@ -3437,7 +3429,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 44,
+     "orden": 43,
      "texto": "BENITO JUÁREZ-NIÑOZ HÉROES",
      "calle": "BENITO JUÁREZ",
      "cruce_con": "NIÑOZ HÉROES",
@@ -3452,7 +3444,7 @@
      ]
     },
     {
-     "orden": 45,
+     "orden": 44,
      "texto": "BENITO JUÁREZ-20 DE NOVIEMBRE",
      "calle": "BENITO JUÁREZ",
      "cruce_con": "20 DE NOVIEMBRE",
@@ -5823,13 +5815,13 @@
    "numero": "016",
    "nombre": "Infonavit La Paz – Centro",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 44,
+   "total": 43,
    "conteo": {
     "UBICADO": 32,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 9,
-    "CALLES SIN CRUCE EN OSM": 2,
-    "SIN UBICAR": 1
+    "REFERENCIA": 10,
+    "CALLES SIN CRUCE EN OSM": 1,
+    "SIN UBICAR": 0
    },
    "cruces": [
     {
@@ -6264,23 +6256,15 @@
     },
     {
      "orden": 36,
-     "texto": "CARRETERA SAN JUAN DEL RÍO-TEQUISQUIAPAN",
-     "calle": "CARRETERA SAN JUAN DEL RÍO",
-     "cruce_con": "TEQUISQUIAPAN",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "texto": "CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2-WALMART",
+     "calle": "CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2",
+     "cruce_con": "WALMART",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Hacienda Tequisquiapan») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 37,
-     "texto": "KM 3.2-WALMART",
-     "calle": "KM 3.2",
-     "cruce_con": "WALMART",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
-    },
-    {
-     "orden": 38,
      "texto": "JACARANDAS-CHIRIMOYA",
      "calle": "JACARANDAS",
      "cruce_con": "CHIRIMOYA",
@@ -6292,7 +6276,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 39,
+     "orden": 38,
      "texto": "C. CHIRIMOYA-PROL. PALMAS",
      "calle": "C. CHIRIMOYA",
      "cruce_con": "PROL. PALMAS",
@@ -6304,7 +6288,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 40,
+     "orden": 39,
      "texto": "PALMAS-EL ROBLE",
      "calle": "PALMAS",
      "cruce_con": "EL ROBLE",
@@ -6316,7 +6300,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 41,
+     "orden": 40,
      "texto": "C. CENTRAL-BENITO JUÁREZ",
      "calle": "C. CENTRAL",
      "cruce_con": "BENITO JUÁREZ",
@@ -6328,7 +6312,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 42,
+     "orden": 41,
      "texto": "C. CENTRAL-MIGUEL HIDALGO",
      "calle": "C. CENTRAL",
      "cruce_con": "MIGUEL HIDALGO",
@@ -6343,7 +6327,7 @@
      ]
     },
     {
-     "orden": 43,
+     "orden": 42,
      "texto": "MIGUEL HIDALGO-PRIV. EMILIANO ZAPATA",
      "calle": "MIGUEL HIDALGO",
      "cruce_con": "PRIV. EMILIANO ZAPATA",
@@ -6355,7 +6339,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 44,
+     "orden": 43,
      "texto": "MIGUEL HIDALGO-PRIV. EMILIANO ZAPATA",
      "calle": "MIGUEL HIDALGO",
      "cruce_con": "PRIV. EMILIANO ZAPATA",
@@ -8078,13 +8062,13 @@
    "numero": "030",
    "nombre": "Infonavit La Paz – Central de Autobuses",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 65,
+   "total": 64,
    "conteo": {
     "UBICADO": 43,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 18,
-    "CALLES SIN CRUCE EN OSM": 3,
-    "SIN UBICAR": 1
+    "REFERENCIA": 19,
+    "CALLES SIN CRUCE EN OSM": 2,
+    "SIN UBICAR": 0
    },
    "cruces": [
     {
@@ -8778,23 +8762,15 @@
     },
     {
      "orden": 58,
-     "texto": "CARRETERA SAN JUAN DEL RÍO-TEQUISQUIAPAN",
-     "calle": "CARRETERA SAN JUAN DEL RÍO",
-     "cruce_con": "TEQUISQUIAPAN",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "texto": "CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2-WALMART",
+     "calle": "CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2",
+     "cruce_con": "WALMART",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Hacienda Tequisquiapan») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 59,
-     "texto": "KM 3.2-WALMART",
-     "calle": "KM 3.2",
-     "cruce_con": "WALMART",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
-    },
-    {
-     "orden": 60,
      "texto": "JACARANDAS-CHIRIMOYA",
      "calle": "JACARANDAS",
      "cruce_con": "CHIRIMOYA",
@@ -8806,7 +8782,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 61,
+     "orden": 60,
      "texto": "C. CHIRIMOYA-PROL. PALMAS",
      "calle": "C. CHIRIMOYA",
      "cruce_con": "PROL. PALMAS",
@@ -8818,7 +8794,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 62,
+     "orden": 61,
      "texto": "PALMAS-EL ROBLE",
      "calle": "PALMAS",
      "cruce_con": "EL ROBLE",
@@ -8830,7 +8806,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 63,
+     "orden": 62,
      "texto": "C. CENTRAL-BENITO JUÁREZ",
      "calle": "C. CENTRAL",
      "cruce_con": "BENITO JUÁREZ",
@@ -8842,7 +8818,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 64,
+     "orden": 63,
      "texto": "C. CENTRAL-MIGUEL HIDALGO",
      "calle": "C. CENTRAL",
      "cruce_con": "MIGUEL HIDALGO",
@@ -8857,7 +8833,7 @@
      ]
     },
     {
-     "orden": 65,
+     "orden": 64,
      "texto": "MIGUEL HIDALGO-PRIV. EMILIANO ZAPATA",
      "calle": "MIGUEL HIDALGO",
      "cruce_con": "PRIV. EMILIANO ZAPATA",
