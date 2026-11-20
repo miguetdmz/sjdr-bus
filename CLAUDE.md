@@ -55,22 +55,27 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
 - Pedir permiso antes de hacer push, crear repositorios, desplegar o
   publicar algo.
 
-## Turno nocturno (trabajo autónomo, D-10, D-12, D-13, D-20)
-- **El turno arranca donde se quedó Miguel (D-20).** Miguel trabaja hasta las
-  11:30 pm. Antes de esa hora la sesión del día hace el **relevo de turno**:
-  commit, rama subida a GitHub con su PR en borrador, y `docs/PLAN.md` y
-  `docs/COLA-NOCTURNA.md` al día con las tareas APROBADA. Lo que no está
+## Turno nocturno (trabajo autónomo, D-10, D-12, D-13, D-20, D-44)
+- **Relevo por bandera (D-44).** Miguel trabaja sin hora fija de cierre. Al
+  cerrar, la sesión del día hace el **relevo de turno**: commit, rama subida a
+  GitHub con su PR en borrador, `docs/PLAN.md` y `docs/COLA-NOCTURNA.md` al día
+  con las tareas APROBADA y, en el último commit, `docs/RELEVO.md` en
+  **ENTREGADO**. Si son las 6:00 pm o después, dispara el turno al momento
+  (RemoteTrigger `run` de `trig_01TQ5dA2RtFfQaYGVmwgvYJY`). Lo que no está
   subido a GitHub, el turno no lo ve.
-- 11:30 pm: el turno sale de la rama abierta más reciente (la del día o la
-  de la noche anterior; si no hay, de `main`) y toma en orden las tareas
-  **APROBADA** del bloque activo de `docs/COLA-NOCTURNA.md`, un commit por
-  tarea; no empieza tareas después de las 4:30 am y cierra antes de las
-  5:00 am.
+- El turno sale de la rama abierta más reciente (la del día o la de la noche
+  anterior; si no hay, de `main`), solo si su bandera dice ENTREGADO para esa
+  noche, y toma en orden las tareas **APROBADA** del bloque activo de
+  `docs/COLA-NOCTURNA.md`, un commit por tarea. Respaldo: se asoma cada hora de
+  11:39 pm a 3:39 am. No empieza tareas después de las 4:30 am y cierra antes
+  de las 5:00 am.
 - Una rama y un PR en **borrador** por noche (`noche/AAAA-MM-DD`, con la
-  fecha de la mañana en que termina), nunca en `main`. Las reglas completas
-  están en la cola.
-- 5:15 am: el inspector revisa el PR y deja LIBERADO o RETENIDO con el
-  reporte para Miguel.
+  fecha de la mañana en que termina), nunca en `main`. Al terminar marca
+  **TURNO TERMINADO** en `docs/RELEVO.md`. Las reglas completas están en la
+  cola.
+- El inspector se asoma cada hora de 12:15 a 5:15 am: revisa el PR en cuanto
+  ve TURNO TERMINADO (un comentario por commit) y deja LIBERADO o RETENIDO con
+  el reporte para Miguel. A las 5:15 am revisa lo que haya.
 - Nunca integra, publica, despliega ni gasta. Si una tarea exige una
   decisión de Miguel, se detiene y la deja anotada en el PR.
 

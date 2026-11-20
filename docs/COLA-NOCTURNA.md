@@ -2,8 +2,9 @@
 
 El turno nocturno (D-10, D-12) es una rutina programada que trabaja mientras
 Miguel duerme. Funciona como un segundo turno de producción: fabrica piezas,
-pero las deja en el **área de inspección** (un PR en borrador). A las 5:15 am
-otra rutina, el inspector (D-13), revisa el PR y deja el reporte para Miguel.
+pero las deja en el **área de inspección** (un PR en borrador). Cuando el
+turno levanta su bandera, otra rutina, el inspector (D-13, D-44), revisa el PR
+y deja el reporte para Miguel.
 Nada se libera a `main` sin la firma de Miguel.
 
 ## Reglas del turno (modo por lotes)
@@ -11,12 +12,17 @@ Nada se libera a `main` sin la firma de Miguel.
 1. Miguel aprueba un **bloque completo**. El turno toma las tareas
    **APROBADA** del bloque activo, **en el orden de la tabla**, y avanza por
    ellas una tras otra.
-2. Arranca a las **11:30 pm hora de México**, cuando Miguel deja la
-   computadora (D-20). No empieza tareas nuevas después de las **4:30 am** y
-   deja el PR listo antes de las **5:00 am**. También para al terminar las
-   tareas aprobadas, o
-   al topar con una tarea que exige una decisión de Miguel (se detiene ahí;
-   no se salta a la siguiente).
+2. **Arranca con la bandera (D-44), no con el reloj.** Solo trabaja si
+   `docs/RELEVO.md` de su rama de partida dice **ENTREGADO** para la rama de
+   esta noche. La sesión del día lo dispara al momento (desde las 6:00 pm);
+   como respaldo, se asoma cada hora de 11:39 pm a 3:39 am. Sin bandera, sale
+   en segundos («Sin relevo»): esa noche no hay turno (falla segura). No
+   empieza tareas nuevas después de las **4:30 am** y deja el PR listo antes de
+   las **5:00 am**. También para al terminar las tareas aprobadas, o al topar
+   con una tarea que exige una decisión de Miguel (se detiene ahí; no se salta
+   a la siguiente). Al crear su rama la sube de inmediato (marca de ocupado),
+   y al terminar, con GitHub Actions en verde, escribe **TURNO TERMINADO** en
+   `docs/RELEVO.md`: es la señal para el inspector.
 3. Antes de empezar lee `CLAUDE.md`, `docs/PLAN.md`, `docs/DECISIONES.md`,
    `docs/HANDOFF.md` y esta cola.
 4. **Una rama y un PR por noche:** `noche/AAAA-MM-DD`, con la fecha de la
@@ -45,7 +51,7 @@ Nada se libera a `main` sin la firma de Miguel.
 11. Servicios públicos de OSM: solo si la tarea lo autoriza, con las reglas de
     HANDOFF §11.6 y guardando todo en caché.
 
-## Relevo de turno (lo hace la sesión del día antes de las 11:30 pm, D-20)
+## Relevo de turno (lo hace la sesión del día al cerrar, D-20 y D-44)
 
 Como la entrega de turno en planta: lo que no queda escrito en la bitácora,
 el turno siguiente no lo sabe.
@@ -56,7 +62,13 @@ el turno siguiente no lo sabe.
 3. Esta cola al día: las tareas que el turno debe tomar dicen **APROBADA**,
    en el orden en que debe hacerlas.
 4. «Estado actual» y «Relevo» de `docs/PLAN.md` actualizados.
-5. Lo que no esté en GitHub a las 11:30 pm no existe para el turno.
+5. **Al final, la bandera:** en el último commit, `docs/RELEVO.md` pasa a
+   `Estado: ENTREGADO · AAAA-MM-DD HH:MM · para noche/AAAA-MM-DD` (fecha de
+   la entrega + 6 horas), se sube y, si son las 6:00 pm o después, se dispara
+   el turno (RemoteTrigger `run`). Lo que no esté en GitHub no existe para el
+   turno.
+6. Al empezar a trabajar en una rama, la sesión del día pone
+   `Estado: EN SESIÓN` en su primer commit.
 
 ## Estados
 

@@ -228,7 +228,7 @@ Miguel).
 - **Impacta:** `datos/gtfs-sjr/agency.txt`, `datos/gtfs-sjr/routes.txt`,
   `scripts/pruebas/routes.test.mjs`, `scripts/pruebas/fichas.test.mjs`.
 
-## D-20 · 17 nov 2026 · El turno nocturno arranca a las 11:30 pm, donde se quedó Miguel · VIGENTE
+## D-20 · 17 nov 2026 · El turno nocturno arranca a las 11:30 pm, donde se quedó Miguel · VIGENTE (horario cambiado por D-44: arranca con la bandera ENTREGADO)
 - **Decisión (Miguel):** Miguel trabaja hasta las 11:30 pm. A esa hora deja
   la computadora y arranca el turno nocturno, que termina a las 5:00 am.
   Miguel revisa los resultados después de las 5:00 am. Las actividades del
@@ -691,7 +691,7 @@ Miguel).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 
-## D-44 · 20 nov 2026 · Relevo por bandera: día → turno → inspector · PROPUESTA
+## D-44 · 20 nov 2026 · Relevo por bandera: día → turno → inspector · VIGENTE
 - **Problema (20 nov 2026):** el turno arranca a hora fija (11:39 pm) y el
   inspector también (5:15 am). Anoche el turno acabó a las 11:58 pm y el PR
   esperó más de 5 horas sin inspección (muda de espera). Además, Miguel quiere
@@ -712,7 +712,9 @@ Miguel).
      y 3:39 am (cron UTC `39 5-9 * * *`). Arranca **solo** si la rama de
      partida dice ENTREGADO **para la rama de esta noche**. Bandera vieja, EN
      SESIÓN o sin archivo: sale en segundos con «Sin relevo». Si ya existe su
-     rama `noche/…`, sale (ya trabajó). Sin bandera a las 3:39 am, esa noche
+     rama `noche/…`, sale (ya trabajó). Al crear su rama la sube **de
+     inmediato**, antes de la primera tarea: así la vuelta de la hora
+     siguiente la ve ocupada y no arranca un segundo turno. Sin bandera a las 3:39 am, esa noche
      no hay turno (falla segura). Los límites siguen igual: ninguna tarea
      nueva después de las 4:30 am y PR listo antes de las 5:00 am.
   3. **Bandera 2 · turno → inspector.** Como último paso, con GitHub Actions
@@ -740,4 +742,6 @@ Miguel).
 - **Cambia, si se aprueba:** las dos rutinas (turno e inspector), las reglas 2
   y 5 y el «Relevo de turno» de `docs/COLA-NOCTURNA.md`, la sección «Turno
   nocturno» de `CLAUDE.md` y D-20 (la hora fija pasa a ser respaldo).
-- **Decide:** Miguel. Hasta su sí, nada cambia.
+- **Decidió:** Miguel, 20 nov 2026, 12:27 am («Sí, apruebo D-44»).
+- **Ajuste al aplicarla:** la rama del turno se sube al crearla (ver punto 2).
+- **Prueba:** `scripts/pruebas/relevo.test.mjs` (formato de `docs/RELEVO.md`).
