@@ -24,6 +24,7 @@
       <section class="hoja" id="hoja" aria-label="Elige tu ruta">
         <button type="button" class="asa" id="asa" aria-label="Ampliar o reducir el panel" aria-expanded="false"><span></span></button>
         <div class="hoja-cuerpo">
+          <div id="modo-rutas" class="modo">
           <h2 class="hoja-titulo" id="hoja-titulo">¿Qué camión tomas?</h2>
           <div class="encabezado-ruta" id="encabezado-ruta" hidden></div>
           <form class="controles" id="controles" aria-label="Elige ruta y sentido">
@@ -44,7 +45,13 @@
             </fieldset>
           </form>
           <section id="detalle" class="detalle" aria-live="polite" aria-label="Detalle de la ruta" hidden></section>
+          </div>
+          <section id="modo-calcula" class="modo calcula" aria-labelledby="calcula-titulo" hidden></section>
         </div>
+        <nav class="pestanas" id="pestanas" aria-label="Modo de la app">
+          <button type="button" id="pestana-rutas" class="activo" aria-pressed="true" aria-controls="modo-rutas">Rutas</button>
+          <button type="button" id="pestana-calcula" aria-pressed="false" aria-controls="modo-calcula">Calcula tu ruta</button>
+        </nav>
       </section>
     </div>
     <script type="module" src="./src/main.ts"></script>

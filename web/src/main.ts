@@ -5,13 +5,16 @@
 // M-04: detalle de la ruta elegida, del sentido elegido. Sin trazo en el mapa.
 // M-05: paradas de OpenStreetMap como puntos grises, no ligadas a ninguna ruta,
 //       con un control para mostrar u ocultar la capa.
+// M-06: pestañas «Rutas» y «Calcula tu ruta». La segunda solo muestra un aviso
+//       (D-15): no tiene campos de origen y destino ni calcula nada.
 import 'leaflet/dist/leaflet.css';
 import './estilos.css';
 import L from 'leaflet';
 import { cargarDatos, type Ruta } from './datos';
 import { detalleRuta, type NombreSentido } from './detalle';
 import { gruposSelector } from './selector';
-import { ICONO_CERRAR, ICONO_MENU, ICONO_PARADAS } from './iconos';
+import { ICONO_CALCULA, ICONO_CERRAR, ICONO_MENU, ICONO_PARADAS, ICONO_RUTAS } from './iconos';
+import { avisoCalcula } from './calcula';
 import { cargarParadas, fichaParada, type Parada } from './paradas';
 
 // Plaza Independencia: coordenada verificada de HANDOFF §11.3.
@@ -268,6 +271,54 @@ document.addEventListener('keydown', (e) => {
 });
 // Al cruzar los 768 px el estado queda coherente: el panel vuelve a empezar abierto.
 pantallaAncha.addEventListener('change', () => ponerPanel(true));
+
+// --- Pestañas «Rutas» / «Calcula tu ruta» (M-06) ------------------------------
+// «Rutas» es la primera pantalla y no cambia. «Calcula tu ruta» solo avisa.
+const modoRutas = document.querySelector<HTMLElement>('#modo-rutas')!;
+const modoCalcula = document.querySelector<HTMLElement>('#modo-calcula')!;
+const pestanaRutas = document.querySelector<HTMLButtonElement>('#pestana-rutas')!;
+const pestanaCalcula = document.querySelector<HTMLButtonElement>('#pestana-calcula')!;
+pestanaRutas.insertAdjacentHTML('afterbegin', ICONO_RUTAS);
+pestanaCalcula.insertAdjacentHTML('afterbegin', ICONO_CALCULA);
+
+function llenarCalcula(): void {
+  const a = avisoCalcula();
+  const titulo = document.createElement('h2');
+  titulo.className = 'hoja-titulo';
+  titulo.id = 'calcula-titulo';
+  titulo.textContent = a.titulo;
+  const estadoAviso = document.createElement('p');
+  estadoAviso.className = 'calcula-estado';
+  const sello = document.createElement('span');
+  sello.className = 'etiqueta';
+  sello.textContent = a.estado;
+  estadoAviso.append(sello);
+  const lista = document.createElement('dl');
+  lista.className = 'calcula-lista';
+  for (const p of a.parrafos) {
+    const dt = document.createElement('dt');
+    dt.textContent = p.dato;
+    const dd = document.createElement('dd');
+    dd.textContent = p.texto;
+    lista.append(dt, dd);
+  }
+  modoCalcula.replaceChildren(titulo, estadoAviso, lista);
+}
+
+function ponerModo(modo: 'rutas' | 'calcula'): void {
+  const calcula = modo === 'calcula';
+  modoRutas.hidden = calcula;
+  modoCalcula.hidden = !calcula;
+  pestanaRutas.classList.toggle('activo', !calcula);
+  pestanaCalcula.classList.toggle('activo', calcula);
+  pestanaRutas.setAttribute('aria-pressed', String(!calcula));
+  pestanaCalcula.setAttribute('aria-pressed', String(calcula));
+  hoja.setAttribute('aria-label', calcula ? 'Calcula tu ruta' : 'Elige tu ruta');
+}
+
+llenarCalcula();
+pestanaRutas.addEventListener('click', () => ponerModo('rutas'));
+pestanaCalcula.addEventListener('click', () => ponerModo('calcula'));
 
 controles.addEventListener('change', alCambiar);
 controles.addEventListener('submit', (e) => e.preventDefault());
