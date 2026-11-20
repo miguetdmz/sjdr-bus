@@ -128,6 +128,9 @@ puede, convertir la regla en una prueba automática.
      antes de subir una prueba nueva, correrla sin los archivos ignorados por
      git (como los ve GitHub).
    Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
+   **ALERTA DE CALIDAD (19 nov 2026, Miguel):** se repitió; compartirla con
+   todos los proyectos. La cosecha del Second Brain la lleva a la bóveda y
+   propone subirla a `standards.md` (no se sube sin el sí de Miguel).
 6. **Claude le ofreció a Miguel una acción que los candados no permiten (17
    nov 2026).** Ofreció integrar el PR, pero `.claude/settings.json` le niega
    `gh pr merge`, `gh pr ready` y el push a `main`. Regla: antes de ofrecer
