@@ -679,11 +679,13 @@ Miguel).
   | Nombre en la lista oficial | Calle en OSM | Confirmó |
   |---|---|---|
   | Paseo Central | Avenida Central | Miguel, 19 nov 2026, 10:05 pm |
+  | Independencia (junto al Jardín Independencia) | Avenida Juárez | Miguel, 19 nov 2026, 10:10 pm |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
   pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
   ruta); si no, el cruce sigue POR VERIFICAR.
-- **Efecto del primero:** 41 de 44 cruces con «Paseo Central» ya confirman la
-  calle (18 con punto). Total: 612 de 956 ubicados (64 %), 168 referencias de
-  calle (18 %), 176 POR VERIFICAR (18 %).
+- **Efecto:** «Paseo Central»: 41 de 44 cruces ya confirman la calle (18 con
+  punto). «Independencia – Vicente Rivapalacio»: 13 de 13 ubicados. Total:
+  625 de 956 ubicados (65 %), 168 referencias de calle (18 %), 163 POR
+  VERIFICAR (17 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.

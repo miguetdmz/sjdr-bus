@@ -22,12 +22,12 @@
  "resumen": {
   "rutas_con_lista_usable": 19,
   "cruces": 956,
-  "UBICADO": 609,
+  "UBICADO": 622,
   "UBICADO POR LUGAR": 3,
   "REFERENCIA": 168,
-  "CALLES SIN CRUCE EN OSM": 100,
+  "CALLES SIN CRUCE EN OSM": 87,
   "SIN UBICAR": 76,
-  "con_correccion": 222
+  "con_correccion": 235
  },
  "rutas": [
   {
@@ -37,10 +37,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 50,
    "conteo": {
-    "UBICADO": 34,
+    "UBICADO": 35,
     "UBICADO POR LUGAR": 1,
     "REFERENCIA": 10,
-    "CALLES SIN CRUCE EN OSM": 5,
+    "CALLES SIN CRUCE EN OSM": 4,
     "SIN UBICAR": 0
    },
    "cruces": [
@@ -304,9 +304,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 25,
@@ -1612,10 +1618,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 60,
    "conteo": {
-    "UBICADO": 42,
+    "UBICADO": 43,
     "UBICADO POR LUGAR": 1,
     "REFERENCIA": 6,
-    "CALLES SIN CRUCE EN OSM": 7,
+    "CALLES SIN CRUCE EN OSM": 6,
     "SIN UBICAR": 4
    },
    "cruces": [
@@ -1887,9 +1893,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 25,
@@ -2322,10 +2334,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 37,
    "conteo": {
-    "UBICADO": 24,
+    "UBICADO": 26,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 7,
-    "CALLES SIN CRUCE EN OSM": 5,
+    "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -2423,9 +2435,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 9,
@@ -2727,9 +2745,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 34,
@@ -3298,10 +3322,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 78,
    "conteo": {
-    "UBICADO": 48,
+    "UBICADO": 50,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 20,
-    "CALLES SIN CRUCE EN OSM": 8,
+    "CALLES SIN CRUCE EN OSM": 6,
     "SIN UBICAR": 2
    },
    "cruces": [
@@ -3618,9 +3642,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 30,
@@ -3771,9 +3801,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 42,
@@ -6491,10 +6527,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 33,
    "conteo": {
-    "UBICADO": 16,
+    "UBICADO": 17,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 10,
-    "CALLES SIN CRUCE EN OSM": 2,
+    "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 5
    },
    "cruces": [
@@ -6607,9 +6643,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 12,
@@ -6868,10 +6910,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 58,
    "conteo": {
-    "UBICADO": 51,
+    "UBICADO": 52,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 4,
-    "CALLES SIN CRUCE EN OSM": 2,
+    "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -7181,9 +7223,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 26,
@@ -7645,10 +7693,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 63,
    "conteo": {
-    "UBICADO": 34,
+    "UBICADO": 35,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 14,
-    "CALLES SIN CRUCE EN OSM": 8,
+    "CALLES SIN CRUCE EN OSM": 7,
     "SIN UBICAR": 7
    },
    "cruces": [
@@ -7933,9 +7981,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 27,
@@ -8361,10 +8415,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 54,
    "conteo": {
-    "UBICADO": 23,
+    "UBICADO": 25,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 8,
-    "CALLES SIN CRUCE EN OSM": 10,
+    "CALLES SIN CRUCE EN OSM": 8,
     "SIN UBICAR": 13
    },
    "cruces": [
@@ -8612,9 +8666,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 24,
@@ -8765,9 +8825,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 36,
@@ -10492,10 +10558,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 56,
    "conteo": {
-    "UBICADO": 29,
+    "UBICADO": 30,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 11,
-    "CALLES SIN CRUCE EN OSM": 11,
+    "CALLES SIN CRUCE EN OSM": 10,
     "SIN UBICAR": 5
    },
    "cruces": [
@@ -10810,9 +10876,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 30,
@@ -11120,10 +11192,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 33,
    "conteo": {
-    "UBICADO": 15,
+    "UBICADO": 16,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 11,
-    "CALLES SIN CRUCE EN OSM": 2,
+    "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 5
    },
    "cruces": [
@@ -11236,9 +11308,15 @@
      "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
      "calle": "INDEPENDENCIA",
      "cruce_con": "VICENTE RIVAPALACIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Independencia",
-     "nota": "las dos calles existen en OSM («Calle Independencia», «Calle Vicente Rivapalacio») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
     },
     {
      "orden": 12,

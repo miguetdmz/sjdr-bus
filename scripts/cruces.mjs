@@ -224,6 +224,7 @@ const memoCand = new Map();
 // que la gente usa → la calle de OSM. También aquí se exige la prueba del mapa.
 const ALIAS_MIGUEL = {
   'PASEO CENTRAL': 'Avenida Central', // Miguel, 19 nov 2026, 10:05 pm
+  INDEPENDENCIA: 'Avenida Juárez', // junto al Jardín Independencia; Miguel, 19 nov 2026, 10:10 pm
 };
 const aliasPorClave = new Map(Object.entries(ALIAS_MIGUEL).map(([k, v]) => [clave(k), v]));
 
