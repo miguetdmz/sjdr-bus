@@ -169,7 +169,19 @@ puede, convertir la regla en una prueba automática.
      escribió la hora antes de correr `date` en el mismo comando; el hook avisó
      14 min de diferencia y se corrigió antes del commit. Detección temprana: correr
      `date` en un paso aparte, antes de escribir.
-   Ocurrencias: 5 · Estado: **PROMOVIDA → hook `hora-real`** (20 nov 2026,
+   **Causa raíz (análisis pedido por Miguel, 20 nov 2026, anotado a las 4:13 pm):**
+   «si el hook siempre tiene la razón, el error es recurrente y hay que
+   resolverlo de raíz». Las 5 ocurrencias tienen la misma causa: Claude no
+   tiene reloj en su contexto, y casi todas las horas que escribe son «a qué
+   hora decidió Miguel», un momento que nunca midió; la estimaba, y mientras
+   más larga la tarea, más se desviaba. El hook hora-real solo detecta después.
+   **Acción de raíz (prevención):** hook `.claude/hooks/reloj.mjs`
+   (UserPromptSubmit): con cada mensaje de Miguel entrega la hora real de
+   México de ese instante; esa es la fuente de «Miguel decidió a las…».
+   Cualquier otra hora sale de `date` en un paso aparte. Prueba:
+   `scripts/pruebas/reloj.test.mjs` (el caso «3:38 pm» contra 3:52 pm).
+   Si vuelve a ocurrir con el reloj puesto, se cambia el aviso por bloqueo.
+   Ocurrencias: 5 · Estado: **PROMOVIDA → hook `reloj` (prevención, 20 nov 2026) + hook `hora-real` (detección)** (hora-real: 20 nov 2026,
    con el sí de Miguel): `.claude/hooks/hora-real.mjs`, conectado en
    `.claude/settings.json` (PostToolUse de Edit, Write, MultiEdit y Bash). Si
    el texto nuevo trae una hora («2:13 am», «1:28 y 1:43 am») que no estaba
@@ -264,6 +276,20 @@ puede, convertir la regla en una prueba automática.
    sin el sí de Miguel).
    - 2026-11-20 (1.ª vez): este caso.
    Ocurrencias: 1 · Estado: ACTIVA.
+13. **Al rehacer los estilos se borraron reglas que seguían en uso (20 nov
+   2026).** En E-03 (D-48), al quitar bloques completos del CSS por posición,
+   se fueron el fondo blanco del menú (salió transparente) y la regla que
+   quitaba el velo en computadora (el mapa salió gris). Las dos se vieron en la
+   revisión visual antes del commit. Causa: se borró un bloque entero sin hacer
+   inventario de los selectores que contenía. Regla: antes de borrar o mover un
+   bloque de estilos, listar sus selectores y confirmar dónde queda cada uno;
+   revisar en 390 px y 1280 px antes del commit. Prueba que lo evita
+   (`pruebas-navegador/b2a.spec.mjs`): el menú abierto tiene fondo opaco y en
+   computadora no hay velo. Detección temprana: si un cambio de estilos borra
+   más líneas de las que agrega, revisar qué selectores desaparecieron.
+   - 2026-11-20 (1.ª y 2.ª vez, misma sesión): fondo del menú y velo.
+   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
+   Registrada con el sí de Miguel.
 
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:

@@ -53,6 +53,9 @@ test('menú lateral (D-48): ☰ lo abre con el nombre; Esc y el velo lo cierran'
   await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
   await expect(page.locator('#boton-menu')).toHaveAttribute('aria-expanded', 'true');
   await expect(page.locator('h1.nombre')).toBeVisible();
+  // Lección 13: el menú abierto tiene fondo opaco (se perdió una vez al rehacer estilos).
+  const fondo = await page.locator('#hoja').evaluate((h) => getComputedStyle(h).backgroundColor);
+  expect(fondo, 'fondo del menú').toMatch(/^rgb\(/);
   for (const sel of ['#pestana-rutas', '#pestana-calcula', '#cerrar-menu']) {
     const caja = await page.locator(sel).boundingBox();
     expect(Math.min(caja.width, caja.height), `${sel} mide al menos 44 px`).toBeGreaterThanOrEqual(44);
