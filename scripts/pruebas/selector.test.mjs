@@ -30,7 +30,8 @@ test('selector: orden y textos de HANDOFF §4 («001 — Pedregoso – Centro»)
 test('selector: <select> nativo con <label> «Ruta» y estado inicial sin ruta', () => {
   assert.match(html, /<label for="ruta">Ruta<\/label>/);
   assert.match(html, /<select id="ruta"/);
-  assert.match(html, /<option value="" disabled selected>Selecciona tu ruta<\/option>/);
+  // Estado inicial: opción vacía, deshabilitada y elegida (D-48: «¿A dónde vas? Elige tu ruta»).
+  assert.match(html, /<option value="" disabled selected>[^<]+<\/option>/);
   // Nunca texto libre, y nada de listas, rejillas ni tarjetas de rutas.
   assert.doesNotMatch(html, /<input[^>]+type="(text|search)"|<datalist|<ul|<ol|<table|class="[^"]*(tarjeta|card|chip)/);
 });

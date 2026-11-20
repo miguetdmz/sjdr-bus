@@ -25,23 +25,43 @@ test.beforeEach(async ({ page }) => {
 
 test('primera pantalla: mapa + selector + sentido, sin scroll y sin texto de reporte', async ({ page }) => {
   const alto = page.viewportSize().height;
-  for (const sel of ['#mapa', '#ruta', '#segmento', '#pestanas']) {
+  for (const sel of ['#mapa', '#ruta', '#segmento', '#boton-menu']) {
     const caja = await page.locator(sel).boundingBox();
     expect(caja, sel).not.toBeNull();
     expect(caja.y + caja.height, `${sel} dentro de la pantalla`).toBeLessThanOrEqual(alto);
   }
-  const scroll = await page.evaluate(() => ({
-    pagina: document.documentElement.scrollHeight > window.innerHeight,
-    hoja: (() => { const c = document.querySelector('.hoja-cuerpo'); return c.scrollHeight > c.clientHeight; })(),
-  }));
-  expect(scroll).toEqual({ pagina: false, hoja: false });
+  const scroll = await page.evaluate(() => document.documentElement.scrollHeight > window.innerHeight);
+  expect(scroll).toBe(false);
   await expect(page.locator('#ruta')).toHaveValue('');
-  await expect(page.locator('#ruta option:checked')).toHaveText('Selecciona tu ruta');
+  await expect(page.locator('#ruta option:checked')).toHaveText('¿A dónde vas? Elige tu ruta');
   await expect(page.locator('#detalle')).toBeHidden();
-  // Nombre (D-28) y leyenda de iniciativa independiente.
+  // D-48: el menú empieza cerrado y lo de arriba no pasa de la quinta parte del alto.
+  await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
+  const barra = await page.locator('#barra').boundingBox();
+  expect(barra.y + barra.height, 'la barra de arriba deja libre el mapa').toBeLessThan(alto / 5);
+  // Nombre (D-28) dentro del menú y leyenda de iniciativa independiente siempre visible.
   await expect(page.locator('h1.nombre')).toHaveText('SJDR Bus');
-  await expect(page.getByText('Iniciativa ciudadana independiente')).toBeVisible();
+  await expect(page.locator('#pie')).toBeVisible();
+  await expect(page.locator('#pie')).toContainText('Iniciativa ciudadana independiente');
   await captura(page, '1-inicio-390');
+});
+
+test('menú lateral (D-48): ☰ lo abre con el nombre; Esc y el velo lo cierran', async ({ page }) => {
+  await page.locator('#boton-menu').click();
+  await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
+  await expect(page.locator('#boton-menu')).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.locator('h1.nombre')).toBeVisible();
+  for (const sel of ['#pestana-rutas', '#pestana-calcula', '#cerrar-menu']) {
+    const caja = await page.locator(sel).boundingBox();
+    expect(Math.min(caja.width, caja.height), `${sel} mide al menos 44 px`).toBeGreaterThanOrEqual(44);
+  }
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
+  await expect(page.locator('#boton-menu')).toHaveAttribute('aria-expanded', 'false');
+  await page.locator('#boton-menu').click();
+  await expect(page.locator('#velo')).toBeVisible();
+  await page.locator('#velo').click({ position: { x: 10, y: 400 } });
+  await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
 });
 
 test('atribución de OpenStreetMap visible y no tapada', async ({ page }) => {
@@ -64,7 +84,7 @@ test(`selector: ${rutas.length} opciones en orden, agrupadas ${urbanas.length} +
   // Sin lista, rejilla ni tarjetas de rutas fuera del selector.
   await expect(page.locator('ul li, .tarjeta-ruta, [role="grid"]')).toHaveCount(0);
   // Áreas táctiles de al menos 44 px.
-  for (const sel of ['#ruta', '#segmento label:nth-child(1)', '#segmento label:nth-child(2)', '#pestana-rutas', '#pestana-calcula', '#control-paradas', '#asa']) {
+  for (const sel of ['#ruta', '#segmento label:nth-child(1)', '#segmento label:nth-child(2)', '#boton-menu', '#control-paradas']) {
     const caja = await page.locator(sel).boundingBox();
     expect(Math.min(caja.width, caja.height), `${sel} mide al menos 44 px`).toBeGreaterThanOrEqual(44);
   }
@@ -96,9 +116,9 @@ test('detalle por sentido: la 001 vuelta 23 paradas / 16 min y la ida sus propia
   await expect(page.locator('#encabezado-ruta .insignia')).toHaveText(r001.numero);
   await expect(page.locator('#encabezado-ruta b')).toHaveText(r001.nombre);
   await captura(page, '2-ruta-001-vuelta-390');
-  // Con la hoja ampliada (asa) el detalle se alcanza (la altura exacta cambia con
-  // la letra del sistema: en GitHub Actions la letra de Linux es más alta).
-  await page.locator('#asa').click();
+  // D-48: «Ver detalle» abre el menú lateral en el detalle, que se alcanza entero.
+  await page.locator('#ver-detalle').click();
+  await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
   await page.locator('#detalle').scrollIntoViewIfNeeded();
   await expect(page.locator('#detalle')).toBeInViewport();
   await expect(page.locator('#detalle dd').filter({ hasText: '16 min' })).toBeInViewport();
@@ -126,8 +146,10 @@ test('sin restos al cambiar de ruta, ni trazo en el mapa', async ({ page }) => {
   await expect(page.locator('#encabezado-ruta .insignia')).toHaveText(soloInventario.numero);
   // Nivel C: ninguna línea dibujada en el mapa (regla 8).
   await expect(page.locator('.leaflet-overlay-pane path')).toHaveCount(0);
-  // Cerrar vuelve al inicio sin restos.
+  // Quitar la ruta (dentro del menú) vuelve al inicio sin restos.
+  await page.locator('#ver-detalle').click();
   await page.locator('#encabezado-ruta .cerrar').click();
+  await expect(page.locator('#ver-detalle')).toBeHidden();
   await expect(page.locator('#detalle')).toBeHidden();
   await expect(page.locator('#hoja-titulo')).toBeVisible();
 });
@@ -148,15 +170,17 @@ test(`paradas de OpenStreetMap: ${paradas.length} puntos con su marca, y se ocul
 });
 
 test('«Calcula tu ruta»: solo un aviso, sin campos ni cálculo; «Rutas» vuelve igual', async ({ page }) => {
+  await page.locator('#boton-menu').click();
   await page.locator('#pestana-calcula').click();
   const modo = page.locator('#modo-calcula');
   await expect(modo).toBeVisible();
   await expect(modo).toContainText('Todavía no está disponible');
   await expect(modo).toContainText('Qué dato falta');
   await expect(modo.locator('input, select, textarea, form')).toHaveCount(0);
-  await expect(page.locator('#ruta')).toBeHidden();
   await captura(page, '5-calcula-tu-ruta-390');
   await page.locator('#pestana-rutas').click();
+  await expect(page.locator('#modo-rutas')).toBeVisible();
+  await page.keyboard.press('Escape');
   await expect(page.locator('#ruta')).toBeVisible();
   await expect(page.locator('#segmento')).toBeVisible();
 });
@@ -167,7 +191,7 @@ test('sin tiempo calculado ni «en vivo» en ninguna pantalla', async ({ page })
     await page.locator('#ruta').selectOption(r.route_id);
     for (const i of [0, 1]) {
       await page.locator('#segmento label').nth(i).click();
-      textos.push(await page.locator('#hoja').innerText());
+      textos.push(await page.locator('#hoja').textContent());
     }
   }
   for (const t of textos) {

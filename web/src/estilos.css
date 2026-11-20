@@ -32,44 +32,13 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 .mapa { position: absolute; inset: 0; }
 .leaflet-tile-pane { filter: grayscale(.82) brightness(1.05) contrast(.9) sepia(.08); }
 .leaflet-control-attribution { font-size: 10px; background: rgba(255, 255, 255, 0.9) !important; color: var(--tinta); }
-/* La atribución va debajo de la barra flotante y nunca bajo la hoja. */
-.leaflet-top.leaflet-right { top: calc(max(10px, env(safe-area-inset-top)) + 62px); }
-
-/* Barra superior flotante */
-.barra {
-  position: absolute; z-index: 1000; left: 14px; right: 14px;
-  top: max(10px, env(safe-area-inset-top));
-  display: flex; align-items: center; gap: 10px;
-  pointer-events: none;
-}
-.marca {
-  flex: 1; display: flex; align-items: center; gap: 10px; background: var(--tarjeta);
-  border-radius: 16px; padding: 8px 12px; box-shadow: var(--sombra);
-}
+/* Logo, nombre y leyenda: viven en la cabeza del menú lateral (D-48). */
 .logo {
   width: 34px; height: 34px; border-radius: 10px; background: var(--primario);
   display: grid; place-items: center; flex: 0 0 auto;
 }
 .nombre { margin: 0; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
 .leyenda { margin: 0; font-size: 11px; color: var(--suave); }
-
-/* Hoja inferior */
-.hoja {
-  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1100;
-  background: var(--tarjeta); border-radius: 26px 26px 0 0;
-  box-shadow: 0 -8px 30px rgba(18, 38, 45, 0.14);
-  padding: 0 18px;
-  padding-bottom: max(14px, env(safe-area-inset-bottom));
-  display: flex; flex-direction: column;
-  max-height: 46dvh;
-}
-.hoja.expandida { max-height: 80dvh; }
-
-.asa {
-  flex: none; display: grid; place-items: center; width: 100%; height: 44px;
-  margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
-}
-.asa span { width: 40px; height: 5px; border-radius: 3px; background: #b9b5ab; }
 
 /* El scroll es de la hoja, nunca de la página. */
 .hoja-cuerpo { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
@@ -115,7 +84,6 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 .segmento.apagado { opacity: 0.55; }
 .segmento input:focus-visible + span,
 .buscador select:focus-visible,
-.asa:focus-visible,
 .cerrar:focus-visible,
 .pestanas button:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
 
@@ -189,39 +157,93 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 .hoja-cuerpo::-webkit-scrollbar { display: none; }
 .sentido { margin-top: 10px; }
 
-/* E-02: menú lateral animado desde 768 px. En teléfono (< 768 px) nada cambia:
-   el botón de menú no se ve y la hoja de abajo sigue igual que en E-01. */
-.boton-menu {
-  display: none; flex: none; width: 44px; height: 44px; min-height: 44px; padding: 0;
-  border: 0; border-radius: 12px; background: var(--fondo); cursor: pointer;
-  place-items: center; pointer-events: auto;
+/* D-48 (20 nov 2026): mapa a pantalla completa. Arriba flota lo que pide la
+   regla 5 (selector + sentido) con el botón ☰; el menú lateral entra desde la
+   derecha, igual en teléfono y en computadora. Sustituye la hoja de abajo
+   (D-30) y el panel izquierdo de E-02. */
+.barra {
+  position: absolute; z-index: 1000; left: 10px; right: 10px;
+  top: max(10px, env(safe-area-inset-top));
+  display: flex; align-items: flex-start; gap: 8px;
 }
-.boton-menu:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
+.controles { flex: 1; min-width: 0; display: grid; gap: 6px; justify-items: start; }
+.buscador { width: 100%; }
+.buscador select {
+  min-height: 52px; border: 0; border-radius: 26px; background: var(--tarjeta);
+  box-shadow: var(--sombra); font-weight: 600; padding-left: 46px;
+}
+.icono-izq { left: 16px; }
+
+.sentido { margin: 0; max-width: 100%; }
+.sentido legend {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.segmento {
+  grid-template-columns: auto auto; padding: 3px; border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94); box-shadow: var(--sombra);
+}
+.segmento span { min-height: 44px; padding: 6px 16px; border-radius: 21px; font-size: 14px; display: grid; place-content: center; }
+.segmento small { font-size: 11px; }
+.segmento input:checked + span { background: var(--primario); color: #fff; box-shadow: none; }
+.segmento.apagado input:checked + span { background: var(--fondo); color: var(--suave); }
+
+.boton-menu {
+  flex: none; display: grid; place-items: center; width: 52px; height: 52px; min-height: 52px;
+  padding: 0; border: 0; border-radius: 50%; background: var(--tarjeta); box-shadow: var(--sombra); cursor: pointer;
+}
+.boton-menu:focus-visible, .ver-detalle:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
+
+/* Control de paradas: debajo de la barra, a la derecha. */
+.leaflet-top.leaflet-right { top: calc(max(10px, env(safe-area-inset-top)) + 112px); }
+
+/* Abajo: botón «Ver detalle» (con ruta elegida), leyenda y atribución. */
+.ver-detalle {
+  position: absolute; z-index: 1000; left: 50%; transform: translateX(-50%);
+  bottom: calc(max(8px, env(safe-area-inset-bottom)) + 40px);
+  min-height: 48px; max-width: calc(100% - 40px); padding: 0 22px; border: 0; border-radius: 24px;
+  background: var(--primario); color: #fff; box-shadow: var(--sombra);
+  font: inherit; font-size: 15px; font-weight: 700; white-space: nowrap; cursor: pointer;
+}
+.ver-detalle[hidden] { display: none; }
+.pie {
+  position: absolute; z-index: 900; left: 0; bottom: max(0px, env(safe-area-inset-bottom));
+  margin: 0; padding: 3px 8px; font-size: 10.5px; line-height: 1.3;
+  background: rgba(255, 255, 255, 0.9); color: var(--tinta); border-top-right-radius: 6px;
+}
+.leaflet-bottom.leaflet-right { bottom: calc(max(0px, env(safe-area-inset-bottom)) + 19px); }
+
+/* Menú lateral derecho, cerrado al cargar. */
+.velo { position: absolute; inset: 0; z-index: 1150; background: rgba(18, 38, 45, 0.28); }
+.velo[hidden] { display: none; }
+.hoja {
+  position: absolute; z-index: 1200; top: 0; right: 0; bottom: 0; left: auto;
+  width: min(380px, 88vw); max-height: none;
+  background: var(--tarjeta); display: flex; flex-direction: column;
+  border-radius: 22px 0 0 22px; box-shadow: var(--sombra);
+  padding: max(14px, env(safe-area-inset-top)) 18px max(12px, env(safe-area-inset-bottom));
+  transform: translateX(0); opacity: 1; visibility: visible;
+  transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 0s;
+}
+.hoja.cerrada {
+  transform: translateX(calc(100% + 24px)); opacity: 0; visibility: hidden;
+  transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 280ms;
+}
+.hoja-cabeza {
+  flex: none; display: flex; align-items: center; gap: 10px;
+  padding-bottom: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--borde);
+}
+.hoja-marca { flex: 1; min-width: 0; }
+.cerrar.quitar { width: auto; padding: 0 14px; border-radius: 22px; font: inherit; font-size: 13px; font-weight: 700; color: var(--suave); }
+.hoja-titulo { font-size: 17px; line-height: 1.35; color: var(--suave); font-weight: 600; }
 
 @media (min-width: 768px) {
-  .boton-menu { display: grid; }
-  .marca { pointer-events: auto; }
-  .hoja {
-    left: 14px; right: auto; width: 380px; max-width: 90vw;
-    top: calc(max(10px, env(safe-area-inset-top)) + 70px); bottom: 14px;
-    max-height: none; border-radius: 22px; box-shadow: var(--sombra);
-    padding: 18px 18px 14px;
-    transform: translateX(0); opacity: 1; visibility: visible;
-    transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 0s;
-  }
-  .hoja.cerrada {
-    transform: translateX(calc(-100% - 24px)); opacity: 0; visibility: hidden;
-    transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 280ms;
-  }
-  .asa { display: none; }
+  .barra { right: auto; width: 440px; }
+  .leaflet-top.leaflet-right { top: max(10px, env(safe-area-inset-top)); }
+  .hoja { top: 14px; right: 14px; bottom: 14px; border-radius: 22px; padding-top: 16px; }
+  .velo { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hoja, .hoja.cerrada { transition: none; }
-}
-
-/* Revisión de E-02 (19 nov 2026): en pantallas anchas la barra superior
-   mide lo mismo que el panel, para que no sea una tira de lado a lado. */
-@media (min-width: 768px) {
-  .barra { right: auto; width: min(380px, 90vw); }
 }

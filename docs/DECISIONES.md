@@ -1108,3 +1108,39 @@ Miguel).
 - **Decidió:** Miguel, 20 nov 2026.
 - **Impacta:** `CLAUDE.md` (lección 12), `docs/PLAN.md` («Estado actual»),
   `docs/COLA-NOCTURNA.md` (sin cambio: el turno ya usa `noche/AAAA-MM-DD`).
+
+## D-48 · 20 nov 2026 · Pantalla con mapa completo: «¿A dónde vas?» arriba y menú lateral · EN REVISIÓN
+- **Pedido (Miguel, 20 nov 2026, 2:09 pm), al ver la pantalla de D-30:** la
+  hoja de abajo ocupa casi la mitad de la pantalla del teléfono (captura
+  `docs/evidencia/e03/0-antes-390.jpg`) y el título roba espacio. La búsqueda
+  va **arriba**, con una invitación del tipo «¿A dónde vas?»; el título sale
+  cuando se abre el menú; el menú se esconde y se muestra con animación y el
+  mapa siempre ocupa toda la pantalla. Referencia de estilo: capturas de otra
+  app de Miguel (no se abrió su código: regla 4 de standards). Que sea
+  intuitiva y fácil de volver a usar.
+- **Diseño (Claude, con el encargo de Miguel de definirlo):**
+  - Arriba, flotando sobre el mapa: el **mismo `<select>` nativo** de las 39
+    rutas con aspecto de buscador y la invitación «¿A dónde vas? Elige tu
+    ruta» (regla 9: menú desplegable, ninguna ruta oculta), el botón ☰ y el
+    control Ida / Vuelta. Así la primera pantalla sigue siendo mapa + selector +
+    sentido sin tocar nada (regla 5).
+  - **Menú lateral derecho** en teléfono y computadora: entra y sale con
+    animación; cerrado al cargar. Dentro: nombre «SJDR Bus», detalle de la
+    ruta, «Calcula tu ruta». Se cierra con su botón, con Esc o tocando el mapa.
+  - Con ruta elegida aparece abajo un botón chico «Ver detalle» que abre el
+    menú en el detalle.
+  - La leyenda de iniciativa independiente y la atribución de OpenStreetMap
+    quedan siempre visibles en una línea chica abajo (reglas 4 y 6).
+- **Cambia:** la hoja inferior de D-30 y el panel izquierdo de E-02. La
+  paleta, la letra y el resto de D-30 siguen.
+- **Criterio de aceptación:** a 390 × 844 y a 1280 × 800, con el menú cerrado,
+  ningún panel tapa el mapa (lo de arriba mide menos de la quinta parte del
+  alto en teléfono); selector y sentido visibles sin tocar nada y sin scroll;
+  el ☰ abre y cierra el menú con animación (respeta «reducir movimiento»); el
+  detalle por sentido, «Calcula tu ruta» y las paradas siguen funcionando;
+  leyenda y atribución visibles; botones de al menos 44 px; pruebas y
+  `npm run verificar` en verde. Capturas en `docs/evidencia/e03/`.
+- **Decide:** Miguel, al verla en su teléfono.
+- **Impacta:** `web/index.html`, `web/src/main.ts`, `web/src/estilos.css`,
+  `pruebas-navegador/b2a.spec.mjs`, `scripts/pruebas/app.test.mjs`,
+  `scripts/pruebas/selector.test.mjs`, `docs/COLA-NOCTURNA.md` (E-03).

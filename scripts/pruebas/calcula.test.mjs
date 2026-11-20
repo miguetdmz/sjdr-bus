@@ -15,10 +15,11 @@ test('calcula: dos pestañas, «Rutas» activa al cargar', () => {
   assert.match(html, /id="pestana-rutas" class="activo" aria-pressed="true"[^>]*>Rutas</);
   assert.match(html, /id="pestana-calcula" aria-pressed="false"[^>]*>Calcula tu ruta</);
   assert.match(html, /<section id="modo-calcula"[^>]* hidden><\/section>/);
-  // El selector y el sentido siguen en la primera pantalla, una sola vez.
-  const rutas = html.slice(html.indexOf('id="modo-rutas"'), html.indexOf('id="modo-calcula"'));
-  assert.match(rutas, /id="ruta"/);
-  assert.match(rutas, /name="sentido"/);
+  // El selector y el sentido siguen en la primera pantalla, una sola vez: desde
+  // D-48 viven en la barra de arriba, fuera del menú (prueba en app.test.mjs).
+  const barra = html.slice(html.indexOf('id="barra"'), html.indexOf('</header>'));
+  assert.match(barra, /id="ruta"/);
+  assert.match(barra, /name="sentido"/);
   assert.equal((html.match(/id="ruta"/g) ?? []).length, 1);
 });
 

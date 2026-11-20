@@ -52,16 +52,30 @@ test('app: sin franja de ejemplo y con la paleta D-30', () => {
   assert.match(css, /\.pestanas/);
 });
 
-// E-02: menú lateral animado desde 768 px.
-test('app: botón de menú accesible y panel lateral animado desde 768 px', () => {
+// D-48: el menú lateral (antes E-02) es el mismo en teléfono y computadora.
+test('app: botón de menú accesible y menú lateral animado, cerrado al cargar', () => {
   assert.match(html, /<button[^>]*id="boton-menu"[^>]*aria-label="Menú de rutas"/);
-  assert.match(html, /id="boton-menu"[^>]*aria-expanded=/);
+  assert.match(html, /id="boton-menu"[^>]*aria-expanded="false"/);
   assert.match(html, /id="boton-menu"[^>]*aria-controls="hoja"/);
+  assert.match(html, /<aside class="hoja cerrada" id="hoja"/);
   assert.equal((html.match(/id="ruta"/g) ?? []).length, 1);
-  const ancho = css.slice(css.indexOf('@media (min-width: 768px)'));
-  assert.ok(css.includes('@media (min-width: 768px)'));
-  assert.match(ancho, /transform: translateX/);
-  assert.match(ancho, /transition: transform/);
+  assert.match(css, /\.hoja\.cerrada \{[^}]*transform: translateX/);
+  assert.match(css, /transition: transform/);
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(main, /key === 'Escape'/);
+});
+
+// D-48 + regla 5: lo que la primera pantalla debe mostrar sin tocar nada
+// (selector, sentido y leyenda) vive FUERA del menú lateral, que empieza cerrado.
+test('app: selector, sentido y leyenda quedan fuera del menú lateral (regla 5, D-48)', () => {
+  const sinComentarios = html.replace(/<!--[\s\S]*?-->/g, '');
+  const ini = sinComentarios.indexOf('id="hoja"');
+  const fin = sinComentarios.indexOf('</aside>', ini);
+  assert.ok(ini > 0 && fin > ini, 'existe el menú lateral');
+  const menu = sinComentarios.slice(ini, fin);
+  const fuera = sinComentarios.slice(0, ini) + sinComentarios.slice(fin);
+  for (const [que, re] of [['selector', /id="ruta"/], ['sentido', /class="sentido"/], ['leyenda', /Iniciativa ciudadana independiente/]]) {
+    assert.match(fuera, re, `${que} visible fuera del menú`);
+  }
+  assert.doesNotMatch(menu, /id="ruta"|class="sentido"/);
 });

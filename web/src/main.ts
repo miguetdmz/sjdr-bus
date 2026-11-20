@@ -7,6 +7,8 @@
 //       con un control para mostrar u ocultar la capa.
 // M-06: pestañas «Rutas» y «Calcula tu ruta». La segunda solo muestra un aviso
 //       (D-15): no tiene campos de origen y destino ni calcula nada.
+// D-48: mapa completo; arriba «¿A dónde vas?» (selector) y sentido; menú lateral
+//       derecho con el nombre, el detalle y «Calcula tu ruta».
 // M-07: instalable (manifiesto e íconos en web/public) y service worker que
 //       guarda la app y sus datos, no las teselas del mapa.
 import 'leaflet/dist/leaflet.css';
@@ -31,9 +33,9 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">Colaboradores de OpenStreetMap</a>',
 }).addTo(mapa);
 
-// La hoja inferior taparía la atribución abajo: va arriba a la derecha, siempre visible.
+// D-48: sin hoja abajo, la atribución vuelve a la esquina de abajo, siempre visible.
 L.control
-  .attribution({ position: 'topright', prefix: '<a href="https://leafletjs.com">Leaflet</a>' })
+  .attribution({ position: 'bottomright', prefix: '<a href="https://leafletjs.com">Leaflet</a>' })
   .addTo(mapa);
 
 // --- Paradas de OpenStreetMap (M-05) -----------------------------------------
@@ -58,15 +60,14 @@ function contenidoParada(p: Parada): HTMLElement {
   return caja;
 }
 
-// La ficha de la parada nunca queda debajo de la barra, del control o de la hoja:
-// el mapa se mueve lo necesario según lo que tape la pantalla en ese momento.
+// La ficha de la parada nunca queda debajo de la barra de arriba, del menú
+// lateral abierto o del botón «Ver detalle»: el mapa se mueve lo necesario.
 function margenesFicha(): { arriba: L.Point; abajo: L.Point } {
+  const barra = document.querySelector<HTMLElement>('#barra');
   const h = document.querySelector<HTMLElement>('#hoja');
-  if (window.matchMedia('(min-width: 768px)').matches) {
-    const derechaPanel = h && !h.classList.contains('cerrada') ? h.getBoundingClientRect().right : 0;
-    return { arriba: L.point(derechaPanel + 16, 90), abajo: L.point(16, 16) };
-  }
-  return { arriba: L.point(16, 150), abajo: L.point(16, (h?.offsetHeight ?? 0) + 16) };
+  const abajoBarra = barra ? barra.getBoundingClientRect().bottom : 0;
+  const anchoMenu = h && !h.classList.contains('cerrada') ? window.innerWidth - h.getBoundingClientRect().left : 0;
+  return { arriba: L.point(16, abajoBarra + 16), abajo: L.point(anchoMenu + 16, 80) };
 }
 
 function dibujarParadas(paradas: Parada[]): void {
@@ -115,7 +116,7 @@ const selector = document.querySelector<HTMLSelectElement>('#ruta')!;
 const controles = document.querySelector<HTMLFormElement>('#controles')!;
 const panel = document.querySelector<HTMLElement>('#detalle')!;
 const hoja = document.querySelector<HTMLElement>('#hoja')!;
-const asa = document.querySelector<HTMLButtonElement>('#asa')!;
+const verDetalle = document.querySelector<HTMLButtonElement>('#ver-detalle')!;
 const tituloHoja = document.querySelector<HTMLElement>('#hoja-titulo')!;
 const encabezado = document.querySelector<HTMLElement>('#encabezado-ruta')!;
 const segmento = document.querySelector<HTMLElement>('#segmento')!;
@@ -177,9 +178,9 @@ function ponerEncabezado(ruta: Ruta): void {
   texto.append(nombre);
   const cerrar = document.createElement('button');
   cerrar.type = 'button';
-  cerrar.className = 'cerrar';
-  cerrar.setAttribute('aria-label', 'Cerrar la ruta y volver al inicio');
-  cerrar.innerHTML = ICONO_CERRAR;
+  cerrar.className = 'cerrar quitar';
+  cerrar.setAttribute('aria-label', 'Quitar la ruta y volver al inicio');
+  cerrar.textContent = 'Quitar';
   cerrar.addEventListener('click', () => {
     selector.selectedIndex = 0;
     alCambiar();
@@ -192,6 +193,8 @@ function mostrarDetalle(): void {
   ponerSubtitulos(estado.ruta);
   segmento.classList.toggle('apagado', !estado.ruta);
   hoja.classList.toggle('con-ruta', !!estado.ruta);
+  verDetalle.hidden = !estado.ruta || panelAbierto();
+  verDetalle.textContent = estado.ruta ? `Ver detalle de la ruta ${estado.ruta.numero}` : '';
   if (!estado.ruta) {
     panel.replaceChildren();
     panel.hidden = true;
@@ -244,16 +247,14 @@ function mostrarDetalle(): void {
   panel.hidden = false;
 }
 
-// El asa alterna hoja compacta / expandida (el scroll es interno de la hoja).
-asa.addEventListener('click', () => {
-  const abierta = hoja.classList.toggle('expandida');
-  asa.setAttribute('aria-expanded', String(abierta));
-});
-
-// --- Menú lateral (E-02): solo desde 768 px; en teléfono la hoja de abajo no cambia ---
+// --- Menú lateral (D-48): el mismo en teléfono y en computadora ---------------
+// Cerrado al cargar: el mapa ocupa toda la pantalla. Lo abren el botón ☰ y
+// «Ver detalle»; lo cierran su botón, Esc o tocar el mapa (el velo).
 const botonMenu = document.querySelector<HTMLButtonElement>('#boton-menu')!;
+const cerrarMenu = document.querySelector<HTMLButtonElement>('#cerrar-menu')!;
+const velo = document.querySelector<HTMLElement>('#velo')!;
 botonMenu.innerHTML = ICONO_MENU;
-const pantallaAncha = window.matchMedia('(min-width: 768px)');
+cerrarMenu.innerHTML = ICONO_CERRAR;
 
 function panelAbierto(): boolean {
   return !hoja.classList.contains('cerrada');
@@ -261,21 +262,30 @@ function panelAbierto(): boolean {
 
 function ponerPanel(abierto: boolean): void {
   hoja.classList.toggle('cerrada', !abierto);
+  hoja.toggleAttribute('inert', !abierto);
+  velo.hidden = !abierto;
+  verDetalle.hidden = abierto || !estado.ruta;
   botonMenu.setAttribute('aria-expanded', String(abierto));
+  verDetalle.setAttribute('aria-expanded', String(abierto));
+  if (abierto) cerrarMenu.focus({ preventScroll: true });
 }
 
+hoja.toggleAttribute('inert', true);
 botonMenu.addEventListener('click', () => ponerPanel(!panelAbierto()));
+cerrarMenu.addEventListener('click', () => {
+  ponerPanel(false);
+  botonMenu.focus();
+});
+velo.addEventListener('click', () => ponerPanel(false));
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && pantallaAncha.matches && panelAbierto()) {
+  if (e.key === 'Escape' && panelAbierto()) {
     ponerPanel(false);
     botonMenu.focus();
   }
 });
-// Al cruzar los 768 px el estado queda coherente: el panel vuelve a empezar abierto.
-pantallaAncha.addEventListener('change', () => ponerPanel(true));
 
 // --- Pestañas «Rutas» / «Calcula tu ruta» (M-06) ------------------------------
-// «Rutas» es la primera pantalla y no cambia. «Calcula tu ruta» solo avisa.
+// Viven dentro del menú lateral. «Calcula tu ruta» solo avisa (D-15).
 const modoRutas = document.querySelector<HTMLElement>('#modo-rutas')!;
 const modoCalcula = document.querySelector<HTMLElement>('#modo-calcula')!;
 const pestanaRutas = document.querySelector<HTMLButtonElement>('#pestana-rutas')!;
@@ -315,12 +325,15 @@ function ponerModo(modo: 'rutas' | 'calcula'): void {
   pestanaCalcula.classList.toggle('activo', calcula);
   pestanaRutas.setAttribute('aria-pressed', String(!calcula));
   pestanaCalcula.setAttribute('aria-pressed', String(calcula));
-  hoja.setAttribute('aria-label', calcula ? 'Calcula tu ruta' : 'Elige tu ruta');
 }
 
 llenarCalcula();
 pestanaRutas.addEventListener('click', () => ponerModo('rutas'));
 pestanaCalcula.addEventListener('click', () => ponerModo('calcula'));
+verDetalle.addEventListener('click', () => {
+  ponerModo('rutas');
+  ponerPanel(true);
+});
 
 controles.addEventListener('change', alCambiar);
 controles.addEventListener('submit', (e) => e.preventDefault());
