@@ -44,6 +44,8 @@ Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
    SESIÓN» / «ENTREGADO»; la rutina revisa cada hora de 11:30 pm a 3:30 am y
    solo arranca con «ENTREGADO»; al cerrar, la sesión del día sube todo, marca
    ENTREGADO y dispara el turno. No cambia nada hasta que Miguel lo apruebe.
+   **20 nov 2026, 12:20 am:** diseño completo en **D-44** (PROPUESTA), con la
+   segunda bandera (turno → inspector) y el defecto de la fecha del inspector.
 6. **Turno del 19 nov, 11:30 pm** (`noche/2026-11-20`): sale de
    `cierre/2026-11-19-publico` y toma **solo M-05 a M-08** con el estilo D-30.
    R-03 no está en la cola. El inspector revisa a las 5:15 am.

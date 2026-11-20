@@ -690,3 +690,54 @@ Miguel).
   VERIFICAR (17 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
+
+## D-44 · 20 nov 2026 · Relevo por bandera: día → turno → inspector · PROPUESTA
+- **Problema (20 nov 2026):** el turno arranca a hora fija (11:39 pm) y el
+  inspector también (5:15 am). Anoche el turno acabó a las 11:58 pm y el PR
+  esperó más de 5 horas sin inspección (muda de espera). Además, Miguel quiere
+  trabajar sin hora fija de cierre (PLAN, Relevo, punto 5, 19 nov 2026).
+- **Defecto encontrado de paso:** el inspector busca `noche/<fecha de hoy>`.
+  Si revisa antes de medianoche, la fecha no coincide con la de la rama (que
+  lleva la fecha de la mañana) y no encuentra nada.
+- **Propuesta: dos banderas, como tarjetas kanban entre estaciones.**
+  1. **Bandera 1 · día → turno.** Archivo `docs/RELEVO.md` en la rama de
+     trabajo, con una sola línea de estado:
+     - `EN SESIÓN` (Miguel trabaja) o
+     - `ENTREGADO · AAAA-MM-DD HH:MM · para noche/AAAA-MM-DD`.
+     La sesión del día, al cerrar, sube todo y **en el último commit** marca
+     ENTREGADO (la bandera no puede subir sin el trabajo: poka-yoke). Luego
+     dispara el turno al momento (RemoteTrigger `run`) si son las 6:00 pm o
+     después.
+  2. **Turno.** Se asoma cada hora como respaldo: 11:39 pm, 12:39, 1:39, 2:39
+     y 3:39 am (cron UTC `39 5-9 * * *`). Arranca **solo** si la rama de
+     partida dice ENTREGADO **para la rama de esta noche**. Bandera vieja, EN
+     SESIÓN o sin archivo: sale en segundos con «Sin relevo». Si ya existe su
+     rama `noche/…`, sale (ya trabajó). Sin bandera a las 3:39 am, esa noche
+     no hay turno (falla segura). Los límites siguen igual: ninguna tarea
+     nueva después de las 4:30 am y PR listo antes de las 5:00 am.
+  3. **Bandera 2 · turno → inspector.** Como último paso, con GitHub Actions
+     en verde, el turno escribe en `docs/RELEVO.md`
+     `TURNO TERMINADO · AAAA-MM-DD HH:MM · noche/AAAA-MM-DD` y lo sube.
+  4. **Inspector.** Se asoma cada hora: 12:15, 1:15, 2:15, 3:15, 4:15 y
+     5:15 am (cron UTC `15 6-11 * * *`). Busca el PR `noche/…` abierto más
+     reciente **por la bandera, no por la fecha**. Inspecciona si dice TURNO
+     TERMINADO y si aún no comentó ese commit; su comentario lleva «Commit
+     inspeccionado: abc1234» para no repetir. A las 5:15 am inspecciona lo que
+     haya aunque falte la bandera y lo reporta como «turno incompleto».
+- **Criterio de aceptación (medible, antes de construir):**
+  1. Sin bandera o con bandera vieja: el turno sale sin crear rama (se ve en
+     su registro).
+  2. Con ENTREGADO a las 6:00 pm o después: el turno arranca en menos de 5
+     minutos (disparo directo).
+  3. Entre TURNO TERMINADO y el comentario del inspector: 75 minutos como
+     máximo (60 de la vuelta + 15 de inspección).
+  4. Un solo comentario del inspector por commit.
+  5. Prueba automática en `npm run verificar`: `docs/RELEVO.md` tiene un
+     estado válido y bien escrito.
+- **Costo:** $0. Hasta 11 arranques por noche; los vacíos salen en segundos y
+  gastan muy poco del límite semanal del plan Pro (ESTIMADO, sin medir). Se
+  mide la primera semana.
+- **Cambia, si se aprueba:** las dos rutinas (turno e inspector), las reglas 2
+  y 5 y el «Relevo de turno» de `docs/COLA-NOCTURNA.md`, la sección «Turno
+  nocturno» de `CLAUDE.md` y D-20 (la hora fija pasa a ser respaldo).
+- **Decide:** Miguel. Hasta su sí, nada cambia.
