@@ -245,6 +245,8 @@ const ALIAS_MIGUEL = {
   JURICA: 'Avenida Belisario Domínguez', // Miguel, 20 nov 2026, 12:47 am; única calle de OSM que toca Benito Juárez Ote., Fernando de Tapia y Av. Central
   URUGUAY: 'Cerrada de Uruguay', // une Veracruz con Av. Francia (ruta 015B); Miguel, 20 nov 2026, 1:39 am
   'MEXICAN FEDERAL HWY 120': 'San Juan del Río - Xilitla', // Carretera Federal 120 (ruta 032); Miguel, 20 nov 2026, 2:25 am
+  // «MÉXICO 120» es la misma Carretera Federal 120 en español (MEX-120, D-43)
+  'MÉXICO 120': 'San Juan del Río - Xilitla',
   // el Walmart del km 3.2 está sobre el Paseo Central (009B, 016 y 030); Miguel, 20 nov 2026, 2:34 am
   'CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2': 'Avenida Central',
   // ruta 002: sale de la glorieta donde termina la Av. Benito Juárez Poniente; el

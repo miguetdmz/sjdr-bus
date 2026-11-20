@@ -206,9 +206,11 @@ test('cruces: «MEXICAN FEDERAL HWY 120» = carretera San Juan del Río - Xilitl
   for (const c of f) {
     assert.deepEqual([c.estado, c.osm_calle, c.lat], ['REFERENCIA', 'San Juan del Río - Xilitla', undefined], `032 #${c.orden}`);
   }
-  // «MÉXICO 120 – BENITO JUÁREZ»: en OSM la carretera no toca ninguna Benito Juárez; no se inventa el cruce
+  // «MÉXICO 120 – BENITO JUÁREZ»: la carretera no toca ninguna Benito Juárez, pero en la ciudad sigue en
+  // línea recta como Av. Central, que sí la toca (0 m): el punto sale de esa continuación, no se inventa (20 nov 2026)
   const bj = todos.find((c) => c.ruta === '032' && c.texto === 'MÉXICO 120-BENITO JUÁREZ');
-  assert.ok(['SIN UBICAR', 'CALLES SIN CRUCE EN OSM'].includes(bj.estado) && bj.lat === undefined);
+  assert.equal(bj.estado, 'UBICADO');
+  assert.match(bj.correcciones.join(' '), /continuación: «MÉXICO 120» \(OSM «San Juan del Río - Xilitla»\) sigue en línea recta como «Avenida Central»/);
 });
 
 test('cruces: Matamoros sigue como Calle Fundadores hasta la Av. Hidalgo; la misma calle de la lista va por la misma calle de OSM (20 nov 2026)', () => {
@@ -277,7 +279,8 @@ test('cruces: APROXIMADO (Miguel, D-45): punto ESTIMADO de nivel C, con método,
   const d = (a, b) => Math.hypot((a.lat - b.lat) * ML, (a.lon - b.lon) * MO);
   const metodos = ['cercanía', 'numeración', 'entre vecinos', 'mismo texto'];
   const aprox = todos.filter((c) => c.estado === 'APROXIMADO');
-  assert.ok(aprox.length >= 26, `APROXIMADOS: ${aprox.length}`);
+  // cuántos: los que van subiendo a UBICADO con arreglos de evidencia bajan este número (bien)
+  assert.ok(aprox.length > 0, 'sin APROXIMADOS');
   for (const c of aprox) {
     const id = `${c.ruta} #${c.orden} ${c.texto}`;
     // (a) etiqueta, nivel y método
@@ -343,4 +346,12 @@ test('cruces: «El Cerezo» = Acceso a Visthá (Miguel, D-43) y la 032, circuito
     const c = r(t);
     assert.ok(c.lat === undefined || Math.hypot((c.lat - 20.44656) * 110574, (c.lon + 99.97522) * 104300) < 3000, `032 #${c.orden}`);
   }
+});
+
+test('cruces: «MÉXICO 120» es la misma Federal 120 (D-43) y en la ciudad sigue como Av. Central; Ocho Oriente × Av. Central, un solo punto en las tres rutas', () => {
+  const c = todos.find((x) => x.ruta === '032' && x.texto === 'MÉXICO 120-BENITO JUÁREZ');
+  assert.deepEqual([c.estado, c.osm_calle, c.osm_cruce, c.lat, c.lon], ['UBICADO', 'Avenida Central', 'Avenida Benito Juárez', 20.42234, -99.97777]);
+  const ocho = todos.filter((x) => ['CARR. MÉXICO 120-AV. 8 ORIENTE', 'AV. 8 ORIENTE-PASEO CENTRAL'].includes(x.texto));
+  assert.equal(ocho.length, 3);
+  assert.deepEqual([...new Set(ocho.map((x) => `${x.estado} ${x.lat},${x.lon}`))], ['UBICADO 20.41111,-99.98153']);
 });

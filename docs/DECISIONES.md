@@ -1046,3 +1046,13 @@ Miguel).
   queda a 824 y 337 m). Ninguna otra ruta cambia. Total: 694 con punto exacto,
   26 aproximados, 192 referencias, 24 POR VERIFICAR (dos de ellos ya no son un
   punto falso).
+- **«MÉXICO 120» = Federal 120 (20 nov 2026, 11:04 am; extensión con evidencia
+  del alias de Miguel de las 2:25 am):** «CARR. MÉXICO 120» y «MÉXICO 120» son
+  la misma Carretera Federal 120 (MEX-120) escrita en español. Dentro de la
+  ciudad sigue en línea recta como Avenida Central (continuación, ya probada
+  por el programa). Efecto: 032 #49 «MÉXICO 120-BENITO JUÁREZ» UBICADO en Av.
+  Central × Av. Benito Juárez (el mismo punto que la 009B #9); 009B #38 «CARR.
+  MÉXICO 120-AV. 8 ORIENTE» pasa de APROXIMADO a UBICADO (6 m), y la 032 #47 y
+  la 047 #51 se mueven 14 m al mismo punto: las tres rutas usan ahora un solo
+  punto para Ocho Oriente × Av. Central (lección 3). Total: 696 con punto
+  exacto, 25 aproximados, 192 referencias, 23 POR VERIFICAR.

@@ -23,13 +23,13 @@
  "resumen": {
   "rutas_con_lista_usable": 18,
   "cruces": 936,
-  "UBICADO": 691,
+  "UBICADO": 693,
   "UBICADO POR LUGAR": 3,
-  "APROXIMADO": 26,
+  "APROXIMADO": 25,
   "REFERENCIA": 192,
   "CALLES SIN CRUCE EN OSM": 15,
-  "SIN UBICAR": 9,
-  "con_correccion": 296
+  "SIN UBICAR": 8,
+  "con_correccion": 298
  },
  "rutas": [
   {
@@ -2959,9 +2959,9 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 44,
    "conteo": {
-    "UBICADO": 29,
+    "UBICADO": 30,
     "UBICADO POR LUGAR": 0,
-    "APROXIMADO": 4,
+    "APROXIMADO": 3,
     "REFERENCIA": 11,
     "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 0
@@ -3436,16 +3436,15 @@
      "texto": "CARR. MÉXICO 120-AV. 8 ORIENTE",
      "calle": "CARR. MÉXICO 120",
      "cruce_con": "AV. 8 ORIENTE",
-     "estado": "APROXIMADO",
+     "estado": "UBICADO",
      "lat": 20.41111,
-     "lon": -99.98159,
-     "etiqueta": "ESTIMADO",
-     "precision": "C",
-     "metodo": "entre vecinos",
-     "osm_calle": "Avenida Ocho Oriente",
-     "evidencia": "punto de «Avenida Ocho Oriente» más cercano (204 m) a la mitad entre los cruces ubicados #36 y #40",
-     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
-     "antes": "SIN UBICAR"
+     "lon": -99.98153,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Ocho Oriente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación: «CARR. MÉXICO 120» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+     ]
     },
     {
      "orden": 39,
@@ -8991,12 +8990,12 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 54,
    "conteo": {
-    "UBICADO": 30,
+    "UBICADO": 31,
     "UBICADO POR LUGAR": 0,
     "APROXIMADO": 5,
     "REFERENCIA": 12,
     "CALLES SIN CRUCE EN OSM": 5,
-    "SIN UBICAR": 2
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -9598,8 +9597,8 @@
      "calle": "AV. 8 ORIENTE",
      "cruce_con": "PASEO CENTRAL",
      "estado": "UBICADO",
-     "lat": 20.41112,
-     "lon": -99.98166,
+     "lat": 20.41111,
+     "lon": -99.98153,
      "osm_calle": "Avenida Ocho Oriente",
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
@@ -9621,8 +9620,15 @@
      "texto": "MÉXICO 120-BENITO JUÁREZ",
      "calle": "MÉXICO 120",
      "cruce_con": "BENITO JUÁREZ",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
+     "estado": "UBICADO",
+     "lat": 20.42234,
+     "lon": -99.97777,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Benito Juárez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación: «MÉXICO 120» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+     ]
     },
     {
      "orden": 50,
@@ -11980,8 +11986,8 @@
      "calle": "AV. 8 ORIENTE",
      "cruce_con": "PASEO CENTRAL",
      "estado": "UBICADO",
-     "lat": 20.41112,
-     "lon": -99.98166,
+     "lat": 20.41111,
+     "lon": -99.98153,
      "osm_calle": "Avenida Ocho Oriente",
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
