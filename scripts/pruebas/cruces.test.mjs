@@ -36,10 +36,13 @@ test('cruces: todo punto UBICADO trae las dos calles de OSM y su evidencia', () 
     assert.ok(nombresOsm.has(c.osm_calle) && nombresOsm.has(c.osm_cruce), `${id}: calle que no está en OSM`);
     assert.notEqual(c.osm_calle, c.osm_cruce, id);
     assert.match(c.evidencia, /se tocan en OSM \((\d+) m\)/, id);
-    // única excepción: calle que OSM dibuja corta y Miguel confirmó (D-43), hasta 50 m y dicho en la evidencia
+    // únicas excepciones: calle o par que OSM dibuja corto y Miguel confirmó (D-43), con su tope y dicho en la evidencia
     const m = Number(c.evidencia.match(/\((\d+) m\)/)[1]);
     if (m > 30) {
-      assert.ok([c.osm_calle, c.osm_cruce].includes('Cerrada de Uruguay') && m <= 50, `${id}: cruce a más de 30 m`);
+      const par = [c.osm_calle, c.osm_cruce].sort().join('|');
+      const ok = ([c.osm_calle, c.osm_cruce].includes('Cerrada de Uruguay') && m <= 50)
+        || (par === 'Avenida Universidad|Circuito Querétaro Norte' && m <= 40);
+      assert.ok(ok, `${id}: cruce a más de 30 m`);
       assert.match(c.evidencia, /Miguel confirmó que llega \(D-43\)/, id);
     }
   }
@@ -230,5 +233,18 @@ test('cruces: «CARRETERA SAN JUAN DEL RÍO-TEQUISQUIAPAN KM 3.2-WALMART» es un
     const w = todos.filter((c) => c.ruta === ruta && /WALMART|TEQUISQUIAPAN/.test(c.texto));
     assert.equal(w.length, 1, `${ruta}: el guion de la carretera no debe partir la parada en dos`);
     assert.deepEqual([w[0].texto, w[0].estado, w[0].osm_calle, w[0].lat], ['CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2-WALMART', 'REFERENCIA', 'Avenida Central', undefined], ruta);
+  }
+});
+
+test('cruces: Av. Universidad llega al Circuito Querétaro Norte (Miguel, D-43): tolerancia de 40 m solo para ese par, a 32 m en OSM', () => {
+  const u = todos.filter((c) => c.texto === 'AV. UNIVERSIDAD-CTO. QUERÉTARO NORTE');
+  assert.deepEqual(u.map((c) => c.ruta).sort(), ['011B', '015B']);
+  for (const c of u) {
+    assert.deepEqual([c.estado, c.lat, c.lon], ['UBICADO', 20.38708, -99.94657], `${c.ruta} #${c.orden}`);
+    assert.match(c.evidencia, /\(32 m\).*Miguel confirmó que llega/);
+  }
+  // la tolerancia es del par, no de la calle: ningún otro cruce del Circuito Querétaro Norte pasa de 30 m
+  for (const c of todos.filter((x) => x.estado === 'UBICADO' && [x.osm_calle, x.osm_cruce].includes('Circuito Querétaro Norte') && ![x.osm_calle, x.osm_cruce].includes('Avenida Universidad'))) {
+    assert.ok(Number(c.evidencia.match(/\((\d+) m\)/)[1]) <= 30, `${c.ruta} #${c.orden}`);
   }
 });

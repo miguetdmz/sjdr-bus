@@ -36,7 +36,12 @@ const extremosFinales = leer('datos/investigacion/extremos-finales.json').lugare
 const UMBRAL_CRUCE_M = 30; // dos calles «se tocan» si sus trazos quedan a ≤ 30 m (ESTIMADO)
 // Calles que OSM dibuja más cortas de lo que son, confirmadas por Miguel (D-43):
 // para ellas el umbral sube, y la evidencia dice la distancia real.
-const TOLERANCIA_MIGUEL = { 'Cerrada de Uruguay': 50 }; // Miguel, 20 nov 2026, 1:39 am (a 31 m de Veracruz y 47 m de Av. Francia)
+// Calles (o pares «A|B», en orden alfabético) que OSM dibuja cortas y Miguel
+// confirmó que sí llegan: el umbral sube solo para ellas.
+const TOLERANCIA_MIGUEL = {
+  'Cerrada de Uruguay': 50, // Miguel, 20 nov 2026, 1:39 am (a 31 m de Veracruz y 47 m de Av. Francia)
+  'Avenida Universidad|Circuito Querétaro Norte': 40, // solo este par, a 32 m en OSM; Miguel, 20 nov 2026, 2:39 am
+};
 const UMBRAL_LUGAR_M = 300; // un lugar de OSM cuenta para el cruce si queda a ≤ 300 m de la calle
 
 // ---------- normalización de nombres ----------
@@ -195,7 +200,7 @@ function crucesEntre(c1, c2) {
   const k = c1.nombre < c2.nombre ? `${c1.nombre}|${c2.nombre}` : `${c2.nombre}|${c1.nombre}`;
   if (memoCruce.has(k)) return memoCruce.get(k);
   const puntos = [];
-  const umbral = Math.max(UMBRAL_CRUCE_M, TOLERANCIA_MIGUEL[c1.nombre] ?? 0, TOLERANCIA_MIGUEL[c2.nombre] ?? 0);
+  const umbral = Math.max(UMBRAL_CRUCE_M, TOLERANCIA_MIGUEL[c1.nombre] ?? 0, TOLERANCIA_MIGUEL[c2.nombre] ?? 0, TOLERANCIA_MIGUEL[k] ?? 0);
   for (const [ck, idx1] of c1.celdas) {
     for (const vk of vecinas(ck)) {
       const idx2 = c2.celdas.get(vk);

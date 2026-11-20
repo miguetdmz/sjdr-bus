@@ -22,10 +22,10 @@
  "resumen": {
   "rutas_con_lista_usable": 18,
   "cruces": 936,
-  "UBICADO": 682,
+  "UBICADO": 684,
   "UBICADO POR LUGAR": 3,
   "REFERENCIA": 190,
-  "CALLES SIN CRUCE EN OSM": 42,
+  "CALLES SIN CRUCE EN OSM": 40,
   "SIN UBICAR": 19,
   "con_correccion": 290
  },
@@ -4451,10 +4451,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 45,
    "conteo": {
-    "UBICADO": 36,
+    "UBICADO": 37,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 4,
-    "CALLES SIN CRUCE EN OSM": 3,
+    "CALLES SIN CRUCE EN OSM": 2,
     "SIN UBICAR": 2
    },
    "cruces": [
@@ -4954,9 +4954,12 @@
      "texto": "AV. UNIVERSIDAD-CTO. QUERÉTARO NORTE",
      "calle": "AV. UNIVERSIDAD",
      "cruce_con": "CTO. QUERÉTARO NORTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.38708,
+     "lon": -99.94657,
      "osm_calle": "Avenida Universidad",
-     "nota": "las dos calles existen en OSM («Avenida Universidad», «Circuito Querétaro Norte») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Circuito Querétaro Norte",
+     "evidencia": "las dos calles se tocan en OSM (32 m), dentro del corredor de la ruta; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)"
     },
     {
      "orden": 42,
@@ -5027,10 +5030,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 61,
    "conteo": {
-    "UBICADO": 52,
+    "UBICADO": 53,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 5,
-    "CALLES SIN CRUCE EN OSM": 3,
+    "CALLES SIN CRUCE EN OSM": 2,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -5768,9 +5771,12 @@
      "texto": "AV. UNIVERSIDAD-CTO. QUERÉTARO NORTE",
      "calle": "AV. UNIVERSIDAD",
      "cruce_con": "CTO. QUERÉTARO NORTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.38708,
+     "lon": -99.94657,
      "osm_calle": "Avenida Universidad",
-     "nota": "las dos calles existen en OSM («Avenida Universidad», «Circuito Querétaro Norte») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Circuito Querétaro Norte",
+     "evidencia": "las dos calles se tocan en OSM (32 m), dentro del corredor de la ruta; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)"
     },
     {
      "orden": 59,

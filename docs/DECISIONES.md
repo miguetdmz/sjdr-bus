@@ -688,6 +688,7 @@ Miguel).
   | Uruguay (ruta 015B, entre Veracruz y Av. Francia) | Cerrada de Uruguay (OSM la dibuja corta: queda a 31 m de Veracruz y 44 m de Av. Francia; tolerancia de 50 m solo para ella) | Miguel, 20 nov 2026, 1:39 am |
   | Mexican Federal Hwy 120 (ruta 032) | San Juan del Río - Xilitla (Carretera Federal 120) | Miguel, 20 nov 2026, 2:25 am |
   | Carretera San Juan del Río-Tequisquiapan km 3.2 – Walmart (009B, 016 y 030) | una sola parada: el Walmart (negocio) sobre el Paseo Central = Avenida Central (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 2:34 am |
+  | Av. Universidad – Cto. Querétaro Norte (011B y 015B) | sí se tocan: OSM las deja a 32 m; tolerancia de 40 m solo para ese par | Miguel, 20 nov 2026, 2:39 am |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
   pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
   ruta); si no, el cruce sigue POR VERIFICAR.
@@ -849,6 +850,14 @@ Miguel).
   menos en total); ningún punto nuevo, movido ni perdido (comparado por texto,
   porque el orden se recorre un lugar). Total: 685 de 936 con punto (73 %),
   190 referencias (20 %), 61 POR VERIFICAR (7 %).
+- **Universidad – Circuito Querétaro Norte (Miguel, 20 nov 2026, 2:39 am):**
+  en OSM quedan a 32 m, apenas arriba del umbral de 30 m. Miguel confirmó que
+  la Av. Universidad sí llega. La tabla `TOLERANCIA_MIGUEL` ahora acepta pares
+  («A|B»): la tolerancia de 40 m vale solo para ese par, no para todos los
+  cruces del Circuito. Efecto: 2 cruces nuevos con punto (011B #41 y 015B #58,
+  en el mismo punto; la evidencia dice 32 m); ninguno movido ni perdido.
+  Total: 687 de 936 con punto (73 %), 190 referencias (20 %), 59 POR
+  VERIFICAR (6 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 
