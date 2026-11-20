@@ -128,7 +128,7 @@ test('zonas: un lugar con punto propio usa el suyo; «cerca de» solo para los F
 });
 
 test('zonas: la leyenda dice en verificación y ESTIMADO; la vuelta intercambia inicio y fin', () => {
-  assert.match(LEYENDA_ZONA, /verificación/);
+  assert.match(LEYENDA_ZONA, /validación/);
   assert.match(LEYENDA_ZONA, /ESTIMADO/);
   for (const r of rutas) {
     const ida = zonasRuta(r, 'ida');

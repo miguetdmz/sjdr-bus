@@ -5,7 +5,9 @@
 import type { Ruta, ZonaExtremo } from './datos.ts';
 import type { NombreSentido } from './detalle.ts';
 
-export const LEYENDA_ZONA = 'En proceso de verificación · ESTIMADO';
+// D-52: una sola leyenda general, sin detallar estado ni fuente de cada zona
+// (siguen en los datos).
+export const LEYENDA_ZONA = 'Zona aproximada (ESTIMADO) · en proceso de validación';
 
 export interface ZonaParaMapa {
   papel: 'Inicio' | 'Fin';
@@ -37,10 +39,7 @@ export function zonasRuta(ruta: Ruta, sentido: NombreSentido): ZonasRuta {
       faltantes.push(`${papel}: ${z.lugar} · FALTANTE`);
       continue;
     }
-    const lineas = [LEYENDA_ZONA, `Zona aproximada de ${z.radio_m} m alrededor del punto más probable`];
-    if (z.cerca_de) lineas.push(`Sin punto propio todavía: se muestra la zona de ${z.cerca_de}, el lugar conocido más cercano`);
-    lineas.push(`Estado: ${z.estado}`);
-    if (z.fuente) lineas.push(`Fuente: ${z.fuente}`);
+    const lineas = [LEYENDA_ZONA];
     zonas.push({ papel, titulo: titulo(papel, z), lat: z.lat, lon: z.lon, radio_m: z.radio_m, lineas });
   }
   return { zonas, faltantes };

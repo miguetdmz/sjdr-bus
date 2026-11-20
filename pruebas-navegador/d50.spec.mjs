@@ -44,7 +44,7 @@ test('criterio 1: las rutas en tarjetas, en el orden de routes.txt, ninguna ocul
   expect(await tarjetas.evaluateAll((ts) => ts.map((t) => t.dataset.ruta))).toEqual(rutas.map((r) => r.route_id));
   for (const [i, r] of rutas.entries()) {
     const t = tarjetas.nth(i);
-    await expect(t.locator('svg.camion text')).toHaveText(insignia(r));
+    await expect(t.locator('.camion strong')).toHaveText(insignia(r));
     await expect(t.locator('.tarjeta-nombre')).toHaveText(r.nombre);
     await expect(t.locator('.tarjeta-numero')).toContainText(`Ruta ${r.numero}`);
   }
@@ -55,11 +55,12 @@ test('criterio 1: las rutas en tarjetas, en el orden de routes.txt, ninguna ocul
   await expect(page.locator('#ruta option:not([disabled])')).toHaveCount(rutas.length);
 });
 
-test('criterio 2 y 3 (390 px): al menos 8 tarjetas a la vista, aviso de colores, 44 px', async ({ page }) => {
+test('criterio 2 y 3 (390 px, D-52): al menos 14 tarjetas a la vista, aviso de colores, 44 px', async ({ page }) => {
   await page.locator('#boton-menu').click();
   await expect(page.locator('#aviso-colores')).toContainText('no indican nada de la ruta');
   await expect(page.locator('#aviso-colores')).toBeVisible();
-  expect(await tarjetasVisibles(page)).toBeGreaterThanOrEqual(8);
+  // D-52: tarjetas a la mitad de tamaño en el teléfono (antes cabían 8).
+  expect(await tarjetasVisibles(page)).toBeGreaterThanOrEqual(14);
   const caja = await page.locator('#tarjetas .tarjeta-ruta').first().boundingBox();
   expect(Math.min(caja.width, caja.height)).toBeGreaterThanOrEqual(44);
   // Colores alternados: dos urbanas seguidas nunca del mismo color; las
@@ -83,7 +84,7 @@ test('criterio 4: tocar una tarjeta elige la ruta igual que el <select>; «Cambi
   await expect(page.locator('#encabezado-ruta .insignia')).toHaveText(insignia(r));
   // La insignia del encabezado tiene el mismo color que su tarjeta (lección 3).
   const colorTarjeta = await page.locator(`#tarjetas .tarjeta-ruta[data-ruta="${r.route_id}"]`).evaluate((t) => getComputedStyle(t).backgroundColor);
-  const colorPlaca = await page.locator('#encabezado-ruta .insignia').evaluate((t) => getComputedStyle(t).backgroundColor);
+  const colorPlaca = await page.locator('#encabezado-ruta .encabezado-tarjeta').evaluate((t) => getComputedStyle(t).backgroundColor);
   expect(colorPlaca).toBe(colorTarjeta);
   await captura(page, '2-detalle-390');
   await page.getByRole('button', { name: 'Cambiar de ruta: volver a las tarjetas' }).click();
@@ -121,7 +122,6 @@ test('criterio 6: inicio y fin como zona, con leyenda ESTIMADO; sin línea de tr
   await expect(page.locator('.punto-zona')).toHaveText(['Inicio', 'Fin']);
   // Ninguna línea: el panel normal de líneas sigue vacío (regla 8, D-49).
   await expect(page.locator('.leaflet-overlay-pane path')).toHaveCount(0);
-  await expect(page.locator('#detalle .detalle-zonas')).toContainText('ESTIMADO');
   await page.keyboard.press('Escape');
   await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
   // El mapa se acomoda a las dos zonas (~330 ms); se espera a que quede quieto.
@@ -129,8 +129,9 @@ test('criterio 6: inicio y fin como zona, con leyenda ESTIMADO; sin línea de tr
   await page.locator('.punto-zona.zona-inicio').click();
   const ficha = page.locator('.leaflet-popup-content');
   await expect(ficha).toContainText(`Inicio: ${r.extremos.origen.lugar}`);
-  await expect(ficha).toContainText('En proceso de verificación · ESTIMADO');
-  await expect(ficha).toContainText('Fuente:');
+  await expect(ficha).toContainText('Zona aproximada (ESTIMADO) · en proceso de validación');
+  // D-52: sin estado ni fuente de cada zona en pantalla (siguen en los datos).
+  await expect(ficha).not.toContainText('Fuente');
   await captura(page, '4-zonas-390');
   // Vuelta: el inicio pasa a ser el destino.
   await page.locator('#segmento label').nth(1).click();
@@ -144,7 +145,7 @@ test('criterio 6: un extremo FALTANTE no se dibuja y se dice', async ({ page }) 
   test.skip(!r, 'hoy ningún extremo es FALTANTE');
   await page.locator('#ruta').selectOption(r.route_id);
   await expect(page.locator('.leaflet-zonas-pane path.zona')).toHaveCount(1);
-  await expect(page.locator('#detalle .detalle-zonas')).toContainText('FALTANTE');
+  await expect(page.locator('#detalle .detalle-pie')).toContainText('FALTANTE');
 });
 
 test.describe('computadora 1280 × 800', () => {

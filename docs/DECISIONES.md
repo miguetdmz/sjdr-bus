@@ -1297,3 +1297,40 @@ Miguel).
   vista inclinada y edificios en 3D, o una ilustración propia) [sin verificar];
   presupuesto $0 (regla 3). Se estudia después de B4.
 - **Decide:** Miguel, en una fase posterior.
+
+## D-52 · 20 nov 2026 · Detalle de ruta más visual; fuentes fuera de la pantalla · EN REVISIÓN
+- **Pedido (Miguel, 20 nov 2026, 5:43 pm), al ver D-50:**
+  1. En el detalle, en vez del cuadro «R1», la **tarjeta de la ruta** (la del
+     camioncito), para que sea más visual.
+  2. «Tipo: Urbana» se queda.
+  3. **Sentido y paradas en un mismo renglón.**
+  4. «Duración del recorrido» se cambia por un **camión que inicia, puntos y un
+     camión que termina**; más puntos mientras más dura: menos de 20 min, 3
+     puntos; de 30 min en adelante, 4; y así cada 10 min. Se conserva el
+     número («30 min»).
+  5. «Horario» se cambia por un **relojito** con el horario.
+  6. La etiqueta «Nivel C» y «el recorrido todavía no se dibuja» van **más
+     abajo y en letra chica**.
+  7. **Se quita de la pantalla «referencia Moovit…»**: «en una producción real
+     nunca ponen eso»; las fuentes se explicarán en el aviso de privacidad y
+     los términos y condiciones.
+  8. Se quita la nota «En el mapa: Inicio: Pedregoso…» y el detalle de cada
+     zona; en su lugar, **una leyenda general**: datos en proceso de validación.
+  9. En el teléfono, **tarjetas un 50 % más chicas** para que quepan más rutas;
+     se vale un camión más sencillo.
+- **Cambia la regla 1 en la pantalla:** cada cifra sigue con su fuente, estado
+  y fecha **en los datos** (`web/public/datos/rutas.json`, `datos/fichas/`) y en
+  `detalleRuta()`, pero la app ya no la escribe junto a cada cifra; muestra la
+  leyenda general «datos en proceso de validación». Lo de rango (Nivel C) y lo
+  estimado (zonas) sigue dicho en pantalla, en chico.
+- **FALTANTE:** la página de aviso de privacidad y términos donde se nombran
+  las fuentes. Mientras no exista, la app no muestra de dónde sale cada cifra.
+  Si los términos de uso de Moovit piden atribución visible [sin verificar],
+  se revisa antes de publicar v0.2.
+- **Puntos de duración:** puntos = el mayor entre 3 y (decenas de minutos + 1):
+  16 min → 3, 20 → 3, 29 → 3, 30 → 4, 42 → 5. Es escala visual, no medición.
+- **Criterio:** a 390 × 844 se ven al menos 14 tarjetas enteras (antes 8);
+  detalle sin «Moovit» ni «Fuente»; leyenda general en el pie; puntos según la
+  regla de arriba; pruebas en `scripts/pruebas/detalle.test.mjs` y
+  `pruebas-navegador/d50.spec.mjs`. Capturas en `docs/evidencia/d50/`.
+- **Decide:** Miguel, al verlo en su teléfono.

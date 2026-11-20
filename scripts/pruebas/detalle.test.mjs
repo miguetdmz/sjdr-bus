@@ -76,3 +76,44 @@ test('detalle: cambiar de ruta o de sentido reemplaza todo (sin restos) y no se 
   assert.notDeepEqual(a.filas, b.filas);
   assert.equal(b.filas.length, 1);
 });
+
+// --- D-52: vista del detalle más visual y sin fuentes en pantalla -------------
+import { vistaDetalle, puntosDuracion, LEYENDA_VALIDACION } from '../../web/src/detalle.ts';
+
+test('D-52: puntos de duración: 3 hasta 29 min, 4 desde 30 y uno más cada 10 min', () => {
+  assert.equal(puntosDuracion(16), 3);
+  assert.equal(puntosDuracion(20), 3);
+  assert.equal(puntosDuracion(29), 3);
+  assert.equal(puntosDuracion(30), 4);
+  assert.equal(puntosDuracion(42), 5);
+  // Nunca baja al crecer la duración.
+  for (let m = 1; m < 120; m++) assert.ok(puntosDuracion(m + 1) >= puntosDuracion(m), `${m} min`);
+});
+
+test('D-52: la vista usa las cifras del sentido elegido (lección 2) y no trae fuentes', () => {
+  for (const r of rutas) {
+    for (const sentido of ['ida', 'vuelta']) {
+      const v = vistaDetalle(r, sentido);
+      assert.doesNotMatch(JSON.stringify(v), /Moovit|fuente/i, `${r.route_id} ${sentido}`);
+      if (r.grupo === 'verificada') {
+        const s = r.sentidos[sentido];
+        assert.equal(v.paradas, s.paradas);
+        assert.equal(v.duracion.minutos, s.duracion_min);
+        assert.equal(v.duracion.puntos, puntosDuracion(s.duracion_min));
+      } else {
+        assert.equal(v.paradas, null);
+        assert.equal(v.duracion, null);
+        assert.equal(v.horario, null);
+      }
+      assert.equal(v.nivel, ETIQUETA_NIVEL_C);
+    }
+  }
+});
+
+test('D-52: la app no escribe fuentes junto a las cifras; lleva la leyenda general', () => {
+  const main = readFileSync(new URL('../../web/src/main.ts', import.meta.url), 'utf8');
+  const html = readFileSync(new URL('../../web/index.html', import.meta.url), 'utf8');
+  assert.doesNotMatch(main, /FUENTE_MOOVIT|fila\.fuente/);
+  assert.match(html, /datos en proceso de validación/);
+  assert.equal(LEYENDA_VALIDACION, 'Datos en proceso de validación');
+});

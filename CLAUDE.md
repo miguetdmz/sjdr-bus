@@ -22,7 +22,8 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
 ## Reglas que no se negocian (resumen de HANDOFF §14)
 1. Nada esquemático, de referencia o simulado se presenta como real u
    oficial. Cada cifra lleva fuente (GTFS oficial / Moovit / campo / AMEQ),
-   estado y fecha.
+   estado y fecha en los datos; en la pantalla basta la leyenda general «datos
+   en proceso de validación» y las fuentes van en los términos (D-52).
 2. Todo tiempo calculado dice ESTIMADO (o MEDIDO EN CAMPO con fecha). EN VIVO
    solo con una posición GPS real detrás.
 3. Presupuesto $0. Antes de cualquier paso con costo, avisar a Miguel con el

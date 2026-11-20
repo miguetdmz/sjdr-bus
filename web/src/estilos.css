@@ -318,7 +318,12 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
   background: var(--c); color: var(--ct); text-align: left; cursor: pointer;
   font: inherit; box-shadow: 0 2px 6px rgba(18, 38, 45, 0.14);
 }
-.tarjeta-ruta .camion { display: block; width: 66px; height: auto; }
+.camion {
+  display: inline-flex; align-items: center; gap: 3px; padding: 2px 7px 2px 5px;
+  border-radius: 8px; background: #fff; color: var(--ci);
+  font-size: 13px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2;
+}
+.camion strong { font-weight: 800; }
 .tarjeta-nombre {
   font-size: 13px; font-weight: 700; line-height: 1.25;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
@@ -336,7 +341,6 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 /* La insignia del encabezado toma el color de su tarjeta (lección 3). */
 .insignia { background: var(--c, var(--primario)); color: var(--ct, #fff); }
 .encabezado-texto .tarjeta-numero { display: block; margin-top: 2px; color: var(--suave); opacity: 1; }
-.detalle-zonas { margin: 10px 0 0; font-size: 12.5px; color: var(--suave); }
 
 /* Zonas probables de inicio y fin (D-50, D-46): círculo de borde punteado y
    etiqueta «Inicio» / «Fin». Sin línea entre ellas (no hay trazo verificado). */
@@ -357,6 +361,50 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 @media (min-width: 768px) {
   .rejilla-tarjetas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .tarjeta-ruta { min-height: 104px; padding: 8px; }
-  .tarjeta-ruta .camion { width: 58px; }
   .tarjeta-nombre { font-size: 12px; }
+}
+
+/* D-52 (20 nov 2026): detalle más visual. Arriba, la tarjeta de la ruta (mismo
+   color y camioncito que en la lista); sentido y paradas en un renglón; la
+   duración como camión · puntos · camión; el horario con reloj. Abajo y en
+   chico, el nivel del recorrido y lo que falta. Sin fuentes en pantalla. */
+.encabezado-ruta { display: grid; grid-template-columns: 1fr; gap: 6px; }
+.encabezado-tarjeta {
+  display: flex; align-items: center; gap: 10px; min-width: 0;
+  padding: 10px 12px; border-radius: 16px; background: var(--c, var(--primario)); color: var(--ct, #fff);
+}
+.encabezado-tarjeta .insignia {
+  min-width: 0; height: auto; padding: 0; background: none; border-radius: 0; display: block;
+}
+.encabezado-tarjeta .camion { font-size: 16px; padding: 4px 9px 4px 7px; }
+.encabezado-tarjeta .camion svg { width: 17px; height: 17px; }
+.encabezado-tarjeta .encabezado-texto { color: inherit; font-size: 16px; }
+.encabezado-tarjeta .tarjeta-numero { color: inherit; opacity: .9; }
+.encabezado-ruta .cerrar.quitar { justify-self: end; margin-left: 0; }
+
+.detalle-filas { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 0; font-size: 15px; }
+.fila { display: block; }
+.fila dd { margin: 0; display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.fila .valor { font-weight: 800; }
+.fila-doble { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.chip-tipo {
+  display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12.5px; font-weight: 700;
+  background: var(--tarjeta); color: var(--primario);
+}
+.fila .icono { display: inline-grid; color: var(--primario); }
+.linea-duracion { display: inline-flex; align-items: center; gap: 5px; color: var(--primario); }
+.linea-duracion .punto { width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .55; }
+.detalle-pie { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--borde); }
+.etiqueta-chica { padding: 1px 6px; font-size: 10px; }
+.detalle-pie .detalle-aviso { margin: 6px 0 0; padding: 0; border: 0; font-size: 11.5px; }
+
+/* D-52: en el teléfono las tarjetas van a la mitad de tamaño (3 columnas,
+   camión sencillo) para que quepan más rutas a la vista. */
+@media (max-width: 767px) {
+  .rejilla-tarjetas { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .tarjeta-ruta { min-height: 0; padding: 6px 7px 7px; border-radius: 12px; gap: 3px; }
+  .tarjeta-ruta .camion { font-size: 12px; padding: 1px 6px 1px 4px; }
+  .tarjeta-ruta .camion svg { width: 12px; height: 12px; }
+  .tarjeta-nombre { font-size: 11px; line-height: 1.2; }
+  .tarjeta-numero { font-size: 10px; }
 }

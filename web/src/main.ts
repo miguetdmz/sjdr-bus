@@ -18,9 +18,9 @@ import 'leaflet/dist/leaflet.css';
 import './estilos.css';
 import L from 'leaflet';
 import { cargarDatos, type Ruta } from './datos';
-import { detalleRuta, type NombreSentido } from './detalle';
+import { vistaDetalle, type NombreSentido } from './detalle';
 import { gruposSelector } from './selector';
-import { ICONO_CALCULA, ICONO_CERRAR, ICONO_MENU, ICONO_PARADAS, ICONO_RUTAS, PIN_PARADA, camioncito } from './iconos';
+import { ICONO_BUS_CHICO, ICONO_CALCULA, ICONO_CERRAR, ICONO_MENU, ICONO_PARADAS, ICONO_RELOJ, ICONO_RUTAS, PIN_PARADA, camioncito } from './iconos';
 import {
   AVISO_COLORES,
   CLAVE_RECIENTES,
@@ -344,12 +344,15 @@ function ponerSubtitulos(ruta: Ruta | null): void {
 }
 
 function ponerEncabezado(ruta: Ruta): void {
-  // D-50: la misma insignia y el mismo color que su tarjeta (lección 3).
-  const placa = document.createElement('div');
-  placa.className = 'insignia';
-  placa.textContent = insignia(ruta);
+  // D-52: en vez del cuadro «R1», la tarjeta de la ruta, con el mismo
+  // camioncito y el mismo color que en la lista (lección 3).
+  const tarjetaRuta = document.createElement('div');
+  tarjetaRuta.className = 'encabezado-tarjeta';
   const color = colores.get(ruta.route_id);
-  if (color) ponerColor(placa, color);
+  if (color) ponerColor(tarjetaRuta, color);
+  const placa = document.createElement('span');
+  placa.className = 'insignia';
+  placa.innerHTML = camioncito(insignia(ruta));
   const texto = document.createElement('div');
   texto.className = 'encabezado-texto';
   const nombre = document.createElement('b');
@@ -358,6 +361,7 @@ function ponerEncabezado(ruta: Ruta): void {
   numero.className = 'tarjeta-numero';
   numero.textContent = `Ruta ${ruta.numero}${ruta.tipo === 'intermunicipal' ? ' · Intermunicipal' : ''}`;
   texto.append(nombre, numero);
+  tarjetaRuta.append(placa, texto);
   const cerrar = document.createElement('button');
   cerrar.type = 'button';
   cerrar.className = 'cerrar quitar';
@@ -367,7 +371,35 @@ function ponerEncabezado(ruta: Ruta): void {
     selector.selectedIndex = 0;
     alCambiar();
   });
-  encabezado.replaceChildren(placa, texto, cerrar);
+  encabezado.replaceChildren(tarjetaRuta, cerrar);
+}
+
+// D-52: una fila del detalle; el nombre del dato queda para lectores de
+// pantalla y en pantalla se ve el ícono.
+function filaDetalle(clase: string, dato: string, contenido: (Node | string)[]): HTMLElement {
+  const grupo = document.createElement('div');
+  grupo.className = `fila ${clase}`;
+  const dt = document.createElement('dt');
+  dt.className = 'solo-lector';
+  dt.textContent = dato;
+  const dd = document.createElement('dd');
+  dd.append(...contenido);
+  grupo.append(dt, dd);
+  return grupo;
+}
+
+function icono(svg: string, clase = 'icono'): HTMLElement {
+  const i = document.createElement('span');
+  i.className = clase;
+  i.innerHTML = svg;
+  return i;
+}
+
+function texto(t: string, clase: string): HTMLElement {
+  const e = document.createElement('span');
+  e.className = clase;
+  e.textContent = t;
+  return e;
 }
 
 // Cambiar de ruta o de sentido reemplaza TODO el detalle: no quedan restos.
@@ -395,53 +427,47 @@ function mostrarDetalle(): void {
   encabezado.hidden = false;
   tituloHoja.hidden = true;
   selectorVisual.hidden = true;
-  const d = detalleRuta(estado.ruta, estado.sentido);
-  const titulo = document.createElement('h2');
-  titulo.className = 'detalle-titulo';
-  titulo.textContent = d.titulo;
-
-  const etiquetas = document.createElement('p');
-  etiquetas.className = 'detalle-etiquetas';
-  for (const texto of d.etiquetas) {
-    const e = document.createElement('span');
-    e.className = 'etiqueta';
-    e.textContent = texto;
-    etiquetas.append(e);
-  }
+  const v = vistaDetalle(estado.ruta, estado.sentido);
 
   const lista = document.createElement('dl');
   lista.className = 'detalle-filas';
-  for (const fila of d.filas) {
-    const dt = document.createElement('dt');
-    dt.textContent = fila.dato;
-    const dd = document.createElement('dd');
-    dd.textContent = fila.valor;
-    if (fila.fuente) {
-      const fuente = document.createElement('small');
-      fuente.className = 'fuente';
-      fuente.textContent = fila.fuente;
-      dd.append(fuente);
-    }
-    lista.append(dt, dd);
+  lista.append(filaDetalle('fila-tipo', 'Tipo', [texto(v.tipo, 'chip-tipo')]));
+  // D-52: sentido y paradas en un mismo renglón.
+  const renglon = document.createElement('div');
+  renglon.className = 'fila-doble';
+  renglon.append(filaDetalle('fila-sentido', 'Sentido', [texto(v.sentido, 'valor')]));
+  if (v.paradas != null) {
+    renglon.append(filaDetalle('fila-paradas', 'Paradas', [texto(String(v.paradas), 'valor'), ' paradas']));
+  }
+  lista.append(renglon);
+  if (v.duracion) {
+    // Camión que inicia · puntos · camión que termina, y el número al lado.
+    const linea = document.createElement('span');
+    linea.className = 'linea-duracion';
+    linea.append(icono(ICONO_BUS_CHICO));
+    for (let i = 0; i < v.duracion.puntos; i++) linea.append(texto('', 'punto'));
+    linea.append(icono(ICONO_BUS_CHICO));
+    lista.append(filaDetalle('fila-duracion', 'Duración del recorrido', [linea, texto(`${v.duracion.minutos} min`, 'valor')]));
+  }
+  if (v.horario) {
+    lista.append(filaDetalle('fila-horario', 'Horario', [icono(ICONO_RELOJ), texto(v.horario, 'valor')]));
   }
 
-  const nodos: HTMLElement[] = [titulo, etiquetas, lista];
-  // D-50: inicio y fin como zona probable; lo que falta se dice, no se dibuja.
-  const z = zonasRuta(estado.ruta, estado.sentido);
-  const notaZonas = document.createElement('p');
-  notaZonas.className = 'detalle-zonas';
-  notaZonas.textContent =
-    z.zonas.length > 0
-      ? `En el mapa: ${z.zonas.map((x) => x.titulo).join(' · ')}, como zona aproximada (en proceso de verificación · ESTIMADO).`
-      : '';
-  if (z.faltantes.length) notaZonas.textContent += ` ${z.faltantes.join(' · ')}: sin punto todavía.`;
-  nodos.push(notaZonas);
-  if (d.aviso) {
-    const aviso = document.createElement('p');
-    aviso.className = 'detalle-aviso';
-    aviso.textContent = d.aviso;
-    nodos.push(aviso);
+  // Abajo y en chico: el nivel del recorrido y lo que falta (D-52).
+  const pie = document.createElement('div');
+  pie.className = 'detalle-pie';
+  const nivel = document.createElement('span');
+  nivel.className = 'etiqueta etiqueta-chica';
+  nivel.textContent = v.nivel;
+  pie.append(nivel);
+  const faltan = zonasRuta(estado.ruta, estado.sentido).faltantes;
+  for (const nota of [...v.notas, ...faltan.map((f) => f.replace(' · FALTANTE', ': sin punto todavía (FALTANTE).'))]) {
+    const p = document.createElement('p');
+    p.className = 'detalle-aviso';
+    p.textContent = nota;
+    pie.append(p);
   }
+  const nodos: HTMLElement[] = [lista, pie];
   panel.replaceChildren(...nodos);
   panel.hidden = false;
   ajustarCuerpo();

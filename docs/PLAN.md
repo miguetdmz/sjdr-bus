@@ -45,6 +45,11 @@ Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 1. **Siguiente:** Miguel aprueba D-48/D-49/D-50 en su teléfono → integra el
    PR 1 (v0.2) → rama `b3/r03-cruces` → B3 · R-03.
 2. **Pendiente de Miguel:** dónde va Ezequiel Montes (023); hoy FALTANTE.
+3. **D-52 (pedido de Miguel, 5:43 pm):** detalle más visual (tarjeta de la
+   ruta, sentido y paradas en un renglón, puntos de duración, reloj), sin
+   fuentes en pantalla (cambia la regla 1 en la pantalla), leyenda general
+   «datos en proceso de validación» y tarjetas a la mitad en el teléfono.
+   FALTANTE: página de aviso de privacidad y términos con las fuentes.
 
 ### Relevo anterior (20 nov 2026, 3:52 pm)
 

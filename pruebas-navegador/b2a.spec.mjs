@@ -131,7 +131,9 @@ test('detalle por sentido: la 001 vuelta 23 paradas / 16 min y la ida sus propia
   await expect(detalle).toContainText(String(r001.sentidos.ida.paradas));
   await expect(detalle).toContainText(`${r001.sentidos.ida.duracion_min} min`);
   await expect(detalle).toContainText('Nivel C');
-  await expect(detalle).toContainText('referencia Moovit');
+  // D-52: sin fuentes en pantalla (siguen en los datos); leyenda general abajo.
+  await expect(detalle).not.toContainText('Moovit');
+  await expect(page.locator('#pie')).toContainText('datos en proceso de validación');
   await page.locator('#segmento label').nth(1).click();
   await expect(detalle).toContainText('23');
   await expect(detalle).toContainText('16 min');
@@ -158,7 +160,8 @@ test('solo inventario: dice «en verificación» y no muestra ninguna cifra', as
   await page.locator('#ruta').selectOption(soloInventario.route_id);
   const detalle = page.locator('#detalle');
   await expect(detalle).toContainText('en verificación');
-  await expect(detalle.locator('dd')).toHaveCount(1);
+  // D-52: solo tipo y sentido; ninguna fila de paradas, duración u horario.
+  await expect(detalle.locator('.fila-paradas, .fila-duracion, .fila-horario')).toHaveCount(0);
   expect(await detalle.locator('dl').innerText()).not.toMatch(/\d/);
   await captura(page, '3-solo-inventario-390');
 });
@@ -243,7 +246,8 @@ test('sin tiempo calculado ni «en vivo» en ninguna pantalla', async ({ page })
 // Pedido de Miguel (20 nov 2026, captura con la 002): al hacer scroll, el detalle
 // no pasa por detrás del buscador ni del sentido. Pantalla baja para forzar scroll.
 test.describe('teléfono con pantalla baja', () => {
-  test.use({ viewport: { width: 390, height: 640 } });
+  // D-52: el detalle quedó más corto; a 520 px de alto sigue obligando a desplazarlo.
+  test.use({ viewport: { width: 390, height: 520 } });
 
   test('el detalle se desplaza debajo del sentido, nunca detrás', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
