@@ -637,7 +637,8 @@ Miguel).
     `scripts/extremos-finales.mjs`) junta lo automático de R-02 con los puntos
     de Miguel: 32 de 35 lugares con punto, 21 de ellos de Miguel, POR VERIFICAR
     EN CAMPO.
-  - Pendiente para un bloque futuro: un canal de retroalimentación en la app
-    (cómo reportar un dato que falta o está mal). Se propone; no se construye
-    sin aprobación.
+  - **Canal de reporte en la app (idea aprobada por Miguel, 19 nov 2026,
+    9:10 pm):** que la gente pueda decir «esto está mal» o «esto falta». Va en
+    B5 (Participa); su diseño y alcance se presentan a Miguel antes de
+    construirlo.
 - **Decidió:** Miguel, 19 nov 2026.

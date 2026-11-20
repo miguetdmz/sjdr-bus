@@ -14,7 +14,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | B2 | Primera pantalla publicable | Estilo D-30 **aplicado** (E-01) y menú lateral en computadora (E-02), EN REVISIÓN en el PR |
 | B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35 con punto, 21 de Miguel, 3 FALTANTES por D-41); falta la **secuencia de puntos por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
-| B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. Con D-41 es el canal para completar faltantes |
+| B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
 | B6 | Calcula tu ruta (D-15) | Sin iniciar |
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
