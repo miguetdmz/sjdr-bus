@@ -234,6 +234,35 @@ test('sin tiempo calculado ni «en vivo» en ninguna pantalla', async ({ page })
   }
 });
 
+// Pedido de Miguel (20 nov 2026, captura con la 002): al hacer scroll, el detalle
+// no pasa por detrás del buscador ni del sentido. Pantalla baja para forzar scroll.
+test.describe('teléfono con pantalla baja', () => {
+  test.use({ viewport: { width: 390, height: 640 } });
+
+  test('el detalle se desplaza debajo del sentido, nunca detrás', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.locator('#ruta').selectOption('U-002');
+    await page.locator('#segmento label').nth(1).click();
+    const cuerpo = page.locator('.hoja-cuerpo');
+    const medir = async () => {
+      const c = await page.locator('#controles').boundingBox();
+      const k = await cuerpo.boundingBox();
+      const e = await page.locator('#encabezado-ruta').boundingBox();
+      return { abajoControles: c.y + c.height, arribaCuerpo: k.y, arribaEncabezado: e.y };
+    };
+    await expect(async () => {
+      const m = await medir();
+      expect(m.arribaCuerpo).toBeGreaterThanOrEqual(m.abajoControles);
+      expect(m.arribaEncabezado).toBeGreaterThanOrEqual(m.abajoControles);
+    }).toPass();
+    const hayScroll = await cuerpo.evaluate((c) => c.scrollHeight > c.clientHeight);
+    expect(hayScroll, 'la pantalla baja obliga a desplazar el detalle').toBe(true);
+    await cuerpo.evaluate((c) => { c.scrollTop = c.scrollHeight; });
+    const m = await medir();
+    expect(m.arribaCuerpo, 'la caja del detalle sigue debajo del sentido').toBeGreaterThanOrEqual(m.abajoControles);
+  });
+});
+
 // D-48, ajuste 2 (Miguel, 20 nov 2026): en computadora el menú queda integrado,
 // como su referencia: barra con ☰ y nombre; al abrir, el mapa se recorre y se
 // ve completo, y el buscador con el sentido pasan al menú.

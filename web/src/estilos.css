@@ -247,7 +247,6 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
    del menú, en teléfono y en computadora. */
 .marca-barra { display: none; }
 .boton-menu { color: var(--tinta); }
-.hoja .hoja-cuerpo { padding-top: 120px; }
 .app.menu-abierto .barra {
   z-index: 1300; left: 18px; right: auto;
   top: calc(max(14px, env(safe-area-inset-top)) + 72px);
@@ -285,7 +284,6 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
     top: 60px; left: 0; bottom: 0; width: 400px; border-radius: 0;
     box-shadow: 1px 0 0 var(--borde); padding: 0 16px 12px;
   }
-  .hoja .hoja-cuerpo { padding-top: 130px; }
   .hoja-cabeza { position: absolute; top: 3px; right: 8px; padding: 0; margin: 0; border: 0; }
   .hoja-cabeza .logo, .hoja-marca { display: none; }
   .pestanas {
@@ -302,9 +300,7 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 
 /* D-49: el sentido aparece al elegir la ruta; sin ruta, el menú no reserva su lugar. */
 .sentido[hidden] { display: none; }
-.hoja:not(.con-ruta) .hoja-cuerpo { padding-top: 66px; }
-@media (min-width: 768px) {
-  .hoja:not(.con-ruta) .hoja-cuerpo { padding-top: 76px; }
-}
+/* El cuerpo del menú empieza justo debajo del buscador y el sentido: su margen
+   lo calcula main.ts (ajustarCuerpo), porque el sentido crece con nombres largos. */
 /* D-49: pin de parada (sustituye el punto gris de D-30). */
 .parada-toque svg { display: block; filter: drop-shadow(0 2px 3px rgba(18, 38, 45, 0.35)); }

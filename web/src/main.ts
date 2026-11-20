@@ -216,6 +216,7 @@ function mostrarDetalle(): void {
   verDetalle.hidden = !estado.ruta || panelAbierto();
   verDetalle.textContent = estado.ruta ? 'Ver detalle' : '';
   if (!estado.ruta) {
+    ajustarCuerpo();
     panel.replaceChildren();
     panel.hidden = true;
     encabezado.replaceChildren();
@@ -265,6 +266,7 @@ function mostrarDetalle(): void {
   }
   panel.replaceChildren(...nodos);
   panel.hidden = false;
+  ajustarCuerpo();
 }
 
 // --- Menú lateral izquierdo (D-48): el mismo en teléfono y en computadora ---------------
@@ -292,8 +294,21 @@ function ponerPanel(abierto: boolean, enfocar = true): void {
   verDetalle.hidden = abierto || !estado.ruta;
   botonMenu.setAttribute('aria-expanded', String(abierto));
   verDetalle.setAttribute('aria-expanded', String(abierto));
+  if (abierto) ajustarCuerpo();
   if (abierto && enfocar) cerrarMenu.focus({ preventScroll: true });
 }
+
+// El detalle se desplaza solo dentro de su caja, que empieza debajo del buscador
+// y del sentido: nada del detalle pasa por detrás de ellos (pedido de Miguel).
+const cuerpo = hoja.querySelector<HTMLElement>('.hoja-cuerpo')!;
+function ajustarCuerpo(): void {
+  if (!panelAbierto()) return;
+  cuerpo.style.marginTop = '0px';
+  const arriba = cuerpo.getBoundingClientRect().top;
+  const abajo = controles.getBoundingClientRect().bottom;
+  cuerpo.style.marginTop = `${Math.max(0, Math.ceil(abajo + 12 - arriba))}px`;
+}
+window.addEventListener('resize', ajustarCuerpo);
 
 hoja.toggleAttribute('inert', true);
 botonMenu.addEventListener('click', () => ponerPanel(!panelAbierto()));

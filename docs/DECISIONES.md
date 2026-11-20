@@ -1183,3 +1183,40 @@ Miguel).
 - **Decidió:** Miguel, 20 nov 2026.
 - **Impacta:** `CLAUDE.md` (regla 5), `web/`, `pruebas-navegador/b2a.spec.mjs`,
   `scripts/pruebas/selector.test.mjs`, `scripts/pruebas/app.test.mjs`.
+
+## D-50 · 20 nov 2026 · Selector visual de rutas: tarjetas con camioncito y número · PROPUESTA
+- **Idea (Miguel, 20 nov 2026, al probar D-49 en su teléfono):** en lugar de la
+  lista, al abrir el menú se ven tarjetas chicas (como su referencia de tipos
+  de reporte), cada una con un camioncito tipo logo vectorial con el número de
+  la ruta («R1», «R2»…), el nombre («Pedregoso – Centro») y colores que se
+  van alternando; que quepan en una pantalla y se puedan desplazar. Miguel:
+  «vamos a hacerlo de esa manera».
+- **Antes de construir, se decide (una pregunta a la vez):**
+  1. **Regla 9** («las rutas solo en un menú desplegable») y la prueba que
+     prohíbe rejillas y tarjetas: se cambian a «las 39 rutas en un selector
+     visual, ninguna oculta, en el orden de routes.txt». El `<select>` nativo
+     puede quedar como alternativa accesible.
+  2. **Nombre en la insignia:** «R1» en vez de «001». Falta definir cómo se
+     ven 009B, 011B y las intermunicipales, y si «R» choca con lo que dicen
+     las unidades en la calle [sin verificar].
+  3. **Colores:** paleta propia que se repite (regla 4: sin colores oficiales);
+     el color no significa nada de la ruta, y se dice.
+  4. **«Rutas más comunes»:** no hay fuente de qué rutas se usan más; no se
+     inventa. Alternativa honesta: «Tus rutas recientes», guardadas solo en el
+     teléfono, sin cookies.
+- **Ver la ruta aproximada desde ya:** el trazo llega con R-06 (B3). Antes, lo
+  honesto es mostrar origen y destino como zona probable (D-46). Se decide con
+  este bloque.
+- **Decide:** Miguel, en el chat siguiente (contexto de este chat al 31 %).
+
+## D-51 · 20 nov 2026 · Mapa isométrico o ilustrado de San Juan del Río · PROPUESTA (fase posterior)
+- **Idea (Miguel, 20 nov 2026):** sobre el mapa de OpenStreetMap, una capa
+  visual más atractiva: un mapa isométrico de San Juan del Río con las rutas.
+- **Postura:** se tiene en cuenta, pero **después del lanzamiento**. El mapa de
+  OpenStreetMap sigue siendo la base real (regla 6). Una capa ilustrada se
+  etiqueta ESQUEMÁTICO y no sustituye al mapa (regla 1 y lección 1: un mapa
+  esquemático ya hizo que los camiones cruzaran manzanas).
+- **Falta para decidir:** opciones y costo (teselas vectoriales gratuitas con
+  vista inclinada y edificios en 3D, o una ilustración propia) [sin verificar];
+  presupuesto $0 (regla 3). Se estudia después de B4.
+- **Decide:** Miguel, en una fase posterior.
