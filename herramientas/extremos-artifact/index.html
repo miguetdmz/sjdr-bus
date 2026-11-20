@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Confirmar extremos · SJDR Bus</title>
+<!--
+  HERRAMIENTA DE TRABAJO (D-34), no es parte de la app. Versión artifact privado
+  de Miguel en Claude (19 nov 2026): las respuestas se guardan en la base del
+  artifact (capacidad db, colección «decisiones»), así que se ven igual en la
+  computadora y en el teléfono, y Claude las lee. Fondo: calles de OpenStreetMap
+  (D-32) dibujadas como líneas, porque un artifact no carga teselas.
+  Archivos: node scripts/artifact-extremos.mjs
+-->
+<link rel="stylesheet" href="datos/leaflet.css" />
+<style>
+  :root {
+    --tinta: #12262d; --primario: #0d7a72; --primario-suave: #e3f2ef;
+    --acento: #f0a032; --fondo: #f4f2ec;
+    --tarjeta: #fff; --suave: #66767c; --borde: #e3e0d8; --rojo: #b3402f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--tinta); color-scheme: light;
+  }
+  * { box-sizing: border-box; min-width: 0; }
+  html, body { margin: 0; height: 100%; background: var(--fondo); color: var(--tinta); }
+  body { display: grid; grid-template-rows: auto auto 1fr; height: 100vh; height: 100dvh; }
+
+  .leyenda { background: var(--acento); color: #2b1a00; font-weight: 700; font-size: 13px; padding: 7px 16px; line-height: 1.3; }
+  .aviso { background: var(--primario-suave); font-size: 13px; padding: 6px 16px; border-bottom: 1px solid var(--borde); display: flex; gap: 6px 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .aviso b { color: var(--primario); }
+  #guardado.error b { color: var(--rojo); }
+
+  main { display: grid; grid-template-columns: 330px 1fr; min-height: 0; }
+  #lista-caja { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--borde); background: var(--tarjeta); }
+  #lista-caja h1 { font-size: 16px; margin: 0; padding: 10px 14px 4px; }
+  #contador { padding: 0 14px 8px; font-size: 13px; color: var(--suave); }
+  #contador b { color: var(--tinta); font-size: 15px; }
+  #lista { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; }
+  #lista li { margin: 0; }
+  #lista button { all: unset; box-sizing: border-box; display: flex; width: 100%; align-items: center; gap: 8px; padding: 10px 14px; min-height: 44px; cursor: pointer; border-top: 1px solid var(--borde); font-size: 14px; }
+  #lista button:hover { background: var(--fondo); }
+  #lista button:focus-visible { outline: 3px solid var(--primario); outline-offset: -3px; }
+  #lista button[aria-current="true"] { background: var(--primario-suave); box-shadow: inset 4px 0 0 var(--primario); }
+  #lista .nom { flex: 1; }
+  #lista .nom small { display: block; color: var(--suave); font-size: 11px; }
+  .chip { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
+  .chip.pendiente { background: #eceae3; color: #55646a; }
+  .chip.aprobado { background: var(--primario); color: #fff; }
+  .chip.movido { background: #2b6cb0; color: #fff; }
+  .chip.ubicado { background: #6b4fa1; color: #fff; }
+  .chip.rechazado { background: var(--rojo); color: #fff; }
+
+  #derecha { display: grid; grid-template-rows: auto 1fr; min-height: 0; }
+  #ficha { background: var(--tarjeta); border-bottom: 1px solid var(--borde); padding: 10px 16px; display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: start; }
+  #ficha h2 { margin: 0; font-size: 19px; }
+  #ficha .rutas { font-size: 12px; color: var(--suave); margin-top: 2px; }
+  #cand { grid-column: 1; font-size: 13px; line-height: 1.4; }
+  #cand .nota { color: var(--suave); }
+  .fila-cand { font: inherit; display: inline-block; margin: 2px 6px 2px 0; padding: 6px 10px; border: 1px solid var(--borde); border-radius: 8px; background: var(--fondo); font-size: 12px; cursor: pointer; color: var(--tinta); }
+  .fila-cand[aria-pressed="true"] { border-color: var(--primario); background: var(--primario-suave); font-weight: 700; }
+  #acciones { grid-column: 2; grid-row: 1 / span 2; display: flex; flex-direction: column; gap: 6px; min-width: 230px; }
+  #acciones button { font: inherit; font-weight: 800; font-size: 15px; padding: 11px 14px; min-height: 44px; border-radius: 10px; border: 2px solid transparent; cursor: pointer; }
+  #acciones button:disabled { opacity: .4; cursor: not-allowed; }
+  #b-aprobar { background: var(--primario); color: #fff; }
+  #b-rechazar { background: #fff; color: var(--rojo); border-color: var(--rojo) !important; }
+  #b-borrar { background: none; color: var(--suave); font-size: 12px !important; font-weight: 600 !important; padding: 2px !important; min-height: 0 !important; text-decoration: underline; }
+  .ayuda { font-size: 12px; color: var(--suave); }
+  #estado-actual { font-size: 12px; }
+
+  #mapa { min-height: 0; background: #faf8f3; }
+  .leaflet-container { background: #faf8f3; font: inherit; }
+  .leaflet-control-attribution { font-size: 10px; background: rgba(255,255,255,.85) !important; }
+  .m-grande { width: 30px; height: 30px; border-radius: 50%; background: var(--primario); border: 4px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+  .m-grande.ubicado { background: #6b4fa1; }
+  .m-chico { width: 16px; height: 16px; border-radius: 50%; background: var(--acento); border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); cursor: pointer; }
+  .tip { font-size: 12px; }
+  .colonia { background: none; border: 0; box-shadow: none; color: #5b6a70; font-size: 11px; font-weight: 700; padding: 0; text-shadow: 0 0 3px #faf8f3, 0 0 3px #faf8f3; }
+  .colonia::before { display: none; }
+
+  @media (max-width: 800px) {
+    body { height: auto; display: block; }
+    main { grid-template-columns: 1fr; }
+    #lista-caja { max-height: 220px; border-right: 0; border-bottom: 1px solid var(--borde); }
+    #ficha { grid-template-columns: 1fr; }
+    #acciones { grid-column: 1; grid-row: auto; flex-direction: row; flex-wrap: wrap; min-width: 0; }
+    #acciones button { flex: 1; }
+    #estado-actual { flex-basis: 100%; }
+    #mapa { height: 60vh; }
+  }
+</style>
+</head>
+<body>
+<div class="leyenda">Herramienta de trabajo · las propuestas vienen de OpenStreetMap y quedan POR VERIFICAR EN CAMPO aunque las apruebes</div>
+<div class="aviso">
+  <span id="guardado"><b>Conectando con el guardado…</b></span>
+  <span class="ayuda">Aprobar = el punto está bien · arrastra el punto para moverlo · Rechazar = no es aquí</span>
+</div>
+<main>
+  <section id="lista-caja" aria-label="Lugares por confirmar">
+    <h1>Lugares sin ubicar</h1>
+    <div id="contador">Cargando…</div>
+    <ul id="lista"></ul>
+  </section>
+  <section id="derecha">
+    <div id="ficha">
+      <div>
+        <h2 id="f-nombre"></h2>
+        <div class="rutas" id="f-rutas"></div>
+      </div>
+      <div id="cand"></div>
+      <div id="acciones">
+        <div id="estado-actual"></div>
+        <button id="b-aprobar" type="button">Aprobar</button>
+        <button id="b-rechazar" type="button">Rechazar (no es aquí)</button>
+        <button id="b-borrar" type="button">Volver a pendiente</button>
+      </div>
+    </div>
+    <div id="mapa"></div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+{
+  const ETIQUETA = { pendiente: 'pendiente', aprobado: 'aprobado', movido: 'movido', rechazado: 'rechazado', ubicado: 'ubicado por Miguel' };
+  const CLAVE_LOCAL = 'sjdr-extremos-decisiones-v1';
+  const redondeo = (n) => Number(n.toFixed(5));
+  const el = (id) => document.getElementById(id);
+  // Id de documento: solo letras, números y guiones (gramática de la base).
+  const idDe = (nombre) => nombre.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  let lugares = [];
+  let decisiones = {};   // por nombre de lugar
+  let base = null;       // colección «decisiones» de la base del artifact, o null
+  let sel = 0, candSel = 0, punto = null, borrador = null, avisoGuardado = false;
+  const lugar = () => lugares[sel];
+  const estadoDe = (n) => decisiones[n]?.estado ?? 'pendiente';
+
+  function avisar(texto, error) {
+    el('guardado').className = error ? 'error' : '';
+    el('guardado').innerHTML = `<b>${texto}</b>`;
+  }
+
+  // ── Guardado ──────────────────────────────────────────────
+  async function guardar(nombre, d) {
+    if (d) decisiones[nombre] = { ...d, fecha: new Date().toISOString() };
+    else delete decisiones[nombre];
+    pintarLista(); pintarFicha();
+    try {
+      if (base) {
+        const ref = base.doc(idDe(nombre));
+        if (d) await ref.set({ nombre, ...decisiones[nombre] });
+        else await ref.delete();
+      } else {
+        localStorage.setItem(CLAVE_LOCAL, JSON.stringify(decisiones));
+      }
+    } catch (e) {
+      avisar(`No se pudo guardar «${nombre}» (${e?.code ?? 'error'}). Vuelve a intentarlo.`, true);
+    }
+  }
+
+  async function conectar() {
+    let db = null;
+    try { db = window.claude?.use ? await window.claude.use('db') : null; } catch { db = null; }
+    if (!db) {
+      try { decisiones = JSON.parse(localStorage.getItem(CLAVE_LOCAL)) ?? {}; } catch { decisiones = {}; }
+      avisar('Aquí no hay guardado en Claude: tus respuestas se quedan solo en este navegador.', true);
+      pintarLista(); pintarFicha(); dibujar();
+      return;
+    }
+    base = db.collection('decisiones');
+    const reloj = setTimeout(() => avisar('El guardado tarda en responder; lo que ves puede no estar al día.', true), 10000);
+    base.onSnapshot((snap) => {
+      if (!snap.metadata.fromCache) clearTimeout(reloj);
+      const nuevas = {};
+      for (const doc of snap.docs) {
+        const x = doc.data();
+        if (x && typeof x.nombre === 'string') nuevas[x.nombre] = x;
+      }
+      decisiones = nuevas;
+      if (!snap.metadata.fromCache) avisar('Tus respuestas se guardan solas en Claude (computadora y teléfono). Al terminar, avísale a Claude en el chat.');
+      pintarLista(); pintarFicha();
+      if (!borrador) dibujar();
+    }, (e) => {
+      clearTimeout(reloj);
+      avisar(`Se perdió la conexión con el guardado (${e.code}). Cierra y vuelve a abrir la página.`, true);
+    });
+  }
+
+  // ── Mapa: calles de OpenStreetMap dibujadas como líneas ────
+  const mapa = L.map('mapa', { zoomControl: true, preferCanvas: true }).setView([20.39, -99.99], 13);
+  mapa.attributionControl.setPrefix('Leaflet');
+  mapa.attributionControl.addAttribution('Calles © colaboradores de OpenStreetMap (ODbL)');
+  const lienzo = L.canvas({ padding: 0.5 });
+  const GROSOR = { motorway: 4, trunk: 4, primary: 3.5, secondary: 3, tertiary: 2.5, unclassified: 2, residential: 1.6, living_street: 1.4 };
+  const COLOR = { motorway: '#c9a46a', trunk: '#c9a46a', primary: '#d6b98a' };
+  const capaColonias = L.layerGroup();
+  const capa = L.layerGroup().addTo(mapa);
+  const icono = (clase, t) => L.divIcon({ className: '', html: `<div class="${clase}"></div>`, iconSize: [t, t], iconAnchor: [t / 2, t / 2] });
+
+  function pintarLista() {
+    const hechos = lugares.filter((l) => estadoDe(l.nombre) !== 'pendiente').length;
+    el('contador').innerHTML = `<b>${hechos} de ${lugares.length}</b> respondidos`;
+    const ul = el('lista');
+    ul.replaceChildren();
+    lugares.forEach((l, i) => {
+      const li = document.createElement('li');
+      const b = document.createElement('button');
+      b.type = 'button';
+      if (i === sel) b.setAttribute('aria-current', 'true');
+      const nom = document.createElement('span');
+      nom.className = 'nom';
+      nom.textContent = l.nombre;
+      const peq = document.createElement('small');
+      peq.textContent = `${l.rutas.length ? `${l.rutas.length} ruta${l.rutas.length > 1 ? 's' : ''}` : 'sin rutas'} · ${l.candidatos.length ? `${l.candidatos.length} propuesta${l.candidatos.length > 1 ? 's' : ''}` : 'sin propuesta'}`;
+      nom.append(peq);
+      const e = estadoDe(l.nombre);
+      const chip = document.createElement('span');
+      chip.className = `chip ${e}`;
+      chip.textContent = ETIQUETA[e] ?? e;
+      b.append(nom, chip);
+      b.addEventListener('click', () => elegir(i));
+      li.append(b);
+      ul.append(li);
+    });
+  }
+
+  function pintarFicha() {
+    const l = lugar();
+    if (!l) return;
+    const d = decisiones[l.nombre];
+    el('f-nombre').textContent = l.nombre;
+    el('f-rutas').textContent = l.rutas.length ? `Lo usan las rutas ${l.rutas.join(', ')}` : 'Sin rutas en el inventario';
+    const cont = el('cand');
+    cont.replaceChildren();
+    if (l.candidatos.length) {
+      const c = l.candidatos[candSel];
+      const t = document.createElement('div');
+      const nombre = document.createElement('b');
+      nombre.textContent = c.nombre;
+      t.append(nombre, ` · ${c.tipo ?? 'sin tipo'} · puntaje ${c.puntaje}/100 (ESTIMADO) · ${c.osm}`);
+      const r = document.createElement('div');
+      r.textContent = `Por qué se propone: ${c.razon}.`;
+      cont.append(t, r);
+      if (l.candidatos.length > 1) {
+        const otros = document.createElement('div');
+        l.candidatos.forEach((x, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'fila-cand';
+          b.setAttribute('aria-pressed', String(i === candSel));
+          b.textContent = `${i + 1}. ${x.nombre} (${x.puntaje})`;
+          b.addEventListener('click', () => elegirCandidato(i));
+          otros.append(b);
+        });
+        cont.append(otros);
+      }
+    } else {
+      const n = document.createElement('div');
+      n.className = 'nota';
+      n.textContent = `${l.nota ?? ''} Si sabes dónde está, toca el mapa para poner un punto.`;
+      cont.append(n);
+    }
+    el('b-aprobar').textContent = l.candidatos.length ? 'Aprobar' : 'Guardar este punto';
+    el('b-aprobar').disabled = punto === null;
+    el('estado-actual').textContent = avisoGuardado
+      ? 'Guardado ✓ · pasando al siguiente…'
+      : borrador
+        ? `Punto ${l.candidatos.length ? 'movido' : 'puesto'} · falta ${l.candidatos.length ? 'aprobar' : 'guardar'} ↓`
+        : d
+          ? `Estado: ${ETIQUETA[d.estado] ?? d.estado}${d.coordenada ? ` · ${d.coordenada[0]}, ${d.coordenada[1]}` : ''}`
+          : 'Estado: pendiente';
+    el('estado-actual').style.fontWeight = borrador || avisoGuardado ? '700' : '';
+    el('estado-actual').style.color = avisoGuardado ? 'var(--primario)' : borrador ? '#8a5300' : '';
+    el('b-borrar').style.visibility = d ? 'visible' : 'hidden';
+  }
+
+  function dibujar() {
+    capa.clearLayers();
+    const l = lugar();
+    if (!l) return;
+    const d = decisiones[l.nombre];
+    const c = l.candidatos[candSel];
+    punto = borrador ?? d?.coordenada ?? (c ? c.centro : null);
+    l.candidatos.forEach((x, i) => {
+      if (i === candSel) return;
+      const m = L.marker(x.centro, { icon: icono('m-chico', 16), title: x.nombre }).addTo(capa);
+      m.bindTooltip(`${x.nombre} · ${x.tipo ?? ''}`, { className: 'tip' });
+      m.on('click', () => elegirCandidato(i));
+    });
+    if (punto) {
+      const m = L.marker(punto, { icon: icono(`m-grande ${c ? '' : 'ubicado'}`, 30), draggable: true, zIndexOffset: 1000 }).addTo(capa);
+      m.bindTooltip(c ? `${c.nombre} (arrástralo para moverlo)` : 'Tu punto (arrástralo para moverlo)', { className: 'tip' });
+      m.on('dragend', () => {
+        const p = m.getLatLng();
+        borrador = [redondeo(p.lat), redondeo(p.lng)];
+        punto = borrador;
+        pintarFicha();
+      });
+    }
+    pintarFicha();
+  }
+
+  function centrar() {
+    if (punto) mapa.setView(punto, 16, { animate: false });
+    else mapa.setView([20.39, -99.99], 13, { animate: false });
+  }
+
+  function elegir(i) {
+    sel = i; candSel = 0; borrador = null; avisoGuardado = false;
+    const d = decisiones[lugar().nombre];
+    if (d?.candidato_osm) {
+      const k = lugar().candidatos.findIndex((c) => c.osm === d.candidato_osm);
+      if (k >= 0) candSel = k;
+    }
+    dibujar(); centrar(); pintarLista(); pintarFicha();
+  }
+  function elegirCandidato(i) {
+    candSel = i;
+    borrador = null;
+    const l = lugar();
+    const d = decisiones[l.nombre];
+    // Cambiar de candidato con una decisión de otro: vuelve a pendiente.
+    if (d?.coordenada && d.candidato_osm !== l.candidatos[i].osm) guardar(l.nombre, null);
+    dibujar(); centrar(); pintarLista(); pintarFicha();
+  }
+
+  el('b-aprobar').addEventListener('click', () => {
+    const l = lugar();
+    const c = l.candidatos[candSel];
+    if (!punto) return;
+    if (c) {
+      const igual = punto[0] === c.centro[0] && punto[1] === c.centro[1];
+      guardar(l.nombre, { estado: igual ? 'aprobado' : 'movido', coordenada: punto, candidato_osm: c.osm });
+    } else {
+      guardar(l.nombre, { estado: 'ubicado', coordenada: punto, candidato_osm: null });
+    }
+    borrador = null;
+    avisoGuardado = true;
+    dibujar();
+    const siguiente = lugares.findIndex((x, i) => i > sel && estadoDe(x.nombre) === 'pendiente');
+    const primero = lugares.findIndex((x) => estadoDe(x.nombre) === 'pendiente');
+    const destino = siguiente >= 0 ? siguiente : primero;
+    setTimeout(() => { avisoGuardado = false; if (destino >= 0) elegir(destino); else pintarFicha(); }, 900);
+  });
+  el('b-rechazar').addEventListener('click', () => {
+    borrador = null;
+    guardar(lugar().nombre, { estado: 'rechazado', coordenada: null, candidato_osm: null });
+    dibujar();
+  });
+  el('b-borrar').addEventListener('click', () => {
+    borrador = null;
+    guardar(lugar().nombre, null);
+    dibujar(); centrar();
+  });
+
+  mapa.on('click', (ev) => {
+    const l = lugar();
+    if (!l || l.candidatos.length) return;
+    borrador = [redondeo(ev.latlng.lat), redondeo(ev.latlng.lng)];
+    dibujar();
+  });
+  mapa.on('zoomend', () => {
+    if (mapa.getZoom() >= 15) capaColonias.addTo(mapa); else capaColonias.remove();
+  });
+  window.addEventListener('resize', () => mapa.invalidateSize());
+
+  // ── Carga ─────────────────────────────────────────────────
+  Promise.all(['propuestas', 'calles', 'lugares'].map((n) => fetch(`datos/${n}.json`).then((r) => r.json())))
+    .then(([props, calles, colonias]) => {
+      lugares = props;
+      for (const [nombre, tipo, trazo] of calles) {
+        L.polyline(trazo, { renderer: lienzo, color: COLOR[tipo] ?? '#cfc8b8', weight: GROSOR[tipo] ?? 1.5, opacity: 1 })
+          .bindTooltip(nombre, { sticky: true, className: 'tip' })
+          .addTo(mapa);
+      }
+      for (const [nombre, centro] of colonias) {
+        L.tooltip({ permanent: true, direction: 'center', className: 'colonia', interactive: false })
+          .setLatLng(centro).setContent(nombre).addTo(capaColonias);
+      }
+      elegir(0);
+      conectar();
+    })
+    .catch(() => { el('contador').textContent = 'No se pudieron cargar los datos de la página.'; });
+}
+</script>
+</body>
+</html>

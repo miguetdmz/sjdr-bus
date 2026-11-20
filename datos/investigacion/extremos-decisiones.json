@@ -1,0 +1,123 @@
+{
+  "tarea": "R-03 (D-34)",
+  "que_es": "Respuestas de Miguel en la página de confirmación de extremos. Todo punto queda POR VERIFICAR EN CAMPO.",
+  "respaldado": "2026-11-19T19:10-06:00",
+  "respondidos": 13,
+  "de": 27,
+  "decisiones": {
+    "Central de Autobuses": {
+      "estado": "movido",
+      "coordenada": [
+        20.37562,
+        -100.00191
+      ],
+      "candidato_osm": "way/551487177",
+      "fecha": "2026-11-19T23:34:35.277Z"
+    },
+    "5 de Mayo": {
+      "estado": "aprobado",
+      "coordenada": [
+        20.39279,
+        -99.99347
+      ],
+      "candidato_osm": "node/13976108729",
+      "fecha": "2026-11-19T23:34:29.523Z"
+    },
+    "Francisco Villa": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.37587,
+        -99.94821
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:38:32.816Z"
+    },
+    "Infonavit La Paz": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.40207,
+        -99.96782
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:39:50.163Z"
+    },
+    "La Peña": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.3999,
+        -99.96385
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:44:13.521Z"
+    },
+    "Universidad Tecnológica (UTSJR)": {
+      "estado": "aprobado",
+      "coordenada": [
+        20.3678,
+        -100.00858
+      ],
+      "candidato_osm": "way/707866085",
+      "fecha": "2026-11-19T23:44:23.278Z"
+    },
+    "Valle Real": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.44268,
+        -99.97988
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:45:38.573Z"
+    },
+    "Carrizo": {
+      "estado": "aprobado",
+      "coordenada": [
+        20.42385,
+        -99.99699
+      ],
+      "candidato_osm": "node/12626681980",
+      "fecha": "2026-11-19T23:47:26.799Z"
+    },
+    "Ezequiel Montes": {
+      "estado": "rechazado",
+      "coordenada": null,
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:50:23.767Z"
+    },
+    "Fracc. La Rueda": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.42725,
+        -99.98996
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:51:12.717Z"
+    },
+    "Granjas Banthí": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.38361,
+        -99.94602
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:52:35.352Z"
+    },
+    "IMSS": {
+      "estado": "aprobado",
+      "coordenada": [
+        20.37666,
+        -99.98689
+      ],
+      "candidato_osm": "way/51652707",
+      "fecha": "2026-11-19T23:53:07.986Z"
+    },
+    "Nuevo Parque Industrial": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.3617,
+        -99.96134
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:49:16.326Z"
+    }
+  }
+}
