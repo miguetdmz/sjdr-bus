@@ -4,23 +4,24 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 1:44 pm)
+## Estado actual (20 nov 2026, 3:52 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
-| Versión en espera (PR 1, https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, mockup navegable, estilo D-30, nombre SJDR Bus. Integra Miguel después de verla en su teléfono |
-| Bloque en curso | **B3 · Trazos de las rutas** |
-| Tarea en curso | **R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
+| Versión en espera (PR 1, https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, nombre SJDR Bus. Integra Miguel cuando cierre B2 |
+| Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
+| Tarea en curso | **E-03 · Pantalla con mapa completo**: hecha y en el teléfono de Miguel; sigue **D-50** (selector visual de rutas) |
+| Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
 |---|---|---|
 | B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado. Repositorio **público** `miguetdmz/sjdr-bus` (D-29), con candado en `main` |
 | B1 | Datos base del GTFS-SJR | **7 de 7.** Desde D-36/D-39/D-40 son **39 rutas** (37 urbanas + 2 intermunicipales): de baja 031, 024C y 018; la 044 volvió |
 | B2a | Mockup navegable (PWA, Vite + Leaflet) | **8 de 8.** M-05 a M-08 hechas por el turno (PR 2, inspector: **LIBERADO**, 20 nov 2026, 12:17 am). Falta integrarlo y verlo en el teléfono |
-| B2 | Primera pantalla publicable | Estilo D-30 **aplicado** (E-01) y menú lateral en computadora (E-02), EN REVISIÓN en el PR |
+| B2 | Primera pantalla publicable | **E-03 (D-48, D-49) EN REVISIÓN:** mapa completo, «¿A dónde vas?» arriba, menú lateral izquierdo (integrado en computadora), detalle que se abre solo, sentido solo con ruta, pines de parada. Miguel: «se ve muy bien en computadora». **Falta D-50** (selector visual con camioncitos R1, R2…) y su aprobación para cerrar B2 |
 | B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 698 de 936 con punto exacto (75 %), **27 APROXIMADOS (3 %, D-45: ESTIMADO, nivel C)**, 191 referencias (20 %), 20 POR VERIFICAR (2 %) al 20 nov, 1:05 pm. **D-46 PROPUESTA:** extremos como zona probable (mapa de calor). Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
@@ -28,7 +29,35 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (20 nov 2026, 1:05 pm)
+### Relevo para la siguiente sesión (20 nov 2026, 3:52 pm)
+
+0. **Lo hecho de la 1:39 pm a las 3:52 pm del 20 nov:**
+   - **D-47 + lección 12:** todo se nombra Bloque · Tarea · Versión; tabla
+     «Dónde vamos» arriba. Para todos los proyectos (la cosecha la lleva).
+   - **Corrección:** el PR 2 se integró a la rama de cierre, no a `main`;
+     `main` sigue en v0.1 (1 commit) y todo espera en el PR 1.
+   - **B2 · E-03 (D-48, D-49):** pantalla rehecha con Miguel en 4 vueltas
+     (capturas en `docs/evidencia/e03/`). Regla 5 cambiada (D-49): el sentido
+     aparece al elegir la ruta. Defecto de scroll (detalle detrás del sentido)
+     corregido con prueba. Puerta: 132/132 y 13/13 en navegador; GitHub
+     Actions en verde en cada subida.
+   - **Propuestas:** D-50 (selector visual de rutas), D-51 (mapa isométrico,
+     fase posterior), R-07 (paradas por ruta, después de R-06).
+   - Lección 7: 4.ª ocurrencia, atrapada por el hook antes del commit.
+1. **Siguiente: D-50**, una pregunta a la vez y con criterio medible antes de
+   construir: (1) cambiar la regla 9 y la prueba que prohíbe tarjetas;
+   (2) «R1» en vez de «001», y cómo se ven 009B, 011B, I-062 e I-023;
+   (3) colores propios alternados, aclarando que no significan nada;
+   (4) «Tus rutas recientes» (solo en el teléfono) en vez de «más comunes»,
+   que no tiene fuente. Opcional: origen y destino como zona (D-46).
+2. **Para cerrar B2:** Miguel aprueba D-48/D-49/D-50 en su teléfono → integra
+   el PR 1 (pasa a v0.2) → el trabajo sigue en una rama `b3/r03-cruces` (D-47).
+3. **Después, B3 · R-03:** los 20 POR VERIFICAR (lista en el relevo de la
+   1:05 pm, abajo) y los hallazgos b y c.
+4. **Bandera:** EN SESIÓN. La cola no tiene tareas APROBADA que el turno pueda
+   hacer (R-04 a R-06 son de día y esperan R-03).
+
+### Relevo anterior (20 nov 2026, 1:05 pm)
 
 0. **Lo hecho de las 8:08 am a la 1:05 pm del 20 nov (R-03, D-43, D-45):**
    - Alias de Miguel: Carretera Querétaro 300 = Panamericana; El Cerezo = CERESO

@@ -165,7 +165,11 @@ puede, convertir la regla en una prueba automática.
    - 2026-11-20 (4.ª vez, ya con el control): Claude escribió de memoria la hora
      del ajuste 2 de D-48; el hook avisó «18 min DESPUÉS de la hora real» y se
      corrigió antes del commit. El control funcionó.
-   Ocurrencias: 4 · Estado: **PROMOVIDA → hook `hora-real`** (20 nov 2026,
+   - 2026-11-20 (5.ª vez, ya con el control): en el relevo de `docs/PLAN.md` Claude
+     escribió la hora antes de correr `date` en el mismo comando; el hook avisó
+     14 min de diferencia y se corrigió antes del commit. Detección temprana: correr
+     `date` en un paso aparte, antes de escribir.
+   Ocurrencias: 5 · Estado: **PROMOVIDA → hook `hora-real`** (20 nov 2026,
    con el sí de Miguel): `.claude/hooks/hora-real.mjs`, conectado en
    `.claude/settings.json` (PostToolUse de Edit, Write, MultiEdit y Bash). Si
    el texto nuevo trae una hora («2:13 am», «1:28 y 1:43 am») que no estaba
