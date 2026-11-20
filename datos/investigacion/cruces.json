@@ -24,8 +24,8 @@
   "cruces": 974,
   "UBICADO": 667,
   "UBICADO POR LUGAR": 3,
-  "REFERENCIA": 183,
-  "CALLES SIN CRUCE EN OSM": 61,
+  "REFERENCIA": 188,
+  "CALLES SIN CRUCE EN OSM": 56,
   "SIN UBICAR": 60,
   "con_correccion": 277
  },
@@ -2409,8 +2409,8 @@
    "conteo": {
     "UBICADO": 28,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 7,
-    "CALLES SIN CRUCE EN OSM": 1,
+    "REFERENCIA": 8,
+    "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -2857,9 +2857,9 @@
      "texto": "C. MIGUEL HIDALGO-SAGITARIO",
      "calle": "C. MIGUEL HIDALGO",
      "cruce_con": "SAGITARIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Miguel Hidalgo",
-     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Sagitario») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 36,
@@ -3449,8 +3449,8 @@
    "conteo": {
     "UBICADO": 55,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 21,
-    "CALLES SIN CRUCE EN OSM": 3,
+    "REFERENCIA": 22,
+    "CALLES SIN CRUCE EN OSM": 2,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -3810,9 +3810,9 @@
      "texto": "C. MIGUEL HIDALGO-SAGITARIO",
      "calle": "C. MIGUEL HIDALGO",
      "cruce_con": "SAGITARIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Miguel Hidalgo",
-     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Sagitario») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 32,
@@ -7988,8 +7988,8 @@
    "conteo": {
     "UBICADO": 39,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 17,
-    "CALLES SIN CRUCE EN OSM": 4,
+    "REFERENCIA": 18,
+    "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 5
    },
    "cruces": [
@@ -8310,9 +8310,9 @@
      "texto": "C. MIGUEL HIDALGO-SAGITARIO",
      "calle": "C. MIGUEL HIDALGO",
      "cruce_con": "SAGITARIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Miguel Hidalgo",
-     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Sagitario») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 29,
@@ -8755,8 +8755,8 @@
    "conteo": {
     "UBICADO": 27,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 7,
-    "CALLES SIN CRUCE EN OSM": 8,
+    "REFERENCIA": 8,
+    "CALLES SIN CRUCE EN OSM": 7,
     "SIN UBICAR": 12
    },
    "cruces": [
@@ -9034,9 +9034,9 @@
      "texto": "C. MIGUEL HIDALGO-SAGITARIO",
      "calle": "C. MIGUEL HIDALGO",
      "cruce_con": "SAGITARIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Miguel Hidalgo",
-     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Sagitario») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 26,
@@ -10957,8 +10957,8 @@
    "conteo": {
     "UBICADO": 34,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 11,
-    "CALLES SIN CRUCE EN OSM": 7,
+    "REFERENCIA": 12,
+    "CALLES SIN CRUCE EN OSM": 6,
     "SIN UBICAR": 4
    },
    "cruces": [
@@ -11315,9 +11315,9 @@
      "texto": "C. MIGUEL HIDALGO-SAGITARIO",
      "calle": "C. MIGUEL HIDALGO",
      "cruce_con": "SAGITARIO",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Miguel Hidalgo",
-     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Sagitario») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 32,

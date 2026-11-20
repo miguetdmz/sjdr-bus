@@ -107,3 +107,9 @@ test('cruces: Río Moctezuma sigue como Gral. Francisco Villa hasta la Av. Centr
   assert.ok(conCarr.length >= 6 && conCarr.every((c) => c.estado === 'UBICADO' && c.osm_calle === 'Calle General Francisco Villa'));
   assert.ok(rm.filter((c) => c.estado === 'UBICADO' && c.osm_calle === 'Avenida Río Moctezuma').length >= 30);
 });
+
+test('cruces: «Sagitario» junto a la Av. Hidalgo es un negocio (Miguel, D-43): confirma la calle, sin punto propio', () => {
+  const s = todos.filter((c) => /HIDALGO-SAGITARIO/.test(c.texto));
+  assert.ok(s.length >= 5);
+  for (const c of s) { assert.equal(c.estado, 'REFERENCIA'); assert.equal(c.lat, undefined); }
+});

@@ -4,22 +4,34 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (19 nov 2026, 10:55 pm)
+## Estado actual (20 nov 2026, 1:02 am)
 
 | Bloque | Qué es | Estado |
 |---|---|---|
 | B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado. Repositorio **público** `miguetdmz/sjdr-bus` (D-29), con candado en `main` |
 | B1 | Datos base del GTFS-SJR | **7 de 7.** Desde D-36/D-39/D-40 son **39 rutas** (37 urbanas + 2 intermunicipales): de baja 031, 024C y 018; la 044 volvió |
-| B2a | Mockup navegable (PWA, Vite + Leaflet) | **4 de 8** en línea. M-05 a M-08 APROBADA: las toma el turno del 19 nov, 11:30 pm |
+| B2a | Mockup navegable (PWA, Vite + Leaflet) | **8 de 8.** M-05 a M-08 hechas por el turno (PR 2, inspector: **LIBERADO**, 20 nov 2026, 12:17 am). Falta integrarlo y verlo en el teléfono |
 | B2 | Primera pantalla publicable | Estilo D-30 **aplicado** (E-01) y menú lateral en computadora (E-02), EN REVISIÓN en el PR |
-| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de las 19 listas usables separados y ubicados: 629 de 974 con punto (65 %), 166 POR VERIFICAR (17 %). Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
+| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de las 19 listas usables separados y ubicados: 670 de 974 con punto (69 %), 116 POR VERIFICAR (12 %) al 20 nov, 1:00 am. Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
 | B6 | Calcula tu ruta (D-15) | Sin iniciar |
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (19 nov 2026, 10:55 pm)
+### Relevo para la siguiente sesión (20 nov 2026, 1:02 am)
+
+0. **Lo hecho en la sesión de la madrugada del 20 nov:** turno M-05 a M-08
+   LIBERADO (PR 2); D-44 aprobada y aplicada (relevo por bandera,
+   `docs/RELEVO.md` en EN SESIÓN; rutinas cambiadas); R-03: alias Jurica =
+   Belisario Domínguez, continuación Río Moctezuma → Gral. Francisco Villa,
+   Sagitario = negocio, «1» = «Uno», «SIN REFERENCIA» y «MONUMENTO»
+   limpiados. POR VERIFICAR: de 166 a 116. **Siguiente Pareto:** Calle
+   Constituyentes (8, con «Av. 9 Poniente» y «Calle 5 Poniente»), Uruguay (8,
+   todas en la 015B con Veracruz y Francia), Av. Lomas de San Juan (6), 20 de
+   Noviembre (6), La Palma (5).
+
+### Relevo anterior (19 nov 2026, 10:55 pm)
 
 1. **Lo hecho hoy en R-03, hallazgo a (D-42, D-43):** `scripts/cruces.mjs`
    (`npm run cruces`) separa y ubica los cruces de las 19 listas usables con

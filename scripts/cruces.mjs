@@ -362,7 +362,11 @@ function nombresRepetidos(partes) {
   return largos;
 }
 
-const esLugar = (texto) => LUGAR.has(palabras(texto)[0]);
+// Negocios que Miguel confirmó (no son calles). Una calle de OSM con el mismo
+// nombre exacto sigue valiendo en otro barrio («Calle Sagitario», colonia de
+// los signos): solo se descarta la búsqueda aproximada.
+const NEGOCIOS_MIGUEL = new Set(['SAGITARIO']); // sobre la Av. Hidalgo, en el centro; Miguel, 20 nov 2026, 1:00 am
+const esLugar = (texto) => LUGAR.has(palabras(texto)[0]) || NEGOCIOS_MIGUEL.has(clave(texto));
 // Un negocio o lugar («PLAZA MORELOS», «PARQUE LAS GARZAS») solo se toma como
 // calle si OSM tiene una calle con ese nombre exacto.
 const candidatosCalle = (texto) => (esLugar(texto) ? candidatos(texto).filter((c) => c.tipo === 'exacto') : candidatos(texto));

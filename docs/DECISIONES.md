@@ -683,6 +683,7 @@ Miguel).
   | Carr. San Juan del Río (dentro de la ciudad) | Avenida Central | Miguel, 19 nov 2026, 10:12 pm |
   | Jurica | Avenida Belisario Domínguez | Miguel, 20 nov 2026, 12:47 am |
   | Av. Río Moctezuma (al llegar a la Av. Central) | sigue como Calle General Francisco Villa (continuación, no reemplazo) | Miguel, 20 nov 2026, 12:55 am |
+  | Sagitario (sobre la Av. Hidalgo, en el centro) | es un **negocio**, no una calle (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 1:00 am |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
   pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
   ruta); si no, el cruce sigue POR VERIFICAR.
@@ -712,6 +713,11 @@ Miguel).
   agrega como opción, no reemplaza el nombre, y pasa la prueba del mapa.
   Efecto: 6 cruces nuevos con punto, ninguno movido ni perdido. Total: 670 de
   974 con punto (69 %), 183 referencias (19 %), 121 POR VERIFICAR (12 %).
+- **Sagitario (20 nov 2026):** la «Calle Sagitario» de OSM está a 3 km (colonia
+  de los signos). Miguel confirmó que la de la lista es un negocio sobre la Av.
+  Hidalgo (tabla `NEGOCIOS_MIGUEL`). Efecto: 5 cruces pasan a REFERENCIA.
+  Total: 670 de 974 con punto (69 %), 188 referencias (19 %), 116 POR
+  VERIFICAR (12 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 
