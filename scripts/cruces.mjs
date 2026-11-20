@@ -220,6 +220,13 @@ function distCalle(c, p) {
 // ---------- candidatos de calle para un texto ----------
 // tipo: exacto (1.0) · contenido (0.8: uno contiene al otro) · errata (0.7)
 const memoCand = new Map();
+// Alias locales confirmados por Miguel (D-43): el nombre de la lista oficial
+// que la gente usa → la calle de OSM. También aquí se exige la prueba del mapa.
+const ALIAS_MIGUEL = {
+  'PASEO CENTRAL': 'Avenida Central', // Miguel, 19 nov 2026, 10:05 pm
+};
+const aliasPorClave = new Map(Object.entries(ALIAS_MIGUEL).map(([k, v]) => [clave(k), v]));
+
 function candidatos(texto) {
   if (memoCand.has(texto)) return memoCand.get(texto);
   const nu = nucleo(texto);
@@ -228,6 +235,11 @@ function candidatos(texto) {
   const res = new Map();
   const poner = (c, tipo, score) => { const v = res.get(c.nombre); if (!v || v.score < score) res.set(c.nombre, { calle: c, tipo, score }); };
   if (cl) {
+    // alias de Miguel: igual o con una errata («PACESO CENTRAL»)
+    for (const [k, v] of aliasPorClave) {
+      const max = k.length >= 7 ? 1 : 0;
+      if ((k === cl || lev(k, cl, max) <= max) && calles.has(v)) poner(calles.get(v), 'alias de Miguel (D-43)', 1);
+    }
     for (const c of porClave.get(cl) ?? []) poner(c, 'exacto', 1);
     for (const c of porClave.get(clSR) ?? []) poner(c, 'exacto', 0.95);
     // número como ordinal: «ARTICULO 3°» → «Artículo Tercero»

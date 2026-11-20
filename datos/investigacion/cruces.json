@@ -21,13 +21,13 @@
  ],
  "resumen": {
   "rutas_con_lista_usable": 19,
-  "cruces": 954,
-  "UBICADO": 597,
+  "cruces": 956,
+  "UBICADO": 609,
   "UBICADO POR LUGAR": 3,
-  "REFERENCIA": 156,
+  "REFERENCIA": 168,
   "CALLES SIN CRUCE EN OSM": 100,
-  "SIN UBICAR": 98,
-  "con_correccion": 204
+  "SIN UBICAR": 76,
+  "con_correccion": 222
  },
  "rutas": [
   {
@@ -37,11 +37,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 50,
    "conteo": {
-    "UBICADO": 33,
+    "UBICADO": 34,
     "UBICADO POR LUGAR": 1,
     "REFERENCIA": 10,
     "CALLES SIN CRUCE EN OSM": 5,
-    "SIN UBICAR": 1
+    "SIN UBICAR": 0
    },
    "cruces": [
     {
@@ -223,8 +223,9 @@
      "texto": "PASEO CENTRAL-OFFICE DEPOT",
      "calle": "PASEO CENTRAL",
      "cruce_con": "OFFICE DEPOT",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 17,
@@ -436,9 +437,15 @@
      "texto": "JOSE MARIA ARTEAGA-PASEO CENTRAL",
      "calle": "JOSE MARIA ARTEAGA",
      "cruce_con": "PASEO CENTRAL",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
      "osm_calle": "Avenida José María Arteaga",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 36,
@@ -635,9 +642,9 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 82,
    "conteo": {
-    "UBICADO": 56,
+    "UBICADO": 57,
     "UBICADO POR LUGAR": 1,
-    "REFERENCIA": 10,
+    "REFERENCIA": 9,
     "CALLES SIN CRUCE EN OSM": 6,
     "SIN UBICAR": 9
    },
@@ -1400,9 +1407,15 @@
      "texto": "JOSE MARIA ARTEAGA-PASEO CENTRAL",
      "calle": "JOSE MARIA ARTEAGA",
      "cruce_con": "PASEO CENTRAL",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
      "osm_calle": "Avenida José María Arteaga",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 68,
@@ -2780,11 +2793,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 43,
    "conteo": {
-    "UBICADO": 23,
+    "UBICADO": 24,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 6,
+    "REFERENCIA": 8,
     "CALLES SIN CRUCE EN OSM": 8,
-    "SIN UBICAR": 6
+    "SIN UBICAR": 3
    },
    "cruces": [
     {
@@ -3103,31 +3116,42 @@
     },
     {
      "orden": 29,
-     "texto": "PASEO CENTRAL-PLAZA ARAMIL PASEO",
+     "texto": "PASEO CENTRAL-PLAZA ARAMIL",
      "calle": "PASEO CENTRAL",
-     "cruce_con": "PLAZA ARAMIL PASEO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "cruce_con": "PLAZA ARAMIL",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 30,
-     "texto": "CENTRAL-AV. UNIVERSIDAD",
-     "calle": "CENTRAL",
+     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
+     "calle": "PASEO CENTRAL",
      "cruce_con": "AV. UNIVERSIDAD",
      "estado": "UBICADO",
      "lat": 20.39173,
      "lon": -99.98414,
      "osm_calle": "Avenida Central",
      "osm_cruce": "Avenida Universidad",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 31,
      "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
      "calle": "PASEO CENTRAL",
      "cruce_con": "AV. UNIVERSIDAD",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 32,
@@ -3149,16 +3173,16 @@
     },
     {
      "orden": 34,
-     "texto": "KM 3.2-WALMART PASEO",
+     "texto": "KM 3.2-WALMART",
      "calle": "KM 3.2",
-     "cruce_con": "WALMART PASEO",
+     "cruce_con": "WALMART",
      "estado": "SIN UBICAR",
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
      "orden": 35,
-     "texto": "CENTRAL-CAMINO A SANTA CRUZ",
-     "calle": "CENTRAL",
+     "texto": "PASEO CENTRAL-CAMINO A SANTA CRUZ",
+     "calle": "PASEO CENTRAL",
      "cruce_con": "CAMINO A SANTA CRUZ",
      "estado": "UBICADO",
      "lat": 20.4012,
@@ -3167,6 +3191,7 @@
      "osm_cruce": "Carretera a Santa Cruz Nieto",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»",
       "contenido: «CAMINO A SANTA CRUZ» → «Carretera a Santa Cruz Nieto»"
      ]
     },
@@ -3175,21 +3200,22 @@
      "texto": "PASEO CENTRAL-CALLE 7",
      "calle": "PASEO CENTRAL",
      "cruce_con": "CALLE 7",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 37,
-     "texto": "ORIENTE CARR. MÉXICO 120-AV. 8 ORIENTE PASEO",
+     "texto": "ORIENTE CARR. MÉXICO 120-AV. 8 ORIENTE",
      "calle": "ORIENTE CARR. MÉXICO 120",
-     "cruce_con": "AV. 8 ORIENTE PASEO",
+     "cruce_con": "AV. 8 ORIENTE",
      "estado": "SIN UBICAR",
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
      "orden": 38,
-     "texto": "CENTRAL-CONDUMEX",
-     "calle": "CENTRAL",
+     "texto": "PASEO CENTRAL-CONDUMEX",
+     "calle": "PASEO CENTRAL",
      "cruce_con": "CONDUMEX",
      "estado": "REFERENCIA",
      "osm_calle": "Avenida Central",
@@ -3274,9 +3300,9 @@
    "conteo": {
     "UBICADO": 48,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 18,
+    "REFERENCIA": 20,
     "CALLES SIN CRUCE EN OSM": 8,
-    "SIN UBICAR": 4
+    "SIN UBICAR": 2
    },
    "cruces": [
     {
@@ -3511,8 +3537,9 @@
      "texto": "PASEO CENTRAL-OFFICE DEPOT",
      "calle": "PASEO CENTRAL",
      "cruce_con": "OFFICE DEPOT",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 22,
@@ -3912,23 +3939,27 @@
     },
     {
      "orden": 56,
-     "texto": "PASEO CENTRAL-PLAZA ARAMIL PASEO",
+     "texto": "PASEO CENTRAL-PLAZA ARAMIL",
      "calle": "PASEO CENTRAL",
-     "cruce_con": "PLAZA ARAMIL PASEO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "cruce_con": "PLAZA ARAMIL",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 57,
-     "texto": "CENTRAL-AV. UNIVERSIDAD",
-     "calle": "CENTRAL",
+     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
+     "calle": "PASEO CENTRAL",
      "cruce_con": "AV. UNIVERSIDAD",
      "estado": "UBICADO",
      "lat": 20.39173,
      "lon": -99.98414,
      "osm_calle": "Avenida Central",
      "osm_cruce": "Avenida Universidad",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 58,
@@ -4185,9 +4216,9 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 45,
    "conteo": {
-    "UBICADO": 34,
+    "UBICADO": 35,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 6,
+    "REFERENCIA": 5,
     "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 2
    },
@@ -4559,9 +4590,15 @@
      "texto": "JOSE MARIA ARTEAGA-PASEO CENTRAL",
      "calle": "JOSE MARIA ARTEAGA",
      "cruce_con": "PASEO CENTRAL",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
      "osm_calle": "Avenida José María Arteaga",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 32,
@@ -4748,11 +4785,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 61,
    "conteo": {
-    "UBICADO": 39,
+    "UBICADO": 42,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 6,
+    "REFERENCIA": 5,
     "CALLES SIN CRUCE EN OSM": 13,
-    "SIN UBICAR": 3
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -5084,16 +5121,30 @@
      "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
      "calle": "PASEO CENTRAL",
      "cruce_con": "AV. UNIVERSIDAD",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 30,
      "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
      "calle": "PASEO CENTRAL",
      "cruce_con": "AV. UNIVERSIDAD",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 31,
@@ -5232,9 +5283,15 @@
      "texto": "JOSE MARIA ARTEAGA-PASEO CENTRAL",
      "calle": "JOSE MARIA ARTEAGA",
      "cruce_con": "PASEO CENTRAL",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
      "osm_calle": "Avenida José María Arteaga",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 43,
@@ -5457,11 +5514,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 42,
    "conteo": {
-    "UBICADO": 26,
+    "UBICADO": 28,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 4,
+    "REFERENCIA": 6,
     "CALLES SIN CRUCE EN OSM": 4,
-    "SIN UBICAR": 8
+    "SIN UBICAR": 4
    },
    "cruces": [
     {
@@ -5538,28 +5595,39 @@
      "texto": "PASEO CENTRAL-CALLE 4 PONIENTE",
      "calle": "PASEO CENTRAL",
      "cruce_con": "CALLE 4 PONIENTE",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.40123,
+     "lon": -99.98298,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Calle 4 Poniente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 8,
-     "texto": "PASEO CENTRAL-AURRERA SJR PASEO",
+     "texto": "PASEO CENTRAL-AURRERA SJR",
      "calle": "PASEO CENTRAL",
-     "cruce_con": "AURRERA SJR PASEO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "cruce_con": "AURRERA SJR",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 9,
-     "texto": "CENTRAL-CALLE NIÑOS HÉROES",
-     "calle": "CENTRAL",
+     "texto": "PASEO CENTRAL-CALLE NIÑOS HÉROES",
+     "calle": "PASEO CENTRAL",
      "cruce_con": "CALLE NIÑOS HÉROES",
      "estado": "UBICADO",
      "lat": 20.38897,
      "lon": -99.98452,
      "osm_calle": "Avenida Central",
      "osm_cruce": "Calle Niños Héroes",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 10,
@@ -5791,31 +5859,42 @@
     },
     {
      "orden": 30,
-     "texto": "PASEO CENTRAL-PLAZA ARAMIL PASEO",
+     "texto": "PASEO CENTRAL-PLAZA ARAMIL",
      "calle": "PASEO CENTRAL",
-     "cruce_con": "PLAZA ARAMIL PASEO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "cruce_con": "PLAZA ARAMIL",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 31,
-     "texto": "CENTRAL-AV. UNIVERSIDAD",
-     "calle": "CENTRAL",
+     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
+     "calle": "PASEO CENTRAL",
      "cruce_con": "AV. UNIVERSIDAD",
      "estado": "UBICADO",
      "lat": 20.39173,
      "lon": -99.98414,
      "osm_calle": "Avenida Central",
      "osm_cruce": "Avenida Universidad",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 32,
      "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
      "calle": "PASEO CENTRAL",
      "cruce_con": "AV. UNIVERSIDAD",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 33,
@@ -5952,13 +6031,13 @@
    "numero": "022",
    "nombre": "Pedregoso – Centro",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 37,
+   "total": 38,
    "conteo": {
     "UBICADO": 27,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 5,
+    "REFERENCIA": 7,
     "CALLES SIN CRUCE EN OSM": 1,
-    "SIN UBICAR": 4
+    "SIN UBICAR": 3
    },
    "cruces": [
     {
@@ -6074,14 +6153,24 @@
     },
     {
      "orden": 10,
-     "texto": "QUERÉTARO PASEO CENTRAL-HDA. LOS ARRAYANES",
-     "calle": "QUERÉTARO PASEO CENTRAL",
-     "cruce_con": "HDA. LOS ARRAYANES",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "texto": "QUERÉTARO",
+     "calle": "QUERÉTARO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Querétaro",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
      "orden": 11,
+     "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "HDA. LOS ARRAYANES",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 12,
      "texto": "JURICA-SAN JUAN",
      "calle": "JURICA",
      "cruce_con": "SAN JUAN",
@@ -6089,7 +6178,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 12,
+     "orden": 13,
      "texto": "DEL RÍO-MERCADO JUÁREZ",
      "calle": "DEL RÍO",
      "cruce_con": "MERCADO JUÁREZ",
@@ -6097,7 +6186,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 13,
+     "orden": 14,
      "texto": "CASTILLO DE CHAPULTEPEC-REFORMA",
      "calle": "CASTILLO DE CHAPULTEPEC",
      "cruce_con": "REFORMA",
@@ -6109,7 +6198,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 14,
+     "orden": 15,
      "texto": "VALENTÍN GÓMEZ FARIAS-VILLAS LA HERRADURA",
      "calle": "VALENTÍN GÓMEZ FARIAS",
      "cruce_con": "VILLAS LA HERRADURA",
@@ -6121,7 +6210,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 15,
+     "orden": 16,
      "texto": "PINO SUÁREZ NTE-5 DE MAYO",
      "calle": "PINO SUÁREZ NTE",
      "cruce_con": "5 DE MAYO",
@@ -6136,7 +6225,7 @@
      ]
     },
     {
-     "orden": 16,
+     "orden": 17,
      "texto": "BOULEVARD PABLO CABRERA-CONSTITUYENTES",
      "calle": "BOULEVARD PABLO CABRERA",
      "cruce_con": "CONSTITUYENTES",
@@ -6148,7 +6237,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 17,
+     "orden": 18,
      "texto": "BOULEVARD PABLO CABRERA-C. ALVÁRO OBREGÓN",
      "calle": "BOULEVARD PABLO CABRERA",
      "cruce_con": "C. ALVÁRO OBREGÓN",
@@ -6160,7 +6249,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 18,
+     "orden": 19,
      "texto": "C. MAURILIO MORELOS-20 DE NOVIEMBRE",
      "calle": "C. MAURILIO MORELOS",
      "cruce_con": "20 DE NOVIEMBRE",
@@ -6175,7 +6264,7 @@
      ]
     },
     {
-     "orden": 19,
+     "orden": 20,
      "texto": "5 DE MAYO-PROF. MERCEDES CAMACHO",
      "calle": "5 DE MAYO",
      "cruce_con": "PROF. MERCEDES CAMACHO",
@@ -6187,7 +6276,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 20,
+     "orden": 21,
      "texto": "5 DE MAYO-HEROICO COLEGIO MILITAR",
      "calle": "5 DE MAYO",
      "cruce_con": "HEROICO COLEGIO MILITAR",
@@ -6199,7 +6288,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 21,
+     "orden": 22,
      "texto": "5 DE MAYO-EMILIANO ZAPATA",
      "calle": "5 DE MAYO",
      "cruce_con": "EMILIANO ZAPATA",
@@ -6211,7 +6300,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 22,
+     "orden": 23,
      "texto": "5 DE MAYO-SEUZ SIN REFERENCIA",
      "calle": "5 DE MAYO",
      "cruce_con": "SEUZ SIN REFERENCIA",
@@ -6220,7 +6309,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 23,
+     "orden": 24,
      "texto": "JURICA-AV. BENITO JUÁREZ",
      "calle": "JURICA",
      "cruce_con": "AV. BENITO JUÁREZ",
@@ -6229,7 +6318,7 @@
      "nota": "las dos calles existen en OSM («Privada Jurica», «Avenida Benito Juárez») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 24,
+     "orden": 25,
      "texto": "ORIENTE ARTICULO 3O-FERNANDO DE TAPIA",
      "calle": "ORIENTE ARTICULO 3O",
      "cruce_con": "FERNANDO DE TAPIA",
@@ -6237,7 +6326,7 @@
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
-     "orden": 25,
+     "orden": 26,
      "texto": "PANAMERICANA-ADOLFO LÓPEZ MATEOS",
      "calle": "PANAMERICANA",
      "cruce_con": "ADOLFO LÓPEZ MATEOS",
@@ -6252,7 +6341,7 @@
      ]
     },
     {
-     "orden": 26,
+     "orden": 27,
      "texto": "PANAMERICANA-ING. LUIS ROMO SOTO",
      "calle": "PANAMERICANA",
      "cruce_con": "ING. LUIS ROMO SOTO",
@@ -6268,7 +6357,7 @@
      ]
     },
     {
-     "orden": 27,
+     "orden": 28,
      "texto": "PANAMERICANA-DOMINICOS",
      "calle": "PANAMERICANA",
      "cruce_con": "DOMINICOS",
@@ -6283,7 +6372,7 @@
      ]
     },
     {
-     "orden": 28,
+     "orden": 29,
      "texto": "HACIENDA LOS ARRAYANES-HACIENDA PIEDRAS NEGRAS",
      "calle": "HACIENDA LOS ARRAYANES",
      "cruce_con": "HACIENDA PIEDRAS NEGRAS",
@@ -6295,7 +6384,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 29,
+     "orden": 30,
      "texto": "HACIENDA LOS ARRAYANES-PACESO CENTRAL",
      "calle": "HACIENDA LOS ARRAYANES",
      "cruce_con": "PACESO CENTRAL",
@@ -6304,7 +6393,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 30,
+     "orden": 31,
      "texto": "AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
      "calle": "AV. TECNOLÓGICO",
      "cruce_con": "SAN JUAN DEL RÍO",
@@ -6319,7 +6408,7 @@
      ]
     },
     {
-     "orden": 31,
+     "orden": 32,
      "texto": "QUERÉTARO",
      "calle": "QUERÉTARO",
      "cruce_con": null,
@@ -6328,7 +6417,7 @@
      "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
-     "orden": 32,
+     "orden": 33,
      "texto": "AV. TECNOLÓGICO-AV. SAN RAFAEL",
      "calle": "AV. TECNOLÓGICO",
      "cruce_con": "AV. SAN RAFAEL",
@@ -6340,7 +6429,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 33,
+     "orden": 34,
      "texto": "AV. TECNOLÓGICO-PRIMARIA HÉROE DE NACOZARI",
      "calle": "AV. TECNOLÓGICO",
      "cruce_con": "PRIMARIA HÉROE DE NACOZARI",
@@ -6349,7 +6438,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 34,
+     "orden": 35,
      "texto": "AV. MARMOL",
      "calle": "AV. MARMOL",
      "cruce_con": null,
@@ -6358,7 +6447,7 @@
      "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
-     "orden": 35,
+     "orden": 36,
      "texto": "CANTERA-LABRADORITA",
      "calle": "CANTERA",
      "cruce_con": "LABRADORITA",
@@ -6370,7 +6459,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 36,
+     "orden": 37,
      "texto": "CANTERA-PEDREGOSO",
      "calle": "CANTERA",
      "cruce_con": "PEDREGOSO",
@@ -6382,7 +6471,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 37,
+     "orden": 38,
      "texto": "CANTERA-ZACATECAS",
      "calle": "CANTERA",
      "cruce_con": "ZACATECAS",
@@ -6404,9 +6493,9 @@
    "conteo": {
     "UBICADO": 16,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 9,
+    "REFERENCIA": 10,
     "CALLES SIN CRUCE EN OSM": 2,
-    "SIN UBICAR": 6
+    "SIN UBICAR": 5
    },
    "cruces": [
     {
@@ -6665,8 +6754,9 @@
      "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
      "calle": "PASEO CENTRAL",
      "cruce_con": "HDA. LOS ARRAYANES",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 25,
@@ -6778,9 +6868,9 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 58,
    "conteo": {
-    "UBICADO": 50,
+    "UBICADO": 51,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 5,
+    "REFERENCIA": 4,
     "CALLES SIN CRUCE EN OSM": 2,
     "SIN UBICAR": 1
    },
@@ -7236,9 +7326,15 @@
      "texto": "JOSE MARIA ARTEAGA-PASEO CENTRAL",
      "calle": "JOSE MARIA ARTEAGA",
      "cruce_con": "PASEO CENTRAL",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
      "osm_calle": "Avenida José María Arteaga",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 37,
@@ -7549,11 +7645,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 63,
    "conteo": {
-    "UBICADO": 32,
+    "UBICADO": 34,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 12,
+    "REFERENCIA": 14,
     "CALLES SIN CRUCE EN OSM": 8,
-    "SIN UBICAR": 11
+    "SIN UBICAR": 7
    },
    "cruces": [
     {
@@ -7688,17 +7784,24 @@
     },
     {
      "orden": 12,
-     "texto": "CAM. A STA CRÚZ-GRANJERO PASEO",
+     "texto": "CAM. A STA CRÚZ-GRANJERO",
      "calle": "CAM. A STA CRÚZ",
-     "cruce_con": "GRANJERO PASEO",
-     "estado": "REFERENCIA",
-     "osm_calle": "Camino a Santa Cruz Escandon",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "cruce_con": "GRANJERO",
+     "estado": "UBICADO",
+     "lat": 20.40042,
+     "lon": -99.97614,
+     "osm_calle": "Carretera a Santa Cruz Nieto",
+     "osm_cruce": "Calle Granjeno",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «CAM. A STA CRÚZ» → «Carretera a Santa Cruz Nieto»",
+      "errata: «GRANJERO» → «Calle Granjeno»"
+     ]
     },
     {
      "orden": 13,
-     "texto": "CENTRAL-CALLE 4 PONIENTE",
-     "calle": "CENTRAL",
+     "texto": "PASEO CENTRAL-CALLE 4 PONIENTE",
+     "calle": "PASEO CENTRAL",
      "cruce_con": "CALLE 4 PONIENTE",
      "estado": "SIN UBICAR",
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
@@ -7713,40 +7816,45 @@
     },
     {
      "orden": 15,
-     "texto": "PASEO CENTRAL-AURRERA SJR PASEO",
+     "texto": "PASEO CENTRAL-AURRERA SJR",
      "calle": "PASEO CENTRAL",
-     "cruce_con": "AURRERA SJR PASEO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "cruce_con": "AURRERA SJR",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 16,
-     "texto": "CENTRAL-HOME DEPOT SJR PASEO",
-     "calle": "CENTRAL",
-     "cruce_con": "HOME DEPOT SJR PASEO",
+     "texto": "PASEO CENTRAL-HOME DEPOT SJR",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "HOME DEPOT SJR",
      "estado": "REFERENCIA",
      "osm_calle": "Avenida Central",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 17,
-     "texto": "CENTRAL-CALLE NIÑOS HÉROES",
-     "calle": "CENTRAL",
+     "texto": "PASEO CENTRAL-CALLE NIÑOS HÉROES",
+     "calle": "PASEO CENTRAL",
      "cruce_con": "CALLE NIÑOS HÉROES",
      "estado": "UBICADO",
      "lat": 20.38897,
      "lon": -99.98452,
      "osm_calle": "Avenida Central",
      "osm_cruce": "Calle Niños Héroes",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 18,
      "texto": "PASEO CENTRAL-OFFICE DEPOT",
      "calle": "PASEO CENTRAL",
      "cruce_con": "OFFICE DEPOT",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 19,
@@ -8108,31 +8216,42 @@
     },
     {
      "orden": 52,
-     "texto": "PASEO CENTRAL-PLAZA ARAMIL PASEO",
+     "texto": "PASEO CENTRAL-PLAZA ARAMIL",
      "calle": "PASEO CENTRAL",
-     "cruce_con": "PLAZA ARAMIL PASEO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "cruce_con": "PLAZA ARAMIL",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 53,
-     "texto": "CENTRAL-AV. UNIVERSIDAD",
-     "calle": "CENTRAL",
+     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
+     "calle": "PASEO CENTRAL",
      "cruce_con": "AV. UNIVERSIDAD",
      "estado": "UBICADO",
      "lat": 20.39173,
      "lon": -99.98414,
      "osm_calle": "Avenida Central",
      "osm_cruce": "Avenida Universidad",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 54,
      "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
      "calle": "PASEO CENTRAL",
      "cruce_con": "AV. UNIVERSIDAD",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 55,
@@ -8772,16 +8891,16 @@
     },
     {
      "orden": 47,
-     "texto": "AV. 8 ORIENTE-PASEO CENTRAL PASEO",
+     "texto": "AV. 8 ORIENTE-PASEO CENTRAL",
      "calle": "AV. 8 ORIENTE",
-     "cruce_con": "PASEO CENTRAL PASEO",
+     "cruce_con": "PASEO CENTRAL",
      "estado": "SIN UBICAR",
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
      "orden": 48,
-     "texto": "CENTRAL-CONDUMEX",
-     "calle": "CENTRAL",
+     "texto": "PASEO CENTRAL-CONDUMEX",
+     "calle": "PASEO CENTRAL",
      "cruce_con": "CONDUMEX",
      "estado": "REFERENCIA",
      "osm_calle": "Avenida Central",
@@ -8862,13 +8981,13 @@
    "numero": "039",
    "nombre": "Francisco Villa – Central de Autobuses",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 43,
+   "total": 44,
    "conteo": {
     "UBICADO": 37,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 5,
+    "REFERENCIA": 7,
     "CALLES SIN CRUCE EN OSM": 0,
-    "SIN UBICAR": 1
+    "SIN UBICAR": 0
    },
    "cruces": [
     {
@@ -9099,14 +9218,24 @@
     },
     {
      "orden": 18,
-     "texto": "QUERÉTARO PASEO CENTRAL-HDA. LOS ARRAYANES",
-     "calle": "QUERÉTARO PASEO CENTRAL",
-     "cruce_con": "HDA. LOS ARRAYANES",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "texto": "QUERÉTARO",
+     "calle": "QUERÉTARO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Querétaro",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
      "orden": 19,
+     "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "HDA. LOS ARRAYANES",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 20,
      "texto": "HACIENDA LOS ARRAYANES-PACESO CENTRAL",
      "calle": "HACIENDA LOS ARRAYANES",
      "cruce_con": "PACESO CENTRAL",
@@ -9115,7 +9244,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 20,
+     "orden": 21,
      "texto": "ING. LUIS ROMERO SOTO-PANAMERICA",
      "calle": "ING. LUIS ROMERO SOTO",
      "cruce_con": "PANAMERICA",
@@ -9130,7 +9259,7 @@
      ]
     },
     {
-     "orden": 21,
+     "orden": 22,
      "texto": "ING. LUIS ROMERO SOTO-MIGUEL HIDALGO",
      "calle": "ING. LUIS ROMERO SOTO",
      "cruce_con": "MIGUEL HIDALGO",
@@ -9145,7 +9274,7 @@
      ]
     },
     {
-     "orden": 22,
+     "orden": 23,
      "texto": "HIDALGO",
      "calle": "HIDALGO",
      "cruce_con": null,
@@ -9154,7 +9283,7 @@
      "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
-     "orden": 23,
+     "orden": 24,
      "texto": "HIDALGO-C. MIGUEL HIDALGO",
      "calle": "HIDALGO",
      "cruce_con": "C. MIGUEL HIDALGO",
@@ -9170,7 +9299,7 @@
      ]
     },
     {
-     "orden": 24,
+     "orden": 25,
      "texto": "C.MIGUEL HIDALGO-ING. LUIS ROMERO SOTO",
      "calle": "C.MIGUEL HIDALGO",
      "cruce_con": "ING. LUIS ROMERO SOTO",
@@ -9185,7 +9314,7 @@
      ]
     },
     {
-     "orden": 25,
+     "orden": 26,
      "texto": "IGN. LUIS ROMERO SOTO-PANAMERICA",
      "calle": "IGN. LUIS ROMERO SOTO",
      "cruce_con": "PANAMERICA",
@@ -9201,7 +9330,7 @@
      ]
     },
     {
-     "orden": 26,
+     "orden": 27,
      "texto": "HACIENDA LOS ARRAYANES-HACIENDA PIEDRAS NEGRAS",
      "calle": "HACIENDA LOS ARRAYANES",
      "cruce_con": "HACIENDA PIEDRAS NEGRAS",
@@ -9213,7 +9342,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 27,
+     "orden": 28,
      "texto": "HACIENDA LOS ARRAYANES-PACESO CENTRAL",
      "calle": "HACIENDA LOS ARRAYANES",
      "cruce_con": "PACESO CENTRAL",
@@ -9222,7 +9351,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 28,
+     "orden": 29,
      "texto": "AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
      "calle": "AV. TECNOLÓGICO",
      "cruce_con": "SAN JUAN DEL RÍO",
@@ -9237,7 +9366,7 @@
      ]
     },
     {
-     "orden": 29,
+     "orden": 30,
      "texto": "QUERÉTARO",
      "calle": "QUERÉTARO",
      "cruce_con": null,
@@ -9246,7 +9375,7 @@
      "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
-     "orden": 30,
+     "orden": 31,
      "texto": "GUADALUPE-AV. TECNOLÓGICO",
      "calle": "GUADALUPE",
      "cruce_con": "AV. TECNOLÓGICO",
@@ -9258,7 +9387,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 31,
+     "orden": 32,
      "texto": "AV. TECNOLÓGICO-AV. SAN RAFAEL",
      "calle": "AV. TECNOLÓGICO",
      "cruce_con": "AV. SAN RAFAEL",
@@ -9270,7 +9399,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 32,
+     "orden": 33,
      "texto": "AV. TECNOLÓGICO-PRIMARIA HÉROE DE NACOZARI AV. MARMOL",
      "calle": "AV. TECNOLÓGICO",
      "cruce_con": "PRIMARIA HÉROE DE NACOZARI AV. MARMOL",
@@ -9279,7 +9408,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 33,
+     "orden": 34,
      "texto": "AV. LOMAS DEL PEDREGOSO-CANTERA",
      "calle": "AV. LOMAS DEL PEDREGOSO",
      "cruce_con": "CANTERA",
@@ -9291,7 +9420,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 34,
+     "orden": 35,
      "texto": "AV. LOMAS DEL PEDREGOSO-JADE",
      "calle": "AV. LOMAS DEL PEDREGOSO",
      "cruce_con": "JADE",
@@ -9303,7 +9432,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 35,
+     "orden": 36,
      "texto": "AV. LOMAS DEL PEDREGOSO-PEDREGOSO",
      "calle": "AV. LOMAS DEL PEDREGOSO",
      "cruce_con": "PEDREGOSO",
@@ -9315,7 +9444,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 36,
+     "orden": 37,
      "texto": "AV. LOMAS DEL PEDREGOSO-ZACATECAS",
      "calle": "AV. LOMAS DEL PEDREGOSO",
      "cruce_con": "ZACATECAS",
@@ -9327,7 +9456,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 37,
+     "orden": 38,
      "texto": "AV. LOMAS DEL PEDREGOSO-AV. MÉXICO",
      "calle": "AV. LOMAS DEL PEDREGOSO",
      "cruce_con": "AV. MÉXICO",
@@ -9337,21 +9466,6 @@
      "osm_calle": "Avenida Lomas del Pedregoso",
      "osm_cruce": "Avenida México",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
-    },
-    {
-     "orden": 38,
-     "texto": "ÁGUILAS-CALLE AGUILA AZTECA",
-     "calle": "ÁGUILAS",
-     "cruce_con": "CALLE AGUILA AZTECA",
-     "estado": "UBICADO",
-     "lat": 20.37516,
-     "lon": -99.9562,
-     "osm_calle": "Avenida las Águilas",
-     "osm_cruce": "Calle Àguila Azteca",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
-     "correcciones": [
-      "contenido: «ÁGUILAS» → «Avenida las Águilas»"
-     ]
     },
     {
      "orden": 39,
@@ -9370,6 +9484,21 @@
     },
     {
      "orden": 40,
+     "texto": "ÁGUILAS-CALLE AGUILA AZTECA",
+     "calle": "ÁGUILAS",
+     "cruce_con": "CALLE AGUILA AZTECA",
+     "estado": "UBICADO",
+     "lat": 20.37516,
+     "lon": -99.9562,
+     "osm_calle": "Avenida las Águilas",
+     "osm_cruce": "Calle Àguila Azteca",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «ÁGUILAS» → «Avenida las Águilas»"
+     ]
+    },
+    {
+     "orden": 41,
      "texto": "ÁGUILAS-CALLE AGUILA MAYA",
      "calle": "ÁGUILAS",
      "cruce_con": "CALLE AGUILA MAYA",
@@ -9384,7 +9513,7 @@
      ]
     },
     {
-     "orden": 41,
+     "orden": 42,
      "texto": "ÁGUILA-CALLE AVOCETA",
      "calle": "ÁGUILA",
      "cruce_con": "CALLE AVOCETA",
@@ -9399,7 +9528,7 @@
      ]
     },
     {
-     "orden": 42,
+     "orden": 43,
      "texto": "C.AGUILA REAL-AGUILA DORADA",
      "calle": "C.AGUILA REAL",
      "cruce_con": "AGUILA DORADA",
@@ -9411,7 +9540,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 43,
+     "orden": 44,
      "texto": "AV. AGUILA REAL-GRAL. RAFAEL CALY MAYOR",
      "calle": "AV. AGUILA REAL",
      "cruce_con": "GRAL. RAFAEL CALY MAYOR",
@@ -9794,9 +9923,9 @@
    "conteo": {
     "UBICADO": 23,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 15,
+    "REFERENCIA": 17,
     "CALLES SIN CRUCE EN OSM": 3,
-    "SIN UBICAR": 11
+    "SIN UBICAR": 9
    },
    "cruces": [
     {
@@ -9965,16 +10094,18 @@
      "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
      "calle": "PASEO CENTRAL",
      "cruce_con": "HDA. LOS ARRAYANES",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 16,
      "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
      "calle": "PASEO CENTRAL",
      "cruce_con": "HDA. LOS ARRAYANES",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 17,
@@ -10912,16 +11043,16 @@
     },
     {
      "orden": 51,
-     "texto": "AV. 8 ORIENTE-PASEO CENTRAL PASEO",
+     "texto": "AV. 8 ORIENTE-PASEO CENTRAL",
      "calle": "AV. 8 ORIENTE",
-     "cruce_con": "PASEO CENTRAL PASEO",
+     "cruce_con": "PASEO CENTRAL",
      "estado": "SIN UBICAR",
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
      "orden": 52,
-     "texto": "CENTRAL-CONDUMEX",
-     "calle": "CENTRAL",
+     "texto": "PASEO CENTRAL-CONDUMEX",
+     "calle": "PASEO CENTRAL",
      "cruce_con": "CONDUMEX",
      "estado": "REFERENCIA",
      "osm_calle": "Avenida Central",
@@ -10991,9 +11122,9 @@
    "conteo": {
     "UBICADO": 15,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 10,
+    "REFERENCIA": 11,
     "CALLES SIN CRUCE EN OSM": 2,
-    "SIN UBICAR": 6
+    "SIN UBICAR": 5
    },
    "cruces": [
     {
@@ -11252,8 +11383,9 @@
      "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
      "calle": "PASEO CENTRAL",
      "cruce_con": "HDA. LOS ARRAYANES",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 25,

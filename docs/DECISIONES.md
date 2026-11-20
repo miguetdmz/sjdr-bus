@@ -670,3 +670,20 @@ Miguel).
 - **Prueba:** `scripts/pruebas/cruces.test.mjs`.
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, R-04, `datos/investigacion/cruces.json`.
+
+## D-43 · 19 nov 2026 · Alias locales de calles confirmados por Miguel · VIGENTE
+- **Qué es:** nombres que la lista oficial usa y que la gente conoce, pero que
+  en OpenStreetMap se llaman distinto. Miguel los confirma uno por uno, en orden
+  de Pareto (los que más cruces dejan POR VERIFICAR primero).
+- **Alias confirmados:**
+  | Nombre en la lista oficial | Calle en OSM | Confirmó |
+  |---|---|---|
+  | Paseo Central | Avenida Central | Miguel, 19 nov 2026, 10:05 pm |
+- **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
+  pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
+  ruta); si no, el cruce sigue POR VERIFICAR.
+- **Efecto del primero:** 41 de 44 cruces con «Paseo Central» ya confirman la
+  calle (18 con punto). Total: 612 de 956 ubicados (64 %), 168 referencias de
+  calle (18 %), 176 POR VERIFICAR (18 %).
+- **Decidió:** Miguel, 19 nov 2026.
+- **Impacta:** R-03, `datos/investigacion/cruces.json`.
