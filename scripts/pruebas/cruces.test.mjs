@@ -333,3 +333,14 @@ test('cruces: una calle completa entre dos guiones cierra un cruce y abre el sig
   assert.deepEqual([m.estado, m.osm_calle, m.lat], ['REFERENCIA', 'Avenida Central', undefined]);
   assert.ok(!todos.some((c) => c.ruta === '022' && /^(JURICA-SAN JUAN|DEL RÍO-MERCADO)/.test(c.texto) && c.texto !== 'JURICA-SAN JUAN DEL RÍO'));
 });
+
+test('cruces: «El Cerezo» = Acceso a Visthá (Miguel, D-43) y la 032, circuito desde Visthá, no toma calles homónimas a 5 km', () => {
+  const r = (t) => todos.find((c) => c.ruta === '032' && c.texto === t);
+  assert.deepEqual([r('EL CEREZO-SALINAS').estado, r('EL CEREZO-SALINAS').osm_calle, r('EL CEREZO-SALINAS').lat], ['UBICADO', 'Acceso a Visthá', 20.44401]);
+  assert.deepEqual([r('EL CEREZO-JOSE BALLESTEROS LOPÉZ').estado, r('EL CEREZO-JOSE BALLESTEROS LOPÉZ').osm_calle], ['UBICADO', 'Acceso a Visthá']);
+  // los primeros cruces de la 032 (sale de Visthá, 20.44656, -99.97522) no caen a 5 km al poniente
+  for (const t of ['MIGUEL HIDALGO-VENUSTIANO CARRANZA', 'VENUSTIANO CARRANZA-FRANCISCO VILLA']) {
+    const c = r(t);
+    assert.ok(c.lat === undefined || Math.hypot((c.lat - 20.44656) * 110574, (c.lon + 99.97522) * 104300) < 3000, `032 #${c.orden}`);
+  }
+});

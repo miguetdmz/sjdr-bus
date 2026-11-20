@@ -29,7 +29,7 @@
   "REFERENCIA": 192,
   "CALLES SIN CRUCE EN OSM": 15,
   "SIN UBICAR": 9,
-  "con_correccion": 294
+  "con_correccion": 296
  },
  "rutas": [
   {
@@ -9013,24 +9013,18 @@
      "texto": "MIGUEL HIDALGO-VENUSTIANO CARRANZA",
      "calle": "MIGUEL HIDALGO",
      "cruce_con": "VENUSTIANO CARRANZA",
-     "estado": "UBICADO",
-     "lat": 20.43434,
-     "lon": -100.02704,
-     "osm_calle": "Calle Miguel Hidalgo",
-     "osm_cruce": "Calle Venustiano Carranza",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Avenida Venustiano Carranza») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
     },
     {
      "orden": 3,
      "texto": "VENUSTIANO CARRANZA-FRANCISCO VILLA",
      "calle": "VENUSTIANO CARRANZA",
      "cruce_con": "FRANCISCO VILLA",
-     "estado": "UBICADO",
-     "lat": 20.41648,
-     "lon": -100.00808,
-     "osm_calle": "Calle Venustiano Carranza",
-     "osm_cruce": "Calle Francisco Villa",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Avenida Venustiano Carranza",
+     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Andador Francisco Villa») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
     },
     {
      "orden": 4,
@@ -9039,16 +9033,22 @@
      "cruce_con": "VICENTE GUERRERO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Venustiano Carranza",
-     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Calle General Vicente Guerrero») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
+     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Calle General Vicente Guerrero») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
     },
     {
      "orden": 5,
      "texto": "EL CEREZO-SALINAS",
      "calle": "EL CEREZO",
      "cruce_con": "SALINAS",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Cerezo",
-     "nota": "las dos calles existen en OSM («Calle Cerezo», «Calle Salinas») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
+     "estado": "UBICADO",
+     "lat": 20.44401,
+     "lon": -99.97019,
+     "osm_calle": "Acceso a Visthá",
+     "osm_cruce": "Calle Salinas",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «EL CEREZO» → «Acceso a Visthá»"
+     ]
     },
     {
      "orden": 6,
@@ -9057,7 +9057,7 @@
      "cruce_con": "CEREZO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Calle Hacienda San Nicolás",
-     "nota": "las dos calles existen en OSM («Calle Hacienda San Nicolás», «Calle Cerezo») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
+     "nota": "las dos calles existen en OSM («Calle Hacienda San Nicolás», «Acceso a Visthá») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
     },
     {
      "orden": 7,
@@ -9622,7 +9622,7 @@
      "calle": "MÉXICO 120",
      "cruce_con": "BENITO JUÁREZ",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
     },
     {
      "orden": 50,
@@ -9647,9 +9647,15 @@
      "texto": "EL CEREZO-JOSE BALLESTEROS LOPÉZ",
      "calle": "EL CEREZO",
      "cruce_con": "JOSE BALLESTEROS LOPÉZ",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Cerezo",
-     "nota": "las dos calles existen en OSM («Calle Cerezo», «Calle José Ballesteros López») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
+     "estado": "UBICADO",
+     "lat": 20.44422,
+     "lon": -99.97064,
+     "osm_calle": "Acceso a Visthá",
+     "osm_cruce": "Calle José Ballesteros López",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «EL CEREZO» → «Acceso a Visthá»"
+     ]
     },
     {
      "orden": 53,

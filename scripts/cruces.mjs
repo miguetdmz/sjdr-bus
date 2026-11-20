@@ -251,6 +251,11 @@ const ALIAS_MIGUEL = {
   // «300» es el número de la Secretaría de Finanzas, no parte del nombre.
   // Miguel, 20 nov 2026, 9:47 am
   'CARRETERA QUERÉTARO 300': 'Carretera Panamericana a Querétaro',
+  // «El Cerezo» es el CERESO de Visthá (D-37): el camino «Acceso a Visthá», que
+  // toca Salinas, José Ballesteros López y la carretera a Xilitla (ruta 032).
+  // Miguel, 20 nov 2026, 11:01 am
+  'EL CEREZO': 'Acceso a Visthá',
+  CEREZO: 'Acceso a Visthá',
 };
 // Nombres que traen su propio guion, confirmados por Miguel: el guion se cambia
 // por una raya (–) para que no se tome como separador de cruces.
@@ -621,7 +626,21 @@ function cambioDeCalle(parJ, q, parI, o) {
   }
   return castigo;
 }
-function elegir(pares, cor) {
+// Una lista que empieza y termina con el mismo cruce (al revés) es un circuito
+// que sale del extremo de origen de la ruta: en la 032, «FRANCISCO VILLA-CAR.
+// ESTATAL 122» … «CAR. ESTATAL 122-FRANCISCO VILLA», desde Visthá. Ese extremo
+// ancla el principio de la lista, para que dos cruces de otra zona con el mismo
+// nombre (Miguel Hidalgo × Venustiano Carranza, a 5 km) no le ganen a los de
+// Visthá (R-03, 20 nov 2026).
+const ANCLA_VALOR = 3;
+function anclaDe(numero, pares) {
+  const [p0, pn] = [pares[0], pares[pares.length - 1]];
+  if (!p0?.[1] || !pn?.[1] || clave(p0[0]) !== clave(pn[1]) || clave(p0[1]) !== clave(pn[0])) return null;
+  const r = extremosRutas.find((x) => x.numero === numero);
+  const o = r && extremosFinales.find((x) => x.lugar === r.origen);
+  return o?.lat != null ? [o.lat, o.lon] : null;
+}
+function elegir(pares, cor, ancla = null) {
   const enCorredor = (l) => l.filter((o) => !cor || dist(o.x.p, cor.centro) <= cor.radio);
   // Si el único cruce directo queda fuera del corredor (otro pueblo), se prueba
   // la continuación: Matamoros sigue 48 m como Calle Fundadores hasta la Av.
@@ -639,6 +658,12 @@ function elegir(pares, cor) {
     ops[i].forEach((o, k) => {
       const gana = 2 + o.s;
       let m = { v: gana, prev: null }; // empezar aquí
+      // circuito: el principio de la lista sale del extremo de origen (ancla);
+      // vale como un cruce ubicado antes del #1
+      if (ancla) {
+        const d = dist(ancla, o.x.p);
+        if (i < 7 && d <= SALTO_MAX_M + SALTO_POR_HUECO_M * i) m = { v: ANCLA_VALOR + gana - d / 1000, prev: null };
+      }
       for (let j = Math.max(0, i - 6); j < i; j++) {
         ops[j].forEach((q, h) => {
           const d = dist(q.x.p, o.x.p);
@@ -661,7 +686,7 @@ function elegir(pares, cor) {
 }
 function ubicar(pares, numero) {
   const cor = corredor(numero, pares);
-  const elegido = elegir(pares, cor);
+  const elegido = elegir(pares, cor, anclaDe(numero, pares));
   const dentro = (p) => !cor || dist(p, cor.centro) <= cor.radio;
   return pares.map(([A, B], i) => {
     const base = { orden: i + 1, texto: B ? `${A}-${B}` : A, calle: A, cruce_con: B || null };

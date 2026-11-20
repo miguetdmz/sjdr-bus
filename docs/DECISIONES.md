@@ -689,6 +689,7 @@ Miguel).
   | Mexican Federal Hwy 120 (ruta 032) | San Juan del Río - Xilitla (Carretera Federal 120) | Miguel, 20 nov 2026, 2:25 am |
   | Carretera San Juan del Río-Tequisquiapan km 3.2 – Walmart (009B, 016 y 030) | una sola parada: el Walmart (negocio) sobre el Paseo Central = Avenida Central (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 2:34 am |
   | Av. Universidad – Cto. Querétaro Norte (011B y 015B) | sí se tocan: OSM las deja a 32 m; tolerancia de 40 m solo para ese par | Miguel, 20 nov 2026, 2:39 am |
+  | El Cerezo / Cerezo (ruta 032) | el CERESO de Visthá (D-37): camino «Acceso a Visthá», que toca Salinas y José Ballesteros López (0 m) y la carretera a Xilitla (8 m) | Miguel, 20 nov 2026, 11:01 am |
   | Carretera Querétaro 300 (ruta 002) | Carretera Panamericana a Querétaro, desde la glorieta donde termina la Av. Benito Juárez Poniente; el «300» es el número de la Secretaría de Finanzas | Miguel, 20 nov 2026, 9:47 am |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
   pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
@@ -1027,3 +1028,21 @@ Miguel).
   de las otras 5 rutas: el punto medio depende de qué calle va primero) y 022
   #13 «SAN JUAN DEL RÍO-MERCADO JUÁREZ» REFERENCIA sobre la Av. Central.
   Ninguna otra ruta cambia. Total: 24 POR VERIFICAR.
+- **Amealco (Miguel, 20 nov 2026, 11:01 am):** Miguel no sabe dónde cruza la carretera
+  a Amealco con Lázaro Cárdenas. 002 #34, #48 y #49 siguen POR VERIFICAR (uso
+  de la app o campo).
+- **El Cerezo = CERESO de Visthá (Miguel, 20 nov 2026, 11:01 am) y circuito
+  anclado en su origen (arreglo con evidencia, D-42):** con el alias se ubican
+  032 #5 (Salinas) y #52 (José Ballesteros López) sobre el Acceso a Visthá. Al
+  revisar la 032 salió un **defecto en dos puntos UBICADOS**: #2 «MIGUEL
+  HIDALGO-VENUSTIANO CARRANZA» y #3 «VENUSTIANO CARRANZA-FRANCISCO VILLA» caían
+  a 5 km al poniente, en calles homónimas de otra zona, mientras la ruta sale de
+  Visthá. La lista de la 032 empieza y termina con el mismo cruce al revés
+  («FRANCISCO VILLA-CAR. ESTATAL 122» … «CAR. ESTATAL 122-FRANCISCO VILLA»): es
+  un circuito desde el origen. Ahora una lista así ancla su principio en el
+  extremo de origen (vale como un cruce ubicado antes del #1). Efecto: #5 nuevo;
+  #2 y #3 pierden su punto equivocado y quedan POR VERIFICAR (la Venustiano
+  Carranza de OSM cerca de Visthá no toca Miguel Hidalgo ni Francisco Villa:
+  queda a 824 y 337 m). Ninguna otra ruta cambia. Total: 694 con punto exacto,
+  26 aproximados, 192 referencias, 24 POR VERIFICAR (dos de ellos ya no son un
+  punto falso).
