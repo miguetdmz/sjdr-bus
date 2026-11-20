@@ -166,3 +166,16 @@ test('cruces: la misma calle dos veces seguidas («20 DE NOVIEMBRE 20 DE NOVIEMB
   assert.equal(palma.length, 4);
   for (const c of palma) assert.equal(c.estado, 'UBICADO', `002 #${c.orden}`);
 });
+
+test('cruces: un pedazo repetido idéntico (la misma parada en ida y vuelta) no vuelve dudoso el corte: la 046 ubica Hidalgo × 20 de Noviembre y Dos Poniente × Álvaro Obregón como la 008 (20 nov 2026)', () => {
+  for (const texto of ['C.MIGUEL HIDALGO-20 DE NOVIEMBRE', 'PONIENTE 2-ÁLVARO OBREGÓN']) {
+    const ref = todos.find((c) => c.ruta === '008' && c.texto === texto);
+    assert.equal(ref?.estado, 'UBICADO', `008 ${texto}`);
+    const m = todos.filter((c) => c.ruta === '046' && c.texto === texto);
+    assert.equal(m.length, 2, `046 ${texto}: debe salir en ida y en vuelta, con el mismo corte`);
+    // mismo dato, mismo punto (lección 3)
+    for (const c of m) assert.deepEqual([c.estado, c.lat, c.lon], ['UBICADO', ref.lat, ref.lon], `046 #${c.orden}`);
+  }
+  // el corte nunca deja «PONIENTE» pegado a 20 de Noviembre ni un «2» suelto
+  assert.ok(!todos.some((c) => c.ruta === '046' && /20 DE NOVIEMBRE PONIENTE$|^2-/.test(c.texto)));
+});

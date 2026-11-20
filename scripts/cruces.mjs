@@ -371,9 +371,17 @@ function nombresRepetidos(partes) {
   const propio = new Map();
   const entero = new Map();
   const suma = (m, o) => { const c = clave(o); if (c.split(' ').length >= 2 || c.length >= 6) m.set(c, (m.get(c) ?? 0) + 1); };
+  // Un pedazo idéntico a otro ya visto es la misma parada en ida y en vuelta:
+  // sus principios y finales cuentan una sola vez. Si no, «20 DE NOVIEMBRE
+  // PONIENTE 2» dos veces en la 046 hacía de «20 DE NOVIEMBRE PONIENTE» un
+  // nombre repetido y el corte quedaba dudoso (R-03, 20 nov 2026).
+  const vistos = new Set();
   partes.forEach((p, i) => {
     const w = p.trim().split(/\s+/);
     const opciones = new Set();
+    const ya = vistos.has(clave(w.join(' ')));
+    vistos.add(clave(w.join(' ')));
+    if (ya && i > 0 && i < partes.length - 1) { suma(entero, w.join(' ')); return; }
     if (i === 0 || i === partes.length - 1) opciones.add(w.join(' '));
     else suma(entero, w.join(' '));
     for (let k = 1; k < w.length; k++) { opciones.add(w.slice(0, k).join(' ')); opciones.add(w.slice(k).join(' ')); }

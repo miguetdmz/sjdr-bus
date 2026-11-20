@@ -22,12 +22,12 @@
  "resumen": {
   "rutas_con_lista_usable": 19,
   "cruces": 974,
-  "UBICADO": 690,
+  "UBICADO": 700,
   "UBICADO POR LUGAR": 3,
   "REFERENCIA": 196,
   "CALLES SIN CRUCE EN OSM": 48,
-  "SIN UBICAR": 37,
-  "con_correccion": 292
+  "SIN UBICAR": 27,
+  "con_correccion": 296
  },
  "rutas": [
   {
@@ -6847,11 +6847,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 35,
    "conteo": {
-    "UBICADO": 19,
+    "UBICADO": 22,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 12,
     "CALLES SIN CRUCE EN OSM": 0,
-    "SIN UBICAR": 4
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -7216,24 +7216,39 @@
      "texto": "DEL SILLAR-DE LA PIEDRA",
      "calle": "DEL SILLAR",
      "cruce_con": "DE LA PIEDRA",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.3687,
+     "lon": -99.98089,
+     "osm_calle": "Calle del Sillar",
+     "osm_cruce": "Calle Plaza de la Piedra",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «DE LA PIEDRA» → «Calle Plaza de la Piedra»"
+     ]
     },
     {
      "orden": 33,
      "texto": "DE LA CANTERA-DE LA PIEDRA",
      "calle": "DE LA CANTERA",
      "cruce_con": "DE LA PIEDRA",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.36919,
+     "lon": -99.97965,
+     "osm_calle": "Avenida de la Cantera",
+     "osm_cruce": "Calle de la Piedra",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 34,
      "texto": "DE LA CANTERA-DEL GRANITO",
      "calle": "DE LA CANTERA",
      "cruce_con": "DEL GRANITO",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.3699,
+     "lon": -99.97996,
+     "osm_calle": "Calle de la Cantera",
+     "osm_cruce": "Calle del Granito",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 35,
@@ -10445,11 +10460,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 56,
    "conteo": {
-    "UBICADO": 29,
+    "UBICADO": 33,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 19,
     "CALLES SIN CRUCE EN OSM": 4,
-    "SIN UBICAR": 4
+    "SIN UBICAR": 0
    },
    "cruces": [
     {
@@ -10847,16 +10862,27 @@
      "texto": "C.MIGUEL HIDALGO-20 DE NOVIEMBRE",
      "calle": "C.MIGUEL HIDALGO",
      "cruce_con": "20 DE NOVIEMBRE",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39289,
+     "lon": -99.99617,
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "osm_cruce": "Cale 20 de Noviembre",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «20 DE NOVIEMBRE» → «Cale 20 de Noviembre»"
+     ]
     },
     {
      "orden": 35,
      "texto": "PONIENTE 2-ÁLVARO OBREGÓN",
      "calle": "PONIENTE 2",
      "cruce_con": "ÁLVARO OBREGÓN",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39855,
+     "lon": -99.99127,
+     "osm_calle": "Avenida Dos Poniente",
+     "osm_cruce": "Avenida Álvaro Obregón",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 36,
@@ -11043,19 +11069,30 @@
     },
     {
      "orden": 52,
-     "texto": "C.MIGUEL HIDALGO-20 DE NOVIEMBRE PONIENTE",
+     "texto": "C.MIGUEL HIDALGO-20 DE NOVIEMBRE",
      "calle": "C.MIGUEL HIDALGO",
-     "cruce_con": "20 DE NOVIEMBRE PONIENTE",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "cruce_con": "20 DE NOVIEMBRE",
+     "estado": "UBICADO",
+     "lat": 20.39289,
+     "lon": -99.99617,
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "osm_cruce": "Cale 20 de Noviembre",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «20 DE NOVIEMBRE» → «Cale 20 de Noviembre»"
+     ]
     },
     {
      "orden": 53,
-     "texto": "2-ÁLVARO OBREGÓN",
-     "calle": "2",
+     "texto": "PONIENTE 2-ÁLVARO OBREGÓN",
+     "calle": "PONIENTE 2",
      "cruce_con": "ÁLVARO OBREGÓN",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39855,
+     "lon": -99.99127,
+     "osm_calle": "Avenida Dos Poniente",
+     "osm_cruce": "Avenida Álvaro Obregón",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 54,
@@ -11755,11 +11792,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 35,
    "conteo": {
-    "UBICADO": 18,
+    "UBICADO": 21,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 13,
     "CALLES SIN CRUCE EN OSM": 0,
-    "SIN UBICAR": 4
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -12124,24 +12161,39 @@
      "texto": "DEL SILLAR-DE LA PIEDRA",
      "calle": "DEL SILLAR",
      "cruce_con": "DE LA PIEDRA",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.3687,
+     "lon": -99.98089,
+     "osm_calle": "Calle del Sillar",
+     "osm_cruce": "Calle Plaza de la Piedra",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «DE LA PIEDRA» → «Calle Plaza de la Piedra»"
+     ]
     },
     {
      "orden": 33,
      "texto": "DE LA CANTERA-DE LA PIEDRA",
      "calle": "DE LA CANTERA",
      "cruce_con": "DE LA PIEDRA",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.36919,
+     "lon": -99.97965,
+     "osm_calle": "Avenida de la Cantera",
+     "osm_cruce": "Calle de la Piedra",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 34,
      "texto": "DE LA CANTERA-DEL GRANITO",
      "calle": "DE LA CANTERA",
      "cruce_con": "DEL GRANITO",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.36937,
+     "lon": -99.979,
+     "osm_calle": "Calle de la Cantera",
+     "osm_cruce": "Calle del Granito",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 35,

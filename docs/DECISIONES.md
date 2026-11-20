@@ -765,6 +765,33 @@ Miguel).
   HIDALGO-20 DE NOVIEMBRE PONIENTE 2-ÁLVARO OBREGÓN» (4 cruces): el corte puede
   ir antes o después de «PONIENTE»; la 008, con el mismo texto, sí los ubica.
   La Palma con Chabacano (002 #47): no se tocan en OSM.
+- **Pedazo repetido idéntico (20 nov 2026, 2:03 am; arreglo con evidencia,
+  D-42):** en la 046 el pedazo «20 DE NOVIEMBRE PONIENTE 2» sale dos veces igual
+  (la misma parada en ida y en vuelta). El programa contaba cada vez sus
+  principios y finales, así que «20 DE NOVIEMBRE PONIENTE» parecía un nombre
+  que la lista repite y los 4 cortes posibles quedaban dudosos; en la 008 sale
+  una vez y el corte sí cae («20 DE NOVIEMBRE | PONIENTE 2»). Ahora un pedazo
+  idéntico a otro ya visto cuenta una sola vez. Efecto: 10 cruces nuevos con
+  punto, ninguno movido ni perdido. En la 046, #34, #35, #52 y #53 quedan en
+  los mismos dos puntos que la 008 (Av. Miguel Hidalgo × 20 de Noviembre y Av.
+  Dos Poniente × Álvaro Obregón). De paso, en la 23 y en la 023, Sillar ×
+  Plaza de la Piedra, Av. de la Cantera × De la Piedra y De la Cantera × Del
+  Granito (3 en cada una). Total: 703 de 974 con punto (72 %), 196
+  referencias (20 %), 75 POR VERIFICAR (8 %). **Hallazgos que quedan
+  abiertos:** (1) Calle del Granito hace un circuito y toca dos veces la Calle
+  de la Cantera, a 116 m una de otra; la 23 y la 023 eligen esquinas distintas
+  para el mismo texto. Es el cuarto caso de «mismo texto, distinto punto»
+  (lección 3); los otros tres ya existían: Hidalgo – C. Miguel Hidalgo en la
+  039, Hacienda Los Arrayanes – Hacienda Piedras Negras en la 022 y la 039, y
+  C. Miguel Hidalgo – Ing. Luis Romero Soto, que difiere en 10 m. (2) **La 23
+  y la 023 traen el mismo texto en la página oficial** (renglones 428 y 441,
+  atributo `data-buscar`, consulta del 19 nov 2026): dos bloques, en distinto
+  orden, 1,581 caracteres en cada una y las mismas palabras. Un bloque son
+  calles de Lomas del Pedregal con guiones (Del Abedul, De la Laja, De la
+  Cantera); el otro, 551 caracteres de lugares sin guiones (Las Crucitas,
+  Club de Golf, Termas del Rey, La Redonda). A qué ruta va cada bloque es
+  decisión de Miguel; mientras, los puntos de Lomas del Pedregal que salen en
+  la 023 son POR VERIFICAR.
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 
