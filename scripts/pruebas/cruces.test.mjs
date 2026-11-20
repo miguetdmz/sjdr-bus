@@ -248,3 +248,12 @@ test('cruces: Av. Universidad llega al Circuito Querétaro Norte (Miguel, D-43):
     assert.ok(Number(c.evidencia.match(/\((\d+) m\)/)[1]) <= 30, `${c.ruta} #${c.orden}`);
   }
 });
+
+test('cruces: cada cruce sin ubicar en medio alarga el salto permitido 300 m: la 009B ubica Constituyentes × Santa Fe como la 032 y la 047 (20 nov 2026)', () => {
+  const sf = todos.filter((c) => c.texto === 'C. CONSTITUYENTES-SANTA FE');
+  assert.deepEqual(sf.map((c) => c.ruta).sort(), ['009B', '032', '047']);
+  for (const c of sf) assert.deepEqual([c.estado, c.lat, c.lon], ['UBICADO', 20.3963, -99.98798], `${c.ruta} #${c.orden}`);
+  // el mismo cruce, el mismo punto: OSM tiene dos ramales de la Carretera a Santa Cruz Nieto que tocan la Av. Central (a 222 m); la 009B usa el de la 030
+  const sc = todos.filter((c) => c.osm_calle === 'Avenida Central' && c.osm_cruce === 'Carretera a Santa Cruz Nieto');
+  assert.deepEqual(sc.map((c) => `${c.ruta} ${c.lat},${c.lon}`).sort(), ['009B 20.39921,-99.98309', '030 20.39921,-99.98309']);
+});

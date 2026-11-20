@@ -858,6 +858,21 @@ Miguel).
   en el mismo punto; la evidencia dice 32 m); ninguno movido ni perdido.
   Total: 687 de 936 con punto (73 %), 190 referencias (20 %), 59 POR
   VERIFICAR (6 %).
+- **Salto que crece con los huecos (20 nov 2026, 7:47 am; arreglo con
+  evidencia, D-42):** «C. CONSTITUYENTES-SANTA FE» salía UBICADO en la 032 y la
+  047 y POR VERIFICAR en la 009B, con el mismo texto (lección 3). En la 009B el
+  cruce ubicado anterior (Benito Juárez × Av. Central, #9) queda a 3.1 km, con
+  5 cruces sin ubicar en medio, y el tope fijo de 3 km lo dejaba fuera. Ahora
+  cada cruce sin ubicar en medio suma 300 m al salto permitido (la mediana entre
+  cruces seguidos ubicados es 277 m; ESTIMADO). Dos cruces seguidos conservan el
+  tope de 3 km, así que un punto suelto lejos de sus vecinos sigue fuera.
+  Efecto: 1 cruce nuevo con punto (009B #15, en el mismo punto que la 032 y la
+  047); 1 movido, revisado: 009B #36 «PASEO CENTRAL-CAMINO A SANTA CRUZ», 222 m.
+  OSM tiene dos ramales de la Carretera a Santa Cruz Nieto que tocan la Av.
+  Central (way 288677415 y way 288677416, ambos a 0 m); el punto pasa al que usa
+  la 030 para la misma esquina. Cuál de los dos toma el camión no se sabe con el
+  mapa: sigue ESTIMADO. Ninguno perdido. Total: 688 de 936 con punto (74 %),
+  190 referencias (20 %), 58 POR VERIFICAR (6 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 

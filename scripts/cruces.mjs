@@ -554,6 +554,12 @@ function separar(texto) {
 //     el centro de las mejores opciones con 8 km.
 //   - Salto máximo entre dos cruces ubicados seguidos: 3 km (ESTIMADO).
 const SALTO_MAX_M = 3000;
+// Cada cruce sin ubicar entre dos ubicados alarga el salto permitido lo que
+// mide el tramo típico entre cruces de la lista (mediana 277 m, R-03, 20 nov
+// 2026; ESTIMADO): en la 009B, de Benito Juárez × Av. Central a Constituyentes
+// × Santa Fe hay 3.1 km con 5 cruces sin ubicar en medio, y el tope fijo de
+// 3 km dejaba fuera un cruce que la 032 y la 047 sí ubican con el mismo texto.
+const SALTO_POR_HUECO_M = 300;
 const MARGEN_M = 3000;
 function mediana(nums) { const v = [...nums].sort((a, b) => a - b); return v[Math.floor(v.length / 2)]; }
 function corredor(numero, pares) {
@@ -607,7 +613,7 @@ function elegir(pares, cor) {
       for (let j = Math.max(0, i - 6); j < i; j++) {
         ops[j].forEach((q, h) => {
           const d = dist(q.x.p, o.x.p);
-          if (d > SALTO_MAX_M) return;
+          if (d > SALTO_MAX_M + SALTO_POR_HUECO_M * (i - j - 1)) return;
           const v = mejor[j][h].v + gana - d / 1000 - cambioDeCalle(pares[j], q, pares[i], o);
           if (v > m.v) m = { v, prev: [j, h] };
         });

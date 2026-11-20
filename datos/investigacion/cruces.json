@@ -22,10 +22,10 @@
  "resumen": {
   "rutas_con_lista_usable": 18,
   "cruces": 936,
-  "UBICADO": 684,
+  "UBICADO": 685,
   "UBICADO POR LUGAR": 3,
   "REFERENCIA": 190,
-  "CALLES SIN CRUCE EN OSM": 40,
+  "CALLES SIN CRUCE EN OSM": 39,
   "SIN UBICAR": 19,
   "con_correccion": 290
  },
@@ -2928,10 +2928,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 44,
    "conteo": {
-    "UBICADO": 28,
+    "UBICADO": 29,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 11,
-    "CALLES SIN CRUCE EN OSM": 4,
+    "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -3099,9 +3099,12 @@
      "texto": "C. CONSTITUYENTES-SANTA FE",
      "calle": "C. CONSTITUYENTES",
      "cruce_con": "SANTA FE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.3963,
+     "lon": -99.98798,
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Santa Fe») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Santa Fe",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 16,
@@ -3356,8 +3359,8 @@
      "calle": "PASEO CENTRAL",
      "cruce_con": "CAMINO A SANTA CRUZ",
      "estado": "UBICADO",
-     "lat": 20.4012,
-     "lon": -99.98281,
+     "lat": 20.39921,
+     "lon": -99.98309,
      "osm_calle": "Avenida Central",
      "osm_cruce": "Carretera a Santa Cruz Nieto",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
