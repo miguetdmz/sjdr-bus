@@ -67,8 +67,12 @@ const LUGAR = new Set(['PARQUE', 'PLAZA', 'PRIMARIA', 'SECUNDARIA', 'PREPARATORI
   'PRESIDENCIA', 'TERMINAL', 'FABRICA', 'EMPRESA', 'KINDER', 'JARDIN', 'CBTIS', 'CONALEP', 'COBAQ', 'UTSJR',
   'MONUMENTO']);
 const sinAcentos = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '');
+// Números escritos con letra = con cifra («AV. 1 PONIENTE» = «Avenida Uno
+// Poniente» en OSM; «CINCO DE MAYO» = «5 DE MAYO»). R-03, 20 nov 2026.
+const NUMEROS = { UNO: '1', DOS: '2', TRES: '3', CUATRO: '4', CINCO: '5', SEIS: '6', SIETE: '7',
+  OCHO: '8', NUEVE: '9', DIEZ: '10', DIECISEIS: '16', VEINTE: '20' };
 const palabras = (s) => sinAcentos(s).toUpperCase().replace(/[°º]/g, '').replace(/[.,;:"'()#]/g, ' ')
-  .split(/\s+/).filter(Boolean).map((w) => ABREV[w] ?? w);
+  .split(/\s+/).filter(Boolean).map((w) => ABREV[w] ?? NUMEROS[w] ?? w);
 // Núcleo: sin tipo de vía ni títulos; con rumbo aparte.
 const nucleo = (s) => palabras(s).filter((w) => !TIPOS.has(w) && !TITULOS.has(w));
 const clave = (s) => nucleo(s).join(' ');

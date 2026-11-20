@@ -22,12 +22,12 @@
  "resumen": {
   "rutas_con_lista_usable": 19,
   "cruces": 974,
-  "UBICADO": 653,
+  "UBICADO": 661,
   "UBICADO POR LUGAR": 3,
-  "REFERENCIA": 186,
-  "CALLES SIN CRUCE EN OSM": 70,
-  "SIN UBICAR": 62,
-  "con_correccion": 266
+  "REFERENCIA": 183,
+  "CALLES SIN CRUCE EN OSM": 67,
+  "SIN UBICAR": 60,
+  "con_correccion": 271
  },
  "rutas": [
   {
@@ -2393,10 +2393,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 37,
    "conteo": {
-    "UBICADO": 27,
+    "UBICADO": 28,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 7,
-    "CALLES SIN CRUCE EN OSM": 2,
+    "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -2579,9 +2579,12 @@
      "texto": "PONIENTE 2-ÁLVARO OBREGÓN",
      "calle": "PONIENTE 2",
      "cruce_con": "ÁLVARO OBREGÓN",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle 2",
-     "nota": "las dos calles existen en OSM («Calle 2», «Avenida Álvaro Obregón») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39855,
+     "lon": -99.99127,
+     "osm_calle": "Avenida Dos Poniente",
+     "osm_cruce": "Avenida Álvaro Obregón",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 15,
@@ -2882,10 +2885,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 45,
    "conteo": {
-    "UBICADO": 27,
+    "UBICADO": 28,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 9,
-    "CALLES SIN CRUCE EN OSM": 6,
+    "CALLES SIN CRUCE EN OSM": 5,
     "SIN UBICAR": 3
    },
    "cruces": [
@@ -3046,7 +3049,7 @@
      "cruce_con": "CALLE TRES PTE.",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Tres») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 3») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 15,
@@ -3284,9 +3287,15 @@
      "texto": "CARR. SAN JUAN DEL RÍO-AV. 1 PONIENTE",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "AV. 1 PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.3955,
+     "lon": -99.9836,
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Calle 1») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Uno Poniente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 35,
@@ -3426,8 +3435,8 @@
    "conteo": {
     "UBICADO": 54,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 22,
-    "CALLES SIN CRUCE EN OSM": 3,
+    "REFERENCIA": 21,
+    "CALLES SIN CRUCE EN OSM": 4,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -3444,9 +3453,9 @@
      "texto": "CALLE SAN JUAN DEL RÍO-CALLE 3 LAGUNAS",
      "calle": "CALLE SAN JUAN DEL RÍO",
      "cruce_con": "CALLE 3 LAGUNAS",
-     "estado": "REFERENCIA",
+     "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Central",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Tres Lagunas») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 3,
@@ -4400,8 +4409,8 @@
    "conteo": {
     "UBICADO": 35,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 5,
-    "CALLES SIN CRUCE EN OSM": 3,
+    "REFERENCIA": 4,
+    "CALLES SIN CRUCE EN OSM": 4,
     "SIN UBICAR": 2
    },
    "cruces": [
@@ -4418,9 +4427,9 @@
      "texto": "CALLE SAN JUAN DEL RÍO-CALLE 3 LAGUNAS",
      "calle": "CALLE SAN JUAN DEL RÍO",
      "cruce_con": "CALLE 3 LAGUNAS",
-     "estado": "REFERENCIA",
+     "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Central",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Tres Lagunas») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 3,
@@ -4967,10 +4976,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 61,
    "conteo": {
-    "UBICADO": 42,
+    "UBICADO": 43,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 5,
-    "CALLES SIN CRUCE EN OSM": 13,
+    "CALLES SIN CRUCE EN OSM": 12,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -5333,9 +5342,15 @@
      "texto": "CARR. SAN JUAN DEL RÍO-AV. 1 PONIENTE",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "AV. 1 PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.3955,
+     "lon": -99.9836,
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Calle 1») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Uno Poniente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 32,
@@ -5343,7 +5358,7 @@
      "calle": "AV. 1 PONIENTE",
      "cruce_con": "FULTÓN",
      "estado": "REFERENCIA",
-     "osm_calle": "Calle 1",
+     "osm_calle": "Avenida Uno Poniente",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
@@ -5696,10 +5711,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 44,
    "conteo": {
-    "UBICADO": 31,
+    "UBICADO": 32,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 9,
-    "CALLES SIN CRUCE EN OSM": 3,
+    "CALLES SIN CRUCE EN OSM": 2,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -6123,9 +6138,15 @@
      "texto": "CARR. SAN JUAN DEL RÍO-AV. 1 PONIENTE",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "AV. 1 PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.3955,
+     "lon": -99.9836,
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Calle 1») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Uno Poniente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 36,
@@ -8690,11 +8711,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 54,
    "conteo": {
-    "UBICADO": 25,
+    "UBICADO": 27,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 8,
+    "REFERENCIA": 7,
     "CALLES SIN CRUCE EN OSM": 8,
-    "SIN UBICAR": 13
+    "SIN UBICAR": 12
    },
    "cruces": [
     {
@@ -9185,9 +9206,12 @@
      "texto": "CALLE CONSTITUYENTES-AV. 1",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "AV. 1",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.39629,
+     "lon": -99.98791,
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle 1») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Uno Poniente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 42,
@@ -9226,17 +9250,27 @@
      "texto": "CALLE CONSTITUYENTES-AV. 8 ORIENTE",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "AV. 8 ORIENTE",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO",
+     "lat": 20.41151,
+     "lon": -99.98488,
      "osm_calle": "Avenida Constituyentes",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_cruce": "Avenida Ocho Oriente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 47,
      "texto": "AV. 8 ORIENTE-PASEO CENTRAL",
      "calle": "AV. 8 ORIENTE",
      "cruce_con": "PASEO CENTRAL",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.41112,
+     "lon": -99.98166,
+     "osm_calle": "Avenida Ocho Oriente",
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 48,
@@ -9285,12 +9319,9 @@
      "texto": "VENUSTIANO CARRANZA-MIGUEL HIDALGO",
      "calle": "VENUSTIANO CARRANZA",
      "cruce_con": "MIGUEL HIDALGO",
-     "estado": "UBICADO",
-     "lat": 20.43434,
-     "lon": -100.02704,
-     "osm_calle": "Calle Venustiano Carranza",
-     "osm_cruce": "Calle Miguel Hidalgo",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Avenida Venustiano Carranza",
+     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Avenida Miguel Hidalgo») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 54,
@@ -10882,11 +10913,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 56,
    "conteo": {
-    "UBICADO": 32,
+    "UBICADO": 34,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 11,
-    "CALLES SIN CRUCE EN OSM": 8,
-    "SIN UBICAR": 5
+    "CALLES SIN CRUCE EN OSM": 7,
+    "SIN UBICAR": 4
    },
    "cruces": [
     {
@@ -11076,7 +11107,7 @@
      "cruce_con": "CALLE TRES PTE.",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Tres») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 3») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 18,
@@ -11413,9 +11444,12 @@
      "texto": "CALLE CONSTITUYENTES-AV. 1",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "AV. 1",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.39629,
+     "lon": -99.98791,
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle 1») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Uno Poniente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 47,
@@ -11454,8 +11488,15 @@
      "texto": "AV. 8 ORIENTE-PASEO CENTRAL",
      "calle": "AV. 8 ORIENTE",
      "cruce_con": "PASEO CENTRAL",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.41112,
+     "lon": -99.98166,
+     "osm_calle": "Avenida Ocho Oriente",
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 52,

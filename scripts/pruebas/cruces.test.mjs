@@ -94,3 +94,9 @@ test('cruces: alias «Jurica» = Av. Belisario Domínguez (D-43) pasa la prueba 
   }
   assert.ok(!jurica.some((c) => [c.osm_calle, c.osm_cruce].includes('Privada Jurica')));
 });
+
+test('cruces: número con cifra = con letra («AV. 1 PONIENTE» = «Avenida Uno Poniente»), siempre con prueba del mapa', () => {
+  const uno = todos.filter((c) => /AV\. 1 PONIENTE/.test(c.texto) && c.estado === 'UBICADO');
+  assert.ok(uno.length >= 3, `solo ${uno.length}`);
+  for (const c of uno) { assert.ok([c.osm_calle, c.osm_cruce].includes('Avenida Uno Poniente')); assert.match(c.evidencia, /se tocan en OSM/); }
+});
