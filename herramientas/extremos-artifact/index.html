@@ -56,9 +56,13 @@
   #ficha .rutas { font-size: 12px; color: var(--suave); margin-top: 2px; }
   #cand { grid-column: 1; font-size: 13px; line-height: 1.4; }
   #cand .nota { color: var(--suave); }
+  #normal { grid-column: 1; font-size: 13px; line-height: 1.45; background: var(--acento-suave, #fdf0dc); border: 1px solid #f3d7a6; border-radius: 10px; padding: 8px 10px; }
+  #normal a { color: var(--primario); font-weight: 800; }
+  #osm-pegar { display: block; width: 100%; margin-top: 6px; font: inherit; font-size: 16px; padding: 10px 12px; min-height: 44px; border: 2px solid var(--borde); border-radius: 8px; background: #fff; color: var(--tinta); }
+  #osm-pegar:focus-visible { outline: 3px solid var(--primario); outline-offset: 1px; }
   .fila-cand { font: inherit; display: inline-block; margin: 2px 6px 2px 0; padding: 6px 10px; border: 1px solid var(--borde); border-radius: 8px; background: var(--fondo); font-size: 12px; cursor: pointer; color: var(--tinta); }
   .fila-cand[aria-pressed="true"] { border-color: var(--primario); background: var(--primario-suave); font-weight: 700; }
-  #acciones { grid-column: 2; grid-row: 1 / span 2; display: flex; flex-direction: column; gap: 6px; min-width: 230px; }
+  #acciones { grid-column: 2; grid-row: 1 / span 3; display: flex; flex-direction: column; gap: 6px; min-width: 230px; }
   #acciones button { font: inherit; font-weight: 800; font-size: 15px; padding: 11px 14px; min-height: 44px; border-radius: 10px; border: 2px solid transparent; cursor: pointer; }
   #acciones button:disabled { opacity: .4; cursor: not-allowed; }
   #b-aprobar { background: var(--primario); color: #fff; }
@@ -108,6 +112,11 @@
         <div class="rutas" id="f-rutas"></div>
       </div>
       <div id="cand"></div>
+      <div id="normal">
+        <b>¿No lo encuentras?</b> 1) Abre el <a id="osm-link" href="https://www.openstreetmap.org" target="_blank" rel="noopener">mapa normal ↗</a> y deja el lugar justo en el centro. 2) Copia el link de la barra de direcciones y pégalo aquí:
+        <input id="osm-pegar" type="text" inputmode="url" autocomplete="off" placeholder="Pega aquí el link del mapa normal" aria-label="Link del mapa normal" />
+        <div id="osm-msg" class="ayuda"></div>
+      </div>
       <div id="acciones">
         <div id="estado-actual"></div>
         <button id="b-aprobar" type="button">Aprobar</button>
@@ -261,6 +270,9 @@
       n.textContent = `${l.nota ?? ''} Si sabes dónde está, toca el mapa para poner un punto.`;
       cont.append(n);
     }
+    const c0 = mapa.getCenter();
+    const centroOsm = punto ?? [c0.lat, c0.lng];
+    el('osm-link').href = `https://www.openstreetmap.org/search?query=${encodeURIComponent(`${l.nombre}, San Juan del Río, Querétaro`)}#map=16/${centroOsm[0].toFixed(5)}/${centroOsm[1].toFixed(5)}`;
     el('b-aprobar').textContent = l.candidatos.length ? 'Aprobar' : 'Guardar este punto';
     el('b-aprobar').disabled = punto === null;
     el('estado-actual').textContent = avisoGuardado
@@ -308,6 +320,7 @@
 
   function elegir(i) {
     sel = i; candSel = 0; borrador = null; avisoGuardado = false;
+    el('osm-msg').textContent = '';
     const d = decisiones[lugar().nombre];
     if (d?.candidato_osm) {
       const k = lugar().candidatos.findIndex((c) => c.osm === d.candidato_osm);
@@ -352,6 +365,27 @@
     borrador = null;
     guardar(lugar().nombre, null);
     dibujar(); centrar();
+  });
+
+  // Punto desde el mapa normal: el link de openstreetmap.org trae #map=zoom/lat/lon
+  // (el centro de la vista); también acepta «lat, lon» escrito a mano.
+  function puntoDeTexto(t) {
+    const m = t.match(/map=\d+(?:\.\d+)?\/(-?\d+\.\d+)\/(-?\d+\.\d+)/) ?? t.match(/(-?\d{1,2}\.\d{3,})\s*[,;\s]\s*(-?\d{2,3}\.\d{3,})/);
+    if (!m) return null;
+    const lat = Number(m[1]), lon = Number(m[2]);
+    if (!(lat > 20.1 && lat < 20.7 && lon > -100.3 && lon < -99.6)) return 'fuera';
+    return [redondeo(lat), redondeo(lon)];
+  }
+  el('osm-pegar').addEventListener('input', () => {
+    const t = el('osm-pegar').value.trim();
+    if (!t) { el('osm-msg').textContent = ''; return; }
+    const p = puntoDeTexto(t);
+    if (p === 'fuera') { el('osm-msg').textContent = 'Ese punto queda fuera de San Juan del Río. Revisa el link.'; return; }
+    if (!p) { el('osm-msg').textContent = 'No encuentro la ubicación en ese link. Copia el link completo del mapa normal.'; return; }
+    borrador = p;
+    dibujar(); centrar();
+    el('osm-msg').textContent = 'Listo: puse el punto donde estaba el centro del mapa normal. Revísalo y presiona el botón verde.';
+    el('osm-pegar').value = '';
   });
 
   mapa.on('click', (ev) => {
