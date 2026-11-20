@@ -1016,3 +1016,14 @@ Miguel).
   «…QUERÉTARO 300-ANTIGUO CAMINO A OJO DE AGUA A. AMEALCO-LÁZARO CÁRDENAS…» y
   OSM no tiene ningún camino a Ojo de Agua ni una Lázaro Cárdenas cerca de la
   carretera a Amealco (siguiente pregunta). Total: 26 POR VERIFICAR.
+- **Calle compartida entre dos guiones (20 nov 2026, 9:49 am; arreglo con
+  evidencia, D-42):** la 022 escribe «JURICA-SAN JUAN DEL RÍO-MERCADO JUÁREZ»,
+  con «San Juan del Río» una sola vez para dos cruces; el programa la partía en
+  «SAN JUAN | DEL RÍO» y dejaba los dos cruces dudosos. Otras 5 rutas escriben
+  el mismo cruce como «CARR. SAN JUAN DEL RÍO-JURICA» (Av. Central × Av.
+  Belisario Domínguez). Ahora, si el pedazo de en medio es entero un nombre que
+  la lista repite y que OSM tiene tal cual, cierra un cruce y abre el
+  siguiente. Efecto: 022 #12 «JURICA-SAN JUAN DEL RÍO» UBICADO (a 4 m del punto
+  de las otras 5 rutas: el punto medio depende de qué calle va primero) y 022
+  #13 «SAN JUAN DEL RÍO-MERCADO JUÁREZ» REFERENCIA sobre la Av. Central.
+  Ninguna otra ruta cambia. Total: 24 POR VERIFICAR.

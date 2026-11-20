@@ -23,13 +23,13 @@
  "resumen": {
   "rutas_con_lista_usable": 18,
   "cruces": 936,
-  "UBICADO": 690,
+  "UBICADO": 691,
   "UBICADO POR LUGAR": 3,
   "APROXIMADO": 26,
-  "REFERENCIA": 191,
+  "REFERENCIA": 192,
   "CALLES SIN CRUCE EN OSM": 15,
-  "SIN UBICAR": 11,
-  "con_correccion": 293
+  "SIN UBICAR": 9,
+  "con_correccion": 294
  },
  "rutas": [
   {
@@ -6485,12 +6485,12 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 38,
    "conteo": {
-    "UBICADO": 29,
+    "UBICADO": 30,
     "UBICADO POR LUGAR": 0,
     "APROXIMADO": 0,
-    "REFERENCIA": 7,
+    "REFERENCIA": 8,
     "CALLES SIN CRUCE EN OSM": 0,
-    "SIN UBICAR": 2
+    "SIN UBICAR": 0
    },
    "cruces": [
     {
@@ -6624,19 +6624,28 @@
     },
     {
      "orden": 12,
-     "texto": "JURICA-SAN JUAN",
+     "texto": "JURICA-SAN JUAN DEL RÍO",
      "calle": "JURICA",
-     "cruce_con": "SAN JUAN",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR. Sin aproximación (D-45): el corte del texto es dudoso"
+     "cruce_con": "SAN JUAN DEL RÍO",
+     "estado": "UBICADO",
+     "lat": 20.3778,
+     "lon": -99.98604,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (8 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»",
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 13,
-     "texto": "DEL RÍO-MERCADO JUÁREZ",
-     "calle": "DEL RÍO",
+     "texto": "SAN JUAN DEL RÍO-MERCADO JUÁREZ",
+     "calle": "SAN JUAN DEL RÍO",
      "cruce_con": "MERCADO JUÁREZ",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR. Sin aproximación (D-45): el corte del texto es dudoso"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 14,

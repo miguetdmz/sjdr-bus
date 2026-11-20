@@ -519,6 +519,15 @@ function separar(texto) {
     for (let k = 1; k < w.length - 1; k++) for (let m = k + 1; m < w.length; m++) {
       r.push({ izq: w.slice(0, k), medio: w.slice(k, m), der: w.slice(m) });
     }
+    // Una calle completa entre dos guiones, escrita una sola vez, cierra un cruce
+    // y abre el siguiente: «JURICA-SAN JUAN DEL RÍO-MERCADO JUÁREZ» (022) son
+    // Jurica × San Juan del Río y San Juan del Río × Mercado Juárez. Solo si el
+    // pedazo entero es un nombre que la lista repite y está en OSM tal cual
+    // (R-03, 20 nov 2026).
+    const entero = w.join(' ');
+    if (w.length > 1 && (repetidos.todos ?? repetidos).has(clave(entero)) && (candidatos(entero)[0]?.score ?? 0) >= 0.95) {
+      r.push({ izq: w, der: w, medio: [] });
+    }
     return r.length ? r : [{ izq: w, der: [], medio: [] }];
   });
   const pt = (ws) => (ws.length ? puntajeTexto(palabras(ws.join(' ')), repetidos) : -Infinity);

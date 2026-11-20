@@ -319,3 +319,14 @@ test('cruces: «CARRETERA QUERÉTARO 300» = Carretera Panamericana a Querétaro
   const c = todos.find((x) => x.ruta === '002' && x.texto === 'CARRETERA QUERÉTARO 300-SECRETARIA DE FINANZAS');
   assert.deepEqual([c.estado, c.osm_calle, c.lat], ['REFERENCIA', 'Carretera Panamericana a Querétaro', undefined]);
 });
+
+test('cruces: una calle completa entre dos guiones cierra un cruce y abre el siguiente: «JURICA-SAN JUAN DEL RÍO-MERCADO JUÁREZ» (022, 20 nov 2026)', () => {
+  const j = todos.find((c) => c.ruta === '022' && c.texto === 'JURICA-SAN JUAN DEL RÍO');
+  assert.deepEqual([j.estado, j.osm_calle, j.osm_cruce], ['UBICADO', 'Avenida Belisario Domínguez', 'Avenida Central']);
+  // el mismo cruce que las 5 rutas que escriben «CARR. SAN JUAN DEL RÍO-JURICA» (a 4 m: el punto medio depende de qué calle va primero)
+  const otro = todos.find((c) => c.texto === 'CARR. SAN JUAN DEL RÍO-JURICA');
+  assert.ok(Math.hypot((j.lat - otro.lat) * 110574, (j.lon - otro.lon) * 104300) < 10);
+  const m = todos.find((c) => c.ruta === '022' && c.texto === 'SAN JUAN DEL RÍO-MERCADO JUÁREZ');
+  assert.deepEqual([m.estado, m.osm_calle, m.lat], ['REFERENCIA', 'Avenida Central', undefined]);
+  assert.ok(!todos.some((c) => c.ruta === '022' && /^(JURICA-SAN JUAN|DEL RÍO-MERCADO)/.test(c.texto) && c.texto !== 'JURICA-SAN JUAN DEL RÍO'));
+});
