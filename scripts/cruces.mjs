@@ -316,14 +316,20 @@ function lugarDe(texto, cerca) {
 }
 
 // ---------- separación de una lista ----------
+// «PONIENTE 2» sí es nombre (Avenida Dos Poniente, escrita al revés).
+const rumboSuelto = (ws) => RUMBOS.has(ws[0]) && ws.length > 1 && !/^\d+$/.test(ws[1]) && !candidatos(ws.join(' ')).some((x) => x.tipo === 'exacto' && x.score >= 1);
 function puntajeTexto(ws, repetidos) {
   if (!ws.length) return -Infinity;
   // Empezar con «DE», «DEL», «LA»… solo vale si es una calle real («Del
   // Granito», «De la Cantera»).
   if (NO_INICIA.has(ws[0]) && !candidatos(ws.join(' ')).some((x) => x.score >= 0.95)) return -5;
   if (ws.every((w) => RUMBOS.has(w))) return -5;
+  // Un rumbo al principio («PONIENTE CALLE CONSTITUYENTES») es la cola del
+  // nombre anterior («CALLE 5 PONIENTE»), salvo que OSM tenga la calle tal
+  // cual («Calle Norte 5»). R-03, 20 nov 2026.
+  if (rumboSuelto(ws)) return -5;
   const ultima = ws[ws.length - 1];
-  if (TIPOS.has(ultima) || NO_INICIA.has(ultima) || TITULOS.has(ultima) || LUGAR.has(ultima)) return -5;
+  if (TIPOS.has(ultima) || NO_INICIA.has(ultima) || ultima === 'A' || TITULOS.has(ultima) || LUGAR.has(ultima)) return -5;
   const t = ws.join(' ');
   // Para decidir el corte no cuentan las coincidencias débiles (parcial,
   // continuación): un texto con una palabra de sobra no debe ganar el corte.
@@ -413,7 +419,7 @@ function partido(c, repetidos) {
     const cl = clave(ws.slice(a, b).join(' '));
     // solo cuenta si el nombre repetido existe en OSM (filtra pedazos sueltos
     // que se repiten porque ida y vuelta repiten paradas)
-    if (cl.includes(' ') && (repetidos.todos ?? repetidos).has(cl) && (candidatos(cl)[0]?.score ?? 0) >= 0.7) return 5;
+    if (cl.includes(' ') && !rumboSuelto(cl.split(' ')) && (repetidos.todos ?? repetidos).has(cl) && (candidatos(cl)[0]?.score ?? 0) >= 0.7) return 5;
   }
   return 0;
 }
@@ -455,7 +461,8 @@ function separar(texto) {
         // la calle suelta solo se acepta si es una calle exacta de OSM; cuesta un poco
         if (c.medio?.length) {
           const cm = candidatos(c.medio.join(' '))[0];
-          s += cm && cm.score >= 0.95 && !NO_INICIA.has(palabras(c.medio[0])[0]) ? cm.score - 1.2 : -10;
+          const pm = palabras(c.medio.join(' '));
+          s += cm && cm.score >= 0.95 && !NO_INICIA.has(pm[0]) && !pm.every((w) => RUMBOS.has(w)) ? cm.score - 1.2 : -10;
         }
         if (A && B && mejorParCalles(A, B)) s += 1; // las dos calles se tocan en el mapa
         if (!mejor || s > mejor.s) mejor = { s, camino: [...prev.camino, c] };

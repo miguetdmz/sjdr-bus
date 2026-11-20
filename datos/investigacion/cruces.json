@@ -22,12 +22,12 @@
  "resumen": {
   "rutas_con_lista_usable": 19,
   "cruces": 974,
-  "UBICADO": 667,
+  "UBICADO": 674,
   "UBICADO POR LUGAR": 3,
-  "REFERENCIA": 188,
-  "CALLES SIN CRUCE EN OSM": 56,
-  "SIN UBICAR": 60,
-  "con_correccion": 277
+  "REFERENCIA": 190,
+  "CALLES SIN CRUCE EN OSM": 62,
+  "SIN UBICAR": 45,
+  "con_correccion": 280
  },
  "rutas": [
   {
@@ -663,9 +663,9 @@
    "conteo": {
     "UBICADO": 58,
     "UBICADO POR LUGAR": 1,
-    "REFERENCIA": 9,
+    "REFERENCIA": 10,
     "CALLES SIN CRUCE EN OSM": 6,
-    "SIN UBICAR": 8
+    "SIN UBICAR": 7
    },
    "cruces": [
     {
@@ -889,9 +889,9 @@
     },
     {
      "orden": 19,
-     "texto": "JURICA-AV. BENITO JUÁREZ",
+     "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
      "calle": "JURICA",
-     "cruce_con": "AV. BENITO JUÁREZ",
+     "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
      "estado": "UBICADO",
      "lat": 20.38442,
      "lon": -99.99048,
@@ -904,11 +904,12 @@
     },
     {
      "orden": 20,
-     "texto": "ORIENTE PLAZA MORELOS ORIENTE-ARTICULO 3°",
-     "calle": "ORIENTE PLAZA MORELOS ORIENTE",
+     "texto": "PLAZA MORELOS ORIENTE-ARTICULO 3°",
+     "calle": "PLAZA MORELOS ORIENTE",
      "cruce_con": "ARTICULO 3°",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Calle Artículo Tercero",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 21,
@@ -2901,9 +2902,9 @@
    "conteo": {
     "UBICADO": 28,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 9,
+    "REFERENCIA": 10,
     "CALLES SIN CRUCE EN OSM": 5,
-    "SIN UBICAR": 3
+    "SIN UBICAR": 2
    },
    "cruces": [
     {
@@ -3160,9 +3161,9 @@
     },
     {
      "orden": 23,
-     "texto": "JURICA-AV. BENITO JUÁREZ",
+     "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
      "calle": "JURICA",
-     "cruce_con": "AV. BENITO JUÁREZ",
+     "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
      "estado": "UBICADO",
      "lat": 20.38442,
      "lon": -99.99048,
@@ -3175,11 +3176,12 @@
     },
     {
      "orden": 24,
-     "texto": "ORIENTE MONUMENTO A BENITO JUÁREZ-JURICA",
-     "calle": "ORIENTE MONUMENTO A BENITO JUÁREZ",
+     "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
+     "calle": "MONUMENTO A BENITO JUÁREZ",
      "cruce_con": "JURICA",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Belisario Domínguez",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 25,
@@ -3346,17 +3348,17 @@
     },
     {
      "orden": 38,
-     "texto": "PASEO CENTRAL-CALLE 7",
+     "texto": "PASEO CENTRAL-CALLE 7 ORIENTE",
      "calle": "PASEO CENTRAL",
-     "cruce_con": "CALLE 7",
+     "cruce_con": "CALLE 7 ORIENTE",
      "estado": "REFERENCIA",
      "osm_calle": "Avenida Central",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 39,
-     "texto": "ORIENTE CARR. MÉXICO 120-AV. 8 ORIENTE",
-     "calle": "ORIENTE CARR. MÉXICO 120",
+     "texto": "CARR. MÉXICO 120-AV. 8 ORIENTE",
+     "calle": "CARR. MÉXICO 120",
      "cruce_con": "AV. 8 ORIENTE",
      "estado": "SIN UBICAR",
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
@@ -6588,9 +6590,9 @@
     },
     {
      "orden": 24,
-     "texto": "JURICA-AV. BENITO JUÁREZ",
+     "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
      "calle": "JURICA",
-     "cruce_con": "AV. BENITO JUÁREZ",
+     "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
      "estado": "UBICADO",
      "lat": 20.38442,
      "lon": -99.99048,
@@ -6603,8 +6605,8 @@
     },
     {
      "orden": 25,
-     "texto": "ORIENTE ARTICULO 3O-FERNANDO DE TAPIA",
-     "calle": "ORIENTE ARTICULO 3O",
+     "texto": "ARTICULO 3O-FERNANDO DE TAPIA",
+     "calle": "ARTICULO 3O",
      "cruce_con": "FERNANDO DE TAPIA",
      "estado": "SIN UBICAR",
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
@@ -7986,11 +7988,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 65,
    "conteo": {
-    "UBICADO": 39,
+    "UBICADO": 42,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 18,
-    "CALLES SIN CRUCE EN OSM": 3,
-    "SIN UBICAR": 5
+    "CALLES SIN CRUCE EN OSM": 4,
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -8144,16 +8146,31 @@
      "texto": "PASEO CENTRAL-CALLE 4 PONIENTE",
      "calle": "PASEO CENTRAL",
      "cruce_con": "CALLE 4 PONIENTE",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.40123,
+     "lon": -99.98298,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Calle 4 Poniente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
     },
     {
      "orden": 14,
      "texto": "CARR. SAN JUAN DEL RÍO-SANTA CRUZ NIETO",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "SANTA CRUZ NIETO",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.39921,
+     "lon": -99.98309,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Carretera a Santa Cruz Nieto",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»",
+      "contenido: «SANTA CRUZ NIETO» → «Carretera a Santa Cruz Nieto»"
+     ]
     },
     {
      "orden": 15,
@@ -8650,16 +8667,24 @@
      "texto": "CARR. SAN JUAN DEL RÍO-AV. 1 PONIENTE",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "AV. 1 PONIENTE",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.3955,
+     "lon": -99.9836,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Uno Poniente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 58,
      "texto": "CARRETERA SAN JUAN DEL RÍO-TEQUISQUIAPAN",
      "calle": "CARRETERA SAN JUAN DEL RÍO",
      "cruce_con": "TEQUISQUIAPAN",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Avenida Central",
+     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Hacienda Tequisquiapan») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 59,
@@ -8753,11 +8778,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 54,
    "conteo": {
-    "UBICADO": 27,
+    "UBICADO": 30,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 8,
-    "CALLES SIN CRUCE EN OSM": 7,
-    "SIN UBICAR": 12
+    "CALLES SIN CRUCE EN OSM": 10,
+    "SIN UBICAR": 6
    },
    "cruces": [
     {
@@ -8865,19 +8890,24 @@
     },
     {
      "orden": 12,
-     "texto": "CALLE CONSTITUYENTES-CALLE 5",
+     "texto": "CALLE CONSTITUYENTES-CALLE 5 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
-     "cruce_con": "CALLE 5",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "cruce_con": "CALLE 5 PONIENTE",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Avenida Constituyentes",
+     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 5») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 13,
-     "texto": "PONIENTE C. CONSTITUYENTES-SANTA FE",
-     "calle": "PONIENTE C. CONSTITUYENTES",
+     "texto": "C. CONSTITUYENTES-SANTA FE",
+     "calle": "C. CONSTITUYENTES",
      "cruce_con": "SANTA FE",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.3963,
+     "lon": -99.98798,
+     "osm_calle": "Avenida Constituyentes",
+     "osm_cruce": "Calle Santa Fe",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 14,
@@ -9245,9 +9275,9 @@
     },
     {
      "orden": 41,
-     "texto": "CALLE CONSTITUYENTES-AV. 1",
+     "texto": "CALLE CONSTITUYENTES-AV. 1 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
-     "cruce_con": "AV. 1",
+     "cruce_con": "AV. 1 PONIENTE",
      "estado": "UBICADO",
      "lat": 20.39629,
      "lon": -99.98791,
@@ -9257,35 +9287,45 @@
     },
     {
      "orden": 42,
-     "texto": "PONIENTE CONSTITUYENTES-CALLE TRES",
-     "calle": "PONIENTE CONSTITUYENTES",
-     "cruce_con": "CALLE TRES",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "texto": "CONSTITUYENTES-CALLE TRES PONIENTE",
+     "calle": "CONSTITUYENTES",
+     "cruce_con": "CALLE TRES PONIENTE",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Avenida Constituyentes",
+     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 3») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 43,
-     "texto": "PONIENTE CALLE CONSTITUYENTES-CALLE 4 PONIENTE",
-     "calle": "PONIENTE CALLE CONSTITUYENTES",
+     "texto": "CALLE CONSTITUYENTES-CALLE 4 PONIENTE",
+     "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "CALLE 4 PONIENTE",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.40175,
+     "lon": -99.98687,
+     "osm_calle": "Avenida Constituyentes",
+     "osm_cruce": "Calle 4 Poniente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 44,
-     "texto": "CALLE CONSTITUYENTES-CALLE 5",
+     "texto": "CALLE CONSTITUYENTES-CALLE 5 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
-     "cruce_con": "CALLE 5",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "cruce_con": "CALLE 5 PONIENTE",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Avenida Constituyentes",
+     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 5») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 45,
-     "texto": "PONIENTE CALLE CONSTITUYENTES-EPIGMENIO GONZÁLEZ",
-     "calle": "PONIENTE CALLE CONSTITUYENTES",
+     "texto": "CALLE CONSTITUYENTES-EPIGMENIO GONZÁLEZ",
+     "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "EPIGMENIO GONZÁLEZ",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.4063,
+     "lon": -99.98618,
+     "osm_calle": "Avenida Constituyentes",
+     "osm_cruce": "Calle Epigmenio González",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 46,
@@ -10955,11 +10995,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 56,
    "conteo": {
-    "UBICADO": 34,
+    "UBICADO": 35,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 12,
-    "CALLES SIN CRUCE EN OSM": 6,
-    "SIN UBICAR": 4
+    "CALLES SIN CRUCE EN OSM": 8,
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -11483,9 +11523,9 @@
     },
     {
      "orden": 46,
-     "texto": "CALLE CONSTITUYENTES-AV. 1",
+     "texto": "CALLE CONSTITUYENTES-AV. 1 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
-     "cruce_con": "AV. 1",
+     "cruce_con": "AV. 1 PONIENTE",
      "estado": "UBICADO",
      "lat": 20.39629,
      "lon": -99.98791,
@@ -11495,27 +11535,33 @@
     },
     {
      "orden": 47,
-     "texto": "PONIENTE CONSTITUYENTES-CALLE TRES",
-     "calle": "PONIENTE CONSTITUYENTES",
-     "cruce_con": "CALLE TRES",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "texto": "CONSTITUYENTES-CALLE TRES PONIENTE",
+     "calle": "CONSTITUYENTES",
+     "cruce_con": "CALLE TRES PONIENTE",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Avenida Constituyentes",
+     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 3») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 48,
-     "texto": "PONIENTE CALLE CONSTITUYENTES-CALLE 4 PONIENTE",
-     "calle": "PONIENTE CALLE CONSTITUYENTES",
+     "texto": "CALLE CONSTITUYENTES-CALLE 4 PONIENTE",
+     "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "CALLE 4 PONIENTE",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.40175,
+     "lon": -99.98687,
+     "osm_calle": "Avenida Constituyentes",
+     "osm_cruce": "Calle 4 Poniente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 49,
      "texto": "CALLE CONSTITUYENTES-CALLE 5 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "CALLE 5 PONIENTE",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Avenida Constituyentes",
+     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 5») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 50,

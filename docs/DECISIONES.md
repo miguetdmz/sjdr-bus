@@ -718,6 +718,21 @@ Miguel).
   Hidalgo (tabla `NEGOCIOS_MIGUEL`). Efecto: 5 cruces pasan a REFERENCIA.
   Total: 670 de 974 con punto (69 %), 188 referencias (19 %), 116 POR
   VERIFICAR (12 %).
+- **Rumbo suelto (20 nov 2026, 1:28 am; arreglo con evidencia, D-42):** en
+  «CALLE 5 PONIENTE C. CONSTITUYENTES» el programa cortaba después del «5» y
+  pegaba «PONIENTE» al cruce siguiente, porque «Poniente Constituyentes» sin
+  el rumbo parecía la Av. Constituyentes. Ahora un rumbo al principio es la
+  cola del nombre anterior, salvo «PONIENTE 2» (Avenida Dos Poniente escrita
+  al revés) o una calle de OSM con ese nombre exacto («Calle Norte 5»). Un
+  rumbo solo nunca es calle suelta y un nombre no termina en «A»
+  («MONUMENTO A | BENITO JUÁREZ»). Efecto: 7 cruces nuevos con punto (032 y
+  047 con 4 Poniente, Epigmenio González y Santa Fe; 030 con Calle 4 Poniente,
+  Santa Cruz Nieto y Av. 1 Poniente), ninguno movido ni perdido. Total: 677 de
+  974 con punto (70 %), 190 referencias (20 %), 107 POR VERIFICAR (11 %).
+  **Sigue POR VERIFICAR:** Constituyentes con Calle Tres, Calle 5 y Av. 9
+  Poniente (6 cruces): OSM no tiene esas calles con nombre junto a la Av.
+  Constituyentes (sí tiene Uno, Dos, 4 Poniente y 8 Oriente). No se
+  interpolan (D-41).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 

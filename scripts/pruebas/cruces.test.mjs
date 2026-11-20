@@ -113,3 +113,19 @@ test('cruces: «Sagitario» junto a la Av. Hidalgo es un negocio (Miguel, D-43):
   assert.ok(s.length >= 5);
   for (const c of s) { assert.equal(c.estado, 'REFERENCIA'); assert.equal(c.lat, undefined); }
 });
+
+test('cruces: un rumbo suelto («PONIENTE», «ORIENTE») se queda con el nombre anterior, no empieza el siguiente (20 nov 2026)', () => {
+  // «CALLE 5 PONIENTE C. CONSTITUYENTES»: el corte va después de PONIENTE.
+  for (const c of todos) {
+    const ws = c.calle.split(/\s+/);
+    if (/^(PONIENTE|ORIENTE|PTE\.?|OTE\.?)$/.test(ws[0])) {
+      assert.match(ws[1] ?? '', /^\d+$/, `${c.ruta} #${c.orden}: «${c.texto}» empieza con un rumbo suelto`);
+    }
+  }
+  // efecto medido: Constituyentes con 4 Poniente, Epigmenio González y Santa Fe ya tienen punto
+  const ok = todos.filter((c) => /CONSTITUYENTES-(CALLE 4 PONIENTE|EPIGMENIO GONZÁLEZ|SANTA FE)$/.test(c.texto) && c.estado === 'UBICADO');
+  assert.ok(ok.length >= 5, `solo ${ok.length}`);
+  for (const c of ok) assert.equal(c.osm_calle, 'Avenida Constituyentes');
+  // y «PONIENTE 2» (Avenida Dos Poniente, escrita al revés) sigue sirviendo
+  assert.ok(todos.some((c) => /^(PONIENTE )?2-ÁLVARO OBREGÓN$/.test(c.texto) && c.osm_calle === 'Avenida Dos Poniente'));
+});
