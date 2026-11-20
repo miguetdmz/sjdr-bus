@@ -80,7 +80,9 @@ const sinAcentos = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '');
 const NUMEROS = { UNO: '1', DOS: '2', TRES: '3', CUATRO: '4', CINCO: '5', SEIS: '6', SIETE: '7',
   OCHO: '8', NUEVE: '9', DIEZ: '10', DIECISEIS: '16', VEINTE: '20' };
 const palabras = (s) => sinAcentos(s).toUpperCase().replace(/[°º]/g, '').replace(/[.,;:"'()#]/g, ' ')
-  .split(/\s+/).filter(Boolean).map((w) => ABREV[w] ?? NUMEROS[w] ?? w);
+  .split(/\s+/).filter(Boolean).map((w) => ABREV[w] ?? NUMEROS[w] ?? w)
+  // «ARTICULO 3O»: la «O» pegada al número es el «º» de «3º» (R-03, 20 nov 2026)
+  .map((w) => (/^\d+O$/.test(w) ? w.slice(0, -1) : w));
 // Núcleo: sin tipo de vía ni títulos; con rumbo aparte.
 const nucleo = (s) => palabras(s).filter((w) => !TIPOS.has(w) && !TITULOS.has(w));
 const clave = (s) => nucleo(s).join(' ');
@@ -308,6 +310,15 @@ function candidatos(texto) {
         let i = 0;
         for (const w of cs) if (i < sig.length && (w === sig[i] || (sig[i].length === 1 && w[0] === sig[i]))) i++;
         if (i === sig.length) { poner(c, 'contenido', 0.5 + 0.3 * (sig.length / cs.length)); continue; }
+        // contenido con UNA errata en una palabra larga: «PROL. BENITO JUÁRREZ» →
+        // «Prolongación Benito Juárez García» (R-03, 20 nov 2026). Puntaje menor.
+        let j = 0, erratas = 0;
+        for (const w of cs) {
+          if (j >= sig.length) break;
+          if (w === sig[j]) j++;
+          else if (!erratas && w.length >= 6 && sig[j].length >= 6 && w[0] === sig[j][0] && lev(w, sig[j], 1) <= 1) { j++; erratas++; }
+        }
+        if (j === sig.length && erratas === 1 && sig.length >= 2) { poner(c, 'contenido con errata', 0.45 + 0.3 * (sig.length / cs.length)); continue; }
       }
       // parcial: OSM trae el nombre corto y el oficial le agrega UN nombre de
       // pila o título («BENITO JUÁREZ» → «Avenida Juárez»). Solo vale con la
@@ -490,7 +501,12 @@ function separar(texto) {
   const n = partes.length;
   // opciones de corte del pedazo i (1..n-2): [B_i, A_{i+1}]
   const cortes = partes.map((p, i) => {
-    const w = p.trim().split(/\s+/);
+    let w = p.trim().split(/\s+/);
+    // La lista a veces abre con la primera calle escrita dos veces seguidas
+    // («PASEO LOMA ALTA PASEO LOMA ALTA-LOMA DEL RIO», «HIDALGO HIDALGO-C.
+    // MIGUEL HIDALGO»): es una sola calle (R-03, 20 nov 2026).
+    const mitad = w.length / 2;
+    if (i === 0 && Number.isInteger(mitad) && w.slice(0, mitad).join(' ') === w.slice(mitad).join(' ')) w = w.slice(0, mitad);
     if (i === 0 || i === n - 1) return [{ izq: w, der: w }];
     const r = [];
     for (let k = 1; k < w.length; k++) r.push({ izq: w.slice(0, k), der: w.slice(k), medio: [] });

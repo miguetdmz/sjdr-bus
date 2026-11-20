@@ -22,12 +22,12 @@
  "resumen": {
   "rutas_con_lista_usable": 18,
   "cruces": 936,
-  "UBICADO": 685,
+  "UBICADO": 690,
   "UBICADO POR LUGAR": 3,
   "REFERENCIA": 190,
-  "CALLES SIN CRUCE EN OSM": 39,
-  "SIN UBICAR": 19,
-  "con_correccion": 290
+  "CALLES SIN CRUCE EN OSM": 38,
+  "SIN UBICAR": 15,
+  "con_correccion": 293
  },
  "rutas": [
   {
@@ -827,7 +827,7 @@
      "osm_cruce": "Calle Río Extoraz",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "errata: «RÍO ESTORAZ» → «Calle Río Extoraz»"
+      "contenido con errata: «RÍO ESTORAZ» → «Calle Río Extoraz»"
      ]
     },
     {
@@ -2436,20 +2436,28 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 37,
    "conteo": {
-    "UBICADO": 28,
+    "UBICADO": 29,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 8,
     "CALLES SIN CRUCE EN OSM": 0,
-    "SIN UBICAR": 1
+    "SIN UBICAR": 0
    },
    "cruces": [
     {
      "orden": 1,
-     "texto": "HIDALGO HIDALGO-C. MIGUEL HIDALGO",
-     "calle": "HIDALGO HIDALGO",
+     "texto": "HIDALGO-C. MIGUEL HIDALGO",
+     "calle": "HIDALGO",
      "cruce_con": "C. MIGUEL HIDALGO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38652,
+     "lon": -99.99722,
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "osm_cruce": "Avenida Miguel Hidalgo y Costilla",
+     "evidencia": "las dos calles se tocan en OSM (19 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo»",
+      "contenido: «C. MIGUEL HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
+     ]
     },
     {
      "orden": 2,
@@ -3472,20 +3480,24 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 80,
    "conteo": {
-    "UBICADO": 55,
+    "UBICADO": 56,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 22,
     "CALLES SIN CRUCE EN OSM": 2,
-    "SIN UBICAR": 1
+    "SIN UBICAR": 0
    },
    "cruces": [
     {
      "orden": 1,
-     "texto": "PASEO LOMA ALTA PASEO LOMA ALTA-LOMA DEL RIO",
-     "calle": "PASEO LOMA ALTA PASEO LOMA ALTA",
+     "texto": "PASEO LOMA ALTA-LOMA DEL RIO",
+     "calle": "PASEO LOMA ALTA",
      "cruce_con": "LOMA DEL RIO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.37585,
+     "lon": -99.92503,
+     "osm_calle": "Paseo Loma Alta",
+     "osm_cruce": "Calle Loma Del Río",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 2,
@@ -3547,7 +3559,7 @@
      "osm_cruce": "Calle Misión San Lucas",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "errata: «LUIS DONALDO COLOCIO» → «Avenida Luis Donaldo Colosio»"
+      "contenido con errata: «LUIS DONALDO COLOCIO» → «Avenida Luis Donaldo Colosio»"
      ]
     },
     {
@@ -4454,20 +4466,24 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 45,
    "conteo": {
-    "UBICADO": 37,
+    "UBICADO": 38,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 4,
     "CALLES SIN CRUCE EN OSM": 2,
-    "SIN UBICAR": 2
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
      "orden": 1,
-     "texto": "PASEO LOMA ALTA PASEO LOMA ALTA-LOMA DEL RIO",
-     "calle": "PASEO LOMA ALTA PASEO LOMA ALTA",
+     "texto": "PASEO LOMA ALTA-LOMA DEL RIO",
+     "calle": "PASEO LOMA ALTA",
      "cruce_con": "LOMA DEL RIO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.37585,
+     "lon": -99.92503,
+     "osm_calle": "Paseo Loma Alta",
+     "osm_cruce": "Calle Loma Del Río",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 2,
@@ -5033,10 +5049,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 61,
    "conteo": {
-    "UBICADO": 53,
+    "UBICADO": 54,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 5,
-    "CALLES SIN CRUCE EN OSM": 2,
+    "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -5126,9 +5142,15 @@
      "texto": "GUADALUPE VICTORIA-PROL. BENITO JUÁRREZ",
      "calle": "GUADALUPE VICTORIA",
      "cruce_con": "PROL. BENITO JUÁRREZ",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.39607,
+     "lon": -99.95706,
      "osm_calle": "Calle Guadalupe Victoria",
-     "nota": "las dos calles existen en OSM («Calle Guadalupe Victoria», «Avenida Benito Juárez») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Prolongación Benito Juárez García",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido con errata: «PROL. BENITO JUÁRREZ» → «Prolongación Benito Juárez García»"
+     ]
     },
     {
      "orden": 9,
@@ -6383,11 +6405,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 38,
    "conteo": {
-    "UBICADO": 28,
+    "UBICADO": 29,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 7,
     "CALLES SIN CRUCE EN OSM": 0,
-    "SIN UBICAR": 3
+    "SIN UBICAR": 2
    },
    "cruces": [
     {
@@ -6678,8 +6700,15 @@
      "texto": "ARTICULO 3O-FERNANDO DE TAPIA",
      "calle": "ARTICULO 3O",
      "cruce_con": "FERNANDO DE TAPIA",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38319,
+     "lon": -99.99226,
+     "osm_calle": "Calle Artículo Tercero",
+     "osm_cruce": "Prolongación Fernando de Tapia",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "ordinal: «ARTICULO 3O» → «Calle Artículo Tercero»"
+     ]
     },
     {
      "orden": 26,
@@ -10233,7 +10262,7 @@
      "osm_cruce": "Privada Ezequiel Montes",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "errata: «EZEQUIEL MONTEZ» → «Privada Ezequiel Montes»"
+      "contenido con errata: «EZEQUIEL MONTEZ» → «Privada Ezequiel Montes»"
      ]
     },
     {

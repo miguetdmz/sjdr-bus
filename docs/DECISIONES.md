@@ -873,6 +873,22 @@ Miguel).
   la 030 para la misma esquina. Cuál de los dos toma el camión no se sabe con el
   mapa: sigue ESTIMADO. Ninguno perdido. Total: 688 de 936 con punto (74 %),
   190 referencias (20 %), 58 POR VERIFICAR (6 %).
+- **Tres lecturas de la lista (20 nov 2026, 7:50 am; arreglos con evidencia,
+  D-42):** (1) la 008, la 011 y la 011B abren con la primera calle escrita dos
+  veces («HIDALGO HIDALGO-…», «PASEO LOMA ALTA PASEO LOMA ALTA-LOMA DEL RIO»):
+  ahora es una sola calle. Paseo Loma Alta toca la Calle Loma Del Río a 0 m;
+  la 008 #1 cae en el mismo punto que las otras 6 rutas con «HIDALGO-C. MIGUEL
+  HIDALGO». (2) «ARTICULO 3O» (022): la «O» pegada al número es el «º» de
+  «3º»; OSM tiene la Calle Artículo Tercero, que toca la Prolongación Fernando
+  de Tapia a 0 m, entre los cruces #24 y #26 de la misma ruta. «3O» solo sale
+  una vez en todas las listas. (3) «PROL. BENITO JUÁRREZ» (015B): OSM trae el
+  nombre completo, «Prolongación Benito Juárez García», y la lista tiene una
+  errata; ahora se acepta un nombre contenido con una sola errata en una
+  palabra de 6 letras o más (puntaje menor, «contenido con errata»). Toca la
+  Calle Guadalupe Victoria a 0 m, entre Jalisco (#7) y Veracruz (#9). Efecto:
+  5 cruces nuevos con punto; ninguno movido ni perdido (comparado por texto,
+  porque 3 textos cambian). Total: 693 de 936 con punto (74 %), 190
+  referencias (20 %), 53 POR VERIFICAR (6 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 

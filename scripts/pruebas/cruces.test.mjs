@@ -257,3 +257,17 @@ test('cruces: cada cruce sin ubicar en medio alarga el salto permitido 300 m: la
   const sc = todos.filter((c) => c.osm_calle === 'Avenida Central' && c.osm_cruce === 'Carretera a Santa Cruz Nieto');
   assert.deepEqual(sc.map((c) => `${c.ruta} ${c.lat},${c.lon}`).sort(), ['009B 20.39921,-99.98309', '030 20.39921,-99.98309']);
 });
+
+test('cruces: primera calle escrita dos veces, «3O» = 3º y una errata dentro de un nombre que OSM trae completo (20 nov 2026)', () => {
+  const ver = (ruta, texto, osm, lat, lon) => {
+    const c = todos.find((x) => x.ruta === ruta && x.texto === texto);
+    assert.ok(c, `${ruta}: falta «${texto}»`);
+    assert.deepEqual([c.estado, c.osm_calle, c.osm_cruce, c.lat, c.lon], ['UBICADO', ...osm, lat, lon], `${ruta} #${c.orden}`);
+  };
+  // «PASEO LOMA ALTA PASEO LOMA ALTA-LOMA DEL RIO» y «HIDALGO HIDALGO-…»: una sola calle
+  for (const r of ['011', '011B']) ver(r, 'PASEO LOMA ALTA-LOMA DEL RIO', ['Paseo Loma Alta', 'Calle Loma Del Río'], 20.37585, -99.92503);
+  ver('008', 'HIDALGO-C. MIGUEL HIDALGO', ['Avenida Miguel Hidalgo', 'Avenida Miguel Hidalgo y Costilla'], 20.38652, -99.99722);
+  assert.ok(!todos.some((c) => /^(PASEO LOMA ALTA PASEO LOMA ALTA|HIDALGO HIDALGO)\b/.test(c.texto)));
+  ver('022', 'ARTICULO 3O-FERNANDO DE TAPIA', ['Calle Artículo Tercero', 'Prolongación Fernando de Tapia'], 20.38319, -99.99226);
+  ver('015B', 'GUADALUPE VICTORIA-PROL. BENITO JUÁRREZ', ['Calle Guadalupe Victoria', 'Prolongación Benito Juárez García'], 20.39607, -99.95706);
+});
