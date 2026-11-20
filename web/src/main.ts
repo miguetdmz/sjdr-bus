@@ -7,6 +7,8 @@
 //       con un control para mostrar u ocultar la capa.
 // M-06: pestañas «Rutas» y «Calcula tu ruta». La segunda solo muestra un aviso
 //       (D-15): no tiene campos de origen y destino ni calcula nada.
+// M-07: instalable (manifiesto e íconos en web/public) y service worker que
+//       guarda la app y sus datos, no las teselas del mapa.
 import 'leaflet/dist/leaflet.css';
 import './estilos.css';
 import L from 'leaflet';
@@ -332,3 +334,11 @@ cargarDatos()
     console.error(error);
     selector.options[0].text = 'No se pudieron cargar las rutas';
   });
+
+// M-07: el service worker solo se registra en la app compilada (en desarrollo
+// estorbaría al recargar).
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch((error: unknown) => console.error(error));
+  });
+}

@@ -21,6 +21,7 @@ aparte; no se suben al repositorio):
 | Validador GTFS de MobilityData (`gtfs-validator-cli.jar`) | 8.0.1 | Apache-2.0 | Revisa el feed GTFS-SJR en la puerta de calidad. Lo descarga `scripts/validar-gtfs.mjs` de la página oficial de versiones de MobilityData en GitHub y comprueba su huella SHA-256 |
 | Java (OpenJDK) | 21 en GitHub Actions; 27 en la computadora de Miguel (Homebrew, `brew install openjdk`) | GPL-2.0 con «Classpath Exception» | Solo para correr el validador. No se distribuye con el proyecto |
 | gitleaks | 8.x | MIT | Busca secretos en la puerta de calidad |
+| Playwright con Chromium | la del ambiente | Apache-2.0 (Chromium: BSD-3-Clause) | Convierte los íconos SVG de la app a PNG (`scripts/iconos-pwa.mjs`, M-07). Solo se corre cuando cambia el dibujo; los PNG se guardan en el repositorio |
 
 Servicios y datos de terceros (no son dependencias de código):
 

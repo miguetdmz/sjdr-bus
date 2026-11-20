@@ -35,6 +35,8 @@ jobs:
         run: npm test
       - name: Compilación de la app (web/)
         run: npm run build
+      - name: Revisión de la compilación (manifiesto, íconos y service worker)
+        run: node scripts/revisar-compilacion.mjs
       - name: Gitleaks (secretos)
         uses: gitleaks/gitleaks-action@v2
         env:

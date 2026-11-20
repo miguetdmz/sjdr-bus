@@ -14,6 +14,7 @@ if [ ! -d node_modules ]; then
   exit 1
 fi
 npm run build
+node scripts/revisar-compilacion.mjs
 paso "5/5 gitleaks (secretos)"
 if ! command -v gitleaks >/dev/null; then
   echo "gitleaks no está instalado: brew install gitleaks" >&2
