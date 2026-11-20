@@ -155,6 +155,23 @@ puede, convertir la regla en una prueba automática.
    de git) y al repositorio entra solo lo extraído, con su huella sha256. Prueba
    que lo evita: `scripts/reglas.mjs` rechaza cualquier archivo de `datos/` o de
    la app que traiga una llave de sesión.
+9. **El prompt de arranque no servía en el momento en que Miguel lo pega
+   (19 nov 2026).** Al cerrar, Claude entregó un arranque «para pegar mañana» y
+   luego gastó tres mensajes explicando cuándo abrir el chat; Miguel quería
+   dejar el chat siguiente abierto y con el prompt pegado desde ya, para que
+   mañana, con un solo mensaje suyo, le reporte el turno con links directos y
+   pasos exactos para aprobar en GitHub. Causa: el arranque se escribe para el
+   momento que Claude imagina, no para el momento en que Miguel lo pega (al
+   cerrar). Regla: todo prompt de arranque se puede pegar en cuanto se entrega;
+   si el trabajo debe esperar (turno nocturno corriendo), el prompt mismo le
+   dice al chat nuevo que no haga nada hasta el primer mensaje de Miguel y que
+   entonces reporte con links directos y pasos exactos. Detección temprana:
+   antes de entregar un arranque, preguntarse «¿qué pasa si lo pega ahora
+   mismo?».
+   - 2026-11-17 (1.ª vez, en la memoria de Claude): una tarjeta de sesión nueva
+     no aclaraba si se podía abrir mientras el turno nocturno trabajaba.
+   - 2026-11-19 (2.ª vez): este caso.
+   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
 
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:
