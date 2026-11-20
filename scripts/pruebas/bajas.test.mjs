@@ -2,7 +2,7 @@
 // algún dato derivado o en la lista de bajas, la prueba falla (como un poka-yoke).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { inventario, numerosSoloInventario, RUTAS_DADAS_DE_BAJA } from '../lib/handoff.mjs';
 
 const raiz = new URL('../../', import.meta.url).pathname;
@@ -23,7 +23,8 @@ test('D-36, D-39 y D-40: 018, 024C y 031 no reaparecen en el inventario ni en ni
   const ids = BAJAS.map((n) => `U-${n}`);
   for (const id of ids) {
     assert.doesNotMatch(leer('datos/gtfs-sjr/routes.txt'), new RegExp(`^${id},`, 'm'), `routes.txt: ${id}`);
-    for (const f of ['datos/fichas/rutas.json', 'datos/investigacion/matriz.csv', 'datos/investigacion/calles-oficiales.json', 'datos/investigacion/extremos.json', 'web/public/datos/rutas.json']) {
+    // web/public/datos/rutas.json no está en git (lo arma datos-app): se revisa solo si existe.
+    for (const f of ['datos/fichas/rutas.json', 'datos/investigacion/matriz.csv', 'datos/investigacion/calles-oficiales.json', 'datos/investigacion/extremos.json', 'web/public/datos/rutas.json'].filter((x) => existsSync(`${raiz}${x}`))) {
       assert.ok(!leer(f).includes(`"${id}"`) && !new RegExp(`^${id},`, 'm').test(leer(f)), `${f}: ${id}`);
     }
   }
