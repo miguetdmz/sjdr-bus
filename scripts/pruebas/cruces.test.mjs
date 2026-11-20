@@ -296,8 +296,11 @@ test('cruces: APROXIMADO (Miguel, D-45): punto ESTIMADO de nivel C, con método,
     assert.ok(prev >= 0 || next >= 0, `${id}: sin vecinos ubicados`);
     for (const j of [prev, next]) if (j >= 0) assert.ok(d(c, lista[j]) <= 3000 + 300 * (Math.abs(i - j) - 1), `${id}: salto con #${lista[j].orden}`);
   }
-  // (c) los UBICADOS no cambian con D-45
-  assert.equal(todos.filter((c) => c.estado === 'UBICADO').length, 690);
+  // (c) D-45 no toca los UBICADOS: ninguno trae método ni estado anterior, y no
+  // bajan de los 690 que había al aplicarla (los arreglos con evidencia los suben)
+  const ubic = todos.filter((c) => c.estado === 'UBICADO');
+  for (const c of ubic) assert.ok(c.metodo === undefined && c.antes === undefined && c.precision === undefined, `${c.ruta} #${c.orden}`);
+  assert.ok(ubic.length >= 690, `UBICADOS: ${ubic.length}`);
   // (d) lo que queda POR VERIFICAR dice por qué ningún método lo alcanzó
   const quedan = todos.filter((c) => c.estado === 'CALLES SIN CRUCE EN OSM' || c.estado === 'SIN UBICAR');
   assert.ok(quedan.length < 53, `POR VERIFICAR: ${quedan.length}`);
