@@ -572,7 +572,13 @@ Miguel).
   [20.44656, -99.97522] (página de extremos, 19 nov 2026). Se conserva en
   `extremos-decisiones.json` como su confirmación de Visthá, POR VERIFICAR EN
   CAMPO; queda a ~80 m del punto de Nominatim que ya tenía Visthá.
-- **Cómo:** tabla `CORRECCIONES` de `scripts/extremos.mjs` con marca D-37.
+- **Nombre de la ruta (Miguel, 19 nov 2026, 7:40 pm):** la 036 también cambia
+  de nombre: **«Visthá – 5 de Mayo»** (antes «Visthá (CERESO) – 5 de Mayo», el
+  nombre del inventario y de la página oficial).
+- **Cómo:** `NOMBRES_CORREGIDOS` en `scripts/lib/handoff.mjs` (único punto de
+  lectura del inventario) y `routes.txt`; la tabla `CORRECCIONES` de
+  `scripts/extremos.mjs` se queda como resguardo. Una prueba falla si vuelve
+  «CERESO» a `routes.txt`.
 - **Decidió:** Miguel, 19 nov 2026.
 
 ## D-38 · 19 nov 2026 · La página de extremos guarda en un archivo, con el mapa de siempre · VIGENTE

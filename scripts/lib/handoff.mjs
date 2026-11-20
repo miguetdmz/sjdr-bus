@@ -11,6 +11,13 @@ export const RUTAS_DADAS_DE_BAJA = {
 };
 const vigente = ({ numero }) => !(numero in RUTAS_DADAS_DE_BAJA);
 
+// D-37 (Miguel, 19 nov 2026): nombres corregidos sobre el de HANDOFF §4 y la
+// página oficial. El lugar se llama «Visthá», no «Visthá (CERESO)».
+export const NOMBRES_CORREGIDOS = {
+  '036': { nombre: 'Visthá – 5 de Mayo', antes: 'Visthá (CERESO) – 5 de Mayo', decision: 'D-37' },
+};
+const corregirNombre = (r) => (NOMBRES_CORREGIDOS[r.numero] ? { ...r, nombre: NOMBRES_CORREGIDOS[r.numero].nombre } : r);
+
 const handoff = () => readFileSync(new URL('../../docs/HANDOFF.md', import.meta.url), 'utf8');
 
 // Filas de la primera tabla de la sección que empieza con «titulo» (p. ej. '## 4.'),
@@ -40,7 +47,7 @@ export function inventario() {
     numero,
     nombre,
     tipo: tipo.replace(/`\[CORREGIDO[^\]]*\]`/, '').trim(),
-  })).filter(vigente);
+  })).filter(vigente).map(corregirNombre);
 }
 
 // Números de las 10 rutas con ficha verificada (primera columna de HANDOFF §5.1).

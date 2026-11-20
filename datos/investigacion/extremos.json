@@ -605,10 +605,9 @@
     {
       "route_id": "U-036",
       "numero": "036",
-      "nombre": "Visthá (CERESO) – 5 de Mayo",
+      "nombre": "Visthá – 5 de Mayo",
       "origen": "Visthá",
       "destino": "5 de Mayo",
-      "correccion": "D-37: «Visthá (CERESO)» se ubica como «Visthá» (Miguel, 19 nov 2026)",
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {

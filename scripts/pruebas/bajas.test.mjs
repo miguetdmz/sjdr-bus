@@ -31,3 +31,9 @@ test('D-36: 031 y 044 no reaparecen en el inventario ni en ningún dato derivado
     assert.doesNotMatch(leer(f), /PITSA|Valle Dorado II/, f);
   }
 });
+
+test('D-37: la ruta 036 se llama «Visthá – 5 de Mayo», sin «(CERESO)»', () => {
+  const routes = readFileSync(new URL('../../datos/gtfs-sjr/routes.txt', import.meta.url), 'utf8');
+  assert.match(routes, /^U-036,SJR-CONC,036,Visthá – 5 de Mayo,3$/m);
+  assert.doesNotMatch(routes, /CERESO/);
+});

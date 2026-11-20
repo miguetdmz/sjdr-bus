@@ -27,7 +27,7 @@ U-025,SJR-CONC,025,Las Águilas – Centro,3
 U-028,SJR-CONC,028,Rancho de Enmedio – Central de Autobuses,3
 U-030,SJR-CONC,030,Infonavit La Paz – Central de Autobuses,3
 U-032,SJR-CONC,032,Visthá – Central de Autobuses,3
-U-036,SJR-CONC,036,Visthá (CERESO) – 5 de Mayo,3
+U-036,SJR-CONC,036,Visthá – 5 de Mayo,3
 U-037,SJR-CONC,037,La Peña – Centro,3
 U-038,SJR-CONC,038,La Peña – Central de Autobuses,3
 U-039,SJR-CONC,039,Francisco Villa – Central de Autobuses,3
