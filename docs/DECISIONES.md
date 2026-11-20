@@ -592,6 +592,11 @@ Miguel).
   desarrollo (`vite.config.mjs`, solo en desarrollo). Da igual el navegador; el
   archivo es la única fuente. El artifact queda retirado.
 - **Decidió:** Miguel (pidió el mapa de antes), 19 nov 2026.
+- **Ajuste (Miguel, 19 nov 2026, 8:05 pm):** Miguel prefiere seguir en el
+  artifact dentro del chat, aunque su mapa sea solo de calles. Se reactiva con
+  los 23 lugares vigentes (D-36 a D-39) y colonias visibles desde zoom 14. Sus
+  respuestas viven en la base del artifact; Claude las copia a
+  `extremos-decisiones.json` al cerrar. La página local queda de respaldo.
 
 ## D-39 · 19 nov 2026 · Ruta 024C dada de baja: ya no existe · VIGENTE
 - **Decisión (Miguel, 19 nov 2026, ~7:41 pm; conocimiento local):** la ruta
