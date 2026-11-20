@@ -4,7 +4,16 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 1:05 pm)
+## Estado actual (20 nov 2026, 1:44 pm)
+
+**Dónde vamos (D-47: Bloque · Tarea · Versión)**
+
+| Nivel | Hoy |
+|---|---|
+| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
+| Versión en espera (PR 1, https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, mockup navegable, estilo D-30, nombre SJDR Bus. Integra Miguel después de verla en su teléfono |
+| Bloque en curso | **B3 · Trazos de las rutas** |
+| Tarea en curso | **R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
 |---|---|---|

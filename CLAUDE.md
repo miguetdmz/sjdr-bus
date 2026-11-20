@@ -236,6 +236,26 @@ puede, convertir la regla en una prueba automática.
    - 2026-11-20 (2.ª vez, ~11:49 am): «al menos 26» y «México 120 sin punto»
      fallaron con «MÉXICO 120» = Federal 120.
    Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
+12. **Miguel no sabía en qué parte del proyecto íbamos (20 nov 2026).** La
+   rama, el PR y el chat se llamaban por fecha («cierre/2026-11-19-publico»,
+   «Cierre 19 nov»). El PR 1 juntó 70 commits sin integrarse a `main` (abierto
+   desde el 19 nov, 9:18 am, según GitHub; `main` con 1 commit). El PR 2 entró
+   a esa rama y no a `main`, y el reporte decía «integrado» sin decir a dónde.
+   Causa: el trabajo se nombraba por fecha y no por la estructura del plan, así
+   que nada mostraba la estación, la operación ni lo que ya estaba liberado.
+   Regla (D-47): todo se nombra **Bloque · Tarea · Versión**. Bloque = fase del
+   plan (B3 Trazos); tarea = entregable dentro del bloque (R-03 cruces);
+   versión = lo integrado en `main` y publicado (v0.1, v0.2…), que sube un
+   número con cada integración. Ramas de día: `bN/tarea-tema` (p. ej.
+   `b3/r03-cruces`); las del turno siguen `noche/AAAA-MM-DD` (D-44). Todo
+   reporte de «integrado» dice a qué rama. «Estado actual» de `docs/PLAN.md`
+   abre con esa línea. Detección temprana: si el nombre de una rama, un PR o
+   un chat no dice su bloque y su tarea, se renombra antes de seguir.
+   **Para todos los proyectos (Miguel, 20 nov 2026):** la cosecha del Second
+   Brain la lleva a la bóveda y propone subirla a `standards.md` (no se sube
+   sin el sí de Miguel).
+   - 2026-11-20 (1.ª vez): este caso.
+   Ocurrencias: 1 · Estado: ACTIVA.
 
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:

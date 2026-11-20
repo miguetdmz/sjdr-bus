@@ -1079,3 +1079,32 @@ Miguel).
   teléfono sin tapar el mapa, y que la zona diga ESTIMADO. Sin librerías de
   pago (Leaflet ya dibuja círculos).
 - **Decide:** Miguel, al diseñar la pantalla del trazo.
+
+## D-47 · 20 nov 2026 · Todo se nombra Bloque · Tarea · Versión · VIGENTE
+- **Decisión (Miguel, 20 nov 2026, 1:44 pm):** la rama, el PR, el chat y el
+  «Estado actual» de `docs/PLAN.md` dicen en qué parte del plan vamos, con tres
+  niveles:
+  - **Bloque:** la fase del plan (B0 a B6). Ejemplo: B3 Trazos.
+  - **Tarea:** el entregable dentro del bloque. Ejemplo: R-03 cruces.
+  - **Versión:** lo integrado en `main` y publicado en
+    https://sjdrbus-sjr.vercel.app. Sube un número con cada integración a
+    `main`: v0.1, v0.2…
+- **Versiones al 20 nov 2026:** v0.1 = la foto inicial del 19 nov
+  (`06efa8c`, único commit de `main`). v0.2 = lo que trae el PR 1 (39 rutas,
+  mockup navegable, estilo D-30, nombre SJDR Bus); se vuelve la versión
+  publicada cuando Miguel integre el PR 1.
+- **Ramas:** las de día se llaman `bN/tarea-tema` (ejemplo: `b3/r03-cruces`),
+  ya no `cierre/fecha`. Las del turno nocturno siguen `noche/AAAA-MM-DD`
+  (D-44). La rama abierta `cierre/2026-11-19-publico` no se renombra: el PR 1
+  y su vista previa dependen de ella; se cierra al integrar el PR 1 y el
+  trabajo sigue en una rama nueva con el nombre de este esquema.
+- **Reportes:** todo «integrado» dice a qué rama entró (el PR 2 entró a la
+  rama de cierre, no a `main`, y el reporte no lo aclaraba).
+- **Por qué:** Miguel no sabía en qué parte del proyecto íbamos; el PR 1 juntó
+  70 commits sin integrarse a `main` (lección 12 de `CLAUDE.md`).
+- **Para todos los proyectos:** Miguel la quiere como aprendizaje general; la
+  cosecha del Second Brain la lleva a la bóveda y propone subirla a
+  `standards.md` (no se sube sin el sí de Miguel).
+- **Decidió:** Miguel, 20 nov 2026.
+- **Impacta:** `CLAUDE.md` (lección 12), `docs/PLAN.md` («Estado actual»),
+  `docs/COLA-NOCTURNA.md` (sin cambio: el turno ya usa `noche/AAAA-MM-DD`).
