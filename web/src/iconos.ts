@@ -4,7 +4,7 @@ export const ICONO_CERRAR =
 
 // Botón de menú (E-02): tres líneas.
 export const ICONO_MENU =
-  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#12262d" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
 
 // Pestañas «Rutas» y «Calcula tu ruta» (M-06).
 export const ICONO_RUTAS =

@@ -62,12 +62,16 @@ function contenidoParada(p: Parada): HTMLElement {
 
 // La ficha de la parada nunca queda debajo de la barra de arriba, del menú
 // lateral abierto o del botón «Ver detalle»: el mapa se mueve lo necesario.
+// Se mide contra la caja del mapa: en computadora el mapa empieza debajo de la
+// barra y se recorre a la derecha cuando el menú está abierto.
 function margenesFicha(): { arriba: L.Point; abajo: L.Point } {
-  const barra = document.querySelector<HTMLElement>('#barra');
+  const m = document.querySelector<HTMLElement>('#mapa')!.getBoundingClientRect();
+  const c = document.querySelector<HTMLElement>('#controles')!.getBoundingClientRect();
   const h = document.querySelector<HTMLElement>('#hoja');
-  const abajoBarra = barra ? barra.getBoundingClientRect().bottom : 0;
-  const anchoMenu = h && !h.classList.contains('cerrada') ? h.getBoundingClientRect().right : 0;
-  return { arriba: L.point(anchoMenu + 16, abajoBarra + 16), abajo: L.point(16, 80) };
+  const sobreMapa = c.right > m.left && c.bottom > m.top;
+  const arriba = sobreMapa ? c.bottom - m.top : 0;
+  const izquierda = h && !h.classList.contains('cerrada') ? Math.max(0, h.getBoundingClientRect().right - m.left) : 0;
+  return { arriba: L.point(izquierda + 16, arriba + 16), abajo: L.point(16, 80) };
 }
 
 function dibujarParadas(paradas: Parada[]): void {
@@ -260,8 +264,13 @@ function panelAbierto(): boolean {
   return !hoja.classList.contains('cerrada');
 }
 
+const app = document.querySelector<HTMLElement>('.app')!;
+
 function ponerPanel(abierto: boolean): void {
   hoja.classList.toggle('cerrada', !abierto);
+  app.classList.toggle('menu-abierto', abierto);
+  // En computadora el mapa se recorre para quedar completo junto al menú.
+  window.setTimeout(() => mapa.invalidateSize(), 320);
   hoja.toggleAttribute('inert', !abierto);
   velo.hidden = !abierto;
   verDetalle.hidden = abierto || !estado.ruta;

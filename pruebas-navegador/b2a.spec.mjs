@@ -55,6 +55,15 @@ test('menú lateral (D-48): ☰ lo abre con el nombre; Esc y el velo lo cierran'
     const caja = await page.locator(sel).boundingBox();
     expect(Math.min(caja.width, caja.height), `${sel} mide al menos 44 px`).toBeGreaterThanOrEqual(44);
   }
+  // Ajuste 2 de D-48: con el menú abierto, el buscador y el sentido están dentro del menú.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(async () => {
+    const hoja = await page.locator('#hoja').boundingBox();
+    for (const sel of ['#ruta', '#segmento']) {
+      const caja = await page.locator(sel).boundingBox();
+      expect(caja.x >= hoja.x && caja.x + caja.width <= hoja.x + hoja.width, `${sel} dentro del menú`).toBe(true);
+    }
+  }).toPass();
   await page.keyboard.press('Escape');
   await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
   await expect(page.locator('#boton-menu')).toHaveAttribute('aria-expanded', 'false');
@@ -199,4 +208,38 @@ test('sin tiempo calculado ni «en vivo» en ninguna pantalla', async ({ page })
     expect(t).not.toMatch(/en vivo/i);
     expect(t).not.toMatch(/≈\s*\d+\s*min|llega en/i);
   }
+});
+
+// D-48, ajuste 2 (Miguel, 20 nov 2026): en computadora el menú queda integrado,
+// como su referencia: barra con ☰ y nombre; al abrir, el mapa se recorre y se
+// ve completo, y el buscador con el sentido pasan al menú.
+test.describe('computadora 1280 × 800', () => {
+  test.use({ viewport: { width: 1280, height: 800 }, isMobile: false, hasTouch: false });
+
+  test('menú integrado: no tapa el mapa y se vuelve el buscador', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await expect(page.locator('.marca-barra')).toHaveText('SJDR Bus');
+    await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
+    await page.locator('#boton-menu').click();
+    await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
+    await expect(page.locator('#velo')).toBeHidden();
+    await expect(async () => {
+      const hoja = await page.locator('#hoja').boundingBox();
+      const mapa = await page.locator('#mapa').boundingBox();
+      expect(mapa.x, 'el mapa empieza donde termina el menú').toBeGreaterThanOrEqual(hoja.x + hoja.width - 1);
+      for (const sel of ['#ruta', '#segmento']) {
+        const caja = await page.locator(sel).boundingBox();
+        expect(caja.x >= hoja.x && caja.x + caja.width <= hoja.x + hoja.width, `${sel} dentro del menú`).toBe(true);
+      }
+    }).toPass();
+    // La leyenda sigue a la vista, sin quedar debajo del menú (regla 4).
+    const pie = await page.locator('#pie').boundingBox();
+    const tapada = await page.evaluate(({ x, y }) => document.elementFromPoint(x, y)?.closest('#pie') === null, {
+      x: pie.x + pie.width / 2,
+      y: pie.y + pie.height / 2,
+    });
+    expect(tapada).toBe(false);
+    await page.locator('#boton-menu').click();
+    await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
+  });
 });

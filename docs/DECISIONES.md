@@ -1135,6 +1135,19 @@ Miguel).
 - **Ajuste de Miguel (20 nov 2026, 2:33 pm), al ver las capturas:** «es un
   buen approach»; el menú y el ☰ van del lado **izquierdo** (la primera versión
   los ponía a la derecha). Lo demás se aprobó como estaba.
+- **Ajuste 2 de Miguel (20 nov 2026; anotado a las 2:40 pm), con capturas de su referencia
+  con el menú abierto:** en computadora el menú debe verse **integrado** y el
+  mapa completo. Queda así:
+  - Computadora: barra de la app a todo lo ancho con ☰ y «SJDR Bus». Con el
+    menú cerrado, el buscador y el sentido flotan sobre el mapa. Al abrir, el
+    menú queda pegado a la izquierda debajo de la barra, con sus pestañas
+    arriba («Rutas», «Calcula tu ruta», cerrar), y **el mapa se recorre** a la
+    derecha y se ve completo, sin velo.
+  - En los dos tamaños, con el menú abierto, el buscador y el sentido pasan a
+    la cabeza del menú: el menú se vuelve el buscador y planeador (se puede
+    cambiar Ida / Vuelta viendo el detalle). En teléfono lo demás no cambió.
+  - La tarjeta de ayuda de la referencia («Así funciona») no se agregó: queda
+    como pregunta para Miguel.
 - **Cambia:** la hoja inferior de D-30 y el panel izquierdo de E-02. La
   paleta, la letra y el resto de D-30 siguen.
 - **Criterio de aceptación:** a 390 × 844 y a 1280 × 800, con el menú cerrado,

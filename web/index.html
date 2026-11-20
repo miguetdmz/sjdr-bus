@@ -14,9 +14,12 @@
     <div class="app">
       <main id="mapa" class="mapa" aria-label="Mapa de San Juan del Río"></main>
       <!-- D-48: arriba, sobre el mapa, lo que pide la regla 5 (selector + sentido),
-           y el botón del menú lateral, a la izquierda. El nombre de la app va dentro del menú. -->
+           y el botón del menú lateral, a la izquierda. En teléfono el nombre va dentro
+           del menú; en computadora, en la barra de arriba. Con el menú abierto, el
+           buscador y el sentido pasan a la cabeza del menú (buscador y planeador). -->
       <header class="barra" id="barra">
         <button type="button" class="boton-menu" id="boton-menu" aria-label="Menú de rutas" aria-expanded="false" aria-controls="hoja"></button>
+        <span class="marca-barra">SJDR Bus</span>
         <form class="controles" id="controles" aria-label="Elige ruta y sentido">
           <div class="buscador">
             <label for="ruta">Ruta</label>
@@ -51,7 +54,7 @@
         </div>
         <div class="hoja-cuerpo">
           <div id="modo-rutas" class="modo">
-            <h2 class="hoja-titulo" id="hoja-titulo">Elige tu ruta arriba, en «¿A dónde vas?»</h2>
+            <h2 class="hoja-titulo" id="hoja-titulo">Elige tu ruta en «¿A dónde vas?»</h2>
             <div class="encabezado-ruta" id="encabezado-ruta" hidden></div>
             <section id="detalle" class="detalle" aria-live="polite" aria-label="Detalle de la ruta" hidden></section>
           </div>
