@@ -752,6 +752,19 @@ Miguel).
   derecha del camión. Efecto: 6 cruces pasan de POR VERIFICAR a REFERENCIA;
   ningún punto nuevo, movido ni perdido. Total: 685 de 974 con punto (70 %),
   196 referencias (20 %), 93 POR VERIFICAR (10 %).
+- **Misma calle dos veces seguidas (20 nov 2026, 1:43 am; arreglo con
+  evidencia, D-42):** en «…-20 DE NOVIEMBRE 20 DE NOVIEMBRE-…» y «…-LA PALMA LA
+  PALMA-…» la misma calle cierra un cruce y abre el siguiente. El programa
+  veía ahí un nombre partido falso («20 DE NOVIEMBRE 20», parecido por errata
+  a la «Privada 20 De Noviembre 37») y marcaba el corte como dudoso. Ahora ese
+  corte a la mitad es seguro. Efecto: 8 cruces nuevos con punto (046: Maurilio
+  Morelos y 5 de Mayo con 20 de Noviembre, en el mismo punto que la 008; 002:
+  La Palma con Mandarina, Tamarindo e Higuera), ninguno movido ni perdido.
+  Total: 693 de 974 con punto (71 %), 196 referencias (20 %), 85 POR
+  VERIFICAR (9 %). **Sigue POR VERIFICAR:** en la 046, «C.MIGUEL
+  HIDALGO-20 DE NOVIEMBRE PONIENTE 2-ÁLVARO OBREGÓN» (4 cruces): el corte puede
+  ir antes o después de «PONIENTE»; la 008, con el mismo texto, sí los ubica.
+  La Palma con Chabacano (002 #47): no se tocan en OSM.
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 

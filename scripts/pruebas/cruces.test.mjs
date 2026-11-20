@@ -155,3 +155,14 @@ test('cruces: Sierra Paracaima y Sierra Tezonco son laterales de la Av. Lomas de
     assert.match(c.nota, /no es cruce: .* lateral (oriente|poniente)/);
   }
 });
+
+test('cruces: la misma calle dos veces seguidas («20 DE NOVIEMBRE 20 DE NOVIEMBRE», «LA PALMA LA PALMA») se corta a la mitad sin duda (20 nov 2026)', () => {
+  const m = todos.filter((c) => c.ruta === '046' && /^(C\. MAURILIO MORELOS-20 DE NOVIEMBRE|20 DE NOVIEMBRE-5 DE MAYO)$/.test(c.texto));
+  assert.ok(m.length >= 5 && m.every((c) => c.estado === 'UBICADO'), m.map((c) => `#${c.orden} ${c.estado}`).join(', '));
+  // mismo dato, mismo punto: la 046 coincide con la 008 en esos cruces
+  const p008 = todos.find((c) => c.ruta === '008' && c.texto === '20 DE NOVIEMBRE-5 DE MAYO');
+  for (const c of m.filter((x) => x.texto === p008.texto)) assert.deepEqual([c.lat, c.lon], [p008.lat, p008.lon]);
+  const palma = todos.filter((c) => c.ruta === '002' && /^(MANDARINA-LA PALMA|LA PALMA-MANDARINA|TAMARINDO-LA PALMA|LA PALMA-HIGUERA)$/.test(c.texto));
+  assert.equal(palma.length, 4);
+  for (const c of palma) assert.equal(c.estado, 'UBICADO', `002 #${c.orden}`);
+});

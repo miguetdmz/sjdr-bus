@@ -249,7 +249,7 @@ const CONTINUACION_MIGUEL = {
 // se cruzan; la lateral corre paralela a la avenida. Queda como REFERENCIA.
 // El lado sirve de pista para separar ida y vuelta (hallazgo c, regla 10).
 const LATERALES_MIGUEL = {
-  'Avenida Lomas de San Juan': { // Miguel, 20 nov 2026, 1:45 am
+  'Avenida Lomas de San Juan': { // Miguel, 20 nov 2026, 1:41 am
     'Calle Sierra Paracaima': 'oriente (la lista la nombra de ida, hacia el norte)',
     'Calle Sierra Tezonco': 'poniente (la lista la nombra de vuelta, hacia el sur)',
   },
@@ -431,6 +431,9 @@ const mejorParCalles = (A, B) => opcionesCruce(A, B)[0] ?? null;
 
 // ¿El corte cae a la mitad de un nombre repetido de 2+ palabras? (5 puntos)
 function partido(c, repetidos) {
+  // «20 DE NOVIEMBRE 20 DE NOVIEMBRE», «LA PALMA LA PALMA»: la misma calle
+  // cierra un cruce y abre el siguiente; el corte a la mitad es seguro.
+  if (!c.medio?.length && c.izq.length && clave(c.izq.join(' ')) === clave(c.der.join(' '))) return 0;
   const ws = [...c.izq, ...(c.medio ?? []), ...c.der];
   const cortes = [c.izq.length, c.izq.length + (c.medio?.length ?? 0)].filter((k) => k > 0 && k < ws.length);
   for (let a = 0; a < ws.length; a++) for (let b = a + 2; b <= ws.length; b++) {

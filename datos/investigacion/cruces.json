@@ -22,12 +22,12 @@
  "resumen": {
   "rutas_con_lista_usable": 19,
   "cruces": 974,
-  "UBICADO": 682,
+  "UBICADO": 690,
   "UBICADO POR LUGAR": 3,
   "REFERENCIA": 196,
   "CALLES SIN CRUCE EN OSM": 48,
-  "SIN UBICAR": 45,
-  "con_correccion": 288
+  "SIN UBICAR": 37,
+  "con_correccion": 292
  },
  "rutas": [
   {
@@ -663,11 +663,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 82,
    "conteo": {
-    "UBICADO": 58,
+    "UBICADO": 62,
     "UBICADO POR LUGAR": 1,
     "REFERENCIA": 12,
     "CALLES SIN CRUCE EN OSM": 4,
-    "SIN UBICAR": 7
+    "SIN UBICAR": 3
    },
    "cruces": [
     {
@@ -1143,32 +1143,48 @@
      "texto": "MANDARINA-LA PALMA",
      "calle": "MANDARINA",
      "cruce_con": "LA PALMA",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.36734,
+     "lon": -100.01158,
+     "osm_calle": "Calle Mandarina",
+     "osm_cruce": "Avenida La Palma",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 40,
      "texto": "LA PALMA-MANDARINA",
      "calle": "LA PALMA",
      "cruce_con": "MANDARINA",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.36734,
+     "lon": -100.01158,
+     "osm_calle": "Avenida La Palma",
+     "osm_cruce": "Calle Mandarina",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 41,
      "texto": "TAMARINDO-LA PALMA",
      "calle": "TAMARINDO",
      "cruce_con": "LA PALMA",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.36761,
+     "lon": -100.0125,
+     "osm_calle": "Calle Tamarindo",
+     "osm_cruce": "Avenida La Palma",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 42,
      "texto": "LA PALMA-HIGUERA",
      "calle": "LA PALMA",
      "cruce_con": "HIGUERA",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.36813,
+     "lon": -100.01432,
+     "osm_calle": "Avenida La Palma",
+     "osm_cruce": "Calle Higuera",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 43,
@@ -10429,11 +10445,11 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 56,
    "conteo": {
-    "UBICADO": 25,
+    "UBICADO": 29,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 19,
     "CALLES SIN CRUCE EN OSM": 4,
-    "SIN UBICAR": 8
+    "SIN UBICAR": 4
    },
    "cruces": [
     {
@@ -10801,16 +10817,30 @@
      "texto": "C. MAURILIO MORELOS-20 DE NOVIEMBRE",
      "calle": "C. MAURILIO MORELOS",
      "cruce_con": "20 DE NOVIEMBRE",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.3935,
+     "lon": -99.99313,
+     "osm_calle": "Maurilio Morelos",
+     "osm_cruce": "Cale 20 de Noviembre",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «20 DE NOVIEMBRE» → «Cale 20 de Noviembre»"
+     ]
     },
     {
      "orden": 33,
      "texto": "20 DE NOVIEMBRE-5 DE MAYO",
      "calle": "20 DE NOVIEMBRE",
      "cruce_con": "5 DE MAYO",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.3933,
+     "lon": -99.99416,
+     "osm_calle": "Cale 20 de Noviembre",
+     "osm_cruce": "Calle 5 de Mayo",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «20 DE NOVIEMBRE» → «Cale 20 de Noviembre»"
+     ]
     },
     {
      "orden": 34,
@@ -10986,29 +11016,43 @@
      "texto": "C. MAURILIO MORELOS-20 DE NOVIEMBRE",
      "calle": "C. MAURILIO MORELOS",
      "cruce_con": "20 DE NOVIEMBRE",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.3935,
+     "lon": -99.99313,
+     "osm_calle": "Maurilio Morelos",
+     "osm_cruce": "Cale 20 de Noviembre",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «20 DE NOVIEMBRE» → «Cale 20 de Noviembre»"
+     ]
     },
     {
      "orden": 51,
      "texto": "20 DE NOVIEMBRE-5 DE MAYO",
      "calle": "20 DE NOVIEMBRE",
      "cruce_con": "5 DE MAYO",
-     "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.3933,
+     "lon": -99.99416,
+     "osm_calle": "Cale 20 de Noviembre",
+     "osm_cruce": "Calle 5 de Mayo",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «20 DE NOVIEMBRE» → «Cale 20 de Noviembre»"
+     ]
     },
     {
      "orden": 52,
-     "texto": "C.MIGUEL HIDALGO-20 DE NOVIEMBRE",
+     "texto": "C.MIGUEL HIDALGO-20 DE NOVIEMBRE PONIENTE",
      "calle": "C.MIGUEL HIDALGO",
-     "cruce_con": "20 DE NOVIEMBRE",
+     "cruce_con": "20 DE NOVIEMBRE PONIENTE",
      "estado": "SIN UBICAR",
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
      "orden": 53,
-     "texto": "PONIENTE 2-ÁLVARO OBREGÓN",
-     "calle": "PONIENTE 2",
+     "texto": "2-ÁLVARO OBREGÓN",
+     "calle": "2",
      "cruce_con": "ÁLVARO OBREGÓN",
      "estado": "SIN UBICAR",
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
