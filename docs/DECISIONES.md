@@ -815,6 +815,28 @@ Miguel).
   VERIFICAR:** «MÉXICO 120 – BENITO JUÁREZ» (032 #49): en OSM la carretera no
   toca ninguna Benito Juárez. Total: 682 de 939 con punto (73 %), 187
   referencias (20 %), 70 POR VERIFICAR (7 %).
+- **Matamoros sigue como Fundadores (20 nov 2026, 2:31 am; arreglo con
+  evidencia, D-42):** «MIGUEL HIDALGO NTE.-MARIANO MATAMOROS» (002, 030 y 047)
+  quedaba sin cruce. En OSM la Calle Mariano Matamoros termina a 48 m de la Av.
+  Hidalgo y ese último tramo se llama Calle Fundadores, que sí la toca (0 m).
+  El programa solo probaba la continuación si no había ningún cruce directo en
+  todo el mapa, y había uno en otro pueblo, a 6 km, fuera del corredor. Dos
+  cambios: (1) la continuación se prueba cuando no hay cruce directo dentro
+  del corredor de la ruta; (2) dos cruces seguidos que nombran la misma calle
+  de la lista van por la misma calle de OSM o su continuación (cambiar cuesta
+  lo mismo que 1 km de salto). Sin (2), la 047 saltaba a la «General Mariano
+  Matamoros», otro tramo de OSM que sigue como 20 de Noviembre, aunque su
+  cruce anterior (Matamoros × 15 de Mayo) ya está sobre la Calle Mariano
+  Matamoros. El número de casa que OSM pega a un nombre («Calle Águila Blanca
+  112») no cuenta como otra calle. Efecto: 3 cruces nuevos con punto, los tres
+  en Av. Hidalgo × Fundadores; 3 movidos, revisados uno por uno: 001 #33 (3 m)
+  y 032 #3 (8 m) usan el mismo tramo de OSM que su vecino, y 039 #24
+  «HIDALGO-C. MIGUEL HIDALGO» pasa al punto que usan las otras 5 rutas con ese
+  texto (antes caía en la unión de dos tramos de OSM casi homónimos, no en un
+  cruce real). Ninguno perdido. «Mismo texto, distinto punto»: quedan 2
+  casos (Romero Soto, que difiere en 10 m, y Hacienda Los Arrayanes –
+  Hacienda Piedras Negras en la 022 y la 039, a 330 m). Total: 685 de 939 con
+  punto (73 %), 187 referencias (20 %), 67 POR VERIFICAR (7 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 

@@ -22,12 +22,12 @@
  "resumen": {
   "rutas_con_lista_usable": 18,
   "cruces": 939,
-  "UBICADO": 679,
+  "UBICADO": 682,
   "UBICADO POR LUGAR": 3,
   "REFERENCIA": 187,
-  "CALLES SIN CRUCE EN OSM": 48,
+  "CALLES SIN CRUCE EN OSM": 45,
   "SIN UBICAR": 22,
-  "con_correccion": 287
+  "con_correccion": 290
  },
  "rutas": [
   {
@@ -435,8 +435,8 @@
      "cruce_con": "C. NIÑOS HÉROES",
      "estado": "UBICADO",
      "lat": 20.38785,
-     "lon": -99.98928,
-     "osm_calle": "Avenida Castillo de Chapultepec",
+     "lon": -99.98925,
+     "osm_calle": "Calle Castillo De Chapultepec",
      "osm_cruce": "Calle Niños Héroes",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
@@ -663,10 +663,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 82,
    "conteo": {
-    "UBICADO": 62,
+    "UBICADO": 63,
     "UBICADO POR LUGAR": 1,
     "REFERENCIA": 12,
-    "CALLES SIN CRUCE EN OSM": 4,
+    "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 3
    },
    "cruces": [
@@ -1345,9 +1345,15 @@
      "texto": "MIGUEL HIDALGO NTE.-MARIANO MATAMOROS",
      "calle": "MIGUEL HIDALGO NTE.",
      "cruce_con": "MARIANO MATAMOROS",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.39004,
+     "lon": -99.99658,
      "osm_calle": "Avenida Miguel Hidalgo",
-     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Mariano Matamoros») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Fundadores",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación: «MARIANO MATAMOROS» (OSM «Calle Mariano Matamoros») sigue en línea recta como «Calle Fundadores»"
+     ]
     },
     {
      "orden": 59,
@@ -3870,11 +3876,12 @@
      "estado": "UBICADO",
      "lat": 20.38652,
      "lon": -99.99722,
-     "osm_calle": "Avenida Miguel Hidalgo y Costilla",
-     "osm_cruce": "Avenida Miguel Hidalgo",
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "osm_cruce": "Avenida Miguel Hidalgo y Costilla",
      "evidencia": "las dos calles se tocan en OSM (19 m), dentro del corredor de la ruta",
      "correcciones": [
-      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
+      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo»",
+      "contenido: «C. MIGUEL HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
      ]
     },
     {
@@ -6332,7 +6339,7 @@
      "osm_cruce": "Calle Miguel Hidalgo",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «C. CENTRAL» (OSM «Avenida Central») sigue en línea recta como «Calle Circulacion»"
+      "continuación: «C. CENTRAL» (OSM «Calle Central») sigue en línea recta como «Calle Circulacion»"
      ]
     },
     {
@@ -8073,10 +8080,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 65,
    "conteo": {
-    "UBICADO": 42,
+    "UBICADO": 43,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 18,
-    "CALLES SIN CRUCE EN OSM": 4,
+    "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -8448,11 +8455,12 @@
      "estado": "UBICADO",
      "lat": 20.38652,
      "lon": -99.99722,
-     "osm_calle": "Avenida Miguel Hidalgo y Costilla",
-     "osm_cruce": "Avenida Miguel Hidalgo",
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "osm_cruce": "Avenida Miguel Hidalgo y Costilla",
      "evidencia": "las dos calles se tocan en OSM (19 m), dentro del corredor de la ruta",
      "correcciones": [
-      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
+      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo»",
+      "contenido: «C. MIGUEL HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
      ]
     },
     {
@@ -8541,9 +8549,15 @@
      "texto": "MIGUEL HIDALGO NTE.-MARIANO MATAMOROS",
      "calle": "MIGUEL HIDALGO NTE.",
      "cruce_con": "MARIANO MATAMOROS",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.39004,
+     "lon": -99.99658,
      "osm_calle": "Avenida Miguel Hidalgo",
-     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Mariano Matamoros») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Fundadores",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación: «MARIANO MATAMOROS» (OSM «Calle Mariano Matamoros») sigue en línea recta como «Calle Fundadores»"
+     ]
     },
     {
      "orden": 40,
@@ -8839,7 +8853,7 @@
      "osm_cruce": "Calle Miguel Hidalgo",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «C. CENTRAL» (OSM «Avenida Central») sigue en línea recta como «Calle Circulacion»"
+      "continuación: «C. CENTRAL» (OSM «Calle Central») sigue en línea recta como «Calle Circulacion»"
      ]
     },
     {
@@ -8897,11 +8911,11 @@
      "calle": "VENUSTIANO CARRANZA",
      "cruce_con": "FRANCISCO VILLA",
      "estado": "UBICADO",
-     "lat": 20.41652,
-     "lon": -100.00814,
-     "osm_calle": "Prolongación Venustiano Carranza",
+     "lat": 20.41648,
+     "lon": -100.00808,
+     "osm_calle": "Calle Venustiano Carranza",
      "osm_cruce": "Calle Francisco Villa",
-     "evidencia": "las dos calles se tocan en OSM (13 m), dentro del corredor de la ruta"
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
      "orden": 4,
@@ -9187,11 +9201,12 @@
      "estado": "UBICADO",
      "lat": 20.38652,
      "lon": -99.99722,
-     "osm_calle": "Avenida Miguel Hidalgo y Costilla",
-     "osm_cruce": "Avenida Miguel Hidalgo",
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "osm_cruce": "Avenida Miguel Hidalgo y Costilla",
      "evidencia": "las dos calles se tocan en OSM (19 m), dentro del corredor de la ruta",
      "correcciones": [
-      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
+      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo»",
+      "contenido: «C. MIGUEL HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
      ]
     },
     {
@@ -9831,14 +9846,14 @@
      "calle": "HIDALGO",
      "cruce_con": "C. MIGUEL HIDALGO",
      "estado": "UBICADO",
-     "lat": 20.37541,
-     "lon": -99.99963,
-     "osm_calle": "Avenida Miguel Hidalgo y Costilla",
-     "osm_cruce": "Miguel Hidalgo y Costilla",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "lat": 20.38652,
+     "lon": -99.99722,
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "osm_cruce": "Avenida Miguel Hidalgo y Costilla",
+     "evidencia": "las dos calles se tocan en OSM (19 m), dentro del corredor de la ruta",
      "correcciones": [
-      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo y Costilla»",
-      "contenido: «C. MIGUEL HIDALGO» → «Miguel Hidalgo y Costilla»"
+      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo»",
+      "contenido: «C. MIGUEL HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
      ]
     },
     {
@@ -11134,10 +11149,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 56,
    "conteo": {
-    "UBICADO": 35,
+    "UBICADO": 36,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 12,
-    "CALLES SIN CRUCE EN OSM": 8,
+    "CALLES SIN CRUCE EN OSM": 7,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -11530,11 +11545,12 @@
      "estado": "UBICADO",
      "lat": 20.38652,
      "lon": -99.99722,
-     "osm_calle": "Avenida Miguel Hidalgo y Costilla",
-     "osm_cruce": "Avenida Miguel Hidalgo",
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "osm_cruce": "Avenida Miguel Hidalgo y Costilla",
      "evidencia": "las dos calles se tocan en OSM (19 m), dentro del corredor de la ruta",
      "correcciones": [
-      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
+      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo»",
+      "contenido: «C. MIGUEL HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
      ]
     },
     {
@@ -11623,9 +11639,15 @@
      "texto": "MIGUEL HIDALGO NTE.-MARIANO MATAMOROS",
      "calle": "MIGUEL HIDALGO NTE.",
      "cruce_con": "MARIANO MATAMOROS",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.39004,
+     "lon": -99.99658,
      "osm_calle": "Avenida Miguel Hidalgo",
-     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Mariano Matamoros») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Fundadores",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación: «MARIANO MATAMOROS» (OSM «Calle Mariano Matamoros») sigue en línea recta como «Calle Fundadores»"
+     ]
     },
     {
      "orden": 43,

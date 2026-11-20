@@ -207,3 +207,20 @@ test('cruces: «MEXICAN FEDERAL HWY 120» = carretera San Juan del Río - Xilitl
   const bj = todos.find((c) => c.ruta === '032' && c.texto === 'MÉXICO 120-BENITO JUÁREZ');
   assert.ok(['SIN UBICAR', 'CALLES SIN CRUCE EN OSM'].includes(bj.estado) && bj.lat === undefined);
 });
+
+test('cruces: Matamoros sigue como Calle Fundadores hasta la Av. Hidalgo; la misma calle de la lista va por la misma calle de OSM (20 nov 2026)', () => {
+  const mm = todos.filter((c) => c.texto === 'MIGUEL HIDALGO NTE.-MARIANO MATAMOROS');
+  assert.deepEqual(mm.map((c) => c.ruta).sort(), ['002', '030', '047']);
+  // mismo dato, mismo punto (lección 3): las tres en Av. Hidalgo × Fundadores, con la continuación anotada
+  for (const c of mm) {
+    assert.deepEqual([c.estado, c.osm_calle, c.osm_cruce, c.lat, c.lon], ['UBICADO', 'Avenida Miguel Hidalgo', 'Calle Fundadores', 20.39004, -99.99658], `${c.ruta} #${c.orden}`);
+    assert.ok(c.correcciones.some((x) => /continuación: .*Calle Mariano Matamoros.*Calle Fundadores/.test(x)));
+  }
+  // «HIDALGO-C. MIGUEL HIDALGO» cae en el mismo punto en todas las rutas
+  const h = todos.filter((c) => c.texto === 'HIDALGO-C. MIGUEL HIDALGO');
+  assert.ok(h.length >= 6);
+  assert.equal(new Set(h.map((c) => `${c.lat},${c.lon}`)).size, 1, h.map((c) => `${c.ruta}#${c.orden} ${c.lat},${c.lon}`).join(' '));
+  // el número de casa pegado al nombre en OSM no cambia la calle: Águila Africana conserva su nombre exacto
+  const ag = todos.find((c) => c.ruta === '039' && c.texto === 'AGUÍLA AFRICANA-AGUÍLA BLANCA');
+  assert.equal(ag.osm_calle, 'Calle Águila Africana');
+});

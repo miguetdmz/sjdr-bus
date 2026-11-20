@@ -422,18 +422,27 @@ function opcionesCruce(textoA, textoB) {
   }
   // Sin cruce directo: probar la continuación en línea recta de cualquiera de
   // las dos calles (cuesta 0.3 de puntaje y queda anotada).
-  if (!ops.length) {
-    const extender = (lista) => lista.flatMap((c) => [...(continuaciones.get(c.calle.nombre) ?? [])]
-      .map((n) => ({ calle: calles.get(n), tipo: 'continuación', score: c.score - 0.3, de: c })));
-    for (const [la, lb] of [[extender(ca), cb], [ca, extender(cb)]]) {
-      for (const a of la) for (const b of lb) {
-        if (a.calle === b.calle) continue;
-        for (const x of crucesEntre(a.calle, b.calle)) ops.push({ s: a.score + b.score, a, b, x });
-      }
+  if (!ops.length) ops.push(...opcionesContinuacion(textoA, textoB));
+  ops.sort((m, n) => n.s - m.s || m.x.d - n.x.d);
+  memoPar.set(k, ops);
+  return ops;
+}
+const memoCont = new Map();
+function opcionesContinuacion(textoA, textoB) {
+  const k = `${textoA}|${textoB}`;
+  if (memoCont.has(k)) return memoCont.get(k);
+  const ca = candidatosCalle(textoA), cb = candidatosCalle(textoB);
+  const ops = [];
+  const extender = (lista) => lista.flatMap((c) => [...(continuaciones.get(c.calle.nombre) ?? [])]
+    .map((n) => ({ calle: calles.get(n), tipo: 'continuación', score: c.score - 0.3, de: c })));
+  for (const [la, lb] of [[extender(ca), cb], [ca, extender(cb)]]) {
+    for (const a of la) for (const b of lb) {
+      if (a.calle === b.calle) continue;
+      for (const x of crucesEntre(a.calle, b.calle)) ops.push({ s: a.score + b.score, a, b, x });
     }
   }
   ops.sort((m, n) => n.s - m.s || m.x.d - n.x.d);
-  memoPar.set(k, ops);
+  memoCont.set(k, ops);
   return ops;
 }
 const mejorParCalles = (A, B) => opcionesCruce(A, B)[0] ?? null;
@@ -544,8 +553,36 @@ function corredor(numero, pares) {
   if (!primeras.length) return null;
   return { centro: [mediana(primeras.map((o) => o.x.p[0])), mediana(primeras.map((o) => o.x.p[1]))], radio: 8000, fuente: 'mediana de los cruces' };
 }
+// Dos cruces seguidos que nombran la misma calle de la lista van por la misma
+// calle de OSM (o por su continuación). Cambiar cuesta lo mismo que 1 km de
+// salto: en la 047, después de «MARIANO MATAMOROS-15 DE MAYO» (Calle Mariano
+// Matamoros) el camión sigue por ella hasta Fundadores, no salta a la «General
+// Mariano Matamoros» que sigue como 20 de Noviembre (R-03, 20 nov 2026).
+// «Calle Águila Blanca 112» y «Calle Águila Blanca» son la misma calle: OSM a
+// veces pega el número de casa al nombre de un tramo.
+// (Sin normalizar más: «Calle Mariano Matamoros» y «General Mariano
+// Matamoros» son tramos distintos en OSM.)
+const baseOSM = (c) => (c.de ?? c).calle.nombre.replace(/(\s\d+)+$/, '');
+function cambioDeCalle(parJ, q, parI, o) {
+  let castigo = 0;
+  for (const [tj, cj] of [[parJ[0], q.a], [parJ[1], q.b]]) {
+    for (const [ti, ci] of [[parI[0], o.a], [parI[1], o.b]]) {
+      if (tj && ti && clave(tj) === clave(ti) && baseOSM(cj) !== baseOSM(ci)) castigo = 1;
+    }
+  }
+  return castigo;
+}
 function elegir(pares, cor) {
-  const ops = pares.map(([A, B], i) => (B && !pares[i].dudoso ? opcionesCruce(A, B) : []).filter((o) => !cor || dist(o.x.p, cor.centro) <= cor.radio).slice(0, 30));
+  const enCorredor = (l) => l.filter((o) => !cor || dist(o.x.p, cor.centro) <= cor.radio);
+  // Si el único cruce directo queda fuera del corredor (otro pueblo), se prueba
+  // la continuación: Matamoros sigue 48 m como Calle Fundadores hasta la Av.
+  // Hidalgo, y la Calle Miguel Hidalgo × Matamoros de otro pueblo, a 6 km, no
+  // debe taparla (R-03, 20 nov 2026).
+  const ops = pares.map(([A, B], i) => {
+    if (!B || pares[i].dudoso) return [];
+    const l = enCorredor(opcionesCruce(A, B));
+    return (l.length ? l : enCorredor(opcionesContinuacion(A, B))).slice(0, 30);
+  });
   // mejor[i][k]: mejor puntaje terminando con la opción k del cruce i
   const mejor = ops.map((l) => l.map(() => ({ v: -Infinity, prev: null })));
   let top = { v: 0, i: -1, k: -1 };
@@ -557,7 +594,7 @@ function elegir(pares, cor) {
         ops[j].forEach((q, h) => {
           const d = dist(q.x.p, o.x.p);
           if (d > SALTO_MAX_M) return;
-          const v = mejor[j][h].v + gana - d / 1000;
+          const v = mejor[j][h].v + gana - d / 1000 - cambioDeCalle(pares[j], q, pares[i], o);
           if (v > m.v) m = { v, prev: [j, h] };
         });
       }
