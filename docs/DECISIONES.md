@@ -689,6 +689,7 @@ Miguel).
   | Mexican Federal Hwy 120 (ruta 032) | San Juan del Río - Xilitla (Carretera Federal 120) | Miguel, 20 nov 2026, 2:25 am |
   | Carretera San Juan del Río-Tequisquiapan km 3.2 – Walmart (009B, 016 y 030) | una sola parada: el Walmart (negocio) sobre el Paseo Central = Avenida Central (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 2:34 am |
   | Av. Universidad – Cto. Querétaro Norte (011B y 015B) | sí se tocan: OSM las deja a 32 m; tolerancia de 40 m solo para ese par | Miguel, 20 nov 2026, 2:39 am |
+  | Carretera Querétaro 300 (ruta 002) | Carretera Panamericana a Querétaro, desde la glorieta donde termina la Av. Benito Juárez Poniente; el «300» es el número de la Secretaría de Finanzas | Miguel, 20 nov 2026, 9:47 am |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
   pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
   ruta); si no, el cruce sigue POR VERIFICAR.
@@ -1006,3 +1007,12 @@ Miguel).
 - **Falta:** la app todavía no lee `cruces.json`; la etiqueta ESTIMADO y el
   trazo de nivel C en pantalla se cumplen al construir R-04/R-05.
 - **Prueba:** `scripts/pruebas/cruces.test.mjs`, «APROXIMADO (Miguel, D-45)».
+- **Carretera Querétaro 300 (Miguel, 20 nov 2026, 9:47 am; nota de D-43 y
+  D-45):** en OSM la Av. Benito Juárez Poniente termina en una glorieta donde
+  se juntan la Carretera Panamericana a Querétaro y la salida a Amealco (0 m),
+  que sigue hasta la Av. La Palma. Miguel confirmó que la «Carretera Querétaro»
+  de la 002 es la Panamericana. Efecto: 002 #33 (Secretaría de Finanzas) pasa
+  de POR VERIFICAR a REFERENCIA. 002 #48 sigue POR VERIFICAR: la lista dice
+  «…QUERÉTARO 300-ANTIGUO CAMINO A OJO DE AGUA A. AMEALCO-LÁZARO CÁRDENAS…» y
+  OSM no tiene ningún camino a Ojo de Agua ni una Lázaro Cárdenas cerca de la
+  carretera a Amealco (siguiente pregunta). Total: 26 POR VERIFICAR.

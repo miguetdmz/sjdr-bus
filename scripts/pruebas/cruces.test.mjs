@@ -314,3 +314,8 @@ test('cruces: APROXIMADO (Miguel, D-45): punto ESTIMADO de nivel C, con método,
   // La Palma × Chabacano: sus vecinos van por la Avenida La Palma; la «Avenida de las Palmas» no sirve
   assert.ok(!todos.some((c) => c.osm_calle === 'Avenida de las Palmas' && c.texto === 'LA PALMA-CHABACANO'));
 });
+
+test('cruces: «CARRETERA QUERÉTARO 300» = Carretera Panamericana a Querétaro (Miguel, D-43): la Secretaría de Finanzas confirma la calle, sin punto propio', () => {
+  const c = todos.find((x) => x.ruta === '002' && x.texto === 'CARRETERA QUERÉTARO 300-SECRETARIA DE FINANZAS');
+  assert.deepEqual([c.estado, c.osm_calle, c.lat], ['REFERENCIA', 'Carretera Panamericana a Querétaro', undefined]);
+});

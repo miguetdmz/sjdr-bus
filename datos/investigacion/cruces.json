@@ -26,9 +26,9 @@
   "UBICADO": 690,
   "UBICADO POR LUGAR": 3,
   "APROXIMADO": 26,
-  "REFERENCIA": 190,
-  "CALLES SIN CRUCE EN OSM": 14,
-  "SIN UBICAR": 13,
+  "REFERENCIA": 191,
+  "CALLES SIN CRUCE EN OSM": 15,
+  "SIN UBICAR": 11,
   "con_correccion": 293
  },
  "rutas": [
@@ -669,9 +669,9 @@
     "UBICADO": 63,
     "UBICADO POR LUGAR": 1,
     "APROXIMADO": 1,
-    "REFERENCIA": 12,
-    "CALLES SIN CRUCE EN OSM": 2,
-    "SIN UBICAR": 3
+    "REFERENCIA": 13,
+    "CALLES SIN CRUCE EN OSM": 3,
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -1082,8 +1082,9 @@
      "texto": "CARRETERA QUERÉTARO 300-SECRETARIA DE FINANZAS",
      "calle": "CARRETERA QUERÉTARO 300",
      "cruce_con": "SECRETARIA DE FINANZAS",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): ninguna de las dos calles está en OSM"
+     "estado": "REFERENCIA",
+     "osm_calle": "Carretera Panamericana a Querétaro",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 34,
@@ -1249,8 +1250,9 @@
      "texto": "CARRETERA QUERÉTARO 300-ANTIGUO",
      "calle": "CARRETERA QUERÉTARO 300",
      "cruce_con": "ANTIGUO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Carretera Panamericana a Querétaro",
+     "nota": "las dos calles existen en OSM («Carretera Panamericana a Querétaro», «Calle Antiguo Camino Nacional») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
     },
     {
      "orden": 49,

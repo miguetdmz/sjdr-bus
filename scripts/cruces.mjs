@@ -247,6 +247,10 @@ const ALIAS_MIGUEL = {
   'MEXICAN FEDERAL HWY 120': 'San Juan del Río - Xilitla', // Carretera Federal 120 (ruta 032); Miguel, 20 nov 2026, 2:25 am
   // el Walmart del km 3.2 está sobre el Paseo Central (009B, 016 y 030); Miguel, 20 nov 2026, 2:34 am
   'CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2': 'Avenida Central',
+  // ruta 002: sale de la glorieta donde termina la Av. Benito Juárez Poniente; el
+  // «300» es el número de la Secretaría de Finanzas, no parte del nombre.
+  // Miguel, 20 nov 2026, 9:47 am
+  'CARRETERA QUERÉTARO 300': 'Carretera Panamericana a Querétaro',
 };
 // Nombres que traen su propio guion, confirmados por Miguel: el guion se cambia
 // por una raya (–) para que no se tome como separador de cruces.
