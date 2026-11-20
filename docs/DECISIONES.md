@@ -1184,7 +1184,7 @@ Miguel).
 - **Impacta:** `CLAUDE.md` (regla 5), `web/`, `pruebas-navegador/b2a.spec.mjs`,
   `scripts/pruebas/selector.test.mjs`, `scripts/pruebas/app.test.mjs`.
 
-## D-50 · 20 nov 2026 · Selector visual de rutas: tarjetas con camioncito y número · PROPUESTA
+## D-50 · 20 nov 2026 · Selector visual de rutas: tarjetas con camioncito y número · EN REVISIÓN
 - **Idea (Miguel, 20 nov 2026, al probar D-49 en su teléfono):** en lugar de la
   lista, al abrir el menú se ven tarjetas chicas (como su referencia de tipos
   de reporte), cada una con un camioncito tipo logo vectorial con el número de
@@ -1204,10 +1204,87 @@ Miguel).
   4. **«Rutas más comunes»:** no hay fuente de qué rutas se usan más; no se
      inventa. Alternativa honesta: «Tus rutas recientes», guardadas solo en el
      teléfono, sin cookies.
+- **Respuestas de Miguel:**
+  1. **Regla 9 (Miguel, 20 nov 2026, 4:33 pm): «con respaldo».** Queda: las 39
+     rutas en un selector visual de tarjetas, ninguna oculta, en el orden de
+     `routes.txt`, **y** el `<select>` nativo se queda como respaldo
+     (lectores de pantalla y por si falla una tarjeta). Las dos pruebas que
+     prohíben tarjetas (`scripts/pruebas/selector.test.mjs`,
+     `pruebas-navegador/b2a.spec.mjs`) se cambian para revisar esa regla.
+  2. **Insignia (Miguel, 20 nov 2026, 4:34 pm): «R urbanas, T inter».**
+     Urbanas: «R» + número sin ceros a la izquierda, con su letra (001 → R1,
+     009B → R9B, 011B → R11B, 015B → R15B, 23 → R23). Intermunicipales: «T»
+     (062 → T62, 023 → T23), para que la 023 nunca choque con la urbana 23
+     (la misma confusión de D-42). Las intermunicipales llevan además otro
+     color de camión. Cada tarjeta muestra chico el número oficial («Ruta
+     001»), porque no se sabe qué número traen las unidades en la calle [sin
+     verificar]. Prueba: las 39 insignias son distintas entre sí.
+  3. **Colores (Miguel, 20 nov 2026, 4:36 pm): «sí, 4 colores».** Rotación
+     de 4 colores propios en el orden de las tarjetas: verde azulado
+     `#0d7a72`, ámbar `#f0a032`, azul tinta `#12262d` y un terracota por
+     definir; las intermunicipales llevan un color aparte, fuera de la
+     rotación. Ninguno es oficial (regla 4). Línea visible arriba de las
+     tarjetas: «Los colores solo ayudan a distinguir las tarjetas; no indican
+     nada de la ruta.» Criterio: contraste AA (≥ 4.5:1) entre el texto y cada
+     color; si no lo cumple con blanco, el texto va oscuro.
+  4. **Recientes (Miguel, 20 nov 2026, 4:44 pm): «sí, recientes».** No hay
+     «rutas más comunes» (sin fuente, regla 1). Arriba de las tarjetas, «Tus
+     rutas recientes»: las últimas 3 rutas elegidas, guardadas solo en el
+     navegador del teléfono (`localStorage`), sin cookies y sin enviarse a
+     ningún servidor. No aparece la primera vez; botón «Borrar». Las 39
+     tarjetas siguen completas abajo, en su orden (regla 9).
+  5. **Zona probable (Miguel, 20 nov 2026, 5:17 pm): entra en D-50.** «De
+     manera muy transparente se puede poner lo más aproximado»: al elegir la
+     ruta, el inicio y el fin se ven como **zona** (círculo difuso) con un
+     punto en lo más probable, el nombre del lugar y la leyenda «En proceso de
+     verificación · ESTIMADO». Inicio y fin según el sentido (D-18: la ida sale
+     del primer lugar del nombre). Sigue sin dibujarse la trayectoria (D-49).
+     - **Radio por confianza (criterio de trabajo, ESTIMADO):** VERIFICADA
+       (HANDOFF §11.3) 150 m · UBICADO POR MIGUEL / POR VERIFICAR 300 m ·
+       REFERENCIA DE ZONA (Centro, San Juan del Río) 500 m · zona por
+       cercanía 900 m.
+     - **Los FALTANTES de D-41, «el nombre de la zona más cercana»:** el punto
+       no es al azar (un punto al azar cambia y aparenta exactitud): es el
+       centro de la zona conocida más cercana, con su nombre y la palabra
+       «cerca de». Manantiales / Nogales (042) → cerca de Manantiales (punto de
+       Miguel de la 046; el último cruce UBICADO de la 042, Hidalgo e Ignacio
+       Zaragoza, queda a ~0.7 km). Valle Dorado II (044) → cerca de Valle
+       Dorado I (punto de Miguel de la 043; solo comparte el nombre [sin
+       verificar]). **Ezequiel Montes (023) sigue FALTANTE:** está fuera del
+       municipio, el repositorio no tiene ninguna coordenada suya y la única
+       propuesta la rechazó Miguel por ambigua; se muestra el nombre con
+       «FALTANTE», sin círculo, hasta que Miguel decida.
+- **Criterio de aceptación de D-50 (medible):**
+  1. Al abrir el menú sin ruta elegida: **39 tarjetas**, en el orden de
+     `routes.txt`, ninguna oculta, cada una con camioncito vectorial,
+     insignia (R… / T…), nombre y número oficial chico; las 39 insignias
+     distintas.
+  2. 390 × 844: caben al menos **8 tarjetas** en la primera vista del menú y
+     el resto se desplaza dentro del menú; 1280 × 800: al menos 12.
+  3. Colores en rotación de 4 (intermunicipales aparte), con la línea «Los
+     colores solo ayudan a distinguir…» visible; contraste del texto ≥ 4.5:1.
+  4. Tocar una tarjeta = elegir la ruta: el `<select>` de respaldo cambia
+     igual, aparece el sentido y se abre el detalle; botón «Cambiar ruta»
+     para volver a las tarjetas.
+  5. «Tus rutas recientes»: no aparece la primera vez; después muestra hasta
+     3; «Borrar» la vacía; solo `localStorage`, sin cookies.
+  6. Con ruta elegida: 2 zonas en el mapa (1 si un extremo es FALTANTE), cada
+     una con su nombre, «En proceso de verificación · ESTIMADO» y su fuente al
+     tocarla; con Vuelta se intercambian Inicio y Fin.
+  7. Botones y tarjetas ≥ 44 px; leyenda de iniciativa independiente y
+     atribución de OSM visibles; pruebas y `npm run verificar` en verde.
+     Capturas en `docs/evidencia/d50/`.
 - **Ver la ruta aproximada desde ya:** el trazo llega con R-06 (B3). Antes, lo
   honesto es mostrar origen y destino como zona probable (D-46). Se decide con
   este bloque.
-- **Decide:** Miguel, en el chat siguiente (contexto de este chat al 31 %).
+- **Construido (20 nov 2026, 5:27 pm):** tarjetas, insignias, colores,
+  recientes y zonas probables, con el criterio de arriba. Pruebas:
+  `scripts/pruebas/tarjetas.test.mjs` (regla de insignias, colores con
+  contraste, recientes y zonas sin puntos inventados) y
+  `pruebas-navegador/d50.spec.mjs` (criterios 1 a 6, a 390 y 1280 px).
+  Capturas en `docs/evidencia/d50/`. Cambia la regla 9 de `CLAUDE.md` (y
+  HANDOFF §14 en ese punto).
+- **Decide:** Miguel, al verla en su teléfono (con eso se cierra B2).
 
 ## D-51 · 20 nov 2026 · Mapa isométrico o ilustrado de San Juan del Río · PROPUESTA (fase posterior)
 - **Idea (Miguel, 20 nov 2026):** sobre el mapa de OpenStreetMap, una capa

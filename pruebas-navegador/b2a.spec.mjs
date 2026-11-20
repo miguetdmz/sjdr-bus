@@ -103,8 +103,8 @@ test(`selector: ${rutas.length} opciones en orden, agrupadas ${urbanas.length} +
   await expect(grupos.nth(1)).toHaveAttribute('label', 'Intermunicipales');
   await expect(grupos.nth(0).locator('option')).toHaveText(urbanas.map((r) => `${r.numero} — ${r.nombre}`));
   await expect(grupos.nth(1).locator('option')).toHaveText(intermunicipales.map((r) => `${r.numero} — ${r.nombre}`));
-  // Sin lista, rejilla ni tarjetas de rutas fuera del selector.
-  await expect(page.locator('ul li, .tarjeta-ruta, [role="grid"]')).toHaveCount(0);
+  // D-50 (respuesta 1): las tarjetas son el selector visual y el <select> queda de
+  // respaldo; la regla de las tarjetas se revisa en d50.spec.mjs.
   // Áreas táctiles de al menos 44 px.
   for (const sel of ['#ruta', '#boton-menu', '#control-paradas']) {
     const caja = await page.locator(sel).boundingBox();
@@ -116,7 +116,9 @@ test('selector: funciona solo con teclado', async ({ page }) => {
   await page.locator('#ruta').focus();
   await page.keyboard.press('ArrowDown');
   await expect(page.locator('#ruta')).toHaveValue(rutas[0].route_id);
-  await expect(page.locator('#encabezado-ruta .insignia')).toHaveText(rutas[0].numero);
+  // D-50: la insignia es R1 (número oficial 001), igual que en su tarjeta.
+  await expect(page.locator('#encabezado-ruta .insignia')).toHaveText('R1');
+  await expect(page.locator('#encabezado-ruta')).toContainText(`Ruta ${rutas[0].numero}`);
   await page.keyboard.press('Tab');
   await page.keyboard.press('ArrowRight');
   await expect(page.locator('input[name="sentido"][value="vuelta"]')).toBeChecked();
@@ -134,8 +136,9 @@ test('detalle por sentido: la 001 vuelta 23 paradas / 16 min y la ida sus propia
   await expect(detalle).toContainText('23');
   await expect(detalle).toContainText('16 min');
   await expect(detalle).not.toContainText(`${r001.sentidos.ida.duracion_min} min`);
-  // Mismo número y nombre en selector y encabezado.
-  await expect(page.locator('#encabezado-ruta .insignia')).toHaveText(r001.numero);
+  // Mismo número y nombre en selector y encabezado (D-50: insignia R1 + «Ruta 001»).
+  await expect(page.locator('#encabezado-ruta .insignia')).toHaveText('R1');
+  await expect(page.locator('#encabezado-ruta')).toContainText(`Ruta ${r001.numero}`);
   await expect(page.locator('#encabezado-ruta b')).toHaveText(r001.nombre);
   await captura(page, '2-ruta-001-vuelta-390');
   // D-49: el menú ya se abrió solo en el detalle, que se alcanza entero; los
@@ -169,7 +172,7 @@ test('sin restos al cambiar de ruta, ni trazo en el mapa', async ({ page }) => {
   await expect(detalle).not.toContainText('Paradas');
   await expect(detalle).not.toContainText('min');
   await expect(detalle).not.toContainText('Moovit');
-  await expect(page.locator('#encabezado-ruta .insignia')).toHaveText(soloInventario.numero);
+  await expect(page.locator('#encabezado-ruta .insignia')).toHaveText(`${soloInventario.tipo === 'intermunicipal' ? 'T' : 'R'}${soloInventario.numero.replace(/^0+/, '')}`);
   // Nivel C: ninguna línea dibujada en el mapa (regla 8).
   await expect(page.locator('.leaflet-overlay-pane path')).toHaveCount(0);
   // Quitar la ruta (dentro del menú, ya abierto) vuelve al inicio sin restos.

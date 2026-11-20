@@ -25,8 +25,60 @@ const raiz = fileURLToPath(new URL('..', import.meta.url));
 // Tipo según el prefijo del route_id (D-08): U- urbana, I- intermunicipal.
 const TIPOS = { U: 'urbana', I: 'intermunicipal' };
 
+// D-50 (respuesta 5): cada extremo de ruta como zona probable. Los puntos salen
+// de extremos-finales.json (R-03); radios y zonas por cercanía, de
+// zonas-probables.json. Nada se mueve ni se inventa: un FALTANTE sin zona por
+// cercanía queda como FALTANTE, sin coordenada.
+const ESTADOS_RADIO = ['VERIFICADA', 'UBICADO POR MIGUEL', 'POR VERIFICAR', 'REFERENCIA DE ZONA'];
+
+function radioDe(estado, radios) {
+  const clave = ESTADOS_RADIO.find((e) => estado.startsWith(e));
+  if (!clave) throw new Error(`estado de extremo sin radio en zonas-probables.json: ${estado}`);
+  return radios[clave];
+}
+
+function zonaDe(l, lugares, zonas) {
+  if (l.lat != null && l.lon != null) {
+    return { lugar: l.lugar, lat: l.lat, lon: l.lon, radio_m: radioDe(l.estado, zonas.radios_m), estado: l.estado, fuente: l.fuente };
+  }
+  const c = zonas.cercania.find((x) => x.lugar === l.lugar);
+  if (!c) return { lugar: l.lugar, faltante: true, estado: l.estado };
+  const ref = lugares.find((x) => x.lugar === c.cerca_de && x.lat != null);
+  if (!ref) throw new Error(`zona por cercanía sin lugar conocido: ${c.cerca_de}`);
+  return {
+    lugar: l.lugar,
+    lat: ref.lat,
+    lon: ref.lon,
+    radio_m: zonas.radios_m.CERCANIA,
+    estado: l.estado,
+    cerca_de: c.cerca_de,
+    fuente: `Zona por cercanía (D-50): ${c.evidencia} Punto de referencia: ${ref.fuente}`,
+  };
+}
+
+// Origen y destino según el nombre «Origen – Destino» (D-18: la ida sale del
+// origen). Se busca entre los lugares que dicen servir a esa ruta; si el nombre
+// del lugar no es idéntico al del nombre de la ruta (p. ej. 004 «Col. Industrial
+// Nuevo San Juan» → «Nuevo Parque Industrial»), se toma el único que sobra.
+export function extremosDeRuta(numero, nombre, lugares, zonas) {
+  const partes = nombre.split(' – ').map((p) => p.trim());
+  const propios = lugares.filter((l) => l.rutas.includes(numero));
+  const porNombre = (n) => propios.find((l) => l.lugar === n);
+  let origen = porNombre(partes[0]);
+  let destino = porNombre(partes[partes.length - 1]);
+  const sobran = propios.filter((l) => l !== origen && l !== destino);
+  if (!origen && sobran.length === 1 && destino) origen = sobran[0];
+  if (!destino && sobran.length === 1 && origen) destino = sobran[0];
+  if (!origen || !destino || origen === destino) {
+    throw new Error(`la ruta ${numero} no tiene dos extremos claros en extremos-finales.json`);
+  }
+  return { origen: zonaDe(origen, lugares, zonas), destino: zonaDe(destino, lugares, zonas) };
+}
+
 export function armarDatosApp() {
   const rutas = leerCSV(join(raiz, 'datos/gtfs-sjr/routes.txt'));
+  const lugares = JSON.parse(readFileSync(join(raiz, 'datos/investigacion/extremos-finales.json'), 'utf8')).lugares;
+  const zonas = JSON.parse(readFileSync(join(raiz, 'datos/investigacion/zonas-probables.json'), 'utf8'));
   const fichas = JSON.parse(readFileSync(join(raiz, 'datos/fichas/rutas.json'), 'utf8'));
   const porId = new Map(fichas.rutas.map((f) => [f.route_id, f]));
   if (porId.size !== rutas.length) {
@@ -52,6 +104,7 @@ export function armarDatosApp() {
         nivel: ficha.nivel_precision,
         fuente: ficha.fuente,
         fecha: ficha.fecha,
+        extremos: extremosDeRuta(r.route_short_name, r.route_long_name, lugares, zonas),
       };
       if (ficha.grupo === 'verificada') {
         // Cada sentido con sus propias cifras (lección 2): se copian tal cual.

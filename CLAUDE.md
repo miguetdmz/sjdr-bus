@@ -39,8 +39,9 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
    repositorio. La app nunca los consulta en vivo.
 8. Niveles de precisión A/B/C por tramo (HANDOFF §11.4). Un tramo C nunca se
    dibuja como línea continua.
-9. Las rutas vigentes (39: D-36, D-39 y D-40) solo en un menú desplegable. Ninguna se oculta por falta de
-   datos y ninguna se completa con datos supuestos.
+9. Las rutas vigentes (39: D-36, D-39 y D-40) en un selector visual de tarjetas,
+   en el orden de `routes.txt`, con el menú desplegable como respaldo (D-50).
+   Ninguna se oculta por falta de datos y ninguna se completa con datos supuestos.
 10. Nunca usar el dato de un sentido para el otro: cada sentido lleva su
     propio conteo de paradas y su duración.
 
@@ -275,7 +276,15 @@ puede, convertir la regla en una prueba automática.
    Brain la lleva a la bóveda y propone subirla a `standards.md` (no se sube
    sin el sí de Miguel).
    - 2026-11-20 (1.ª vez): este caso.
-   Ocurrencias: 1 · Estado: ACTIVA.
+   - 2026-11-20 (2.ª vez, Miguel lo señaló a las 4:27 pm): este chat se llamaba
+     «Cierre 19 nov: nombre «SJDR Bus»…» y el reporte de estado abrió con la rama
+     por fecha. Causa: la app titula el chat con el título del PR vinculado (el
+     PR 1 se sigue llamando «Cierre 19 nov…») y la detección temprana no se
+     aplicó al arrancar. Arreglo: chat renombrado a «B2 · E-03/D-50 Selector
+     visual de rutas · hacia v0.2». Detección temprana añadida: al arrancar un
+     chat, revisar su título y el del PR vinculado; todo reporte abre con Bloque ·
+     Tarea · Versión, y la rama por fecha solo se menciona como dato técnico.
+   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
 13. **Al rehacer los estilos se borraron reglas que seguían en uso (20 nov
    2026).** En E-03 (D-48), al quitar bloques completos del CSS por posición,
    se fueron el fondo blanco del menú (salió transparente) y la regla que

@@ -4,16 +4,16 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 3:52 pm)
+## Estado actual (20 nov 2026, 5:27 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
-| Versión en espera (PR 1, https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, nombre SJDR Bus. Integra Miguel cuando cierre B2 |
+| Versión en espera (PR 1 «B2 · Primera pantalla publicable → v0.2», https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, selector visual con tarjetas y zonas probables (D-50), nombre SJDR Bus. Integra Miguel cuando cierre B2 |
 | Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
-| Tarea en curso | **E-03 · Pantalla con mapa completo**: hecha y en el teléfono de Miguel; sigue **D-50** (selector visual de rutas) |
+| Tarea en curso | **E-03 · D-50 · Selector visual de rutas**: construido (tarjetas R1…, T62/T23, 4 colores, recientes, inicio y fin como zona ESTIMADA); falta que Miguel lo apruebe en su teléfono |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -21,7 +21,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado. Repositorio **público** `miguetdmz/sjdr-bus` (D-29), con candado en `main` |
 | B1 | Datos base del GTFS-SJR | **7 de 7.** Desde D-36/D-39/D-40 son **39 rutas** (37 urbanas + 2 intermunicipales): de baja 031, 024C y 018; la 044 volvió |
 | B2a | Mockup navegable (PWA, Vite + Leaflet) | **8 de 8.** M-05 a M-08 hechas por el turno (PR 2, inspector: **LIBERADO**, 20 nov 2026, 12:17 am). Falta integrarlo y verlo en el teléfono |
-| B2 | Primera pantalla publicable | **E-03 (D-48, D-49) EN REVISIÓN:** mapa completo, «¿A dónde vas?» arriba, menú lateral izquierdo (integrado en computadora), detalle que se abre solo, sentido solo con ruta, pines de parada. Miguel: «se ve muy bien en computadora». **Falta D-50** (selector visual con camioncitos R1, R2…) y su aprobación para cerrar B2 |
+| B2 | Primera pantalla publicable | **E-03 (D-48, D-49) EN REVISIÓN:** mapa completo, «¿A dónde vas?» arriba, menú lateral izquierdo (integrado en computadora), detalle que se abre solo, sentido solo con ruta, pines de parada. Miguel: «se ve muy bien en computadora». **D-50 construido** (selector visual con camioncitos R1, R2…, zonas probables); falta la aprobación de Miguel en su teléfono para cerrar B2 |
 | B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 698 de 936 con punto exacto (75 %), **27 APROXIMADOS (3 %, D-45: ESTIMADO, nivel C)**, 191 referencias (20 %), 20 POR VERIFICAR (2 %) al 20 nov, 1:05 pm. **D-46 PROPUESTA:** extremos como zona probable (mapa de calor). Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
@@ -29,7 +29,24 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (20 nov 2026, 3:52 pm)
+### Relevo para la siguiente sesión (20 nov 2026, 5:27 pm)
+
+0. **Lo hecho de las 4:27 pm a las 5:27 pm del 20 nov:**
+   - Chat y PR 1 renombrados por Bloque · Tarea · Versión (lección 12, 2.ª vez).
+   - **D-50** decidida pregunta por pregunta (respuestas en `docs/DECISIONES.md`)
+     y construida: 39 tarjetas con camioncito e insignia (R urbanas, T
+     intermunicipales), 4 colores que no significan nada (dicho en la app),
+     «Tus rutas recientes» solo en el teléfono, inicio y fin como zona
+     probable (Manantiales / Nogales y Valle Dorado II «cerca de» su vecino;
+     Ezequiel Montes sigue FALTANTE). Regla 9 cambiada. Puerta: 148/148 y
+     20/20 en navegador. Capturas en `docs/evidencia/d50/`.
+   - Observación para R-03: Francisco Villa (20.37587, -99.94821) y Las Águilas
+     (20.37589, -99.94818) tienen casi el mismo punto [sin verificar si es error].
+1. **Siguiente:** Miguel aprueba D-48/D-49/D-50 en su teléfono → integra el
+   PR 1 (v0.2) → rama `b3/r03-cruces` → B3 · R-03.
+2. **Pendiente de Miguel:** dónde va Ezequiel Montes (023); hoy FALTANTE.
+
+### Relevo anterior (20 nov 2026, 3:52 pm)
 
 0. **Lo hecho de la 1:39 pm a las 3:52 pm del 20 nov:**
    - **D-47 + lección 12:** todo se nombra Bloque · Tarea · Versión; tabla

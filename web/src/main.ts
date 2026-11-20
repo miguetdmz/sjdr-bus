@@ -9,6 +9,9 @@
 //       (D-15): no tiene campos de origen y destino ni calcula nada.
 // D-48: mapa completo; arriba «¿A dónde vas?» (selector) y sentido; menú lateral
 //       izquierdo con el nombre, el detalle y «Calcula tu ruta».
+// D-50: selector visual de rutas (tarjetas con camioncito R1, R2…, colores en
+//       rotación, «Tus rutas recientes») y el <select> como respaldo; inicio y
+//       fin de la ruta como zona probable (ESTIMADO), sin trayectoria.
 // M-07: instalable (manifiesto e íconos en web/public) y service worker que
 //       guarda la app y sus datos, no las teselas del mapa.
 import 'leaflet/dist/leaflet.css';
@@ -17,7 +20,17 @@ import L from 'leaflet';
 import { cargarDatos, type Ruta } from './datos';
 import { detalleRuta, type NombreSentido } from './detalle';
 import { gruposSelector } from './selector';
-import { ICONO_CALCULA, ICONO_CERRAR, ICONO_MENU, ICONO_PARADAS, ICONO_RUTAS, PIN_PARADA } from './iconos';
+import { ICONO_CALCULA, ICONO_CERRAR, ICONO_MENU, ICONO_PARADAS, ICONO_RUTAS, PIN_PARADA, camioncito } from './iconos';
+import {
+  AVISO_COLORES,
+  CLAVE_RECIENTES,
+  agregarReciente,
+  colorTarjeta,
+  insignia,
+  leerRecientes,
+  type ColorTarjeta,
+} from './tarjetas';
+import { zonasRuta } from './zonas';
 import { avisoCalcula } from './calcula';
 import { cargarParadas, fichaParada, type Parada } from './paradas';
 
@@ -120,6 +133,74 @@ cargarParadas()
   .then((datos) => dibujarParadas(datos.paradas))
   .catch((error: unknown) => console.error(error));
 
+// --- Zonas probables de inicio y fin (D-50, D-46) ----------------------------
+// Su propio panel del mapa: el panel normal de líneas sigue vacío (regla 8: sin
+// trazo). Un círculo difuso de borde punteado y un punto en lo más probable.
+mapa.createPane('zonas');
+mapa.getPane('zonas')!.style.zIndex = '390';
+// Las etiquetas «Inicio» / «Fin» van encima de los pines de parada (600).
+mapa.createPane('etiquetas-zona');
+mapa.getPane('etiquetas-zona')!.style.zIndex = '650';
+const capaZonas = L.layerGroup().addTo(mapa);
+
+function contenidoZona(titulo: string, lineas: string[]): HTMLElement {
+  const caja = document.createElement('div');
+  caja.className = 'ficha-parada ficha-zona';
+  const b = document.createElement('b');
+  b.textContent = titulo;
+  caja.append(b);
+  lineas.forEach((linea, i) => {
+    const renglon = document.createElement('span');
+    renglon.textContent = linea;
+    if (i === 0) renglon.className = 'marca-verificar';
+    caja.append(renglon);
+  });
+  return caja;
+}
+
+function dibujarZonas(): void {
+  capaZonas.clearLayers();
+  if (!estado.ruta) return;
+  const { zonas } = zonasRuta(estado.ruta, estado.sentido);
+  const limites: L.LatLngBounds[] = [];
+  for (const z of zonas) {
+    const clase = z.papel === 'Inicio' ? 'zona zona-inicio' : 'zona zona-fin';
+    const circulo = L.circle([z.lat, z.lon], {
+      pane: 'zonas',
+      radius: z.radio_m,
+      className: clase,
+      weight: 2,
+      dashArray: '6 6',
+      fillOpacity: 0.22,
+    });
+    const ficha = L.popup({ maxWidth: 280 });
+    Object.defineProperty(ficha.options, 'autoPanPaddingTopLeft', { get: () => margenesFicha().arriba });
+    Object.defineProperty(ficha.options, 'autoPanPaddingBottomRight', { get: () => margenesFicha().abajo });
+    ficha.setContent(() => contenidoZona(z.titulo, z.lineas));
+    circulo.bindPopup(ficha).addTo(capaZonas);
+    const punto = L.marker([z.lat, z.lon], {
+      pane: 'etiquetas-zona',
+      // La etiqueta queda arriba del centro, con su punta en el punto más
+      // probable, para que el círculo de la zona se vea debajo.
+      icon: L.divIcon({ className: `punto-zona ${clase}`, html: `<span>${z.papel}</span><i></i>`, iconSize: [70, 38], iconAnchor: [35, 38] }),
+      title: z.titulo,
+      alt: z.titulo,
+      keyboard: true,
+    });
+    punto.bindPopup(ficha).addTo(capaZonas);
+    limites.push(circulo.getBounds());
+  }
+  if (limites.length) {
+    const todo = limites.reduce((a, b) => a.extend(b), L.latLngBounds(limites[0].getSouthWest(), limites[0].getNorthEast()));
+    // Después de que el mapa se recorre (menú en computadora), con margen para
+    // la barra de arriba y el botón de abajo.
+    window.setTimeout(() => {
+      mapa.invalidateSize();
+      mapa.fitBounds(todo, { paddingTopLeft: L.point(44, 160), paddingBottomRight: L.point(44, 100), maxZoom: 16 });
+    }, 330);
+  }
+}
+
 // --- Selector de ruta y sentido ---------------------------------------------
 
 const selector = document.querySelector<HTMLSelectElement>('#ruta')!;
@@ -141,6 +222,80 @@ interface Estado {
 
 const estado: Estado = { ruta: null, sentido: 'ida' };
 let rutasPorId = new Map<string, Ruta>();
+const colores = new Map<string, ColorTarjeta>();
+
+// --- Selector visual (D-50) ---------------------------------------------------
+const selectorVisual = document.querySelector<HTMLElement>('#selector-visual')!;
+const contTarjetas = document.querySelector<HTMLElement>('#tarjetas')!;
+const seccionRecientes = document.querySelector<HTMLElement>('#recientes')!;
+const listaRecientes = document.querySelector<HTMLElement>('#lista-recientes')!;
+document.querySelector<HTMLElement>('#aviso-colores')!.textContent = AVISO_COLORES;
+
+function ponerColor(el: HTMLElement, c: ColorTarjeta): void {
+  el.style.setProperty('--c', c.fondo);
+  el.style.setProperty('--ct', c.texto);
+  el.style.setProperty('--ci', c.insignia);
+}
+
+function tarjeta(ruta: Ruta): HTMLButtonElement {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'tarjeta-ruta';
+  b.dataset.ruta = ruta.route_id;
+  ponerColor(b, colores.get(ruta.route_id)!);
+  const ins = insignia(ruta);
+  const tipo = ruta.tipo === 'intermunicipal' ? ' · Intermunicipal' : '';
+  b.setAttribute('aria-label', `${ins}: ${ruta.nombre}. Ruta ${ruta.numero}${tipo}`);
+  b.innerHTML = camioncito(ins);
+  const nombre = document.createElement('span');
+  nombre.className = 'tarjeta-nombre';
+  nombre.textContent = ruta.nombre;
+  const numero = document.createElement('span');
+  numero.className = 'tarjeta-numero';
+  numero.textContent = `Ruta ${ruta.numero}${tipo}`;
+  b.append(nombre, numero);
+  b.addEventListener('click', () => elegirRuta(ruta.route_id));
+  return b;
+}
+
+function llenarTarjetas(rutas: Ruta[]): void {
+  rutas.forEach((r, i) => colores.set(r.route_id, colorTarjeta(rutas, i)));
+  contTarjetas.replaceChildren(...rutas.map(tarjeta));
+}
+
+// «Tus rutas recientes»: solo en este navegador (localStorage), sin cookies.
+function recientesGuardadas(): string[] {
+  try {
+    return leerRecientes(localStorage.getItem(CLAVE_RECIENTES), new Set(rutasPorId.keys()));
+  } catch {
+    return [];
+  }
+}
+
+function guardarRecientes(lista: string[]): void {
+  try {
+    if (lista.length) localStorage.setItem(CLAVE_RECIENTES, JSON.stringify(lista));
+    else localStorage.removeItem(CLAVE_RECIENTES);
+  } catch {
+    // Navegación privada sin almacenamiento: la app sigue igual, sin recientes.
+  }
+}
+
+function pintarRecientes(): void {
+  const lista = recientesGuardadas();
+  seccionRecientes.hidden = lista.length === 0;
+  listaRecientes.replaceChildren(...lista.map((id) => tarjeta(rutasPorId.get(id)!)));
+}
+
+document.querySelector<HTMLButtonElement>('#borrar-recientes')!.addEventListener('click', () => {
+  guardarRecientes([]);
+  pintarRecientes();
+});
+
+function elegirRuta(id: string): void {
+  selector.value = id;
+  alCambiar();
+}
 
 function llenarSelector(rutas: Ruta[]): void {
   for (const grupo of gruposSelector(rutas)) {
@@ -162,6 +317,9 @@ function alCambiar(): void {
   const anterior = estado.ruta;
   estado.ruta = rutasPorId.get(selector.value) ?? null;
   estado.sentido = sentidoElegido();
+  if (estado.ruta && estado.ruta !== anterior) {
+    guardarRecientes(agregarReciente(recientesGuardadas(), estado.ruta.route_id));
+  }
   mostrarDetalle();
   // D-49: al elegir una ruta nueva, el menú se abre solo en su detalle (sin
   // mover el foco: el buscador y el sentido siguen a la mano dentro del menú).
@@ -186,24 +344,30 @@ function ponerSubtitulos(ruta: Ruta | null): void {
 }
 
 function ponerEncabezado(ruta: Ruta): void {
-  const insignia = document.createElement('div');
-  insignia.className = 'insignia';
-  insignia.textContent = ruta.numero;
+  // D-50: la misma insignia y el mismo color que su tarjeta (lección 3).
+  const placa = document.createElement('div');
+  placa.className = 'insignia';
+  placa.textContent = insignia(ruta);
+  const color = colores.get(ruta.route_id);
+  if (color) ponerColor(placa, color);
   const texto = document.createElement('div');
   texto.className = 'encabezado-texto';
   const nombre = document.createElement('b');
   nombre.textContent = ruta.nombre;
-  texto.append(nombre);
+  const numero = document.createElement('small');
+  numero.className = 'tarjeta-numero';
+  numero.textContent = `Ruta ${ruta.numero}${ruta.tipo === 'intermunicipal' ? ' · Intermunicipal' : ''}`;
+  texto.append(nombre, numero);
   const cerrar = document.createElement('button');
   cerrar.type = 'button';
   cerrar.className = 'cerrar quitar';
-  cerrar.setAttribute('aria-label', 'Quitar la ruta y volver al inicio');
-  cerrar.textContent = 'Quitar';
+  cerrar.setAttribute('aria-label', 'Cambiar de ruta: volver a las tarjetas');
+  cerrar.textContent = 'Cambiar ruta';
   cerrar.addEventListener('click', () => {
     selector.selectedIndex = 0;
     alCambiar();
   });
-  encabezado.replaceChildren(insignia, texto, cerrar);
+  encabezado.replaceChildren(placa, texto, cerrar);
 }
 
 // Cambiar de ruta o de sentido reemplaza TODO el detalle: no quedan restos.
@@ -215,6 +379,7 @@ function mostrarDetalle(): void {
   hoja.classList.toggle('con-ruta', !!estado.ruta);
   verDetalle.hidden = !estado.ruta || panelAbierto();
   verDetalle.textContent = estado.ruta ? 'Ver detalle' : '';
+  dibujarZonas();
   if (!estado.ruta) {
     ajustarCuerpo();
     panel.replaceChildren();
@@ -222,11 +387,14 @@ function mostrarDetalle(): void {
     encabezado.replaceChildren();
     encabezado.hidden = true;
     tituloHoja.hidden = false;
+    selectorVisual.hidden = false;
+    pintarRecientes();
     return;
   }
   ponerEncabezado(estado.ruta);
   encabezado.hidden = false;
   tituloHoja.hidden = true;
+  selectorVisual.hidden = true;
   const d = detalleRuta(estado.ruta, estado.sentido);
   const titulo = document.createElement('h2');
   titulo.className = 'detalle-titulo';
@@ -258,6 +426,16 @@ function mostrarDetalle(): void {
   }
 
   const nodos: HTMLElement[] = [titulo, etiquetas, lista];
+  // D-50: inicio y fin como zona probable; lo que falta se dice, no se dibuja.
+  const z = zonasRuta(estado.ruta, estado.sentido);
+  const notaZonas = document.createElement('p');
+  notaZonas.className = 'detalle-zonas';
+  notaZonas.textContent =
+    z.zonas.length > 0
+      ? `En el mapa: ${z.zonas.map((x) => x.titulo).join(' · ')}, como zona aproximada (en proceso de verificación · ESTIMADO).`
+      : '';
+  if (z.faltantes.length) notaZonas.textContent += ` ${z.faltantes.join(' · ')}: sin punto todavía.`;
+  nodos.push(notaZonas);
   if (d.aviso) {
     const aviso = document.createElement('p');
     aviso.className = 'detalle-aviso';
@@ -382,6 +560,8 @@ cargarDatos()
   .then((datos) => {
     rutasPorId = new Map(datos.rutas.map((r) => [r.route_id, r]));
     llenarSelector(datos.rutas);
+    llenarTarjetas(datos.rutas);
+    pintarRecientes();
   })
   .catch((error: unknown) => {
     console.error(error);

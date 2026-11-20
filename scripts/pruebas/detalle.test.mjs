@@ -57,14 +57,19 @@ test('detalle: cambiar de ruta o de sentido reemplaza todo (sin restos) y no se 
   assert.match(main, /panel\.replaceChildren\(\);/);
   // Nivel C: ninguna línea de recorrido (regla 8).
   assert.doesNotMatch(main, /L\.(polyline|polygon|circleMarker|geoJSON)\(/);
-  // Los únicos marcadores son las paradas de OSM de M-05, que no son de ninguna ruta.
+  // Los únicos marcadores son las paradas de OSM de M-05 (de ninguna ruta) y,
+  // desde D-50 (respuesta 5), la etiqueta «Inicio» / «Fin» de cada zona probable,
+  // que sale de zonasRuta(). Nada más se dibuja con marcador.
   const marcadores = main.match(/L\.marker\(/g) ?? [];
-  assert.ok(marcadores.length <= 1);
-  if (marcadores.length) {
-    const dibujo = main.slice(main.indexOf('function dibujarParadas'), main.indexOf('// Control para mostrar'));
-    assert.match(dibujo, /L\.marker\(\[p\.lat, p\.lon\]/);
-    assert.match(dibujo, /\.addTo\(capaParadas\)/);
-  }
+  assert.ok(marcadores.length <= 2);
+  const paradas = main.slice(main.indexOf('function dibujarParadas'), main.indexOf('// Control para mostrar'));
+  assert.match(paradas, /L\.marker\(\[p\.lat, p\.lon\]/);
+  assert.match(paradas, /\.addTo\(capaParadas\)/);
+  const zonas = main.slice(main.indexOf('function dibujarZonas'), main.indexOf('// --- Selector de ruta y sentido'));
+  assert.match(zonas, /zonasRuta\(estado\.ruta, estado\.sentido\)/);
+  assert.match(zonas, /L\.marker\(\[z\.lat, z\.lon\]/);
+  // Las zonas van en su propio panel: el de líneas sigue vacío.
+  assert.match(zonas, /pane: 'zonas'/);
   // El detalle de la 001 ida no comparte cifras con el de una ruta sin datos.
   const a = detalleRuta(ruta('U-001'), 'ida');
   const b = detalleRuta(ruta('U-007'), 'ida');

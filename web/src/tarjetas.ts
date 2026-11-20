@@ -1,0 +1,82 @@
+// D-50: selector visual de rutas. Lógica pura, sin DOM, para probarla sin navegador.
+// Como el tablero de kanban de una línea: cada tarjeta es una ruta, todas a la
+// vista y en el orden de routes.txt; el color solo ayuda a distinguirlas.
+
+export interface RutaParaTarjeta {
+  route_id: string;
+  numero: string;
+  nombre: string;
+  tipo: 'urbana' | 'intermunicipal';
+}
+
+// Respuesta 2 de D-50: «R» para urbanas y «T» para intermunicipales, sin ceros
+// a la izquierda y con su letra (009B → R9B). Así la urbana 23 (R23) nunca se
+// confunde con la intermunicipal 023 (T23).
+export function insignia(ruta: Pick<RutaParaTarjeta, 'numero' | 'tipo'>): string {
+  const sinCeros = ruta.numero.replace(/^0+(?=\d)/, '');
+  return `${ruta.tipo === 'intermunicipal' ? 'T' : 'R'}${sinCeros}`;
+}
+
+export interface ColorTarjeta {
+  fondo: string;
+  texto: string;
+  // Color de la insignia dentro del camioncito blanco (contraste AA sobre blanco).
+  insignia: string;
+}
+
+// Respuesta 3 de D-50: 4 colores propios en rotación (regla 4: ninguno oficial).
+// No significan nada de la ruta, y la app lo dice (AVISO_COLORES).
+export const ROTACION: ColorTarjeta[] = [
+  { fondo: '#0d7a72', texto: '#ffffff', insignia: '#0d7a72' }, // verde azulado (primario de D-30)
+  { fondo: '#f0a032', texto: '#12262d', insignia: '#8a5300' }, // ámbar (acento de D-30), texto oscuro
+  { fondo: '#12262d', texto: '#ffffff', insignia: '#12262d' }, // azul tinta (texto de D-30)
+  { fondo: '#a8432a', texto: '#ffffff', insignia: '#a8432a' }, // terracota
+];
+// Las intermunicipales llevan un color aparte, fuera de la rotación.
+export const COLOR_INTERMUNICIPAL: ColorTarjeta = { fondo: '#4b3f8f', texto: '#ffffff', insignia: '#4b3f8f' };
+
+export const AVISO_COLORES = 'Los colores solo ayudan a distinguir las tarjetas; no indican nada de la ruta.';
+
+// El color va por posición entre las urbanas, para que alternen sin saltos.
+export function colorTarjeta(rutas: RutaParaTarjeta[], indice: number): ColorTarjeta {
+  const r = rutas[indice];
+  if (r.tipo === 'intermunicipal') return COLOR_INTERMUNICIPAL;
+  const posicion = rutas.slice(0, indice).filter((x) => x.tipo === 'urbana').length;
+  return ROTACION[posicion % ROTACION.length];
+}
+
+// Contraste WCAG 2.1 entre dos colores #rrggbb (AA pide ≥ 4.5 para texto normal).
+function luminancia(hex: string): number {
+  const canal = (i: number) => {
+    const c = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * canal(1) + 0.7152 * canal(3) + 0.0722 * canal(5);
+}
+
+export function contraste(a: string, b: string): number {
+  const [x, y] = [luminancia(a), luminancia(b)].sort((m, n) => n - m);
+  return (x + 0.05) / (y + 0.05);
+}
+
+// Respuesta 4 de D-50: «Tus rutas recientes». Solo en el navegador del teléfono
+// (localStorage), sin cookies ni servidor. Hasta 3, la más nueva primero.
+export const CLAVE_RECIENTES = 'sjdrbus.recientes';
+export const MAX_RECIENTES = 3;
+
+export function agregarReciente(lista: string[], id: string): string[] {
+  return [id, ...lista.filter((x) => x !== id)].slice(0, MAX_RECIENTES);
+}
+
+// Lo guardado se limpia: solo rutas que existen hoy, sin repetir, hasta 3.
+export function leerRecientes(guardado: string | null, idsValidos: Set<string>): string[] {
+  let lista: unknown;
+  try {
+    lista = JSON.parse(guardado ?? '[]');
+  } catch {
+    return [];
+  }
+  if (!Array.isArray(lista)) return [];
+  const limpia = lista.filter((x): x is string => typeof x === 'string' && idsValidos.has(x));
+  return [...new Set(limpia)].slice(0, MAX_RECIENTES);
+}

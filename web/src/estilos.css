@@ -304,3 +304,59 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
    lo calcula main.ts (ajustarCuerpo), porque el sentido crece con nombres largos. */
 /* D-49: pin de parada (sustituye el punto gris de D-30). */
 .parada-toque svg { display: block; filter: drop-shadow(0 2px 3px rgba(18, 38, 45, 0.35)); }
+
+/* D-50 (20 nov 2026): selector visual de rutas. Las 39 tarjetas en el orden de
+   routes.txt, en rejilla que se desplaza dentro del menú; el <select> de arriba
+   queda como respaldo. Colores en rotación que no significan nada (se dice). */
+.selector-visual[hidden], .recientes[hidden] { display: none; }
+.aviso-colores { margin: -4px 0 10px; font-size: 11.5px; line-height: 1.35; color: var(--suave); }
+.rejilla-tarjetas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.tarjeta-ruta {
+  --c: var(--primario); --ct: #fff; --ci: var(--primario);
+  display: grid; justify-items: start; align-content: start; gap: 4px;
+  min-height: 112px; padding: 8px 10px 10px; border: 0; border-radius: 16px;
+  background: var(--c); color: var(--ct); text-align: left; cursor: pointer;
+  font: inherit; box-shadow: 0 2px 6px rgba(18, 38, 45, 0.14);
+}
+.tarjeta-ruta .camion { display: block; width: 66px; height: auto; }
+.tarjeta-nombre {
+  font-size: 13px; font-weight: 700; line-height: 1.25;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.tarjeta-numero { font-size: 11px; font-weight: 500; opacity: .9; }
+.tarjeta-ruta:focus-visible, .borrar-recientes:focus-visible { outline: 3px solid var(--tinta); outline-offset: 2px; }
+.tarjeta-ruta:active { transform: scale(.98); }
+.recientes { margin-bottom: 14px; }
+.recientes-cabeza { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.recientes-cabeza h3 { margin: 0; font-size: 13px; font-weight: 700; color: var(--suave); text-transform: uppercase; letter-spacing: .05em; }
+.borrar-recientes {
+  min-height: 44px; padding: 0 12px; border: 0; border-radius: 22px; background: var(--fondo);
+  font: inherit; font-size: 13px; font-weight: 700; color: var(--suave); cursor: pointer;
+}
+/* La insignia del encabezado toma el color de su tarjeta (lección 3). */
+.insignia { background: var(--c, var(--primario)); color: var(--ct, #fff); }
+.encabezado-texto .tarjeta-numero { display: block; margin-top: 2px; color: var(--suave); opacity: 1; }
+.detalle-zonas { margin: 10px 0 0; font-size: 12.5px; color: var(--suave); }
+
+/* Zonas probables de inicio y fin (D-50, D-46): círculo de borde punteado y
+   etiqueta «Inicio» / «Fin». Sin línea entre ellas (no hay trazo verificado). */
+.zona { stroke-width: 2.5px; }
+.zona.zona-inicio { stroke: #0d7a72; fill: #0d7a72; }
+.zona.zona-fin { stroke: #a8432a; fill: #a8432a; }
+.punto-zona { background: none; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+.punto-zona i { width: 0; height: 0; border: 6px solid transparent; border-bottom: 0; border-top-color: #fff; margin-top: -1px; }
+.punto-zona.zona-inicio i { border-top-color: #0d7a72; }
+.punto-zona.zona-fin i { border-top-color: #a8432a; }
+.punto-zona span {
+  padding: 3px 9px; border-radius: 13px; font-size: 12px; font-weight: 800; color: #fff;
+  box-shadow: 0 2px 6px rgba(18, 38, 45, .3); border: 2px solid #fff;
+}
+.punto-zona.zona-inicio span { background: #0d7a72; }
+.punto-zona.zona-fin span { background: #a8432a; }
+
+@media (min-width: 768px) {
+  .rejilla-tarjetas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tarjeta-ruta { min-height: 104px; padding: 8px; }
+  .tarjeta-ruta .camion { width: 58px; }
+  .tarjeta-nombre { font-size: 12px; }
+}

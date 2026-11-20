@@ -54,7 +54,20 @@
         </div>
         <div class="hoja-cuerpo">
           <div id="modo-rutas" class="modo">
-            <h2 class="hoja-titulo" id="hoja-titulo">Elige tu ruta en «¿A dónde vas?»</h2>
+            <h2 class="hoja-titulo" id="hoja-titulo">Elige tu ruta</h2>
+            <!-- D-50: selector visual. Las 39 rutas en tarjetas, en el orden de
+                 routes.txt; el <select> de arriba se queda como respaldo. -->
+            <div class="selector-visual" id="selector-visual">
+              <section class="recientes" id="recientes" aria-labelledby="recientes-titulo" hidden>
+                <div class="recientes-cabeza">
+                  <h3 id="recientes-titulo">Tus rutas recientes</h3>
+                  <button type="button" class="borrar-recientes" id="borrar-recientes">Borrar</button>
+                </div>
+                <div class="rejilla-tarjetas" id="lista-recientes"></div>
+              </section>
+              <p class="aviso-colores" id="aviso-colores"></p>
+              <div class="rejilla-tarjetas" id="tarjetas" aria-label="Las rutas"></div>
+            </div>
             <div class="encabezado-ruta" id="encabezado-ruta" hidden></div>
             <section id="detalle" class="detalle" aria-live="polite" aria-label="Detalle de la ruta" hidden></section>
           </div>

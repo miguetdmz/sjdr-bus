@@ -32,8 +32,10 @@ test('selector: <select> nativo con <label> «Ruta» y estado inicial sin ruta',
   assert.match(html, /<select id="ruta"/);
   // Estado inicial: opción vacía, deshabilitada y elegida (D-48: «¿A dónde vas? Elige tu ruta»).
   assert.match(html, /<option value="" disabled selected>[^<]+<\/option>/);
-  // Nunca texto libre, y nada de listas, rejillas ni tarjetas de rutas.
-  assert.doesNotMatch(html, /<input[^>]+type="(text|search)"|<datalist|<ul|<ol|<table|class="[^"]*(tarjeta|card|chip)/);
+  // Nunca texto libre. D-50 (respuesta 1, Miguel, 20 nov 2026): las tarjetas
+  // ya no se prohíben; la regla de las tarjetas la revisa tarjetas.test.mjs y
+  // pruebas-navegador/b2a.spec.mjs. El <select> se queda como respaldo.
+  assert.doesNotMatch(html, /<input[^>]+type="(text|search)"|<datalist|<table/);
 });
 
 test('sentido: control segmentado aparte, Ida (0) y Vuelta (1), operable con teclado', () => {

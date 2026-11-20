@@ -20,3 +20,21 @@ export const PIN_PARADA =
 // Control de la capa de paradas (M-05): punto con anillo.
 export const ICONO_PARADAS =
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg>';
+
+// D-50: camioncito de la tarjeta, de lado, tipo logo vectorial, con la insignia
+// (R1, R9B, T62…) en el costado. Carrocería blanca sobre el color de la tarjeta;
+// la insignia toma el color --ci (contraste AA sobre blanco). Solo texto de la app: sin datos
+// del usuario dentro del SVG.
+export function camioncito(texto: string): string {
+  const seguro = texto.replace(/[^A-Z0-9]/g, '');
+  return (
+    '<svg class="camion" width="76" height="40" viewBox="0 0 76 40" aria-hidden="true">' +
+    '<rect x="2" y="3" width="70" height="28" rx="7" fill="#fff"/>' +
+    '<path d="M62 6h5a3 3 0 0 1 3 3v9h-8z" style="fill:var(--c)" opacity=".35"/>' +
+    '<rect x="2" y="25" width="70" height="3" style="fill:var(--c)" opacity=".25"/>' +
+    `<text x="32" y="22.5" text-anchor="middle" font-size="16" font-weight="800" font-family="system-ui,-apple-system,sans-serif" style="fill:var(--ci)">${seguro}</text>` +
+    '<circle cx="17" cy="32" r="5" fill="#12262d" stroke="#fff" stroke-width="2"/>' +
+    '<circle cx="57" cy="32" r="5" fill="#12262d" stroke="#fff" stroke-width="2"/>' +
+    '</svg>'
+  );
+}
