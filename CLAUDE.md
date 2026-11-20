@@ -209,6 +209,34 @@ puede, convertir la regla en una prueba automática.
    cola). Prueba: con un commit sin subir, el bloque lo muestra. Se construye
    con el sí de Miguel.
 
+10. **Claude hizo un commit con una prueba en rojo (20 nov 2026).** En R-03
+   corrió las pruebas, la salida decía «fail 1» y aun así hizo el commit
+   3daac3a; se corrigió en el siguiente (d09d9d5) y no llegó a GitHub porque el
+   candado de `.githooks/pre-push` lo habría frenado. Causa: no tratar «fail > 0»
+   como paro de línea; las pruebas se corrían en el mismo comando que el commit.
+   Regla: nunca commit si la última corrida de pruebas dice fail > 0; correr las
+   pruebas, leer el resultado y solo entonces hacer el commit, en pasos aparte.
+   Detección temprana: el commit va en un comando distinto al de las pruebas.
+   - 2026-11-20 (1.ª vez): este caso.
+   Ocurrencias: 1 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de
+   Miguel): `.githooks/pre-commit` que corra `node --test scripts/pruebas/` y
+   detenga el commit con fail > 0. Prueba: con una prueba que falla a propósito,
+   `git commit` se niega.
+11. **Pruebas que fijaban el número del día se rompieron con arreglos buenos (20
+   nov 2026).** En R-03, tres pruebas exigían valores del momento: «exactamente
+   690 UBICADOS», «al menos 26 APROXIMADOS» y «México 120 × Benito Juárez nunca
+   tiene punto». Arreglos legítimos con evidencia (Jurica, «MÉXICO 120» = Federal
+   120) las pusieron en rojo y hubo que reescribirlas. Causa: la prueba revisaba
+   la medición del lote, no la especificación (la regla de fondo). Regla: una
+   prueba revisa la regla («D-45 no toca los UBICADOS»: ninguno trae método ni
+   estado anterior), no el conteo del día; un número fijo solo si la regla es
+   ese número (39 rutas). Detección temprana: al escribir un número en una
+   prueba, preguntarse «¿un arreglo bueno lo cambiaría?»; si sí, no va.
+   - 2026-11-20 (1.ª vez, ~9:49 am): «exactamente 690» falló con Jurica.
+   - 2026-11-20 (2.ª vez, ~11:49 am): «al menos 26» y «México 120 sin punto»
+     fallaron con «MÉXICO 120» = Federal 120.
+   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
+
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:
 1. Se cierra un bloque o se integra un entregable a `main`.
