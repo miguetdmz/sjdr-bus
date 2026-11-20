@@ -23,13 +23,13 @@
  "resumen": {
   "rutas_con_lista_usable": 18,
   "cruces": 936,
-  "UBICADO": 693,
+  "UBICADO": 695,
   "UBICADO POR LUGAR": 3,
-  "APROXIMADO": 25,
-  "REFERENCIA": 192,
-  "CALLES SIN CRUCE EN OSM": 15,
-  "SIN UBICAR": 8,
-  "con_correccion": 298
+  "APROXIMADO": 27,
+  "REFERENCIA": 191,
+  "CALLES SIN CRUCE EN OSM": 13,
+  "SIN UBICAR": 7,
+  "con_correccion": 300
  },
  "rutas": [
   {
@@ -8990,12 +8990,12 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 54,
    "conteo": {
-    "UBICADO": 31,
+    "UBICADO": 33,
     "UBICADO POR LUGAR": 0,
-    "APROXIMADO": 5,
-    "REFERENCIA": 12,
-    "CALLES SIN CRUCE EN OSM": 5,
-    "SIN UBICAR": 1
+    "APROXIMADO": 7,
+    "REFERENCIA": 11,
+    "CALLES SIN CRUCE EN OSM": 3,
+    "SIN UBICAR": 0
    },
    "cruces": [
     {
@@ -9003,9 +9003,15 @@
      "texto": "FRANCISCO VILLA-CAR. ESTATAL 122",
      "calle": "FRANCISCO VILLA",
      "cruce_con": "CAR. ESTATAL 122",
-     "estado": "REFERENCIA",
-     "osm_calle": "Andador Francisco Villa",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "estado": "UBICADO",
+     "lat": 20.44601,
+     "lon": -99.97442,
+     "osm_calle": "Calle Francisco Villa",
+     "osm_cruce": "Acceso a Visthá",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CAR. ESTATAL 122» → «Acceso a Visthá»"
+     ]
     },
     {
      "orden": 2,
@@ -9014,25 +9020,39 @@
      "cruce_con": "VENUSTIANO CARRANZA",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Miguel Hidalgo",
-     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Avenida Venustiano Carranza») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
+     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Avenida Venustiano Carranza») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
     },
     {
      "orden": 3,
      "texto": "VENUSTIANO CARRANZA-FRANCISCO VILLA",
      "calle": "VENUSTIANO CARRANZA",
      "cruce_con": "FRANCISCO VILLA",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Avenida Venustiano Carranza",
-     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Andador Francisco Villa») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
+     "estado": "APROXIMADO",
+     "lat": 20.44601,
+     "lon": -99.97442,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "entre vecinos",
+     "osm_calle": "Calle Francisco Villa",
+     "evidencia": "punto de «Calle Francisco Villa» más cercano (247 m) a la mitad entre los cruces ubicados #1 y #5",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 4,
      "texto": "VENUSTIANO CARRANZA-VICENTE GUERRERO",
      "calle": "VENUSTIANO CARRANZA",
      "cruce_con": "VICENTE GUERRERO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Avenida Venustiano Carranza",
-     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Calle General Vicente Guerrero») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
+     "estado": "APROXIMADO",
+     "lat": 20.44578,
+     "lon": -99.97401,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "entre vecinos",
+     "osm_calle": "Calle Vicente Guerrero Sur",
+     "evidencia": "punto de «Calle Vicente Guerrero Sur» más cercano (198 m) a la mitad entre los cruces ubicados #1 y #5",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 5,
@@ -9670,15 +9690,22 @@
      "cruce_con": "MIGUEL HIDALGO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Venustiano Carranza",
-     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Avenida Miguel Hidalgo») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
+     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Avenida Miguel Hidalgo») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
     },
     {
      "orden": 54,
      "texto": "CAR. ESTATAL 122-FRANCISCO VILLA",
      "calle": "CAR. ESTATAL 122",
      "cruce_con": "FRANCISCO VILLA",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
+     "estado": "UBICADO",
+     "lat": 20.44601,
+     "lon": -99.97442,
+     "osm_calle": "Acceso a Visthá",
+     "osm_cruce": "Calle Francisco Villa",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CAR. ESTATAL 122» → «Acceso a Visthá»"
+     ]
     }
    ]
   },

@@ -689,6 +689,7 @@ Miguel).
   | Mexican Federal Hwy 120 (ruta 032) | San Juan del Río - Xilitla (Carretera Federal 120) | Miguel, 20 nov 2026, 2:25 am |
   | Carretera San Juan del Río-Tequisquiapan km 3.2 – Walmart (009B, 016 y 030) | una sola parada: el Walmart (negocio) sobre el Paseo Central = Avenida Central (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 2:34 am |
   | Av. Universidad – Cto. Querétaro Norte (011B y 015B) | sí se tocan: OSM las deja a 32 m; tolerancia de 40 m solo para ese par | Miguel, 20 nov 2026, 2:39 am |
+  | Car. Estatal 122 (ruta 032) | el mismo «Acceso a Visthá» (toca la Calle Francisco Villa de Visthá a 0 m) | Miguel, 20 nov 2026, 1:04 pm |
   | El Cerezo / Cerezo (ruta 032) | el CERESO de Visthá (D-37): camino «Acceso a Visthá», que toca Salinas y José Ballesteros López (0 m) y la carretera a Xilitla (8 m) | Miguel, 20 nov 2026, 11:01 am |
   | Carretera Querétaro 300 (ruta 002) | Carretera Panamericana a Querétaro, desde la glorieta donde termina la Av. Benito Juárez Poniente; el «300» es el número de la Secretaría de Finanzas | Miguel, 20 nov 2026, 9:47 am |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
@@ -1056,3 +1057,25 @@ Miguel).
   la 047 #51 se mueven 14 m al mismo punto: las tres rutas usan ahora un solo
   punto para Ocho Oriente × Av. Central (lección 3). Total: 696 con punto
   exacto, 25 aproximados, 192 referencias, 23 POR VERIFICAR.
+- **Car. Estatal 122 = Acceso a Visthá (Miguel, 20 nov 2026, 1:04 pm):** además,
+  «CAR.» se lee como «Carretera» (ya se leían «CARR.» y «CARRET.»; en las listas
+  aparece en «CAR. ESTATAL 122», «CAR. QUERÉTARO» y «CAR. A CERRO GORDO»; solo
+  cambió la 032). Efecto: 032 #1 y #54, las dos puntas del circuito, UBICADAS en
+  el mismo punto (Francisco Villa × Acceso a Visthá); con esa ancla, #3 y #4
+  pasan a APROXIMADO entre vecinos, junto a Visthá. Total: 698 con punto exacto,
+  27 aproximados, 191 referencias, 20 POR VERIFICAR.
+
+## D-46 · 20 nov 2026 · Extremos como zona probable (mapa de calor), no como punto · PROPUESTA
+- **Idea (Miguel, 20 nov 2026, 1:04 pm):** mientras no estén confirmados los
+  puntos exactos de origen y fin de cada ruta, la app los muestra como una
+  **zona** («la parada está posiblemente por aquí»), estilo mapa de calor, en
+  vez de un punto que aparenta exactitud.
+- **Por qué encaja:** reglas 1 y 2 (nada estimado se presenta como exacto) y
+  D-41 (32 de 35 extremos son puntos de Miguel POR VERIFICAR EN CAMPO; 3
+  FALTANTES). Lo mismo puede valer para los cruces APROXIMADOS de D-45.
+- **Falta antes de construir (bloque de la app, R-04/B4):** criterio de
+  aceptación medible — radio de la zona por nivel de confianza (por ejemplo,
+  punto de Miguel sin campo vs. aproximado vs. faltante), cómo se ve en ancho de
+  teléfono sin tapar el mapa, y que la zona diga ESTIMADO. Sin librerías de
+  pago (Leaflet ya dibuja círculos).
+- **Decide:** Miguel, al diseñar la pantalla del trazo.

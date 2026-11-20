@@ -355,3 +355,9 @@ test('cruces: «MÉXICO 120» es la misma Federal 120 (D-43) y en la ciudad sigu
   assert.equal(ocho.length, 3);
   assert.deepEqual([...new Set(ocho.map((x) => `${x.estado} ${x.lat},${x.lon}`))], ['UBICADO 20.41111,-99.98153']);
 });
+
+test('cruces: «CAR. ESTATAL 122» = Acceso a Visthá (Miguel, D-43): las dos puntas del circuito de la 032 en el mismo punto', () => {
+  const p = ['FRANCISCO VILLA-CAR. ESTATAL 122', 'CAR. ESTATAL 122-FRANCISCO VILLA'].map((t) => todos.find((c) => c.ruta === '032' && c.texto === t));
+  for (const c of p) assert.deepEqual([c.estado, c.lat, c.lon], ['UBICADO', 20.44601, -99.97442], `032 #${c.orden}`);
+  assert.ok(p.every((c) => [c.osm_calle, c.osm_cruce].includes('Acceso a Visthá')));
+});

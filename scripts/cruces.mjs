@@ -47,7 +47,7 @@ const UMBRAL_LUGAR_M = 300; // un lugar de OSM cuenta para el cruce si queda a �
 // ---------- normalización de nombres ----------
 const ABREV = {
   AV: 'AVENIDA', AVE: 'AVENIDA', C: 'CALLE', CALL: 'CALLE', BLVD: 'BOULEVARD', BLV: 'BOULEVARD',
-  CARR: 'CARRETERA', CARRET: 'CARRETERA', CTO: 'CIRCUITO', CIR: 'CIRCUITO', PROL: 'PROLONGACION',
+  CAR: 'CARRETERA', CARR: 'CARRETERA', CARRET: 'CARRETERA', CTO: 'CIRCUITO', CIR: 'CIRCUITO', PROL: 'PROLONGACION',
   PRIV: 'PRIVADA', CDA: 'CERRADA', CALZ: 'CALZADA', AND: 'ANDADOR', LIC: 'LICENCIADO', LICDO: 'LICENCIADO',
   GRAL: 'GENERAL', GENL: 'GENERAL', PROF: 'PROFESOR', PROFA: 'PROFESORA', PROFR: 'PROFESOR',
   ARQ: 'ARQUITECTO', ING: 'INGENIERO', DR: 'DOCTOR', DRA: 'DOCTORA', STA: 'SANTA', STO: 'SANTO',
@@ -258,6 +258,9 @@ const ALIAS_MIGUEL = {
   // Miguel, 20 nov 2026, 11:01 am
   'EL CEREZO': 'Acceso a Visthá',
   CEREZO: 'Acceso a Visthá',
+  // la Carretera Estatal 122 es el mismo camino de acceso a Visthá (ruta 032);
+  // Miguel, 20 nov 2026, 1:04 pm
+  'CARRETERA ESTATAL 122': 'Acceso a Visthá',
 };
 // Nombres que traen su propio guion, confirmados por Miguel: el guion se cambia
 // por una raya (–) para que no se tome como separador de cruces.
