@@ -196,3 +196,14 @@ test('cruces: la lista mezclada de la 23 y la 023 se separa (Miguel, D-43): call
   assert.ok(r23.cruces.filter((c) => Number.isFinite(c.lat)).length >= 22);
   assert.ok(r23.cruces.some((c) => c.texto === 'DE LA CANTERA-DEL GRANITO' && c.estado === 'UBICADO'));
 });
+
+test('cruces: «MEXICAN FEDERAL HWY 120» = carretera San Juan del Río - Xilitla (Miguel, D-43): sus negocios confirman la calle, sin punto propio', () => {
+  const f = todos.filter((c) => c.ruta === '032' && /^MEXICAN FEDERAL HWY 120-/.test(c.texto));
+  assert.equal(f.length, 4);
+  for (const c of f) {
+    assert.deepEqual([c.estado, c.osm_calle, c.lat], ['REFERENCIA', 'San Juan del Río - Xilitla', undefined], `032 #${c.orden}`);
+  }
+  // «MÉXICO 120 – BENITO JUÁREZ»: en OSM la carretera no toca ninguna Benito Juárez; no se inventa el cruce
+  const bj = todos.find((c) => c.ruta === '032' && c.texto === 'MÉXICO 120-BENITO JUÁREZ');
+  assert.ok(['SIN UBICAR', 'CALLES SIN CRUCE EN OSM'].includes(bj.estado) && bj.lat === undefined);
+});

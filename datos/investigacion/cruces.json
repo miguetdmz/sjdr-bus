@@ -24,9 +24,9 @@
   "cruces": 939,
   "UBICADO": 679,
   "UBICADO POR LUGAR": 3,
-  "REFERENCIA": 183,
+  "REFERENCIA": 187,
   "CALLES SIN CRUCE EN OSM": 48,
-  "SIN UBICAR": 26,
+  "SIN UBICAR": 22,
   "con_correccion": 287
  },
  "rutas": [
@@ -8865,9 +8865,9 @@
    "conteo": {
     "UBICADO": 30,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 8,
+    "REFERENCIA": 12,
     "CALLES SIN CRUCE EN OSM": 10,
-    "SIN UBICAR": 6
+    "SIN UBICAR": 2
    },
    "cruces": [
     {
@@ -8935,16 +8935,18 @@
      "texto": "MEXICAN FEDERAL HWY 120-INTERNACIONAL CAMSOLSAN JUAN DEL RÍO",
      "calle": "MEXICAN FEDERAL HWY 120",
      "cruce_con": "INTERNACIONAL CAMSOLSAN JUAN DEL RÍO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "San Juan del Río - Xilitla",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 8,
      "texto": "MEXICAN FEDERAL HWY 120-DISTRIBUIDORA MOYEL",
      "calle": "MEXICAN FEDERAL HWY 120",
      "cruce_con": "DISTRIBUIDORA MOYEL",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "San Juan del Río - Xilitla",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 9,
@@ -9461,16 +9463,18 @@
      "texto": "MEXICAN FEDERAL HWY 120-SERTEK GLOBAL",
      "calle": "MEXICAN FEDERAL HWY 120",
      "cruce_con": "SERTEK GLOBAL",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "San Juan del Río - Xilitla",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 51,
      "texto": "MEXICAN FEDERAL HWY 120-CENTRO EXPOSITOR SAN JUAN DEL RÍO SAN NICOLAS",
      "calle": "MEXICAN FEDERAL HWY 120",
      "cruce_con": "CENTRO EXPOSITOR SAN JUAN DEL RÍO SAN NICOLAS",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "REFERENCIA",
+     "osm_calle": "San Juan del Río - Xilitla",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 52,

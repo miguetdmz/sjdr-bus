@@ -237,6 +237,7 @@ const ALIAS_MIGUEL = {
   'CARRETERA SAN JUAN DEL RIO': 'Avenida Central', // dentro de la ciudad; Miguel, 19 nov 2026, 10:12 pm
   JURICA: 'Avenida Belisario Domínguez', // Miguel, 20 nov 2026, 12:47 am; única calle de OSM que toca Benito Juárez Ote., Fernando de Tapia y Av. Central
   URUGUAY: 'Cerrada de Uruguay', // une Veracruz con Av. Francia (ruta 015B); Miguel, 20 nov 2026, 1:39 am
+  'MEXICAN FEDERAL HWY 120': 'San Juan del Río - Xilitla', // Carretera Federal 120 (ruta 032); Miguel, 20 nov 2026, 2:25 am
 };
 const aliasPorClave = new Map(Object.entries(ALIAS_MIGUEL).map(([k, v]) => [clave(k), v]));
 // Continuaciones confirmadas por Miguel: la calle sigue con otro nombre en OSM.

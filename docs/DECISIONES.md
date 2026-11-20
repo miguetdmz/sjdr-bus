@@ -686,6 +686,7 @@ Miguel).
   | Sagitario (sobre la Av. Hidalgo, en el centro) | es un **negocio**, no una calle (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 1:00 am |
   | Sierra Paracaima y Sierra Tezonco (con la Av. Lomas de San Juan) | **laterales** de la avenida, no cruces: Paracaima del lado oriente, Tezonco del poniente (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 1:41 am |
   | Uruguay (ruta 015B, entre Veracruz y Av. Francia) | Cerrada de Uruguay (OSM la dibuja corta: queda a 31 m de Veracruz y 44 m de Av. Francia; tolerancia de 50 m solo para ella) | Miguel, 20 nov 2026, 1:39 am |
+  | Mexican Federal Hwy 120 (ruta 032) | San Juan del Río - Xilitla (Carretera Federal 120) | Miguel, 20 nov 2026, 2:25 am |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
   pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
   ruta); si no, el cruce sigue POR VERIFICAR.
@@ -805,6 +806,15 @@ Miguel).
   Jurica pasa de 27 a 25 cruces ubicados: los 2 de diferencia eran la copia de
   la 023. Total: 18 listas con cruces más la de lugares de la 023; 682 de 939
   con punto (73 %), 183 referencias (19 %), 74 POR VERIFICAR (8 %).
+- **Federal 120 (Miguel, 20 nov 2026, 2:25 am):** la lista de la 032 escribe
+  «MEXICAN FEDERAL HWY 120», el nombre en inglés de los mapas. En OSM es «San
+  Juan del Río - Xilitla», que arranca en el norte de la ciudad, donde
+  termina el Paseo Central. Sus cruces son negocios que OSM no tiene (Camsol,
+  Distribuidora Moyel, Sertek, Centro Expositor): 4 cruces pasan de POR
+  VERIFICAR a REFERENCIA, sin punto nuevo, movido ni perdido. **Sigue POR
+  VERIFICAR:** «MÉXICO 120 – BENITO JUÁREZ» (032 #49): en OSM la carretera no
+  toca ninguna Benito Juárez. Total: 682 de 939 con punto (73 %), 187
+  referencias (20 %), 70 POR VERIFICAR (7 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 
