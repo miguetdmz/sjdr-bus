@@ -27,6 +27,3 @@ playwright-report/
 /.vercel/
 .vercel
 .env*
-
-# Copias generadas para el artifact de extremos (scripts/artifact-extremos.mjs).
-/herramientas/extremos-artifact/datos/

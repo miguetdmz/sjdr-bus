@@ -31,12 +31,12 @@ test('si existe la respuesta completa (fuera de git), coincide con la huella', {
   assert.equal(h, HUELLA);
 });
 
-test('propuestas: están exactamente los 27 lugares sin coordenada (28 menos el duplicado de La Rueda, D-35)', () => {
+test('propuestas: están exactamente los 24 lugares sin coordenada (28 menos La Rueda D-35, PITSA y Valle Dorado II D-36, Visthá (CERESO) D-37)', () => {
   const sin = ext.lugares.filter((l) => l.lat === null).map((l) => l.lugar).sort();
-  assert.equal(sin.length, 27);
+  assert.equal(sin.length, 24);
   assert.deepEqual(prop.lugares.map((l) => l.nombre).sort(), sin);
-  assert.equal(prop.resumen.lugares, 27);
-  assert.equal(prop.resumen.con_candidato + prop.resumen.sin_candidato, 27);
+  assert.equal(prop.resumen.lugares, 24);
+  assert.equal(prop.resumen.con_candidato + prop.resumen.sin_candidato, 24);
 });
 
 test('propuestas: el archivo coincide con lo que genera el programa (segunda corrida idempotente)', () => {
@@ -80,11 +80,13 @@ test('propuestas: ninguna coordenada prohibida de la lección 4', () => {
   }
 });
 
-test('la página de confirmación existe, usa la clave acordada y no entra a la app', () => {
+test('la página de confirmación guarda en el archivo del proyecto (D-38) y no entra a la app', () => {
   const h = leer('web/confirmar-extremos.html').replace(/<\/?b>/g, '');
-  assert.match(h, /sjdr-extremos-decisiones-v1/);
+  assert.match(h, /\/__extremos-decisiones/);
+  assert.doesNotMatch(h, /localStorage/, 'D-38: nada de guardar en el navegador');
   assert.match(h, /POR VERIFICAR EN CAMPO aunque las apruebes/);
-  assert.match(h, /Tus respuestas se guardan solas en esta computadora\. Al terminar, avísale a Claude en el chat\./);
+  assert.match(leer('vite.config.mjs'), /apply: 'serve'/, 'el guardado existe solo en desarrollo');
+  assert.match(leer('vite.config.mjs'), /datos\/investigacion\/extremos-decisiones\.json/);
   assert.doesNotMatch(leer('web/index.html'), /confirmar-extremos/);
 });
 

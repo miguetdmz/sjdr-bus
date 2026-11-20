@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// R-02 (D-24): origen y destino de las 42 rutas con coordenada.
+// R-02 (D-24): origen y destino de las 40 rutas vigentes (D-36) con coordenada.
 // Orden de fuentes: 1) coordenadas verificadas de HANDOFF §11.3; 2) parada de OSM
 // (N-08) con el mismo nombre; 3) Nominatim, una consulta por segundo, en caché.
 // Todo lo nuevo entra POR VERIFICAR. Lo que cae fuera del municipio, no coincide en
@@ -70,15 +70,12 @@ export const LUGARES = {
   'Praderas del Sol': { q: 'Praderas del Sol, San Juan del Río', nombres: ['PRADERAS DEL SOL'] },
   'Las Torres': { q: 'Las Torres, San Juan del Río', nombres: ['LAS TORRES'] },
   'Rancho de Enmedio': { q: 'Rancho de Enmedio, San Juan del Río', nombres: ['RANCHO DE ENMEDIO', 'RANCHO DE EN MEDIO'] },
-  'PITSA': { q: 'PITSA, San Juan del Río', nombres: ['PITSA'], instalacion: true },
-  'Visthá': { q: 'Visthá, San Juan del Río', nombres: ['VISTHA'] },
-  'Visthá (CERESO)': { q: 'CERESO San Juan del Río', nombres: ['CERESO SAN JUAN DEL RIO', 'CERESO', 'CENTRO DE REINSERCION SOCIAL SAN JUAN DEL RIO'], instalacion: true },
+    'Visthá': { q: 'Visthá, San Juan del Río', nombres: ['VISTHA'] },
   'Manantiales / Nogales': { compuesto: 'el inventario nombra dos lugares como un solo extremo' },
   'Manantiales': { q: 'Manantiales, San Juan del Río', nombres: ['MANANTIALES'] },
   'Nogales': { q: 'Nogales, San Juan del Río', nombres: ['NOGALES', 'LOS NOGALES'] },
   'IMSS': { q: 'IMSS, San Juan del Río', nombres: ['IMSS'], instalacion: true },
   'Valle Dorado I': { q: 'Valle Dorado, San Juan del Río', nombres: ['VALLE DORADO I', 'VALLE DORADO 1', 'VALLE DORADO PRIMERA SECCION'] },
-  'Valle Dorado II': { q: 'Valle Dorado, San Juan del Río', nombres: ['VALLE DORADO II', 'VALLE DORADO 2', 'VALLE DORADO SEGUNDA SECCION'] },
   'Ezequiel Montes': { q: 'Ezequiel Montes, Querétaro', nombres: ['EZEQUIEL MONTES'], fuera: 'otro municipio (destino de la intermunicipal 023)' },
 };
 
@@ -159,7 +156,10 @@ function resolver(lugar) {
 const CORRECCIONES = {
   'Col. Industrial Nuevo San Juan': 'Nuevo Parque Industrial',
   'La Rueda': 'Fracc. La Rueda', // es el mismo lugar: se elimina el duplicado
+  'Visthá (CERESO)': 'Visthá', // D-37: es el mismo lugar; el nombre correcto es «Visthá»
 };
+// Decisión que respalda cada corrección (va en el campo «correccion» de la ruta).
+const MARCA = { 'Visthá (CERESO)': 'D-37' };
 const corregir = (n) => CORRECCIONES[n] ?? n;
 
 const rutas = leerCSV(`${raiz}datos/gtfs-sjr/routes.txt`);
@@ -176,7 +176,7 @@ const rut = rutas.map((r) => {
   return {
     route_id: r.route_id, numero: r.route_short_name, nombre: r.route_long_name,
     origen: origen, destino: fin,
-    correccion: corregidos.length ? `D-35: ${corregidos.map((n) => `«${n}» se ubica como «${corregir(n)}»`).join('; ')} (Miguel, 19 nov 2026)` : undefined,
+    correccion: corregidos.length ? corregidos.map((n) => `${MARCA[n] ?? 'D-35'}: «${n}» se ubica como «${corregir(n)}» (Miguel, 19 nov 2026)`).join('; ') : undefined,
     nota: partes.length > 2 ? `el nombre trae ${partes.length} lugares; «${partes.slice(1, -1).join(', ')}» queda como punto intermedio, no extremo` : undefined,
     sentidos: 'sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido',
   };

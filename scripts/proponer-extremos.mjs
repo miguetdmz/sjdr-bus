@@ -59,11 +59,6 @@ const REGLAS = {
     tipo: (l) => /^(hospital|clinic)$/.test(l.amenity ?? '') && IMSS(l),
     texto: 'tipo coincide: hospital o clínica del IMSS', soloTipo: true,
   },
-  'Visthá (CERESO)': {
-    tipo: (l) => l.amenity === 'prison',
-    texto: 'tipo coincide: penal (amenity=prison)', soloTipo: true,
-    pista: [/CERESO/, 20, 'el nombre dice CERESO'],
-  },
 };
 const FUERA = { 'Ezequiel Montes': 'fuera del municipio: sin candidato (la consulta cubre solo San Juan del Río; no se inventa)' };
 

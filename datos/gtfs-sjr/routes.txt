@@ -26,7 +26,6 @@ U-024C,SJR-CONC,024C,Las Torres – Central de Autobuses,3
 U-025,SJR-CONC,025,Las Águilas – Centro,3
 U-028,SJR-CONC,028,Rancho de Enmedio – Central de Autobuses,3
 U-030,SJR-CONC,030,Infonavit La Paz – Central de Autobuses,3
-U-031,SJR-CONC,031,Pedregoso – PITSA,3
 U-032,SJR-CONC,032,Visthá – Central de Autobuses,3
 U-036,SJR-CONC,036,Visthá (CERESO) – 5 de Mayo,3
 U-037,SJR-CONC,037,La Peña – Centro,3
@@ -36,7 +35,6 @@ U-040,SJR-CONC,040,Las Águilas – Universidad Tecnológica (UTSJR),3
 U-041,SJR-CONC,041,Francisco Villa – Centro,3
 U-042,SJR-CONC,042,Manantiales / Nogales – Centro,3
 U-043,SJR-CONC,043,Valle Dorado I – Central de Autobuses,3
-U-044,SJR-CONC,044,Valle Dorado II – Centro,3
 U-046,SJR-CONC,046,Manantiales – Nogales – IMSS,3
 U-047,SJR-CONC,047,La Rueda – Central de Autobuses,3
 I-062,SJR-INTER,062,San Juan del Río – Tequisquiapan,3

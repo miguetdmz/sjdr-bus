@@ -2,6 +2,15 @@
 // contra su fuente escrita (como comparar una pieza contra su plano).
 import { readFileSync } from 'node:fs';
 
+// D-36 (Miguel, conocimiento local, 19 nov 2026): rutas que YA NO EXISTEN aunque
+// HANDOFF §4 y la página oficial de Qrobús (19 nov 2026) aún las listan. HANDOFF
+// no se edita (contrato de origen): la baja se aplica aquí, en su único punto de lectura.
+export const RUTAS_DADAS_DE_BAJA = {
+  '031': 'D-36: «Pedregoso – PITSA» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
+  '044': 'D-36: «Valle Dorado II – Centro» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
+};
+const vigente = ({ numero }) => !(numero in RUTAS_DADAS_DE_BAJA);
+
 const handoff = () => readFileSync(new URL('../../docs/HANDOFF.md', import.meta.url), 'utf8');
 
 // Filas de la primera tabla de la sección que empieza con «titulo» (p. ej. '## 4.'),
@@ -24,14 +33,14 @@ export function tablaDeSeccion(titulo) {
   return filas.slice(2);
 }
 
-// Las 42 rutas de HANDOFF §4, en orden: {numero, nombre, tipo}.
+// Las 40 rutas vigentes de HANDOFF §4 (42 menos las 2 bajas de D-36), en orden: {numero, nombre, tipo}.
 // Quita la marca «`[CORREGIDO → D-xx]`», que no es parte del nombre ni del tipo.
 export function inventario() {
   return tablaDeSeccion('## 4.').map(([numero, nombre, tipo]) => ({
     numero,
     nombre,
     tipo: tipo.replace(/`\[CORREGIDO[^\]]*\]`/, '').trim(),
-  }));
+  })).filter(vigente);
 }
 
 // Números de las 10 rutas con ficha verificada (primera columna de HANDOFF §5.1).
@@ -39,7 +48,7 @@ export function numerosVerificados() {
   return tablaDeSeccion('### 5.1').map(([ruta]) => ruta.split(' ')[0]);
 }
 
-// Números de las 32 rutas de solo inventario (párrafo de HANDOFF §5.3), con la
+// Números de las 30 rutas vigentes de solo inventario (párrafo de HANDOFF §5.3), con la
 // marca «(intermunicipal)» donde la lleva: [{numero, intermunicipal}].
 export function numerosSoloInventario() {
   const texto = handoff();
@@ -47,7 +56,7 @@ export function numerosSoloInventario() {
   return [...parrafo.matchAll(/\b(\d{2,3}[A-Z]?)\b( \(intermunicipal\))?/g)].map((m) => ({
     numero: m[1],
     intermunicipal: Boolean(m[2]),
-  }));
+  })).filter(vigente);
 }
 
 // Cifras por sentido de HANDOFF §5.1: {numero: {ida: {paradas, duracion_min}, vuelta: {…}, horario}}.

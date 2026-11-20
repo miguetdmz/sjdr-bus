@@ -8,7 +8,9 @@
   HERRAMIENTA DE TRABAJO (D-34), no es parte de la app: Vite solo compila web/index.html,
   así que esta página no se publica. Muestra las propuestas de
   datos/investigacion/extremos-propuestas.json (OpenStreetMap) para que Miguel
-  apruebe, mueva o rechace cada una. Las respuestas quedan en localStorage.
+  apruebe, mueva o rechace cada una. Las respuestas se guardan en
+  datos/investigacion/extremos-decisiones.json mediante el servidor de desarrollo
+  (vite.config.mjs), así que no dependen del navegador.
 -->
 <style>
   :root {
@@ -83,7 +85,7 @@
 <body>
 <div class="leyenda">Herramienta de trabajo · las propuestas vienen de OpenStreetMap y quedan POR VERIFICAR EN CAMPO aunque las apruebes</div>
 <div class="aviso">
-  <span><b>Tus respuestas se guardan solas en esta computadora.</b> Al terminar, avísale a Claude en el chat.</span>
+  <span id="guardado"><b>Cargando tus respuestas…</b></span>
   <span class="ayuda">Aprobar = el punto está bien · arrastra el punto para moverlo · Rechazar = no es aquí</span>
 </div>
 <main>
@@ -115,20 +117,29 @@
   import L from 'leaflet';
   import propuestas from '../datos/investigacion/extremos-propuestas.json';
 
-  const CLAVE = 'sjdr-extremos-decisiones-v1';
   const ETIQUETA = { pendiente: 'pendiente', aprobado: 'aprobado', movido: 'movido', rechazado: 'rechazado', ubicado: 'ubicado por Miguel' };
   const lugares = propuestas.lugares;
   const redondeo = (n) => Number(n.toFixed(5));
   const el = (id) => document.getElementById(id);
 
-  function leer() {
-    try { return JSON.parse(localStorage.getItem(CLAVE)) ?? {}; } catch { return {}; }
+  // Las respuestas viven en un archivo del repositorio (19 nov 2026): el
+  // navegador solo las muestra. Así da igual si Miguel usa Chrome o el de Claude.
+  const URL_GUARDADO = '/__extremos-decisiones';
+  let decisiones = {};
+  function avisar(texto, error) {
+    el('guardado').innerHTML = `<b style="color:${error ? 'var(--rojo)' : 'var(--primario)'}">${texto}</b>`;
   }
-  let decisiones = leer();
+  let cola = Promise.resolve();
+  function escribir() {
+    const copia = JSON.stringify(decisiones);
+    cola = cola.then(() => fetch(URL_GUARDADO, { method: 'POST', body: copia }))
+      .then((r) => { if (!r.ok) throw new Error(r.status); avisar('Guardado en el archivo del proyecto ✓ · Al terminar, avísale a Claude en el chat.'); })
+      .catch(() => avisar('NO SE GUARDÓ: el servidor no responde. Avísale a Claude.', true));
+  }
   function guardar(nombre, d) {
     if (d) decisiones[nombre] = { ...d, fecha: new Date().toISOString() };
     else delete decisiones[nombre];
-    localStorage.setItem(CLAVE, JSON.stringify(decisiones));
+    escribir();
     pintarLista();
     pintarFicha();
   }
@@ -281,7 +292,7 @@
     const d = decisiones[l.nombre];
     if (d?.coordenada && d.candidato_osm !== l.candidatos[i].osm) {
       delete decisiones[l.nombre];
-      localStorage.setItem(CLAVE, JSON.stringify(decisiones));
+      escribir();
     }
     dibujar(); centrar(); pintarLista(); pintarFicha();
   }
@@ -324,7 +335,16 @@
     pintarFicha();
   });
 
-  elegir(0);
+  try {
+    const r = await fetch(URL_GUARDADO);
+    if (!r.ok) throw new Error(r.status);
+    decisiones = await r.json();
+    avisar('Tus respuestas se guardan solas en el archivo del proyecto. Al terminar, avísale a Claude en el chat.');
+  } catch {
+    avisar('No se pudieron leer tus respuestas: no respondas todavía y avísale a Claude.', true);
+  }
+  const primeroPendiente = lugares.findIndex((x) => estadoDe(x.nombre) === 'pendiente');
+  elegir(primeroPendiente >= 0 ? primeroPendiente : 0);
   window.addEventListener('resize', () => mapa.invalidateSize());
 </script>
 </body>

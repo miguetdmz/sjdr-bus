@@ -15,9 +15,9 @@
     "Los lugares sin candidato se quedan sin coordenada (no se completan con datos supuestos)."
   ],
   "resumen": {
-    "lugares": 27,
-    "con_candidato": 6,
-    "sin_candidato": 21
+    "lugares": 24,
+    "con_candidato": 5,
+    "sin_candidato": 19
   },
   "lugares": [
     {
@@ -354,15 +354,6 @@
       "descartados": []
     },
     {
-      "nombre": "PITSA",
-      "rutas": [
-        "031"
-      ],
-      "candidatos": [],
-      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
-      "descartados": []
-    },
-    {
       "nombre": "Praderas del Sol",
       "rutas": [
         "024"
@@ -405,53 +396,6 @@
       ],
       "candidatos": [],
       "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
-      "descartados": []
-    },
-    {
-      "nombre": "Valle Dorado II",
-      "rutas": [
-        "044"
-      ],
-      "candidatos": [],
-      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
-      "descartados": []
-    },
-    {
-      "nombre": "Visthá (CERESO)",
-      "rutas": [
-        "036"
-      ],
-      "candidatos": [
-        {
-          "osm": "way/1533273705",
-          "nombre": "C.E.R.E.S.O San Juan del Río",
-          "tipo": "prison",
-          "etiquetas": {
-            "amenity": "prison"
-          },
-          "centro": [
-            20.44323,
-            -99.97096
-          ],
-          "puntaje": 80,
-          "razon": "tipo coincide: penal (amenity=prison); el nombre dice CERESO"
-        },
-        {
-          "osm": "node/3094265967",
-          "nombre": "Visthá",
-          "tipo": "village",
-          "etiquetas": {
-            "place": "village"
-          },
-          "centro": [
-            20.44728,
-            -99.97487
-          ],
-          "puntaje": 65,
-          "razon": "un nombre contiene al otro"
-        }
-      ],
-      "nota": null,
       "descartados": []
     }
   ]

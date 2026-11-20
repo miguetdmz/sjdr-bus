@@ -547,3 +547,42 @@ Miguel).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** `datos/investigacion/extremos.json`, `extremos-propuestas.json`,
   página de confirmación, R-03.
+
+## D-36 · 19 nov 2026 · Rutas 031 y 044 dadas de baja: ya no existen · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, ~7:30 pm; conocimiento local):** las rutas
+  **031 «Pedregoso – PITSA»** y **044 «Valle Dorado II – Centro»** ya no
+  operan. Se quitan del GTFS-SJR y de todo lo que se deriva de él: quedan
+  **40 rutas (38 urbanas + 2 intermunicipales)**.
+- **Fuente:** Miguel (campo). La página oficial qrobus.gob.mx todavía las
+  listaba el 19 nov 2026 (R-01): la baja queda [sin verificar] con fuente
+  oficial.
+- **No contradice la regla 9:** la regla prohíbe ocultar una ruta por falta de
+  datos; aquí se quita porque no existe.
+- **Cómo:** lista de bajas en `scripts/lib/handoff.mjs`; una prueba falla si
+  031 o 044 reaparecen. Con ellas salen PITSA y Valle Dorado II de los extremos.
+- **Decidió:** Miguel, 19 nov 2026.
+- **Impacta:** `routes.txt`, fichas, datos de la app, matriz I-02, extremos,
+  regla 9 de CLAUDE.md (ahora dice 40).
+
+## D-37 · 19 nov 2026 · «Visthá (CERESO)» es «Visthá» · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, ~7:30 pm):** el nombre correcto es
+  **Visthá**; «Visthá (CERESO)» no es un lugar aparte. La ruta 036 queda con
+  origen «Visthá», el mismo lugar que la 032.
+- **Punto:** Miguel había movido el punto de «Visthá (CERESO)» a
+  [20.44656, -99.97522] (página de extremos, 19 nov 2026). Se conserva en
+  `extremos-decisiones.json` como su confirmación de Visthá, POR VERIFICAR EN
+  CAMPO; queda a ~80 m del punto de Nominatim que ya tenía Visthá.
+- **Cómo:** tabla `CORRECCIONES` de `scripts/extremos.mjs` con marca D-37.
+- **Decidió:** Miguel, 19 nov 2026.
+
+## D-38 · 19 nov 2026 · La página de extremos guarda en un archivo, con el mapa de siempre · VIGENTE
+- **Problema:** las respuestas se guardaban en el navegador (localStorage):
+  abiertas en otro navegador «faltaban todas». Se probó un artifact privado
+  con guardado en Claude, pero ahí no cargan las teselas de OpenStreetMap y a
+  Miguel el mapa de solo calles le dificultaba encontrar los lugares.
+- **Decisión:** la página `web/confirmar-extremos.html` (mapa normal de
+  OpenStreetMap) guarda cada respuesta en
+  `datos/investigacion/extremos-decisiones.json` a través del servidor de
+  desarrollo (`vite.config.mjs`, solo en desarrollo). Da igual el navegador; el
+  archivo es la única fuente. El artifact queda retirado.
+- **Decidió:** Miguel (pidió el mapa de antes), 19 nov 2026.

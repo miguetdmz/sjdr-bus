@@ -47,3 +47,8 @@ Formato por versión: fecha (hora de México) · qué cambió · fuente · autor
   errores conocidos: faltan `trips.txt` y `stop_times.txt` · fuente: ©
   colaboradores de OpenStreetMap (ODbL 1.0), consulta 18 nov 2026 · Claude,
   tarea N-08 (D-16).
+- 19 nov 2026 · Se quitan de `routes.txt` y de `datos/fichas/rutas.json` las
+  rutas 031 «Pedregoso – PITSA» (`U-031`) y 044 «Valle Dorado II – Centro»
+  (`U-044`): ya no existen. Quedan 40 rutas (38 urbanas y 2 intermunicipales) ·
+  fuente: Miguel, conocimiento local, 19 nov 2026 (D-36); la página oficial de
+  Qrobús aún las listaba ese día · Claude.

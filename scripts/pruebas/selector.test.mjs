@@ -13,9 +13,9 @@ const grupos = gruposSelector(rutas);
 const html = readFileSync(new URL('../../web/index.html', import.meta.url), 'utf8');
 const css = readFileSync(new URL('../../web/src/estilos.css', import.meta.url), 'utf8');
 
-test('selector: 42 opciones agrupadas 40 Urbanas + 2 Intermunicipales', () => {
+test('selector: 40 opciones agrupadas 38 Urbanas + 2 Intermunicipales', () => {
   assert.deepEqual(grupos.map((g) => g.etiqueta), ['Urbanas', 'Intermunicipales']);
-  assert.equal(grupos[0].opciones.length, 40);
+  assert.equal(grupos[0].opciones.length, 38);
   assert.equal(grupos[1].opciones.length, 2);
 });
 

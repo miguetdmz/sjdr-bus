@@ -10,7 +10,7 @@ const fichas = JSON.parse(readFileSync(new URL('../../datos/fichas/rutas.json', 
 const fuente = fichasPorSentido();
 const verificadas = fichas.filter((f) => f.grupo === 'verificada');
 
-test('sentidos: las 10 verificadas tienen ida y vuelta; las 32 de solo inventario, ninguna cifra', () => {
+test('sentidos: las 10 verificadas tienen ida y vuelta; las 30 de solo inventario, ninguna cifra', () => {
   assert.equal(verificadas.length, 10);
   assert.deepEqual(verificadas.map((f) => f.numero).sort(), Object.keys(fuente).sort());
   for (const f of verificadas) assert.deepEqual(Object.keys(f.sentidos ?? {}), ['ida', 'vuelta'], f.route_id);

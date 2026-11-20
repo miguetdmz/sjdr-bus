@@ -9,20 +9,20 @@ const routes = leerCSV(new URL('../../datos/gtfs-sjr/routes.txt', import.meta.ur
 const fichas = JSON.parse(readFileSync(new URL('../../datos/fichas/rutas.json', import.meta.url), 'utf8'));
 const datos = armarDatosApp();
 
-test('datos de la app: 42 rutas en el orden de routes.txt, con número y nombre', () => {
-  assert.equal(datos.rutas.length, 42);
+test('datos de la app: 40 rutas en el orden de routes.txt, con número y nombre', () => {
+  assert.equal(datos.rutas.length, 40);
   datos.rutas.forEach((r, i) => {
     assert.equal(r.route_id, routes[i].route_id, `fila ${i + 1}`);
     assert.equal(r.numero, routes[i].route_short_name, `fila ${i + 1}`);
     assert.equal(r.nombre, routes[i].route_long_name, `fila ${i + 1}`);
   });
-  assert.equal(datos.rutas.filter((r) => r.tipo === 'urbana').length, 40);
+  assert.equal(datos.rutas.filter((r) => r.tipo === 'urbana').length, 38);
   assert.equal(datos.rutas.filter((r) => r.tipo === 'intermunicipal').length, 2);
 });
 
-test('datos de la app: 10 verificadas y 32 de solo inventario', () => {
+test('datos de la app: 10 verificadas y 30 de solo inventario', () => {
   assert.equal(datos.rutas.filter((r) => r.grupo === 'verificada').length, 10);
-  assert.equal(datos.rutas.filter((r) => r.grupo === 'solo-inventario').length, 32);
+  assert.equal(datos.rutas.filter((r) => r.grupo === 'solo-inventario').length, 30);
 });
 
 test('datos de la app: ninguna cifra que no esté en las fichas', () => {
