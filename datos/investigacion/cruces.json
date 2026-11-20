@@ -24,8 +24,8 @@
   "cruces": 974,
   "UBICADO": 682,
   "UBICADO POR LUGAR": 3,
-  "REFERENCIA": 190,
-  "CALLES SIN CRUCE EN OSM": 54,
+  "REFERENCIA": 196,
+  "CALLES SIN CRUCE EN OSM": 48,
   "SIN UBICAR": 45,
   "con_correccion": 288
  },
@@ -39,8 +39,8 @@
    "conteo": {
     "UBICADO": 37,
     "UBICADO POR LUGAR": 1,
-    "REFERENCIA": 10,
-    "CALLES SIN CRUCE EN OSM": 2,
+    "REFERENCIA": 12,
+    "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 0
    },
    "cruces": [
@@ -112,9 +112,10 @@
      "texto": "AV. LOMAS DE SAN JUAN-CALLE SIERRA PARACAIMA",
      "calle": "AV. LOMAS DE SAN JUAN",
      "cruce_con": "CALLE SIERRA PARACAIMA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Lomas de San Juan",
-     "nota": "las dos calles existen en OSM («Avenida Lomas de San Juan», «Calle Sierra Paracaima») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Sierra Paracaima",
+     "nota": "no es cruce: «Calle Sierra Paracaima» es la lateral oriente (la lista la nombra de ida, hacia el norte) de «Avenida Lomas de San Juan» (corre paralela a ~50 m; Miguel, D-43). Confirma la calle, sin punto propio"
     },
     {
      "orden": 7,
@@ -597,9 +598,10 @@
      "texto": "AV. LOMAS DE SAN JUAN-SIERRA TEZONCO",
      "calle": "AV. LOMAS DE SAN JUAN",
      "cruce_con": "SIERRA TEZONCO",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Lomas de San Juan",
-     "nota": "las dos calles existen en OSM («Avenida Lomas de San Juan», «Calle Sierra Tezonco») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Sierra Tezonco",
+     "nota": "no es cruce: «Calle Sierra Tezonco» es la lateral poniente (la lista la nombra de vuelta, hacia el sur) de «Avenida Lomas de San Juan» (corre paralela a ~50 m; Miguel, D-43). Confirma la calle, sin punto propio"
     },
     {
      "orden": 47,
@@ -663,8 +665,8 @@
    "conteo": {
     "UBICADO": 58,
     "UBICADO POR LUGAR": 1,
-    "REFERENCIA": 10,
-    "CALLES SIN CRUCE EN OSM": 6,
+    "REFERENCIA": 12,
+    "CALLES SIN CRUCE EN OSM": 4,
     "SIN UBICAR": 7
    },
    "cruces": [
@@ -712,9 +714,10 @@
      "texto": "AV. LOMAS DE SAN JUAN-CALLE SIERRA PARACAIMA",
      "calle": "AV. LOMAS DE SAN JUAN",
      "cruce_con": "CALLE SIERRA PARACAIMA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Lomas de San Juan",
-     "nota": "las dos calles existen en OSM («Avenida Lomas de San Juan», «Calle Sierra Paracaima») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Sierra Paracaima",
+     "nota": "no es cruce: «Calle Sierra Paracaima» es la lateral oriente (la lista la nombra de ida, hacia el norte) de «Avenida Lomas de San Juan» (corre paralela a ~50 m; Miguel, D-43). Confirma la calle, sin punto propio"
     },
     {
      "orden": 5,
@@ -1575,9 +1578,10 @@
      "texto": "AV. LOMAS DE SAN JUAN-SIERRA TEZONCO",
      "calle": "AV. LOMAS DE SAN JUAN",
      "cruce_con": "SIERRA TEZONCO",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Lomas de San Juan",
-     "nota": "las dos calles existen en OSM («Avenida Lomas de San Juan», «Calle Sierra Tezonco») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Sierra Tezonco",
+     "nota": "no es cruce: «Calle Sierra Tezonco» es la lateral poniente (la lista la nombra de vuelta, hacia el sur) de «Avenida Lomas de San Juan» (corre paralela a ~50 m; Miguel, D-43). Confirma la calle, sin punto propio"
     },
     {
      "orden": 79,
@@ -1641,8 +1645,8 @@
    "conteo": {
     "UBICADO": 48,
     "UBICADO POR LUGAR": 1,
-    "REFERENCIA": 9,
-    "CALLES SIN CRUCE EN OSM": 3,
+    "REFERENCIA": 11,
+    "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -1753,9 +1757,10 @@
      "texto": "AV. LOMAS DE SAN JUAN-CALLE SIERRA PARACAIMA",
      "calle": "AV. LOMAS DE SAN JUAN",
      "cruce_con": "CALLE SIERRA PARACAIMA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Lomas de San Juan",
-     "nota": "las dos calles existen en OSM («Avenida Lomas de San Juan», «Calle Sierra Paracaima») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Sierra Paracaima",
+     "nota": "no es cruce: «Calle Sierra Paracaima» es la lateral oriente (la lista la nombra de ida, hacia el norte) de «Avenida Lomas de San Juan» (corre paralela a ~50 m; Miguel, D-43). Confirma la calle, sin punto propio"
     },
     {
      "orden": 10,
@@ -2209,9 +2214,10 @@
      "texto": "AV. LOMAS DE SAN JUAN-SIERRA TEZONCO",
      "calle": "AV. LOMAS DE SAN JUAN",
      "cruce_con": "SIERRA TEZONCO",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "REFERENCIA",
      "osm_calle": "Avenida Lomas de San Juan",
-     "nota": "las dos calles existen en OSM («Avenida Lomas de San Juan», «Calle Sierra Tezonco») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Sierra Tezonco",
+     "nota": "no es cruce: «Calle Sierra Tezonco» es la lateral poniente (la lista la nombra de vuelta, hacia el sur) de «Avenida Lomas de San Juan» (corre paralela a ~50 m; Miguel, D-43). Confirma la calle, sin punto propio"
     },
     {
      "orden": 48,

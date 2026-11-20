@@ -245,6 +245,23 @@ const aliasPorClave = new Map(Object.entries(ALIAS_MIGUEL).map(([k, v]) => [clav
 const CONTINUACION_MIGUEL = {
   'RIO MOCTEZUMA': 'Calle General Francisco Villa', // sigue 305 m hasta la Av. Central; Miguel, 20 nov 2026, 12:55 am
 };
+// Laterales confirmadas por Miguel: la lista nombra «AVENIDA-LATERAL», pero no
+// se cruzan; la lateral corre paralela a la avenida. Queda como REFERENCIA.
+// El lado sirve de pista para separar ida y vuelta (hallazgo c, regla 10).
+const LATERALES_MIGUEL = {
+  'Avenida Lomas de San Juan': { // Miguel, 20 nov 2026, 1:45 am
+    'Calle Sierra Paracaima': 'oriente (la lista la nombra de ida, hacia el norte)',
+    'Calle Sierra Tezonco': 'poniente (la lista la nombra de vuelta, hacia el sur)',
+  },
+};
+function lateralDe(A, B) {
+  const a = candidatosCalle(A)[0]?.calle.nombre, b = candidatosCalle(B)[0]?.calle.nombre;
+  for (const [via, lat] of [[a, b], [b, a]]) {
+    const lado = LATERALES_MIGUEL[via]?.[lat];
+    if (lado) return { via, lateral: lat, lado };
+  }
+  return null;
+}
 const contPorClave = new Map(Object.entries(CONTINUACION_MIGUEL).map(([k, v]) => [clave(k), v]));
 
 function candidatos(texto) {
@@ -558,6 +575,11 @@ function ubicar(pares, numero) {
     }
     if (pares[i].dudoso) {
       return { ...base, estado: 'SIN UBICAR', nota: 'el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR' };
+    }
+    const lat = lateralDe(A, B);
+    if (lat) {
+      return { ...base, estado: 'REFERENCIA', osm_calle: lat.via, osm_cruce: lat.lateral,
+        nota: `no es cruce: «${lat.lateral}» es la lateral ${lat.lado} de «${lat.via}» (corre paralela a ~50 m; Miguel, D-43). Confirma la calle, sin punto propio` };
     }
     const par = elegido[i];
     if (par) {

@@ -145,3 +145,13 @@ test('cruces: «Uruguay» de la 015B = Cerrada de Uruguay entre Veracruz y Av. F
   }
   assert.ok(!todos.some((c) => [c.osm_calle, c.osm_cruce].includes('Calle Uruguay')));
 });
+
+test('cruces: Sierra Paracaima y Sierra Tezonco son laterales de la Av. Lomas de San Juan (Miguel, D-43): referencia sin punto', () => {
+  const l = todos.filter((c) => /LOMAS DE SAN JUAN-(CALLE )?SIERRA (PARACAIMA|TEZONCO)/.test(c.texto));
+  assert.equal(l.length, 6);
+  for (const c of l) {
+    assert.equal(c.estado, 'REFERENCIA', `${c.ruta} #${c.orden}`);
+    assert.equal(c.lat, undefined);
+    assert.match(c.nota, /no es cruce: .* lateral (oriente|poniente)/);
+  }
+});

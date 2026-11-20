@@ -684,6 +684,7 @@ Miguel).
   | Jurica | Avenida Belisario Domínguez | Miguel, 20 nov 2026, 12:47 am |
   | Av. Río Moctezuma (al llegar a la Av. Central) | sigue como Calle General Francisco Villa (continuación, no reemplazo) | Miguel, 20 nov 2026, 12:55 am |
   | Sagitario (sobre la Av. Hidalgo, en el centro) | es un **negocio**, no una calle (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 1:00 am |
+  | Sierra Paracaima y Sierra Tezonco (con la Av. Lomas de San Juan) | **laterales** de la avenida, no cruces: Paracaima del lado oriente, Tezonco del poniente (REFERENCIA, sin punto) | Miguel, 20 nov 2026, 1:41 am |
   | Uruguay (ruta 015B, entre Veracruz y Av. Francia) | Cerrada de Uruguay (OSM la dibuja corta: queda a 31 m de Veracruz y 44 m de Av. Francia; tolerancia de 50 m solo para ella) | Miguel, 20 nov 2026, 1:39 am |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
   pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
@@ -742,6 +743,15 @@ Miguel).
   50 m y la evidencia de cada cruce dice la distancia real. Efecto: 8 cruces
   nuevos con punto, ninguno movido ni perdido. Total: 685 de 974 con punto
   (70 %), 190 referencias (20 %), 99 POR VERIFICAR (10 %).
+- **Laterales de Lomas de San Juan (20 nov 2026, 1:41 am):** en OSM, Sierra
+  Paracaima y Sierra Tezonco corren paralelas a la avenida unos 700 m, a ~50 m
+  (oriente y poniente); nunca la cruzan. Miguel confirmó que son sus laterales.
+  Tabla `LATERALES_MIGUEL`: el cruce queda como REFERENCIA, sin punto. **Pista
+  para el hallazgo c (regla 10):** la lista nombra Paracaima en el tramo de ida
+  (hacia el norte) y Tezonco en el de vuelta (hacia el sur), cada una a la
+  derecha del camión. Efecto: 6 cruces pasan de POR VERIFICAR a REFERENCIA;
+  ningún punto nuevo, movido ni perdido. Total: 685 de 974 con punto (70 %),
+  196 referencias (20 %), 93 POR VERIFICAR (10 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 
