@@ -161,12 +161,15 @@ puede, convertir la regla en una prueba automática.
      un comentario de `scripts/cruces.mjs` (decisión de Miguel sobre la
      23/023); el `date` corrido al recibir el mensaje decía 2:14 am. Se
      corrigió antes del commit 9cf286d.
-   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (20 nov 2026):
-   hook `.claude/hooks/hora-real.sh` (PostToolUse de Edit y Write) que, si el
-   texto nuevo trae una hora («H:MM am/pm») que no estaba antes, le devuelve a
-   Claude la hora real de México y la hora escrita, para que la diferencia se
-   vea en el momento. Prueba: una edición con una hora inventada hace que el
-   hook la reporte; una sin horas, no. Se construye con el sí de Miguel.
+   Ocurrencias: 3 · Estado: **PROMOVIDA → hook `hora-real`** (20 nov 2026,
+   con el sí de Miguel): `.claude/hooks/hora-real.mjs`, conectado en
+   `.claude/settings.json` (PostToolUse de Edit, Write, MultiEdit y Bash). Si
+   el texto nuevo trae una hora («2:13 am», «1:28 y 1:43 am») que no estaba
+   antes, le devuelve a Claude la hora real de México y cuántos minutos
+   difiere; una hora posterior a la real se marca fuerte. Es aviso, no bloqueo.
+   Prueba: `scripts/pruebas/hora-real.test.mjs` (atrapa el caso real de la 3.ª
+   ocurrencia). Verde en la Mac, en UTC y sin archivos ignorados; en GitHub
+   Actions se confirma al subir (lección 5).
 8. **Una página descargada traía una llave de sesión (19 nov 2026).** En R-01
    la página pública de rutas se guardó primero en `datos/cache/qrobus/`, dentro
    del repositorio, y traía una llave de sesión (`csrf-token`). Se detectó a
