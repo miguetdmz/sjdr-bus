@@ -15,7 +15,8 @@
   "UBICADO: las dos calles del cruce existen en OSM y se tocan (≤ 30 m); el punto es donde se tocan. Las abreviaturas y erratas corregidas se anotan en «correcciones» y solo se aceptan con esa prueba.",
   "UBICADO POR LUGAR: el cruce es un lugar que OSM tiene junto a la calle.",
   "REFERENCIA: la calle existe en OSM y el cruce es un negocio que OSM no tiene; confirma la calle por donde pasa el camión, sin punto propio.",
-  "CALLES SIN CRUCE EN OSM / SIN UBICAR: POR VERIFICAR.",
+  "APROXIMADO (D-45): sin cruce exacto en OSM; el punto es la mejor aproximación de hoy (método en «metodo»), ESTIMADO y de nivel C. Se verifica con el uso o en campo.",
+  "CALLES SIN CRUCE EN OSM / SIN UBICAR: POR VERIFICAR; la nota dice por qué ningún método de D-45 lo alcanzó.",
   "Orden = el de la lista oficial. El sentido aún no se asigna (hallazgo c, regla 10).",
   "Todo punto es ESTIMADO a partir de OSM, no medido en campo."
  ],
@@ -24,9 +25,10 @@
   "cruces": 936,
   "UBICADO": 690,
   "UBICADO POR LUGAR": 3,
+  "APROXIMADO": 26,
   "REFERENCIA": 190,
-  "CALLES SIN CRUCE EN OSM": 38,
-  "SIN UBICAR": 15,
+  "CALLES SIN CRUCE EN OSM": 14,
+  "SIN UBICAR": 13,
   "con_correccion": 293
  },
  "rutas": [
@@ -39,6 +41,7 @@
    "conteo": {
     "UBICADO": 37,
     "UBICADO POR LUGAR": 1,
+    "APROXIMADO": 0,
     "REFERENCIA": 12,
     "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 0
@@ -665,8 +668,9 @@
    "conteo": {
     "UBICADO": 63,
     "UBICADO POR LUGAR": 1,
+    "APROXIMADO": 1,
     "REFERENCIA": 12,
-    "CALLES SIN CRUCE EN OSM": 3,
+    "CALLES SIN CRUCE EN OSM": 2,
     "SIN UBICAR": 3
    },
    "cruces": [
@@ -1079,7 +1083,7 @@
      "calle": "CARRETERA QUERÉTARO 300",
      "cruce_con": "SECRETARIA DE FINANZAS",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): ninguna de las dos calles está en OSM"
     },
     {
      "orden": 34,
@@ -1088,7 +1092,7 @@
      "cruce_con": "LÁZARO CÁRDENAS",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Amealco",
-     "nota": "las dos calles existen en OSM («Amealco», «Avenida Lázaro Cárdenas») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Amealco», «Avenida Lázaro Cárdenas») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
     },
     {
      "orden": 35,
@@ -1238,7 +1242,7 @@
      "cruce_con": "CHABACANO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida La Palma",
-     "nota": "las dos calles existen en OSM («Avenida La Palma», «Calle Chabacano») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida La Palma», «Calle Chabacano») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
     },
     {
      "orden": 48,
@@ -1246,7 +1250,7 @@
      "calle": "CARRETERA QUERÉTARO 300",
      "cruce_con": "ANTIGUO",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
     },
     {
      "orden": 49,
@@ -1254,7 +1258,7 @@
      "calle": "CAMINO A OJO DE AGUA A. AMEALCO",
      "cruce_con": "LÁZARO CÁRDENAS",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
     },
     {
      "orden": 50,
@@ -1312,9 +1316,16 @@
      "texto": "C. CORREGIDORA-SAN JOSE",
      "calle": "C. CORREGIDORA",
      "cruce_con": "SAN JOSE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Avenida Corregidora",
-     "nota": "las dos calles existen en OSM («Avenida Corregidora», «Calle San José») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "APROXIMADO",
+     "lat": 20.38964,
+     "lon": -100.0013,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "entre vecinos",
+     "osm_calle": "Calle Corregidora",
+     "evidencia": "punto de «Calle Corregidora» más cercano (1 m) a la mitad entre los cruces ubicados #54 y #56",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 56,
@@ -1667,8 +1678,9 @@
    "conteo": {
     "UBICADO": 48,
     "UBICADO POR LUGAR": 1,
+    "APROXIMADO": 1,
     "REFERENCIA": 11,
-    "CALLES SIN CRUCE EN OSM": 1,
+    "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -2179,9 +2191,17 @@
      "texto": "RÍO SAN JUAN-ANDADOR RUBÍ",
      "calle": "RÍO SAN JUAN",
      "cruce_con": "ANDADOR RUBÍ",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.3857,
+     "lon": -99.97147,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "cercanía",
      "osm_calle": "Avenida Río San Juan",
-     "nota": "las dos calles existen en OSM («Avenida Río San Juan», «Calle Rubi») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Rubi",
+     "evidencia": "«Avenida Río San Juan» y «Calle Rubi» no se tocan en OSM; pasan a 30 m: punto de la primera más cercano a la segunda",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 43,
@@ -2379,7 +2399,7 @@
      "calle": "49 NORTE. 4",
      "cruce_con": "NORTETE 5 OESTE",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): ninguna de las dos calles está en OSM"
     },
     {
      "orden": 60,
@@ -2438,6 +2458,7 @@
    "conteo": {
     "UBICADO": 29,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 0,
     "REFERENCIA": 8,
     "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 0
@@ -2938,9 +2959,10 @@
    "conteo": {
     "UBICADO": 29,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 4,
     "REFERENCIA": 11,
-    "CALLES SIN CRUCE EN OSM": 3,
-    "SIN UBICAR": 1
+    "CALLES SIN CRUCE EN OSM": 0,
+    "SIN UBICAR": 0
    },
    "cruces": [
     {
@@ -3080,27 +3102,48 @@
      "texto": "CALLE CONSTITUYENTES-AV. 9 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "AV. 9 PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.41357,
+     "lon": -99.98376,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle 9») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«AV. 9 PONIENTE» no está en OSM junto a «Avenida Constituyentes»; extendido un número más allá de su cruce con la calle 8, con el paso entre las calles 4 y 8, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 13,
      "texto": "CALLE CONSTITUYENTES-CALLE 5 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "CALLE 5 PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.4042,
+     "lon": -99.98645,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 5») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«CALLE 5 PONIENTE» no está en OSM junto a «Avenida Constituyentes»; interpolado por número entre sus cruces con las calles 4 y 8, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 14,
      "texto": "C. COSTITUYENTES-CALLE TRES PTE.",
      "calle": "C. COSTITUYENTES",
      "cruce_con": "CALLE TRES PTE.",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.39993,
+     "lon": -99.98724,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 3») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«CALLE TRES PTE.» no está en OSM junto a «Avenida Constituyentes»; interpolado por número entre sus cruces con las calles 1 y 4, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 15,
@@ -3391,8 +3434,16 @@
      "texto": "CARR. MÉXICO 120-AV. 8 ORIENTE",
      "calle": "CARR. MÉXICO 120",
      "cruce_con": "AV. 8 ORIENTE",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "APROXIMADO",
+     "lat": 20.41111,
+     "lon": -99.98159,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "entre vecinos",
+     "osm_calle": "Avenida Ocho Oriente",
+     "evidencia": "punto de «Avenida Ocho Oriente» más cercano (204 m) a la mitad entre los cruces ubicados #36 y #40",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "SIN UBICAR"
     },
     {
      "orden": 39,
@@ -3482,8 +3533,9 @@
    "conteo": {
     "UBICADO": 56,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 1,
     "REFERENCIA": 22,
-    "CALLES SIN CRUCE EN OSM": 2,
+    "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 0
    },
    "cruces": [
@@ -3506,7 +3558,7 @@
      "cruce_con": "CALLE 3 LAGUNAS",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Tres Lagunas») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Tres Lagunas») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
     },
     {
      "orden": 3,
@@ -4417,9 +4469,16 @@
      "texto": "EZEQUIEL MONTES-RIO VERDE",
      "calle": "EZEQUIEL MONTES",
      "cruce_con": "RIO VERDE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.38216,
+     "lon": -99.94091,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "entre vecinos",
      "osm_calle": "Avenida Ezequiel Montes",
-     "nota": "las dos calles existen en OSM («Avenida Ezequiel Montes», «Calle Río Verde») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "punto de «Avenida Ezequiel Montes» más cercano (59 m) a la mitad entre los cruces ubicados #76 y #78",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 78,
@@ -4468,8 +4527,9 @@
    "conteo": {
     "UBICADO": 38,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 1,
     "REFERENCIA": 4,
-    "CALLES SIN CRUCE EN OSM": 2,
+    "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -4492,7 +4552,7 @@
      "cruce_con": "CALLE 3 LAGUNAS",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Central",
-     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Tres Lagunas») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Tres Lagunas») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
     },
     {
      "orden": 3,
@@ -4532,9 +4592,17 @@
      "texto": "AV. UNIVERSIDAD-AV. LA ESMERALDA",
      "calle": "AV. UNIVERSIDAD",
      "cruce_con": "AV. LA ESMERALDA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.38847,
+     "lon": -99.95152,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "cercanía",
      "osm_calle": "Avenida Universidad",
-     "nota": "las dos calles existen en OSM («Avenida Universidad», «Avenida Esmeralda») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Esmeralda",
+     "evidencia": "«Avenida Universidad» y «Avenida Esmeralda» no se tocan en OSM; pasan a 234 m: punto de la primera más cercano a la segunda",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 7,
@@ -4954,7 +5022,7 @@
      "calle": "AV. UNIVERSIDAD ANTONIO LA TOTA CARBAJAL AV. UNIVERSIDAD",
      "cruce_con": "UNIDAD DEPORTIVA MAQUÍO",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): ninguna de las dos calles está en OSM"
     },
     {
      "orden": 40,
@@ -5051,8 +5119,9 @@
    "conteo": {
     "UBICADO": 54,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 1,
     "REFERENCIA": 5,
-    "CALLES SIN CRUCE EN OSM": 1,
+    "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -5109,9 +5178,17 @@
      "texto": "AV. UNIVERSIDAD-AV. LA ESMERALDA",
      "calle": "AV. UNIVERSIDAD",
      "cruce_con": "AV. LA ESMERALDA",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.38847,
+     "lon": -99.95152,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "cercanía",
      "osm_calle": "Avenida Universidad",
-     "nota": "las dos calles existen en OSM («Avenida Universidad», «Avenida Esmeralda») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Esmeralda",
+     "evidencia": "«Avenida Universidad» y «Avenida Esmeralda» no se tocan en OSM; pasan a 234 m: punto de la primera más cercano a la segunda",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 6,
@@ -5693,7 +5770,7 @@
      "calle": "AV. UNIVERSIDAD ANTONIO LA TOTA CARBAJAL AV. UNIVERSIDAD",
      "cruce_con": "UNIDAD DEPORTIVA MAQUÍO",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): ninguna de las dos calles está en OSM"
     },
     {
      "orden": 51,
@@ -5850,6 +5927,7 @@
    "conteo": {
     "UBICADO": 32,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 0,
     "REFERENCIA": 10,
     "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 0
@@ -5886,7 +5964,7 @@
      "cruce_con": "PASEO DEL MOLINO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Miguel Hidalgo",
-     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Paseo del Molino») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Paseo del Molino») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
     },
     {
      "orden": 4,
@@ -6407,6 +6485,7 @@
    "conteo": {
     "UBICADO": 29,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 0,
     "REFERENCIA": 7,
     "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 2
@@ -6547,7 +6626,7 @@
      "calle": "JURICA",
      "cruce_con": "SAN JUAN",
      "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR. Sin aproximación (D-45): el corte del texto es dudoso"
     },
     {
      "orden": 13,
@@ -6555,7 +6634,7 @@
      "calle": "DEL RÍO",
      "cruce_con": "MERCADO JUÁREZ",
      "estado": "SIN UBICAR",
-     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
+     "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR. Sin aproximación (D-45): el corte del texto es dudoso"
     },
     {
      "orden": 14,
@@ -6878,6 +6957,7 @@
    "conteo": {
     "UBICADO": 22,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 0,
     "REFERENCIA": 12,
     "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 1
@@ -6889,7 +6969,7 @@
      "calle": "19 DEL ABEDUL",
      "cruce_con": "DE LA LAJA",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
     },
     {
      "orden": 2,
@@ -7307,6 +7387,7 @@
    "conteo": {
     "UBICADO": 54,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 0,
     "REFERENCIA": 4,
     "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 0
@@ -8104,8 +8185,9 @@
    "conteo": {
     "UBICADO": 43,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 1,
     "REFERENCIA": 19,
-    "CALLES SIN CRUCE EN OSM": 2,
+    "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 0
    },
    "cruces": [
@@ -8140,7 +8222,7 @@
      "cruce_con": "PASEO DEL MOLINO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Miguel Hidalgo",
-     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Paseo del Molino») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Miguel Hidalgo», «Calle Paseo del Molino») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
     },
     {
      "orden": 4,
@@ -8538,9 +8620,16 @@
      "texto": "C. CORREGIDORA-SAN JOSE",
      "calle": "C. CORREGIDORA",
      "cruce_con": "SAN JOSE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Avenida Corregidora",
-     "nota": "las dos calles existen en OSM («Avenida Corregidora», «Calle San José») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "APROXIMADO",
+     "lat": 20.38964,
+     "lon": -100.0013,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "entre vecinos",
+     "osm_calle": "Calle Corregidora",
+     "evidencia": "punto de «Calle Corregidora» más cercano (1 m) a la mitad entre los cruces ubicados #35 y #37",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 37,
@@ -8893,8 +8982,9 @@
    "conteo": {
     "UBICADO": 30,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 5,
     "REFERENCIA": 12,
-    "CALLES SIN CRUCE EN OSM": 10,
+    "CALLES SIN CRUCE EN OSM": 5,
     "SIN UBICAR": 2
    },
    "cruces": [
@@ -8938,7 +9028,7 @@
      "cruce_con": "VICENTE GUERRERO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Venustiano Carranza",
-     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Calle General Vicente Guerrero») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Calle General Vicente Guerrero») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
     },
     {
      "orden": 5,
@@ -8947,7 +9037,7 @@
      "cruce_con": "SALINAS",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Calle Cerezo",
-     "nota": "las dos calles existen en OSM («Calle Cerezo», «Calle Salinas») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Calle Cerezo», «Calle Salinas») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
     },
     {
      "orden": 6,
@@ -8956,7 +9046,7 @@
      "cruce_con": "CEREZO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Calle Hacienda San Nicolás",
-     "nota": "las dos calles existen en OSM («Calle Hacienda San Nicolás», «Calle Cerezo») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Calle Hacienda San Nicolás», «Calle Cerezo») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
     },
     {
      "orden": 7,
@@ -8990,27 +9080,49 @@
      "texto": "CALLE CONSTITUYENTES-AV. 9 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "AV. 9 PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.41357,
+     "lon": -99.98376,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle 9») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«AV. 9 PONIENTE» no está en OSM junto a «Avenida Constituyentes»; extendido un número más allá de su cruce con la calle 8, con el paso entre las calles 4 y 8, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 11,
      "texto": "CAM. AL RASTRO-C. CEDRO",
      "calle": "CAM. AL RASTRO",
      "cruce_con": "C. CEDRO",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.41424,
+     "lon": -99.99109,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "cercanía",
      "osm_calle": "Camino al Rastro",
-     "nota": "las dos calles existen en OSM («Camino al Rastro», «Avenida Cedro») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Cedro",
+     "evidencia": "«Camino al Rastro» y «Calle Cedro» no se tocan en OSM; pasan a 176 m: punto de la primera más cercano a la segunda",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 12,
      "texto": "CALLE CONSTITUYENTES-CALLE 5 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "CALLE 5 PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.4042,
+     "lon": -99.98645,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 5») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«CALLE 5 PONIENTE» no está en OSM junto a «Avenida Constituyentes»; interpolado por número entre sus cruces con las calles 4 y 8, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 13,
@@ -9406,9 +9518,16 @@
      "texto": "CONSTITUYENTES-CALLE TRES PONIENTE",
      "calle": "CONSTITUYENTES",
      "cruce_con": "CALLE TRES PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.39993,
+     "lon": -99.98724,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 3») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«CALLE TRES PONIENTE» no está en OSM junto a «Avenida Constituyentes»; interpolado por número entre sus cruces con las calles 1 y 4, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 43,
@@ -9427,9 +9546,16 @@
      "texto": "CALLE CONSTITUYENTES-CALLE 5 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "CALLE 5 PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.4042,
+     "lon": -99.98645,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 5») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«CALLE 5 PONIENTE» no está en OSM junto a «Avenida Constituyentes»; interpolado por número entre sus cruces con las calles 4 y 8, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 45,
@@ -9485,7 +9611,7 @@
      "calle": "MÉXICO 120",
      "cruce_con": "BENITO JUÁREZ",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
     },
     {
      "orden": 50,
@@ -9512,7 +9638,7 @@
      "cruce_con": "JOSE BALLESTEROS LOPÉZ",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Calle Cerezo",
-     "nota": "las dos calles existen en OSM («Calle Cerezo», «Calle José Ballesteros López») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Calle Cerezo», «Calle José Ballesteros López») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
     },
     {
      "orden": 53,
@@ -9521,7 +9647,7 @@
      "cruce_con": "MIGUEL HIDALGO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Venustiano Carranza",
-     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Avenida Miguel Hidalgo») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Venustiano Carranza», «Avenida Miguel Hidalgo») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
     },
     {
      "orden": 54,
@@ -9529,7 +9655,7 @@
      "calle": "CAR. ESTATAL 122",
      "cruce_con": "FRANCISCO VILLA",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
     }
    ]
   },
@@ -9557,6 +9683,7 @@
    "conteo": {
     "UBICADO": 37,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 0,
     "REFERENCIA": 7,
     "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 0
@@ -10147,9 +10274,10 @@
    "conteo": {
     "UBICADO": 20,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 3,
     "REFERENCIA": 3,
-    "CALLES SIN CRUCE EN OSM": 2,
-    "SIN UBICAR": 2
+    "CALLES SIN CRUCE EN OSM": 0,
+    "SIN UBICAR": 1
    },
    "cruces": [
     {
@@ -10169,9 +10297,17 @@
      "texto": "MANANTIALES DE AGUA AZUL-MANTIALES DE TLACOTE",
      "calle": "MANANTIALES DE AGUA AZUL",
      "cruce_con": "MANTIALES DE TLACOTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.41348,
+     "lon": -99.99961,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "cercanía",
      "osm_calle": "Calle Manantiales de Agua Azul",
-     "nota": "las dos calles existen en OSM («Calle Manantiales de Agua Azul», «Calle Manantiales de Tlacote») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Manantiales de Tlacote",
+     "evidencia": "«Calle Manantiales de Agua Azul» y «Calle Manantiales de Tlacote» no se tocan en OSM; pasan a 116 m: punto de la primera más cercano a la segunda",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 3,
@@ -10179,16 +10315,23 @@
      "calle": "MANTIAL DE MANTIALES",
      "cruce_con": "DE AGUA RICA MANANTIALES",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
     },
     {
      "orden": 4,
      "texto": "CAMINO VIEJO-FRESA",
      "calle": "CAMINO VIEJO",
      "cruce_con": "FRESA",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Cerro Viejo",
-     "nota": "las dos calles existen en OSM («Calle Cerro Viejo», «Calle Fresa») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "APROXIMADO",
+     "lat": 20.41433,
+     "lon": -99.99909,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "entre vecinos",
+     "osm_calle": "Calle Fresa",
+     "evidencia": "punto de «Calle Fresa» más cercano (101 m) a la mitad entre los cruces ubicados #1 y #5",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 5,
@@ -10402,8 +10545,16 @@
      "texto": "DE LA VIDA-AV. DEL FERROCARRIL",
      "calle": "DE LA VIDA",
      "cruce_con": "AV. DEL FERROCARRIL",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "estado": "APROXIMADO",
+     "lat": 20.39912,
+     "lon": -100.00255,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "entre vecinos",
+     "osm_calle": "Calle del Ferrocarril",
+     "evidencia": "punto de «Calle del Ferrocarril» más cercano (41 m) a la mitad entre los cruces ubicados #20 y #23",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "SIN UBICAR"
     },
     {
      "orden": 22,
@@ -10495,8 +10646,9 @@
    "conteo": {
     "UBICADO": 33,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 1,
     "REFERENCIA": 19,
-    "CALLES SIN CRUCE EN OSM": 4,
+    "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 0
    },
    "cruces": [
@@ -10924,7 +11076,7 @@
      "cruce_con": "SAN JUAN DEL RÍO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Calle Manantial de Maniantales",
-     "nota": "las dos calles existen en OSM («Calle Manantial de Maniantales», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Calle Manantial de Maniantales», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
     },
     {
      "orden": 37,
@@ -10942,7 +11094,7 @@
      "cruce_con": "MANTIALES DE TLACOTE",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Calle Manantiales de Agua Azul",
-     "nota": "las dos calles existen en OSM («Calle Manantiales de Agua Azul», «Calle Manantiales de Tlacote») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Calle Manantiales de Agua Azul», «Calle Manantiales de Tlacote») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
     },
     {
      "orden": 39,
@@ -11134,7 +11286,7 @@
      "cruce_con": "SAN JUAN DEL RÍO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Calle Manantial de Maniantales",
-     "nota": "las dos calles existen en OSM («Calle Manantial de Maniantales», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Calle Manantial de Maniantales», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
     },
     {
      "orden": 55,
@@ -11150,9 +11302,17 @@
      "texto": "MANANTIALES DE AGUA AZUL-MANTIALES DE TLACOTE",
      "calle": "MANANTIALES DE AGUA AZUL",
      "cruce_con": "MANTIALES DE TLACOTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.41348,
+     "lon": -99.99961,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "cercanía",
      "osm_calle": "Calle Manantiales de Agua Azul",
-     "nota": "las dos calles existen en OSM («Calle Manantiales de Agua Azul», «Calle Manantiales de Tlacote») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Manantiales de Tlacote",
+     "evidencia": "«Calle Manantiales de Agua Azul» y «Calle Manantiales de Tlacote» no se tocan en OSM; pasan a 116 m: punto de la primera más cercano a la segunda",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     }
    ]
   },
@@ -11165,8 +11325,9 @@
    "conteo": {
     "UBICADO": 36,
     "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 7,
     "REFERENCIA": 12,
-    "CALLES SIN CRUCE EN OSM": 7,
+    "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -11304,18 +11465,33 @@
      "texto": "CALLE CONSTITUYENTES-AV. 9 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "AV. 9 PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.41357,
+     "lon": -99.98376,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle 9») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«AV. 9 PONIENTE» no está en OSM junto a «Avenida Constituyentes»; extendido un número más allá de su cruce con la calle 8, con el paso entre las calles 4 y 8, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 13,
      "texto": "CAM. AL RASTRO-C. CEDRO",
      "calle": "CAM. AL RASTRO",
      "cruce_con": "C. CEDRO",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.41424,
+     "lon": -99.99109,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "cercanía",
      "osm_calle": "Camino al Rastro",
-     "nota": "las dos calles existen en OSM («Camino al Rastro», «Avenida Cedro») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Calle Cedro",
+     "evidencia": "«Camino al Rastro» y «Calle Cedro» no se tocan en OSM; pasan a 176 m: punto de la primera más cercano a la segunda",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 14,
@@ -11346,18 +11522,32 @@
      "texto": "CALLE CONSTITUYENTES-CALLE 5 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "CALLE 5 PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.4042,
+     "lon": -99.98645,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 5») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«CALLE 5 PONIENTE» no está en OSM junto a «Avenida Constituyentes»; interpolado por número entre sus cruces con las calles 4 y 8, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 17,
      "texto": "C. COSTITUYENTES-CALLE TRES PTE.",
      "calle": "C. COSTITUYENTES",
      "cruce_con": "CALLE TRES PTE.",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.39993,
+     "lon": -99.98724,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 3») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«CALLE TRES PTE.» no está en OSM junto a «Avenida Constituyentes»; interpolado por número entre sus cruces con las calles 1 y 4, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 18,
@@ -11620,9 +11810,16 @@
      "texto": "C. CORREGIDORA-SAN JOSE",
      "calle": "C. CORREGIDORA",
      "cruce_con": "SAN JOSE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Avenida Corregidora",
-     "nota": "las dos calles existen en OSM («Avenida Corregidora», «Calle San José») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "APROXIMADO",
+     "lat": 20.38964,
+     "lon": -100.0013,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "entre vecinos",
+     "osm_calle": "Calle Corregidora",
+     "evidencia": "punto de «Calle Corregidora» más cercano (1 m) a la mitad entre los cruces ubicados #38 y #40",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 40,
@@ -11713,9 +11910,16 @@
      "texto": "CONSTITUYENTES-CALLE TRES PONIENTE",
      "calle": "CONSTITUYENTES",
      "cruce_con": "CALLE TRES PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.39993,
+     "lon": -99.98724,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 3») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«CALLE TRES PONIENTE» no está en OSM junto a «Avenida Constituyentes»; interpolado por número entre sus cruces con las calles 1 y 4, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 48,
@@ -11734,9 +11938,16 @@
      "texto": "CALLE CONSTITUYENTES-CALLE 5 PONIENTE",
      "calle": "CALLE CONSTITUYENTES",
      "cruce_con": "CALLE 5 PONIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "APROXIMADO",
+     "lat": 20.4042,
+     "lon": -99.98645,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "numeración",
      "osm_calle": "Avenida Constituyentes",
-     "nota": "las dos calles existen en OSM («Avenida Constituyentes», «Calle Norte 5») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "evidencia": "«CALLE 5 PONIENTE» no está en OSM junto a «Avenida Constituyentes»; interpolado por número entre sus cruces con las calles 4 y 8, ya ubicados",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
     },
     {
      "orden": 50,
@@ -11744,7 +11955,7 @@
      "calle": "EPIGMENIO GONZÁLEZ PLAZA LOS OLIVOS",
      "cruce_con": "DE OLVERA",
      "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
     },
     {
      "orden": 51,

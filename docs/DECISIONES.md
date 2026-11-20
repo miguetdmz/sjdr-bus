@@ -946,3 +946,63 @@ Miguel).
 - **Decidió:** Miguel, 20 nov 2026, 12:27 am («Sí, apruebo D-44»).
 - **Ajuste al aplicarla:** la rama del turno se sube al crearla (ver punto 2).
 - **Prueba:** `scripts/pruebas/relevo.test.mjs` (formato de `docs/RELEVO.md`).
+
+## D-45 · 20 nov 2026 · Cruces APROXIMADOS: lo más cercano hoy, verificado con el uso · VIGENTE
+- **Problema:** con la regla «no se interpola» (D-41), 53 de 936 cruces
+  quedaban POR VERIFICAR, sin punto. Miguel quiere el menor número de POR
+  VERIFICAR: hoy, la mejor aproximación; con el uso de la app, la verificación.
+- **Decisión (Miguel, 20 nov 2026, 8:03 am: «Sí, apruebo D-45»):** estado
+  nuevo **APROXIMADO**. Modifica D-41 solo en esto: un cruce sin evidencia
+  exacta sí lleva punto si un método de la lista lo calcula con datos de OSM.
+  1. El punto lleva etiqueta **ESTIMADO**, nivel de precisión **C** (HANDOFF
+     §11.4: un tramo C nunca se dibuja como línea continua) y el **método** con
+     que se calculó. Nunca se presenta como verificado.
+  2. Métodos permitidos, en este orden:
+     - **cercanía:** las dos calles existen en OSM y no se tocan, pero pasan a
+       ≤ 300 m una de otra; el punto es el de la calle por donde va el camión
+       más cercano a la otra.
+     - **numeración:** la calle de cruce es numerada («Calle 5 Poniente») y la
+       avenida ya tiene ubicados cruces con otras numeradas; el punto se
+       interpola por número sobre la avenida (o se extiende un solo número más
+       allá del último conocido).
+     - **entre vecinos:** la calle existe en OSM; el punto es el de esa calle
+       más cercano a la mitad entre los cruces ubicados de antes y de después,
+       si queda a ≤ 300 m de esa mitad.
+     Todo punto aproximado pasa también el salto máximo entre cruces
+     ubicados (3 km + 300 m por cruce sin ubicar en medio).
+  3. Se verifica con el uso: cuando alguien lo confirme o corrija (canal de
+     reporte de D-41 o visita de campo), pasa a VERIFICADO.
+  4. POR VERIFICAR queda solo para lo que ningún método alcanza.
+  5. **Google Maps no se usa como fuente** ni para «ver y pasar a mano»: los
+     datos salen con licencia ODbL y Google no permite copiar sus mapas.
+- **Criterio de aceptación (medible):** (a) ningún cruce APROXIMADO sin
+  `metodo`, `precision: "C"` y `etiqueta: "ESTIMADO"`; (b) ningún punto
+  aproximado a más del salto máximo de sus vecinos ubicados; (c) ningún punto
+  UBICADO cambia; (d) POR VERIFICAR baja de 53 y cada uno que quede dice por
+  qué no se pudo aproximar.
+- **Impacta:** R-03, `scripts/cruces.mjs`, `datos/investigacion/cruces.json`,
+  B5 (canal de reporte).
+- **Aplicada (20 nov 2026, 8:08 am):** paso `aproximarTodo` de
+  `scripts/cruces.mjs`. Además de los tres métodos, dos candados que salieron
+  de revisar cada punto: (1) **sin ir y regresar**: con vecinos cercanos en la
+  lista (≤ 3 cruces sin ubicar en medio), pasar por el punto no alarga más de
+  300 m el camino entre ellos; Corregidora × San José caía 300 m más allá de
+  Matamoros y ahora queda entre Zaragoza y Matamoros. (2) **la misma calle que
+  el vecino**: «LA PALMA» después de cuatro cruces sobre la Avenida La Palma no
+  puede ser la «Avenida de las Palmas» (queda POR VERIFICAR). Y un cuarto
+  método, **mismo texto** (lección 3): si otra ruta ya tiene punto para ese
+  mismo texto y el salto cuadra, se usa ese punto. «Entre vecinos» solo con ≤ 3
+  cruces sin ubicar en medio.
+- **Efecto:** 26 cruces APROXIMADOS (12 por numeración: Constituyentes con la
+  3, 5 y 9 Poniente; 7 por cercanía; 7 entre vecinos). Ningún UBICADO cambió
+  (690). Total: 693 con punto exacto (74 %), 26 aproximados (3 %), 190
+  referencias (20 %), **27 POR VERIFICAR (3 %; antes 53)**, cada uno con la
+  razón en su nota. Los que quedan: calles que no están en OSM (Carretera
+  Querétaro 300, «49 Norte. 4», La Tota Carbajal – Maquío), cortes dudosos
+  (022, Jurica – San Juan del Río), vecinos demasiado lejos en la lista (032,
+  tramo de la Federal 120) y calles de OSM lejos de sus vecinos (Paseo del
+  Molino de la 016 y la 030, en otra colonia; 046 #38, que salta 4 km: pista
+  para el hallazgo c).
+- **Falta:** la app todavía no lee `cruces.json`; la etiqueta ESTIMADO y el
+  trazo de nivel C en pantalla se cumplen al construir R-04/R-05.
+- **Prueba:** `scripts/pruebas/cruces.test.mjs`, «APROXIMADO (Miguel, D-45)».

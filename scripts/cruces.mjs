@@ -707,8 +707,156 @@ function ubicar(pares, numero) {
   });
 }
 
+// ---------- D-45: cruces APROXIMADOS ----------
+// Lo que no tiene cruce exacto en OSM lleva hoy la mejor aproximación, con
+// etiqueta ESTIMADO, nivel C y el método; se verifica con el uso (Miguel, D-45,
+// 20 nov 2026). Nunca toca un cruce UBICADO.
+const CERCANIA_MAX_M = 300; // las dos calles pasan a ≤ 300 m (ESTIMADO)
+const VECINOS_MAX_M = 300; // el punto queda a ≤ 300 m de la mitad entre vecinos (ESTIMADO)
+function puntoEn(c, p) {
+  let r = { d: Infinity, q: null };
+  for (const s of c.segs) { const x = distPuntoSeg(p, s); if (x.d < r.d) r = x; }
+  return r;
+}
+function acercamiento(c1, c2) { // punto de c1 más cercano a c2
+  let r = { d: Infinity, q: null };
+  for (const s2 of c2.segs) for (const p of s2) { const x = puntoEn(c1, p); if (x.d < r.d) r = x; }
+  return r;
+}
+const numeroDe = (t) => { const n = palabras(t).find((w) => /^\d+$/.test(w)); return n ? Number(n) : null; };
+const ubicadoReal = (c) => c.estado === 'UBICADO' || c.estado === 'UBICADO POR LUGAR';
+function vecinosDe(lista, i) {
+  let prev = null, next = null;
+  for (let j = i - 1; j >= 0; j--) if (ubicadoReal(lista[j])) { prev = { j, p: [lista[j].lat, lista[j].lon] }; break; }
+  for (let j = i + 1; j < lista.length; j++) if (ubicadoReal(lista[j])) { next = { j, p: [lista[j].lat, lista[j].lon] }; break; }
+  return { prev, next };
+}
+const DESVIO_MAX_M = 300; // el punto no obliga al camión a ir y regresar más de 300 m (ESTIMADO)
+const HUECO_VECINOS_MAX = 3; // «entre vecinos» solo con ≤ 3 cruces sin ubicar en medio
+function saltoOk(q, i, { prev, next }, conDesvio = true) {
+  for (const v of [prev, next]) if (v && dist(q, v.p) > SALTO_MAX_M + SALTO_POR_HUECO_M * (Math.abs(i - v.j) - 1)) return false;
+  // en orden: pasar por el punto no alarga el camino de un vecino al otro más de
+  // 300 m (solo con vecinos cercanos en la lista: de lejos el camino no es recto)
+  if (conDesvio && prev && next && next.j - prev.j - 1 <= HUECO_VECINOS_MAX && dist(prev.p, q) + dist(q, next.p) > dist(prev.p, next.p) + DESVIO_MAX_M) return false;
+  return !!(prev || next);
+}
+// La misma calle de la lista va por la misma calle de OSM que su vecino de al
+// lado (como en la elección de UBICADO): «LA PALMA» después de cuatro cruces
+// sobre la Avenida La Palma no puede ser la «Avenida de las Palmas».
+function calleDelVecino(lista, i, texto) {
+  for (const j of [i - 1, i + 1]) {
+    const v = lista[j];
+    if (!v || !ubicadoReal(v)) continue;
+    if (clave(v.calle) === clave(texto)) return v.osm_calle;
+    if (v.cruce_con && clave(v.cruce_con) === clave(texto)) return v.osm_cruce;
+  }
+  return null;
+}
+function aproximarTodo(rutas) {
+  // cruces numerados ya ubicados sobre cada calle de OSM, de todas las rutas
+  const numerados = new Map(); // calle OSM -> Map(número -> punto)
+  for (const r of rutas) for (const c of r.cruces ?? []) {
+    if (c.estado !== 'UBICADO') continue;
+    for (const [via, otra] of [[c.osm_calle, c.osm_cruce], [c.osm_cruce, c.osm_calle]]) {
+      const n = numeroDe(otra);
+      if (n == null) continue;
+      if (!numerados.has(via)) numerados.set(via, new Map());
+      numerados.get(via).set(n, [c.lat, c.lon]);
+    }
+  }
+  const porNumero = (via, n) => {
+    const m = numerados.get(via);
+    if (!m || m.has(n)) return null;
+    const ns = [...m.keys()].sort((a, b) => a - b);
+    const bajo = ns.filter((k) => k < n).at(-1), alto = ns.find((k) => k > n);
+    let a, b, t;
+    if (bajo != null && alto != null) { a = bajo; b = alto; t = (n - bajo) / (alto - bajo); }
+    else if (ns.length >= 2 && bajo != null && n - bajo === 1) { a = ns.at(-2); b = bajo; t = (n - a) / (b - a); }
+    else if (ns.length >= 2 && alto != null && alto - n === 1) { a = alto; b = ns[1]; t = (n - a) / (b - a); }
+    else return null;
+    const pa = m.get(a), pb = m.get(b);
+    const como = t >= 0 && t <= 1 ? `interpolado por número entre sus cruces con las calles ${a} y ${b}`
+      : `extendido un número más allá de su cruce con la calle ${t > 1 ? b : a}, con el paso entre las calles ${Math.min(a, b)} y ${Math.max(a, b)}`;
+    return { p: [pa[0] + (pb[0] - pa[0]) * t, pa[1] + (pb[1] - pa[1]) * t], como };
+  };
+  const cand0 = (t) => (t ? candidatosCalle(t).slice(0, 6).map((x) => x.calle) : []);
+  for (const r of rutas) {
+    if (!r.cruces) continue;
+    r.cruces = r.cruces.map((c, i, lista) => {
+      if (c.estado !== 'CALLES SIN CRUCE EN OSM' && c.estado !== 'SIN UBICAR') return c;
+      if (/propio guion/.test(c.nota ?? '')) return { ...c, nota: `${c.nota}. Sin aproximación (D-45): el corte del texto es dudoso` };
+      const vec = vecinosDe(lista, i);
+      const cand = (t) => { const fija = t && calleDelVecino(lista, i, t); return fija ? [calles.get(fija)] : cand0(t); };
+      const A = c.calle, B = c.cruce_con;
+      const sale = (q, metodo, evidencia, osm) => ({
+        orden: c.orden, texto: c.texto, calle: c.calle, cruce_con: c.cruce_con,
+        estado: 'APROXIMADO', lat: Number(q[0].toFixed(5)), lon: Number(q[1].toFixed(5)),
+        etiqueta: 'ESTIMADO', precision: 'C', metodo, ...osm, evidencia,
+        verificacion: 'pendiente: se confirma con el uso de la app o en campo (D-45)',
+        antes: c.estado,
+      });
+      // 1. cercanía: las dos calles pasan a ≤ 300 m
+      let mejor = null;
+      for (const ca of cand(A)) for (const cb of cand(B)) {
+        if (ca === cb) continue;
+        const x = acercamiento(ca, cb);
+        if (x.d <= CERCANIA_MAX_M && saltoOk(x.q, i, vec) && (!mejor || x.d < mejor.x.d)) mejor = { x, ca, cb };
+      }
+      if (mejor) return sale(mejor.x.q, 'cercanía', `«${mejor.ca.nombre}» y «${mejor.cb.nombre}» no se tocan en OSM; pasan a ${Math.round(mejor.x.d)} m: punto de la primera más cercano a la segunda`, { osm_calle: mejor.ca.nombre, osm_cruce: mejor.cb.nombre });
+      // 2. numeración: la calle de cruce es numerada y la avenida tiene otras ubicadas
+      const n = numeroDe(B ?? '');
+      if (n != null) {
+        for (const ca of cand(A)) {
+          const pn = porNumero(ca.nombre, n);
+          if (!pn) continue;
+          const x = puntoEn(ca, pn.p);
+          if (x.d <= VECINOS_MAX_M && saltoOk(x.q, i, vec)) {
+            return sale(x.q, 'numeración', `«${B}» no está en OSM junto a «${ca.nombre}»; ${pn.como}, ya ubicados`, { osm_calle: ca.nombre });
+          }
+        }
+      }
+      // 3. entre vecinos: punto de la calle más cercano a la mitad entre los cruces ubicados de antes y de después
+      if (vec.prev && vec.next && vec.next.j - vec.prev.j - 1 <= HUECO_VECINOS_MAX) {
+        const m = [(vec.prev.p[0] + vec.next.p[0]) / 2, (vec.prev.p[1] + vec.next.p[1]) / 2];
+        let e = null;
+        for (const ca of [...cand(A), ...cand(B)]) {
+          const x = puntoEn(ca, m);
+          if (x.d <= VECINOS_MAX_M && saltoOk(x.q, i, vec) && (!e || x.d < e.x.d)) e = { x, ca };
+        }
+        if (e) return sale(e.x.q, 'entre vecinos', `punto de «${e.ca.nombre}» más cercano (${Math.round(e.x.d)} m) a la mitad entre los cruces ubicados #${vec.prev.j + 1} y #${vec.next.j + 1}`, { osm_calle: e.ca.nombre });
+      }
+      const porque = !cand0(A).length && !cand0(B).length ? 'ninguna de las dos calles está en OSM'
+        : vec.prev && vec.next && vec.next.j - vec.prev.j - 1 > HUECO_VECINOS_MAX ? 'sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo'
+        : !(vec.prev && vec.next) ? 'falta un cruce ubicado antes o después para acotarlo'
+        : 'las calles de OSM quedan lejos de sus cruces vecinos';
+      return { ...c, nota: `${c.nota}. Sin aproximación (D-45): ${porque}` };
+    });
+  }
+  // 4. mismo texto: otra ruta ya aproximó ese mismo cruce (lección 3: mismo
+  // texto, mismo punto), y el salto a los vecinos cuadra.
+  const aprox = new Map();
+  // primero los UBICADOS (punto exacto en otra ruta), luego los APROXIMADOS
+  for (const e of ['UBICADO', 'APROXIMADO']) for (const r of rutas) for (const c of r.cruces ?? []) if (c.estado === e && !aprox.has(c.texto)) aprox.set(c.texto, { ...c, ruta: r.numero });
+  for (const r of rutas) {
+    if (!r.cruces) continue;
+    r.cruces = r.cruces.map((c, i, lista) => {
+      const o = aprox.get(c.texto);
+      if (!o || (c.estado !== 'CALLES SIN CRUCE EN OSM' && c.estado !== 'SIN UBICAR') || /propio guion/.test(c.nota ?? '')) return c;
+      if (!saltoOk([o.lat, o.lon], i, vecinosDe(lista, i), false)) return c;
+      return {
+        orden: c.orden, texto: c.texto, calle: c.calle, cruce_con: c.cruce_con,
+        estado: 'APROXIMADO', lat: o.lat, lon: o.lon, etiqueta: 'ESTIMADO', precision: 'C', metodo: 'mismo texto',
+        osm_calle: o.osm_calle, osm_cruce: o.osm_cruce,
+        evidencia: `el mismo texto ya tiene punto en la ruta ${o.ruta} #${o.orden} (${o.estado === 'UBICADO' ? 'UBICADO' : `APROXIMADO por ${o.metodo}`}), pero aquí la elección de cruces no lo alcanzó; se usa el mismo punto`,
+        verificacion: 'pendiente: se confirma con el uso de la app o en campo (D-45)',
+        antes: c.estado,
+      };
+    });
+  }
+}
+
 // ---------- salida ----------
-const ESTADOS = ['UBICADO', 'UBICADO POR LUGAR', 'REFERENCIA', 'CALLES SIN CRUCE EN OSM', 'SIN UBICAR'];
+const ESTADOS = ['UBICADO', 'UBICADO POR LUGAR', 'APROXIMADO', 'REFERENCIA', 'CALLES SIN CRUCE EN OSM', 'SIN UBICAR'];
 const rutas = [];
 // La página oficial trae el mismo texto en la 23 (Lomas del Pedregal – Centro,
 // renglón 428) y en la 023 (Tequisquiapan – Ezequiel Montes, renglón 441): dos
@@ -744,13 +892,14 @@ for (const r of oficiales.rutas) {
     continue;
   }
   const cruces = ubicar(separar(r.numero === '23' ? MEZCLA_23_023.calles : r.lista_texto), r.numero);
-  const conteo = Object.fromEntries(ESTADOS.map((e) => [e, cruces.filter((c) => c.estado === e).length]));
   rutas.push({
     route_id: r.route_id, numero: r.numero, nombre: r.nombre_inventario,
     sentido: 'sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)',
-    total: cruces.length, conteo, cruces,
+    total: cruces.length, conteo: null, cruces,
   });
 }
+aproximarTodo(rutas);
+for (const r of rutas) if (r.cruces) r.conteo = Object.fromEntries(ESTADOS.map((e) => [e, r.cruces.filter((c) => c.estado === e).length]));
 const usadas = rutas.filter((r) => r.cruces);
 const total = usadas.reduce((s, r) => s + r.total, 0);
 const resumen = { rutas_con_lista_usable: usadas.length, cruces: total };
@@ -768,7 +917,8 @@ writeFileSync(`${raiz}datos/investigacion/cruces.json`, JSON.stringify({
     'UBICADO: las dos calles del cruce existen en OSM y se tocan (≤ 30 m); el punto es donde se tocan. Las abreviaturas y erratas corregidas se anotan en «correcciones» y solo se aceptan con esa prueba.',
     'UBICADO POR LUGAR: el cruce es un lugar que OSM tiene junto a la calle.',
     'REFERENCIA: la calle existe en OSM y el cruce es un negocio que OSM no tiene; confirma la calle por donde pasa el camión, sin punto propio.',
-    'CALLES SIN CRUCE EN OSM / SIN UBICAR: POR VERIFICAR.',
+    'APROXIMADO (D-45): sin cruce exacto en OSM; el punto es la mejor aproximación de hoy (método en «metodo»), ESTIMADO y de nivel C. Se verifica con el uso o en campo.',
+    'CALLES SIN CRUCE EN OSM / SIN UBICAR: POR VERIFICAR; la nota dice por qué ningún método de D-45 lo alcanzó.',
     'Orden = el de la lista oficial. El sentido aún no se asigna (hallazgo c, regla 10).',
     'Todo punto es ESTIMADO a partir de OSM, no medido en campo.',
   ],

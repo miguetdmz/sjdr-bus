@@ -85,7 +85,7 @@ test('cruces: los nombres no quedan partidos (lección de la 001: «CARR. SAN JU
 test('cruces: el resumen cuadra con el detalle', () => {
   const { resumen } = cruces;
   assert.equal(resumen.cruces, todos.length);
-  const estados = ['UBICADO', 'UBICADO POR LUGAR', 'REFERENCIA', 'CALLES SIN CRUCE EN OSM', 'SIN UBICAR'];
+  const estados = ['UBICADO', 'UBICADO POR LUGAR', 'APROXIMADO', 'REFERENCIA', 'CALLES SIN CRUCE EN OSM', 'SIN UBICAR'];
   assert.equal(estados.reduce((s, e) => s + resumen[e], 0), todos.length);
   for (const e of estados) assert.equal(resumen[e], todos.filter((c) => c.estado === e).length, e);
 });
@@ -270,4 +270,47 @@ test('cruces: primera calle escrita dos veces, «3O» = 3º y una errata dentro 
   assert.ok(!todos.some((c) => /^(PASEO LOMA ALTA PASEO LOMA ALTA|HIDALGO HIDALGO)\b/.test(c.texto)));
   ver('022', 'ARTICULO 3O-FERNANDO DE TAPIA', ['Calle Artículo Tercero', 'Prolongación Fernando de Tapia'], 20.38319, -99.99226);
   ver('015B', 'GUADALUPE VICTORIA-PROL. BENITO JUÁRREZ', ['Calle Guadalupe Victoria', 'Prolongación Benito Juárez García'], 20.39607, -99.95706);
+});
+
+test('cruces: APROXIMADO (Miguel, D-45): punto ESTIMADO de nivel C, con método, a un salto razonable de sus vecinos; lo que queda POR VERIFICAR dice por qué', () => {
+  const ML = 110574, MO = 111320 * Math.cos((20.39 * Math.PI) / 180);
+  const d = (a, b) => Math.hypot((a.lat - b.lat) * ML, (a.lon - b.lon) * MO);
+  const metodos = ['cercanía', 'numeración', 'entre vecinos', 'mismo texto'];
+  const aprox = todos.filter((c) => c.estado === 'APROXIMADO');
+  assert.ok(aprox.length >= 26, `APROXIMADOS: ${aprox.length}`);
+  for (const c of aprox) {
+    const id = `${c.ruta} #${c.orden} ${c.texto}`;
+    // (a) etiqueta, nivel y método
+    assert.deepEqual([c.etiqueta, c.precision], ['ESTIMADO', 'C'], id);
+    assert.ok(metodos.includes(c.metodo), id);
+    assert.ok(Number.isFinite(c.lat) && Number.isFinite(c.lon) && c.evidencia && /D-45/.test(c.verificacion), id);
+    assert.ok(nombresOsm.has(c.osm_calle), id);
+    assert.ok(['CALLES SIN CRUCE EN OSM', 'SIN UBICAR'].includes(c.antes), id);
+    // (b) salto máximo a sus vecinos ubicados: 3 km + 300 m por cruce sin ubicar en medio
+    const lista = usadas.find((r) => r.numero === c.ruta).cruces;
+    const i = lista.findIndex((x) => x.orden === c.orden);
+    const real = (x) => x.estado === 'UBICADO' || x.estado === 'UBICADO POR LUGAR';
+    let prev = -1, next = -1;
+    for (let j = i - 1; j >= 0; j--) if (real(lista[j])) { prev = j; break; }
+    for (let j = i + 1; j < lista.length; j++) if (real(lista[j])) { next = j; break; }
+    assert.ok(prev >= 0 || next >= 0, `${id}: sin vecinos ubicados`);
+    for (const j of [prev, next]) if (j >= 0) assert.ok(d(c, lista[j]) <= 3000 + 300 * (Math.abs(i - j) - 1), `${id}: salto con #${lista[j].orden}`);
+  }
+  // (c) los UBICADOS no cambian con D-45
+  assert.equal(todos.filter((c) => c.estado === 'UBICADO').length, 690);
+  // (d) lo que queda POR VERIFICAR dice por qué ningún método lo alcanzó
+  const quedan = todos.filter((c) => c.estado === 'CALLES SIN CRUCE EN OSM' || c.estado === 'SIN UBICAR');
+  assert.ok(quedan.length < 53, `POR VERIFICAR: ${quedan.length}`);
+  for (const c of quedan) assert.match(c.nota, /Sin aproximación \(D-45\): /, `${c.ruta} #${c.orden}`);
+  // casos revisados a mano (20 nov 2026)
+  const en = (texto) => aprox.filter((c) => c.texto === texto);
+  // Constituyentes: la 3 entre la 1 y la 4 Poniente; la 5 entre la 4 y la 8; la 9, un número más allá de la 8
+  for (const [t, lat] of [['C. COSTITUYENTES-CALLE TRES PTE.', 20.39993], ['CALLE CONSTITUYENTES-CALLE 5 PONIENTE', 20.4042], ['CALLE CONSTITUYENTES-AV. 9 PONIENTE', 20.41357]]) {
+    assert.ok(en(t).length >= 1, t);
+    for (const c of en(t)) assert.deepEqual([c.metodo, c.osm_calle, c.lat], [en(t)[0].metodo, 'Avenida Constituyentes', lat], t);
+  }
+  // Corregidora × San José: entre Zaragoza y Matamoros, sin ir y regresar (la San José de OSM quedaba más allá de Matamoros)
+  for (const c of en('C. CORREGIDORA-SAN JOSE')) assert.deepEqual([c.metodo, c.osm_calle, c.lat, c.lon], ['entre vecinos', 'Calle Corregidora', 20.38964, -100.0013]);
+  // La Palma × Chabacano: sus vecinos van por la Avenida La Palma; la «Avenida de las Palmas» no sirve
+  assert.ok(!todos.some((c) => c.osm_calle === 'Avenida de las Palmas' && c.texto === 'LA PALMA-CHABACANO'));
 });
