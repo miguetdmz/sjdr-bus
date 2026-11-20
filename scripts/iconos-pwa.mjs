@@ -3,7 +3,7 @@
 // web/public/iconos/. Como sacar copias de un plano maestro en varios tamaños:
 // el SVG es el original y los PNG se vuelven a imprimir desde él.
 //
-// Usa el Chromium de Playwright (Apache-2.0, gratuito) solo para convertir el
+// Usa el Chromium de Playwright (@playwright/test, Apache-2.0, gratuito) solo para convertir el
 // dibujo; no descarga nada de internet. Los PNG se guardan en el repositorio, así
 // que este script solo se corre cuando cambia el dibujo.
 //
@@ -15,7 +15,7 @@ import { createRequire } from 'node:module';
 
 const raiz = fileURLToPath(new URL('..', import.meta.url));
 const dir = join(raiz, 'web/public/iconos');
-const { chromium } = createRequire(import.meta.url)('playwright');
+const { chromium } = createRequire(import.meta.url)('@playwright/test');
 
 const SALIDAS = [
   ['icono.svg', 'icono-192.png', 192],
