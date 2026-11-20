@@ -151,6 +151,13 @@ puede, convertir la regla en una prueba automática.
    `TZ=America/Mexico_City date`; el prompt lleva la fecha y la hora
    absolutas. Si ya pasaron las 11:30 pm, el relevo de esa noche se perdió y
    se dice así.
+   - 2026-11-18 (1.ª vez): este caso.
+   - 2026-11-20 (2.ª vez, 1:28 y 1:43 am): Claude escribió en notas de D-43 y
+     en un comentario de `scripts/cruces.mjs` horas de memoria («1:45 am»,
+     «1:47 am») en vez de sacarlas de `date`; se corrigió antes de subir.
+     Regla añadida: toda hora que se escribe en una nota, un commit o el código
+     sale de `TZ=America/Mexico_City date` corrido en ese momento.
+   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
 8. **Una página descargada traía una llave de sesión (19 nov 2026).** En R-01
    la página pública de rutas se guardó primero en `datos/cache/qrobus/`, dentro
    del repositorio, y traía una llave de sesión (`csrf-token`). Se detectó a
