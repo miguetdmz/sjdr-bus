@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 8:08 am)
+## Estado actual (20 nov 2026, 1:05 pm)
 
 | Bloque | Qué es | Estado |
 |---|---|---|
@@ -12,14 +12,38 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | B1 | Datos base del GTFS-SJR | **7 de 7.** Desde D-36/D-39/D-40 son **39 rutas** (37 urbanas + 2 intermunicipales): de baja 031, 024C y 018; la 044 volvió |
 | B2a | Mockup navegable (PWA, Vite + Leaflet) | **8 de 8.** M-05 a M-08 hechas por el turno (PR 2, inspector: **LIBERADO**, 20 nov 2026, 12:17 am). Falta integrarlo y verlo en el teléfono |
 | B2 | Primera pantalla publicable | Estilo D-30 **aplicado** (E-01) y menú lateral en computadora (E-02), EN REVISIÓN en el PR |
-| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 693 de 936 con punto exacto (74 %), **26 APROXIMADOS (3 %, D-45: ESTIMADO, nivel C)**, 190 referencias (20 %), 27 POR VERIFICAR (3 %) al 20 nov, 8:08 am. Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
+| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 698 de 936 con punto exacto (75 %), **27 APROXIMADOS (3 %, D-45: ESTIMADO, nivel C)**, 191 referencias (20 %), 20 POR VERIFICAR (2 %) al 20 nov, 1:05 pm. **D-46 PROPUESTA:** extremos como zona probable (mapa de calor). Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
 | B6 | Calcula tu ruta (D-15) | Sin iniciar |
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (20 nov 2026, 8:08 am)
+### Relevo para la siguiente sesión (20 nov 2026, 1:05 pm)
+
+0. **Lo hecho de las 8:08 am a la 1:05 pm del 20 nov (R-03, D-43, D-45):**
+   - Alias de Miguel: Carretera Querétaro 300 = Panamericana; El Cerezo = CERESO
+     = Acceso a Visthá; Car. Estatal 122 = Acceso a Visthá. Amealco × Lázaro
+     Cárdenas: Miguel no lo sabe (queda POR VERIFICAR).
+   - Con evidencia: calle compartida entre dos guiones (022, Jurica × San Juan
+     del Río); «MÉXICO 120» = Federal 120, sigue como Av. Central; «CAR.» =
+     Carretera; lista-circuito anclada en su origen (032).
+   - **Defecto corregido:** 032 #2 y #3 eran UBICADOS falsos a 5 km de Visthá.
+   - D-46 PROPUESTA (Miguel): extremos como zona probable; se decide al diseñar
+     la pantalla del trazo.
+   - POR VERIFICAR: de 27 a 20. Pruebas: 130 de 130.
+1. **Siguiente en R-03, los 20 que quedan:** Manantiales (042 #3, 046 #36, #38,
+   #54: preguntar qué es «Manantial de Manantiales»); Venustiano Carranza en
+   Visthá (032 #2, #53) y San Nicolás × Cerezo (032 #6); La Tota Carbajal –
+   Maquío (011B, 015B: ¿unidad deportiva sobre Av. Universidad?); Amealco (002
+   #34, #48, #49: Miguel no sabe; campo); sueltos (Paseo del Molino 016/030, San
+   Juan del Río × 3 Lagunas 011/011B, La Palma × Chabacano, «49 Norte. 4», «19
+   Del Abedul», Plaza Los Olivos). Después: hallazgo b (negocios) y hallazgo c
+   (separar ida y vuelta; regla 10), cada uno con criterio medible.
+2. **Bandera:** EN SESIÓN. La cola no tiene tareas APROBADA que el turno pueda
+   hacer.
+
+### Relevo anterior (20 nov 2026, 8:08 am)
 
 0. **Lo hecho en la sesión de las 7:42 a las 8:08 am del 20 nov (R-03):**
    - Arreglos con evidencia (D-43): salto que crece 300 m por cruce sin ubicar
