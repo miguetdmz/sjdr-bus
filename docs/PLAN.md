@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 1:46 am)
+## Estado actual (20 nov 2026, 2:40 am)
 
 | Bloque | Qué es | Estado |
 |---|---|---|
@@ -12,34 +12,42 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | B1 | Datos base del GTFS-SJR | **7 de 7.** Desde D-36/D-39/D-40 son **39 rutas** (37 urbanas + 2 intermunicipales): de baja 031, 024C y 018; la 044 volvió |
 | B2a | Mockup navegable (PWA, Vite + Leaflet) | **8 de 8.** M-05 a M-08 hechas por el turno (PR 2, inspector: **LIBERADO**, 20 nov 2026, 12:17 am). Falta integrarlo y verlo en el teléfono |
 | B2 | Primera pantalla publicable | Estilo D-30 **aplicado** (E-01) y menú lateral en computadora (E-02), EN REVISIÓN en el PR |
-| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de las 19 listas usables separados y ubicados: 693 de 974 con punto (71 %), 196 referencias (20 %), 85 POR VERIFICAR (9 %) al 20 nov, 1:43 am. Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
+| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 687 de 936 con punto (73 %), 190 referencias (20 %), 59 POR VERIFICAR (6 %) al 20 nov, 2:40 am. Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
 | B6 | Calcula tu ruta (D-15) | Sin iniciar |
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (20 nov 2026, 1:46 am)
+### Relevo para la siguiente sesión (20 nov 2026, 2:40 am)
 
-0. **Lo hecho en la sesión de la 1:25 a la 1:46 am del 20 nov (R-03, D-43):**
-   rumbo suelto («CALLE 5 PONIENTE C. CONSTITUYENTES»: 7 cruces nuevos con
-   punto); alias Uruguay = Cerrada de Uruguay en la 015B (8, tolerancia de 50 m
-   solo para ella, tabla `TOLERANCIA_MIGUEL`); Sierra Paracaima y Sierra
-   Tezonco son laterales de Lomas de San Juan (6 a REFERENCIA, tabla
-   `LATERALES_MIGUEL`; pista de sentido para el hallazgo c); la misma calle dos
-   veces seguidas se corta sin duda (8: 20 de Noviembre en la 046 y La Palma en
-   la 002). POR VERIFICAR: de 116 a 85. Pruebas de cruces: 16 de 16.
-1. **Siguiente en R-03:** 046 «C.MIGUEL HIDALGO-20 DE NOVIEMBRE PONIENTE
-   2-ÁLVARO OBREGÓN» (4 cruces; el corte puede ir antes o después de
-   «PONIENTE» y la 008, con el mismo texto, sí los ubica: arreglo de Claude con
-   evidencia). Después, recalcular el Pareto (`npm run cruces`) y seguir una
-   pregunta a la vez. Quedan POR VERIFICAR sin arreglo posible desde OSM:
-   Constituyentes con Calle Tres, 5 y 9 Poniente (OSM no las tiene con
-   nombre) y La Palma – Chabacano (no se tocan). Luego hallazgo b (negocios) y
-   hallazgo c (separar ida y vuelta; regla 10), cada uno con criterio medible.
+0. **Lo hecho en la sesión de la 1:56 a las 2:40 am del 20 nov (R-03, D-43):**
+   - 046 = 008: un pedazo repetido idéntico (la misma parada en ida y vuelta)
+     ya no vuelve dudoso el corte (10 cruces nuevos con punto).
+   - Lista mezclada 23/023 (decisión de Miguel): la 23 se queda con las calles
+     de Lomas del Pedregal; la 023, con el bloque de lugares, sin cruces y POR
+     VERIFICAR. Candado: si la página cambia, `npm run cruces` se detiene.
+   - Federal 120 = San Juan del Río - Xilitla (4 cruces a REFERENCIA); Walmart
+     del km 3.2 = una parada sobre el Paseo Central (tabla `UNIDOS_MIGUEL`);
+     Universidad – Cto. Querétaro Norte se tocan (tolerancia por par).
+   - Matamoros sigue como Fundadores: la continuación se prueba dentro del
+     corredor, y la misma calle de la lista va por la misma calle de OSM.
+     «Mismo texto, distinto punto»: de 4 casos a 2.
+   - Lección 7: 3.ª ocurrencia → **PROMOVIDA** al hook `hora-real`
+     (`.claude/hooks/hora-real.mjs`), verde en la Mac y en GitHub Actions.
+   - POR VERIFICAR: de 85 a 59. Pruebas: 122 de 122.
+1. **Siguiente en R-03 (Pareto de los 59):** Constituyentes con Calle Norte 5,
+   Norte 3 y Calle 9 (12; OSM no las tiene junto a la avenida: no se
+   interpolan, D-41); Corregidora × San José (3; la San José de OSM está a 8.5
+   km); Manantiales de Agua Azul × Manantiales de Tlacote (3; a 116 m en OSM);
+   Paseo Loma Alta (2); Av. Central × Tres Lagunas (2); Universidad × La
+   Esmeralda (2; a 234 m); Universidad «La Tota» Carbajal – Unidad Deportiva
+   Maquío (2). Quedan 2 casos de «mismo texto, distinto punto»: Romero Soto
+   (10 m) y Hacienda Los Arrayanes – Piedras Negras (022 y 039, a 330 m).
+   Después: hallazgo b (negocios) y hallazgo c (separar ida y vuelta; regla
+   10; pistas: laterales Paracaima/Tezonco), cada uno con criterio medible.
 2. **Bandera:** queda en EN SESIÓN. La cola no tiene tareas APROBADA que el
-   turno pueda hacer (R-04 es de sesión de día; R-05 y R-06 esperan a R-03),
-   así que esta vez no se entrega ni se dispara el turno.
+   turno pueda hacer (R-04 es de sesión de día; R-05 y R-06 esperan a R-03).
 
 ### Relevo de la madrugada (20 nov 2026, 1:02 am)
 
