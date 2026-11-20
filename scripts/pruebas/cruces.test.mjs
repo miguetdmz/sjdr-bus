@@ -17,10 +17,12 @@ test('cruces: una ruta por cada ruta de R-01; las 20 listas mezcladas con Queré
   assert.deepEqual(cruces.rutas.map((r) => r.numero), oficiales.rutas.map((r) => r.numero));
   for (const r of oficiales.rutas) {
     const c = cruces.rutas.find((x) => x.numero === r.numero);
-    if (r.usable_sin_revision) assert.ok(c.cruces?.length > 0, `${r.numero}: sin cruces`);
+    // única excepción: la 023, que solo trae el bloque de lugares de la lista mezclada con la 23 (D-43)
+    if (r.usable_sin_revision && r.numero === '023') { assert.equal(c.cruces, undefined); assert.match(c.estado, /D-43.*POR VERIFICAR/); }
+    else if (r.usable_sin_revision) assert.ok(c.cruces?.length > 0, `${r.numero}: sin cruces`);
     else { assert.equal(c.cruces, undefined, `${r.numero}: usa una lista descartada`); assert.match(c.estado, /D-33/); }
   }
-  assert.equal(usadas.length, oficiales.rutas.filter((r) => r.usable_sin_revision).length);
+  assert.equal(usadas.length, oficiales.rutas.filter((r) => r.usable_sin_revision && r.numero !== '023').length);
 });
 
 test('cruces: ningún sentido asignado todavía (hallazgo c, regla 10)', () => {
@@ -92,7 +94,8 @@ test('cruces: «SIN REFERENCIA» es casilla vacía de la lista, nunca parte de u
 test('cruces: alias «Jurica» = Av. Belisario Domínguez (D-43) pasa la prueba del mapa y nunca usa la Privada Jurica lejana', () => {
   const jurica = todos.filter((c) => /JURICA/.test(c.texto));
   const ubicados = jurica.filter((c) => c.estado === 'UBICADO');
-  assert.ok(ubicados.length >= 27, `solo ${ubicados.length} cruces de Jurica ubicados`);
+  // 25: eran 27, pero 2 venían repetidos en la 023 con la lista mezclada de la 23 (D-43, 20 nov 2026)
+  assert.ok(ubicados.length >= 25, `solo ${ubicados.length} cruces de Jurica ubicados`);
   for (const c of ubicados) {
     assert.ok([c.osm_calle, c.osm_cruce].includes('Avenida Belisario Domínguez'), `${c.ruta} #${c.orden}`);
     assert.match(c.evidencia, /se tocan en OSM/);
@@ -178,4 +181,18 @@ test('cruces: un pedazo repetido idéntico (la misma parada en ida y vuelta) no 
   }
   // el corte nunca deja «PONIENTE» pegado a 20 de Noviembre ni un «2» suelto
   assert.ok(!todos.some((c) => c.ruta === '046' && /20 DE NOVIEMBRE PONIENTE$|^2-/.test(c.texto)));
+});
+
+test('cruces: la lista mezclada de la 23 y la 023 se separa (Miguel, D-43): calles de Lomas del Pedregal a la 23, lugares a la 023, sin puntos en la 023', () => {
+  const t23 = oficiales.rutas.find((r) => r.numero === '23').lista_texto;
+  const r23 = cruces.rutas.find((r) => r.numero === '23');
+  const r023 = cruces.rutas.find((r) => r.numero === '023');
+  // la 023 se queda con el bloque de lugares, completo y tal cual viene en la página; ningún punto
+  assert.ok(r023.lugares_texto.startsWith('LAS CRUCITAS ') && r023.lugares_texto.endsWith(' SECUNDARIA NOGAL'));
+  assert.ok(t23.includes(r023.lugares_texto) && !r023.lugares_texto.includes('-'));
+  assert.equal(r023.cruces, undefined);
+  // la 23 no trae nada del bloque de lugares y conserva sus cruces de Lomas del Pedregal
+  for (const c of r23.cruces) assert.ok(!/CRUCITAS|TERMAS DEL REY|SECUNDARIA NOGAL/.test(c.texto), `23 #${c.orden}`);
+  assert.ok(r23.cruces.filter((c) => Number.isFinite(c.lat)).length >= 22);
+  assert.ok(r23.cruces.some((c) => c.texto === 'DE LA CANTERA-DEL GRANITO' && c.estado === 'UBICADO'));
 });

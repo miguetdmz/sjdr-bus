@@ -636,12 +636,40 @@ function ubicar(pares, numero) {
 // ---------- salida ----------
 const ESTADOS = ['UBICADO', 'UBICADO POR LUGAR', 'REFERENCIA', 'CALLES SIN CRUCE EN OSM', 'SIN UBICAR'];
 const rutas = [];
+// La página oficial trae el mismo texto en la 23 (Lomas del Pedregal – Centro,
+// renglón 428) y en la 023 (Tequisquiapan – Ezequiel Montes, renglón 441): dos
+// bloques en distinto orden. Miguel decidió (D-43, 20 nov 2026, 2:14 am): la 23
+// se queda con el bloque de calles (con guiones) y la 023 con el de lugares
+// (sin guiones). Candado: si la página deja de traer esos mismos dos bloques,
+// el programa se detiene en vez de separar a ciegas.
+const LUGARES_023 = { inicio: 'LAS CRUCITAS ', fin: ' SECUNDARIA NOGAL' };
+const MEZCLA_23_023 = (() => {
+  const t23 = oficiales.rutas.find((r) => r.numero === '23').lista_texto;
+  const t023 = oficiales.rutas.find((r) => r.numero === '023').lista_texto;
+  const i = t23.indexOf(LUGARES_023.inicio), f = t23.indexOf(LUGARES_023.fin);
+  const lugares = i >= 0 && f > i ? t23.slice(i, f + LUGARES_023.fin.length) : '';
+  const calles = (t23.slice(0, i) + ' ' + t23.slice(f + LUGARES_023.fin.length)).replace(/\s+/g, ' ').trim();
+  const mismo = (t) => t.replace(lugares, ' ').replace(/\s+/g, ' ').trim() === calles;
+  if (!lugares || lugares.includes('-') || !calles.includes('-') || !t023.includes(lugares) || !mismo(t023)) {
+    throw new Error('La 23 y la 023 ya no traen los mismos dos bloques (D-43): revisar la página oficial antes de separar.');
+  }
+  return { calles, lugares };
+})();
+
 for (const r of oficiales.rutas) {
   if (!r.usable_sin_revision) {
     rutas.push({ route_id: r.route_id, numero: r.numero, estado: 'lista oficial descartada (D-33): mezcla calles de Querétaro' });
     continue;
   }
-  const cruces = ubicar(separar(r.lista_texto), r.numero);
+  if (r.numero === '023') {
+    rutas.push({
+      route_id: r.route_id, numero: r.numero, nombre: r.nombre_inventario,
+      estado: 'lista de lugares sin cruces: la página oficial la trae mezclada con la de la 23 (D-43); se queda solo con el bloque de lugares, sin guiones, que no se parte en cruces: POR VERIFICAR',
+      lugares_texto: MEZCLA_23_023.lugares,
+    });
+    continue;
+  }
+  const cruces = ubicar(separar(r.numero === '23' ? MEZCLA_23_023.calles : r.lista_texto), r.numero);
   const conteo = Object.fromEntries(ESTADOS.map((e) => [e, cruces.filter((c) => c.estado === e).length]));
   rutas.push({
     route_id: r.route_id, numero: r.numero, nombre: r.nombre_inventario,

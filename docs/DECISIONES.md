@@ -792,6 +792,19 @@ Miguel).
   Club de Golf, Termas del Rey, La Redonda). A qué ruta va cada bloque es
   decisión de Miguel; mientras, los puntos de Lomas del Pedregal que salen en
   la 023 son POR VERIFICAR.
+- **Lista mezclada de la 23 y la 023 (Miguel, 20 nov 2026, 2:14 am: «Sí,
+  sepáralas así»):** la 23 se queda con el bloque de calles de Lomas del
+  Pedregal y la 023 con el de lugares. El bloque de lugares no trae guiones,
+  así que no se parte en cruces: la 023 queda como «lista de lugares sin
+  cruces», con el texto completo y POR VERIFICAR. Candado: si la página deja de
+  traer los mismos dos bloques, `npm run cruces` se detiene con error. Efecto:
+  la 23 conserva sus 22 puntos (su cruce #1 ya no trae pegado el bloque de
+  lugares) y la 023 deja 35 cruces que no eran suyos, 21 de ellos con punto en
+  Lomas del Pedregal. Ninguna otra ruta cambia. De paso se cierra el caso
+  De la Cantera – Del Granito de «mismo texto, distinto punto» (quedan 3), y
+  Jurica pasa de 27 a 25 cruces ubicados: los 2 de diferencia eran la copia de
+  la 023. Total: 18 listas con cruces más la de lugares de la 023; 682 de 939
+  con punto (73 %), 183 referencias (19 %), 74 POR VERIFICAR (8 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 
