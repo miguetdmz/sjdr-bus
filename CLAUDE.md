@@ -176,7 +176,19 @@ puede, convertir la regla en una prueba automática.
    - 2026-11-17 (1.ª vez, en la memoria de Claude): una tarjeta de sesión nueva
      no aclaraba si se podía abrir mientras el turno nocturno trabajaba.
    - 2026-11-19 (2.ª vez): este caso.
-   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
+   - 2026-11-20 (3.ª vez, 1:18 am): Claude entregó el arranque y, cuando el
+     estado cambió (PR 2 integrado, commits subidos, M-08 verificada en la
+     Mac), mandó «una corrección a ese arranque» y pendientes sueltos en vez
+     de reemitir uno solo. Miguel: «tú eres el responsable de que la hoja
+     viajera pase correcta». Regla añadida: si algo cambia después de
+     entregar el arranque, se reemite completo y verificado contra el estado
+     real (git, GitHub, bandera, datos); nunca un parche aparte.
+   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (20 nov 2026):
+   `scripts/arranque.mjs` que arme el bloque de estado del arranque desde la
+   realidad (hora de México, rama, commits sin subir, PR abiertos con link,
+   bandera de `docs/RELEVO.md`, resumen de `cruces.json`, pendientes de la
+   cola). Prueba: con un commit sin subir, el bloque lo muestra. Se construye
+   con el sí de Miguel.
 
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:
