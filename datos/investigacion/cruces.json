@@ -22,12 +22,12 @@
  "resumen": {
   "rutas_con_lista_usable": 19,
   "cruces": 974,
-  "UBICADO": 661,
+  "UBICADO": 667,
   "UBICADO POR LUGAR": 3,
   "REFERENCIA": 183,
-  "CALLES SIN CRUCE EN OSM": 67,
+  "CALLES SIN CRUCE EN OSM": 61,
   "SIN UBICAR": 60,
-  "con_correccion": 271
+  "con_correccion": 277
  },
  "rutas": [
   {
@@ -37,10 +37,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 50,
    "conteo": {
-    "UBICADO": 36,
+    "UBICADO": 37,
     "UBICADO POR LUGAR": 1,
     "REFERENCIA": 10,
-    "CALLES SIN CRUCE EN OSM": 3,
+    "CALLES SIN CRUCE EN OSM": 2,
     "SIN UBICAR": 0
    },
    "cruces": [
@@ -214,9 +214,16 @@
      "texto": "AV. RÍO MOCTEZUMA-CARR. SAN JUAN DEL RÍO",
      "calle": "AV. RÍO MOCTEZUMA",
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38797,
+     "lon": -99.98467,
+     "osm_calle": "Calle General Francisco Villa",
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación confirmada por Miguel (D-43): «AV. RÍO MOCTEZUMA» → «Calle General Francisco Villa»",
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 16,
@@ -1631,10 +1638,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 62,
    "conteo": {
-    "UBICADO": 47,
+    "UBICADO": 48,
     "UBICADO POR LUGAR": 1,
     "REFERENCIA": 9,
-    "CALLES SIN CRUCE EN OSM": 4,
+    "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -1847,9 +1854,16 @@
      "texto": "AV. RÍO MOCTEZUMA-CARR. SAN JUAN DEL RÍO",
      "calle": "AV. RÍO MOCTEZUMA",
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38797,
+     "lon": -99.98467,
+     "osm_calle": "Calle General Francisco Villa",
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación confirmada por Miguel (D-43): «AV. RÍO MOCTEZUMA» → «Calle General Francisco Villa»",
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 19,
@@ -3433,10 +3447,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 80,
    "conteo": {
-    "UBICADO": 54,
+    "UBICADO": 55,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 21,
-    "CALLES SIN CRUCE EN OSM": 4,
+    "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -3663,9 +3677,16 @@
      "texto": "AV. RÍO MOCTEZUMA-CARR. SAN JUAN DEL RÍO",
      "calle": "AV. RÍO MOCTEZUMA",
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38797,
+     "lon": -99.98467,
+     "osm_calle": "Calle General Francisco Villa",
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación confirmada por Miguel (D-43): «AV. RÍO MOCTEZUMA» → «Calle General Francisco Villa»",
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 21,
@@ -4407,10 +4428,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 45,
    "conteo": {
-    "UBICADO": 35,
+    "UBICADO": 36,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 4,
-    "CALLES SIN CRUCE EN OSM": 4,
+    "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 2
    },
    "cruces": [
@@ -4601,9 +4622,16 @@
      "texto": "AV. RÍO MOCTEZUMA-CARR. SAN JUAN DEL RÍO",
      "calle": "AV. RÍO MOCTEZUMA",
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38797,
+     "lon": -99.98467,
+     "osm_calle": "Calle General Francisco Villa",
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación confirmada por Miguel (D-43): «AV. RÍO MOCTEZUMA» → «Calle General Francisco Villa»",
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 18,
@@ -4976,10 +5004,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 61,
    "conteo": {
-    "UBICADO": 43,
+    "UBICADO": 44,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 5,
-    "CALLES SIN CRUCE EN OSM": 12,
+    "CALLES SIN CRUCE EN OSM": 11,
     "SIN UBICAR": 1
    },
    "cruces": [
@@ -5303,9 +5331,16 @@
      "texto": "AV. RÍO MOCTEZUMA-CARR. SAN JUAN DEL RÍO",
      "calle": "AV. RÍO MOCTEZUMA",
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38797,
+     "lon": -99.98467,
+     "osm_calle": "Calle General Francisco Villa",
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación confirmada por Miguel (D-43): «AV. RÍO MOCTEZUMA» → «Calle General Francisco Villa»",
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 29,
@@ -7154,10 +7189,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 58,
    "conteo": {
-    "UBICADO": 53,
+    "UBICADO": 54,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 4,
-    "CALLES SIN CRUCE EN OSM": 1,
+    "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 0
    },
    "cruces": [
@@ -7408,9 +7443,16 @@
      "texto": "AV. RÍO MOCTEZUMA-CARR. SAN JUAN DEL RÍO",
      "calle": "AV. RÍO MOCTEZUMA",
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.38797,
+     "lon": -99.98467,
+     "osm_calle": "Calle General Francisco Villa",
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación confirmada por Miguel (D-43): «AV. RÍO MOCTEZUMA» → «Calle General Francisco Villa»",
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 20,

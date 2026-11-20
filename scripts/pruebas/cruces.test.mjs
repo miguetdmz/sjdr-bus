@@ -100,3 +100,10 @@ test('cruces: número con cifra = con letra («AV. 1 PONIENTE» = «Avenida Uno 
   assert.ok(uno.length >= 3, `solo ${uno.length}`);
   for (const c of uno) { assert.ok([c.osm_calle, c.osm_cruce].includes('Avenida Uno Poniente')); assert.match(c.evidencia, /se tocan en OSM/); }
 });
+
+test('cruces: Río Moctezuma sigue como Gral. Francisco Villa hasta la Av. Central (D-43), sin perder sus otros cruces', () => {
+  const rm = todos.filter((c) => /RÍO MOCTEZUMA/.test(c.texto));
+  const conCarr = rm.filter((c) => /SAN JUAN DEL RÍO/.test(c.texto));
+  assert.ok(conCarr.length >= 6 && conCarr.every((c) => c.estado === 'UBICADO' && c.osm_calle === 'Calle General Francisco Villa'));
+  assert.ok(rm.filter((c) => c.estado === 'UBICADO' && c.osm_calle === 'Avenida Río Moctezuma').length >= 30);
+});

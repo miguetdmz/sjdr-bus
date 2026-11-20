@@ -682,6 +682,7 @@ Miguel).
   | Independencia (junto al Jardín Independencia) | Avenida Juárez | Miguel, 19 nov 2026, 10:10 pm |
   | Carr. San Juan del Río (dentro de la ciudad) | Avenida Central | Miguel, 19 nov 2026, 10:12 pm |
   | Jurica | Avenida Belisario Domínguez | Miguel, 20 nov 2026, 12:47 am |
+  | Av. Río Moctezuma (al llegar a la Av. Central) | sigue como Calle General Francisco Villa (continuación, no reemplazo) | Miguel, 20 nov 2026, 12:55 am |
 - **Cómo:** tabla `ALIAS_MIGUEL` de `scripts/cruces.mjs`. El alias también
   pasa por la prueba del mapa (las dos calles se tocan dentro del corredor de la
   ruta); si no, el cruce sigue POR VERIFICAR.
@@ -705,6 +706,12 @@ Miguel).
   (032 #53, Venustiano Carranza – Miguel Hidalgo: punto suelto a 5.5 km de sus
   vecinos, que ahora sí se ubican; el salto máximo es 3 km). Total: 664 de 974
   con punto (68 %), 183 referencias (19 %), 127 POR VERIFICAR (13 %).
+- **Río Moctezuma (20 nov 2026):** en OSM termina 305 m antes de la Av.
+  Central y el trazo sigue como Gral. Francisco Villa (la ruta 004 sigue por
+  ella). Miguel confirmó la continuación. Tabla `CONTINUACION_MIGUEL`: se
+  agrega como opción, no reemplaza el nombre, y pasa la prueba del mapa.
+  Efecto: 6 cruces nuevos con punto, ninguno movido ni perdido. Total: 670 de
+  974 con punto (69 %), 183 referencias (19 %), 121 POR VERIFICAR (12 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 

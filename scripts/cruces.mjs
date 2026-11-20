@@ -234,6 +234,13 @@ const ALIAS_MIGUEL = {
   JURICA: 'Avenida Belisario Domínguez', // Miguel, 20 nov 2026, 12:47 am; única calle de OSM que toca Benito Juárez Ote., Fernando de Tapia y Av. Central
 };
 const aliasPorClave = new Map(Object.entries(ALIAS_MIGUEL).map(([k, v]) => [clave(k), v]));
+// Continuaciones confirmadas por Miguel: la calle sigue con otro nombre en OSM.
+// No reemplazan al nombre original: se agregan como opción y solo ganan si
+// pasan la prueba del mapa (la calle original sigue sirviendo en sus cruces).
+const CONTINUACION_MIGUEL = {
+  'RIO MOCTEZUMA': 'Calle General Francisco Villa', // sigue 305 m hasta la Av. Central; Miguel, 20 nov 2026, 12:55 am
+};
+const contPorClave = new Map(Object.entries(CONTINUACION_MIGUEL).map(([k, v]) => [clave(k), v]));
 
 function candidatos(texto) {
   if (memoCand.has(texto)) return memoCand.get(texto);
@@ -248,6 +255,7 @@ function candidatos(texto) {
       const max = k.length >= 7 ? 1 : 0;
       if ((k === cl || lev(k, cl, max) <= max) && calles.has(v)) poner(calles.get(v), 'alias de Miguel (D-43)', 1);
     }
+    for (const [k, v] of contPorClave) if (k === cl && calles.has(v)) poner(calles.get(v), 'continuación confirmada por Miguel (D-43)', 0.9);
     for (const c of porClave.get(cl) ?? []) poner(c, 'exacto', 1);
     for (const c of porClave.get(clSR) ?? []) poner(c, 'exacto', 0.95);
     // número como ordinal: «ARTICULO 3°» → «Artículo Tercero»
