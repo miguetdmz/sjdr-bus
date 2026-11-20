@@ -642,3 +642,31 @@ Miguel).
     B5 (Participa); su diseño y alcance se presentan a Miguel antes de
     construirlo.
 - **Decidió:** Miguel, 19 nov 2026.
+
+## D-42 · 19 nov 2026 · R-03: primero se arregla el dato con evidencia; POR VERIFICAR solo lo que no la tiene · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, ~9:40 pm; hallazgo a de R-03):** no quiere
+  que la app quede «por verificar» en todo. Antes de marcar un cruce POR
+  VERIFICAR se arregla el dato: unir nombres partidos («CARR. SAN JUAN DEL
+  RÍO»), corregir abreviaturas y erratas, reconocer negocios. La meta es el
+  mejor MVP posible para mostrarlo a posibles dueños de camiones y a la gente.
+- **Cómo (`scripts/cruces.mjs` → `datos/investigacion/cruces.json`):**
+  - Corte de cada cruce por programación dinámica: gana el corte que mejor
+    coincide con calles de OSM y con nombres que la misma lista repite.
+  - Toda corrección (abreviatura, errata, nombre de pila de sobra, calle que
+    en OSM sigue en línea recta con otro nombre) se acepta **solo si las dos
+    calles se tocan en OSM** (≤ 30 m) y dentro del corredor de la ruta (sus
+    extremos + 3 km). Cada una queda anotada en «correcciones».
+  - Ubicación elegida para toda la ruta a la vez (saltos ≤ 3 km): una calle
+    homónima en otro pueblo ya no arrastra a los cruces siguientes.
+  - Negocio que OSM no tiene: REFERENCIA (confirma la calle, sin punto propio).
+- **Resultado (19 nov 2026, 19 listas usables, 954 cruces):** 600 ubicados
+  (63 %), 156 referencias de calle (16 %) y 198 POR VERIFICAR (21 %). En la
+  001: 34 de 50 ubicados (antes 22 de 49 con nombre en OSM). El 27 % de lo
+  POR VERIFICAR se concentra en 4 nombres (Pareto): Paseo Central, Vicente
+  Rivapalacio, Benito Juárez Oriente y Carr. San Juan del Río.
+- **No cambia:** nada se rellena con dato supuesto (D-41, lección 4); el
+  sentido no se asigna todavía (hallazgo c, regla 10). Todo punto es ESTIMADO
+  a partir de OSM.
+- **Prueba:** `scripts/pruebas/cruces.test.mjs`.
+- **Decidió:** Miguel, 19 nov 2026.
+- **Impacta:** R-03, R-04, `datos/investigacion/cruces.json`.

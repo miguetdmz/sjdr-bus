@@ -19,7 +19,8 @@
     "datos-app": "node scripts/datos-app.mjs",
     "investigacion": "node scripts/investigacion.mjs",
     "calles-oficiales": "node scripts/calles-oficiales.mjs",
-    "extremos": "node scripts/extremos.mjs"
+    "extremos": "node scripts/extremos.mjs",
+    "cruces": "node scripts/cruces.mjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4"
