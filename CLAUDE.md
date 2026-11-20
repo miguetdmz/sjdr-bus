@@ -157,7 +157,16 @@ puede, convertir la regla en una prueba automática.
      «1:47 am») en vez de sacarlas de `date`; se corrigió antes de subir.
      Regla añadida: toda hora que se escribe en una nota, un commit o el código
      sale de `TZ=America/Mexico_City date` corrido en ese momento.
-   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
+   - 2026-11-20 (3.ª vez, ~2:14 am): Claude escribió «2:13 am» de memoria en
+     un comentario de `scripts/cruces.mjs` (decisión de Miguel sobre la
+     23/023); el `date` corrido al recibir el mensaje decía 2:14 am. Se
+     corrigió antes del commit 9cf286d.
+   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (20 nov 2026):
+   hook `.claude/hooks/hora-real.sh` (PostToolUse de Edit y Write) que, si el
+   texto nuevo trae una hora («H:MM am/pm») que no estaba antes, le devuelve a
+   Claude la hora real de México y la hora escrita, para que la diferencia se
+   vea en el momento. Prueba: una edición con una hora inventada hace que el
+   hook la reporte; una sin horas, no. Se construye con el sí de Miguel.
 8. **Una página descargada traía una llave de sesión (19 nov 2026).** En R-01
    la página pública de rutas se guardó primero en `datos/cache/qrobus/`, dentro
    del repositorio, y traía una llave de sesión (`csrf-token`). Se detectó a
