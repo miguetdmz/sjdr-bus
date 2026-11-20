@@ -8,6 +8,7 @@ import { readFileSync } from 'node:fs';
 export const RUTAS_DADAS_DE_BAJA = {
   '031': 'D-36: «Pedregoso – PITSA» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
   '044': 'D-36: «Valle Dorado II – Centro» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
+  '024C': 'D-39: «Las Torres – Central de Autobuses» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
 };
 const vigente = ({ numero }) => !(numero in RUTAS_DADAS_DE_BAJA);
 
@@ -40,7 +41,7 @@ export function tablaDeSeccion(titulo) {
   return filas.slice(2);
 }
 
-// Las 40 rutas vigentes de HANDOFF §4 (42 menos las 2 bajas de D-36), en orden: {numero, nombre, tipo}.
+// Las 39 rutas vigentes de HANDOFF §4 (42 menos las bajas de D-36 y D-39), en orden: {numero, nombre, tipo}.
 // Quita la marca «`[CORREGIDO → D-xx]`», que no es parte del nombre ni del tipo.
 export function inventario() {
   return tablaDeSeccion('## 4.').map(([numero, nombre, tipo]) => ({
@@ -55,7 +56,7 @@ export function numerosVerificados() {
   return tablaDeSeccion('### 5.1').map(([ruta]) => ruta.split(' ')[0]);
 }
 
-// Números de las 30 rutas vigentes de solo inventario (párrafo de HANDOFF §5.3), con la
+// Números de las 29 rutas vigentes de solo inventario (párrafo de HANDOFF §5.3), con la
 // marca «(intermunicipal)» donde la lleva: [{numero, intermunicipal}].
 export function numerosSoloInventario() {
   const texto = handoff();

@@ -3,16 +3,16 @@
 Generado por `node scripts/investigacion.mjs` desde `datos/investigacion/`.
 No editar a mano. Fecha de las fuentes: ver `datos/investigacion/fuentes.json`.
 
-Unidad de medida: **ruta-sentido** (42 rutas × 2 sentidos = 80). Regla 10:
+Unidad de medida: **ruta-sentido** (42 rutas × 2 sentidos = 78). Regla 10:
 cada sentido se cuenta por separado.
 
 ## Cobertura con datos por sentido (km, minutos o paradas)
 
 | Fuente | Tipo | Ruta-sentidos que cubre | Acumulado | Gráfica |
 |---|---|---|---|---|
-| Programa Estatal de Transporte 2021-2027 (La Sombra de Arteaga, 5 sep 2022) | oficial | 62 | 62 (78 %) | ████████████████ |
-| Moovit, consulta nov 2026 (referencia, no es fuente abierta) | referencia | 20 | 68 (85 %) | █████ |
-| La Sombra de Arteaga, 24 oct 2025 | oficial | 4 | 70 (88 %) | █ |
+| Programa Estatal de Transporte 2021-2027 (La Sombra de Arteaga, 5 sep 2022) | oficial | 60 | 60 (77 %) | ███████████████ |
+| Moovit, consulta nov 2026 (referencia, no es fuente abierta) | referencia | 20 | 66 (85 %) | █████ |
+| La Sombra de Arteaga, 24 oct 2025 | oficial | 4 | 68 (87 %) | █ |
 
 Sin dato por sentido (solo nombre o conteo): GTFS oficial de Qrobús v25 (40
 urbanas, solo nombres), página «Rutas» de Qrobús, nota de la AMEQ del 29 sep 2025
@@ -29,7 +29,7 @@ revisar, sin convertirse en trazo. Sin ruta del inventario: rel/2788750 (sin eti
 ## Confianza por ruta-sentido
 
 - **Alta** (oficial con itinerario por calles de ese sentido): 0.
-- **Media** (oficial con km de ese sentido, sin señal de error): 66.
+- **Media** (oficial con km de ese sentido, sin señal de error): 64.
 - **Baja** (solo nombre, solo Moovit o con conflicto): 14.
 
 ## Conflictos entre el inventario y el PET 2022 (no se suponen iguales)

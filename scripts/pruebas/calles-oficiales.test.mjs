@@ -28,8 +28,8 @@ test('R-01: no se llamaron las consultas internas del mapa (D-25)', () => {
   }
 });
 
-test('R-01: 40 rutas en el orden de routes.txt, cada una con su lista o «sin lista»', () => {
-  assert.equal(calles.rutas.length, 40);
+test('R-01: 39 rutas en el orden de routes.txt, cada una con su lista o «sin lista»', () => {
+  assert.equal(calles.rutas.length, 39);
   rutas.forEach((r, i) => assert.equal(calles.rutas[i].route_id, r.route_id));
   for (const r of calles.rutas) {
     assert.ok(['con lista', 'sin lista'].includes(r.estado), r.route_id);

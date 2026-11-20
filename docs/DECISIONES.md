@@ -592,3 +592,14 @@ Miguel).
   desarrollo (`vite.config.mjs`, solo en desarrollo). Da igual el navegador; el
   archivo es la única fuente. El artifact queda retirado.
 - **Decidió:** Miguel (pidió el mapa de antes), 19 nov 2026.
+
+## D-39 · 19 nov 2026 · Ruta 024C dada de baja: ya no existe · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, ~7:41 pm; conocimiento local):** la ruta
+  **024C «Las Torres – Central de Autobuses»** ya no opera. Se quita igual que
+  D-36: quedan **39 rutas (37 urbanas + 2 intermunicipales)** y el extremo
+  «Las Torres» sale de la lista por confirmar (23 lugares).
+- **Fuente:** Miguel (campo); la página oficial la listaba el 19 nov 2026, así
+  que la baja queda [sin verificar] con fuente oficial.
+- **Cómo:** `RUTAS_DADAS_DE_BAJA` de `scripts/lib/handoff.mjs`; la prueba de
+  bajas cubre 024C, 031 y 044.
+- **Decidió:** Miguel, 19 nov 2026.

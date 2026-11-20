@@ -7,15 +7,15 @@ import { inventario, numerosSoloInventario, RUTAS_DADAS_DE_BAJA } from '../lib/h
 
 const raiz = new URL('../../', import.meta.url).pathname;
 const leer = (r) => readFileSync(`${raiz}${r}`, 'utf8');
-const BAJAS = ['031', '044'];
+const BAJAS = ['024C', '031', '044'];
 
-test('D-36: la lista de bajas es exactamente 031 y 044, cada una con su decisión', () => {
+test('D-36 y D-39: la lista de bajas es exactamente 024C, 031 y 044, cada una con su decisión', () => {
   assert.deepEqual(Object.keys(RUTAS_DADAS_DE_BAJA).sort(), BAJAS);
-  for (const n of BAJAS) assert.match(RUTAS_DADAS_DE_BAJA[n], /^D-36/);
+  for (const n of BAJAS) assert.match(RUTAS_DADAS_DE_BAJA[n], n === '024C' ? /^D-39/ : /^D-36/);
 });
 
-test('D-36: 031 y 044 no reaparecen en el inventario ni en ningún dato derivado', () => {
-  assert.equal(inventario().length, 40);
+test('D-36 y D-39: 024C, 031 y 044 no reaparecen en el inventario ni en ningún dato derivado', () => {
+  assert.equal(inventario().length, 39);
   for (const n of BAJAS) {
     assert.ok(!inventario().some((r) => r.numero === n), `inventario: ${n}`);
     assert.ok(!numerosSoloInventario().some((r) => r.numero === n), `solo inventario: ${n}`);
@@ -28,7 +28,7 @@ test('D-36: 031 y 044 no reaparecen en el inventario ni en ningún dato derivado
     }
   }
   for (const f of ['datos/investigacion/extremos.json', 'datos/investigacion/extremos-propuestas.json']) {
-    assert.doesNotMatch(leer(f), /PITSA|Valle Dorado II/, f);
+    assert.doesNotMatch(leer(f), /PITSA|Valle Dorado II|Las Torres/, f);
   }
 });
 

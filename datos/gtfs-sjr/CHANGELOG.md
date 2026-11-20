@@ -52,3 +52,6 @@ Formato por versión: fecha (hora de México) · qué cambió · fuente · autor
   (`U-044`): ya no existen. Quedan 40 rutas (38 urbanas y 2 intermunicipales) ·
   fuente: Miguel, conocimiento local, 19 nov 2026 (D-36); la página oficial de
   Qrobús aún las listaba ese día · Claude.
+- 19 nov 2026 · Se quita la ruta 024C «Las Torres – Central de Autobuses»
+  (`U-024C`): ya no existe. Quedan 39 rutas (37 urbanas y 2 intermunicipales) ·
+  fuente: Miguel, conocimiento local, 19 nov 2026 (D-39) · Claude.

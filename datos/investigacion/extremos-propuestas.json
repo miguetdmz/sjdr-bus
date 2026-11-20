@@ -15,9 +15,9 @@
     "Los lugares sin candidato se quedan sin coordenada (no se completan con datos supuestos)."
   ],
   "resumen": {
-    "lugares": 24,
+    "lugares": 23,
     "con_candidato": 5,
-    "sin_candidato": 19
+    "sin_candidato": 18
   },
   "lugares": [
     {
@@ -29,7 +29,6 @@
         "009",
         "011",
         "020",
-        "024C",
         "028",
         "030",
         "032",
@@ -288,15 +287,6 @@
         }
       ],
       "nota": null,
-      "descartados": []
-    },
-    {
-      "nombre": "Las Torres",
-      "rutas": [
-        "024C"
-      ],
-      "candidatos": [],
-      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
       "descartados": []
     },
     {

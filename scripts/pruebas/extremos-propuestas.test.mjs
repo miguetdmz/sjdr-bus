@@ -31,12 +31,12 @@ test('si existe la respuesta completa (fuera de git), coincide con la huella', {
   assert.equal(h, HUELLA);
 });
 
-test('propuestas: están exactamente los 24 lugares sin coordenada (28 menos La Rueda D-35, PITSA y Valle Dorado II D-36, Visthá (CERESO) D-37)', () => {
+test('propuestas: están exactamente los 23 lugares sin coordenada (28 menos La Rueda D-35, PITSA y Valle Dorado II D-36, Visthá (CERESO) D-37, Las Torres D-39)', () => {
   const sin = ext.lugares.filter((l) => l.lat === null).map((l) => l.lugar).sort();
-  assert.equal(sin.length, 24);
+  assert.equal(sin.length, 23);
   assert.deepEqual(prop.lugares.map((l) => l.nombre).sort(), sin);
-  assert.equal(prop.resumen.lugares, 24);
-  assert.equal(prop.resumen.con_candidato + prop.resumen.sin_candidato, 24);
+  assert.equal(prop.resumen.lugares, 23);
+  assert.equal(prop.resumen.con_candidato + prop.resumen.sin_candidato, 23);
 });
 
 test('propuestas: el archivo coincide con lo que genera el programa (segunda corrida idempotente)', () => {
