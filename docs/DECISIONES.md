@@ -622,3 +622,22 @@ Miguel).
   necesitan punto); «Nuevo San Isidro» sale de la lista.
 - **Fuente:** Miguel (campo); [sin verificar] con fuente oficial.
 - **Decidió:** Miguel, 19 nov 2026.
+
+## D-41 · 19 nov 2026 · Lanzar con faltantes visibles; la gente ayuda a completar · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, ~8:45 pm):** la información que falta no
+  detiene el avance. Hay una versión de lanzamiento y después se mejora: el
+  proyecto es abierto y lo que falte se completa con la retroalimentación de
+  quien use la app.
+- **Cómo se aplica:**
+  - Lo que nadie ubicó queda marcado **FALTANTE (D-41)** en los datos y se
+    muestra así en la app. Nunca se rellena con un dato supuesto (reglas 1 y 9).
+  - Hoy faltan 3 extremos: Manantiales / Nogales (042), Valle Dorado II (044) y
+    Ezequiel Montes (023, fuera del municipio).
+  - `datos/investigacion/extremos-finales.json` (script
+    `scripts/extremos-finales.mjs`) junta lo automático de R-02 con los puntos
+    de Miguel: 32 de 35 lugares con punto, 21 de ellos de Miguel, POR VERIFICAR
+    EN CAMPO.
+  - Pendiente para un bloque futuro: un canal de retroalimentación en la app
+    (cómo reportar un dato que falta o está mal). Se propone; no se construye
+    sin aprobación.
+- **Decidió:** Miguel, 19 nov 2026.
