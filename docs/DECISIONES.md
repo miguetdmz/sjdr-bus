@@ -548,7 +548,7 @@ Miguel).
 - **Impacta:** `datos/investigacion/extremos.json`, `extremos-propuestas.json`,
   página de confirmación, R-03.
 
-## D-36 · 19 nov 2026 · Rutas 031 y 044 dadas de baja: ya no existen · VIGENTE
+## D-36 · 19 nov 2026 · Rutas 031 y 044 dadas de baja: ya no existen · VIGENTE (la 044 se corrigió en D-40)
 - **Decisión (Miguel, 19 nov 2026, ~7:30 pm; conocimiento local):** las rutas
   **031 «Pedregoso – PITSA»** y **044 «Valle Dorado II – Centro»** ya no
   operan. Se quitan del GTFS-SJR y de todo lo que se deriva de él: quedan
@@ -607,4 +607,18 @@ Miguel).
   que la baja queda [sin verificar] con fuente oficial.
 - **Cómo:** `RUTAS_DADAS_DE_BAJA` de `scripts/lib/handoff.mjs`; la prueba de
   bajas cubre 024C, 031 y 044.
+- **Decidió:** Miguel, 19 nov 2026.
+
+## D-40 · 19 nov 2026 · La 044 sí existe y la 042 también; la 018 ya no · VIGENTE
+- **Decisión (Miguel, 19 nov 2026, ~8:35 pm; confirmó con conocimiento
+  local):**
+  - **044 «Valle Dorado II – Centro» sí existe:** vuelve al GTFS-SJR (corrige
+    D-36 en esa ruta; la 031 sigue de baja).
+  - **042 «Manantiales / Nogales – Centro» sí existe:** se queda.
+  - **018 «Nuevo San Isidro – Centro» ya no existe:** se da de baja como D-36.
+- **Efecto:** siguen **39 rutas (37 urbanas + 2 intermunicipales)**. Los
+  extremos «Valle Dorado II» y «Manantiales / Nogales» vuelven a pendiente (sus
+  rechazos se borraron de `extremos-decisiones.json` porque sus rutas existen y
+  necesitan punto); «Nuevo San Isidro» sale de la lista.
+- **Fuente:** Miguel (campo); [sin verificar] con fuente oficial.
 - **Decidió:** Miguel, 19 nov 2026.

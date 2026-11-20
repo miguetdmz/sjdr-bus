@@ -7,7 +7,7 @@ import { readFileSync } from 'node:fs';
 // no se edita (contrato de origen): la baja se aplica aquí, en su único punto de lectura.
 export const RUTAS_DADAS_DE_BAJA = {
   '031': 'D-36: «Pedregoso – PITSA» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
-  '044': 'D-36: «Valle Dorado II – Centro» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
+  '018': 'D-40: «Nuevo San Isidro – Centro» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
   '024C': 'D-39: «Las Torres – Central de Autobuses» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
 };
 const vigente = ({ numero }) => !(numero in RUTAS_DADAS_DE_BAJA);
@@ -41,7 +41,7 @@ export function tablaDeSeccion(titulo) {
   return filas.slice(2);
 }
 
-// Las 39 rutas vigentes de HANDOFF §4 (42 menos las bajas de D-36 y D-39), en orden: {numero, nombre, tipo}.
+// Las 39 rutas vigentes de HANDOFF §4 (42 menos las bajas de D-36, D-39 y D-40; la 044 volvió en D-40), en orden: {numero, nombre, tipo}.
 // Quita la marca «`[CORREGIDO → D-xx]`», que no es parte del nombre ni del tipo.
 export function inventario() {
   return tablaDeSeccion('## 4.').map(([numero, nombre, tipo]) => ({

@@ -200,15 +200,6 @@
       "consulta": "Barrio de la Cruz, San Juan del Río"
     },
     {
-      "lugar": "Nuevo San Isidro",
-      "lat": null,
-      "lon": null,
-      "estado": "SIN COORDENADA · POR VERIFICAR",
-      "motivo": "ningún resultado de Nominatim pasa las reglas",
-      "descartes": [],
-      "consulta": "Nuevo San Isidro, San Juan del Río"
-    },
-    {
       "lugar": "Valle Real",
       "lat": null,
       "lon": null,
@@ -303,6 +294,17 @@
     },
     {
       "lugar": "Valle Dorado I",
+      "lat": null,
+      "lon": null,
+      "estado": "SIN COORDENADA · POR VERIFICAR",
+      "motivo": "ningún resultado de Nominatim pasa las reglas",
+      "descartes": [
+        "«Avenida Valle Dorado Sur»: el nombre no coincide"
+      ],
+      "consulta": "Valle Dorado, San Juan del Río"
+    },
+    {
+      "lugar": "Valle Dorado II",
       "lat": null,
       "lon": null,
       "estado": "SIN COORDENADA · POR VERIFICAR",
@@ -504,14 +506,6 @@
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {
-      "route_id": "U-018",
-      "numero": "018",
-      "nombre": "Nuevo San Isidro – Centro",
-      "origen": "Nuevo San Isidro",
-      "destino": "Centro",
-      "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
-    },
-    {
       "route_id": "U-019",
       "numero": "019",
       "nombre": "Pedregoso – Valle Real",
@@ -645,6 +639,14 @@
       "nombre": "Valle Dorado I – Central de Autobuses",
       "origen": "Valle Dorado I",
       "destino": "Central de Autobuses",
+      "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
+    },
+    {
+      "route_id": "U-044",
+      "numero": "044",
+      "nombre": "Valle Dorado II – Centro",
+      "origen": "Valle Dorado II",
+      "destino": "Centro",
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {

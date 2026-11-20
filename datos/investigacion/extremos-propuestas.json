@@ -326,15 +326,6 @@
       "descartados": []
     },
     {
-      "nombre": "Nuevo San Isidro",
-      "rutas": [
-        "018"
-      ],
-      "candidatos": [],
-      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
-      "descartados": []
-    },
-    {
       "nombre": "Pedregoso 2ª Sección",
       "rutas": [
         "005"
@@ -383,6 +374,15 @@
       "nombre": "Valle Dorado I",
       "rutas": [
         "043"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "Valle Dorado II",
+      "rutas": [
+        "044"
       ],
       "candidatos": [],
       "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",

@@ -65,7 +65,6 @@ export const LUGARES = {
   'Granjas Banthí': { q: 'Granjas Banthí, San Juan del Río', nombres: ['GRANJAS BANTHI'] },
   'Solares Banthí': { q: 'Solares Banthí, San Juan del Río', nombres: ['SOLARES BANTHI'] },
   'Barrio de la Cruz': { q: 'Barrio de la Cruz, San Juan del Río', nombres: ['BARRIO DE LA CRUZ'] },
-  'Nuevo San Isidro': { q: 'Nuevo San Isidro, San Juan del Río', nombres: ['NUEVO SAN ISIDRO'] },
   'Lomas del Pedregal': { q: 'Lomas del Pedregal, San Juan del Río', nombres: ['LOMAS DEL PEDREGAL'] },
   'Praderas del Sol': { q: 'Praderas del Sol, San Juan del Río', nombres: ['PRADERAS DEL SOL'] },
   'Las Torres': { q: 'Las Torres, San Juan del Río', nombres: ['LAS TORRES'] },
@@ -76,6 +75,7 @@ export const LUGARES = {
   'Nogales': { q: 'Nogales, San Juan del Río', nombres: ['NOGALES', 'LOS NOGALES'] },
   'IMSS': { q: 'IMSS, San Juan del Río', nombres: ['IMSS'], instalacion: true },
   'Valle Dorado I': { q: 'Valle Dorado, San Juan del Río', nombres: ['VALLE DORADO I', 'VALLE DORADO 1', 'VALLE DORADO PRIMERA SECCION'] },
+  'Valle Dorado II': { q: 'Valle Dorado, San Juan del Río', nombres: ['VALLE DORADO II', 'VALLE DORADO 2', 'VALLE DORADO SEGUNDA SECCION'] },
   'Ezequiel Montes': { q: 'Ezequiel Montes, Querétaro', nombres: ['EZEQUIEL MONTES'], fuera: 'otro municipio (destino de la intermunicipal 023)' },
 };
 

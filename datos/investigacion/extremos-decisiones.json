@@ -1,8 +1,8 @@
 {
   "tarea": "R-03 (D-34)",
   "que_es": "Respuestas de Miguel en la página de confirmación de extremos. Todo punto queda POR VERIFICAR EN CAMPO.",
-  "respaldado": "2026-11-20T01:41:27.495Z",
-  "respondidos": 23,
+  "respaldado": "2026-11-20T02:28:37.988Z",
+  "respondidos": 25,
   "de": 27,
   "decisiones": {
     "Central de Autobuses": {
@@ -179,12 +179,6 @@
       "candidato_osm": null,
       "fecha": "2026-11-20T01:19:54.010Z"
     },
-    "Valle Dorado II": {
-      "estado": "rechazado",
-      "coordenada": null,
-      "candidato_osm": null,
-      "fecha": "2026-11-20T01:17:54.312Z"
-    },
     "Visthá (CERESO)": {
       "estado": "movido",
       "coordenada": [
@@ -199,6 +193,30 @@
       "coordenada": null,
       "candidato_osm": null,
       "fecha": "2026-11-20T01:41:27.459Z"
+    },
+    "Lomas del Pedregal": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.37024,
+        -99.98071
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-20T02:27:33.382Z"
+    },
+    "Manantiales": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.41517,
+        -100.00103
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-20T02:28:25.794Z"
+    },
+    "Nuevo San Isidro": {
+      "estado": "rechazado",
+      "coordenada": null,
+      "candidato_osm": null,
+      "fecha": "2026-11-20T02:28:37.982Z"
     }
   },
   "fuente": "Página de trabajo web/confirmar-extremos.html (guardado automático en este archivo)"

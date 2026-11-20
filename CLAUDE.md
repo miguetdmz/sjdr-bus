@@ -38,7 +38,7 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
    repositorio. La app nunca los consulta en vivo.
 8. Niveles de precisión A/B/C por tramo (HANDOFF §11.4). Un tramo C nunca se
    dibuja como línea continua.
-9. Las rutas vigentes (39: D-36 y D-39) solo en un menú desplegable. Ninguna se oculta por falta de
+9. Las rutas vigentes (39: D-36, D-39 y D-40) solo en un menú desplegable. Ninguna se oculta por falta de
    datos y ninguna se completa con datos supuestos.
 10. Nunca usar el dato de un sentido para el otro: cada sentido lleva su
     propio conteo de paradas y su duración.

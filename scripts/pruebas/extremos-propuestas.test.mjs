@@ -31,7 +31,7 @@ test('si existe la respuesta completa (fuera de git), coincide con la huella', {
   assert.equal(h, HUELLA);
 });
 
-test('propuestas: están exactamente los 23 lugares sin coordenada (28 menos La Rueda D-35, PITSA y Valle Dorado II D-36, Visthá (CERESO) D-37, Las Torres D-39)', () => {
+test('propuestas: están exactamente los 23 lugares sin coordenada (28 menos La Rueda D-35, PITSA D-36, Visthá (CERESO) D-37, Las Torres D-39, Nuevo San Isidro D-40; Valle Dorado II volvió en D-40)', () => {
   const sin = ext.lugares.filter((l) => l.lat === null).map((l) => l.lugar).sort();
   assert.equal(sin.length, 23);
   assert.deepEqual(prop.lugares.map((l) => l.nombre).sort(), sin);

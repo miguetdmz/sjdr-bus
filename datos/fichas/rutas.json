@@ -1,5 +1,5 @@
 {
-  "descripcion": "Ficha de estado de cada una de las 39 rutas vigentes del GTFS-SJR, en el orden de routes.txt. grupo: «verificada» (HANDOFF §5.1) o «solo-inventario» (HANDOFF §5.3). nivel_precision: el nivel más bajo del recorrido según HANDOFF §11.4; hoy todas en C (sin trazo confiable). Fechas en hora de México (D-09). sentidos (solo rutas verificadas): conteo de paradas, duración en minutos y horario de CADA sentido, con su fuente; nunca se copia un sentido al otro (lección 2 de CLAUDE.md). Sin frecuencia: no está verificada. Sin las rutas 031 y 044 (D-36) ni 024C (D-39): dadas de baja, Miguel, 19 nov 2026.",
+  "descripcion": "Ficha de estado de cada una de las 39 rutas vigentes del GTFS-SJR, en el orden de routes.txt. grupo: «verificada» (HANDOFF §5.1) o «solo-inventario» (HANDOFF §5.3). nivel_precision: el nivel más bajo del recorrido según HANDOFF §11.4; hoy todas en C (sin trazo confiable). Fechas en hora de México (D-09). sentidos (solo rutas verificadas): conteo de paradas, duración en minutos y horario de CADA sentido, con su fuente; nunca se copia un sentido al otro (lección 2 de CLAUDE.md). Sin frecuencia: no está verificada. Sin las rutas 031 (D-36), 024C (D-39) ni 018 (D-40): dadas de baja, Miguel, 19 nov 2026. La 044 volvió (D-40).",
   "licencia": "ODbL 1.0 (datos/LICENSE)",
   "actualizado": "2026-11-17",
   "rutas": [
@@ -308,14 +308,6 @@
       "fecha": "2026-11-17"
     },
     {
-      "route_id": "U-018",
-      "numero": "018",
-      "grupo": "solo-inventario",
-      "nivel_precision": "C",
-      "fuente": "Inventario: listado oficial de rutas (HANDOFF §4). Grupo: sin ficha verificada (HANDOFF §5.3); sin conteos, duraciones ni trazos.",
-      "fecha": "2026-11-17"
-    },
-    {
       "route_id": "U-019",
       "numero": "019",
       "grupo": "solo-inventario",
@@ -494,6 +486,14 @@
     {
       "route_id": "U-043",
       "numero": "043",
+      "grupo": "solo-inventario",
+      "nivel_precision": "C",
+      "fuente": "Inventario: listado oficial de rutas (HANDOFF §4). Grupo: sin ficha verificada (HANDOFF §5.3); sin conteos, duraciones ni trazos.",
+      "fecha": "2026-11-17"
+    },
+    {
+      "route_id": "U-044",
+      "numero": "044",
       "grupo": "solo-inventario",
       "nivel_precision": "C",
       "fuente": "Inventario: listado oficial de rutas (HANDOFF §4). Grupo: sin ficha verificada (HANDOFF §5.3); sin conteos, duraciones ni trazos.",

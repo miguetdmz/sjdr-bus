@@ -16,7 +16,6 @@ U-014,SJR-CONC,014,Granjas Banthí – Centro,3
 U-015B,SJR-CONC,015B,Solares Banthí – 5 de Mayo,3
 U-016,SJR-CONC,016,Infonavit La Paz – Centro,3
 U-017,SJR-CONC,017,Barrio de la Cruz – Centro,3
-U-018,SJR-CONC,018,Nuevo San Isidro – Centro,3
 U-019,SJR-CONC,019,Pedregoso – Valle Real,3
 U-020,SJR-CONC,020,Valle Real – Central de Autobuses,3
 U-022,SJR-CONC,022,Pedregoso – Centro,3
@@ -34,6 +33,7 @@ U-040,SJR-CONC,040,Las Águilas – Universidad Tecnológica (UTSJR),3
 U-041,SJR-CONC,041,Francisco Villa – Centro,3
 U-042,SJR-CONC,042,Manantiales / Nogales – Centro,3
 U-043,SJR-CONC,043,Valle Dorado I – Central de Autobuses,3
+U-044,SJR-CONC,044,Valle Dorado II – Centro,3
 U-046,SJR-CONC,046,Manantiales – Nogales – IMSS,3
 U-047,SJR-CONC,047,La Rueda – Central de Autobuses,3
 I-062,SJR-INTER,062,San Juan del Río – Tequisquiapan,3

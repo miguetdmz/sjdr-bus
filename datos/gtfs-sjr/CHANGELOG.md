@@ -55,3 +55,7 @@ Formato por versión: fecha (hora de México) · qué cambió · fuente · autor
 - 19 nov 2026 · Se quita la ruta 024C «Las Torres – Central de Autobuses»
   (`U-024C`): ya no existe. Quedan 39 rutas (37 urbanas y 2 intermunicipales) ·
   fuente: Miguel, conocimiento local, 19 nov 2026 (D-39) · Claude.
+- 19 nov 2026 · Corrección D-40: vuelve la ruta 044 «Valle Dorado II – Centro»
+  (`U-044`, Miguel confirmó que existe) y se quita la 018 «Nuevo San Isidro –
+  Centro» (`U-018`): ya no existe. Siguen 39 rutas (37 urbanas y 2
+  intermunicipales) · fuente: Miguel, conocimiento local, 19 nov 2026 · Claude.
