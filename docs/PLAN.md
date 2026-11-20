@@ -4,63 +4,51 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (19 nov 2026, 1:20 pm)
+## Estado actual (19 nov 2026, 9:05 pm)
 
 | Bloque | Qué es | Estado |
 |---|---|---|
-| B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado. Desde el 19 nov 2026 el repositorio es **público**: `miguetdmz/sjdr-bus` (D-29), con candado en `main` (solo entra un PR con la puerta en verde). El anterior, `miguetdmz/sjdrbus-sjr`, queda **privado** como archivo con su historial y los PR #1 a #9 |
-| B1 | Datos base del GTFS-SJR | **7 de 7 tareas hechas.** 49 paradas de OSM, POR VERIFICAR. El validador quedó en 2 errores conocidos (faltan viajes y horas de paso; no se inventan) |
-| B2a | Mockup navegable (PWA, Vite + Leaflet) | **4 de 8.** M-01 a M-04 hechas y **en línea** en https://sjdrbus-sjr.vercel.app (D-26, D-27). M-05 a M-08 APROBADA: las toma el turno del 19 nov, 11:30 pm |
-| B2 | Primera pantalla publicable | **Estilo aprobado** (D-30): la muestra patrón `web/muestra-patron.html`. Falta la tarea que lo aplica a la app |
-| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. R-03 BLOQUEADA (3 preguntas para Miguel); R-04 en otro chat de día; R-05 y R-06 dependen de R-03 |
+| B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado. Repositorio **público** `miguetdmz/sjdr-bus` (D-29), con candado en `main` |
+| B1 | Datos base del GTFS-SJR | **7 de 7.** Desde D-36/D-39/D-40 son **39 rutas** (37 urbanas + 2 intermunicipales): de baja 031, 024C y 018; la 044 volvió |
+| B2a | Mockup navegable (PWA, Vite + Leaflet) | **4 de 8** en línea. M-05 a M-08 APROBADA: las toma el turno del 19 nov, 11:30 pm |
+| B2 | Primera pantalla publicable | Estilo D-30 **aplicado** (E-01) y menú lateral en computadora (E-02), EN REVISIÓN en el PR |
+| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35 con punto, 21 de Miguel, 3 FALTANTES por D-41); falta la **secuencia de puntos por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
-| B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar |
+| B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. Con D-41 es el canal para completar faltantes |
 | B6 | Calcula tu ruta (D-15) | Sin iniciar |
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (19 nov 2026, 1:20 pm)
+### Relevo para la siguiente sesión (19 nov 2026, 9:05 pm)
 
-**Nuevo · estilo visual aprobado (D-30, 19 nov 2026, 1:15 pm).** Miguel
-aprobó la muestra patrón (`web/muestra-patron.html`; se ve con `npm run dev` en
-`/muestra-patron.html`). La tarea E-01 lo aplica a la app y se hace en la
-sesión de día del 19 nov (D-31: mientras Miguel trabaja, se avanza de día;
-a las 10:30 pm Claude avisa para el relevo). M-05 a M-08 se construyen con
-ese estilo; M-07 usa la paleta en el ícono.
-
-1. **Turno del 19 nov, 11:30 pm** (`noche/2026-11-20`): ya apunta al
-   repositorio nuevo `miguetdmz/sjdr-bus`. Sale del PR abierto más reciente
-   (`cierre/2026-11-19-publico`) y toma **solo M-05 a M-08**. M-07 usa el
-   nombre «SJDR Bus». R-03 sigue BLOQUEADA.
-2. **Cómo se publica desde ahora (D-26, D-29):** cada PR crea una vista
-   previa en Vercel; al integrarlo a `main`, la app pública se actualiza sola.
-   `main` tiene candado: si la puerta de calidad no pasa, GitHub no deja
-   integrar (también a Miguel). Integrar sigue siendo solo de Miguel
-   (lección 6).
-3. **Sin comprobar:** que la nube de los turnos tenga acceso al repositorio
-   nuevo (la corrida de prueba del inspector la negó el modo automático). Se
-   sabrá a las 11:39 pm; si el turno falla al clonar, Miguel da acceso a la
-   app de Claude en GitHub (Settings → Applications → Claude → sjdr-bus).
-4. **Preguntas abiertas para destrabar R-03 (Miguel, una a la vez):**
-   a) ¿Se aprueba una consulta a Overpass con los **nombres de calles** de San
-      Juan para separar cada cruce de las listas? Gratis y en caché.
-   b) ¿Qué hacer con las 21 listas que mezclan calles de Querétaro?
-   c) ¿Cómo se ubican los 28 extremos sin coordenada, empezando por la
-      Central de Autobuses (Blvd. Hidalgo #4, HANDOFF §11.3)?
-5. **R-04 (OSRM)** va en otro chat de día y necesita R-03.
-6. **Desvío del turno del 18 nov (para que Miguel decida):** aclarar la regla
-   2 de la cola: «una tarea BLOQUEADA se salta solo si las siguientes no
-   dependen de ella; si una depende, el turno se detiene ahí».
-7. **Preguntas que venían del PR 5** (sin confirmar): aceptar `lightningcss`
-   (MPL-2.0, pieza indirecta de Vite) como aviso; Node 24 en `package.json`.
-8. **Tarea abierta de Miguel:** la solicitud de transparencia del estudio
-   técnico de dic 2022 (D-23).
-9. **Idea para la versión de producción (sin decidir):** recorridos en 3D
-   sobre el mapa de otro proyecto. Esta versión se queda plana (Leaflet +
-   OpenStreetMap, D-04, regla 6).
-10. Si una corrida falla, revisar su registro con RemoteTrigger (`list_runs`
-    y `get_run_log`) de `trig_01TQ5dA2RtFfQaYGVmwgvYJY` (turno) y
-    `trig_01F8RbVpgf3NtuUeMe63nZa7` (inspector).
+1. **Lo hecho hoy en R-03 (D-32 a D-41):** consulta de calles de OSM
+   (`datos/cache/overpass/calles.json`), lugares de OSM, página de extremos y
+   las respuestas de Miguel en `datos/investigacion/extremos-decisiones.json`.
+   `scripts/extremos-finales.mjs` arma `extremos-finales.json`: 35 lugares, 32
+   con punto, 3 FALTANTES (Manantiales / Nogales, Valle Dorado II, Ezequiel
+   Montes).
+2. **Siguiente paso de R-03 (sesión de día, chat nuevo):** la secuencia de
+   puntos de paso por sentido desde las listas de R-01 y los extremos finales.
+   Hallazgos a resolver: la separación automática de cruces es parcial (22 de
+   49 en la 001), las listas traen negocios, e ida y vuelta vienen en una sola
+   lista. Las 21 listas mezcladas con Querétaro no se usan (D-33).
+3. **Herramientas de extremos:** página local con mapa normal
+   (`npm run dev` → `/confirmar-extremos.html`, guarda en el archivo, D-38) y
+   artifact privado de Miguel (solo calles; su base guarda las mismas
+   respuestas). El archivo del repositorio es la fuente.
+4. **D-41:** se lanza con faltantes visibles; lo que falte se completa con la
+   retroalimentación de la gente. Proponer en su momento el canal de reporte
+   (B5); no construirlo sin aprobación.
+5. **Turno del 19 nov, 11:30 pm** (`noche/2026-11-20`): sale de
+   `cierre/2026-11-19-publico` y toma **solo M-05 a M-08** con el estilo D-30.
+   Lo que no esté subido a GitHub antes de las 11:30 pm, el turno no lo ve.
+6. **Pendientes de Miguel (sin cambio):** regla 2 de la cola (tarea BLOQUEADA
+   con dependientes); `lightningcss` y Node 24 (PR 5); solicitud de
+   transparencia (D-23); borrar 2 implementaciones viejas de Vercel con el
+   slug del correo después de integrar el PR (con su permiso).
+7. Si una corrida falla: RemoteTrigger `list_runs`/`get_run_log` de
+   `trig_01TQ5dA2RtFfQaYGVmwgvYJY` (turno) y `trig_01F8RbVpgf3NtuUeMe63nZa7`
+   (inspector).
 
 ## Bloques
 
