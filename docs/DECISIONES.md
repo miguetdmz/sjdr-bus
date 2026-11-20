@@ -1121,16 +1121,20 @@ Miguel).
 - **Diseño (Claude, con el encargo de Miguel de definirlo):**
   - Arriba, flotando sobre el mapa: el **mismo `<select>` nativo** de las 39
     rutas con aspecto de buscador y la invitación «¿A dónde vas? Elige tu
-    ruta» (regla 9: menú desplegable, ninguna ruta oculta), el botón ☰ y el
-    control Ida / Vuelta. Así la primera pantalla sigue siendo mapa + selector +
+    ruta» (regla 9: menú desplegable, ninguna ruta oculta), el botón ☰ a su
+    izquierda y el control Ida / Vuelta. Así la primera pantalla sigue siendo mapa + selector +
     sentido sin tocar nada (regla 5).
-  - **Menú lateral derecho** en teléfono y computadora: entra y sale con
-    animación; cerrado al cargar. Dentro: nombre «SJDR Bus», detalle de la
+  - **Menú lateral izquierdo** en teléfono y computadora: entra y sale con
+    animación; cerrado al cargar. En computadora abre debajo de la barra, para
+    que el buscador y el sentido sigan a la mano. Dentro: nombre «SJDR Bus», detalle de la
     ruta, «Calcula tu ruta». Se cierra con su botón, con Esc o tocando el mapa.
   - Con ruta elegida aparece abajo un botón chico «Ver detalle» que abre el
     menú en el detalle.
   - La leyenda de iniciativa independiente y la atribución de OpenStreetMap
     quedan siempre visibles en una línea chica abajo (reglas 4 y 6).
+- **Ajuste de Miguel (20 nov 2026, 2:33 pm), al ver las capturas:** «es un
+  buen approach»; el menú y el ☰ van del lado **izquierdo** (la primera versión
+  los ponía a la derecha). Lo demás se aprobó como estaba.
 - **Cambia:** la hoja inferior de D-30 y el panel izquierdo de E-02. La
   paleta, la letra y el resto de D-30 siguen.
 - **Criterio de aceptación:** a 390 × 844 y a 1280 × 800, con el menú cerrado,

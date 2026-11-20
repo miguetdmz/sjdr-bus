@@ -8,7 +8,7 @@
 // M-06: pestañas «Rutas» y «Calcula tu ruta». La segunda solo muestra un aviso
 //       (D-15): no tiene campos de origen y destino ni calcula nada.
 // D-48: mapa completo; arriba «¿A dónde vas?» (selector) y sentido; menú lateral
-//       derecho con el nombre, el detalle y «Calcula tu ruta».
+//       izquierdo con el nombre, el detalle y «Calcula tu ruta».
 // M-07: instalable (manifiesto e íconos en web/public) y service worker que
 //       guarda la app y sus datos, no las teselas del mapa.
 import 'leaflet/dist/leaflet.css';
@@ -66,8 +66,8 @@ function margenesFicha(): { arriba: L.Point; abajo: L.Point } {
   const barra = document.querySelector<HTMLElement>('#barra');
   const h = document.querySelector<HTMLElement>('#hoja');
   const abajoBarra = barra ? barra.getBoundingClientRect().bottom : 0;
-  const anchoMenu = h && !h.classList.contains('cerrada') ? window.innerWidth - h.getBoundingClientRect().left : 0;
-  return { arriba: L.point(16, abajoBarra + 16), abajo: L.point(anchoMenu + 16, 80) };
+  const anchoMenu = h && !h.classList.contains('cerrada') ? h.getBoundingClientRect().right : 0;
+  return { arriba: L.point(anchoMenu + 16, abajoBarra + 16), abajo: L.point(16, 80) };
 }
 
 function dibujarParadas(paradas: Parada[]): void {
@@ -247,7 +247,7 @@ function mostrarDetalle(): void {
   panel.hidden = false;
 }
 
-// --- Menú lateral (D-48): el mismo en teléfono y en computadora ---------------
+// --- Menú lateral izquierdo (D-48): el mismo en teléfono y en computadora ---------------
 // Cerrado al cargar: el mapa ocupa toda la pantalla. Lo abren el botón ☰ y
 // «Ver detalle»; lo cierran su botón, Esc o tocar el mapa (el velo).
 const botonMenu = document.querySelector<HTMLButtonElement>('#boton-menu')!;

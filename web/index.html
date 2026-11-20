@@ -14,8 +14,9 @@
     <div class="app">
       <main id="mapa" class="mapa" aria-label="Mapa de San Juan del Río"></main>
       <!-- D-48: arriba, sobre el mapa, lo que pide la regla 5 (selector + sentido),
-           y el botón del menú lateral. El nombre de la app va dentro del menú. -->
+           y el botón del menú lateral, a la izquierda. El nombre de la app va dentro del menú. -->
       <header class="barra" id="barra">
+        <button type="button" class="boton-menu" id="boton-menu" aria-label="Menú de rutas" aria-expanded="false" aria-controls="hoja"></button>
         <form class="controles" id="controles" aria-label="Elige ruta y sentido">
           <div class="buscador">
             <label for="ruta">Ruta</label>
@@ -33,7 +34,6 @@
             </div>
           </fieldset>
         </form>
-        <button type="button" class="boton-menu" id="boton-menu" aria-label="Menú de rutas" aria-expanded="false" aria-controls="hoja"></button>
       </header>
       <button type="button" class="ver-detalle" id="ver-detalle" aria-controls="hoja" hidden></button>
       <p class="pie" id="pie">Iniciativa ciudadana independiente · no es un servicio oficial</p>

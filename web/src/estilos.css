@@ -158,8 +158,9 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 .sentido { margin-top: 10px; }
 
 /* D-48 (20 nov 2026): mapa a pantalla completa. Arriba flota lo que pide la
-   regla 5 (selector + sentido) con el botón ☰; el menú lateral entra desde la
-   derecha, igual en teléfono y en computadora. Sustituye la hoja de abajo
+   regla 5 (selector + sentido) con el botón ☰ a la izquierda; el menú lateral
+   entra desde la izquierda, igual en teléfono y en computadora (ajuste de
+   Miguel, 20 nov 2026). Sustituye la hoja de abajo
    (D-30) y el panel izquierdo de E-02. */
 .barra {
   position: absolute; z-index: 1000; left: 10px; right: 10px;
@@ -213,20 +214,20 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 }
 .leaflet-bottom.leaflet-right { bottom: calc(max(0px, env(safe-area-inset-bottom)) + 19px); }
 
-/* Menú lateral derecho, cerrado al cargar. */
+/* Menú lateral izquierdo, cerrado al cargar. */
 .velo { position: absolute; inset: 0; z-index: 1150; background: rgba(18, 38, 45, 0.28); }
 .velo[hidden] { display: none; }
 .hoja {
-  position: absolute; z-index: 1200; top: 0; right: 0; bottom: 0; left: auto;
+  position: absolute; z-index: 1200; top: 0; left: 0; bottom: 0; right: auto;
   width: min(380px, 88vw); max-height: none;
   background: var(--tarjeta); display: flex; flex-direction: column;
-  border-radius: 22px 0 0 22px; box-shadow: var(--sombra);
+  border-radius: 0 22px 22px 0; box-shadow: var(--sombra);
   padding: max(14px, env(safe-area-inset-top)) 18px max(12px, env(safe-area-inset-bottom));
   transform: translateX(0); opacity: 1; visibility: visible;
   transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 0s;
 }
 .hoja.cerrada {
-  transform: translateX(calc(100% + 24px)); opacity: 0; visibility: hidden;
+  transform: translateX(calc(-100% - 24px)); opacity: 0; visibility: hidden;
   transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 280ms;
 }
 .hoja-cabeza {
@@ -240,7 +241,8 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 @media (min-width: 768px) {
   .barra { right: auto; width: 440px; }
   .leaflet-top.leaflet-right { top: max(10px, env(safe-area-inset-top)); }
-  .hoja { top: 14px; right: 14px; bottom: 14px; border-radius: 22px; padding-top: 16px; }
+  /* En computadora el menú abre debajo de la barra: buscador y sentido siguen a la mano. */
+  .hoja { top: calc(max(10px, env(safe-area-inset-top)) + 124px); left: 10px; bottom: 14px; width: 440px; border-radius: 22px; padding-top: 16px; }
   .velo { display: none; }
 }
 

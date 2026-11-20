@@ -60,7 +60,8 @@ test('menú lateral (D-48): ☰ lo abre con el nombre; Esc y el velo lo cierran'
   await expect(page.locator('#boton-menu')).toHaveAttribute('aria-expanded', 'false');
   await page.locator('#boton-menu').click();
   await expect(page.locator('#velo')).toBeVisible();
-  await page.locator('#velo').click({ position: { x: 10, y: 400 } });
+  // El menú sale por la izquierda: se toca el mapa velado a la derecha.
+  await page.locator('#velo').click({ position: { x: 375, y: 400 } });
   await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
 });
 
