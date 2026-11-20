@@ -21,13 +21,13 @@
  ],
  "resumen": {
   "rutas_con_lista_usable": 19,
-  "cruces": 956,
-  "UBICADO": 622,
+  "cruces": 974,
+  "UBICADO": 626,
   "UBICADO POR LUGAR": 3,
-  "REFERENCIA": 168,
-  "CALLES SIN CRUCE EN OSM": 87,
-  "SIN UBICAR": 76,
-  "con_correccion": 235
+  "REFERENCIA": 179,
+  "CALLES SIN CRUCE EN OSM": 93,
+  "SIN UBICAR": 73,
+  "con_correccion": 239
  },
  "rutas": [
   {
@@ -37,10 +37,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 50,
    "conteo": {
-    "UBICADO": 35,
+    "UBICADO": 36,
     "UBICADO POR LUGAR": 1,
     "REFERENCIA": 10,
-    "CALLES SIN CRUCE EN OSM": 4,
+    "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 0
    },
    "cruces": [
@@ -216,7 +216,7 @@
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Acambay San Juan del Río») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 16,
@@ -239,7 +239,7 @@
      "osm_cruce": "Calle Otoño",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -247,9 +247,15 @@
      "texto": "CARR. SAN JUAN DEL RÍO-AV. BENITO JUÁREZ ORIENTE",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Avenida Benito Juaréz Oriente») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.37963,
+     "lon": -99.98565,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Benito Juárez Oriente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 19,
@@ -465,7 +471,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -1435,7 +1441,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -1616,13 +1622,13 @@
    "numero": "004",
    "nombre": "Col. Industrial Nuevo San Juan – Centro",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 60,
+   "total": 62,
    "conteo": {
     "UBICADO": 43,
     "UBICADO POR LUGAR": 1,
-    "REFERENCIA": 6,
-    "CALLES SIN CRUCE EN OSM": 6,
-    "SIN UBICAR": 4
+    "REFERENCIA": 8,
+    "CALLES SIN CRUCE EN OSM": 7,
+    "SIN UBICAR": 3
    },
    "cruces": [
     {
@@ -1836,7 +1842,7 @@
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Acambay San Juan del Río») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 19,
@@ -2022,14 +2028,33 @@
     },
     {
      "orden": 35,
-     "texto": "SAN JUAN DEL RÍO FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO",
-     "calle": "SAN JUAN DEL RÍO FERNANDO DE TAPIA",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
      "orden": 36,
+     "texto": "FERNANDO DE TAPIA-JURICA",
+     "calle": "FERNANDO DE TAPIA",
+     "cruce_con": "JURICA",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Calle Fernando de Tapia",
+     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+    },
+    {
+     "orden": 37,
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 38,
      "texto": "AV. BENITO JUARÉZ-AGUSTÍN MELGAR",
      "calle": "AV. BENITO JUARÉZ",
      "cruce_con": "AGUSTÍN MELGAR",
@@ -2041,16 +2066,16 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 37,
+     "orden": 39,
      "texto": "CARR. SAN JUAN DEL RÍO-JURICA",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JURICA",
      "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_calle": "Avenida Central",
+     "nota": "las dos calles existen en OSM («Avenida Central», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 38,
+     "orden": 40,
      "texto": "RÍO SAN JUAN-RÍO NAZAS",
      "calle": "RÍO SAN JUAN",
      "cruce_con": "RÍO NAZAS",
@@ -2062,7 +2087,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 39,
+     "orden": 41,
      "texto": "RÍO SAN JUAN-RÍO FUERTE",
      "calle": "RÍO SAN JUAN",
      "cruce_con": "RÍO FUERTE",
@@ -2074,7 +2099,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 40,
+     "orden": 42,
      "texto": "RÍO SAN JUAN-ANDADOR RUBÍ",
      "calle": "RÍO SAN JUAN",
      "cruce_con": "ANDADOR RUBÍ",
@@ -2083,7 +2108,7 @@
      "nota": "las dos calles existen en OSM («Avenida Río San Juan», «Calle Rubi») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 41,
+     "orden": 43,
      "texto": "PROF. MERCEDES CAMACHO-AV. RIO MOCTEZUMA",
      "calle": "PROF. MERCEDES CAMACHO",
      "cruce_con": "AV. RIO MOCTEZUMA",
@@ -2095,7 +2120,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 42,
+     "orden": 44,
      "texto": "AV. RIO MOCTEZUMA-PROF. MERCEDES CAMACHO",
      "calle": "AV. RIO MOCTEZUMA",
      "cruce_con": "PROF. MERCEDES CAMACHO",
@@ -2107,7 +2132,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 43,
+     "orden": 45,
      "texto": "AV. RÍO MOCTEZUMA-ARQUITECTO FEDERICO E. MARISCAL",
      "calle": "AV. RÍO MOCTEZUMA",
      "cruce_con": "ARQUITECTO FEDERICO E. MARISCAL",
@@ -2119,7 +2144,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 44,
+     "orden": 46,
      "texto": "AV. LOMAS DE SAN JUAN-RAÚL RAMÍREZ",
      "calle": "AV. LOMAS DE SAN JUAN",
      "cruce_con": "RAÚL RAMÍREZ",
@@ -2131,7 +2156,7 @@
      "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 45,
+     "orden": 47,
      "texto": "AV. LOMAS DE SAN JUAN-SIERRA TEZONCO",
      "calle": "AV. LOMAS DE SAN JUAN",
      "cruce_con": "SIERRA TEZONCO",
@@ -2140,7 +2165,7 @@
      "nota": "las dos calles existen en OSM («Avenida Lomas de San Juan», «Calle Sierra Tezonco») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 46,
+     "orden": 48,
      "texto": "AV. LOMAS DE SAN JUAN-CTO. MONTES PIRINEOS",
      "calle": "AV. LOMAS DE SAN JUAN",
      "cruce_con": "CTO. MONTES PIRINEOS",
@@ -2152,7 +2177,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 47,
+     "orden": 49,
      "texto": "AV. LOMAS DE SAN JUAN-AV. LOMAS DEL PEDREGOSO",
      "calle": "AV. LOMAS DE SAN JUAN",
      "cruce_con": "AV. LOMAS DEL PEDREGOSO",
@@ -2164,7 +2189,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 48,
+     "orden": 50,
      "texto": "LABRADORITA-ARCILLA",
      "calle": "LABRADORITA",
      "cruce_con": "ARCILLA",
@@ -2176,7 +2201,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 49,
+     "orden": 51,
      "texto": "LABRADORITA-AGATA",
      "calle": "LABRADORITA",
      "cruce_con": "AGATA",
@@ -2188,7 +2213,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 50,
+     "orden": 52,
      "texto": "LABRADORITA-VENTURINA",
      "calle": "LABRADORITA",
      "cruce_con": "VENTURINA",
@@ -2200,7 +2225,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 51,
+     "orden": 53,
      "texto": "LABRADORITA-ZACATECAS",
      "calle": "LABRADORITA",
      "cruce_con": "ZACATECAS",
@@ -2212,7 +2237,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 52,
+     "orden": 54,
      "texto": "DURANGO-ZACATECAS",
      "calle": "DURANGO",
      "cruce_con": "ZACATECAS",
@@ -2224,7 +2249,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 53,
+     "orden": 55,
      "texto": "DURANGO-AV. MÉXICO",
      "calle": "DURANGO",
      "cruce_con": "AV. MÉXICO",
@@ -2236,7 +2261,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 54,
+     "orden": 56,
      "texto": "AV. MÉXICO-NORTE 3",
      "calle": "AV. MÉXICO",
      "cruce_con": "NORTE 3",
@@ -2248,7 +2273,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 55,
+     "orden": 57,
      "texto": "ORIENTE 2-NORTE 5",
      "calle": "ORIENTE 2",
      "cruce_con": "NORTE 5",
@@ -2260,7 +2285,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 56,
+     "orden": 58,
      "texto": "NORTE 5-ORIENTE 4",
      "calle": "NORTE 5",
      "cruce_con": "ORIENTE 4",
@@ -2272,7 +2297,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 57,
+     "orden": 59,
      "texto": "49 NORTE. 4-NORTETE 5 OESTE",
      "calle": "49 NORTE. 4",
      "cruce_con": "NORTETE 5 OESTE",
@@ -2280,7 +2305,7 @@
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
-     "orden": 58,
+     "orden": 60,
      "texto": "10-NORTE 4",
      "calle": "10",
      "cruce_con": "NORTE 4",
@@ -2292,7 +2317,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 59,
+     "orden": 61,
      "texto": "EJE NORTE SUR-ORIENTE 4",
      "calle": "EJE NORTE SUR",
      "cruce_con": "ORIENTE 4",
@@ -2304,7 +2329,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 60,
+     "orden": 62,
      "texto": "EJE NORTE SUR-ORIENTE 2",
      "calle": "EJE NORTE SUR",
      "cruce_con": "ORIENTE 2",
@@ -2815,12 +2840,12 @@
    "numero": "009B",
    "nombre": "Fracc. La Rueda – Centro",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 43,
+   "total": 45,
    "conteo": {
     "UBICADO": 24,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 8,
-    "CALLES SIN CRUCE EN OSM": 8,
+    "REFERENCIA": 9,
+    "CALLES SIN CRUCE EN OSM": 9,
     "SIN UBICAR": 3
    },
    "cruces": [
@@ -2929,13 +2954,13 @@
      "calle": "BENITO JUÁREZ",
      "cruce_con": "SAN JUAN DEL RÍO",
      "estado": "UBICADO",
-     "lat": 20.44865,
-     "lon": -99.9791,
-     "osm_calle": "Calle Benito Juárez",
-     "osm_cruce": "La Estancia - San Pedro Ahuacatlán - E.C. (San Juan del Río - Xilitla)",
+     "lat": 20.42234,
+     "lon": -99.97777,
+     "osm_calle": "Avenida Benito Juárez",
+     "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "contenido: «SAN JUAN DEL RÍO» → «La Estancia - San Pedro Ahuacatlán - E.C. (San Juan del Río - Xilitla)»"
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -2953,7 +2978,7 @@
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JALPAN DE SERRA",
      "estado": "REFERENCIA",
-     "osm_calle": "Acambay San Juan del Río",
+     "osm_calle": "Avenida Central",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
@@ -3087,23 +3112,41 @@
     },
     {
      "orden": 24,
-     "texto": "ORIENTE MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+     "texto": "ORIENTE MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "ORIENTE MONUMENTO A BENITO JUÁREZ",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
+     "cruce_con": "JURICA",
      "estado": "SIN UBICAR",
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
      "orden": 25,
-     "texto": "FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO",
-     "calle": "FERNANDO DE TAPIA",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
      "estado": "REFERENCIA",
-     "osm_calle": "Calle Fernando de Tapia",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
      "orden": 26,
+     "texto": "FERNANDO DE TAPIA-JURICA",
+     "calle": "FERNANDO DE TAPIA",
+     "cruce_con": "JURICA",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Calle Fernando de Tapia",
+     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+    },
+    {
+     "orden": 27,
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 28,
      "texto": "AV. BENITO JUARÉZ-AGUSTÍN MELGAR",
      "calle": "AV. BENITO JUARÉZ",
      "cruce_con": "AGUSTÍN MELGAR",
@@ -3115,16 +3158,16 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 27,
+     "orden": 29,
      "texto": "CARR. SAN JUAN DEL RÍO-JURICA",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JURICA",
      "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_calle": "Avenida Central",
+     "nota": "las dos calles existen en OSM («Avenida Central», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 28,
+     "orden": 30,
      "texto": "CARR. SAN JUAN DEL RÍO-RÍO SAN JUAN",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "RÍO SAN JUAN",
@@ -3135,11 +3178,11 @@
      "osm_cruce": "Avenida Río San Juan",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
-     "orden": 29,
+     "orden": 31,
      "texto": "PASEO CENTRAL-PLAZA ARAMIL",
      "calle": "PASEO CENTRAL",
      "cruce_con": "PLAZA ARAMIL",
@@ -3148,55 +3191,55 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 30,
-     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
-     "calle": "PASEO CENTRAL",
-     "cruce_con": "AV. UNIVERSIDAD",
-     "estado": "UBICADO",
-     "lat": 20.39173,
-     "lon": -99.98414,
-     "osm_calle": "Avenida Central",
-     "osm_cruce": "Avenida Universidad",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
-     "correcciones": [
-      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
-     ]
-    },
-    {
-     "orden": 31,
-     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
-     "calle": "PASEO CENTRAL",
-     "cruce_con": "AV. UNIVERSIDAD",
-     "estado": "UBICADO",
-     "lat": 20.39173,
-     "lon": -99.98414,
-     "osm_calle": "Avenida Central",
-     "osm_cruce": "Avenida Universidad",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
-     "correcciones": [
-      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
-     ]
-    },
-    {
      "orden": 32,
+     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "AV. UNIVERSIDAD",
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
+    },
+    {
+     "orden": 33,
+     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "AV. UNIVERSIDAD",
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
+    },
+    {
+     "orden": 34,
      "texto": "CARR. SAN JUAN DEL RÍO-AV. 1 PONIENTE",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "AV. 1 PONIENTE",
      "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Calle 1») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_calle": "Avenida Central",
+     "nota": "las dos calles existen en OSM («Avenida Central», «Calle 1») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 33,
+     "orden": 35,
      "texto": "CARRETERA SAN JUAN DEL RÍO-TEQUISQUIAPAN",
      "calle": "CARRETERA SAN JUAN DEL RÍO",
      "cruce_con": "TEQUISQUIAPAN",
      "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Calle Hacienda Tequisquiapan») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_calle": "Avenida Central",
+     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Hacienda Tequisquiapan») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 34,
+     "orden": 36,
      "texto": "KM 3.2-WALMART",
      "calle": "KM 3.2",
      "cruce_con": "WALMART",
@@ -3204,7 +3247,7 @@
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
-     "orden": 35,
+     "orden": 37,
      "texto": "PASEO CENTRAL-CAMINO A SANTA CRUZ",
      "calle": "PASEO CENTRAL",
      "cruce_con": "CAMINO A SANTA CRUZ",
@@ -3220,7 +3263,7 @@
      ]
     },
     {
-     "orden": 36,
+     "orden": 38,
      "texto": "PASEO CENTRAL-CALLE 7",
      "calle": "PASEO CENTRAL",
      "cruce_con": "CALLE 7",
@@ -3229,7 +3272,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 37,
+     "orden": 39,
      "texto": "ORIENTE CARR. MÉXICO 120-AV. 8 ORIENTE",
      "calle": "ORIENTE CARR. MÉXICO 120",
      "cruce_con": "AV. 8 ORIENTE",
@@ -3237,7 +3280,7 @@
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
-     "orden": 38,
+     "orden": 40,
      "texto": "PASEO CENTRAL-CONDUMEX",
      "calle": "PASEO CENTRAL",
      "cruce_con": "CONDUMEX",
@@ -3246,7 +3289,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 39,
+     "orden": 41,
      "texto": "BENITO JUÁREZ-FELIPE MÁRQUEZ",
      "calle": "BENITO JUÁREZ",
      "cruce_con": "FELIPE MÁRQUEZ",
@@ -3258,7 +3301,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 40,
+     "orden": 42,
      "texto": "BENITO JUÁREZ-FERNANDO DE TAPIA",
      "calle": "BENITO JUÁREZ",
      "cruce_con": "FERNANDO DE TAPIA",
@@ -3270,7 +3313,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 41,
+     "orden": 43,
      "texto": "BENITO JUÁREZ-VICENTE SUÁREZ",
      "calle": "BENITO JUÁREZ",
      "cruce_con": "VICENTE SUÁREZ",
@@ -3282,7 +3325,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 42,
+     "orden": 44,
      "texto": "BENITO JUÁREZ-NIÑOZ HÉROES",
      "calle": "BENITO JUÁREZ",
      "cruce_con": "NIÑOZ HÉROES",
@@ -3297,7 +3340,7 @@
      ]
     },
     {
-     "orden": 43,
+     "orden": 45,
      "texto": "BENITO JUÁREZ-20 DE NOVIEMBRE",
      "calle": "BENITO JUÁREZ",
      "cruce_con": "20 DE NOVIEMBRE",
@@ -3320,11 +3363,11 @@
    "numero": "011",
    "nombre": "Loma Alta – Central de Autobuses",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 78,
+   "total": 80,
    "conteo": {
-    "UBICADO": 50,
+    "UBICADO": 51,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 20,
+    "REFERENCIA": 21,
     "CALLES SIN CRUCE EN OSM": 6,
     "SIN UBICAR": 2
    },
@@ -3343,7 +3386,7 @@
      "calle": "CALLE SAN JUAN DEL RÍO",
      "cruce_con": "CALLE 3 LAGUNAS",
      "estado": "REFERENCIA",
-     "osm_calle": "Acambay San Juan del Río",
+     "osm_calle": "Avenida Central",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
@@ -3554,7 +3597,7 @@
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Acambay San Juan del Río») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 21,
@@ -3577,7 +3620,7 @@
      "osm_cruce": "Calle Otoño",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -3585,9 +3628,15 @@
      "texto": "CARR. SAN JUAN DEL RÍO-AV. BENITO JUÁREZ ORIENTE",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Avenida Benito Juaréz Oriente») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.37963,
+     "lon": -99.98565,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Benito Juárez Oriente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 24,
@@ -3922,23 +3971,41 @@
     },
     {
      "orden": 51,
-     "texto": "MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+     "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "MONUMENTO A BENITO JUÁREZ",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
+     "cruce_con": "JURICA",
      "estado": "SIN UBICAR",
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
      "orden": 52,
-     "texto": "FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO",
-     "calle": "FERNANDO DE TAPIA",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
      "estado": "REFERENCIA",
-     "osm_calle": "Calle Fernando de Tapia",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
      "orden": 53,
+     "texto": "FERNANDO DE TAPIA-JURICA",
+     "calle": "FERNANDO DE TAPIA",
+     "cruce_con": "JURICA",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Calle Fernando de Tapia",
+     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+    },
+    {
+     "orden": 54,
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 55,
      "texto": "AV. BENITO JUARÉZ-AGUSTÍN MELGAR",
      "calle": "AV. BENITO JUARÉZ",
      "cruce_con": "AGUSTÍN MELGAR",
@@ -3950,16 +4017,16 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 54,
+     "orden": 56,
      "texto": "CARR. SAN JUAN DEL RÍO-JURICA",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JURICA",
      "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_calle": "Avenida Central",
+     "nota": "las dos calles existen en OSM («Avenida Central», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 55,
+     "orden": 57,
      "texto": "CARR. SAN JUAN DEL RÍO-RÍO SAN JUAN",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "RÍO SAN JUAN",
@@ -3970,11 +4037,11 @@
      "osm_cruce": "Avenida Río San Juan",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
-     "orden": 56,
+     "orden": 58,
      "texto": "PASEO CENTRAL-PLAZA ARAMIL",
      "calle": "PASEO CENTRAL",
      "cruce_con": "PLAZA ARAMIL",
@@ -3983,7 +4050,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 57,
+     "orden": 59,
      "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
      "calle": "PASEO CENTRAL",
      "cruce_con": "AV. UNIVERSIDAD",
@@ -3998,7 +4065,7 @@
      ]
     },
     {
-     "orden": 58,
+     "orden": 60,
      "texto": "AV. UNIVERSIDAD-CARR. SAN JUAN DEL RÍO",
      "calle": "AV. UNIVERSIDAD",
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
@@ -4009,11 +4076,11 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
-     "orden": 59,
+     "orden": 61,
      "texto": "AV. UNIVERSIDAD-RÍO GRANDE",
      "calle": "AV. UNIVERSIDAD",
      "cruce_con": "RÍO GRANDE",
@@ -4025,7 +4092,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 60,
+     "orden": 62,
      "texto": "AV. UNIVERSIDAD-RÍO LERMA",
      "calle": "AV. UNIVERSIDAD",
      "cruce_con": "RÍO LERMA",
@@ -4037,7 +4104,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 61,
+     "orden": 63,
      "texto": "AV. UNIVERSIDAD-RÍO CARIBE",
      "calle": "AV. UNIVERSIDAD",
      "cruce_con": "RÍO CARIBE",
@@ -4049,7 +4116,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 62,
+     "orden": 64,
      "texto": "AV. UNIVERSIDAD-LIC. MANUEL GÓMEZ MORÍN",
      "calle": "AV. UNIVERSIDAD",
      "cruce_con": "LIC. MANUEL GÓMEZ MORÍN",
@@ -4061,7 +4128,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 63,
+     "orden": 65,
      "texto": "PROF. MERCEDES CAMACHO-ARQUITECTURA",
      "calle": "PROF. MERCEDES CAMACHO",
      "cruce_con": "ARQUITECTURA",
@@ -4073,7 +4140,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 64,
+     "orden": 66,
      "texto": "PROF. MERCEDES CAMACHO-FERNANDO DÍAZ R.",
      "calle": "PROF. MERCEDES CAMACHO",
      "cruce_con": "FERNANDO DÍAZ R.",
@@ -4088,7 +4155,7 @@
      ]
     },
     {
-     "orden": 65,
+     "orden": 67,
      "texto": "AV. RIO MOCTEZUMA-PROF. MERCEDES CAMACHO",
      "calle": "AV. RIO MOCTEZUMA",
      "cruce_con": "PROF. MERCEDES CAMACHO",
@@ -4100,7 +4167,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 66,
+     "orden": 68,
      "texto": "AV. RÍO MOCTEZUMA-ARQUITECTO FEDERICO E. MARISCAL",
      "calle": "AV. RÍO MOCTEZUMA",
      "cruce_con": "ARQUITECTO FEDERICO E. MARISCAL",
@@ -4112,7 +4179,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 67,
+     "orden": 69,
      "texto": "AV. DE LAS GARZAS-CALLE JACINTOS",
      "calle": "AV. DE LAS GARZAS",
      "cruce_con": "CALLE JACINTOS",
@@ -4124,7 +4191,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 68,
+     "orden": 70,
      "texto": "AV. DE LAS GARZAS-CIUDAD VIVE ORIENTE",
      "calle": "AV. DE LAS GARZAS",
      "cruce_con": "CIUDAD VIVE ORIENTE",
@@ -4133,7 +4200,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 69,
+     "orden": 71,
      "texto": "SIERRA DE LA LUZ-AV. LOMAS DEL PEDREGOSO",
      "calle": "SIERRA DE LA LUZ",
      "cruce_con": "AV. LOMAS DEL PEDREGOSO",
@@ -4145,7 +4212,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 70,
+     "orden": 72,
      "texto": "AV. LOMAS DEL PEDREGOSO-AV. MÉXICO",
      "calle": "AV. LOMAS DEL PEDREGOSO",
      "cruce_con": "AV. MÉXICO",
@@ -4157,7 +4224,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 71,
+     "orden": 73,
      "texto": "LUIS DONALDO COLOSIO-HOSPITAL GENERAL SJR",
      "calle": "LUIS DONALDO COLOSIO",
      "cruce_con": "HOSPITAL GENERAL SJR",
@@ -4166,7 +4233,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 72,
+     "orden": 74,
      "texto": "LUIS DONALDO COLOSIO-PLAZA PUNTA ORIENTE",
      "calle": "LUIS DONALDO COLOSIO",
      "cruce_con": "PLAZA PUNTA ORIENTE",
@@ -4175,7 +4242,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 73,
+     "orden": 75,
      "texto": "LUIS DONALDO COLOSIO-ÁGUILA BLANCA",
      "calle": "LUIS DONALDO COLOSIO",
      "cruce_con": "ÁGUILA BLANCA",
@@ -4187,7 +4254,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 74,
+     "orden": 76,
      "texto": "EZEQUIEL MONTES-SAN VICENTE",
      "calle": "EZEQUIEL MONTES",
      "cruce_con": "SAN VICENTE",
@@ -4199,7 +4266,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 75,
+     "orden": 77,
      "texto": "EZEQUIEL MONTES-RIO VERDE",
      "calle": "EZEQUIEL MONTES",
      "cruce_con": "RIO VERDE",
@@ -4208,7 +4275,7 @@
      "nota": "las dos calles existen en OSM («Avenida Ezequiel Montes», «Calle Río Verde») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 76,
+     "orden": 78,
      "texto": "EZEQUIEL MONTES-AV. UNIVERSIDAD",
      "calle": "EZEQUIEL MONTES",
      "cruce_con": "AV. UNIVERSIDAD",
@@ -4220,7 +4287,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 77,
+     "orden": 79,
      "texto": "AV. UNIVERSIDAD-PASEO DE XHOSDA",
      "calle": "AV. UNIVERSIDAD",
      "cruce_con": "PASEO DE XHOSDA",
@@ -4235,7 +4302,7 @@
      ]
     },
     {
-     "orden": 78,
+     "orden": 80,
      "texto": "PASEO LOMA ALTA-LOMA SECA PASEO LOMA ALTA",
      "calle": "PASEO LOMA ALTA",
      "cruce_con": "LOMA SECA PASEO LOMA ALTA",
@@ -4273,7 +4340,7 @@
      "calle": "CALLE SAN JUAN DEL RÍO",
      "cruce_con": "CALLE 3 LAGUNAS",
      "estado": "REFERENCIA",
-     "osm_calle": "Acambay San Juan del Río",
+     "osm_calle": "Avenida Central",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
@@ -4366,7 +4433,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -4448,7 +4515,7 @@
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Acambay San Juan del Río») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 18,
@@ -4648,7 +4715,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -5068,7 +5135,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -5150,7 +5217,7 @@
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Acambay San Juan del Río») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 29,
@@ -5188,8 +5255,8 @@
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "AV. 1 PONIENTE",
      "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Calle 1») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_calle": "Avenida Central",
+     "nota": "las dos calles existen en OSM («Avenida Central», «Calle 1») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 32,
@@ -5341,7 +5408,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -5548,13 +5615,13 @@
    "numero": "016",
    "nombre": "Infonavit La Paz – Centro",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 42,
+   "total": 44,
    "conteo": {
     "UBICADO": 28,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 6,
-    "CALLES SIN CRUCE EN OSM": 4,
-    "SIN UBICAR": 4
+    "REFERENCIA": 8,
+    "CALLES SIN CRUCE EN OSM": 5,
+    "SIN UBICAR": 3
    },
    "cruces": [
     {
@@ -5677,7 +5744,7 @@
      "osm_cruce": "Calle Otoño",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -5851,14 +5918,33 @@
     },
     {
      "orden": 26,
-     "texto": "SAN JUAN DEL RÍO FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO",
-     "calle": "SAN JUAN DEL RÍO FERNANDO DE TAPIA",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
      "orden": 27,
+     "texto": "FERNANDO DE TAPIA-JURICA",
+     "calle": "FERNANDO DE TAPIA",
+     "cruce_con": "JURICA",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Calle Fernando de Tapia",
+     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+    },
+    {
+     "orden": 28,
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 29,
      "texto": "AV. BENITO JUARÉZ-AGUSTÍN MELGAR",
      "calle": "AV. BENITO JUARÉZ",
      "cruce_con": "AGUSTÍN MELGAR",
@@ -5870,16 +5956,16 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 28,
+     "orden": 30,
      "texto": "CARR. SAN JUAN DEL RÍO-JURICA",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JURICA",
      "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_calle": "Avenida Central",
+     "nota": "las dos calles existen en OSM («Avenida Central», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 29,
+     "orden": 31,
      "texto": "CARR. SAN JUAN DEL RÍO-RÍO SAN JUAN",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "RÍO SAN JUAN",
@@ -5890,11 +5976,11 @@
      "osm_cruce": "Avenida Río San Juan",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
-     "orden": 30,
+     "orden": 32,
      "texto": "PASEO CENTRAL-PLAZA ARAMIL",
      "calle": "PASEO CENTRAL",
      "cruce_con": "PLAZA ARAMIL",
@@ -5903,55 +5989,55 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 31,
-     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
-     "calle": "PASEO CENTRAL",
-     "cruce_con": "AV. UNIVERSIDAD",
-     "estado": "UBICADO",
-     "lat": 20.39173,
-     "lon": -99.98414,
-     "osm_calle": "Avenida Central",
-     "osm_cruce": "Avenida Universidad",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
-     "correcciones": [
-      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
-     ]
-    },
-    {
-     "orden": 32,
-     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
-     "calle": "PASEO CENTRAL",
-     "cruce_con": "AV. UNIVERSIDAD",
-     "estado": "UBICADO",
-     "lat": 20.39173,
-     "lon": -99.98414,
-     "osm_calle": "Avenida Central",
-     "osm_cruce": "Avenida Universidad",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
-     "correcciones": [
-      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
-     ]
-    },
-    {
      "orden": 33,
+     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "AV. UNIVERSIDAD",
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
+    },
+    {
+     "orden": 34,
+     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "AV. UNIVERSIDAD",
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
+    },
+    {
+     "orden": 35,
      "texto": "CARR. SAN JUAN DEL RÍO-AV. 1 PONIENTE",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "AV. 1 PONIENTE",
      "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Calle 1») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_calle": "Avenida Central",
+     "nota": "las dos calles existen en OSM («Avenida Central», «Calle 1») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 34,
+     "orden": 36,
      "texto": "CARRETERA SAN JUAN DEL RÍO-TEQUISQUIAPAN",
      "calle": "CARRETERA SAN JUAN DEL RÍO",
      "cruce_con": "TEQUISQUIAPAN",
      "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Calle Hacienda Tequisquiapan») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_calle": "Avenida Central",
+     "nota": "las dos calles existen en OSM («Avenida Central», «Calle Hacienda Tequisquiapan») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 35,
+     "orden": 37,
      "texto": "KM 3.2-WALMART",
      "calle": "KM 3.2",
      "cruce_con": "WALMART",
@@ -5959,7 +6045,7 @@
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
-     "orden": 36,
+     "orden": 38,
      "texto": "JACARANDAS-CHIRIMOYA",
      "calle": "JACARANDAS",
      "cruce_con": "CHIRIMOYA",
@@ -5971,7 +6057,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 37,
+     "orden": 39,
      "texto": "C. CHIRIMOYA-PROL. PALMAS",
      "calle": "C. CHIRIMOYA",
      "cruce_con": "PROL. PALMAS",
@@ -5983,7 +6069,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 38,
+     "orden": 40,
      "texto": "PALMAS-EL ROBLE",
      "calle": "PALMAS",
      "cruce_con": "EL ROBLE",
@@ -5995,7 +6081,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 39,
+     "orden": 41,
      "texto": "C. CENTRAL-BENITO JUÁREZ",
      "calle": "C. CENTRAL",
      "cruce_con": "BENITO JUÁREZ",
@@ -6007,7 +6093,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 40,
+     "orden": 42,
      "texto": "C. CENTRAL-MIGUEL HIDALGO",
      "calle": "C. CENTRAL",
      "cruce_con": "MIGUEL HIDALGO",
@@ -6022,7 +6108,7 @@
      ]
     },
     {
-     "orden": 41,
+     "orden": 43,
      "texto": "MIGUEL HIDALGO-PRIV. EMILIANO ZAPATA",
      "calle": "MIGUEL HIDALGO",
      "cruce_con": "PRIV. EMILIANO ZAPATA",
@@ -6034,7 +6120,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 42,
+     "orden": 44,
      "texto": "MIGUEL HIDALGO-PRIV. EMILIANO ZAPATA",
      "calle": "MIGUEL HIDALGO",
      "cruce_con": "PRIV. EMILIANO ZAPATA",
@@ -6184,7 +6270,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -6440,7 +6526,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -6525,12 +6611,12 @@
    "numero": "23",
    "nombre": "Lomas del Pedregal – Centro",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 33,
+   "total": 35,
    "conteo": {
     "UBICADO": 17,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 10,
-    "CALLES SIN CRUCE EN OSM": 1,
+    "REFERENCIA": 11,
+    "CALLES SIN CRUCE EN OSM": 2,
     "SIN UBICAR": 5
    },
    "cruces": [
@@ -6578,7 +6664,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -6764,23 +6850,41 @@
     },
     {
      "orden": 21,
-     "texto": "MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+     "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "MONUMENTO A BENITO JUÁREZ",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
+     "cruce_con": "JURICA",
      "estado": "SIN UBICAR",
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
      "orden": 22,
-     "texto": "FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO",
-     "calle": "FERNANDO DE TAPIA",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
      "estado": "REFERENCIA",
-     "osm_calle": "Calle Fernando de Tapia",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
      "orden": 23,
+     "texto": "FERNANDO DE TAPIA-JURICA",
+     "calle": "FERNANDO DE TAPIA",
+     "cruce_con": "JURICA",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Calle Fernando de Tapia",
+     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+    },
+    {
+     "orden": 24,
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 25,
      "texto": "AV. BENITO JUARÉZ-AGUSTÍN MELGAR",
      "calle": "AV. BENITO JUARÉZ",
      "cruce_con": "AGUSTÍN MELGAR",
@@ -6792,7 +6896,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 24,
+     "orden": 26,
      "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
      "calle": "PASEO CENTRAL",
      "cruce_con": "HDA. LOS ARRAYANES",
@@ -6801,7 +6905,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 25,
+     "orden": 27,
      "texto": "AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
      "calle": "AV. TECNOLÓGICO",
      "cruce_con": "SAN JUAN DEL RÍO",
@@ -6812,11 +6916,11 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
-     "orden": 26,
+     "orden": 28,
      "texto": "QUERÉTARO",
      "calle": "QUERÉTARO",
      "cruce_con": null,
@@ -6825,7 +6929,7 @@
      "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
-     "orden": 27,
+     "orden": 29,
      "texto": "GUADALUPE-AV. TECNOLÓGICO",
      "calle": "GUADALUPE",
      "cruce_con": "AV. TECNOLÓGICO",
@@ -6837,7 +6941,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 28,
+     "orden": 30,
      "texto": "DEL BOSQUE-ROBLE",
      "calle": "DEL BOSQUE",
      "cruce_con": "ROBLE",
@@ -6849,7 +6953,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 29,
+     "orden": 31,
      "texto": "DEL ABEDUL-DE LA CANTERA",
      "calle": "DEL ABEDUL",
      "cruce_con": "DE LA CANTERA",
@@ -6861,7 +6965,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 30,
+     "orden": 32,
      "texto": "DEL SILLAR-DE LA PIEDRA",
      "calle": "DEL SILLAR",
      "cruce_con": "DE LA PIEDRA",
@@ -6869,7 +6973,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 31,
+     "orden": 33,
      "texto": "DE LA CANTERA-DE LA PIEDRA",
      "calle": "DE LA CANTERA",
      "cruce_con": "DE LA PIEDRA",
@@ -6877,7 +6981,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 32,
+     "orden": 34,
      "texto": "DE LA CANTERA-DEL GRANITO",
      "calle": "DE LA CANTERA",
      "cruce_con": "DEL GRANITO",
@@ -6885,7 +6989,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 33,
+     "orden": 35,
      "texto": "DE LA LAJA-DE LA ROCA",
      "calle": "DE LA LAJA",
      "cruce_con": "DE LA ROCA",
@@ -7166,7 +7270,7 @@
      "cruce_con": "CARR. SAN JUAN DEL RÍO",
      "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Avenida Río Moctezuma",
-     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Acambay San Juan del Río») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "nota": "las dos calles existen en OSM («Avenida Río Moctezuma», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 20,
@@ -7396,7 +7500,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -7691,13 +7795,13 @@
    "numero": "030",
    "nombre": "Infonavit La Paz – Central de Autobuses",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 63,
+   "total": 65,
    "conteo": {
-    "UBICADO": 35,
+    "UBICADO": 36,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 14,
+    "REFERENCIA": 16,
     "CALLES SIN CRUCE EN OSM": 7,
-    "SIN UBICAR": 7
+    "SIN UBICAR": 6
    },
    "cruces": [
     {
@@ -7818,7 +7922,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
       "contenido: «CAM. A STA CRÚZ» → «Carretera a Santa Cruz Nieto»",
-      "continuación: «SAN JUAN DEL RIO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «SAN JUAN DEL RIO» → «Avenida Central»"
      ]
     },
     {
@@ -7916,7 +8020,7 @@
      "osm_cruce": "Calle Otoño",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -7924,9 +8028,15 @@
      "texto": "CARR. SAN JUAN DEL RÍO-AV. BENITO JUÁREZ ORIENTE",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Avenida Benito Juaréz Oriente») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "estado": "UBICADO",
+     "lat": 20.37963,
+     "lon": -99.98565,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Benito Juárez Oriente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 21,
@@ -8226,14 +8336,33 @@
     },
     {
      "orden": 48,
-     "texto": "SAN JUAN DEL RÍO FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO",
-     "calle": "SAN JUAN DEL RÍO FERNANDO DE TAPIA",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
-     "estado": "SIN UBICAR",
-     "nota": "la calle no aparece en OSM: POR VERIFICAR"
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
      "orden": 49,
+     "texto": "FERNANDO DE TAPIA-JURICA",
+     "calle": "FERNANDO DE TAPIA",
+     "cruce_con": "JURICA",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Calle Fernando de Tapia",
+     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+    },
+    {
+     "orden": 50,
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 51,
      "texto": "AV. BENITO JUARÉZ-AGUSTÍN MELGAR",
      "calle": "AV. BENITO JUARÉZ",
      "cruce_con": "AGUSTÍN MELGAR",
@@ -8245,16 +8374,16 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 50,
+     "orden": 52,
      "texto": "CARR. SAN JUAN DEL RÍO-JURICA",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JURICA",
      "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Acambay San Juan del Río",
-     "nota": "las dos calles existen en OSM («Acambay San Juan del Río», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_calle": "Avenida Central",
+     "nota": "las dos calles existen en OSM («Avenida Central», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 51,
+     "orden": 53,
      "texto": "CARR. SAN JUAN DEL RÍO-RÍO SAN JUAN",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "RÍO SAN JUAN",
@@ -8265,11 +8394,11 @@
      "osm_cruce": "Avenida Río San Juan",
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «CARR. SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
-     "orden": 52,
+     "orden": 54,
      "texto": "PASEO CENTRAL-PLAZA ARAMIL",
      "calle": "PASEO CENTRAL",
      "cruce_con": "PLAZA ARAMIL",
@@ -8278,37 +8407,37 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 53,
-     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
-     "calle": "PASEO CENTRAL",
-     "cruce_con": "AV. UNIVERSIDAD",
-     "estado": "UBICADO",
-     "lat": 20.39173,
-     "lon": -99.98414,
-     "osm_calle": "Avenida Central",
-     "osm_cruce": "Avenida Universidad",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
-     "correcciones": [
-      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
-     ]
-    },
-    {
-     "orden": 54,
-     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
-     "calle": "PASEO CENTRAL",
-     "cruce_con": "AV. UNIVERSIDAD",
-     "estado": "UBICADO",
-     "lat": 20.39173,
-     "lon": -99.98414,
-     "osm_calle": "Avenida Central",
-     "osm_cruce": "Avenida Universidad",
-     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
-     "correcciones": [
-      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
-     ]
-    },
-    {
      "orden": 55,
+     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "AV. UNIVERSIDAD",
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
+    },
+    {
+     "orden": 56,
+     "texto": "PASEO CENTRAL-AV. UNIVERSIDAD",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "AV. UNIVERSIDAD",
+     "estado": "UBICADO",
+     "lat": 20.39173,
+     "lon": -99.98414,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «PASEO CENTRAL» → «Avenida Central»"
+     ]
+    },
+    {
+     "orden": 57,
      "texto": "CARR. SAN JUAN DEL RÍO-AV. 1 PONIENTE",
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "AV. 1 PONIENTE",
@@ -8316,7 +8445,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 56,
+     "orden": 58,
      "texto": "CARRETERA SAN JUAN DEL RÍO-TEQUISQUIAPAN",
      "calle": "CARRETERA SAN JUAN DEL RÍO",
      "cruce_con": "TEQUISQUIAPAN",
@@ -8324,7 +8453,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 57,
+     "orden": 59,
      "texto": "KM 3.2-WALMART",
      "calle": "KM 3.2",
      "cruce_con": "WALMART",
@@ -8332,7 +8461,7 @@
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
-     "orden": 58,
+     "orden": 60,
      "texto": "JACARANDAS-CHIRIMOYA",
      "calle": "JACARANDAS",
      "cruce_con": "CHIRIMOYA",
@@ -8344,7 +8473,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 59,
+     "orden": 61,
      "texto": "C. CHIRIMOYA-PROL. PALMAS",
      "calle": "C. CHIRIMOYA",
      "cruce_con": "PROL. PALMAS",
@@ -8356,7 +8485,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 60,
+     "orden": 62,
      "texto": "PALMAS-EL ROBLE",
      "calle": "PALMAS",
      "cruce_con": "EL ROBLE",
@@ -8368,7 +8497,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 61,
+     "orden": 63,
      "texto": "C. CENTRAL-BENITO JUÁREZ",
      "calle": "C. CENTRAL",
      "cruce_con": "BENITO JUÁREZ",
@@ -8380,7 +8509,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 62,
+     "orden": 64,
      "texto": "C. CENTRAL-MIGUEL HIDALGO",
      "calle": "C. CENTRAL",
      "cruce_con": "MIGUEL HIDALGO",
@@ -8395,7 +8524,7 @@
      ]
     },
     {
-     "orden": 63,
+     "orden": 65,
      "texto": "MIGUEL HIDALGO-PRIV. EMILIANO ZAPATA",
      "calle": "MIGUEL HIDALGO",
      "cruce_con": "PRIV. EMILIANO ZAPATA",
@@ -8504,7 +8633,7 @@
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JALPAN DE SERRA",
      "estado": "REFERENCIA",
-     "osm_calle": "Acambay San Juan del Río",
+     "osm_calle": "Avenida Central",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
@@ -9279,7 +9408,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -9428,7 +9557,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -9985,12 +10114,12 @@
    "numero": "046",
    "nombre": "Manantiales – Nogales – IMSS",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 52,
+   "total": 56,
    "conteo": {
     "UBICADO": 23,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 17,
-    "CALLES SIN CRUCE EN OSM": 3,
+    "REFERENCIA": 18,
+    "CALLES SIN CRUCE EN OSM": 6,
     "SIN UBICAR": 9
    },
    "cruces": [
@@ -10128,23 +10257,41 @@
     },
     {
      "orden": 12,
-     "texto": "MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+     "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "MONUMENTO A BENITO JUÁREZ",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
+     "cruce_con": "JURICA",
      "estado": "SIN UBICAR",
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
      "orden": 13,
-     "texto": "FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO",
-     "calle": "FERNANDO DE TAPIA",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
      "estado": "REFERENCIA",
-     "osm_calle": "Calle Fernando de Tapia",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
      "orden": 14,
+     "texto": "FERNANDO DE TAPIA-JURICA",
+     "calle": "FERNANDO DE TAPIA",
+     "cruce_con": "JURICA",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Calle Fernando de Tapia",
+     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+    },
+    {
+     "orden": 15,
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 16,
      "texto": "AV. BENITO JUARÉZ-AGUSTÍN MELGAR",
      "calle": "AV. BENITO JUARÉZ",
      "cruce_con": "AGUSTÍN MELGAR",
@@ -10156,25 +10303,25 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 15,
-     "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
-     "calle": "PASEO CENTRAL",
-     "cruce_con": "HDA. LOS ARRAYANES",
-     "estado": "REFERENCIA",
-     "osm_calle": "Avenida Central",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
-    },
-    {
-     "orden": 16,
-     "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
-     "calle": "PASEO CENTRAL",
-     "cruce_con": "HDA. LOS ARRAYANES",
-     "estado": "REFERENCIA",
-     "osm_calle": "Avenida Central",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
-    },
-    {
      "orden": 17,
+     "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "HDA. LOS ARRAYANES",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 18,
+     "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "HDA. LOS ARRAYANES",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 19,
      "texto": "HIDALGO",
      "calle": "HIDALGO",
      "cruce_con": null,
@@ -10183,7 +10330,7 @@
      "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
-     "orden": 18,
+     "orden": 20,
      "texto": "HIDALGO-C. MIGUEL HIDALGO",
      "calle": "HIDALGO",
      "cruce_con": "C. MIGUEL HIDALGO",
@@ -10198,7 +10345,7 @@
      ]
     },
     {
-     "orden": 19,
+     "orden": 21,
      "texto": "AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
      "calle": "AV. TECNOLÓGICO",
      "cruce_con": "SAN JUAN DEL RÍO",
@@ -10209,11 +10356,11 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
-     "orden": 20,
+     "orden": 22,
      "texto": "QUERÉTARO",
      "calle": "QUERÉTARO",
      "cruce_con": null,
@@ -10222,7 +10369,7 @@
      "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
-     "orden": 21,
+     "orden": 23,
      "texto": "PLAZA MORELOS ORIENTE-AGUSTÍN MELGAR",
      "calle": "PLAZA MORELOS ORIENTE",
      "cruce_con": "AGUSTÍN MELGAR",
@@ -10231,7 +10378,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 22,
+     "orden": 24,
      "texto": "AV. BENITO JUÁREZ ORIENTE-PRIMAVERA",
      "calle": "AV. BENITO JUÁREZ ORIENTE",
      "cruce_con": "PRIMAVERA",
@@ -10243,7 +10390,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 23,
+     "orden": 25,
      "texto": "PLAZA MORELOS ORIENTE-CASTILLO DE CHAPULTEPEC",
      "calle": "PLAZA MORELOS ORIENTE",
      "cruce_con": "CASTILLO DE CHAPULTEPEC",
@@ -10252,7 +10399,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 24,
+     "orden": 26,
      "texto": "PLAZA MORELOS ORIENTE-ARTICULO 3°",
      "calle": "PLAZA MORELOS ORIENTE",
      "cruce_con": "ARTICULO 3°",
@@ -10261,7 +10408,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 25,
+     "orden": 27,
      "texto": "PLAZA MORELOS ORIENTE-PANAMERICANA",
      "calle": "PLAZA MORELOS ORIENTE",
      "cruce_con": "PANAMERICANA",
@@ -10270,7 +10417,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 26,
+     "orden": 28,
      "texto": "JOSE MARIA PINO SUÁREZ-VALENTIN GOMEZ FARIA",
      "calle": "JOSE MARIA PINO SUÁREZ",
      "cruce_con": "VALENTIN GOMEZ FARIA",
@@ -10285,7 +10432,7 @@
      ]
     },
     {
-     "orden": 27,
+     "orden": 29,
      "texto": "PINO SUÁREZ NTE-5 DE MAYO",
      "calle": "PINO SUÁREZ NTE",
      "cruce_con": "5 DE MAYO",
@@ -10300,7 +10447,7 @@
      ]
     },
     {
-     "orden": 28,
+     "orden": 30,
      "texto": "BOULEVARD PABLO CABRERA-CONSTITUYENTES",
      "calle": "BOULEVARD PABLO CABRERA",
      "cruce_con": "CONSTITUYENTES",
@@ -10312,7 +10459,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 29,
+     "orden": 31,
      "texto": "BOULEVARD PABLO CABRERA-C. ALVÁRO OBREGÓN",
      "calle": "BOULEVARD PABLO CABRERA",
      "cruce_con": "C. ALVÁRO OBREGÓN",
@@ -10324,7 +10471,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 30,
+     "orden": 32,
      "texto": "C. MAURILIO MORELOS-20 DE NOVIEMBRE",
      "calle": "C. MAURILIO MORELOS",
      "cruce_con": "20 DE NOVIEMBRE",
@@ -10332,7 +10479,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 31,
+     "orden": 33,
      "texto": "20 DE NOVIEMBRE-5 DE MAYO",
      "calle": "20 DE NOVIEMBRE",
      "cruce_con": "5 DE MAYO",
@@ -10340,7 +10487,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 32,
+     "orden": 34,
      "texto": "C.MIGUEL HIDALGO-20 DE NOVIEMBRE",
      "calle": "C.MIGUEL HIDALGO",
      "cruce_con": "20 DE NOVIEMBRE",
@@ -10348,7 +10495,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 33,
+     "orden": 35,
      "texto": "PONIENTE 2-ÁLVARO OBREGÓN",
      "calle": "PONIENTE 2",
      "cruce_con": "ÁLVARO OBREGÓN",
@@ -10356,37 +10503,13 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 34,
-     "texto": "MANANTIAL DE MANANTIALES-SAN JUAN DEL RÍO QUERÉTARO",
-     "calle": "MANANTIAL DE MANANTIALES",
-     "cruce_con": "SAN JUAN DEL RÍO QUERÉTARO",
-     "estado": "REFERENCIA",
-     "osm_calle": "Calle Manantial de Maniantales",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
-    },
-    {
-     "orden": 35,
-     "texto": "MANANTIALES DE AGUA AZUL-MANTIALES DE TLACOTE",
-     "calle": "MANANTIALES DE AGUA AZUL",
-     "cruce_con": "MANTIALES DE TLACOTE",
-     "estado": "CALLES SIN CRUCE EN OSM",
-     "osm_calle": "Calle Manantiales de Agua Azul",
-     "nota": "las dos calles existen en OSM («Calle Manantiales de Agua Azul», «Calle Manantiales de Tlacote») pero no se tocan cerca de la ruta: POR VERIFICAR"
-    },
-    {
      "orden": 36,
-     "texto": "AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
-     "calle": "AV. TECNOLÓGICO",
+     "texto": "MANANTIAL DE MANANTIALES-SAN JUAN DEL RÍO",
+     "calle": "MANANTIAL DE MANANTIALES",
      "cruce_con": "SAN JUAN DEL RÍO",
-     "estado": "UBICADO",
-     "lat": 20.37637,
-     "lon": -99.98617,
-     "osm_calle": "Avenida Tecnológico",
-     "osm_cruce": "Avenida Central",
-     "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta",
-     "correcciones": [
-      "continuación: «SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
-     ]
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Calle Manantial de Maniantales",
+     "nota": "las dos calles existen en OSM («Calle Manantial de Maniantales», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
      "orden": 37,
@@ -10399,6 +10522,39 @@
     },
     {
      "orden": 38,
+     "texto": "MANANTIALES DE AGUA AZUL-MANTIALES DE TLACOTE",
+     "calle": "MANANTIALES DE AGUA AZUL",
+     "cruce_con": "MANTIALES DE TLACOTE",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Calle Manantiales de Agua Azul",
+     "nota": "las dos calles existen en OSM («Calle Manantiales de Agua Azul», «Calle Manantiales de Tlacote») pero no se tocan cerca de la ruta: POR VERIFICAR"
+    },
+    {
+     "orden": 39,
+     "texto": "AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
+     "calle": "AV. TECNOLÓGICO",
+     "cruce_con": "SAN JUAN DEL RÍO",
+     "estado": "UBICADO",
+     "lat": 20.37637,
+     "lon": -99.98617,
+     "osm_calle": "Avenida Tecnológico",
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
+    },
+    {
+     "orden": 40,
+     "texto": "QUERÉTARO",
+     "calle": "QUERÉTARO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Querétaro",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 41,
      "texto": "PLAZA MORELOS ORIENTE-AGUSTÍN MELGAR",
      "calle": "PLAZA MORELOS ORIENTE",
      "cruce_con": "AGUSTÍN MELGAR",
@@ -10407,7 +10563,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 39,
+     "orden": 42,
      "texto": "AV. BENITO JUÁREZ ORIENTE-PRIMAVERA",
      "calle": "AV. BENITO JUÁREZ ORIENTE",
      "cruce_con": "PRIMAVERA",
@@ -10419,7 +10575,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 40,
+     "orden": 43,
      "texto": "PLAZA MORELOS ORIENTE-CASTILLO DE CHAPULTEPEC",
      "calle": "PLAZA MORELOS ORIENTE",
      "cruce_con": "CASTILLO DE CHAPULTEPEC",
@@ -10428,7 +10584,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 41,
+     "orden": 44,
      "texto": "PLAZA MORELOS ORIENTE-ARTICULO 3°",
      "calle": "PLAZA MORELOS ORIENTE",
      "cruce_con": "ARTICULO 3°",
@@ -10437,7 +10593,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 42,
+     "orden": 45,
      "texto": "PLAZA MORELOS ORIENTE-PANAMERICANA",
      "calle": "PLAZA MORELOS ORIENTE",
      "cruce_con": "PANAMERICANA",
@@ -10446,7 +10602,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 43,
+     "orden": 46,
      "texto": "JOSE MARIA PINO SUÁREZ-VALENTIN GOMEZ FARIA",
      "calle": "JOSE MARIA PINO SUÁREZ",
      "cruce_con": "VALENTIN GOMEZ FARIA",
@@ -10461,7 +10617,7 @@
      ]
     },
     {
-     "orden": 44,
+     "orden": 47,
      "texto": "PINO SUÁREZ NTE-5 DE MAYO",
      "calle": "PINO SUÁREZ NTE",
      "cruce_con": "5 DE MAYO",
@@ -10476,7 +10632,7 @@
      ]
     },
     {
-     "orden": 45,
+     "orden": 48,
      "texto": "BOULEVARD PABLO CABRERA-CONSTITUYENTES",
      "calle": "BOULEVARD PABLO CABRERA",
      "cruce_con": "CONSTITUYENTES",
@@ -10488,7 +10644,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 46,
+     "orden": 49,
      "texto": "BOULEVARD PABLO CABRERA-C. ALVÁRO OBREGÓN",
      "calle": "BOULEVARD PABLO CABRERA",
      "cruce_con": "C. ALVÁRO OBREGÓN",
@@ -10500,7 +10656,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 47,
+     "orden": 50,
      "texto": "C. MAURILIO MORELOS-20 DE NOVIEMBRE",
      "calle": "C. MAURILIO MORELOS",
      "cruce_con": "20 DE NOVIEMBRE",
@@ -10508,7 +10664,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 48,
+     "orden": 51,
      "texto": "20 DE NOVIEMBRE-5 DE MAYO",
      "calle": "20 DE NOVIEMBRE",
      "cruce_con": "5 DE MAYO",
@@ -10516,7 +10672,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 49,
+     "orden": 52,
      "texto": "C.MIGUEL HIDALGO-20 DE NOVIEMBRE",
      "calle": "C.MIGUEL HIDALGO",
      "cruce_con": "20 DE NOVIEMBRE",
@@ -10524,7 +10680,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 50,
+     "orden": 53,
      "texto": "PONIENTE 2-ÁLVARO OBREGÓN",
      "calle": "PONIENTE 2",
      "cruce_con": "ÁLVARO OBREGÓN",
@@ -10532,16 +10688,25 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 51,
-     "texto": "MANANTIAL DE MANANTIALES-SAN JUAN DEL RÍO QUERÉTARO",
+     "orden": 54,
+     "texto": "MANANTIAL DE MANANTIALES-SAN JUAN DEL RÍO",
      "calle": "MANANTIAL DE MANANTIALES",
-     "cruce_con": "SAN JUAN DEL RÍO QUERÉTARO",
-     "estado": "REFERENCIA",
+     "cruce_con": "SAN JUAN DEL RÍO",
+     "estado": "CALLES SIN CRUCE EN OSM",
      "osm_calle": "Calle Manantial de Maniantales",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "nota": "las dos calles existen en OSM («Calle Manantial de Maniantales», «Avenida Central») pero no se tocan cerca de la ruta: POR VERIFICAR"
     },
     {
-     "orden": 52,
+     "orden": 55,
+     "texto": "QUERÉTARO",
+     "calle": "QUERÉTARO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Querétaro",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 56,
      "texto": "MANANTIALES DE AGUA AZUL-MANTIALES DE TLACOTE",
      "calle": "MANANTIALES DE AGUA AZUL",
      "cruce_con": "MANTIALES DE TLACOTE",
@@ -10558,10 +10723,10 @@
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
    "total": 56,
    "conteo": {
-    "UBICADO": 30,
+    "UBICADO": 31,
     "UBICADO POR LUGAR": 0,
     "REFERENCIA": 11,
-    "CALLES SIN CRUCE EN OSM": 10,
+    "CALLES SIN CRUCE EN OSM": 9,
     "SIN UBICAR": 5
    },
    "cruces": [
@@ -10666,9 +10831,15 @@
      "texto": "BENITO JUÁREZ-SAN JUAN DEL RÍO",
      "calle": "BENITO JUÁREZ",
      "cruce_con": "SAN JUAN DEL RÍO",
-     "estado": "CALLES SIN CRUCE EN OSM",
+     "estado": "UBICADO",
+     "lat": 20.42234,
+     "lon": -99.97777,
      "osm_calle": "Avenida Benito Juárez",
-     "nota": "las dos calles existen en OSM («Avenida Benito Juárez», «Acambay San Juan del Río») pero no se tocan cerca de la ruta: POR VERIFICAR"
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
     },
     {
      "orden": 10,
@@ -10685,7 +10856,7 @@
      "calle": "CARR. SAN JUAN DEL RÍO",
      "cruce_con": "JALPAN DE SERRA",
      "estado": "REFERENCIA",
-     "osm_calle": "Acambay San Juan del Río",
+     "osm_calle": "Avenida Central",
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
@@ -11190,12 +11361,12 @@
    "numero": "023",
    "nombre": "Tequisquiapan – Ezequiel Montes",
    "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
-   "total": 33,
+   "total": 35,
    "conteo": {
     "UBICADO": 16,
     "UBICADO POR LUGAR": 0,
-    "REFERENCIA": 11,
-    "CALLES SIN CRUCE EN OSM": 1,
+    "REFERENCIA": 12,
+    "CALLES SIN CRUCE EN OSM": 2,
     "SIN UBICAR": 5
    },
    "cruces": [
@@ -11243,7 +11414,7 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
@@ -11429,23 +11600,41 @@
     },
     {
      "orden": 21,
-     "texto": "MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+     "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
      "calle": "MONUMENTO A BENITO JUÁREZ",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
+     "cruce_con": "JURICA",
      "estado": "SIN UBICAR",
      "nota": "la calle no aparece en OSM: POR VERIFICAR"
     },
     {
      "orden": 22,
-     "texto": "FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO",
-     "calle": "FERNANDO DE TAPIA",
-     "cruce_con": "JURICA SAN JUAN DEL RÍO",
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
      "estado": "REFERENCIA",
-     "osm_calle": "Calle Fernando de Tapia",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
      "orden": 23,
+     "texto": "FERNANDO DE TAPIA-JURICA",
+     "calle": "FERNANDO DE TAPIA",
+     "cruce_con": "JURICA",
+     "estado": "CALLES SIN CRUCE EN OSM",
+     "osm_calle": "Calle Fernando de Tapia",
+     "nota": "las dos calles existen en OSM («Calle Fernando de Tapia», «Privada Jurica») pero no se tocan cerca de la ruta: POR VERIFICAR"
+    },
+    {
+     "orden": 24,
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 25,
      "texto": "AV. BENITO JUARÉZ-AGUSTÍN MELGAR",
      "calle": "AV. BENITO JUARÉZ",
      "cruce_con": "AGUSTÍN MELGAR",
@@ -11457,7 +11646,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 24,
+     "orden": 26,
      "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
      "calle": "PASEO CENTRAL",
      "cruce_con": "HDA. LOS ARRAYANES",
@@ -11466,7 +11655,7 @@
      "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
-     "orden": 25,
+     "orden": 27,
      "texto": "AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
      "calle": "AV. TECNOLÓGICO",
      "cruce_con": "SAN JUAN DEL RÍO",
@@ -11477,11 +11666,11 @@
      "osm_cruce": "Avenida Central",
      "evidencia": "las dos calles se tocan en OSM (3 m), dentro del corredor de la ruta",
      "correcciones": [
-      "continuación: «SAN JUAN DEL RÍO» (OSM «San Juan del Río - Xilitla») sigue en línea recta como «Avenida Central»"
+      "alias de Miguel (D-43): «SAN JUAN DEL RÍO» → «Avenida Central»"
      ]
     },
     {
-     "orden": 26,
+     "orden": 28,
      "texto": "QUERÉTARO",
      "calle": "QUERÉTARO",
      "cruce_con": null,
@@ -11490,7 +11679,7 @@
      "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
     },
     {
-     "orden": 27,
+     "orden": 29,
      "texto": "GUADALUPE-AV. TECNOLÓGICO",
      "calle": "GUADALUPE",
      "cruce_con": "AV. TECNOLÓGICO",
@@ -11502,7 +11691,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 28,
+     "orden": 30,
      "texto": "DEL BOSQUE-ROBLE",
      "calle": "DEL BOSQUE",
      "cruce_con": "ROBLE",
@@ -11514,7 +11703,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 29,
+     "orden": 31,
      "texto": "DEL ABEDUL-DE LA CANTERA",
      "calle": "DEL ABEDUL",
      "cruce_con": "DE LA CANTERA",
@@ -11526,7 +11715,7 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     },
     {
-     "orden": 30,
+     "orden": 32,
      "texto": "DEL SILLAR-DE LA PIEDRA",
      "calle": "DEL SILLAR",
      "cruce_con": "DE LA PIEDRA",
@@ -11534,7 +11723,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 31,
+     "orden": 33,
      "texto": "DE LA CANTERA-DE LA PIEDRA",
      "calle": "DE LA CANTERA",
      "cruce_con": "DE LA PIEDRA",
@@ -11542,7 +11731,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 32,
+     "orden": 34,
      "texto": "DE LA CANTERA-DEL GRANITO",
      "calle": "DE LA CANTERA",
      "cruce_con": "DEL GRANITO",
@@ -11550,7 +11739,7 @@
      "nota": "el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR"
     },
     {
-     "orden": 33,
+     "orden": 35,
      "texto": "DE LA LAJA-DE LA ROCA LAS CRUCITAS HACIENDA GRANDE COPPEL DALIA CLUB DE GOLF EL DORADO GAS NIETO OASIS REAL DEL CIERVO TERMAS DEL REY EL CARDONAL LA REDONDA LIENZO CHARRO DEL FAISAN DEL CASTOR MADERO/CARRANZA MADERO/OCAMPO M. ESCOBEDO NICOLAS BRAVO 16 DE SEPTIEMBRE DIF EL PROGRESO LOS PRESIDENTES LOS PRESIDENTES DOÑA ESPERANZA BENITO JUAREZ CUAUHTEMOC BELISARIO/OCAMPO REVOLUCION CARRANZA AURRERA PROL. TAPIR LA REDONDA EL CARDONAL REAL DEL CIERVO UNAM GAS NIETO II FRACC. EL DORADO CRISANTEMO LAGO DE YURIRIA PARQUE LOS CONOS ALVARO OBREGON LUCIO BLANCO SECUNDARIA NOGAL",
      "calle": "DE LA LAJA",
      "cruce_con": "DE LA ROCA LAS CRUCITAS HACIENDA GRANDE COPPEL DALIA CLUB DE GOLF EL DORADO GAS NIETO OASIS REAL DEL CIERVO TERMAS DEL REY EL CARDONAL LA REDONDA LIENZO CHARRO DEL FAISAN DEL CASTOR MADERO/CARRANZA MADERO/OCAMPO M. ESCOBEDO NICOLAS BRAVO 16 DE SEPTIEMBRE DIF EL PROGRESO LOS PRESIDENTES LOS PRESIDENTES DOÑA ESPERANZA BENITO JUAREZ CUAUHTEMOC BELISARIO/OCAMPO REVOLUCION CARRANZA AURRERA PROL. TAPIR LA REDONDA EL CARDONAL REAL DEL CIERVO UNAM GAS NIETO II FRACC. EL DORADO CRISANTEMO LAGO DE YURIRIA PARQUE LOS CONOS ALVARO OBREGON LUCIO BLANCO SECUNDARIA NOGAL",
