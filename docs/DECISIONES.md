@@ -698,6 +698,13 @@ Miguel).
   propio). Efecto en Jurica: 27 de 36 ubicados, 7 referencias, 2 POR
   VERIFICAR. Total: 656 de 974 con punto (67 %), 186 referencias de calle
   (19 %), 132 POR VERIFICAR (14 %; antes 166).
+- **Números con letra (20 nov 2026):** «AV. 1 PONIENTE» es «Avenida Uno
+  Poniente» en OSM (toca la Av. Central a 0 m). El programa ya trata igual un
+  número con cifra y con letra (uno a diez, dieciséis y veinte), siempre con
+  la prueba del mapa. Efecto: 9 cruces nuevos con punto y 1 que se pierde
+  (032 #53, Venustiano Carranza – Miguel Hidalgo: punto suelto a 5.5 km de sus
+  vecinos, que ahora sí se ubican; el salto máximo es 3 km). Total: 664 de 974
+  con punto (68 %), 183 referencias (19 %), 127 POR VERIFICAR (13 %).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** R-03, `datos/investigacion/cruces.json`.
 
