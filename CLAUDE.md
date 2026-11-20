@@ -122,6 +122,12 @@ puede, convertir la regla en una prueba automática.
    corrida. Regla: toda herramienta nueva de `npm run verificar` se comprueba
    en los dos ambientes (GitHub Actions y la Mac de Miguel) antes de dar la
    tarea por hecha.
+   - 2026-11-19 (2.ª vez): la prueba nueva `scripts/pruebas/bajas.test.mjs`
+     pasó en la Mac y falló en GitHub Actions: leía `web/public/datos/rutas.json`,
+     que se genera al compilar y no está en git (ENOENT). Detección temprana:
+     antes de subir una prueba nueva, correrla sin los archivos ignorados por
+     git (como los ve GitHub).
+   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
 6. **Claude le ofreció a Miguel una acción que los candados no permiten (17
    nov 2026).** Ofreció integrar el PR, pero `.claude/settings.json` le niega
    `gh pr merge`, `gh pr ready` y el push a `main`. Regla: antes de ofrecer
