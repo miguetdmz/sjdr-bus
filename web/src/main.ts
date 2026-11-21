@@ -1,26 +1,40 @@
 // SJDR Bus (D-28).
 // M-01: mapa real de OpenStreetMap con Leaflet (HANDOFF §11.1). La atribución de
-//       OpenStreetMap queda visible en todo momento.
-// M-03: selector de ruta y control de sentido (HANDOFF §11.8, D-18).
+//       OpenStreetMap queda visible en todo momento (en el pie, D-53).
 // M-04: detalle de la ruta elegida, del sentido elegido. Sin trazo en el mapa.
-// M-05: paradas de OpenStreetMap como puntos grises, no ligadas a ninguna ruta,
-//       con un control para mostrar u ocultar la capa.
-// M-06: pestañas «Rutas» y «Calcula tu ruta». La segunda solo muestra un aviso
-//       (D-15): no tiene campos de origen y destino ni calcula nada.
-// D-48: mapa completo; arriba «¿A dónde vas?» (selector) y sentido; menú lateral
-//       izquierdo con el nombre, el detalle y «Calcula tu ruta».
-// D-50: selector visual de rutas (tarjetas con camioncito R1, R2…, colores en
-//       rotación, «Tus rutas recientes») y el <select> como respaldo; inicio y
-//       fin de la ruta como zona probable (ESTIMADO), sin trayectoria.
+// M-05: paradas de OpenStreetMap, no ligadas a ninguna ruta.
 // M-07: instalable (manifiesto e íconos en web/public) y service worker que
 //       guarda la app y sus datos, no las teselas del mapa.
+// D-48 a D-52: mapa completo, menú lateral izquierdo, tarjetas de rutas (D-50),
+//       zonas probables de inicio y fin (ESTIMADO), detalle visual sin fuentes.
+// D-53 (maqueta aprobada por Miguel, 20 nov 2026, docs/maquetas/d53/):
+//   (a) sin desplegable: la ruta se elige en las tarjetas; el sentido vive en el
+//       detalle, dentro del menú; pestañas arriba; menú cerrado = mapa completo;
+//   (b) botón redondo de paradas; cada parada es un círculo levantado con el
+//       camión y una guía de puntitos; ocultas hasta presionarlo;
+//   (c) tarjetas más chicas, sin «Ruta 001», 20 colores;
+//   (d) un solo pie legal, chico, verde y sin fondo; avisos discretos;
+//   (e) «¿A dónde quieres ir?»: catálogo guardado, rutas que empiezan o terminan
+//       a ≤ 1 km y parada de OSM más cercana con el GPS del teléfono. Nunca se
+//       consulta Nominatim ni OSRM (regla 7) y la ubicación no sale del teléfono.
 import 'leaflet/dist/leaflet.css';
 import './estilos.css';
 import L from 'leaflet';
 import { cargarDatos, type Ruta } from './datos';
 import { vistaDetalle, type NombreSentido } from './detalle';
-import { gruposSelector } from './selector';
-import { ICONO_BUS_CHICO, ICONO_CALCULA, ICONO_CERRAR, ICONO_MENU, ICONO_PARADAS, ICONO_RELOJ, ICONO_RUTAS, PIN_PARADA, camioncito } from './iconos';
+import {
+  ICONO_BUS_CHICO,
+  ICONO_CALCULA,
+  ICONO_CERRAR,
+  ICONO_LUPA,
+  ICONO_MENU,
+  ICONO_PARADAS_DETALLE,
+  ICONO_RELOJ,
+  ICONO_RUTAS,
+  PARADA_CIRCULO,
+  camioncito,
+  iconoBus,
+} from './iconos';
 import {
   AVISO_COLORES,
   CLAVE_RECIENTES,
@@ -31,200 +45,201 @@ import {
   type ColorTarjeta,
 } from './tarjetas';
 import { zonasRuta } from './zonas';
-import { avisoCalcula } from './calcula';
 import { cargarParadas, fichaParada, type Parada } from './paradas';
+import {
+  LEYENDA_CERCA,
+  PROXIMAMENTE,
+  SIN_RESULTADOS,
+  buscar,
+  catalogo,
+  masCercana,
+  rutasCerca,
+  textoDistancia,
+  type LugarCatalogo,
+  type Punto,
+} from './destino';
 
-// Plaza Independencia: coordenada verificada de HANDOFF §11.3.
-const PLAZA_INDEPENDENCIA: L.LatLngTuple = [20.38883, -99.99639];
+// D-53: la vista inicial es la de la maqueta aprobada (la ciudad completa). Plaza
+// Independencia (HANDOFF §11.3, coordenada verificada: 20.38883, -99.99639)
+// queda a la vista, al oeste del centro de la pantalla.
+const VISTA_CIUDAD: L.LatLngTuple = [20.389, -99.975];
+const escritorio = () => window.matchMedia('(min-width: 768px)').matches;
 
-const mapa = L.map('mapa', { zoomControl: false, attributionControl: false }).setView(PLAZA_INDEPENDENCIA, 15);
+const mapa = L.map('mapa', { zoomControl: false, attributionControl: false }).setView(VISTA_CIUDAD, escritorio() ? 14 : 13);
 
 // Teselas estándar de OpenStreetMap: solo las del área visible, con la caché
-// normal del navegador (HANDOFF §11.6).
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">Colaboradores de OpenStreetMap</a>',
-}).addTo(mapa);
+// normal del navegador (HANDOFF §11.6). La atribución va en el pie (#pie),
+// siempre visible: «© colaboradores de OpenStreetMap» con su enlace
+// https://www.openstreetmap.org/copyright (regla 6).
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(mapa);
 
-// D-48: sin hoja abajo, la atribución vuelve a la esquina de abajo, siempre visible.
-L.control
-  .attribution({ position: 'bottomright', prefix: '<a href="https://leafletjs.com">Leaflet</a>' })
-  .addTo(mapa);
+const app = document.querySelector<HTMLElement>('.app')!;
+const barra = document.querySelector<HTMLElement>('#barra')!;
+const hoja = document.querySelector<HTMLElement>('#hoja')!;
+const chip = document.querySelector<HTMLElement>('#chip-ruta')!;
 
-// --- Paradas de OpenStreetMap (M-05) -----------------------------------------
-
-const capaParadas = L.layerGroup();
-// D-49: pin de parada con el camión de frente; la punta marca el lugar.
-const iconoParada = L.divIcon({
-  className: 'parada-toque',
-  html: PIN_PARADA,
-  iconSize: [30, 38],
-  iconAnchor: [15, 37],
-  popupAnchor: [0, -34],
-});
-
-function contenidoParada(p: Parada): HTMLElement {
-  const f = fichaParada(p);
-  const caja = document.createElement('div');
-  caja.className = 'ficha-parada';
-  const nombre = document.createElement('b');
-  nombre.textContent = f.nombre;
-  caja.append(nombre);
-  for (const linea of f.lineas) {
-    const renglon = document.createElement('span');
-    renglon.textContent = linea;
-    if (linea === f.lineas[2]) renglon.className = 'marca-verificar';
-    caja.append(renglon);
-  }
-  return caja;
-}
-
-// La ficha de la parada nunca queda debajo de la barra de arriba, del menú
-// lateral abierto o del botón «Ver detalle»: el mapa se mueve lo necesario.
-// Se mide contra la caja del mapa: en computadora el mapa empieza debajo de la
-// barra y se recorre a la derecha cuando el menú está abierto.
+// La ficha de una parada o zona nunca queda debajo de la barra, del menú abierto
+// o del aviso de la ruta: el mapa se mueve lo necesario. Se mide contra la caja
+// del mapa (en computadora empieza debajo de la barra y se recorre con el menú).
 function margenesFicha(): { arriba: L.Point; abajo: L.Point } {
   const m = document.querySelector<HTMLElement>('#mapa')!.getBoundingClientRect();
-  const c = document.querySelector<HTMLElement>('#controles')!.getBoundingClientRect();
-  const h = document.querySelector<HTMLElement>('#hoja');
-  const sobreMapa = c.right > m.left && c.bottom > m.top;
-  const arriba = sobreMapa ? c.bottom - m.top : 0;
-  const izquierda = h && !h.classList.contains('cerrada') ? Math.max(0, h.getBoundingClientRect().right - m.left) : 0;
-  return { arriba: L.point(izquierda + 16, arriba + 16), abajo: L.point(16, 80) };
+  const b = barra.getBoundingClientRect();
+  const arriba = b.bottom > m.top ? b.bottom - m.top : 0;
+  const izquierda = panelAbierto() ? Math.max(0, hoja.getBoundingClientRect().right - m.left) : 0;
+  const abajo = chip.hidden ? 40 : m.bottom - chip.getBoundingClientRect().top;
+  return { arriba: L.point(izquierda + 16, arriba + 16), abajo: L.point(16, abajo + 16) };
 }
 
-function dibujarParadas(paradas: Parada[]): void {
-  for (const p of paradas) {
-    const nombre = p.nombre ?? 'Parada sin nombre';
-    const ficha = L.popup({ maxWidth: 260 });
-    Object.defineProperty(ficha.options, 'autoPanPaddingTopLeft', { get: () => margenesFicha().arriba });
-    Object.defineProperty(ficha.options, 'autoPanPaddingBottomRight', { get: () => margenesFicha().abajo });
-    ficha.setContent(() => contenidoParada(p));
-    L.marker([p.lat, p.lon], { icon: iconoParada, title: nombre, alt: `Parada: ${nombre}`, keyboard: true })
-      .bindPopup(ficha)
-      .addTo(capaParadas);
-  }
+function fichaConMargenes(ancho: number): L.Popup {
+  const ficha = L.popup({ maxWidth: ancho });
+  Object.defineProperty(ficha.options, 'autoPanPaddingTopLeft', { get: () => margenesFicha().arriba });
+  Object.defineProperty(ficha.options, 'autoPanPaddingBottomRight', { get: () => margenesFicha().abajo });
+  return ficha;
 }
 
-// Control para mostrar u ocultar la capa: un botón con estado (aria-pressed).
-const ControlParadas = L.Control.extend({
-  onAdd() {
-    const boton = L.DomUtil.create('button', 'control-paradas');
-    boton.type = 'button';
-    boton.id = 'control-paradas';
-    boton.setAttribute('aria-pressed', 'true');
-    boton.title = 'Mostrar u ocultar las paradas de OpenStreetMap';
-    boton.innerHTML = `${ICONO_PARADAS}<span>Paradas</span>`;
-    L.DomEvent.disableClickPropagation(boton);
-    boton.addEventListener('click', () => {
-      const visible = mapa.hasLayer(capaParadas);
-      if (visible) capaParadas.remove();
-      else capaParadas.addTo(mapa);
-      boton.setAttribute('aria-pressed', String(!visible));
-    });
-    return boton;
-  },
-});
-
-capaParadas.addTo(mapa);
-new ControlParadas({ position: 'topright' }).addTo(mapa);
-
-cargarParadas()
-  .then((datos) => dibujarParadas(datos.paradas))
-  .catch((error: unknown) => console.error(error));
-
-// --- Zonas probables de inicio y fin (D-50, D-46) ----------------------------
-// Su propio panel del mapa: el panel normal de líneas sigue vacío (regla 8: sin
-// trazo). Un círculo difuso de borde punteado y un punto en lo más probable.
-mapa.createPane('zonas');
-mapa.getPane('zonas')!.style.zIndex = '390';
-// Las etiquetas «Inicio» / «Fin» van encima de los pines de parada (600).
-mapa.createPane('etiquetas-zona');
-mapa.getPane('etiquetas-zona')!.style.zIndex = '650';
-const capaZonas = L.layerGroup().addTo(mapa);
-
-function contenidoZona(titulo: string, lineas: string[]): HTMLElement {
+function cajaFicha(titulo: string, lineas: string[], marcada: (i: number, linea: string) => boolean, clase = ''): HTMLElement {
   const caja = document.createElement('div');
-  caja.className = 'ficha-parada ficha-zona';
+  caja.className = `ficha-parada ${clase}`.trim();
   const b = document.createElement('b');
   b.textContent = titulo;
   caja.append(b);
   lineas.forEach((linea, i) => {
     const renglon = document.createElement('span');
     renglon.textContent = linea;
-    if (i === 0) renglon.className = 'marca-verificar';
+    if (marcada(i, linea)) renglon.className = 'marca-verificar';
     caja.append(renglon);
   });
   return caja;
 }
 
-function dibujarZonas(): void {
-  capaZonas.clearLayers();
-  if (!estado.ruta) return;
-  const { zonas } = zonasRuta(estado.ruta, estado.sentido);
-  const limites: L.LatLngBounds[] = [];
-  for (const z of zonas) {
-    const clase = z.papel === 'Inicio' ? 'zona zona-inicio' : 'zona zona-fin';
-    const circulo = L.circle([z.lat, z.lon], {
-      pane: 'zonas',
-      radius: z.radio_m,
-      className: clase,
-      weight: 2,
-      dashArray: '6 6',
-      fillOpacity: 0.22,
-    });
-    const ficha = L.popup({ maxWidth: 280 });
-    Object.defineProperty(ficha.options, 'autoPanPaddingTopLeft', { get: () => margenesFicha().arriba });
-    Object.defineProperty(ficha.options, 'autoPanPaddingBottomRight', { get: () => margenesFicha().abajo });
-    ficha.setContent(() => contenidoZona(z.titulo, z.lineas));
-    circulo.bindPopup(ficha).addTo(capaZonas);
-    const punto = L.marker([z.lat, z.lon], {
-      pane: 'etiquetas-zona',
-      // La etiqueta queda arriba del centro, con su punta en el punto más
-      // probable, para que el círculo de la zona se vea debajo.
-      icon: L.divIcon({ className: `punto-zona ${clase}`, html: `<span>${z.papel}</span><i></i>`, iconSize: [70, 38], iconAnchor: [35, 38] }),
-      title: z.titulo,
-      alt: z.titulo,
-      keyboard: true,
-    });
-    punto.bindPopup(ficha).addTo(capaZonas);
-    limites.push(circulo.getBounds());
-  }
-  if (limites.length) {
-    const todo = limites.reduce((a, b) => a.extend(b), L.latLngBounds(limites[0].getSouthWest(), limites[0].getNorthEast()));
-    // Después de que el mapa se recorre (menú en computadora), con margen para
-    // la barra de arriba y el botón de abajo.
-    window.setTimeout(() => {
-      mapa.invalidateSize();
-      mapa.fitBounds(todo, { paddingTopLeft: L.point(44, 160), paddingBottomRight: L.point(44, 100), maxZoom: 16 });
-    }, 330);
+// --- (b) Paradas de OpenStreetMap: ocultas hasta presionar el botón ----------
+
+const capaParadas = L.layerGroup();
+// Círculo levantado con el camión; la punta de la guía marca el lugar exacto.
+const iconoParada = L.divIcon({ className: 'parada-toque', html: PARADA_CIRCULO, iconSize: [26, 44], iconAnchor: [13, 41.5], popupAnchor: [0, -32] });
+let paradas: Parada[] = [];
+const paradasListas = cargarParadas().then((d) => {
+  paradas = d.paradas;
+  dibujarParadas(paradas);
+  return paradas;
+});
+paradasListas.catch((error: unknown) => console.error(error));
+
+// La capa de paradas no depende de la ruta elegida: no se sabe qué ruta pasa por
+// cada parada (R-07) y nunca se unen entre sí.
+function dibujarParadas(lista: Parada[]): void {
+  for (const p of lista) {
+    const nombre = p.nombre ?? 'Parada sin nombre';
+    const f = fichaParada(p);
+    const ficha = fichaConMargenes(260);
+    ficha.setContent(() => cajaFicha(f.nombre, f.lineas, (_, l) => l === f.lineas[2]));
+    L.marker([p.lat, p.lon], { icon: iconoParada, title: nombre, alt: `Parada: ${nombre}`, keyboard: true })
+      .bindPopup(ficha)
+      .addTo(capaParadas);
   }
 }
 
-// --- Selector de ruta y sentido ---------------------------------------------
+// Botón redondo de paradas (D-53, 1), con estado (aria-pressed).
+const botonParadas = document.querySelector<HTMLButtonElement>('#boton-paradas')!;
+const avisoParadas = document.querySelector<HTMLElement>('#aviso-paradas')!;
+function pintarBotonParadas(): void {
+  const activo = mapa.hasLayer(capaParadas);
+  botonParadas.setAttribute('aria-pressed', String(activo));
+  // La ventana del camión toma el color del fondo del botón.
+  botonParadas.innerHTML = iconoBus(activo ? (escritorio() ? '#f0a032' : '#0d7a72') : '#fff');
+  avisoParadas.hidden = !activo;
+  avisoParadas.textContent = activo ? `${paradas.length} paradas de OpenStreetMap · por verificar en campo` : '';
+}
+botonParadas.addEventListener('click', () => {
+  if (mapa.hasLayer(capaParadas)) capaParadas.remove();
+  else capaParadas.addTo(mapa);
+  pintarBotonParadas();
+});
+pintarBotonParadas();
+paradasListas.then(pintarBotonParadas, () => undefined);
 
-const selector = document.querySelector<HTMLSelectElement>('#ruta')!;
-const controles = document.querySelector<HTMLFormElement>('#controles')!;
-const panel = document.querySelector<HTMLElement>('#detalle')!;
-const hoja = document.querySelector<HTMLElement>('#hoja')!;
-const verDetalle = document.querySelector<HTMLButtonElement>('#ver-detalle')!;
-const tituloHoja = document.querySelector<HTMLElement>('#hoja-titulo')!;
-const encabezado = document.querySelector<HTMLElement>('#encabezado-ruta')!;
-const segmento = document.querySelector<HTMLElement>('#segmento')!;
-const campoSentido = document.querySelector<HTMLFieldSetElement>('#sentido')!;
-const subIda = document.querySelector<HTMLElement>('#sub-ida')!;
-const subVuelta = document.querySelector<HTMLElement>('#sub-vuelta')!;
+// --- Zonas probables de inicio, fin y destino (D-50, D-46) -------------------
+// Su propio panel: el panel normal de líneas sigue vacío (regla 8: sin trazo).
+mapa.createPane('zonas');
+mapa.getPane('zonas')!.style.zIndex = '390';
+// Las etiquetas van encima de las paradas (600).
+mapa.createPane('etiquetas-zona');
+mapa.getPane('etiquetas-zona')!.style.zIndex = '650';
+const capaZonas = L.layerGroup().addTo(mapa);
+const capaDestino = L.layerGroup().addTo(mapa);
+const capaUbicacion = L.layerGroup().addTo(mapa);
+
+function dibujarZona(capa: L.LayerGroup, clase: string, etiqueta: string, centro: Punto, radio: number, ficha: L.Popup): L.LatLngBounds {
+  const circulo = L.circle([centro.lat, centro.lon], { pane: 'zonas', radius: radio, className: `zona ${clase}`, weight: 2, dashArray: '6 6', fillOpacity: 0.14 });
+  circulo.bindPopup(ficha).addTo(capa);
+  const ancho = Math.round(etiqueta.length * 7.2 + 26);
+  L.marker([centro.lat, centro.lon], {
+    pane: 'etiquetas-zona',
+    icon: L.divIcon({ className: `punto-zona ${clase}`, html: `<span></span>`, iconSize: [ancho, 26], iconAnchor: [ancho / 2, 13] }),
+    title: etiqueta,
+    alt: etiqueta,
+    keyboard: true,
+  })
+    .bindPopup(ficha)
+    .on('add', (e) => {
+      const span = (e.target as L.Marker).getElement()?.querySelector('span');
+      if (span) span.textContent = etiqueta;
+    })
+    .addTo(capa);
+  return circulo.getBounds();
+}
+
+// Un solo encuadre pendiente a la vez: si llegan dos seguidos (tu ubicación y
+// luego el destino), gana el último. Leaflet ignora un acercamiento nuevo
+// mientras anima el anterior, así que se espera a que termine (zoomend).
+let encuadrePendiente: number | undefined;
+function encuadrar(limites: L.LatLngBounds[]): void {
+  if (!limites.length) return;
+  const todo = limites.reduce((a, b) => a.extend(b), L.latLngBounds(limites[0].getSouthWest(), limites[0].getNorthEast()));
+  const aplicar = () => {
+    if ((mapa as unknown as { _animatingZoom?: boolean })._animatingZoom) {
+      mapa.once('zoomend', aplicar);
+      return;
+    }
+    mapa.invalidateSize();
+    const m = margenesFicha();
+    mapa.fitBounds(todo, { paddingTopLeft: L.point(44, m.arriba.y + 30), paddingBottomRight: L.point(44, Math.max(m.abajo.y, 100) + 20), maxZoom: 16 });
+  };
+  // Después de que el mapa se recorre (menú en computadora), con margen para la
+  // barra de arriba y el aviso de abajo.
+  window.clearTimeout(encuadrePendiente);
+  encuadrePendiente = window.setTimeout(aplicar, 330);
+}
+
+function dibujarZonas(): void {
+  capaZonas.clearLayers();
+  if (!estado.ruta) return;
+  const limites: L.LatLngBounds[] = [];
+  for (const z of zonasRuta(estado.ruta, estado.sentido).zonas) {
+    const clase = z.papel === 'Inicio' ? 'zona-inicio' : 'zona-fin';
+    const ficha = fichaConMargenes(280);
+    ficha.setContent(() => cajaFicha(z.titulo, z.lineas, (i) => i === 0, 'ficha-zona'));
+    limites.push(dibujarZona(capaZonas, clase, `${z.papel}: ${z.lugar}`, z, z.radio_m, ficha));
+  }
+  encuadrar(limites);
+}
+
+// --- Estado de la app ---------------------------------------------------------
 
 interface Estado {
   ruta: Ruta | null;
   sentido: NombreSentido;
+  destino: LugarCatalogo | null;
+  yo: Punto | null;
 }
 
-const estado: Estado = { ruta: null, sentido: 'ida' };
+const estado: Estado = { ruta: null, sentido: 'ida', destino: null, yo: null };
+let rutas: Ruta[] = [];
 let rutasPorId = new Map<string, Ruta>();
+let lugares: LugarCatalogo[] = [];
 const colores = new Map<string, ColorTarjeta>();
 
-// --- Selector visual (D-50) ---------------------------------------------------
+// --- (c) Tarjetas de rutas (D-50, D-53) ---------------------------------------
 const selectorVisual = document.querySelector<HTMLElement>('#selector-visual')!;
 const contTarjetas = document.querySelector<HTMLElement>('#tarjetas')!;
 const seccionRecientes = document.querySelector<HTMLElement>('#recientes')!;
@@ -237,30 +252,32 @@ function ponerColor(el: HTMLElement, c: ColorTarjeta): void {
   el.style.setProperty('--ci', c.insignia);
 }
 
-function tarjeta(ruta: Ruta): HTMLButtonElement {
+// «Ruta 001» es el nombre oficial y se queda solo en los datos (Miguel, 20 nov
+// 2026, D-53): ni en pantalla ni en lo que lee el lector de pantalla.
+function nombreAccesible(ruta: Ruta): string {
+  return `${insignia(ruta)}: ${ruta.nombre}${ruta.tipo === 'intermunicipal' ? ' · Intermunicipal' : ''}`;
+}
+
+function tarjeta(ruta: Ruta, distancia?: string): HTMLButtonElement {
   const b = document.createElement('button');
   b.type = 'button';
   b.className = 'tarjeta-ruta';
   b.dataset.ruta = ruta.route_id;
   ponerColor(b, colores.get(ruta.route_id)!);
-  const ins = insignia(ruta);
-  const tipo = ruta.tipo === 'intermunicipal' ? ' · Intermunicipal' : '';
-  b.setAttribute('aria-label', `${ins}: ${ruta.nombre}. Ruta ${ruta.numero}${tipo}`);
-  b.innerHTML = camioncito(ins);
+  b.setAttribute('aria-label', distancia ? `${nombreAccesible(ruta)} · ${distancia}` : nombreAccesible(ruta));
+  b.innerHTML = camioncito(insignia(ruta));
   const nombre = document.createElement('span');
   nombre.className = 'tarjeta-nombre';
   nombre.textContent = ruta.nombre;
-  const numero = document.createElement('span');
-  numero.className = 'tarjeta-numero';
-  numero.textContent = `Ruta ${ruta.numero}${tipo}`;
-  b.append(nombre, numero);
+  b.append(nombre);
+  if (distancia) {
+    const d = document.createElement('span');
+    d.className = 'dist';
+    d.textContent = distancia;
+    b.append(d);
+  }
   b.addEventListener('click', () => elegirRuta(ruta.route_id));
   return b;
-}
-
-function llenarTarjetas(rutas: Ruta[]): void {
-  rutas.forEach((r, i) => colores.set(r.route_id, colorTarjeta(rutas, i)));
-  contTarjetas.replaceChildren(...rutas.map(tarjeta));
 }
 
 // «Tus rutas recientes»: solo en este navegador (localStorage), sin cookies.
@@ -292,90 +309,42 @@ document.querySelector<HTMLButtonElement>('#borrar-recientes')!.addEventListener
   pintarRecientes();
 });
 
-function elegirRuta(id: string): void {
-  selector.value = id;
-  alCambiar();
-}
+// --- (a) Ruta elegida y su detalle, con el sentido dentro del menú -----------
+const rutaElegida = document.querySelector<HTMLElement>('#ruta-elegida')!;
+const encabezado = document.querySelector<HTMLElement>('#encabezado-ruta')!;
+const datosDetalle = document.querySelector<HTMLElement>('#detalle-datos')!;
+const segmento = document.querySelector<HTMLElement>('#segmento')!;
+const subIda = document.querySelector<HTMLElement>('#sub-ida')!;
+const subVuelta = document.querySelector<HTMLElement>('#sub-vuelta')!;
 
-function llenarSelector(rutas: Ruta[]): void {
-  for (const grupo of gruposSelector(rutas)) {
-    const optgroup = document.createElement('optgroup');
-    optgroup.label = grupo.etiqueta;
-    for (const opcion of grupo.opciones) {
-      optgroup.append(new Option(opcion.texto, opcion.valor));
-    }
-    selector.append(optgroup);
-  }
-}
-
-function sentidoElegido(): NombreSentido {
-  const marcado = controles.querySelector<HTMLInputElement>('input[name="sentido"]:checked');
-  return marcado?.value === 'vuelta' ? 'vuelta' : 'ida';
-}
-
-function alCambiar(): void {
+function elegirRuta(id: string | null): void {
   const anterior = estado.ruta;
-  estado.ruta = rutasPorId.get(selector.value) ?? null;
-  estado.sentido = sentidoElegido();
+  estado.ruta = id ? rutasPorId.get(id) ?? null : null;
   if (estado.ruta && estado.ruta !== anterior) {
+    // Una ruta nueva empieza en su ida (D-18).
+    estado.sentido = 'ida';
+    segmento.querySelector<HTMLInputElement>('input[value="ida"]')!.checked = true;
     guardarRecientes(agregarReciente(recientesGuardadas(), estado.ruta.route_id));
+    // Elegir una ruta quita el destino del mapa: un solo tema a la vez.
+    quitarDestino();
   }
-  mostrarDetalle();
-  // D-49: al elegir una ruta nueva, el menú se abre solo en su detalle (sin
-  // mover el foco: el buscador y el sentido siguen a la mano dentro del menú).
+  mostrarRuta();
+  // D-49: al elegir una ruta nueva, el menú se abre solo en su detalle.
   if (estado.ruta && estado.ruta !== anterior) {
     ponerModo('rutas');
     ponerPanel(true, false);
+    hoja.querySelector<HTMLElement>('.hoja-cuerpo')!.scrollTop = 0;
   }
 }
 
-// D-18: la ida sale del origen. «Origen – Destino» → Ida va hacia el destino y
-// Vuelta hacia el origen. Si el nombre no trae « – », sin subtítulo.
-function extremos(nombre: string): { origen: string; destino: string } | null {
-  const partes = nombre.split(' – ');
-  if (partes.length !== 2 || !partes[0].trim() || !partes[1].trim()) return null;
-  return { origen: partes[0].trim(), destino: partes[1].trim() };
-}
+segmento.addEventListener('change', () => {
+  const marcado = segmento.querySelector<HTMLInputElement>('input[name="sentido"]:checked');
+  estado.sentido = marcado?.value === 'vuelta' ? 'vuelta' : 'ida';
+  mostrarRuta();
+});
 
-function ponerSubtitulos(ruta: Ruta | null): void {
-  const e = ruta ? extremos(ruta.nombre) : null;
-  subIda.textContent = e ? `hacia ${e.destino}` : '';
-  subVuelta.textContent = e ? `hacia ${e.origen}` : '';
-}
+document.querySelector<HTMLButtonElement>('#cambiar-ruta')!.addEventListener('click', () => elegirRuta(null));
 
-function ponerEncabezado(ruta: Ruta): void {
-  // D-52: en vez del cuadro «R1», la tarjeta de la ruta, con el mismo
-  // camioncito y el mismo color que en la lista (lección 3).
-  const tarjetaRuta = document.createElement('div');
-  tarjetaRuta.className = 'encabezado-tarjeta';
-  const color = colores.get(ruta.route_id);
-  if (color) ponerColor(tarjetaRuta, color);
-  const placa = document.createElement('span');
-  placa.className = 'insignia';
-  placa.innerHTML = camioncito(insignia(ruta));
-  const texto = document.createElement('div');
-  texto.className = 'encabezado-texto';
-  const nombre = document.createElement('b');
-  nombre.textContent = ruta.nombre;
-  const numero = document.createElement('small');
-  numero.className = 'tarjeta-numero';
-  numero.textContent = `Ruta ${ruta.numero}${ruta.tipo === 'intermunicipal' ? ' · Intermunicipal' : ''}`;
-  texto.append(nombre, numero);
-  tarjetaRuta.append(placa, texto);
-  const cerrar = document.createElement('button');
-  cerrar.type = 'button';
-  cerrar.className = 'cerrar quitar';
-  cerrar.setAttribute('aria-label', 'Cambiar de ruta: volver a las tarjetas');
-  cerrar.textContent = 'Cambiar ruta';
-  cerrar.addEventListener('click', () => {
-    selector.selectedIndex = 0;
-    alCambiar();
-  });
-  encabezado.replaceChildren(tarjetaRuta, cerrar);
-}
-
-// D-52: una fila del detalle; el nombre del dato queda para lectores de
-// pantalla y en pantalla se ve el ícono.
 function filaDetalle(clase: string, dato: string, contenido: (Node | string)[]): HTMLElement {
   const grupo = document.createElement('div');
   grupo.className = `fila ${clase}`;
@@ -402,42 +371,72 @@ function texto(t: string, clase: string): HTMLElement {
   return e;
 }
 
+function ponerEncabezado(ruta: Ruta): void {
+  // D-52: la tarjeta de la ruta, con el mismo camioncito y color que en la lista (lección 3).
+  const color = colores.get(ruta.route_id);
+  if (color) ponerColor(encabezado, color);
+  const nombre = texto(ruta.nombre, 'enc-nombre');
+  encabezado.innerHTML = camioncito(insignia(ruta));
+  encabezado.append(nombre);
+  encabezado.setAttribute('aria-label', nombreAccesible(ruta));
+}
+
+function ponerChip(ruta: Ruta | null): void {
+  chip.replaceChildren();
+  if (!ruta) return;
+  const placa = document.createElement('span');
+  placa.className = 'placa';
+  const color = colores.get(ruta.route_id);
+  if (color) ponerColor(placa, color);
+  placa.innerHTML = camioncito(insignia(ruta));
+  const nombre = document.createElement('span');
+  nombre.className = 'nombre-chip';
+  nombre.textContent = ruta.nombre;
+  const sub = document.createElement('small');
+  sub.textContent = `${estado.sentido === 'ida' ? 'Ida' : 'Vuelta'} · zonas aproximadas (estimado)`;
+  nombre.append(sub);
+  const ver = document.createElement('button');
+  ver.type = 'button';
+  ver.className = 'ver';
+  ver.id = 'ver-detalle';
+  ver.textContent = 'Ver detalle';
+  ver.setAttribute('aria-controls', 'hoja');
+  ver.addEventListener('click', () => {
+    ponerModo('rutas');
+    ponerPanel(true);
+  });
+  chip.append(placa, nombre, ver);
+}
+
 // Cambiar de ruta o de sentido reemplaza TODO el detalle: no quedan restos.
-function mostrarDetalle(): void {
-  ponerSubtitulos(estado.ruta);
-  segmento.classList.toggle('apagado', !estado.ruta);
-  // D-49: el sentido aparece en cuanto hay ruta.
-  campoSentido.hidden = !estado.ruta;
-  hoja.classList.toggle('con-ruta', !!estado.ruta);
-  verDetalle.hidden = !estado.ruta || panelAbierto();
-  verDetalle.textContent = estado.ruta ? 'Ver detalle' : '';
+function mostrarRuta(): void {
+  const ruta = estado.ruta;
+  ponerChip(ruta);
+  chip.hidden = !ruta || panelAbierto();
   dibujarZonas();
-  if (!estado.ruta) {
-    ajustarCuerpo();
-    panel.replaceChildren();
-    panel.hidden = true;
+  selectorVisual.hidden = !!ruta;
+  rutaElegida.hidden = !ruta;
+  if (!ruta) {
     encabezado.replaceChildren();
-    encabezado.hidden = true;
-    tituloHoja.hidden = false;
-    selectorVisual.hidden = false;
+    datosDetalle.replaceChildren();
     pintarRecientes();
     return;
   }
-  ponerEncabezado(estado.ruta);
-  encabezado.hidden = false;
-  tituloHoja.hidden = true;
-  selectorVisual.hidden = true;
-  const v = vistaDetalle(estado.ruta, estado.sentido);
+  ponerEncabezado(ruta);
+  // D-18: la ida sale del origen y la vuelta del destino; mismos dos lugares.
+  const { origen, destino } = ruta.extremos;
+  subIda.textContent = `${origen.lugar} → ${destino.lugar}`;
+  subVuelta.textContent = `${destino.lugar} → ${origen.lugar}`;
 
+  const v = vistaDetalle(ruta, estado.sentido);
   const lista = document.createElement('dl');
   lista.className = 'detalle-filas';
-  lista.append(filaDetalle('fila-tipo', 'Tipo', [texto(v.tipo, 'chip-tipo')]));
-  // D-52: sentido y paradas en un mismo renglón.
+  // D-52: tipo y paradas en un mismo renglón.
   const renglon = document.createElement('div');
   renglon.className = 'fila-doble';
-  renglon.append(filaDetalle('fila-sentido', 'Sentido', [texto(v.sentido, 'valor')]));
+  renglon.append(filaDetalle('fila-tipo', 'Tipo', [texto(v.tipo, 'chip-tipo')]));
   if (v.paradas != null) {
-    renglon.append(filaDetalle('fila-paradas', 'Paradas', [texto(String(v.paradas), 'valor'), ' paradas']));
+    renglon.append(filaDetalle('fila-paradas', 'Paradas', [icono(ICONO_PARADAS_DETALLE), texto(String(v.paradas), 'valor'), ' paradas']));
   }
   lista.append(renglon);
   if (v.duracion) {
@@ -452,30 +451,23 @@ function mostrarDetalle(): void {
   if (v.horario) {
     lista.append(filaDetalle('fila-horario', 'Horario', [icono(ICONO_RELOJ), texto(v.horario, 'valor')]));
   }
-
   // Abajo y en chico: el nivel del recorrido y lo que falta (D-52).
   const pie = document.createElement('div');
   pie.className = 'detalle-pie';
-  const nivel = document.createElement('span');
-  nivel.className = 'etiqueta etiqueta-chica';
-  nivel.textContent = v.nivel;
-  pie.append(nivel);
-  const faltan = zonasRuta(estado.ruta, estado.sentido).faltantes;
+  pie.append(texto(v.nivel, 'etiqueta'));
+  const faltan = zonasRuta(ruta, estado.sentido).faltantes;
   for (const nota of [...v.notas, ...faltan.map((f) => f.replace(' · FALTANTE', ': sin punto todavía (FALTANTE).'))]) {
     const p = document.createElement('p');
     p.className = 'detalle-aviso';
     p.textContent = nota;
     pie.append(p);
   }
-  const nodos: HTMLElement[] = [lista, pie];
-  panel.replaceChildren(...nodos);
-  panel.hidden = false;
-  ajustarCuerpo();
+  datosDetalle.replaceChildren(lista, pie);
 }
 
-// --- Menú lateral izquierdo (D-48): el mismo en teléfono y en computadora ---------------
-// Cerrado al cargar: el mapa ocupa toda la pantalla. Lo abren el botón ☰ y
-// «Ver detalle»; lo cierran su botón, Esc o tocar el mapa (el velo).
+// --- Menú lateral izquierdo (D-48): el mismo en teléfono y en computadora ----
+// Cerrado al cargar: el mapa ocupa toda la pantalla (D-53, 5). Lo abren ☰,
+// «¿A dónde quieres ir?» y «Ver detalle»; lo cierran su botón, Esc o el velo.
 const botonMenu = document.querySelector<HTMLButtonElement>('#boton-menu')!;
 const cerrarMenu = document.querySelector<HTMLButtonElement>('#cerrar-menu')!;
 const velo = document.querySelector<HTMLElement>('#velo')!;
@@ -486,8 +478,6 @@ function panelAbierto(): boolean {
   return !hoja.classList.contains('cerrada');
 }
 
-const app = document.querySelector<HTMLElement>('.app')!;
-
 function ponerPanel(abierto: boolean, enfocar = true): void {
   hoja.classList.toggle('cerrada', !abierto);
   app.classList.toggle('menu-abierto', abierto);
@@ -495,24 +485,10 @@ function ponerPanel(abierto: boolean, enfocar = true): void {
   window.setTimeout(() => mapa.invalidateSize(), 320);
   hoja.toggleAttribute('inert', !abierto);
   velo.hidden = !abierto;
-  verDetalle.hidden = abierto || !estado.ruta;
+  chip.hidden = abierto || !estado.ruta;
   botonMenu.setAttribute('aria-expanded', String(abierto));
-  verDetalle.setAttribute('aria-expanded', String(abierto));
-  if (abierto) ajustarCuerpo();
   if (abierto && enfocar) cerrarMenu.focus({ preventScroll: true });
 }
-
-// El detalle se desplaza solo dentro de su caja, que empieza debajo del buscador
-// y del sentido: nada del detalle pasa por detrás de ellos (pedido de Miguel).
-const cuerpo = hoja.querySelector<HTMLElement>('.hoja-cuerpo')!;
-function ajustarCuerpo(): void {
-  if (!panelAbierto()) return;
-  cuerpo.style.marginTop = '0px';
-  const arriba = cuerpo.getBoundingClientRect().top;
-  const abajo = controles.getBoundingClientRect().bottom;
-  cuerpo.style.marginTop = `${Math.max(0, Math.ceil(abajo + 12 - arriba))}px`;
-}
-window.addEventListener('resize', ajustarCuerpo);
 
 hoja.toggleAttribute('inert', true);
 botonMenu.addEventListener('click', () => ponerPanel(!panelAbierto()));
@@ -528,38 +504,13 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// --- Pestañas «Rutas» / «Calcula tu ruta» (M-06) ------------------------------
-// Viven dentro del menú lateral. «Calcula tu ruta» solo avisa (D-15).
+// --- Pestañas «Rutas» / «Calcula tu ruta», arriba del menú (D-53, 8) ---------
 const modoRutas = document.querySelector<HTMLElement>('#modo-rutas')!;
 const modoCalcula = document.querySelector<HTMLElement>('#modo-calcula')!;
 const pestanaRutas = document.querySelector<HTMLButtonElement>('#pestana-rutas')!;
 const pestanaCalcula = document.querySelector<HTMLButtonElement>('#pestana-calcula')!;
 pestanaRutas.insertAdjacentHTML('afterbegin', ICONO_RUTAS);
 pestanaCalcula.insertAdjacentHTML('afterbegin', ICONO_CALCULA);
-
-function llenarCalcula(): void {
-  const a = avisoCalcula();
-  const titulo = document.createElement('h2');
-  titulo.className = 'hoja-titulo';
-  titulo.id = 'calcula-titulo';
-  titulo.textContent = a.titulo;
-  const estadoAviso = document.createElement('p');
-  estadoAviso.className = 'calcula-estado';
-  const sello = document.createElement('span');
-  sello.className = 'etiqueta';
-  sello.textContent = a.estado;
-  estadoAviso.append(sello);
-  const lista = document.createElement('dl');
-  lista.className = 'calcula-lista';
-  for (const p of a.parrafos) {
-    const dt = document.createElement('dt');
-    dt.textContent = p.dato;
-    const dd = document.createElement('dd');
-    dd.textContent = p.texto;
-    lista.append(dt, dd);
-  }
-  modoCalcula.replaceChildren(titulo, estadoAviso, lista);
-}
 
 function ponerModo(modo: 'rutas' | 'calcula'): void {
   const calcula = modo === 'calcula';
@@ -571,27 +522,171 @@ function ponerModo(modo: 'rutas' | 'calcula'): void {
   pestanaCalcula.setAttribute('aria-pressed', String(calcula));
 }
 
-llenarCalcula();
 pestanaRutas.addEventListener('click', () => ponerModo('rutas'));
 pestanaCalcula.addEventListener('click', () => ponerModo('calcula'));
-verDetalle.addEventListener('click', () => {
-  ponerModo('rutas');
-  ponerPanel(true);
+
+// --- (e) «¿A dónde quieres ir?» (D-53, 7) ------------------------------------
+const botonDestino = document.querySelector<HTMLButtonElement>('#boton-destino')!;
+const campoDestino = document.querySelector<HTMLInputElement>('#destino')!;
+const bloqueLugares = document.querySelector<HTMLElement>('#bloque-lugares')!;
+const listaLugares = document.querySelector<HTMLElement>('#lista-lugares')!;
+const bloqueCerca = document.querySelector<HTMLElement>('#bloque-cerca')!;
+const listaCerca = document.querySelector<HTMLElement>('#lista-cerca')!;
+const botonUbicacion = document.querySelector<HTMLButtonElement>('#usar-ubicacion')!;
+const notaUbicacion = document.querySelector<HTMLElement>('#nota-ubicacion')!;
+const leyendasDestino = document.querySelector<HTMLElement>('#leyendas-destino')!;
+
+botonDestino.innerHTML = `${ICONO_LUPA}<span>¿A dónde quieres ir?</span>`;
+botonDestino.addEventListener('click', () => {
+  ponerModo('calcula');
+  ponerPanel(true, false);
+  window.requestAnimationFrame(() => campoDestino.focus({ preventScroll: true }));
 });
 
-controles.addEventListener('change', alCambiar);
-controles.addEventListener('submit', (e) => e.preventDefault());
+{
+  const cerca = document.createElement('p');
+  cerca.textContent = LEYENDA_CERCA;
+  const prox = document.createElement('p');
+  prox.textContent = PROXIMAMENTE;
+  leyendasDestino.prepend(cerca);
+  leyendasDestino.append(prox);
+}
 
+const TEXTO_UBICACION = `${iconoBus('#0d7a72')}<span>Usar mi ubicación</span>`;
+botonUbicacion.innerHTML = TEXTO_UBICACION;
+
+function pintarLugares(): void {
+  const encontrados = buscar(lugares, campoDestino.value);
+  bloqueLugares.hidden = !campoDestino.value.trim();
+  if (!encontrados.length) {
+    const p = document.createElement('p');
+    p.className = 'nota';
+    p.textContent = SIN_RESULTADOS;
+    listaLugares.replaceChildren(p);
+    return;
+  }
+  listaLugares.replaceChildren(
+    ...encontrados.map((l) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'resultado';
+      b.setAttribute('aria-pressed', String(estado.destino?.lugar === l.lugar));
+      const t = document.createElement('span');
+      t.textContent = l.lugar;
+      const s = document.createElement('small');
+      s.textContent = l.cerca_de ? `Inicio o fin de ruta · zona aproximada, cerca de ${l.cerca_de}` : 'Inicio o fin de ruta · zona aproximada';
+      t.append(s);
+      b.append(icono(ICONO_BUS_CHICO), t);
+      b.addEventListener('click', () => elegirDestino(l));
+      return b;
+    }),
+  );
+}
+
+campoDestino.addEventListener('input', pintarLugares);
+campoDestino.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  const primero = buscar(lugares, campoDestino.value)[0];
+  if (primero) elegirDestino(primero);
+});
+
+function limitesUbicacion(): L.LatLngBounds[] {
+  return capaUbicacion.getLayers().map((m) => L.latLngBounds([(m as L.Marker).getLatLng()]));
+}
+
+function elegirDestino(l: LugarCatalogo): void {
+  if (estado.ruta) elegirRuta(null);
+  estado.destino = l;
+  pintarLugares();
+  capaDestino.clearLayers();
+  const ficha = fichaConMargenes(280);
+  ficha.setContent(() => cajaFicha(`Destino: ${l.lugar}`, ['Zona aproximada (estimado) · en proceso de validación'], (i) => i === 0, 'ficha-zona'));
+  const limites = [dibujarZona(capaDestino, 'zona-destino', `Destino: ${l.lugar}`, l, l.radio_m, ficha), ...limitesUbicacion()];
+  encuadrar(limites);
+  // (c) Rutas que empiezan o terminan a 1 km o menos, de la más cercana a la más lejana.
+  listaCerca.replaceChildren(...rutasCerca(rutas, l).map(({ ruta, metros }) => tarjeta(ruta, textoDistancia(metros))));
+  bloqueCerca.hidden = false;
+}
+
+function quitarDestino(): void {
+  if (!estado.destino) return;
+  estado.destino = null;
+  capaDestino.clearLayers();
+  bloqueCerca.hidden = true;
+  listaCerca.replaceChildren();
+  pintarLugares();
+}
+
+// (b) Parada de OSM más cercana con el GPS del teléfono. La ubicación se usa
+// aquí y no se envía a ningún lado: no hay ninguna petición de red con ella.
+function avisar(textoNota: string): void {
+  notaUbicacion.textContent = textoNota;
+  notaUbicacion.hidden = false;
+}
+
+botonUbicacion.addEventListener('click', () => {
+  if (!('geolocation' in navigator)) {
+    avisar('Este navegador no puede dar tu ubicación.');
+    return;
+  }
+  botonUbicacion.disabled = true;
+  botonUbicacion.innerHTML = `${iconoBus('#0d7a72')}<span>Buscando tu ubicación…</span>`;
+  const terminar = () => {
+    botonUbicacion.disabled = false;
+    botonUbicacion.innerHTML = TEXTO_UBICACION;
+  };
+  navigator.geolocation.getCurrentPosition(
+    async (pos) => {
+      const yo = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+      estado.yo = yo;
+      const lista = await paradasListas.catch(() => [] as Parada[]);
+      const cercana = masCercana(lista, yo);
+      capaUbicacion.clearLayers();
+      L.marker([yo.lat, yo.lon], { icon: L.divIcon({ className: 'punto-yo', html: '<div class="yo"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }), title: 'Tú', alt: 'Tu ubicación', keyboard: false }).addTo(capaUbicacion);
+      if (cercana) {
+        const p = cercana.punto;
+        const nombre = p.nombre ?? 'Parada sin nombre';
+        const f = fichaParada(p);
+        const ficha = fichaConMargenes(260);
+        ficha.setContent(() => cajaFicha(f.nombre, f.lineas, (_, linea) => linea === f.lineas[2]));
+        L.marker([p.lat, p.lon], { icon: iconoParada, title: nombre, alt: `Tu parada más cercana: ${nombre}`, keyboard: true }).bindPopup(ficha).addTo(capaUbicacion);
+        const donde = p.nombre ? `«${p.nombre}»` : 'sin nombre en OpenStreetMap';
+        avisar(
+          `Tu parada más cercana (${donde}) queda ${cercana.metros < 50 ? 'ahí' : textoDistancia(cercana.metros)} en línea recta y se marca en el mapa · estimado · por verificar en campo. Tu ubicación no sale del teléfono.`,
+        );
+      } else {
+        avisar('Todavía no se cargan las paradas; intenta de nuevo en un momento. Tu ubicación no sale del teléfono.');
+      }
+      const destino = estado.destino ? [L.latLngBounds([[estado.destino.lat, estado.destino.lon]])] : [];
+      encuadrar([...limitesUbicacion(), ...destino]);
+      terminar();
+    },
+    (error) => {
+      avisar(
+        error.code === error.PERMISSION_DENIED
+          ? 'No diste permiso para usar tu ubicación. Puedes darlo en los ajustes del navegador; la app sigue funcionando sin ella.'
+          : 'No se pudo obtener tu ubicación. Intenta de nuevo.',
+      );
+      terminar();
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
+  );
+});
+
+// --- Arranque ------------------------------------------------------------------
 cargarDatos()
   .then((datos) => {
-    rutasPorId = new Map(datos.rutas.map((r) => [r.route_id, r]));
-    llenarSelector(datos.rutas);
-    llenarTarjetas(datos.rutas);
+    rutas = datos.rutas;
+    rutasPorId = new Map(rutas.map((r) => [r.route_id, r]));
+    lugares = catalogo(rutas);
+    rutas.forEach((r, i) => colores.set(r.route_id, colorTarjeta(rutas, i)));
+    contTarjetas.replaceChildren(...rutas.map((r) => tarjeta(r)));
     pintarRecientes();
   })
   .catch((error: unknown) => {
     console.error(error);
-    selector.options[0].text = 'No se pudieron cargar las rutas';
+    document.querySelector<HTMLElement>('#hoja-titulo')!.textContent = 'No se pudieron cargar las rutas';
   });
 
 // M-07: el service worker solo se registra en la app compilada (en desarrollo

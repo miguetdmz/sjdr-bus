@@ -53,23 +53,22 @@ test('detalle: una ruta de solo inventario no muestra ninguna cifra', () => {
 
 test('detalle: cambiar de ruta o de sentido reemplaza todo (sin restos) y no se dibuja trazo', () => {
   const main = readFileSync(new URL('../../web/src/main.ts', import.meta.url), 'utf8');
-  assert.match(main, /panel\.replaceChildren\(\.\.\.nodos\)/);
-  assert.match(main, /panel\.replaceChildren\(\);/);
-  // Nivel C: ninguna línea de recorrido (regla 8).
+  assert.match(main, /datosDetalle\.replaceChildren\(lista, pie\)/);
+  assert.match(main, /datosDetalle\.replaceChildren\(\);/);
+  // Nivel C: ninguna línea de recorrido (regla 8), ni entre paradas (D-53).
   assert.doesNotMatch(main, /L\.(polyline|polygon|circleMarker|geoJSON)\(/);
-  // Los únicos marcadores son las paradas de OSM de M-05 (de ninguna ruta) y,
-  // desde D-50 (respuesta 5), la etiqueta «Inicio» / «Fin» de cada zona probable,
-  // que sale de zonasRuta(). Nada más se dibuja con marcador.
+  // Marcadores permitidos (D-53): las paradas de OSM (de ninguna ruta), la
+  // etiqueta de cada zona (inicio, fin, destino), tu punto y tu parada más cercana.
   const marcadores = main.match(/L\.marker\(/g) ?? [];
-  assert.ok(marcadores.length <= 2);
-  const paradas = main.slice(main.indexOf('function dibujarParadas'), main.indexOf('// Control para mostrar'));
+  assert.ok(marcadores.length <= 4, `${marcadores.length} marcadores`);
+  const paradas = main.slice(main.indexOf('function dibujarParadas'), main.indexOf('// Botón redondo de paradas'));
   assert.match(paradas, /L\.marker\(\[p\.lat, p\.lon\]/);
   assert.match(paradas, /\.addTo\(capaParadas\)/);
-  const zonas = main.slice(main.indexOf('function dibujarZonas'), main.indexOf('// --- Selector de ruta y sentido'));
+  const zonas = main.slice(main.indexOf('function dibujarZonas'), main.indexOf('// --- Estado de la app'));
   assert.match(zonas, /zonasRuta\(estado\.ruta, estado\.sentido\)/);
-  assert.match(zonas, /L\.marker\(\[z\.lat, z\.lon\]/);
+  assert.match(zonas, /dibujarZona\(capaZonas/);
   // Las zonas van en su propio panel: el de líneas sigue vacío.
-  assert.match(zonas, /pane: 'zonas'/);
+  assert.match(main, /pane: 'zonas'/);
   // El detalle de la 001 ida no comparte cifras con el de una ruta sin datos.
   const a = detalleRuta(ruta('U-001'), 'ida');
   const b = detalleRuta(ruta('U-007'), 'ida');

@@ -17,9 +17,12 @@ test('app: nombre visible «SJDR Bus» (D-28) y leyenda de iniciativa independie
   assert.match(html, /Iniciativa ciudadana independiente/);
 });
 
-test('app: mapa de OpenStreetMap con atribución, centrado en Plaza Independencia', () => {
+test('app: mapa de OpenStreetMap; vista inicial de la ciudad completa, como la maqueta de D-53', () => {
   assert.match(main, /tile\.openstreetmap\.org/);
-  assert.match(main, /openstreetmap\.org\/copyright/);
+  assert.match(html, /openstreetmap\.org\/copyright/);
+  // D-53: la vista inicial es la de la maqueta aprobada (la ciudad completa);
+  // Plaza Independencia (HANDOFF §11.3) queda dentro de ella.
+  assert.match(main, /VISTA_CIUDAD: L\.LatLngTuple = \[20\.389, -99\.975\]/);
   assert.match(main, /20\.38883, -99\.99639/);
 });
 
@@ -58,30 +61,45 @@ test('app: botón de menú accesible y menú lateral animado, cerrado al cargar'
   assert.match(html, /id="boton-menu"[^>]*aria-expanded="false"/);
   assert.match(html, /id="boton-menu"[^>]*aria-controls="hoja"/);
   assert.match(html, /<aside class="hoja cerrada" id="hoja"/);
-  assert.equal((html.match(/id="ruta"/g) ?? []).length, 1);
   assert.match(css, /\.hoja\.cerrada \{[^}]*transform: translateX/);
   assert.match(css, /transition: transform/);
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(main, /key === 'Escape'/);
 });
 
-// D-48 + regla 5: lo que la primera pantalla debe mostrar sin tocar nada
-// (selector, sentido y leyenda) vive FUERA del menú lateral, que empieza cerrado.
-test('app: selector, sentido y leyenda quedan fuera del menú lateral (regla 5, D-48)', () => {
+// Regla 5 (D-53): la primera pantalla es mapa + ☰ + «¿A dónde quieres ir?» +
+// botón de paradas, con la leyenda; todo FUERA del menú lateral, que empieza
+// cerrado. La ruta y su sentido se eligen DENTRO del menú.
+test('app: arriba ☰, «¿A dónde quieres ir?» y paradas; ruta y sentido dentro del menú (regla 5, D-53)', () => {
   const sinComentarios = html.replace(/<!--[\s\S]*?-->/g, '');
   const ini = sinComentarios.indexOf('id="hoja"');
   const fin = sinComentarios.indexOf('</aside>', ini);
   assert.ok(ini > 0 && fin > ini, 'existe el menú lateral');
   const menu = sinComentarios.slice(ini, fin);
   const fuera = sinComentarios.slice(0, ini) + sinComentarios.slice(fin);
-  for (const [que, re] of [['selector', /id="ruta"/], ['sentido', /class="sentido"/], ['leyenda', /Iniciativa ciudadana independiente/]]) {
+  for (const [que, re] of [['menú', /id="boton-menu"/], ['destino', /id="boton-destino"/], ['paradas', /id="boton-paradas"/], ['leyenda', /Iniciativa ciudadana independiente/]]) {
     assert.match(fuera, re, `${que} visible fuera del menú`);
   }
-  assert.doesNotMatch(menu, /id="ruta"|class="sentido"/);
+  for (const [que, re] of [['tarjetas', /id="tarjetas"/], ['sentido', /class="sentido"/]]) {
+    assert.match(menu, re, `${que} dentro del menú`);
+    assert.doesNotMatch(fuera, re, `${que} no está fuera del menú`);
+  }
 });
 
-// D-49: el sentido empieza oculto y aparece solo con ruta elegida.
-test('app: el sentido empieza oculto y lo muestra la ruta elegida (D-49)', () => {
-  assert.match(html, /<fieldset class="sentido" id="sentido" hidden>/);
-  assert.match(main, /campoSentido\.hidden = !estado\.ruta/);
+// D-49: el sentido aparece solo con ruta elegida (vive dentro de #ruta-elegida).
+test('app: el sentido solo se ve con ruta elegida (D-49, D-53)', () => {
+  const bloque = html.slice(html.indexOf('id="ruta-elegida"'), html.indexOf('id="modo-calcula"'));
+  assert.match(html, /<div class="ruta-elegida" id="ruta-elegida" hidden>/);
+  assert.match(bloque, /class="sentido"/);
+  assert.match(main, /rutaElegida\.hidden = !ruta/);
+});
+
+// D-53, ajustes 1 y 2: un solo pie legal con la atribución de Leaflet y OSM.
+test('app: pie legal único con la atribución (regla 6), sin el control suelto de Leaflet', () => {
+  const pie = html.match(/<p class="pie" id="pie">([\s\S]*?)<\/p>/)?.[1] ?? '';
+  for (const t of ['Iniciativa ciudadana independiente', 'no oficial', 'datos en proceso de validación', 'href="https://leafletjs.com"', 'href="https://www.openstreetmap.org/copyright"']) {
+    assert.ok(pie.includes(t), t);
+  }
+  assert.match(main, /attributionControl: false/);
+  assert.doesNotMatch(main, /L\.control\s*\.attribution/);
 });

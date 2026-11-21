@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 7:05 pm)
+## Estado actual (20 nov 2026, 9:08 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -13,7 +13,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
 | Versión en espera (PR 1 «B2 · Primera pantalla publicable → v0.2», https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, selector visual con tarjetas y zonas probables (D-50), nombre SJDR Bus. Integra Miguel cuando cierre B2 |
 | Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
-| Tarea en curso | **E-03 · D-53 · Pantalla limpia**: **maqueta aprobada** por Miguel (20 nov, 7:04 pm) en `docs/maquetas/d53/` (6 pantallas a 390 y 1280 px, con 3 rondas de ajustes). Falta construirla en `web/` |
+| Tarea en curso | **E-03 · D-53 · Pantalla limpia**: maqueta aprobada (7:04 pm) y **construida en `web/`** (9:08 pm): sin desplegable, botón de paradas, 20 colores, pie legal único y «¿A dónde quieres ir?». Puerta en verde; capturas junto a la maqueta en `docs/evidencia/d53/comparacion/`. **Falta:** el visto bueno de Miguel a las capturas y en su teléfono |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -21,7 +21,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado. Repositorio **público** `miguetdmz/sjdr-bus` (D-29), con candado en `main` |
 | B1 | Datos base del GTFS-SJR | **7 de 7.** Desde D-36/D-39/D-40 son **39 rutas** (37 urbanas + 2 intermunicipales): de baja 031, 024C y 018; la 044 volvió |
 | B2a | Mockup navegable (PWA, Vite + Leaflet) | **8 de 8.** M-05 a M-08 hechas por el turno (PR 2, inspector: **LIBERADO**, 20 nov 2026, 12:17 am). Falta integrarlo y verlo en el teléfono |
-| B2 | Primera pantalla publicable | **E-03 (D-48, D-49) EN REVISIÓN:** mapa completo, «¿A dónde vas?» arriba, menú lateral izquierdo (integrado en computadora), detalle que se abre solo, sentido solo con ruta, pines de parada. Miguel: «se ve muy bien en computadora». **D-50 construido** (selector visual con camioncitos R1, R2…, zonas probables); falta la aprobación de Miguel en su teléfono para cerrar B2 |
+| B2 | Primera pantalla publicable | **E-03 (D-48, D-49) EN REVISIÓN:** mapa completo, «¿A dónde vas?» arriba, menú lateral izquierdo (integrado en computadora), detalle que se abre solo, sentido solo con ruta, pines de parada. Miguel: «se ve muy bien en computadora». **D-50 construido** (selector visual con camioncitos R1, R2…, zonas probables); **D-52 y D-53 construidos** (D-53: sin desplegable, botón de paradas, 20 colores, pie legal único, «¿A dónde quieres ir?»); falta la aprobación de Miguel en su teléfono para cerrar B2 |
 | B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 698 de 936 con punto exacto (75 %), **27 APROXIMADOS (3 %, D-45: ESTIMADO, nivel C)**, 191 referencias (20 %), 20 POR VERIFICAR (2 %) al 20 nov, 1:05 pm. **D-46 PROPUESTA:** extremos como zona probable (mapa de calor). Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
@@ -29,7 +29,28 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (20 nov 2026, 7:05 pm)
+### Relevo para la siguiente sesión (20 nov 2026, 9:08 pm)
+
+0. **Lo hecho de las 8:31 pm a las 9:08 pm:** D-53 construido en `web/` con la
+   maqueta como referencia, en el orden (a) → (e). Criterios escritos antes de
+   construir: `docs/evidencia/d53/criterios.md`. Pruebas: `d53.spec.mjs` (nueva,
+   13), `b2a` y `d50` reescritas para elegir por tarjeta, `destino.test.mjs`
+   (nueva). Inventario de selectores (lección 13):
+   `docs/evidencia/d53/inventario-selectores.md`. Reglas 5 y 9 de `CLAUDE.md`
+   sin `<select>`. Defecto hallado al comparar capturas y corregido: con la
+   ubicación puesta, elegir un destino dejaba el mapa sin el destino (dos
+   encuadres seguidos; Leaflet ignoraba el segundo). Prueba que lo atrapa: `d53`
+   e5 y computadora (falla con el defecto, pasa con el arreglo).
+1. **Siguiente:** Miguel revisa las capturas (`docs/evidencia/d53/comparacion/`)
+   y los 5 puntos «decididos al construir» de D-53; con su sí se sube la rama y
+   lo prueba en su teléfono con la vista previa de Vercel. Luego cierra B2
+   (integra el PR 1 → v0.2).
+2. **Hallazgo [sin verificar]:** Francisco Villa y Las Águilas tienen casi la
+   misma coordenada en los extremos (~2 m). Se revisa en B3 · R-03.
+3. **Turno nocturno:** sin tareas que pueda tomar (R-04 es de día; R-05 y R-06
+   esperan R-03). Bandera en EN SESIÓN.
+
+### Relevo anterior (20 nov 2026, 7:05 pm)
 
 0. **Lo hecho de las 6:20 pm a las 7:05 pm:** maqueta de D-53 (D-54) en
    `docs/maquetas/d53/` (`maqueta.html`, `armar-datos.mjs`, `capturas/`).

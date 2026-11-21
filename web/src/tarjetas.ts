@@ -24,14 +24,20 @@ export interface ColorTarjeta {
   insignia: string;
 }
 
-// Respuesta 3 de D-50: 4 colores propios en rotación (regla 4: ninguno oficial).
-// No significan nada de la ruta, y la app lo dice (AVISO_COLORES).
-export const ROTACION: ColorTarjeta[] = [
-  { fondo: '#0d7a72', texto: '#ffffff', insignia: '#0d7a72' }, // verde azulado (primario de D-30)
-  { fondo: '#f0a032', texto: '#12262d', insignia: '#8a5300' }, // ámbar (acento de D-30), texto oscuro
-  { fondo: '#12262d', texto: '#ffffff', insignia: '#12262d' }, // azul tinta (texto de D-30)
-  { fondo: '#a8432a', texto: '#ffffff', insignia: '#a8432a' }, // terracota
+// D-53, 4 (Miguel, 20 nov 2026): 20 colores propios en rotación (antes 4, D-50),
+// para que no se sientan repetidos. Ninguno es oficial (regla 4) y no significan
+// nada de la ruta; la app lo dice (AVISO_COLORES). Paleta de la maqueta aprobada
+// (docs/maquetas/d53/). Los 4 claros llevan texto e insignia oscuros; todos
+// cumplen AA (≥ 4.5), lo revisa scripts/pruebas/tarjetas.test.mjs.
+const OSCURO = '#12262d';
+const FONDOS = [
+  '#0d7a72', '#b5462c', '#1d5b8f', '#f0a032', '#12262d', '#2e7d32', '#9c3d6e', '#8a5a00', '#0f6e8c', '#c2410c',
+  '#3d5a40', '#e8b84a', '#7a3b2e', '#1b7f5a', '#a33b3b', '#5b6b2f', '#9ad1c8', '#2f4a6d', '#f2c6a0', '#6d4c41',
 ];
+const CLAROS = new Set(['#f0a032', '#e8b84a', '#9ad1c8', '#f2c6a0']);
+export const ROTACION: ColorTarjeta[] = FONDOS.map((fondo) =>
+  CLAROS.has(fondo) ? { fondo, texto: OSCURO, insignia: OSCURO } : { fondo, texto: '#ffffff', insignia: fondo },
+);
 // Las intermunicipales llevan un color aparte, fuera de la rotación.
 export const COLOR_INTERMUNICIPAL: ColorTarjeta = { fondo: '#4b3f8f', texto: '#ffffff', insignia: '#4b3f8f' };
 

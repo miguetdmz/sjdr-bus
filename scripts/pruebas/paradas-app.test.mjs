@@ -49,12 +49,15 @@ test('paradas de la app: ninguna parada se asigna a una ruta', () => {
     for (const campo of Object.keys(p)) assert.doesNotMatch(campo, /route|ruta|trip|viaje|sentido|orden|sequence/i, `${p.stop_id}.${campo}`);
   }
   // En la app, la capa de paradas no depende de la ruta elegida.
-  const dibujo = main.slice(main.indexOf('function dibujarParadas'), main.indexOf('// Control para mostrar'));
+  const dibujo = main.slice(main.indexOf('function dibujarParadas'), main.indexOf('// Botón redondo de paradas'));
   assert.doesNotMatch(dibujo, /estado\.ruta|selector/);
 });
 
-test('paradas de la app: hay un control para mostrar u ocultar la capa', () => {
-  assert.match(main, /control-paradas/);
+test('paradas de la app (D-53, 1): botón redondo para mostrar u ocultar la capa, oculta al cargar', () => {
+  const html = readFileSync(new URL('../../web/index.html', import.meta.url), 'utf8');
+  assert.match(html, /<button[^>]*id="boton-paradas"[^>]*aria-pressed="false"/);
   assert.match(main, /aria-pressed/);
   assert.match(main, /capaParadas\.remove\(\)/);
+  // Oculta al cargar: la capa no se agrega al mapa hasta presionar el botón.
+  assert.doesNotMatch(main, /capaParadas = L\.layerGroup\(\)\.addTo|^capaParadas\.addTo\(mapa\);/m);
 });

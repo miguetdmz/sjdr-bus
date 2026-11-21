@@ -1,17 +1,17 @@
 // M-08: criterios de HANDOFF §11.8 que aplican al lote B2a, en un navegador real
 // a 390 × 844 (ancho de teléfono). Como la prueba funcional al final de la línea:
 // las pruebas de código revisan las piezas; esta revisa el producto armado.
+// D-53: sin desplegable; la ruta se elige por tarjeta (pruebas-navegador/ayuda.mjs).
 //
 // Con CAPTURAS=1 guarda capturas a 390 px en docs/evidencia/b2a/.
 import { test, expect } from '@playwright/test';
-import { readFileSync } from 'node:fs';
+import { abrirMenu, elegirRuta, insignia, leerDatos, sentido, sinTapar } from './ayuda.mjs';
 
 const CAPTURAS = process.env.CAPTURAS === '1';
-const rutas = JSON.parse(readFileSync(new URL('../web/dist/datos/rutas.json', import.meta.url), 'utf8')).rutas;
-const paradas = JSON.parse(readFileSync(new URL('../web/dist/datos/paradas.json', import.meta.url), 'utf8')).paradas;
-const urbanas = rutas.filter((r) => r.tipo === 'urbana');
-const intermunicipales = rutas.filter((r) => r.tipo === 'intermunicipal');
+const { rutas } = leerDatos('rutas.json');
+const { paradas } = leerDatos('paradas.json');
 const soloInventario = rutas.find((r) => r.grupo === 'solo-inventario');
+const r001 = rutas.find((r) => r.route_id === 'U-001');
 
 async function captura(page, nombre) {
   if (CAPTURAS) await page.screenshot({ path: `docs/evidencia/b2a/${nombre}.jpg`, type: 'jpeg', quality: 80 });
@@ -19,25 +19,21 @@ async function captura(page, nombre) {
 
 test.beforeEach(async ({ page }) => {
   await page.route(/tile\.openstreetmap\.org/, (r) => r.abort());
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  await expect(page.locator('#ruta optgroup')).toHaveCount(2);
+  await expect(page.locator('#tarjetas .tarjeta-ruta')).toHaveCount(rutas.length);
 });
 
-test('primera pantalla: mapa + selector + sentido, sin scroll y sin texto de reporte', async ({ page }) => {
+test('primera pantalla (regla 5, D-53): mapa + ☰ + «¿A dónde quieres ir?» + paradas, sin scroll ni reporte', async ({ page }) => {
   const alto = page.viewportSize().height;
-  // D-49: la primera pantalla es mapa + selector; el sentido aparece con la ruta.
-  await expect(page.locator('#sentido')).toBeHidden();
-  for (const sel of ['#mapa', '#ruta', '#boton-menu']) {
+  for (const sel of ['#mapa', '#boton-menu', '#boton-destino', '#boton-paradas']) {
     const caja = await page.locator(sel).boundingBox();
     expect(caja, sel).not.toBeNull();
     expect(caja.y + caja.height, `${sel} dentro de la pantalla`).toBeLessThanOrEqual(alto);
   }
   const scroll = await page.evaluate(() => document.documentElement.scrollHeight > window.innerHeight);
   expect(scroll).toBe(false);
-  await expect(page.locator('#ruta')).toHaveValue('');
-  await expect(page.locator('#ruta option:checked')).toHaveText('¿A dónde vas? Elige tu ruta');
-  await expect(page.locator('#detalle')).toBeHidden();
-  // D-48: el menú empieza cerrado y lo de arriba no pasa de la quinta parte del alto.
+  // El menú empieza cerrado y lo de arriba no pasa de la quinta parte del alto.
   await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
   const barra = await page.locator('#barra').boundingBox();
   expect(barra.y + barra.height, 'la barra de arriba deja libre el mapa').toBeLessThan(alto / 5);
@@ -55,78 +51,51 @@ test('menú lateral (D-48): ☰ lo abre con el nombre; Esc y el velo lo cierran'
   await expect(page.locator('h1.nombre')).toBeVisible();
   // Lección 13: el menú abierto tiene fondo opaco (se perdió una vez al rehacer estilos).
   const fondo = await page.locator('#hoja').evaluate((h) => getComputedStyle(h).backgroundColor);
-  expect(fondo, 'fondo del menú').toMatch(/^rgb\(/);
+  expect(fondo, 'fondo del menú').toBe('rgb(255, 255, 255)');
   for (const sel of ['#pestana-rutas', '#pestana-calcula', '#cerrar-menu']) {
     const caja = await page.locator(sel).boundingBox();
     expect(Math.min(caja.width, caja.height), `${sel} mide al menos 44 px`).toBeGreaterThanOrEqual(44);
   }
-  // Ajuste 2 de D-48: con el menú abierto, el buscador y el sentido están dentro del menú.
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await expect(async () => {
-    const hoja = await page.locator('#hoja').boundingBox();
-    const caja = await page.locator('#ruta').boundingBox();
-    expect(caja.x >= hoja.x && caja.x + caja.width <= hoja.x + hoja.width, '#ruta dentro del menú').toBe(true);
-  }).toPass();
   await page.keyboard.press('Escape');
   await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
   await expect(page.locator('#boton-menu')).toHaveAttribute('aria-expanded', 'false');
-  // D-49: elegir la ruta abre solo el menú en su detalle, con el sentido a la mano.
-  await page.locator('#ruta').selectOption('U-001');
+  // D-49: elegir la ruta abre solo el menú en su detalle, con el sentido adentro.
+  await elegirRuta(page, 'U-001');
   await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
   await expect(page.locator('#detalle')).toBeVisible();
   await expect(page.locator('#sentido')).toBeVisible();
-  await expect(async () => {
-    const hoja = await page.locator('#hoja').boundingBox();
-    const caja = await page.locator('#segmento').boundingBox();
-    expect(caja.x >= hoja.x && caja.x + caja.width <= hoja.x + hoja.width, '#segmento dentro del menú').toBe(true);
-  }).toPass();
   await expect(page.locator('#velo')).toBeVisible();
   // El menú sale por la izquierda: se toca el mapa velado a la derecha.
   await page.locator('#velo').click({ position: { x: 375, y: 400 } });
   await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
 });
 
-test('atribución de OpenStreetMap visible y no tapada', async ({ page }) => {
-  const enlace = page.locator('.leaflet-control-attribution a[href="https://www.openstreetmap.org/copyright"]');
+test('atribución de OpenStreetMap visible y no tapada (regla 6), en el pie', async ({ page }) => {
+  const enlace = page.locator('#pie a[href="https://www.openstreetmap.org/copyright"]');
   await expect(enlace).toBeVisible();
-  const caja = await enlace.boundingBox();
-  const encima = await page.evaluate(({ x, y }) => document.elementFromPoint(x, y)?.closest('.leaflet-control-attribution') !== null, {
-    x: caja.x + caja.width / 2,
-    y: caja.y + caja.height / 2,
-  });
-  expect(encima).toBe(true);
+  expect(await sinTapar(page, '#pie a[href="https://www.openstreetmap.org/copyright"]')).toBe(true);
+  // Con el menú abierto sigue a la vista.
+  await page.locator('#boton-menu').click();
+  expect(await sinTapar(page, '#pie a[href="https://www.openstreetmap.org/copyright"]')).toBe(true);
 });
 
-test(`selector: ${rutas.length} opciones en orden, agrupadas ${urbanas.length} + ${intermunicipales.length}`, async ({ page }) => {
-  const grupos = page.locator('#ruta optgroup');
-  await expect(grupos.nth(0)).toHaveAttribute('label', 'Urbanas');
-  await expect(grupos.nth(1)).toHaveAttribute('label', 'Intermunicipales');
-  await expect(grupos.nth(0).locator('option')).toHaveText(urbanas.map((r) => `${r.numero} — ${r.nombre}`));
-  await expect(grupos.nth(1).locator('option')).toHaveText(intermunicipales.map((r) => `${r.numero} — ${r.nombre}`));
-  // D-50 (respuesta 1): las tarjetas son el selector visual y el <select> queda de
-  // respaldo; la regla de las tarjetas se revisa en d50.spec.mjs.
-  // Áreas táctiles de al menos 44 px.
-  for (const sel of ['#ruta', '#boton-menu', '#control-paradas']) {
+test('áreas táctiles de al menos 44 px y tarjetas operables con teclado', async ({ page }) => {
+  for (const sel of ['#boton-menu', '#boton-destino', '#boton-paradas']) {
     const caja = await page.locator(sel).boundingBox();
     expect(Math.min(caja.width, caja.height), `${sel} mide al menos 44 px`).toBeGreaterThanOrEqual(44);
   }
-});
-
-test('selector: funciona solo con teclado', async ({ page }) => {
-  await page.locator('#ruta').focus();
-  await page.keyboard.press('ArrowDown');
-  await expect(page.locator('#ruta')).toHaveValue(rutas[0].route_id);
-  // D-50: la insignia es R1 (número oficial 001), igual que en su tarjeta.
-  await expect(page.locator('#encabezado-ruta .insignia')).toHaveText('R1');
-  await expect(page.locator('#encabezado-ruta')).toContainText(`Ruta ${rutas[0].numero}`);
-  await page.keyboard.press('Tab');
+  await abrirMenu(page);
+  await page.locator('#tarjetas .tarjeta-ruta').first().focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#encabezado-ruta .camion')).toHaveText(insignia(rutas[0]));
+  // Los botones de sentido son radios nativos: flechas cambian de Ida a Vuelta.
+  await page.locator('input[name="sentido"][value="ida"]').focus();
   await page.keyboard.press('ArrowRight');
   await expect(page.locator('input[name="sentido"][value="vuelta"]')).toBeChecked();
 });
 
 test('detalle por sentido: la 001 vuelta 23 paradas / 16 min y la ida sus propias cifras', async ({ page }) => {
-  const r001 = rutas.find((r) => r.route_id === 'U-001');
-  await page.locator('#ruta').selectOption('U-001');
+  await elegirRuta(page, 'U-001');
   const detalle = page.locator('#detalle');
   await expect(detalle).toContainText(String(r001.sentidos.ida.paradas));
   await expect(detalle).toContainText(`${r001.sentidos.ida.duracion_min} min`);
@@ -134,106 +103,78 @@ test('detalle por sentido: la 001 vuelta 23 paradas / 16 min y la ida sus propia
   // D-52: sin fuentes en pantalla (siguen en los datos); leyenda general abajo.
   await expect(detalle).not.toContainText('Moovit');
   await expect(page.locator('#pie')).toContainText('datos en proceso de validación');
-  await page.locator('#segmento label').nth(1).click();
+  await sentido(page, 1);
   await expect(detalle).toContainText('23');
   await expect(detalle).toContainText('16 min');
   await expect(detalle).not.toContainText(`${r001.sentidos.ida.duracion_min} min`);
-  // Mismo número y nombre en selector y encabezado (D-50: insignia R1 + «Ruta 001»).
-  await expect(page.locator('#encabezado-ruta .insignia')).toHaveText('R1');
-  await expect(page.locator('#encabezado-ruta')).toContainText(`Ruta ${r001.numero}`);
-  await expect(page.locator('#encabezado-ruta b')).toHaveText(r001.nombre);
+  // Encabezado: insignia R1 y nombre; nunca «Ruta 001» (D-53, 6:23 pm).
+  await expect(page.locator('#encabezado-ruta .camion')).toHaveText('R1');
+  await expect(page.locator('#encabezado-ruta .enc-nombre')).toHaveText(r001.nombre);
+  await expect(page.locator('#hoja')).not.toContainText(/Ruta \d{3}/);
   await captura(page, '2-ruta-001-vuelta-390');
-  // D-49: el menú ya se abrió solo en el detalle, que se alcanza entero; los
-  // botones del sentido miden al menos 44 px.
-  await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
   for (const sel of ['#segmento label:nth-child(1)', '#segmento label:nth-child(2)']) {
     const caja = await page.locator(sel).boundingBox();
     expect(Math.min(caja.width, caja.height), `${sel} mide al menos 44 px`).toBeGreaterThanOrEqual(44);
   }
-  await page.locator('#detalle').scrollIntoViewIfNeeded();
-  await expect(page.locator('#detalle')).toBeInViewport();
   await expect(page.locator('#detalle dd').filter({ hasText: '16 min' })).toBeInViewport();
-  await captura(page, '2b-ruta-001-vuelta-ampliada-390');
 });
 
 test('solo inventario: dice «en verificación» y no muestra ninguna cifra', async ({ page }) => {
-  await page.locator('#ruta').selectOption(soloInventario.route_id);
-  const detalle = page.locator('#detalle');
-  await expect(detalle).toContainText('en verificación');
-  // D-52: solo tipo y sentido; ninguna fila de paradas, duración u horario.
-  await expect(detalle.locator('.fila-paradas, .fila-duracion, .fila-horario')).toHaveCount(0);
-  expect(await detalle.locator('dl').innerText()).not.toMatch(/\d/);
+  await elegirRuta(page, soloInventario.route_id);
+  const datos = page.locator('#detalle-datos');
+  await expect(datos).toContainText('en verificación');
+  await expect(datos.locator('.fila-paradas, .fila-duracion, .fila-horario')).toHaveCount(0);
+  expect(await datos.locator('dl').innerText()).not.toMatch(/\d/);
   await captura(page, '3-solo-inventario-390');
 });
 
 test('sin restos al cambiar de ruta, ni trazo en el mapa', async ({ page }) => {
-  await page.locator('#ruta').selectOption('U-001');
-  await page.locator('#segmento label').nth(1).click();
+  await elegirRuta(page, 'U-001');
+  await sentido(page, 1);
   await expect(page.locator('#detalle')).toContainText('16 min');
-  await page.locator('#ruta').selectOption(soloInventario.route_id);
-  const detalle = page.locator('#detalle');
-  await expect(detalle).not.toContainText('Paradas');
-  await expect(detalle).not.toContainText('min');
-  await expect(detalle).not.toContainText('Moovit');
-  await expect(page.locator('#encabezado-ruta .insignia')).toHaveText(`${soloInventario.tipo === 'intermunicipal' ? 'T' : 'R'}${soloInventario.numero.replace(/^0+/, '')}`);
+  await elegirRuta(page, soloInventario.route_id);
+  const datos = page.locator('#detalle-datos');
+  await expect(datos.locator('.fila-paradas, .fila-duracion, .fila-horario')).toHaveCount(0);
+  await expect(datos).not.toContainText('min');
+  await expect(page.locator('#encabezado-ruta .camion')).toHaveText(insignia(soloInventario));
   // Nivel C: ninguna línea dibujada en el mapa (regla 8).
   await expect(page.locator('.leaflet-overlay-pane path')).toHaveCount(0);
-  // Quitar la ruta (dentro del menú, ya abierto) vuelve al inicio sin restos.
-  await page.locator('#encabezado-ruta .cerrar').click();
-  await expect(page.locator('#ver-detalle')).toBeHidden();
-  await expect(page.locator('#sentido')).toBeHidden();
+  // «Cambiar ruta» vuelve a las tarjetas sin restos.
+  await page.locator('#cambiar-ruta').click();
+  await expect(page.locator('#ruta-elegida')).toBeHidden();
   await expect(page.locator('#hoja-titulo')).toBeVisible();
-  // Cerrado el menú, «Ver detalle» lo vuelve a abrir.
-  await page.locator('#ruta').selectOption('U-001');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#chip-ruta')).toBeHidden();
+  // Cerrado el menú con ruta, «Ver detalle» lo vuelve a abrir.
+  await elegirRuta(page, 'U-001');
   await page.keyboard.press('Escape');
   await expect(page.locator('#ver-detalle')).toHaveText('Ver detalle');
   await page.locator('#ver-detalle').click();
   await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
-  await page.locator('#encabezado-ruta .cerrar').click();
-  await expect(page.locator('#detalle')).toBeHidden();
-  await expect(page.locator('#hoja-titulo')).toBeVisible();
+  await expect(page.locator('#detalle')).toBeVisible();
 });
 
-test(`paradas de OpenStreetMap: ${paradas.length} puntos con su marca, y se ocultan`, async ({ page }) => {
+test(`paradas de OpenStreetMap: ocultas al cargar; el botón muestra ${paradas.length} con su marca`, async ({ page }) => {
   const puntos = page.locator('.parada-toque');
+  await expect(puntos).toHaveCount(0);
+  await page.locator('#boton-paradas').click();
   await expect(puntos).toHaveCount(paradas.length);
-  // D-49: cada parada es un pin propio con el camión, no un punto gris.
-  await expect(page.locator('.parada-toque svg')).toHaveCount(paradas.length);
   await puntos.first().evaluate((e) => e.click());
   const ficha = page.locator('.ficha-parada');
   await expect(ficha).toContainText('POR VERIFICAR EN CAMPO');
   await expect(ficha).toContainText('Fuente: OpenStreetMap');
   await captura(page, '4-parada-390');
-  await page.locator('#control-paradas').click();
+  await page.locator('#boton-paradas').click();
   await expect(puntos).toHaveCount(0);
-  await expect(page.locator('#control-paradas')).toHaveAttribute('aria-pressed', 'false');
-  await page.locator('#control-paradas').click();
-  await expect(puntos).toHaveCount(paradas.length);
-});
-
-test('«Calcula tu ruta»: solo un aviso, sin campos ni cálculo; «Rutas» vuelve igual', async ({ page }) => {
-  await page.locator('#boton-menu').click();
-  await page.locator('#pestana-calcula').click();
-  const modo = page.locator('#modo-calcula');
-  await expect(modo).toBeVisible();
-  await expect(modo).toContainText('Todavía no está disponible');
-  await expect(modo).toContainText('Qué dato falta');
-  await expect(modo.locator('input, select, textarea, form')).toHaveCount(0);
-  await captura(page, '5-calcula-tu-ruta-390');
-  await page.locator('#pestana-rutas').click();
-  await expect(page.locator('#modo-rutas')).toBeVisible();
-  await page.keyboard.press('Escape');
-  await expect(page.locator('#ruta')).toBeVisible();
-  // D-49: sin ruta elegida, el sentido no se muestra.
-  await expect(page.locator('#sentido')).toBeHidden();
+  await expect(page.locator('#boton-paradas')).toHaveAttribute('aria-pressed', 'false');
 });
 
 test('sin tiempo calculado ni «en vivo» en ninguna pantalla', async ({ page }) => {
   const textos = [await page.locator('body').innerText()];
   for (const r of rutas) {
-    await page.locator('#ruta').selectOption(r.route_id);
+    await elegirRuta(page, r.route_id);
     for (const i of [0, 1]) {
-      await page.locator('#segmento label').nth(i).click();
+      await sentido(page, i);
       textos.push(await page.locator('#hoja').textContent());
     }
   }
@@ -243,66 +184,39 @@ test('sin tiempo calculado ni «en vivo» en ninguna pantalla', async ({ page })
   }
 });
 
-// Pedido de Miguel (20 nov 2026, captura con la 002): al hacer scroll, el detalle
-// no pasa por detrás del buscador ni del sentido. Pantalla baja para forzar scroll.
+// Pedido de Miguel (20 nov 2026): el detalle se alcanza entero aunque la pantalla sea baja.
 test.describe('teléfono con pantalla baja', () => {
-  // D-52: el detalle quedó más corto; a 520 px de alto sigue obligando a desplazarlo.
   test.use({ viewport: { width: 390, height: 520 } });
 
-  test('el detalle se desplaza debajo del sentido, nunca detrás', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.locator('#ruta').selectOption('U-002');
-    await page.locator('#segmento label').nth(1).click();
+  test('el detalle se desplaza dentro del menú y se alcanza entero', async ({ page }) => {
+    await elegirRuta(page, 'U-002');
+    await sentido(page, 1);
     const cuerpo = page.locator('.hoja-cuerpo');
-    const medir = async () => {
-      const c = await page.locator('#controles').boundingBox();
-      const k = await cuerpo.boundingBox();
-      const e = await page.locator('#encabezado-ruta').boundingBox();
-      return { abajoControles: c.y + c.height, arribaCuerpo: k.y, arribaEncabezado: e.y };
-    };
-    await expect(async () => {
-      const m = await medir();
-      expect(m.arribaCuerpo).toBeGreaterThanOrEqual(m.abajoControles);
-      expect(m.arribaEncabezado).toBeGreaterThanOrEqual(m.abajoControles);
-    }).toPass();
     const hayScroll = await cuerpo.evaluate((c) => c.scrollHeight > c.clientHeight);
     expect(hayScroll, 'la pantalla baja obliga a desplazar el detalle').toBe(true);
-    await cuerpo.evaluate((c) => { c.scrollTop = c.scrollHeight; });
-    const m = await medir();
-    expect(m.arribaCuerpo, 'la caja del detalle sigue debajo del sentido').toBeGreaterThanOrEqual(m.abajoControles);
+    await page.locator('#detalle .detalle-pie').scrollIntoViewIfNeeded();
+    await expect(page.locator('#detalle .detalle-pie')).toBeInViewport();
+    // Las pestañas siguen arriba, fuera de lo que se desplaza.
+    await expect(page.locator('#pestanas')).toBeInViewport();
   });
 });
 
-// D-48, ajuste 2 (Miguel, 20 nov 2026): en computadora el menú queda integrado,
-// como su referencia: barra con ☰ y nombre; al abrir, el mapa se recorre y se
-// ve completo, y el buscador con el sentido pasan al menú.
 test.describe('computadora 1280 × 800', () => {
   test.use({ viewport: { width: 1280, height: 800 }, isMobile: false, hasTouch: false });
 
-  test('menú integrado: no tapa el mapa y se vuelve el buscador', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' });
+  test('menú integrado: no tapa el mapa; el pie sigue a la vista', async ({ page }) => {
     await expect(page.locator('.marca-barra')).toHaveText('SJDR Bus');
     await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
-    await page.locator('#boton-menu').click();
-    await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
+    await elegirRuta(page, 'U-001');
     await expect(page.locator('#velo')).toBeHidden();
-    await page.locator('#ruta').selectOption('U-001');
     await expect(async () => {
       const hoja = await page.locator('#hoja').boundingBox();
       const mapa = await page.locator('#mapa').boundingBox();
       expect(mapa.x, 'el mapa empieza donde termina el menú').toBeGreaterThanOrEqual(hoja.x + hoja.width - 1);
-      for (const sel of ['#ruta', '#segmento']) {
-        const caja = await page.locator(sel).boundingBox();
-        expect(caja.x >= hoja.x && caja.x + caja.width <= hoja.x + hoja.width, `${sel} dentro del menú`).toBe(true);
-      }
+      const seg = await page.locator('#segmento').boundingBox();
+      expect(seg.x >= hoja.x && seg.x + seg.width <= hoja.x + hoja.width, 'el sentido va dentro del menú').toBe(true);
     }).toPass();
-    // La leyenda sigue a la vista, sin quedar debajo del menú (regla 4).
-    const pie = await page.locator('#pie').boundingBox();
-    const tapada = await page.evaluate(({ x, y }) => document.elementFromPoint(x, y)?.closest('#pie') === null, {
-      x: pie.x + pie.width / 2,
-      y: pie.y + pie.height / 2,
-    });
-    expect(tapada).toBe(false);
+    expect(await sinTapar(page, '#pie a[href="https://www.openstreetmap.org/copyright"]')).toBe(true);
     await page.locator('#boton-menu').click();
     await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
   });

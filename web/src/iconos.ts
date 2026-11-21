@@ -12,14 +12,6 @@ export const ICONO_RUTAS =
 export const ICONO_CALCULA =
   '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
 
-// D-49: pin de parada propio con el camión de frente (referencia: la señal de
-// parada de autobús en México), en el color de la app, no en el de la señal.
-export const PIN_PARADA =
-  '<svg width="30" height="38" viewBox="0 0 30 38" aria-hidden="true"><path d="M15 37s12-12.2 12-22A12 12 0 0 0 3 15c0 9.8 12 22 12 22z" fill="#0d7a72" stroke="#fff" stroke-width="2"/><rect x="8" y="6" width="14" height="13" rx="2.6" fill="#fff"/><rect x="9.8" y="8" width="10.4" height="5" rx="1" fill="#0d7a72"/><path d="M15 8v5" stroke="#fff" stroke-width="1.2"/><circle cx="11.2" cy="16.2" r="1.1" fill="#0d7a72"/><circle cx="18.8" cy="16.2" r="1.1" fill="#0d7a72"/><rect x="9.4" y="18.4" width="2.8" height="2.4" rx=".6" fill="#fff"/><rect x="17.8" y="18.4" width="2.8" height="2.4" rx=".6" fill="#fff"/></svg>';
-
-// Control de la capa de paradas (M-05): punto con anillo.
-export const ICONO_PARADAS =
-  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg>';
 
 // D-50 / D-52: camioncito de la tarjeta, más sencillo (pedido de Miguel, 20 nov
 // 2026): una placa blanca con el camión de frente y la insignia (R1, R9B, T62…).
@@ -40,3 +32,28 @@ export const ICONO_BUS_CHICO =
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 10h14"/><circle cx="9" cy="13.5" r=".7" fill="currentColor"/><circle cx="15" cy="13.5" r=".7" fill="currentColor"/><path d="M8 20v-3M16 20v-3"/></svg>';
 export const ICONO_RELOJ =
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>';
+
+// D-53, 1: botón redondo de paradas con el camión de frente (el del pin, D-49).
+// Toma el color del botón (currentColor) y la ventana en el color de fondo.
+export function iconoBus(ventana = '#fff'): string {
+  return (
+    '<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="2.5" width="15" height="15" rx="3" fill="currentColor"/>' +
+    `<rect x="6.5" y="4.6" width="11" height="5.6" rx="1" fill="${ventana}"/><circle cx="8.3" cy="13.8" r="1.2" fill="${ventana}"/><circle cx="15.7" cy="13.8" r="1.2" fill="${ventana}"/>` +
+    '<rect x="6" y="17.5" width="3" height="3" rx=".7" fill="currentColor"/><rect x="15" y="17.5" width="3" height="3" rx=".7" fill="currentColor"/></svg>'
+  );
+}
+
+// D-53, ajustes 2 y 3 (Miguel, 20 nov 2026): parada como círculo levantado con el
+// camión de frente adentro, y una guía de puntitos que baja al punto exacto de la
+// parada. Distinto del pin. Nunca se unen las paradas entre sí (sin R-07 sería un
+// recorrido inventado, regla 1). Punto exacto: (13, 41.5).
+export const PARADA_CIRCULO =
+  '<svg width="26" height="44" viewBox="0 0 26 44" aria-hidden="true"><line x1="13" y1="25" x2="13" y2="40" stroke="#0d7a72" stroke-width="2" stroke-dasharray="0.1 3.4" stroke-linecap="round"/><circle cx="13" cy="41.5" r="2.2" fill="#0d7a72" stroke="#fff" stroke-width="1"/><circle cx="13" cy="13" r="11" fill="#0d7a72" stroke="#fff" stroke-width="2.5"/><rect x="8" y="6.5" width="10" height="10" rx="2" fill="#fff"/><rect x="9.3" y="7.9" width="7.4" height="3.6" rx=".6" fill="#0d7a72"/><circle cx="10.3" cy="14.2" r=".9" fill="#0d7a72"/><circle cx="15.7" cy="14.2" r=".9" fill="#0d7a72"/><rect x="8.9" y="16.5" width="2" height="2" rx=".5" fill="#fff"/><rect x="15.1" y="16.5" width="2" height="2" rx=".5" fill="#fff"/></svg>';
+
+// «¿A dónde quieres ir?» (D-53, 7): lupa del botón de arriba.
+export const ICONO_LUPA =
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d7a72" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>';
+
+// Ícono de paradas del detalle (D-52 en la maqueta): dos puntos unidos.
+export const ICONO_PARADAS_DETALLE =
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><path d="M6 8v8"/></svg>';

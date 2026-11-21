@@ -41,10 +41,12 @@ test('insignia: ninguna se repite entre todas las rutas vigentes (23 ≠ 023)', 
   assert.equal(new Set(todas).size, todas.length, 'dos rutas comparten insignia');
 });
 
-test('colores (D-50, resp. 3): rotación de 4 entre urbanas; intermunicipales aparte', () => {
-  assert.equal(ROTACION.length, 4);
+test('colores (D-53, 4): rotación de 20 colores distintos entre urbanas; intermunicipales aparte', () => {
+  // La regla es el número: Miguel pidió al menos 20 variaciones (D-53, 4).
+  assert.ok(ROTACION.length >= 20);
+  assert.equal(new Set(ROTACION.map((c) => c.fondo)).size, ROTACION.length, 'colores repetidos en la rotación');
   const urbanas = rutas.map((r, i) => [r, colorTarjeta(rutas, i)]).filter(([r]) => r.tipo === 'urbana');
-  urbanas.forEach(([, c], k) => assert.deepEqual(c, ROTACION[k % 4], `urbana ${k + 1}`));
+  urbanas.forEach(([, c], k) => assert.deepEqual(c, ROTACION[k % ROTACION.length], `urbana ${k + 1}`));
   // Dos tarjetas urbanas seguidas nunca tienen el mismo color.
   for (let k = 1; k < urbanas.length; k++) assert.notEqual(urbanas[k][1].fondo, urbanas[k - 1][1].fondo);
   rutas.forEach((r, i) => {
@@ -68,10 +70,19 @@ test('colores: el aviso de que no significan nada está en la app', () => {
   assert.match(main, /AVISO_COLORES/);
 });
 
-test('regla 9 (D-50, resp. 1): selector visual con <select> de respaldo, sin texto libre', () => {
-  assert.match(html, /<select id="ruta"/);
+test('regla 9 (D-53, 6): la ruta se elige solo en tarjetas; sin desplegable', () => {
+  assert.doesNotMatch(html + main, /<select|createElement\('select'\)/);
   assert.match(html, /id="tarjetas"/);
-  assert.doesNotMatch(html, /<input[^>]+type="(text|search)"|<datalist/);
+  // El único campo de texto es «¿A dónde quieres ir?» (D-53, 7), que busca en el
+  // catálogo guardado; no hay otro texto libre.
+  assert.equal((html.match(/<input[^>]+type="(text|search)"/g) ?? []).length, 1);
+  assert.match(html, /<input type="search" id="destino"/);
+  assert.doesNotMatch(html, /<datalist/);
+});
+
+test('«Ruta 001» nunca en pantalla (D-53, 6:23 pm): ni tarjeta, ni encabezado, ni lector de pantalla', () => {
+  assert.doesNotMatch(main, /tarjeta-numero|`Ruta \$\{/);
+  assert.doesNotMatch(html, /Ruta \d{3}/);
 });
 
 test('recientes (D-50, resp. 4): hasta 3, la más nueva primero, sin repetir', () => {
@@ -127,9 +138,9 @@ test('zonas: un lugar con punto propio usa el suyo; «cerca de» solo para los F
   }
 });
 
-test('zonas: la leyenda dice en verificación y ESTIMADO; la vuelta intercambia inicio y fin', () => {
+test('zonas: la leyenda dice en verificación y estimado (minúscula, D-53); la vuelta intercambia inicio y fin', () => {
   assert.match(LEYENDA_ZONA, /validación/);
-  assert.match(LEYENDA_ZONA, /ESTIMADO/);
+  assert.match(LEYENDA_ZONA, /\(estimado\)/);
   for (const r of rutas) {
     const ida = zonasRuta(r, 'ida');
     const vuelta = zonasRuta(r, 'vuelta');

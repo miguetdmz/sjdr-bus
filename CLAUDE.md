@@ -31,9 +31,10 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
 4. Iniciativa independiente: no usar la marca "Qrobús" como nombre de la app
    ni afirmar que la AMEQ/Qrobús opera las unidades de San Juan. Leyenda de
    iniciativa independiente visible. Sin escudo ni colores oficiales.
-5. Móvil primero: la primera pantalla es mapa + selector de ruta, sin scroll y
-   sin textos de reporte encima; el sentido aparece en cuanto se elige la ruta
-   (D-49, cambia HANDOFF §14).
+5. Móvil primero: la primera pantalla es el mapa completo con ☰, «¿A dónde
+   quieres ir?» y el botón de paradas, sin scroll y sin textos de reporte encima.
+   La ruta se elige en las tarjetas del menú y su sentido va dentro del detalle
+   (D-53, cambia D-49 y HANDOFF §14).
 6. Mapa real o nada: Leaflet + OpenStreetMap con atribución visible. Cero
    Google (ni mapas, ni fuentes, ni geocodificación).
 7. OSRM, Nominatim y Overpass solo al **construir el dato**, con caché en el
@@ -41,7 +42,8 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
 8. Niveles de precisión A/B/C por tramo (HANDOFF §11.4). Un tramo C nunca se
    dibuja como línea continua.
 9. Las rutas vigentes (39: D-36, D-39 y D-40) en un selector visual de tarjetas,
-   en el orden de `routes.txt`, con el menú desplegable como respaldo (D-50).
+   en el orden de `routes.txt`, sin menú desplegable (D-53, cambia D-50). Las
+   tarjetas muestran insignia (R1, T62) y nombre, nunca «Ruta 001».
    Ninguna se oculta por falta de datos y ninguna se completa con datos supuestos.
 10. Nunca usar el dato de un sentido para el otro: cada sentido lleva su
     propio conteo de paradas y su duración.

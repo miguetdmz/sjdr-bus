@@ -1,6 +1,9 @@
-/* SJDR Bus · estilo aprobado D-30 (patrón: web/muestra-patron.html).
+/* SJDR Bus · estilo aprobado D-30 (patrón: web/muestra-patron.html), pantalla de
+   D-53 (maqueta aprobada por Miguel, 20 nov 2026: docs/maquetas/d53/).
    Fuentes del sistema: no se descarga ninguna fuente (cero Google).
-   Colores propios: sin escudo ni colores oficiales. */
+   Colores propios: sin escudo ni colores oficiales.
+   Inventario de selectores contra la versión anterior (lección 13):
+   docs/evidencia/d53/inventario-selectores.md. */
 :root {
   --tinta: #12262d;
   --primario: #0d7a72;
@@ -12,18 +15,22 @@
   --suave: #566870;
   --borde: #e3e0d8;
   --sombra: 0 10px 30px rgba(18, 38, 45, 0.16);
+  --halo: 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #fff;
+  --arriba: max(10px, env(safe-area-inset-top));
+  --abajo: env(safe-area-inset-bottom);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: var(--tinta);
   background: var(--fondo);
 }
 
 * { box-sizing: border-box; }
-
 html, body { margin: 0; height: 100%; overflow: hidden; }
+button { font: inherit; color: inherit; cursor: pointer; }
+[hidden] { display: none !important; }
 
 .app { position: fixed; inset: 0; overflow: hidden; background: var(--fondo); }
 
-.solo-lector, .buscador label {
+.solo-lector, .sentido legend {
   position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
@@ -31,198 +38,71 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
 /* Mapa a pantalla completa, detrás de todo, con teselas suaves. */
 .mapa { position: absolute; inset: 0; }
 .leaflet-tile-pane { filter: grayscale(.82) brightness(1.05) contrast(.9) sepia(.08); }
-.leaflet-control-attribution { font-size: 10px; background: rgba(255, 255, 255, 0.9) !important; color: var(--tinta); }
-/* Logo, nombre y leyenda: viven en la cabeza del menú lateral (D-48). */
-.logo {
-  width: 34px; height: 34px; border-radius: 10px; background: var(--primario);
-  display: grid; place-items: center; flex: 0 0 auto;
-}
-.nombre { margin: 0; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
-.leyenda { margin: 0; font-size: 11px; color: var(--suave); }
 
-/* El scroll es de la hoja, nunca de la página. */
-.hoja-cuerpo { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+/* Foco visible en todo lo que se toca. */
+.redondo:focus-visible, .buscar:focus-visible, .cerrar:focus-visible, .pestanas button:focus-visible,
+.borrar:focus-visible, .ver:focus-visible, .ubicacion:focus-visible, .resultado:focus-visible,
+.segmento input:focus-visible + span { outline: 3px solid var(--primario); outline-offset: 2px; }
+.tarjeta-ruta:focus-visible { outline: 3px solid var(--tinta); outline-offset: 2px; }
 
-.hoja-titulo { margin: 0 0 12px; font-size: 21px; letter-spacing: -0.02em; }
-.hoja-titulo[hidden], .encabezado-ruta[hidden] { display: none; }
-
-/* Buscador: el <select> nativo con aspecto de buscador (regla 9: las 42 rutas). */
-.controles { margin: 0; }
-.buscador { position: relative; }
-.buscador select {
-  appearance: none; -webkit-appearance: none;
-  width: 100%; min-width: 0; min-height: 52px;
-  padding: 0 42px 0 44px;
-  font: inherit; font-size: 16px; color: var(--tinta);
-  background: var(--fondo); border: 1.5px solid var(--borde); border-radius: 14px;
-  text-overflow: ellipsis;
-}
-.icono-izq, .icono-der { position: absolute; top: 50%; transform: translateY(-50%); pointer-events: none; }
-.icono-izq { left: 14px; }
-.icono-der { right: 14px; }
-
-.sentido { margin: 0; padding: 0; border: 0; min-width: 0; }
-.sentido legend {
-  padding: 0; font-size: 12px; font-weight: 700; color: var(--suave);
-  text-transform: uppercase; letter-spacing: 0.06em; margin: 14px 0 7px;
-}
-
-/* Segmento Ida / Vuelta (mismos radios name="sentido"). */
-.segmento {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px;
-  background: var(--fondo); border-radius: 13px;
-}
-.segmento label { position: relative; display: block; }
-.segmento input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
-.segmento span {
-  display: block; min-height: 48px; padding: 9px 6px; text-align: center;
-  border-radius: 10px; font-weight: 700; font-size: 15px; color: var(--suave);
-}
-.segmento small { display: block; margin-top: 1px; font-weight: 500; font-size: 11.5px; overflow-wrap: anywhere; }
-.segmento small:empty { display: none; }
-.segmento input:checked + span { background: var(--tarjeta); color: var(--tinta); box-shadow: 0 2px 8px rgba(18, 38, 45, 0.12); }
-.segmento.apagado { opacity: 0.55; }
-.segmento input:focus-visible + span,
-.buscador select:focus-visible,
-.cerrar:focus-visible,
-.pestanas button:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
-
-/* Ruta elegida: insignia, nombre y botón cerrar. */
-.encabezado-ruta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.insignia {
-  flex: none; min-width: 52px; height: 52px; padding: 0 6px; border-radius: 14px;
-  background: var(--primario); color: #fff; display: grid; place-items: center;
-  font-weight: 800; font-size: 19px; letter-spacing: -0.02em;
-}
-.encabezado-texto { min-width: 0; font-size: 17px; letter-spacing: -0.01em; overflow-wrap: anywhere; }
-.cerrar {
-  flex: none; margin-left: auto; width: 44px; height: 44px; border: 0; border-radius: 50%;
-  background: var(--fondo); display: grid; place-items: center; cursor: pointer;
-}
-
-/* Detalle de la ruta (M-04) con estilo de tarjeta. */
-.detalle { margin-top: 12px; padding: 14px 16px; border-radius: 18px; background: var(--primario-suave); }
-.detalle[hidden] { display: none; }
-.detalle-titulo { margin: 0; font-size: 15px; line-height: 1.3; }
-.detalle-etiquetas { margin: 8px 0 0; }
-.etiqueta {
-  display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 800; letter-spacing: 0.04em;
-  border-radius: 5px; background: var(--acento-suave); color: #8a5300; border: 1px solid #f3cf95;
-}
-.detalle-filas { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; margin: 10px 0 0; font-size: 14px; }
-.detalle-filas dt { color: var(--suave); }
-.detalle-filas dd { margin: 0; font-weight: 700; }
-.fuente { display: block; font-weight: 400; font-size: 11px; line-height: 1.4; color: var(--suave); }
-.detalle-aviso { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--borde); font-size: 12.5px; color: var(--suave); }
-
-/* M-05: paradas de OpenStreetMap, puntos grises (D-30), no ligadas a ninguna ruta. */
-.m-gris { display: block; width: 9px; height: 9px; border-radius: 50%; background: #fff; border: 2px solid #8fa0a3; }
-.parada-toque { display: grid; place-items: center; background: none; border: 0; }
-.parada-toque:focus-visible { outline: 3px solid var(--primario); outline-offset: 0; border-radius: 50%; }
-.ficha-parada { display: grid; gap: 2px; font: 13px/1.4 system-ui, -apple-system, sans-serif; color: var(--tinta); }
-.ficha-parada b { font-size: 14px; }
-.ficha-parada span { color: var(--suave); }
-.ficha-parada .marca-verificar { color: #8a5300; font-weight: 800; letter-spacing: 0.03em; }
-.control-paradas {
-  display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px;
-  border: 0; border-radius: 12px; background: var(--tarjeta); box-shadow: var(--sombra);
-  font: inherit; font-size: 13px; font-weight: 700; color: var(--suave); cursor: pointer;
-}
-.control-paradas[aria-pressed="true"] { color: var(--primario); }
-.control-paradas:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
-
-/* M-06: pestañas «Rutas» / «Calcula tu ruta», siempre al pie de la hoja. */
-.modo[hidden] { display: none; }
-.pestanas {
-  flex: none; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--borde);
-  margin: 12px -18px 0; padding: 6px 0 0;
-}
-.pestanas button {
-  min-height: 48px; border: 0; background: none; font: inherit; font-size: 11.5px; font-weight: 600;
-  color: var(--suave); text-align: center; cursor: pointer;
-}
-.pestanas button svg { display: block; margin: 0 auto 3px; }
-.pestanas .activo { color: var(--primario); }
-.calcula-estado { margin: 0 0 10px; }
-.calcula-lista { margin: 0; font-size: 14px; line-height: 1.45; }
-.calcula-lista dt { margin-top: 10px; font-size: 12px; font-weight: 700; color: var(--suave); text-transform: uppercase; letter-spacing: 0.06em; }
-.calcula-lista dt:first-child { margin-top: 0; }
-.calcula-lista dd { margin: 3px 0 0; }
-
-/* Revisión de E-01 (19 nov 2026): el encabezado ya muestra número y nombre,
-   así que la tarjeta no los repite; la barra de scroll de la hoja no se ve
-   (el scroll sigue funcionando); más aire entre el selector y «Sentido». */
-.detalle-titulo { display: none; }
-.hoja-cuerpo { scrollbar-width: none; }
-.hoja-cuerpo::-webkit-scrollbar { display: none; }
-.sentido { margin-top: 10px; }
-
-/* D-48 (20 nov 2026): mapa a pantalla completa. Arriba flota lo que pide la
-   regla 5 (selector + sentido) con el botón ☰ a la izquierda; el menú lateral
-   entra desde la izquierda, igual en teléfono y en computadora (ajuste de
-   Miguel, 20 nov 2026). Sustituye la hoja de abajo
-   (D-30) y el panel izquierdo de E-02. */
+/* ── Barra de arriba (teléfono): ☰ · «¿A dónde quieres ir?» · paradas ── */
 .barra {
-  position: absolute; z-index: 1000; left: 10px; right: 10px;
-  top: max(10px, env(safe-area-inset-top));
-  display: flex; align-items: flex-start; gap: 8px;
+  position: absolute; z-index: 1000; top: var(--arriba); left: 10px; right: 10px;
+  display: flex; align-items: center; gap: 8px;
 }
-.controles { flex: 1; min-width: 0; display: grid; gap: 6px; justify-items: start; }
-.buscador { width: 100%; }
-.buscador select {
-  min-height: 52px; border: 0; border-radius: 26px; background: var(--tarjeta);
-  box-shadow: var(--sombra); font-weight: 600; padding-left: 46px;
+.redondo {
+  flex: none; width: 52px; height: 52px; padding: 0; border: 0; border-radius: 50%;
+  background: var(--tarjeta); box-shadow: var(--sombra); display: grid; place-items: center; color: var(--tinta);
 }
-.icono-izq { left: 16px; }
+.boton-paradas { color: var(--primario); }
+.boton-paradas[aria-pressed="true"] { background: var(--primario); color: #fff; }
+.marca-barra { display: none; }
+.buscar {
+  flex: 1; min-width: 0; height: 52px; border: 0; border-radius: 26px; background: var(--tarjeta);
+  box-shadow: var(--sombra); display: flex; align-items: center; gap: 10px; padding: 0 16px;
+  font-size: 16px; font-weight: 600; color: var(--suave); text-align: left; white-space: nowrap; overflow: hidden;
+}
+.buscar svg { flex: none; }
 
-.sentido { margin: 0; max-width: 100%; }
-.sentido legend {
-  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-}
-.segmento {
-  grid-template-columns: auto auto; padding: 3px; border-radius: 24px;
-  background: rgba(255, 255, 255, 0.94); box-shadow: var(--sombra);
-}
-.segmento span { min-height: 44px; padding: 6px 16px; border-radius: 21px; font-size: 14px; display: grid; place-content: center; }
-.segmento small { font-size: 11px; }
-.segmento input:checked + span { background: var(--primario); color: #fff; box-shadow: none; }
-.segmento.apagado input:checked + span { background: var(--fondo); color: var(--suave); }
-
-.boton-menu {
-  flex: none; display: grid; place-items: center; width: 52px; height: 52px; min-height: 52px;
-  padding: 0; border: 0; border-radius: 50%; background: var(--tarjeta); box-shadow: var(--sombra); cursor: pointer;
-}
-.boton-menu:focus-visible, .ver-detalle:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
-
-/* Control de paradas: debajo de la barra, a la derecha. */
-.leaflet-top.leaflet-right { top: calc(max(10px, env(safe-area-inset-top)) + 112px); }
-
-/* Abajo: botón «Ver detalle» (con ruta elegida), leyenda y atribución. */
-.ver-detalle {
-  position: absolute; z-index: 1000; left: 50%; transform: translateX(-50%);
-  bottom: calc(max(8px, env(safe-area-inset-bottom)) + 40px);
-  min-height: 48px; max-width: calc(100% - 40px); padding: 0 22px; border: 0; border-radius: 24px;
-  background: var(--primario); color: #fff; box-shadow: var(--sombra);
-  font: inherit; font-size: 15px; font-weight: 700; white-space: nowrap; cursor: pointer;
-}
-.ver-detalle[hidden] { display: none; }
+/* ── Pie legal único (D-53, ajustes 1 y 2): chico, verde, sin fondo, abajo.
+   Lleva la atribución de Leaflet y OpenStreetMap (regla 6). ── */
 .pie {
-  position: absolute; z-index: 900; left: 0; bottom: max(0px, env(safe-area-inset-bottom));
-  margin: 0; padding: 3px 8px; font-size: 10.5px; line-height: 1.3;
-  background: rgba(255, 255, 255, 0.9); color: var(--tinta); border-top-right-radius: 6px;
+  position: absolute; z-index: 1250; left: 0; right: 0; bottom: var(--abajo); margin: 0;
+  padding: 1px 10px 2px; font-size: 9px; line-height: 1.3; text-align: center;
+  color: var(--primario); background: none; text-shadow: var(--halo); pointer-events: none;
 }
-.leaflet-bottom.leaflet-right { bottom: calc(max(0px, env(safe-area-inset-bottom)) + 19px); }
+.pie a { color: inherit; pointer-events: auto; }
 
-/* Menú lateral izquierdo, cerrado al cargar. */
+/* Aviso del mapa discreto (D-53, ajuste 1.2). */
+.aviso-mapa {
+  position: absolute; z-index: 950; left: 50%; transform: translateX(-50%); bottom: calc(var(--abajo) + 25px);
+  max-width: calc(100% - 24px); margin: 0; padding: 0 10px; background: none; text-shadow: var(--halo);
+  font-size: 11px; line-height: 1.35; text-align: center; white-space: nowrap; color: var(--primario);
+}
+
+/* Ruta elegida con el menú cerrado: aviso abajo (D-53, ajuste 2.5: insignia grande). */
+.chip-ruta {
+  position: absolute; z-index: 950; left: 12px; right: 12px; bottom: calc(var(--abajo) + 44px);
+  display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 10px;
+  border-radius: 18px; background: var(--tarjeta); box-shadow: var(--sombra);
+}
+.chip-ruta .placa { flex: none; display: grid; place-items: center; padding: 6px 11px 6px 9px; border-radius: 10px; background: var(--c); }
+.chip-ruta .camion { font-size: 19px; padding: 0; background: none; color: var(--ct); }
+.chip-ruta .camion svg { width: 19px; height: 19px; }
+.chip-ruta .nombre-chip { flex: 1; min-width: 0; font-size: 13.5px; font-weight: 700; line-height: 1.25; }
+.chip-ruta .nombre-chip small { display: block; font-weight: 500; color: var(--suave); font-size: 11.5px; }
+.ver {
+  flex: none; min-height: 44px; padding: 0 14px; border: 0; border-radius: 22px;
+  background: var(--primario); color: #fff; font-weight: 700; font-size: 14px;
+}
+
+/* ── Menú lateral izquierdo, cerrado al cargar ── */
 .velo { position: absolute; inset: 0; z-index: 1150; background: rgba(18, 38, 45, 0.28); }
-.velo[hidden] { display: none; }
 .hoja {
-  position: absolute; z-index: 1200; top: 0; left: 0; bottom: 0; right: auto;
-  width: min(380px, 88vw); max-height: none;
+  position: absolute; z-index: 1200; top: 0; left: 0; bottom: 0; width: min(380px, 88vw);
   background: var(--tarjeta); display: flex; flex-direction: column;
-  border-radius: 0 22px 22px 0; box-shadow: var(--sombra);
-  padding: max(14px, env(safe-area-inset-top)) 18px max(12px, env(safe-area-inset-bottom));
+  border-radius: 0 22px 0 0; box-shadow: var(--sombra);
+  padding: max(14px, env(safe-area-inset-top)) 16px calc(var(--abajo) + 36px);
   transform: translateX(0); opacity: 1; visibility: visible;
   transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 0s;
 }
@@ -230,181 +110,184 @@ html, body { margin: 0; height: 100%; overflow: hidden; }
   transform: translateX(calc(-100% - 24px)); opacity: 0; visibility: hidden;
   transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 280ms;
 }
-.hoja-cabeza {
-  flex: none; display: flex; align-items: center; gap: 10px;
-  padding-bottom: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--borde);
-}
+.hoja-cabeza { flex: none; display: flex; align-items: center; gap: 10px; padding-bottom: 10px; }
+.logo { flex: none; width: 34px; height: 34px; border-radius: 10px; background: var(--primario); display: grid; place-items: center; }
 .hoja-marca { flex: 1; min-width: 0; }
-.cerrar.quitar { width: auto; padding: 0 14px; border-radius: 22px; font: inherit; font-size: 13px; font-weight: 700; color: var(--suave); }
-.hoja-titulo { font-size: 17px; line-height: 1.35; color: var(--suave); font-weight: 600; }
+.nombre { margin: 0; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
+.leyenda { margin: 0; font-size: 11px; color: var(--suave); }
+.cerrar { flex: none; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: var(--fondo); display: grid; place-items: center; }
+
+/* Pestañas arriba (D-53, 8). */
+.pestanas { flex: none; display: grid; grid-template-columns: 1fr 1fr; margin: 0 -16px 12px; border-bottom: 1px solid var(--borde); }
+.pestanas button {
+  min-height: 46px; border: 0; background: none; font-size: 13px; font-weight: 700; color: var(--suave);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.pestanas button svg { flex: none; }
+.pestanas .activo { color: var(--primario); box-shadow: inset 0 -3px 0 var(--primario); }
+
+/* El scroll es del cuerpo del menú, nunca de la página. */
+.hoja-cuerpo {
+  flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none;
+  display: flex; flex-direction: column;
+}
+.hoja-cuerpo::-webkit-scrollbar { display: none; }
+.modo { flex: 1 0 auto; display: flex; flex-direction: column; }
+.modo > * { flex-shrink: 0; }
+
+.titulo-seccion { margin: 0 0 8px; font-size: 12px; font-weight: 700; color: var(--suave); text-transform: uppercase; letter-spacing: .05em; }
+.titulo-seccion label { cursor: inherit; }
+.fila-titulo { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.fila-titulo .titulo-seccion { margin: 0; }
+.borrar {
+  min-height: 44px; padding: 0 14px; border: 0; border-radius: 22px; background: var(--fondo);
+  font-size: 13px; font-weight: 700; color: var(--suave);
+}
+.aviso-colores { margin: 2px 0 8px; font-size: 10.5px; line-height: 1.35; color: var(--suave); }
+.recientes { margin-bottom: 12px; }
+.recientes .fila-titulo { margin-bottom: 4px; }
+
+/* Tarjetas (D-53, 3 y 4): más chicas, sin «Ruta 001», 20 colores. */
+.rejilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+.tarjeta-ruta {
+  --c: var(--primario); --ct: #fff; --ci: var(--primario);
+  display: grid; justify-items: start; align-content: start; gap: 3px; min-height: 44px;
+  padding: 5px 6px 6px; border: 0; border-radius: 10px; background: var(--c); color: var(--ct);
+  text-align: left; box-shadow: 0 1px 4px rgba(18, 38, 45, 0.14);
+}
+.tarjeta-ruta:active { transform: scale(.98); }
+.camion {
+  display: inline-flex; align-items: center; gap: 3px; padding: 1px 5px 1px 4px; border-radius: 6px;
+  background: #fff; color: var(--ci); font-size: 11px; font-weight: 800; line-height: 1.25; letter-spacing: -0.01em;
+}
+.camion strong { font-weight: 800; }
+.camion svg { width: 11px; height: 11px; }
+.tarjeta-nombre {
+  font-size: 10px; font-weight: 700; line-height: 1.2;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* Detalle (D-52 + D-53): el sentido vive dentro del menú, sin «Ruta 001». */
+.enc-ruta {
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 16px;
+  background: var(--c, var(--primario)); color: var(--ct, #fff);
+}
+.enc-ruta .camion { flex: none; font-size: 16px; padding: 4px 9px 4px 7px; border-radius: 8px; }
+.enc-ruta .camion svg { width: 16px; height: 16px; }
+.enc-nombre { font-size: 16px; font-weight: 700; line-height: 1.25; overflow-wrap: anywhere; }
+.detalle { margin-top: 10px; padding: 12px 14px; border-radius: 16px; background: var(--primario-suave); display: grid; gap: 12px; font-size: 14.5px; }
+.sentido { margin: 0; padding: 0; border: 0; min-width: 0; }
+.segmento { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; border-radius: 22px; background: var(--tarjeta); }
+.segmento label { position: relative; display: block; }
+.segmento input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.segmento span {
+  display: grid; place-content: center; min-height: 44px; padding: 4px 8px; border-radius: 19px;
+  font-weight: 700; font-size: 14px; color: var(--suave); text-align: center;
+}
+.segmento small { font-weight: 500; font-size: 10.5px; overflow-wrap: anywhere; }
+.segmento small:empty { display: none; }
+.segmento input:checked + span { background: var(--primario); color: #fff; }
+#detalle-datos { display: grid; gap: 12px; }
+.detalle-filas { display: grid; gap: 12px; margin: 0; }
+.fila dd, .fila-doble { margin: 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-weight: 600; }
+.fila-doble { gap: 8px 10px; }
+.fila-doble > .fila dd { flex-wrap: nowrap; }
+.valor { font-weight: 800; }
+.icono { display: inline-grid; color: var(--primario); }
+.chip-tipo { padding: 2px 10px; border-radius: 12px; font-size: 12.5px; font-weight: 700; background: var(--tarjeta); color: var(--primario); }
+.linea-duracion { display: inline-flex; align-items: center; gap: 5px; color: var(--primario); }
+.linea-duracion .punto { width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .55; }
+.detalle-pie { padding-top: 8px; border-top: 1px solid var(--borde); font-size: 11.5px; color: var(--suave); }
+.detalle-aviso { margin: 4px 0 0; }
+.etiqueta {
+  display: inline-block; padding: 1px 6px; font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+  border-radius: 5px; background: var(--acento-suave); color: #8a5300; border: 1px solid #f3cf95;
+}
+
+/* «¿A dónde quieres ir?» (D-53, 7). */
+.campo {
+  display: flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 14px; border-radius: 25px;
+  border: 2px solid var(--primario); background: var(--tarjeta);
+}
+.campo svg { flex: none; }
+.campo input {
+  flex: 1; min-width: 0; min-height: 44px; border: 0; outline: 0; background: none; padding: 0;
+  font: inherit; font-size: 16px; font-weight: 600; color: var(--tinta);
+}
+.campo:focus-within { box-shadow: 0 0 0 3px var(--primario-suave); }
+.bloque { margin-top: 14px; }
+.lista-lugares { display: grid; gap: 6px; }
+.resultado {
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; padding: 8px 12px;
+  border: 0; border-radius: 14px; background: var(--fondo); text-align: left; font-size: 14px; font-weight: 700;
+}
+.resultado .icono { color: #a8432a; }
+.resultado small { display: block; font-weight: 500; font-size: 11.5px; color: var(--suave); }
+.resultado[aria-pressed="true"] { background: var(--primario-suave); box-shadow: inset 0 0 0 2px var(--primario); }
+.rejilla.cerca .tarjeta-ruta { height: 74px; }
+.rejilla.cerca .tarjeta-nombre { -webkit-line-clamp: 2; }
+.tarjeta-ruta .dist { margin-top: auto; font-size: 10px; font-weight: 700; opacity: .92; }
+.ubicacion {
+  width: 100%; min-height: 46px; border: 0; border-radius: 23px; background: var(--primario); color: #fff;
+  font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.ubicacion:disabled { opacity: .7; cursor: progress; }
+/* Ajuste 2.1 (6:57 pm): las leyendas (estimado, próximamente) juntas, hasta abajo. */
+.leyendas { margin-top: auto; padding-top: 18px; display: grid; gap: 4px; }
+.leyendas p, .nota { margin: 0; font-size: 10.5px; line-height: 1.4; color: var(--primario); }
+.nota { margin-top: 6px; }
+
+/* ── Marcadores del mapa ── */
+/* D-53: parada como círculo levantado con camión y guía de puntitos. */
+.parada-toque { display: block; background: none; border: 0; }
+.parada-toque svg { display: block; filter: drop-shadow(0 2px 3px rgba(18, 38, 45, 0.35)); }
+.parada-toque:focus-visible { outline: 3px solid var(--primario); outline-offset: 0; border-radius: 50%; }
+.ficha-parada { display: grid; gap: 2px; font: 13px/1.4 system-ui, -apple-system, sans-serif; color: var(--tinta); }
+.ficha-parada b { font-size: 14px; }
+.ficha-parada span { color: var(--suave); }
+.ficha-parada .marca-verificar { color: #8a5300; font-weight: 800; letter-spacing: 0.03em; }
+.yo { width: 16px; height: 16px; border-radius: 50%; background: #1d5b8f; border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(29, 91, 143, .25); }
+
+/* Zonas probables de inicio, fin y destino (D-50, D-46): círculo de borde
+   punteado y etiqueta. Sin línea entre ellas (no hay trazo verificado). */
+.zona { stroke-width: 2.5px; }
+.zona.zona-inicio { stroke: #0d7a72; fill: #0d7a72; }
+.zona.zona-fin, .zona.zona-destino { stroke: #a8432a; fill: #a8432a; }
+.punto-zona { background: none; border: 0; display: flex; justify-content: center; align-items: center; }
+.punto-zona span {
+  padding: 3px 9px; border-radius: 13px; font-size: 12px; font-weight: 800; color: #fff; white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(18, 38, 45, .3); border: 2px solid #fff; cursor: pointer;
+}
+.punto-zona.zona-inicio span { background: #0d7a72; }
+.punto-zona.zona-fin span, .punto-zona.zona-destino span { background: #a8432a; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hoja, .hoja.cerrada { transition: none; }
+  .hoja, .hoja.cerrada, .mapa { transition: none; }
 }
 
-/* D-48, ajuste 2 (Miguel, 20 nov 2026): el menú abierto se vuelve el buscador
-   y planeador. Con el menú abierto, el buscador y el sentido pasan a la cabeza
-   del menú, en teléfono y en computadora. */
-.marca-barra { display: none; }
-.boton-menu { color: var(--tinta); }
-.app.menu-abierto .barra {
-  z-index: 1300; left: 18px; right: auto;
-  top: calc(max(14px, env(safe-area-inset-top)) + 72px);
-  width: calc(min(380px, 88vw) - 36px);
-}
-.app.menu-abierto .boton-menu { display: none; }
-.app.menu-abierto .buscador select { background: var(--fondo); box-shadow: none; border: 1.5px solid var(--borde); }
-.app.menu-abierto .segmento { background: var(--fondo); box-shadow: none; }
-
-/* Computadora: barra de la app a todo lo ancho con ☰ y nombre (como la
-   referencia de Miguel); el menú queda pegado a la izquierda, debajo de la
-   barra, y el mapa se recorre para verse completo. */
+/* ── Computadora: barra verde a todo lo ancho con ☰ y nombre; el menú queda
+   pegado a la izquierda, debajo de la barra, y el mapa se recorre. ── */
 @media (min-width: 768px) {
-  .barra, .app.menu-abierto .barra {
-    top: 0; left: 0; right: 0; width: auto; height: 60px; padding: 0 12px;
-    align-items: center; gap: 6px; background: var(--primario); box-shadow: 0 2px 10px rgba(18, 38, 45, 0.18);
-    z-index: 1300;
+  .barra {
+    top: 0; left: 0; right: 0; height: 60px; padding: 0 12px; gap: 10px; z-index: 1300;
+    background: var(--primario); box-shadow: 0 2px 10px rgba(18, 38, 45, 0.18);
   }
-  .boton-menu, .app.menu-abierto .boton-menu {
-    display: grid; width: 48px; height: 48px; min-height: 48px; border-radius: 12px;
-    background: transparent; box-shadow: none; color: #fff;
-  }
+  .boton-menu { width: 48px; height: 48px; border-radius: 12px; background: transparent; box-shadow: none; color: #fff; }
   .boton-menu:focus-visible { outline-color: #fff; }
-  .marca-barra { display: block; color: #fff; font-size: 20px; font-weight: 800; letter-spacing: -0.01em; }
-  .controles { position: absolute; top: 72px; left: 12px; width: 400px; }
-  .app.menu-abierto .controles { top: 124px; left: 16px; width: 368px; }
+  .marca-barra { display: block; color: #fff; font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin-right: 16px; }
+  .buscar { flex: 0 1 460px; height: 44px; box-shadow: none; font-size: 15px; }
+  .boton-paradas { width: 44px; height: 44px; box-shadow: none; }
+  .boton-paradas[aria-pressed="true"] { background: var(--acento); color: var(--tinta); }
+  .pie { text-align: right; font-size: 10px; }
+  .aviso-mapa { bottom: 16px; }
+  .chip-ruta { bottom: 32px; right: auto; width: 420px; left: 50%; transform: translateX(-50%); }
 
   .mapa { top: 60px; transition: left 280ms cubic-bezier(.2, .8, .2, 1); }
   .app.menu-abierto .mapa { left: 400px; }
-  .leaflet-top.leaflet-right { top: 12px; }
-  .app.menu-abierto .pie { left: 400px; }
-  .velo { display: none; }
-
-  .hoja {
-    top: 60px; left: 0; bottom: 0; width: 400px; border-radius: 0;
-    box-shadow: 1px 0 0 var(--borde); padding: 0 16px 12px;
-  }
-  .hoja-cabeza { position: absolute; top: 3px; right: 8px; padding: 0; margin: 0; border: 0; }
-  .hoja-cabeza .logo, .hoja-marca { display: none; }
-  .pestanas {
-    order: -1; margin: 0 -16px; padding: 0 64px 0 0;
-    border-top: 0; border-bottom: 1px solid var(--borde);
-  }
-  .pestanas button { min-height: 52px; }
-  .pestanas .activo { box-shadow: inset 0 -3px 0 var(--primario); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mapa { transition: none; }
-}
-
-/* D-49: el sentido aparece al elegir la ruta; sin ruta, el menú no reserva su lugar. */
-.sentido[hidden] { display: none; }
-/* El cuerpo del menú empieza justo debajo del buscador y el sentido: su margen
-   lo calcula main.ts (ajustarCuerpo), porque el sentido crece con nombres largos. */
-/* D-49: pin de parada (sustituye el punto gris de D-30). */
-.parada-toque svg { display: block; filter: drop-shadow(0 2px 3px rgba(18, 38, 45, 0.35)); }
-
-/* D-50 (20 nov 2026): selector visual de rutas. Las 39 tarjetas en el orden de
-   routes.txt, en rejilla que se desplaza dentro del menú; el <select> de arriba
-   queda como respaldo. Colores en rotación que no significan nada (se dice). */
-.selector-visual[hidden], .recientes[hidden] { display: none; }
-.aviso-colores { margin: -4px 0 10px; font-size: 11.5px; line-height: 1.35; color: var(--suave); }
-.rejilla-tarjetas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.tarjeta-ruta {
-  --c: var(--primario); --ct: #fff; --ci: var(--primario);
-  display: grid; justify-items: start; align-content: start; gap: 4px;
-  min-height: 112px; padding: 8px 10px 10px; border: 0; border-radius: 16px;
-  background: var(--c); color: var(--ct); text-align: left; cursor: pointer;
-  font: inherit; box-shadow: 0 2px 6px rgba(18, 38, 45, 0.14);
-}
-.camion {
-  display: inline-flex; align-items: center; gap: 3px; padding: 2px 7px 2px 5px;
-  border-radius: 8px; background: #fff; color: var(--ci);
-  font-size: 13px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.2;
-}
-.camion strong { font-weight: 800; }
-.tarjeta-nombre {
-  font-size: 13px; font-weight: 700; line-height: 1.25;
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-}
-.tarjeta-numero { font-size: 11px; font-weight: 500; opacity: .9; }
-.tarjeta-ruta:focus-visible, .borrar-recientes:focus-visible { outline: 3px solid var(--tinta); outline-offset: 2px; }
-.tarjeta-ruta:active { transform: scale(.98); }
-.recientes { margin-bottom: 14px; }
-.recientes-cabeza { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-.recientes-cabeza h3 { margin: 0; font-size: 13px; font-weight: 700; color: var(--suave); text-transform: uppercase; letter-spacing: .05em; }
-.borrar-recientes {
-  min-height: 44px; padding: 0 12px; border: 0; border-radius: 22px; background: var(--fondo);
-  font: inherit; font-size: 13px; font-weight: 700; color: var(--suave); cursor: pointer;
-}
-/* La insignia del encabezado toma el color de su tarjeta (lección 3). */
-.insignia { background: var(--c, var(--primario)); color: var(--ct, #fff); }
-.encabezado-texto .tarjeta-numero { display: block; margin-top: 2px; color: var(--suave); opacity: 1; }
-
-/* Zonas probables de inicio y fin (D-50, D-46): círculo de borde punteado y
-   etiqueta «Inicio» / «Fin». Sin línea entre ellas (no hay trazo verificado). */
-.zona { stroke-width: 2.5px; }
-.zona.zona-inicio { stroke: #0d7a72; fill: #0d7a72; }
-.zona.zona-fin { stroke: #a8432a; fill: #a8432a; }
-.punto-zona { background: none; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
-.punto-zona i { width: 0; height: 0; border: 6px solid transparent; border-bottom: 0; border-top-color: #fff; margin-top: -1px; }
-.punto-zona.zona-inicio i { border-top-color: #0d7a72; }
-.punto-zona.zona-fin i { border-top-color: #a8432a; }
-.punto-zona span {
-  padding: 3px 9px; border-radius: 13px; font-size: 12px; font-weight: 800; color: #fff;
-  box-shadow: 0 2px 6px rgba(18, 38, 45, .3); border: 2px solid #fff;
-}
-.punto-zona.zona-inicio span { background: #0d7a72; }
-.punto-zona.zona-fin span { background: #a8432a; }
-
-@media (min-width: 768px) {
-  .rejilla-tarjetas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .tarjeta-ruta { min-height: 104px; padding: 8px; }
-  .tarjeta-nombre { font-size: 12px; }
-}
-
-/* D-52 (20 nov 2026): detalle más visual. Arriba, la tarjeta de la ruta (mismo
-   color y camioncito que en la lista); sentido y paradas en un renglón; la
-   duración como camión · puntos · camión; el horario con reloj. Abajo y en
-   chico, el nivel del recorrido y lo que falta. Sin fuentes en pantalla. */
-.encabezado-ruta { display: grid; grid-template-columns: 1fr; gap: 6px; }
-.encabezado-tarjeta {
-  display: flex; align-items: center; gap: 10px; min-width: 0;
-  padding: 10px 12px; border-radius: 16px; background: var(--c, var(--primario)); color: var(--ct, #fff);
-}
-.encabezado-tarjeta .insignia {
-  min-width: 0; height: auto; padding: 0; background: none; border-radius: 0; display: block;
-}
-.encabezado-tarjeta .camion { font-size: 16px; padding: 4px 9px 4px 7px; }
-.encabezado-tarjeta .camion svg { width: 17px; height: 17px; }
-.encabezado-tarjeta .encabezado-texto { color: inherit; font-size: 16px; }
-.encabezado-tarjeta .tarjeta-numero { color: inherit; opacity: .9; }
-.encabezado-ruta .cerrar.quitar { justify-self: end; margin-left: 0; }
-
-.detalle-filas { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 0; font-size: 15px; }
-.fila { display: block; }
-.fila dd { margin: 0; display: flex; align-items: center; gap: 8px; font-weight: 600; }
-.fila .valor { font-weight: 800; }
-.fila-doble { display: flex; flex-wrap: wrap; gap: 6px 18px; }
-.chip-tipo {
-  display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12.5px; font-weight: 700;
-  background: var(--tarjeta); color: var(--primario);
-}
-.fila .icono { display: inline-grid; color: var(--primario); }
-.linea-duracion { display: inline-flex; align-items: center; gap: 5px; color: var(--primario); }
-.linea-duracion .punto { width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .55; }
-.detalle-pie { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--borde); }
-.etiqueta-chica { padding: 1px 6px; font-size: 10px; }
-.detalle-pie .detalle-aviso { margin: 6px 0 0; padding: 0; border: 0; font-size: 11.5px; }
-
-/* D-52: en el teléfono las tarjetas van a la mitad de tamaño (3 columnas,
-   camión sencillo) para que quepan más rutas a la vista. */
-@media (max-width: 767px) {
-  .rejilla-tarjetas { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
-  .tarjeta-ruta { min-height: 0; padding: 6px 7px 7px; border-radius: 12px; gap: 3px; }
-  .tarjeta-ruta .camion { font-size: 12px; padding: 1px 6px 1px 4px; }
-  .tarjeta-ruta .camion svg { width: 12px; height: 12px; }
-  .tarjeta-nombre { font-size: 11px; line-height: 1.2; }
-  .tarjeta-numero { font-size: 10px; }
+  .app.menu-abierto .aviso-mapa { transform: none; left: calc(400px + (100% - 400px) / 2); translate: -50% 0; }
+  .velo { display: none !important; }
+  .hoja { top: 60px; width: 400px; border-radius: 0; box-shadow: 1px 0 0 var(--borde); padding: 0 16px 24px; }
+  .hoja-cabeza { display: none; }
+  .pestanas button { min-height: 52px; font-size: 14px; }
+  .rejilla { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
 }

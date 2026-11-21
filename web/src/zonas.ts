@@ -7,10 +7,12 @@ import type { NombreSentido } from './detalle.ts';
 
 // D-52: una sola leyenda general, sin detallar estado ni fuente de cada zona
 // (siguen en los datos).
-export const LEYENDA_ZONA = 'Zona aproximada (ESTIMADO) · en proceso de validación';
+// D-53, ajuste 2.4: «estimado» en minúscula en las leyendas (sigue dicho, regla 2).
+export const LEYENDA_ZONA = 'Zona aproximada (estimado) · en proceso de validación';
 
 export interface ZonaParaMapa {
   papel: 'Inicio' | 'Fin';
+  lugar: string;
   titulo: string;
   lat: number;
   lon: number;
@@ -40,7 +42,7 @@ export function zonasRuta(ruta: Ruta, sentido: NombreSentido): ZonasRuta {
       continue;
     }
     const lineas = [LEYENDA_ZONA];
-    zonas.push({ papel, titulo: titulo(papel, z), lat: z.lat, lon: z.lon, radio_m: z.radio_m, lineas });
+    zonas.push({ papel, lugar: z.lugar, titulo: titulo(papel, z), lat: z.lat, lon: z.lon, radio_m: z.radio_m, lineas });
   }
   return { zonas, faltantes };
 }

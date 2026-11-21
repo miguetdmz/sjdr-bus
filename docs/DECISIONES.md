@@ -1335,7 +1335,7 @@ Miguel).
   `pruebas-navegador/d50.spec.mjs`. Capturas en `docs/evidencia/d50/`.
 - **Decide:** Miguel, al verlo en su teléfono.
 
-## D-53 · 20 nov 2026 · Pantalla limpia: sin menú desplegable, botón de paradas, «¿A dónde quieres ir?» · MAQUETA APROBADA (por construir)
+## D-53 · 20 nov 2026 · Pantalla limpia: sin menú desplegable, botón de paradas, «¿A dónde quieres ir?» · CONSTRUIDA (EN REVISIÓN)
 - **Pedido (Miguel, 20 nov 2026, 6:11 pm), al probar D-50/D-52 en su teléfono:**
   1. **Botón de paradas:** en vez del botón «Paradas», un botón redondo junto
      al buscador de arriba con el pictograma del camión (el del pin de
@@ -1432,6 +1432,27 @@ Miguel).
   las lecciones 10, 11 y 13.
 - **Decide:** Miguel. Se construye en el chat siguiente (contexto de este chat
   al 29 %, umbral de aviso 30 %).
+- **Construcción (Miguel: «si arranca», 20 nov 2026, 8:45 pm):** hecha en
+  `web/` con la maqueta como referencia. Criterios medibles escritos antes de
+  construir (8:47 pm): `docs/evidencia/d53/criterios.md`. Pruebas:
+  `pruebas-navegador/d53.spec.mjs` (nueva), `b2a` y `d50` reescritas para elegir
+  por tarjeta, y `scripts/pruebas/destino.test.mjs` (nueva). Capturas de la app a
+  390 y 1280 px junto a las de la maqueta en `docs/evidencia/d53/comparacion/`.
+  Inventario de selectores (lección 13): `docs/evidencia/d53/inventario-selectores.md`.
+  Reglas 5 y 9 de `CLAUDE.md` actualizadas (sin `<select>`). Lo que se decidió al
+  construir, para el visto bueno de Miguel:
+  1. **Vista inicial:** la ciudad completa, como la maqueta (antes: zoom en Plaza
+     Independencia, que sigue a la vista).
+  2. **Botones de 44 px** («Borrar», «Cambiar ruta»): la maqueta los dibujó de 36
+     y 40 px; se dejan en 44 por el mínimo táctil que revisan las pruebas.
+  3. **Estados que la maqueta no dibujó**, con texto mínimo: búsqueda sin
+     resultados («No está entre los lugares guardados…») y permiso de ubicación
+     negado («No diste permiso… la app sigue funcionando sin ella»).
+  4. **«Usar mi ubicación»** también aparece en computadora (la maqueta lo
+     mostraba en las dos); la ubicación nunca sale del dispositivo (sin petición
+     de red con ella, lo revisa `d53` e5).
+  5. Elegir una ruta quita el destino del mapa, y elegir un destino quita la
+     ruta: un solo tema a la vez en el mapa.
 
 ## D-54 · 20 nov 2026 · Primero las pantallas de muestra, después la construcción · VIGENTE
 - **Decisión (Miguel, 20 nov 2026, 6:13 pm):** «yo propongo los cambios, tú

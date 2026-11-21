@@ -27,16 +27,12 @@ test('selector: orden y textos de HANDOFF §4 («001 — Pedregoso – Centro»)
   assert.deepEqual(opciones.slice(-2).map((o) => o.valor), ['I-062', 'I-023']);
 });
 
-test('selector: <select> nativo con <label> «Ruta» y estado inicial sin ruta', () => {
-  assert.match(html, /<label for="ruta">Ruta<\/label>/);
-  assert.match(html, /<select id="ruta"/);
-  // Estado inicial: opción vacía, deshabilitada y elegida (D-48: «¿A dónde vas? Elige tu ruta»).
-  assert.match(html, /<option value="" disabled selected>[^<]+<\/option>/);
-  // Nunca texto libre. D-50 (respuesta 1, Miguel, 20 nov 2026): las tarjetas
-  // ya no se prohíben; la regla de las tarjetas la revisa tarjetas.test.mjs y
-  // pruebas-navegador/b2a.spec.mjs. El <select> se queda como respaldo.
-  assert.doesNotMatch(html, /<input[^>]+type="(text|search)"|<datalist|<table/);
+test('selector (D-53): sin <select>; la ruta se elige en las tarjetas, sin ruta al cargar', () => {
+  assert.doesNotMatch(html, /<select/);
+  assert.match(html, /<div class="ruta-elegida" id="ruta-elegida" hidden>/);
+  assert.doesNotMatch(html, /<datalist|<table/);
 });
+
 
 test('sentido: control segmentado aparte, Ida (0) y Vuelta (1), operable con teclado', () => {
   assert.match(html, /<fieldset class="sentido"[^>]*>\s*<legend>Sentido<\/legend>/);
@@ -44,7 +40,7 @@ test('sentido: control segmentado aparte, Ida (0) y Vuelta (1), operable con tec
   assert.deepEqual(radios, ['ida', 'vuelta']);
   // Botones de radio nativos: se recorren con Tab y flechas. Foco visible.
   assert.match(css, /\.segmento input:focus-visible \+ span/);
-  assert.match(css, /select:focus-visible/);
+  assert.match(css, /\.tarjeta-ruta:focus-visible/);
 });
 
 test('áreas táctiles de al menos 44 px', () => {
