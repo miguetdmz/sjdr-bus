@@ -29,6 +29,27 @@
       <!-- D-53, ajustes 1 y 2: todo lo legal junto, abajo, chico, en verde y sin
            fondo, con la atribución de Leaflet y OpenStreetMap (regla 6). -->
       <p class="pie" id="pie">Iniciativa ciudadana independiente · no oficial · datos en proceso de validación · <a href="https://leafletjs.com">Leaflet</a> | © <a href="https://www.openstreetmap.org/copyright">colaboradores de OpenStreetMap</a></p>
+      <!-- D-55, 1 (maqueta aprobada por Miguel, 20 nov 2026: docs/maquetas/d55/):
+           bienvenida «Así funciona», solo la primera vez (localStorage, sin cookies).
+           La X y los dos botones la cierran. Sale oculta; main.ts la muestra. -->
+      <section class="bienvenida" id="bienvenida" role="dialog" aria-labelledby="bienvenida-titulo" hidden>
+        <div class="bienvenida-cabeza">
+          <h2 id="bienvenida-titulo">Así funciona</h2>
+          <button type="button" class="cerrar" id="bienvenida-cerrar" aria-label="Cerrar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#12262d" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+        <ol class="pasos">
+          <li><span class="num" aria-hidden="true">1</span><span><strong>Elige tu ruta</strong> en el menú ☰ y mira dónde empieza y dónde termina.</span></li>
+          <li><span class="num" aria-hidden="true">2</span><span><strong>Escribe a dónde quieres ir</strong> y ve qué rutas empiezan o terminan cerca.</span></li>
+          <li><span class="num" aria-hidden="true">3</span><span><strong>Toca el camión</strong> de arriba para ver las paradas en el mapa.</span></li>
+        </ol>
+        <div class="acciones">
+          <button type="button" class="lleno" id="bienvenida-rutas">Elegir ruta</button>
+          <button type="button" class="borde" id="bienvenida-destino">¿A dónde quieres ir?</button>
+        </div>
+        <p class="recuerda">Sale solo la primera vez. Se recuerda en este dispositivo, sin cookies.</p>
+      </section>
       <div class="velo" id="velo" hidden></div>
       <aside class="hoja cerrada" id="hoja" aria-label="Menú de SJDR Bus">
         <div class="hoja-cabeza">

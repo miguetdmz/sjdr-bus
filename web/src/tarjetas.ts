@@ -86,3 +86,47 @@ export function leerRecientes(guardado: string | null, idsValidos: Set<string>):
   const limpia = lista.filter((x): x is string => typeof x === 'string' && idsValidos.has(x));
   return [...new Set(limpia)].slice(0, MAX_RECIENTES);
 }
+
+// D-55 (maqueta terminada, Miguel, 20 nov 2026): tarjeta partida, con el nombre
+// a la derecha en letra que se ajusta a cada tarjeta. Como la etiqueta de una
+// pieza: el texto se imprime al tamaño más grande que cabe en el espacio fijo.
+
+// El «–» se pega a la palabra vecina más corta (empate: a la de antes), para que
+// nunca quede solo en un renglón. Cada grupo `pegado` se dibuja sin cortes.
+// Juntar los textos con un espacio devuelve el nombre original.
+export interface GrupoNombre {
+  texto: string;
+  pegado: boolean;
+}
+
+export function gruposNombre(nombre: string): GrupoNombre[] {
+  const pal: GrupoNombre[] = nombre.split(' ').map((texto) => ({ texto, pegado: false }));
+  for (let k = 1; k < pal.length - 1; k++) {
+    if (pal[k].texto !== '–') continue;
+    if (pal[k - 1].texto.length <= pal[k + 1].texto.length) {
+      pal[k - 1] = { texto: `${pal[k - 1].texto} –`, pegado: true };
+    } else {
+      pal[k + 1] = { texto: `– ${pal[k + 1].texto}`, pegado: true };
+    }
+    pal[k] = { texto: '', pegado: false };
+  }
+  return pal.filter((g) => g.texto !== '');
+}
+
+// Letra del nombre: de 11 px hacia abajo, de 0.25 en 0.25, la primera que cabe;
+// si ninguna cabe, el piso (7.5 px). Igual que ajustarLetra() de la maqueta.
+export const LETRA_MAX = 11;
+export const LETRA_MIN = 7.5;
+export const LETRA_DELGADA = 9; // debajo de 9 px, letra delgada (300)
+
+export function elegirLetra(cabe: (px: number) => boolean): number {
+  let f = LETRA_MAX;
+  for (; f > LETRA_MIN; f -= 0.25) if (cabe(f)) return f;
+  return LETRA_MIN;
+}
+
+export const pesoLetra = (px: number): number => (px < LETRA_DELGADA ? 300 : 400);
+
+// D-55, 1: la bienvenida «Así funciona» sale solo la primera vez. Se recuerda en
+// este navegador (localStorage), sin cookies ni servidor.
+export const CLAVE_BIENVENIDA = 'sjdrbus.bienvenida';

@@ -1473,7 +1473,7 @@ Miguel).
 - **Impacta:** `CLAUDE.md` («Cómo trabajar»), `docs/PLAN.md` (relevo: D-53
   empieza por su maqueta).
 
-## D-55 · 20 nov 2026 · Bienvenida «Así funciona» y tarjetas parejas · MAQUETA APROBADA (por construir)
+## D-55 · 20 nov 2026 · Bienvenida «Así funciona» y tarjetas parejas · CONSTRUIDA (en revisión de Miguel)
 - **Pedido (Miguel, 20 nov 2026, 9:24 pm),** al probar D-53 en el navegador:
   1. **Cuadro de bienvenida** al entrar, como el «Así funciona» de su otro
      proyecto (Avisos SJDR; Miguel mandó la captura, no se abrió ese proyecto:
@@ -1547,6 +1547,27 @@ Miguel).
      partidas, ningún «–» solo en un renglón, letra entre 11 px y un mínimo
      (en la maqueta: 8 px en teléfono, 9.25 px en computadora).
 - **Decide:** Miguel.
+- **Construida en `web/` (20 nov 2026, de las 10:34 pm a las 10:44 pm),** igual a
+  la maqueta, con criterio escrito antes (`docs/evidencia/d55/criterios.md`):
+  bienvenida en `web/index.html` y `web/src/main.ts` (clave `sjdrbus.bienvenida`
+  en localStorage, sin cookies); tarjeta partida y ajuste de letra
+  (`gruposNombre`, `elegirLetra` en `web/src/tarjetas.ts`; `ajustarLetra` en
+  `main.ts`, que se vuelve a correr cuando la tarjeta cambia de tamaño).
+  Pruebas: `pruebas-navegador/d55.spec.mjs` (10, en 390 y 1280 px) y
+  `scripts/pruebas/d55.test.mjs` (6); se validaron metiendo 4 defectos a
+  propósito (alto, 4 columnas, «–» suelto o palabra partida, letra fija) y las 4
+  los atraparon. Capturas en `docs/evidencia/d55/` y lado a lado con la maqueta
+  en `docs/evidencia/d55/comparacion/`. Inventario de selectores: ninguno se
+  fue (`docs/evidencia/d55/inventario-selectores.md`).
+  - **Sin cambiar (lección 14):** las tarjetas de «Rutas que empiezan o terminan
+    cerca» no estaban en la maqueta: siguen como en D-53 (4 columnas en
+    computadora). El botón «Borrar» de recientes mide 44 px de alto (D-53, para
+    el dedo) contra 36 px en la maqueta; las recientes quedan unos 12 px más
+    abajo. Se pregunta a Miguel si alguna de las dos debe cambiar.
+  - **Detalle no dibujado en la maqueta, resuelto sin tocar nada aprobado:** con
+    el menú abierto la bienvenida no se ve (en computadora quedaría encima del
+    menú) y vuelve al cerrarlo si no se ha cerrado con la X o sus botones. Esc
+    también la cierra.
 
 ## D-56 · 20 nov 2026 · «Calcula tu ruta» de punta a punta: caminar, tomar la ruta, bajar y caminar · APROBADA EN FASES
 - **Pedido (Miguel, 20 nov 2026, 9:24 pm):** escribir **cualquier lugar** (p. ej.

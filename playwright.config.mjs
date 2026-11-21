@@ -22,6 +22,13 @@ export default defineConfig({
     locale: 'es-MX',
     trace: 'off',
     serviceWorkers: 'block',
+    // D-55: las pruebas de antes revisan la pantalla con la bienvenida ya cerrada
+    // (como la ve quien ya la leyó). pruebas-navegador/d55.spec.mjs la revisa
+    // desde cero, sin nada guardado.
+    storageState: {
+      cookies: [],
+      origins: [{ origin: `http://localhost:${PUERTO}`, localStorage: [{ name: 'sjdrbus.bienvenida', value: '1' }] }],
+    },
   },
   webServer: {
     command: `npx vite preview --port ${PUERTO} --strictPort`,

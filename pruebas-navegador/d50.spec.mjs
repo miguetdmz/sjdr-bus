@@ -42,7 +42,7 @@ test('criterio 1 (regla 9): las rutas en tarjetas, en el orden de routes.txt, ni
   expect(await tarjetas.evaluateAll((ts) => ts.map((t) => t.dataset.ruta))).toEqual(rutas.map((r) => r.route_id));
   for (const [i, r] of rutas.entries()) {
     const t = tarjetas.nth(i);
-    await expect(t.locator('.camion strong')).toHaveText(insignia(r));
+    await expect(t.locator('.insignia')).toHaveText(insignia(r)); // D-55: tarjeta partida
     await expect(t.locator('.tarjeta-nombre')).toHaveText(r.nombre);
   }
   await tarjetas.last().scrollIntoViewIfNeeded();

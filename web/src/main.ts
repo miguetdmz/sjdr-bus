@@ -37,11 +37,15 @@ import {
 } from './iconos';
 import {
   AVISO_COLORES,
+  CLAVE_BIENVENIDA,
   CLAVE_RECIENTES,
   agregarReciente,
   colorTarjeta,
+  elegirLetra,
+  gruposNombre,
   insignia,
   leerRecientes,
+  pesoLetra,
   type ColorTarjeta,
 } from './tarjetas';
 import { zonasRuta } from './zonas';
@@ -258,17 +262,67 @@ function nombreAccesible(ruta: Ruta): string {
   return `${insignia(ruta)}: ${ruta.nombre}${ruta.tipo === 'intermunicipal' ? ' · Intermunicipal' : ''}`;
 }
 
+// D-55: el nombre de la tarjeta partida toma la letra más grande que cabe completa
+// en su mitad, sin partir palabras (2 px libres arriba y abajo, como la maqueta).
+function ajustarLetra(n: HTMLElement): void {
+  const s = n.firstElementChild as HTMLElement | null;
+  if (!s || n.clientWidth === 0) return;
+  const f = elegirLetra((px) => {
+    s.style.fontSize = `${px}px`;
+    s.style.fontWeight = String(pesoLetra(px));
+    return s.scrollWidth <= n.clientWidth && s.getBoundingClientRect().height <= n.clientHeight - 4;
+  });
+  s.style.fontSize = `${f}px`;
+  s.style.fontWeight = String(pesoLetra(f));
+  n.dataset.letra = String(f);
+}
+
+// Se ajusta cuando la tarjeta toma su tamaño: al dibujarse, al mostrarse (el menú
+// «Rutas» o las recientes estaban ocultos) y al cambiar de teléfono a computadora.
+const vigiaLetra = new ResizeObserver((cambios) => {
+  for (const c of cambios) if (c.contentRect.width > 0) ajustarLetra(c.target as HTMLElement);
+});
+
 function tarjeta(ruta: Ruta, distancia?: string): HTMLButtonElement {
   const b = document.createElement('button');
   b.type = 'button';
   b.className = 'tarjeta-ruta';
   b.dataset.ruta = ruta.route_id;
-  ponerColor(b, colores.get(ruta.route_id)!);
+  const color = colores.get(ruta.route_id)!;
+  ponerColor(b, color);
   b.setAttribute('aria-label', distancia ? `${nombreAccesible(ruta)} · ${distancia}` : nombreAccesible(ruta));
-  b.innerHTML = camioncito(insignia(ruta));
   const nombre = document.createElement('span');
   nombre.className = 'tarjeta-nombre';
-  nombre.textContent = ruta.nombre;
+  if (distancia) {
+    // «Rutas que empiezan o terminan cerca»: no estaba en la maqueta de D-55, se
+    // queda como en D-53 (lección 14).
+    b.innerHTML = camioncito(insignia(ruta));
+    nombre.textContent = ruta.nombre;
+  } else {
+    // D-55: tarjeta partida. Izquierda: el camión de frente (el del botón de
+    // paradas, con las ventanas del color de la tarjeta) y la insignia abajo.
+    // Derecha: inicio – fin, sin negritas, con el «–» pegado a su vecina.
+    b.classList.add('partida');
+    const lado = document.createElement('span');
+    lado.className = 'lado';
+    lado.innerHTML = iconoBus(color.fondo);
+    const ins = document.createElement('span');
+    ins.className = 'insignia';
+    ins.textContent = insignia(ruta);
+    lado.append(ins);
+    b.append(lado);
+    const linea = document.createElement('span');
+    gruposNombre(ruta.nombre).forEach((g, k) => {
+      if (k > 0) linea.append(' ');
+      if (g.pegado) {
+        const p = document.createElement('b');
+        p.textContent = g.texto;
+        linea.append(p);
+      } else linea.append(g.texto);
+    });
+    nombre.append(linea);
+    vigiaLetra.observe(nombre);
+  }
   b.append(nombre);
   if (distancia) {
     const d = document.createElement('span');
@@ -301,6 +355,7 @@ function guardarRecientes(lista: string[]): void {
 function pintarRecientes(): void {
   const lista = recientesGuardadas();
   seccionRecientes.hidden = lista.length === 0;
+  listaRecientes.querySelectorAll('.tarjeta-nombre').forEach((n) => vigiaLetra.unobserve(n));
   listaRecientes.replaceChildren(...lista.map((id) => tarjeta(rutasPorId.get(id)!)));
 }
 
@@ -501,6 +556,8 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && panelAbierto()) {
     ponerPanel(false);
     botonMenu.focus();
+  } else if (e.key === 'Escape' && !bienvenida.hidden) {
+    cerrarBienvenida(); // D-55: Esc también cierra la bienvenida
   }
 });
 
@@ -525,6 +582,43 @@ function ponerModo(modo: 'rutas' | 'calcula'): void {
 pestanaRutas.addEventListener('click', () => ponerModo('rutas'));
 pestanaCalcula.addEventListener('click', () => ponerModo('calcula'));
 
+// --- D-55, 1: bienvenida «Así funciona» ---------------------------------------
+// Como la hoja de instrucciones pegada en una estación nueva: se lee una vez y se
+// quita. Sale solo si este navegador no la ha cerrado antes (localStorage, sin
+// cookies). Mientras el menú está abierto no se ve (CSS), para no taparlo.
+const bienvenida = document.querySelector<HTMLElement>('#bienvenida')!;
+
+function bienvenidaVista(): boolean {
+  try {
+    return localStorage.getItem(CLAVE_BIENVENIDA) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function cerrarBienvenida(): void {
+  bienvenida.hidden = true;
+  try {
+    localStorage.setItem(CLAVE_BIENVENIDA, '1');
+  } catch {
+    // Navegación privada sin almacenamiento: se cierra igual, solo no se recuerda.
+  }
+}
+
+bienvenida.hidden = bienvenidaVista();
+document.querySelector<HTMLButtonElement>('#bienvenida-cerrar')!.addEventListener('click', () => {
+  cerrarBienvenida();
+  botonMenu.focus({ preventScroll: true });
+});
+document.querySelector<HTMLButtonElement>('#bienvenida-rutas')!.addEventListener('click', () => {
+  cerrarBienvenida();
+  ponerModo('rutas');
+  ponerPanel(true);
+});
+document.querySelector<HTMLButtonElement>('#bienvenida-destino')!.addEventListener('click', () => {
+  cerrarBienvenida();
+  botonDestino.click();
+});
 // --- (e) «¿A dónde quieres ir?» (D-53, 7) ------------------------------------
 const botonDestino = document.querySelector<HTMLButtonElement>('#boton-destino')!;
 const campoDestino = document.querySelector<HTMLInputElement>('#destino')!;

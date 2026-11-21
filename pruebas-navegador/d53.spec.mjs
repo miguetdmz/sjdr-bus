@@ -186,7 +186,7 @@ test('c4 y c5: insignia del aviso más grande que la de la tarjeta; mismo color 
   expect(await page.locator('#encabezado-ruta').evaluate((t) => getComputedStyle(t).backgroundColor)).toBe(colorTarjeta);
   await page.keyboard.press('Escape');
   expect(await page.locator('#chip-ruta .placa').evaluate((t) => getComputedStyle(t).backgroundColor)).toBe(colorTarjeta);
-  expect(await tam('#chip-ruta .camion')).toBeGreaterThan(await tam('#tarjetas .tarjeta-ruta .camion'));
+  expect(await tam('#chip-ruta .camion')).toBeGreaterThan(await tam('#tarjetas .tarjeta-ruta .insignia')); // D-55: tarjeta partida
 });
 
 // ── (d) ──────────────────────────────────────────────────────────────────────
