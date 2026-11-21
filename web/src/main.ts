@@ -223,6 +223,15 @@ function encuadrar(limites: L.LatLngBounds[]): void {
     }
     mapa.invalidateSize();
     const m = margenesFicha();
+    // D-60 (Miguel, 21 nov 2026, 2:05 am): con el teléfono acostado (500 px de alto o
+    // menos) las márgenes normales se comían todo el alto y el mapa se alejaba hasta la
+    // región. Acostado se reserva solo lo que tapa: la barra arriba, el pie abajo, el
+    // chip vertical a la izquierda (su ancho máximo) y el zoom a la derecha.
+    if (window.matchMedia('(max-height: 500px)').matches) {
+      const izquierda = (parseFloat(getComputedStyle(chip).maxWidth) || 190) + 24;
+      mapa.fitBounds(todo, { paddingTopLeft: L.point(izquierda, m.arriba.y + 4), paddingBottomRight: L.point(70, 34), maxZoom: 16 });
+      return;
+    }
     mapa.fitBounds(todo, { paddingTopLeft: L.point(44, m.arriba.y + 30), paddingBottomRight: L.point(44, Math.max(m.abajo.y, 100) + 20), maxZoom: 16 });
   };
   // Después de que el mapa se recorre (menú en computadora), con margen para la

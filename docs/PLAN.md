@@ -41,8 +41,7 @@ Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
    Miguel aprueba D-58 + D-59 + D-60 en su teléfono → integra el PR 1 a `main` (v0.2;
    lo hace Miguel, lección 6) → verificar `main` y https://sjdrbus-sjr.vercel.app →
    «el tema del PDF» (FALTANTE: preguntarle cuál) → D-56 fase 2, maqueta primero.
-2. **Preguntas abiertas para Miguel (una a la vez):** acostado, el mapa se aleja de más
-   al elegir ruta (D-60, visto sin tocar); D-55: ¿tarjetas de «cerca» partidas?,
+2. **Preguntas abiertas para Miguel (una a la vez):** D-55: ¿tarjetas de «cerca» partidas?,
    ¿«Borrar» a 36 px?
 3. **Pendientes con el sí de Miguel:** control de la lección 5 (3.ª ocurrencia:
    pruebas de posición a 320 px y con fuente más ancha); control de la lección 13;

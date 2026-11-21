@@ -1758,7 +1758,12 @@ Miguel).
   Segundo tropiezo: la prueba unitaria «áreas táctiles de al menos 44 px» falló con
   «Ver detalle» de 31 px (el toque de 44 px era un margen invisible). Arreglo correcto:
   el botón mide 44 px y la píldora verde de 31 px se dibuja dentro; se ve igual.
-- **Visto, sin tocar (lección 14), pregunta para Miguel:** acostado, al elegir ruta el
-  mapa se aleja de más (sale toda la región y las etiquetas de inicio y fin se enciman).
-  Ya pasaba antes de D-60 (captura de Miguel de la 1:20 am).
+- **Ajuste 2 (Miguel, 21 nov 2026, 2:05 am):** acostado, al elegir ruta el mapa se
+  alejaba hasta la región (zoom 10 contra 13 parado) y no se veía el trayecto. Causa:
+  el encuadre reservaba ~118 px arriba (barra) y ~166 px abajo (chip a lo ancho) en
+  280 px de alto. Arreglo en `encuadrar` (main.ts): acostado reserva solo la barra
+  arriba, el pie abajo, el ancho del chip vertical a la izquierda y el zoom a la
+  derecha. Prueba e5 (`d60.spec.mjs`): acostado, a lo más un nivel más lejos que
+  parado, con inicio y fin enteros y sin tapar; falló con el defecto (10 contra 13) y
+  pasa con el arreglo (captura `docs/evidencia/d60/4-encuadre-844x280.jpg`).
 - **Decide:** Miguel (en su teléfono, con D-58 y D-59).

@@ -82,3 +82,43 @@ test('e4 (390 × 844): parado, el chip sigue en renglón', async ({ page }) => {
   await conRuta(page);
   expect(await page.locator('#chip-ruta').evaluate((el) => getComputedStyle(el).flexDirection)).toBe('row');
 });
+
+// e5 (Miguel, 21 nov 2026, 2:05 am): acostado, al elegir ruta el mapa se alejaba hasta
+// la región (las márgenes de barra y chip se comían los 280 px de alto). Regla: el
+// encuadre de la ruta acostado queda a lo más un nivel más lejos que parado, y las dos
+// zonas (inicio y fin) se ven enteras, sin quedar debajo del chip, la barra ni el zoom.
+const zoomActual = (page) => page.evaluate(() => {
+  const capas = [...document.querySelectorAll('.leaflet-tile-container')].sort((a, b) => +b.style.zIndex - +a.style.zIndex);
+  const img = capas[0]?.querySelector('img.leaflet-tile');
+  return img ? +img.src.match(/\/(\d+)\/\d+\/\d+\.png/)[1] : NaN;
+});
+async function zoomDeRuta(page) {
+  await page.waitForTimeout(900); // el encuadre espera 330 ms y anima
+  return zoomActual(page);
+}
+
+test.describe('teléfono acostado 844 × 280 · encuadre de la ruta', () => {
+  test.use({ viewport: { width: 844, height: 280 } });
+
+  test('e5: inicio y fin a la vista, casi tan cerca como parado', async ({ page, browser }) => {
+    const parado = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    await parado.route(/tile\.openstreetmap\.org/, (r) => r.abort());
+    await parado.goto('/');
+    await elegirRuta(parado, PRIMERA);
+    const zParado = await zoomDeRuta(parado);
+    await parado.close();
+    await conRuta(page);
+    const zAcostado = await zoomDeRuta(page);
+    expect(zAcostado, `zoom acostado ${zAcostado} contra parado ${zParado}`).toBeGreaterThanOrEqual(zParado - 1);
+    const mapa = await page.locator('#mapa').boundingBox();
+    const tapan = [await page.locator('#chip-ruta').boundingBox(), await page.locator('#barra').boundingBox(), await page.locator('.leaflet-control-zoom').boundingBox()];
+    const zonas = await page.locator('.punto-zona').all();
+    expect(zonas.length, 'etiquetas de inicio y fin').toBeGreaterThanOrEqual(2);
+    for (const z of zonas) {
+      const b = await z.boundingBox();
+      expect(b.x >= mapa.x && b.y >= mapa.y && b.x + b.width <= mapa.x + mapa.width && b.y + b.height <= mapa.y + mapa.height, 'zona dentro del mapa').toBe(true);
+      for (const t of tapan) expect(choca(b, t), 'zona tapada').toBe(false);
+    }
+    await captura(page, '4-encuadre');
+  });
+});
