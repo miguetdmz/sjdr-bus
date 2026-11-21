@@ -1676,3 +1676,29 @@ Miguel).
   animación: Leaflet ignora un toque a media animación (una persona no toca tan rápido).
 - **Decide:** Miguel (en su teléfono, con D-53 + D-55 + D-57 ya aprobadas).
 
+
+## D-59 · 21 nov 2026 · Pellizco solo en el mapa y teléfono acostado como teléfono · MAQUETA (en revisión de Miguel)
+- **Pedido (Miguel, 21 nov 2026, 12:59 am),** al probar la vista previa (`5253b01`,
+  todavía sin D-58) en su teléfono, con capturas: (1) al pellizcar para acercar,
+  se agranda toda la página (barra, botones) y ya no se puede regresar; el
+  acercamiento debe ser solo del mapa, los controles fijos. (2) Al acostar el
+  teléfono, la app toma la vista de computadora; debe verse igual que parado
+  (buscador, botón de paradas y menú). Antes de seguir con v0.2.
+- **Causa (1):** la página permitía el zoom del navegador (`viewport` sin
+  `user-scalable=no`, sin `touch-action`); un pellizco que empieza sobre la barra
+  o un botón lo toma el navegador, no el mapa. Safari de iPhone además ignora
+  `user-scalable=no`, por eso también se frenan sus eventos `gesturestart`.
+- **Causa (2):** la vista de computadora se elegía solo por el ancho (768 px o más);
+  un teléfono acostado mide unos 844 × 390 px.
+- **Maqueta (D-54):** `docs/maquetas/d59/maqueta.html` (parte de la de D-58 con la
+  tarjeta en esquina suave), capturas en `docs/maquetas/d59/capturas/`: teléfono
+  parado (390 × 844), acostado (844 × 390) y computadora (1280 × 800), más
+  `hoy-acostado.jpg` (cómo se ve hoy). Cambios: `touch-action: pan-x pan-y` en la
+  página, `maximum-scale=1, user-scalable=no` y freno de `gesturestart`; la vista de
+  computadora pide ancho ≥ 768 px **y** alto > 500 px; la barra y el zoom respetan
+  la muesca del teléfono acostado.
+- **Medido:** teléfono parado y computadora quedan idénticos a D-58 (comparación
+  pixel a pixel: solo cambia el texto «Maqueta D-58/D-59» del pie).
+- **A considerar:** sin el zoom de la página, quien ve poco ya no puede agrandar
+  la letra con el pellizco (el mapa sí se acerca). Es lo que hacen las apps de mapas.
+- **Decide:** Miguel.
