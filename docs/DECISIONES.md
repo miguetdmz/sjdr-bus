@@ -1409,6 +1409,20 @@ Miguel).
      renglones a lo ancho.
   4. **Se quita el cuadro «Parada de OpenStreetMap»** (no era botón); la
      parada se marca en el mapa y la nota va en verde, chica.
+- **Ajustes 2 (Miguel, 20 nov 2026, 6:57 pm), ya en la maqueta:**
+  1. En «Calcula tu ruta», las leyendas (estimado, nota de maqueta,
+     próximamente) van **juntas, hasta abajo** del menú, en el mismo tamaño.
+  2. **Paradas como círculo levantado** (distinto del pin): círculo verde con
+     punto blanco, y una **guía de puntitos** que baja al punto exacto de la
+     parada. Levantarlas ayuda a leerlas, pero dos paradas a pocos metros se
+     siguen encimando a zoom bajo. **No se unen las paradas entre sí:** no se
+     sabe su orden ni qué ruta pasa por cada una (R-07); unirlas dibujaría un
+     recorrido inventado (regla 1).
+  3. **Pie legal y avisos del mapa sin fondo blanco**, pegados abajo y
+     transparentes (un halo blanco en la letra los deja leer sobre el mapa).
+  4. **«estimado» en minúscula** y letra chica en las leyendas (sigue dicho en
+     pantalla, regla 2).
+  5. **Insignia R1 más grande** en el aviso de ruta elegida con el menú cerrado.
 - **Decide:** Miguel. Se construye en el chat siguiente (contexto de este chat
   al 29 %, umbral de aviso 30 %).
 
