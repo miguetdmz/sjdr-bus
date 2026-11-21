@@ -1473,7 +1473,7 @@ Miguel).
 - **Impacta:** `CLAUDE.md` («Cómo trabajar»), `docs/PLAN.md` (relevo: D-53
   empieza por su maqueta).
 
-## D-55 · 20 nov 2026 · Bienvenida «Así funciona» y tarjetas parejas · APROBADA (por hacer su maqueta)
+## D-55 · 20 nov 2026 · Bienvenida «Así funciona» y tarjetas parejas · MAQUETA APROBADA (por construir)
 - **Pedido (Miguel, 20 nov 2026, 9:24 pm),** al probar D-53 en el navegador:
   1. **Cuadro de bienvenida** al entrar, como el «Así funciona» de su otro
      proyecto (Avisos SJDR; Miguel mandó la captura, no se abrió ese proyecto:
@@ -1495,6 +1495,57 @@ Miguel).
 - **Abierto (se pregunta en la maqueta, una a la vez):** los 3 pasos y sus
   textos; si lleva botones de acción (p. ej. «Elegir ruta» / «¿A dónde quieres
   ir?») además de la X; si sale solo la primera vez (localStorage, sin cookies).
+- **Maqueta (D-54):** `docs/maquetas/d55/maqueta.html` (parte de la de D-53;
+  vistas `?vista=bienvenida` y `?vista=menu`), capturas a 390 y 1280 px en
+  `docs/maquetas/d55/capturas/`, junto a la app actual (`0ea1cb3`) en
+  `capturas/comparacion/`.
+- **Bienvenida aprobada (Miguel, 20 nov 2026, 9:58 pm): «el mapa de inicio está
+  perfecto, así funciona».** Queda como en la maqueta: los 3 pasos («Elige tu
+  ruta en el menú ☰ y mira dónde empieza y dónde termina» · «Escribe a dónde
+  quieres ir y ve qué rutas empiezan o terminan cerca» · «Toca el camión de
+  arriba para ver las paradas en el mapa»), la X, los botones «Elegir ruta» y
+  «¿A dónde quieres ir?», y la nota «Sale solo la primera vez. Se recuerda en
+  este dispositivo, sin cookies» (localStorage). Así se cierran las 3 preguntas
+  abiertas.
+- **Último cambio a las tarjetas (Miguel, 9:58 pm):** tarjeta **partida a la
+  mitad**: a la izquierda, arriba, el camión de frente (casi 3/4 del alto) y
+  abajo la insignia (R1, T62…); a la derecha, inicio – fin en letra chica, sin
+  negritas. Todas del mismo alto.
+  - **Error de Claude (corregido):** la maqueta pasó por su cuenta a 2
+    columnas, sin preguntar, porque con 3 no cabían los nombres. Miguel (10:02
+    pm): «rompiste una regla»; se vuelve a **3 columnas** en el teléfono,
+    «un poquito más larguitos», con el **mismo espacio arriba y abajo** y sin
+    sobrar, para que se vean la mayor cantidad de rutas.
+  - **Cómo quedó (medido en la maqueta con Playwright):** palabras largas
+    cortadas con guion («Tequis-quiapan», `hyphens: auto`, idioma español);
+    camión de 32 px, insignia de 12 px, nombre de 9.5 px; 5 px arriba y abajo,
+    contenido centrado. Teléfono (3 columnas): **70 px**, el mínimo para que
+    quepa el nombre más largo; los 42 nombres caben completos.
+  - **Ajuste (Miguel, 10:10 pm): tarjetas «más comprimidas, más apretaditas»**;
+    la vista y el alto (70 px) se quedan. Menos espacio alrededor del camión
+    (camión de 30 px, columna fija de 36 px = la insignia más ancha, relleno de
+    3 a 4 px). **La letra de cada nombre se ajusta a su tarjeta:** el tamaño más
+    grande que cabe completo, de 11 px hacia abajo (debajo de 9 px, letra
+    delgada); sin guiones que partan palabras; el «–» se pega a la palabra
+    vecina más corta, nunca queda solo en un renglón. Medido en la maqueta:
+    teléfono, letra de 8 a 11 px (5 de 42 tarjetas abajo de 9 px), los 42
+    nombres caben; computadora en 3 columnas, de 9.25 a 11 px, caben todos;
+    en 4 columnas no caben 10 nombres ni a 7.5 px.
+  - **Computadora (Miguel, 10:20 pm): «3 columnas»** (antes 4). Con 4 columnas
+    la tarjeta tenía que ser de 105 px (12 rutas a la vista) y aun así no cabían
+    10 nombres; con 3 bastan 60 px (21 rutas a la vista). Rutas a la vista, sin
+    las recientes: app actual 21 en teléfono y 24 en computadora; maqueta 18 y 21.
+- **Maqueta terminada (Miguel eligió el último detalle a las 10:20 pm).** Final:
+  `docs/maquetas/d55/maqueta.html`, capturas en `docs/maquetas/d55/capturas/` y
+  comparación con la app actual en `capturas/comparacion/`. Siguiente:
+  construir en `web/` (chat nuevo), con criterio medible antes:
+  1. Bienvenida: sale la primera vez (localStorage, sin cookies); X y los dos
+     botones la cierran; no vuelve a salir al recargar; no tapa la barra de
+     arriba; mismo texto que la maqueta.
+  2. Tarjetas: todas del mismo alto (70 px en teléfono, 60 px en computadora),
+     3 columnas en los dos anchos, el nombre completo sin cortes ni palabras
+     partidas, ningún «–» solo en un renglón, letra entre 11 px y un mínimo
+     (en la maqueta: 8 px en teléfono, 9.25 px en computadora).
 - **Decide:** Miguel.
 
 ## D-56 · 20 nov 2026 · «Calcula tu ruta» de punta a punta: caminar, tomar la ruta, bajar y caminar · APROBADA EN FASES

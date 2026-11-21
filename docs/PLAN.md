@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 9:31 pm)
+## Estado actual (20 nov 2026, 10:22 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -13,7 +13,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
 | Versión en espera (PR 1 «B2 · Primera pantalla publicable → v0.2», https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, selector visual con tarjetas y zonas probables (D-50), nombre SJDR Bus. Integra Miguel cuando cierre B2 |
 | Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
-| Tarea en curso | **E-03 · D-53 · Pantalla limpia**: maqueta aprobada (7:04 pm) y **construida en `web/`** (9:08 pm): sin desplegable, botón de paradas, 20 colores, pie legal único y «¿A dónde quieres ir?». Puerta en verde; capturas junto a la maqueta en `docs/evidencia/d53/comparacion/`. Subido (`0ea1cb3`): GitHub Actions y Vercel en verde. Al probarlo, Miguel pidió **D-55** (bienvenida «Así funciona» y tarjetas parejas) y **D-56** («Calcula tu ruta» de punta a punta, en 3 fases) |
+| Tarea en curso | **E-03 · D-55 · Bienvenida y tarjetas**: **maqueta terminada** (Miguel eligió el último detalle a las 10:20 pm) en `docs/maquetas/d55/`: bienvenida «Así funciona» aprobada (9:58 pm); tarjeta partida (camión y R1 a la izquierda, nombre a la derecha), 3 columnas en teléfono y computadora, todas del mismo alto (70 / 60 px), letra que se ajusta a cada nombre. **Falta construirla en `web/`** (chat nuevo). Antes: D-53 construido y subido (`0ea1cb3`), GitHub Actions y Vercel en verde |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -29,7 +29,33 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (20 nov 2026, 9:31 pm)
+### Relevo para la siguiente sesión (20 nov 2026, 10:22 pm)
+
+0. **Lo hecho de las 9:42 pm a las 10:22 pm:** maqueta de D-55 en
+   `docs/maquetas/d55/` (parte de la de D-53; vistas `?vista=bienvenida` y
+   `?vista=menu`), capturas a 390 y 1280 px y comparación con la app actual en
+   `capturas/comparacion/`. Respuestas de Miguel anotadas en D-55: bienvenida
+   aprobada tal cual (9:58 pm); tarjeta partida (9:58 pm); 3 columnas en el
+   teléfono, más alta lo justo y apretada (10:02 y 10:10 pm); 3 columnas en
+   computadora (10:20 pm). Lección 14 nueva (Claude cambió algo no pedido) y
+   lección 13 en su 3.ª ocurrencia, con propuesta de control.
+1. **Siguiente (chat nuevo): construir D-55 en `web/`** con los criterios
+   escritos en D-55 («Maqueta terminada»), la maqueta como referencia y las
+   lecciones 3, 5, 10, 11, 13 y 14. Lo nuevo para la app: el ajuste de letra
+   por tarjeta (en la maqueta es la función `ajustarLetra()`: de 11 px hacia
+   abajo hasta que el nombre quepa, sin partir palabras, «–» pegado a la palabra
+   vecina más corta). Capturas finales en `docs/evidencia/d55/` comparadas con
+   `docs/maquetas/d55/capturas/`.
+2. **Después:** Miguel aprueba D-53 + D-55 en su teléfono → cierra B2 integrando
+   el PR 1 (v0.2) → fase 2 = D-56 (parte posible), maqueta primero.
+3. **Pendientes con el sí de Miguel:** control de la lección 13
+   (`scripts/selectores.mjs`), lección 14 a `standards.md`, controles de las
+   lecciones 9 y 10, candidata a lección de abajo (prueba que se valida
+   haciéndola fallar).
+4. **Turno nocturno:** sin tareas APROBADA que pueda tomar (construir D-55 es de
+   día, con Miguel). Bandera en EN SESIÓN.
+
+### Relevo anterior (20 nov 2026, 9:31 pm)
 
 0. **Lo hecho de las 9:08 pm a las 9:31 pm:** D-53 subido (`0ea1cb3`; puerta
    en la Mac, GitHub Actions y Vercel en verde). Miguel lo probó y pidió D-55 y

@@ -303,8 +303,39 @@ puede, convertir la regla en una prueba automática.
    computadora no hay velo. Detección temprana: si un cambio de estilos borra
    más líneas de las que agrega, revisar qué selectores desaparecieron.
    - 2026-11-20 (1.ª y 2.ª vez, misma sesión): fondo del menú y velo.
-   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
+   - 2026-11-20 (3.ª vez, ~10:20 pm): en la maqueta de D-55 (`docs/maquetas/d55/`),
+     un reemplazo por número de línea (`sed '153s/.*/…/'`) pisó la regla
+     `.tarjeta.partida .tarjeta-nombre b` (la que mantiene el «–» pegado a su
+     palabra). Se vio en la salida del mismo comando y se restauró antes de las
+     capturas. Misma causa: tocar estilos por posición sin ver qué había ahí.
+   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de
+   Miguel): `scripts/selectores.mjs`, llamado desde `npm run reglas`, que compara
+   los selectores de `web/src/estilos.css` y de los `<style>` de
+   `docs/maquetas/*/maqueta.html` contra la última versión en git y falla si
+   desaparece un selector que no esté anotado en el inventario de la tarea
+   (`docs/evidencia/<tarea>/inventario-selectores.md`). Prueba: borrar a
+   propósito `.tarjeta.partida .tarjeta-nombre b` y ver que `npm run reglas`
+   falla y nombra el selector. Detección temprana añadida: nunca editar estilos
+   por número de línea; reemplazar por texto exacto.
    Registrada con el sí de Miguel.
+
+14. **Claude cambió en la maqueta algo que Miguel no pidió (20 nov 2026).** En
+   D-55 Miguel pidió partir la tarjeta (camión y R1 a la izquierda, nombre a la
+   derecha). Como con 3 columnas no cabían los nombres (medido), Claude pasó por
+   su cuenta a 2 columnas y lo mandó ya aplicado, anotado como «decidido al hacer
+   la maqueta». Miguel (10:02 pm): «rompiste una regla… si es que no modificas
+   otra cosa». Causa: un choque entre el pedido y algo ya aprobado se resolvió
+   cambiando lo aprobado, en vez de mostrar el choque con la medición y
+   preguntar. Regla: en una maqueta o construcción se cambia solo lo pedido; si
+   el pedido choca con algo aprobado, se busca primero cómo cumplir el pedido sin
+   tocar lo aprobado (aquí: letra que se ajusta y tarjeta más alta), y si no se
+   puede, se muestran las opciones como alternativas, sin aplicarlas, y se
+   pregunta. Detección temprana: antes de mandar capturas, listar cada diferencia
+   contra la versión anterior; toda diferencia que no salga del pedido es una
+   pregunta, no un cambio.
+   - 2026-11-20 (1.ª vez): este caso.
+   Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
+   `standards.md` (no se sube sin el sí de Miguel).
 
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:
