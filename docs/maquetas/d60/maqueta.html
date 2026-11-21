@@ -314,8 +314,24 @@ button { font: inherit; color: inherit; }
    y abajo solo el renglón del pie. */
 @media (max-height: 500px) {
   .leaflet-control-zoom.leaflet-bar { margin-bottom: 30px; }
-  .app:has(.chip-ruta) .leaflet-control-zoom.leaflet-bar { margin-bottom: 44px; }
-  .chip-ruta { right: calc(max(12px, env(safe-area-inset-right)) + 58px); }
+  /* Ajuste (Miguel, 1:49 am): con ruta elegida, el chip va a la izquierda y en
+     vertical, tres píldoras apiladas (insignia, nombre, «Ver detalle»), 30 % más
+     chico en letra, íconos y márgenes, para que se vea el mapa. «Ver detalle» se ve
+     de 31 px pero se puede tocar en 44 px (área táctil mínima). */
+  .chip-ruta {
+    right: auto; left: max(12px, env(safe-area-inset-left)); bottom: 26px;
+    flex-direction: column; align-items: flex-start; gap: 4px; max-width: 190px;
+    padding: 0; background: none; box-shadow: none; border-radius: 0;
+  }
+  .chip-ruta .camion { font-size: 13px; padding: 4px 8px 4px 6px; box-shadow: var(--sombra); }
+  .chip-ruta .camion svg { width: 13px; height: 13px; }
+  .chip-ruta .nombre-chip {
+    flex: none; padding: 5px 11px; border-radius: 999px; background: var(--tarjeta);
+    box-shadow: var(--sombra); font-size: 9.5px;
+  }
+  .chip-ruta .nombre-chip small { font-size: 8px; }
+  .chip-ruta .ver { position: relative; min-height: 31px; padding: 0 10px; border-radius: 999px; font-size: 10px; box-shadow: var(--sombra); }
+  .chip-ruta .ver::after { content: ''; position: absolute; inset: -7px -4px; }
   .hoja { padding-top: 6px; padding-bottom: 18px; }
   .hoja-cabeza { padding-bottom: 0; }
   .pestanas { margin-bottom: 6px; }

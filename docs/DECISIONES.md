@@ -1739,4 +1739,12 @@ Miguel).
   rutas a la vista al desplazar: 1 → 2 (alto útil 117 → 159 px). Teléfono parado y
   computadora sin cambio (mismas filas y posiciones). Capturas en
   `docs/maquetas/d60/capturas/` (`menu-antes-despues-844x280.jpg`).
+- **Ajuste (Miguel, 21 nov 2026, 1:49 am),** en vez del chip más corto: con ruta
+  elegida y el teléfono acostado, el chip va **a la izquierda y en vertical**: tres
+  píldoras apiladas (insignia R1, nombre con su sentido, «Ver detalle»), **30 % más
+  chico** en letra, íconos y márgenes, para que no tape el mapa. Es el único cambio de
+  la orientación horizontal. «Ver detalle» se ve de 31 px pero se toca en 44 px (área
+  táctil mínima, con un margen invisible). Medido: el chip tapa 7 % de la pantalla a
+  844 × 280 (antes 21 %) y 9 % a 844 × 212 (antes 27 %); no se encima con el zoom ni con
+  la barra; parado y computadora sin cambio. Captura: `ruta-844x280.jpg`.
 - **Decide:** Miguel.
