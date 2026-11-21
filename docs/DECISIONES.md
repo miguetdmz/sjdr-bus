@@ -1646,7 +1646,7 @@ Miguel).
     `docs/evidencia/d57/comparacion/`. Inventario: ningún selector se fue.
 - **Decide:** Miguel.
 
-## D-58 · 21 nov 2026 · Zoom «+ / −» en píldora y formato píldora en los cuadros · MAQUETA (en revisión de Miguel)
+## D-58 · 21 nov 2026 · Zoom «+ / −» en píldora y formato píldora en los cuadros · CONSTRUIDA (en revisión de Miguel)
 - **Pedido (Miguel, 21 nov 2026, 12:34 am),** al aprobar D-53 + D-55 + D-57 en su
   teléfono: falta el control «más / menos» para acercar el mapa, en teléfono y en
   computadora, como botón en forma de píldora. Y «todos los cuadros que apliquen y
@@ -1663,5 +1663,16 @@ Miguel).
   dos, pero la completa baja la letra (27 tarjetas debajo de 9 px).
   Por eso la tarjeta de ruta **no se cambió por omisión** en la maqueta: las
   opciones se ven con `?tarjeta=suave` y `?tarjeta=pildora`. Decide Miguel.
-- **Decide:** Miguel.
+- **Aprobada (Miguel, 21 nov 2026, 12:43 am):** la maqueta, con la tarjeta de ruta
+  en **esquina suave** (22 px).
+- **Construida en `web/`** (21 nov 2026, 12:50 am): criterios escritos antes
+  (`docs/evidencia/d58/criterios.md`), 3 pruebas nuevas en
+  `pruebas-navegador/d58.spec.mjs` (390 y 1280 px). Se validaron con el defecto:
+  con `web/` como estaba antes fallan las 3; con la píldora completa en las
+  tarjetas, la prueba nombra los 8 nombres que se salen. Ningún selector se fue
+  (`docs/evidencia/d58/inventario-selectores.md`). Capturas en
+  `docs/evidencia/d58/` y lado a lado con la maqueta en
+  `docs/evidencia/d58/comparacion/`. Las pruebas de zoom esperan a que termine la
+  animación: Leaflet ignora un toque a media animación (una persona no toca tan rápido).
+- **Decide:** Miguel (en su teléfono, con D-53 + D-55 + D-57 ya aprobadas).
 

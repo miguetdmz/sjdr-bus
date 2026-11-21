@@ -73,6 +73,8 @@ const VISTA_CIUDAD: L.LatLngTuple = [20.389, -99.975];
 const escritorio = () => window.matchMedia('(min-width: 768px)').matches;
 
 const mapa = L.map('mapa', { zoomControl: false, attributionControl: false }).setView(VISTA_CIUDAD, escritorio() ? 14 : 13);
+// D-58, 1: zoom «+ / −» en píldora, abajo a la derecha (teléfono y computadora).
+L.control.zoom({ position: 'bottomright', zoomInTitle: 'Acercar', zoomOutTitle: 'Alejar' }).addTo(mapa);
 
 // Teselas estándar de OpenStreetMap: solo las del área visible, con la caché
 // normal del navegador (HANDOFF §11.6). La atribución va en el pie (#pie),

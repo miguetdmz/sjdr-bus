@@ -84,9 +84,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .chip-ruta {
   position: absolute; z-index: 950; left: 12px; right: 12px; bottom: calc(var(--abajo) + 44px);
   display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 10px;
-  border-radius: 18px; background: var(--tarjeta); box-shadow: var(--sombra);
+  border-radius: 999px; background: var(--tarjeta); box-shadow: var(--sombra); /* D-58: píldora (antes 18px) */
 }
-.chip-ruta .placa { flex: none; display: grid; place-items: center; padding: 6px 11px 6px 9px; border-radius: 10px; background: var(--c); }
+.chip-ruta .placa { flex: none; display: grid; place-items: center; padding: 6px 11px 6px 9px; border-radius: 999px; background: var(--c); } /* D-58: píldora (antes 10px) */
 .chip-ruta .camion { font-size: 19px; padding: 0; background: none; color: var(--ct); }
 .chip-ruta .camion svg { width: 19px; height: 19px; }
 .chip-ruta .nombre-chip { flex: 1; min-width: 0; font-size: 13.5px; font-weight: 700; line-height: 1.25; }
@@ -95,6 +95,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
   flex: none; min-height: 44px; padding: 0 14px; border: 0; border-radius: 22px;
   background: var(--primario); color: #fff; font-weight: 700; font-size: 14px;
 }
+
+/* D-58, 1 (maqueta aprobada por Miguel, 21 nov 2026, 12:43 am): zoom «+ / −» visible,
+   una píldora vertical blanca abajo a la derecha. En teléfono va arriba del chip de
+   la ruta; en computadora, igual. */
+.leaflet-control-zoom.leaflet-bar {
+  border: 0; border-radius: 999px; overflow: hidden; background: var(--tarjeta);
+  box-shadow: var(--sombra); margin: 0 12px calc(var(--abajo) + 116px) 0;
+}
+.leaflet-control-zoom.leaflet-bar a {
+  width: 46px; height: 46px; line-height: 44px; font-size: 24px; font-weight: 500;
+  color: var(--tinta); background: var(--tarjeta); border: 0; border-radius: 0;
+}
+.leaflet-control-zoom.leaflet-bar a:first-child { border-bottom: 1px solid var(--borde); }
+.leaflet-control-zoom.leaflet-bar a.leaflet-disabled { color: #b9c2c5; }
 
 /* ── Menú lateral izquierdo, cerrado al cargar ── */
 .velo { position: absolute; inset: 0; z-index: 1150; background: rgba(18, 38, 45, 0.28); }
@@ -111,7 +125,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 280ms;
 }
 .hoja-cabeza { flex: none; display: flex; align-items: center; gap: 10px; padding-bottom: 10px; }
-.logo { flex: none; width: 34px; height: 34px; border-radius: 10px; background: var(--primario); display: grid; place-items: center; }
+.logo { flex: none; width: 34px; height: 34px; border-radius: 50%; /* D-58: círculo (antes 10px) */ background: var(--primario); display: grid; place-items: center; }
 .hoja-marca { flex: 1; min-width: 0; }
 .nombre { margin: 0; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
 .leyenda { margin: 0; font-size: 11px; color: var(--suave); }
@@ -157,7 +171,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .tarjeta-ruta:active { transform: scale(.98); }
 .camion {
-  display: inline-flex; align-items: center; gap: 3px; padding: 1px 5px 1px 4px; border-radius: 6px;
+  display: inline-flex; align-items: center; gap: 3px; padding: 1px 5px 1px 4px; border-radius: 999px; /* D-58: píldora (antes 6px) */
   background: #fff; color: var(--ci); font-size: 11px; font-weight: 800; line-height: 1.25; letter-spacing: -0.01em;
 }
 .camion strong { font-weight: 800; }
@@ -176,11 +190,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .tarjeta-ruta.partida {
   grid-template-columns: 36px minmax(0, 1fr); align-items: center; justify-items: stretch;
   align-content: center; gap: 0 3px; height: 70px; padding: 4px 3px; overflow: hidden;
+  /* D-58 (Miguel, 21 nov 2026, 12:43 am): esquina suave de 22 px. La píldora completa
+     no cabe (medido en la maqueta: 10 nombres se salían); 1 px más de margen a la izquierda. */
+  border-radius: 22px; padding-left: 4px;
 }
 .lado { display: grid; justify-items: center; align-content: center; gap: 1px; }
 .lado svg { display: block; width: 30px; height: 30px; }
 .insignia {
-  padding: 0 3px; border-radius: 4px; background: #fff; color: var(--ci);
+  padding: 0 4px; border-radius: 999px; background: #fff; color: var(--ci); /* D-58: píldora (antes 4px y 0 3px) */
   font-size: 11.5px; font-weight: 800; line-height: 1.3; white-space: nowrap; letter-spacing: -0.03em;
 }
 .tarjeta-ruta.partida .tarjeta-nombre {
@@ -193,10 +210,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* Detalle (D-52 + D-53): el sentido vive dentro del menú, sin «Ruta 001». */
 .enc-ruta {
-  display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 16px;
+  display: flex; align-items: center; gap: 10px; padding: 10px 18px 10px 12px; border-radius: 999px; /* D-58: píldora (antes 16px y 10px 12px) */
   background: var(--c, var(--primario)); color: var(--ct, #fff);
 }
-.enc-ruta .camion { flex: none; font-size: 16px; padding: 4px 9px 4px 7px; border-radius: 8px; }
+.enc-ruta .camion { flex: none; font-size: 16px; padding: 4px 9px 4px 7px; border-radius: 999px; } /* D-58: píldora (antes 8px) */
 .enc-ruta .camion svg { width: 16px; height: 16px; }
 .enc-nombre { font-size: 16px; font-weight: 700; line-height: 1.25; overflow-wrap: anywhere; }
 .detalle { margin-top: 10px; padding: 12px 14px; border-radius: 16px; background: var(--primario-suave); display: grid; gap: 12px; font-size: 14.5px; }
@@ -224,8 +241,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .detalle-pie { padding-top: 8px; border-top: 1px solid var(--borde); font-size: 11.5px; color: var(--suave); }
 .detalle-aviso { margin: 4px 0 0; }
 .etiqueta {
-  display: inline-block; padding: 1px 6px; font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
-  border-radius: 5px; background: var(--acento-suave); color: #8a5300; border: 1px solid #f3cf95;
+  display: inline-block; padding: 1px 7px; font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+  border-radius: 999px; /* D-58: píldora (antes 5px y 1px 6px) */ background: var(--acento-suave); color: #8a5300; border: 1px solid #f3cf95;
 }
 
 /* «¿A dónde quieres ir?» (D-53, 7). */
@@ -242,8 +259,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .bloque { margin-top: 14px; }
 .lista-lugares { display: grid; gap: 6px; }
 .resultado {
-  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; padding: 8px 12px;
-  border: 0; border-radius: 14px; background: var(--fondo); text-align: left; font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; padding: 8px 16px; /* D-58: antes 8px 12px */
+  border: 0; border-radius: 999px; background: var(--fondo); /* D-58: píldora (antes 14px) */ text-align: left; font-size: 14px; font-weight: 700;
 }
 .resultado .icono { color: #a8432a; }
 .resultado small { display: block; font-weight: 500; font-size: 11.5px; color: var(--suave); }
@@ -264,8 +281,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .mi-parada .nota { margin-top: 6px; }
 .parada-hallada { display: flex; align-items: stretch; gap: 8px; }
 .ver-parada {
-  flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 8px 10px 8px 12px;
-  border: 0; border-radius: 14px; background: var(--primario-suave); box-shadow: inset 0 0 0 2px var(--primario);
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 8px 16px; /* D-58: antes 8px 10px 8px 12px */
+  border: 0; border-radius: 999px; /* D-58: píldora (antes 14px) */ background: var(--primario-suave); box-shadow: inset 0 0 0 2px var(--primario);
   color: var(--primario); text-align: left;
 }
 .ver-parada svg { flex: none; }
@@ -273,7 +290,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .ver-parada small { display: block; font-size: 11.5px; color: var(--suave); }
 .ver-parada .flecha { margin-left: auto; }
 .otra {
-  flex: none; width: 52px; padding: 0; border: 0; border-radius: 14px; background: var(--primario); color: #fff;
+  flex: none; width: 52px; height: 52px; align-self: center; padding: 0; border: 0; border-radius: 50%; /* D-58: círculo (antes 14px) */
+  background: var(--primario); color: #fff;
   display: grid; place-items: center;
 }
 .otra:disabled { opacity: .7; cursor: progress; }
@@ -299,7 +317,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .num { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 15px; background: var(--primario-suave); color: var(--primario); }
 .pasos li:nth-child(3) .num { background: var(--acento-suave); color: #8a5300; }
 .acciones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
-.acciones button { min-height: 46px; border-radius: 12px; font-size: 14px; font-weight: 700; }
+.acciones button { min-height: 46px; border-radius: 999px; /* D-58: píldora (antes 12px) */ font-size: 14px; font-weight: 700; }
 .acciones .lleno { border: 0; background: var(--primario); color: #fff; }
 .acciones .borde { border: 2px solid var(--primario); background: var(--tarjeta); color: var(--primario); }
 .acciones button:focus-visible, .bienvenida .cerrar:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
