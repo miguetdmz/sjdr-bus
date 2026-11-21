@@ -1768,7 +1768,7 @@ Miguel).
   pasa con el arreglo (captura `docs/evidencia/d60/4-encuadre-844x280.jpg`).
 - **Decide:** Miguel (en su teléfono, con D-58 y D-59).
 
-## D-61 · 21 nov 2026 · Teléfono parado: zoom arriba y círculo «mi ubicación» · MAQUETA (en revisión de Miguel)
+## D-61 · 21 nov 2026 · Teléfono parado: zoom arriba y círculo «mi ubicación» · MAQUETA APROBADA (se construye después de las 10:00 am)
 - **Pedido (Miguel, 21 nov 2026, 2:29 am):** con el teléfono parado, el «+ / −» está
   muy abajo; va abajo del botón de paradas (arriba a la derecha) con un espacio, y
   debajo, otro espacio y un botón en círculo de ubicación, para que quien entra al mapa
@@ -1786,4 +1786,8 @@ Miguel).
   si no hay permiso, el aviso sale y la app sigue.
 - **Pregunta para Miguel (lección 14, no se aplicó):** ¿el círculo de ubicación también
   acostado y en computadora?
+- **Aprobación (Miguel, 21 nov 2026, 2:51 am):** dijo «sí» a construir D-61 después de
+  las 10:00 am; se toma como aprobación de la maqueta. Se pospone porque el límite
+  semanal de Claude iba en 94 % (tope de Miguel: 95 %) y se reinicia el 21 nov a las
+  10:00 am. Consumo de la construcción: ESTIMADO 1 a 3 puntos del semanal, sin medir.
 - **Decide:** Miguel.

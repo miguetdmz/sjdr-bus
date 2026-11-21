@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (21 nov 2026, 2:31 am)
+## Estado actual (21 nov 2026, 2:51 am)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -13,7 +13,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
 | Versión en espera (PR 1 «B2 · Primera pantalla publicable → v0.2», https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, selector visual con tarjetas y zonas probables (D-50), nombre SJDR Bus. Integra Miguel cuando cierre B2 |
 | Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
-| Tarea en curso | **E-03 · D-58, D-59 y D-60: CONSTRUIDAS en `web/`.** D-58 zoom y píldoras; D-59 pellizco solo en el mapa, teléfono acostado como teléfono y letra del pie sin agrandar; D-60 acostado: zoom más abajo, menú más arriba (2 filas de rutas) y chip vertical 30 % más chico. D-53 + D-55 + D-57 aprobadas (12:34 am). **Falta: subir, que Miguel apruebe en su teléfono e integre el PR 1** para cerrar B2 (v0.2) |
+| Tarea en curso | **E-03 · D-58, D-59 y D-60: CONSTRUIDAS en `web/`.** D-58 zoom y píldoras; D-59 pellizco solo en el mapa, teléfono acostado como teléfono y letra del pie sin agrandar; D-60 acostado: zoom más abajo, menú más arriba (2 filas de rutas) y chip vertical 30 % más chico. D-53 + D-55 + D-57 aprobadas (12:34 am). **D-61 (teléfono parado: zoom arriba y círculo «mi ubicación»): maqueta APROBADA (2:51 am), se construye después de las 10:00 am.** Falta: construir D-61, que Miguel apruebe en su teléfono e integre el PR 1 para cerrar B2 (v0.2) |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -29,7 +29,21 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (21 nov 2026, 2:31 am)
+### Relevo para la siguiente sesión (21 nov 2026, 2:51 am)
+
+0. **Lo hecho de las 2:31 am a las 2:51 am:** estado comprobado (rama y GitHub en
+   `f78cb9a`, Actions y Vercel en verde, PR 1 en borrador, `main` en v0.1, bandera EN
+   SESIÓN). Miguel aprobó la maqueta D-61 (2:51 am) y pidió construirla **después de las
+   10:00 am**, cuando se reinicia el límite semanal de Claude (iba en 94 %).
+1. **Siguiente (desde las 10:00 am, en el mismo chat «B2 · D-61 y cierre: integrar PR 1
+   → v0.2»):** construir D-61 en `web/` (criterios antes, pruebas validadas con el
+   defecto, inventario de selectores, posición también a 320 px) → `npm run verificar`
+   → commit → subir (con permiso) → pregunta de lección 14 (¿círculo también acostado y
+   en computadora?) → Miguel aprueba D-58 a D-61 en su teléfono → integra el PR 1
+   (v0.2) → «el tema del PDF» (FALTANTE) → D-56 fase 2.
+2. **Preguntas abiertas y pendientes:** como en el relevo de las 2:31 am.
+
+### Relevo anterior (21 nov 2026, 2:31 am)
 
 0. **Lo hecho de las 2:01 am a las 2:31 am:** D-60 ajuste 2 (acostado, encuadre de
    ciudad al elegir ruta) construido y subido: rama en `b48173a`, Actions y Vercel en
