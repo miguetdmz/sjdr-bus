@@ -1334,3 +1334,50 @@ Miguel).
   regla de arriba; pruebas en `scripts/pruebas/detalle.test.mjs` y
   `pruebas-navegador/d50.spec.mjs`. Capturas en `docs/evidencia/d50/`.
 - **Decide:** Miguel, al verlo en su teléfono.
+
+## D-53 · 20 nov 2026 · Pantalla limpia: sin menú desplegable, botón de paradas, «¿A dónde quieres ir?» · PROPUESTA (por construir)
+- **Pedido (Miguel, 20 nov 2026, 6:11 pm), al probar D-50/D-52 en su teléfono:**
+  1. **Botón de paradas:** en vez del botón «Paradas», un botón redondo junto
+     al buscador de arriba con el pictograma del camión (el del pin de
+     parada). Las paradas se quedan como referencia; se ven al presionarlo.
+     Será la puerta de «camina a tu parada más cercana».
+  2. **El buscador y el sentido «aparecen de golpe»** al abrir el menú, no se
+     mueven junto con él.
+  3. **Recientes y tarjetas aún más chicas**, letra más chica y **sin «Ruta
+     001»** («no ocupa espacio y no lo necesitamos»). Le gusta el tamaño de
+     las recientes y el menú.
+  4. **Más colores:** al menos 20 variaciones (no todos distintos), para que no
+     se sientan repetidos.
+  5. **Menú cerrado = mapa a pantalla completa.** Arriba ya no hace falta el
+     selector de ruta.
+  6. **Se elimina el menú desplegable «¿A dónde vas? Elige tu ruta»:** la ruta
+     se elige en las tarjetas del menú.
+  7. **Arriba va «¿A dónde quieres ir?»** para escribir el destino (p. ej. «al
+     Hospital General 3»): con tu ubicación, la app dice tu parada más cercana,
+     cómo llegar caminando y qué ruta tomar. «Es bien importante que sea una
+     segunda función de la aplicación.» Dos funciones: **Elige tu ruta** (ver
+     su trayectoria) y **¿A dónde quieres ir?**
+  8. **Las pestañas «Rutas» y «Calcula tu ruta» arriba del menú** también en
+     el teléfono, para dejar más espacio a las rutas.
+- **Choques con lo que ya estaba (se anotan, Miguel ya decidió):**
+  - El 6 revierte la respuesta 1 de D-50 («con respaldo»): ya no queda el
+    `<select>`. Las tarjetas son botones (sirven con teclado y lector de
+    pantalla). Cambian la **regla 9** (tarjetas, sin desplegable) y la **regla
+    5** (la primera pantalla es mapa + ☰ + «¿A dónde quieres ir?» + paradas;
+    la ruta se elige en el menú).
+  - El 3 revierte en parte la respuesta 2 de D-50: el número oficial deja de
+    verse en las tarjetas; se propone dejarlo solo en el encabezado del
+    detalle, en chico [falta el sí de Miguel].
+- **Límite honesto del 7 (es B6, D-15):** hoy no se sabe **qué rutas paran en
+  cada parada** (R-07 PROPUESTA) ni la trayectoria (R-03 a R-06); escribir un
+  destino libre pide geocodificar, y la regla 7 no deja consultar Nominatim en
+  vivo. Lo que sí se puede sin inventar: (a) buscar el destino en un catálogo
+  guardado en el repositorio (los 35 lugares de extremos, colonias y lugares de
+  OSM descargados una vez); (b) con el GPS del teléfono (permiso del usuario,
+  sin enviarlo a ningún lado) señalar la **parada de OSM más cercana**, como
+  referencia y POR VERIFICAR; (c) decir qué rutas **empiezan o terminan** cerca
+  del destino (extremos, ESTIMADO). «Qué ruta tomar desde tu parada» llega
+  cuando exista R-07. Se diseña con Miguel, una pregunta a la vez, antes de
+  construir.
+- **Decide:** Miguel. Se construye en el chat siguiente (contexto de este chat
+  al 29 %, umbral de aviso 30 %).

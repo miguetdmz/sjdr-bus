@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 5:27 pm)
+## Estado actual (20 nov 2026, 6:12 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -13,7 +13,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
 | Versión en espera (PR 1 «B2 · Primera pantalla publicable → v0.2», https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, selector visual con tarjetas y zonas probables (D-50), nombre SJDR Bus. Integra Miguel cuando cierre B2 |
 | Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
-| Tarea en curso | **E-03 · D-50 · Selector visual de rutas**: construido (tarjetas R1…, T62/T23, 4 colores, recientes, inicio y fin como zona ESTIMADA); falta que Miguel lo apruebe en su teléfono |
+| Tarea en curso | **E-03 · D-53 · Pantalla limpia**: D-50 y D-52 construidos y subidos (`68a8373`); Miguel los probó y pidió D-53 (sin desplegable, botón de paradas, «¿A dónde quieres ir?», 20 colores, tarjetas más chicas, pestañas arriba). Por construir |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -29,7 +29,25 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (20 nov 2026, 5:27 pm)
+### Relevo para la siguiente sesión (20 nov 2026, 6:12 pm)
+
+0. **Lo hecho de las 5:27 pm a las 6:12 pm:** D-52 construido (detalle más
+   visual, sin fuentes en pantalla, tarjetas a la mitad). D-50 y D-52 subidos
+   (`68a8373`): puerta, GitHub Actions y Vercel en verde. Miguel lo probó en
+   su teléfono a las 6:11 pm y pidió **D-53** (ver `docs/DECISIONES.md`).
+1. **Siguiente: construir D-53**, en este orden y con criterio medible antes
+   de cada parte: (a) quitar el desplegable y llevar el sentido dentro del
+   menú (adiós al «aparece de golpe»); pestañas arriba; mapa completo con el
+   menú cerrado; (b) botón redondo de paradas con el pictograma, paradas
+   ocultas hasta presionarlo; (c) tarjetas y recientes más chicas, sin «Ruta
+   001», 20 colores con contraste AA; (d) «¿A dónde quieres ir?» arriba:
+   primero el diseño con Miguel (una pregunta a la vez; límite honesto en
+   D-53), después construir. Las pruebas de `pruebas-navegador/b2a.spec.mjs`
+   usan `#ruta` (el desplegable): se reescriben para elegir por tarjeta.
+2. **Pregunta abierta:** ¿el número oficial («Ruta 001») queda solo en el
+   encabezado del detalle?
+
+### Relevo anterior (20 nov 2026, 5:27 pm)
 
 0. **Lo hecho de las 4:27 pm a las 5:27 pm del 20 nov:**
    - Chat y PR 1 renombrados por Bloque · Tarea · Versión (lección 12, 2.ª vez).
