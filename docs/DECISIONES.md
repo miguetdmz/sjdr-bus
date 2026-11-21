@@ -1368,6 +1368,10 @@ Miguel).
   - El 3 revierte en parte la respuesta 2 de D-50: el número oficial deja de
     verse en las tarjetas; se propone dejarlo solo en el encabezado del
     detalle, en chico [falta el sí de Miguel].
+  - **Respuesta (Miguel, 20 nov 2026, 6:23 pm):** «Ruta 001» es el nombre
+    oficial y se queda **solo en los datos** (`routes.txt`, `rutas.json`); el
+    usuario **no lo ve en ninguna pantalla**, ni en el detalle. El usuario ve
+    la insignia (R1, R9B, T62…) y el nombre de la ruta.
 - **Límite honesto del 7 (es B6, D-15):** hoy no se sabe **qué rutas paran en
   cada parada** (R-07 PROPUESTA) ni la trayectoria (R-03 a R-06); escribir un
   destino libre pide geocodificar, y la regla 7 no deja consultar Nominatim en
@@ -1379,6 +1383,17 @@ Miguel).
   del destino (extremos, ESTIMADO). «Qué ruta tomar desde tu parada» llega
   cuando exista R-07. Se diseña con Miguel, una pregunta a la vez, antes de
   construir.
+  - **Respuesta (Miguel, 20 nov 2026, 6:29 pm): «sí, las 3»**, con la condición
+    de que lo demás llegue en fases posteriores. Primera versión: (a) destino
+    del catálogo guardado, (b) parada de OSM más cercana por GPS (referencia,
+    POR VERIFICAR) a una distancia **en línea recta** (ESTIMADO, no el camino
+    por calles), (c) rutas que empiezan o terminan cerca del destino
+    (ESTIMADO). **Fases posteriores, ya en el plan:** trayectoria (B3: R-03 a
+    R-06), paradas de cada ruta (R-07, PROPUESTA), «qué ruta tomar» y
+    transbordos (B6, D-15; su lugar en el plan es PROPUESTA). **Sin fase
+    asignada todavía:** el camino a pie por calles hasta la parada (necesita
+    calcular rutas en el teléfono sin servicios en vivo, regla 7); se propone
+    dentro de B6.
 - **Decide:** Miguel. Se construye en el chat siguiente (contexto de este chat
   al 29 %, umbral de aviso 30 %).
 
