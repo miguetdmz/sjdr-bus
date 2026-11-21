@@ -49,6 +49,9 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
 ## Cómo trabajar
 - Un bloque de `docs/PLAN.md` a la vez. No iniciar el siguiente sin la
   aprobación de Miguel.
+- **Primero la maqueta, después la construcción (D-54):** todo cambio de
+  pantalla empieza con una maqueta en `docs/maquetas/<tarea>/` y sus capturas
+  a 390 y 1280 px; con el sí de Miguel se construye en `web/`.
 - Responder en español. Explicar cada concepto nuevo con una analogía breve
   de manufactura o calidad.
 - Decir cómo verificar cada entrega (en el navegador y en ancho de teléfono).

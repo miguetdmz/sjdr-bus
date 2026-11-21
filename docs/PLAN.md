@@ -35,8 +35,9 @@ Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
    visual, sin fuentes en pantalla, tarjetas a la mitad). D-50 y D-52 subidos
    (`68a8373`): puerta, GitHub Actions y Vercel en verde. Miguel lo probó en
    su teléfono a las 6:11 pm y pidió **D-53** (ver `docs/DECISIONES.md`).
-1. **Siguiente: construir D-53**, en este orden y con criterio medible antes
-   de cada parte: (a) quitar el desplegable y llevar el sentido dentro del
+1. **Siguiente: D-53, primero su maqueta (D-54):** pantallas de muestra en
+   `docs/maquetas/d53/` a 390 y 1280 px para que Miguel las apruebe; con su
+   sí, construir en este orden y con criterio medible antes de cada parte: (a) quitar el desplegable y llevar el sentido dentro del
    menú (adiós al «aparece de golpe»); pestañas arriba; mapa completo con el
    menú cerrado; (b) botón redondo de paradas con el pictograma, paradas
    ocultas hasta presionarlo; (c) tarjetas y recientes más chicas, sin «Ruta

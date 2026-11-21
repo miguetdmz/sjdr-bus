@@ -1381,3 +1381,22 @@ Miguel).
   construir.
 - **Decide:** Miguel. Se construye en el chat siguiente (contexto de este chat
   al 29 %, umbral de aviso 30 %).
+
+## D-54 · 20 nov 2026 · Primero las pantallas de muestra, después la construcción · VIGENTE
+- **Decisión (Miguel, 20 nov 2026, 6:13 pm):** «yo propongo los cambios, tú
+  genera las nuevas pantallas para yo validar que efectivamente se ven los
+  cambios, y luego construimos». Le ha funcionado en otro de sus proyectos
+  (dicho por Miguel; no se abrió ese proyecto: regla 4 de standards).
+- **Cómo se hace aquí:** para todo cambio de pantalla, primero una **maqueta**
+  (archivo HTML estático en `docs/maquetas/<tarea>/`, con el mismo estilo de
+  la app y datos reales de `rutas.json`, sin lógica) y sus capturas a 390 px y
+  1280 px. Miguel la aprueba o la corrige. Solo con su sí se toca `web/` y se
+  escriben las pruebas. La maqueta se marca ESQUEMÁTICO y nunca se publica
+  como la app.
+- **Por qué:** cada vuelta sobre la app real arrastra pruebas, puerta y
+  subida; corregir sobre la maqueta es barato (D-48 a D-53 fueron 5 vueltas
+  sobre la app real).
+- **Para todos los proyectos:** propuesta para `standards.md` (la cosecha del
+  Second Brain la lleva; no se sube sin el sí de Miguel).
+- **Impacta:** `CLAUDE.md` («Cómo trabajar»), `docs/PLAN.md` (relevo: D-53
+  empieza por su maqueta).
