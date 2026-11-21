@@ -41,6 +41,13 @@ test('a1–a3 (390 px): la página no se amplía; el mapa y el menú conservan s
     }, tipo);
     expect(cancelado, `${tipo} frenado`).toBe(true);
   }
+  // a4: Safari no agranda la letra por su cuenta (el pie se queda en 9 px).
+  const ajuste = await page.evaluate(() => {
+    const st = getComputedStyle(document.documentElement);
+    return st.getPropertyValue('-webkit-text-size-adjust') || st.getPropertyValue('text-size-adjust');
+  });
+  expect(ajuste, 'text-size-adjust de la página').toBe('100%');
+  expect(await estilo(page, '#pie', 'fontSize')).toBe('9px');
   // a3: el mapa maneja su pellizco y el cuerpo del menú se desplaza.
   expect(await estilo(page, '#mapa', 'touchAction')).toBe('none');
   await page.locator('#boton-menu').click();

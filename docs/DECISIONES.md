@@ -1709,4 +1709,11 @@ Miguel).
   prueba lo nombra. Ningún selector se fue (`docs/evidencia/d59/inventario-selectores.md`).
   Capturas en `docs/evidencia/d59/` y lado a lado en `docs/evidencia/d59/comparacion/`.
   POR VERIFICAR en el iPhone de Miguel: el pellizco real (Playwright no lo imita).
+- **Ajuste 3 (Miguel, 21 nov 2026, 1:23 am),** al probar en su iPhone la vista previa
+  (todavía `5253b01`: los commits de D-58 y D-59 no estaban subidos, por eso el giro
+  seguía en modo computadora): «la letra de Iniciativa ciudadana independiente se ve
+  muy grande», parado y acostado. Causa: Safari del iPhone agranda solo la letra chica
+  (el pie está escrito en 9 px). Arreglo: `text-size-adjust: 100%` en la página; es
+  el tamaño de la maqueta aprobada, no un cambio de diseño. Prueba a4 en
+  `d59.spec.mjs`, validada con el defecto (sin la regla: «auto», falla).
 - **Decide:** Miguel (en su teléfono, junto con D-58).
