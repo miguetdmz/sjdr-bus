@@ -1335,7 +1335,7 @@ Miguel).
   `pruebas-navegador/d50.spec.mjs`. Capturas en `docs/evidencia/d50/`.
 - **Decide:** Miguel, al verlo en su teléfono.
 
-## D-53 · 20 nov 2026 · Pantalla limpia: sin menú desplegable, botón de paradas, «¿A dónde quieres ir?» · PROPUESTA (por construir)
+## D-53 · 20 nov 2026 · Pantalla limpia: sin menú desplegable, botón de paradas, «¿A dónde quieres ir?» · MAQUETA APROBADA (por construir)
 - **Pedido (Miguel, 20 nov 2026, 6:11 pm), al probar D-50/D-52 en su teléfono:**
   1. **Botón de paradas:** en vez del botón «Paradas», un botón redondo junto
      al buscador de arriba con el pictograma del camión (el del pin de
@@ -1426,6 +1426,10 @@ Miguel).
 - **Ajuste 3 (Miguel, 20 nov 2026, 7:03 pm):** el círculo de la parada lleva
   dentro **el camión de frente** (el mismo pictograma del botón). «Se ve
   increíble.» Ya en la maqueta.
+- **Maqueta aprobada (Miguel, 20 nov 2026, 7:04 pm): «sí, apruebo».** Se
+  construye en `web/` en un chat nuevo, con la maqueta como referencia
+  (`docs/maquetas/d53/`), criterio medible antes de cada parte y las reglas de
+  las lecciones 10, 11 y 13.
 - **Decide:** Miguel. Se construye en el chat siguiente (contexto de este chat
   al 29 %, umbral de aviso 30 %).
 

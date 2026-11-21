@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 6:12 pm)
+## Estado actual (20 nov 2026, 7:05 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -13,7 +13,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
 | Versión en espera (PR 1 «B2 · Primera pantalla publicable → v0.2», https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, selector visual con tarjetas y zonas probables (D-50), nombre SJDR Bus. Integra Miguel cuando cierre B2 |
 | Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
-| Tarea en curso | **E-03 · D-53 · Pantalla limpia**: D-50 y D-52 construidos y subidos (`68a8373`); Miguel los probó y pidió D-53 (sin desplegable, botón de paradas, «¿A dónde quieres ir?», 20 colores, tarjetas más chicas, pestañas arriba). Por construir |
+| Tarea en curso | **E-03 · D-53 · Pantalla limpia**: **maqueta aprobada** por Miguel (20 nov, 7:04 pm) en `docs/maquetas/d53/` (6 pantallas a 390 y 1280 px, con 3 rondas de ajustes). Falta construirla en `web/` |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -29,7 +29,38 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (20 nov 2026, 6:12 pm)
+### Relevo para la siguiente sesión (20 nov 2026, 7:05 pm)
+
+0. **Lo hecho de las 6:20 pm a las 7:05 pm:** maqueta de D-53 (D-54) en
+   `docs/maquetas/d53/` (`maqueta.html`, `armar-datos.mjs`, `capturas/`).
+   Respuestas de Miguel anotadas en D-53: «Ruta 001» solo en los datos, nunca
+   en pantalla (6:23 pm); «¿A dónde quieres ir?» con las 3 partes y lo demás en
+   fases posteriores (6:29 pm); ajustes 1 a 3 (6:49, 6:57 y 7:03 pm); **maqueta
+   aprobada a las 7:04 pm**.
+1. **Siguiente: construir D-53 en `web/`**, con la maqueta como referencia y
+   criterio medible antes de cada parte, en este orden: (a) sin desplegable;
+   sentido dentro del menú; pestañas arriba; mapa completo con el menú
+   cerrado; (b) botón redondo de paradas; paradas como círculo levantado con
+   el camión y guía de puntitos, ocultas hasta presionarlo; (c) tarjetas y
+   recientes más chicas, sin «Ruta 001», 20 colores AA (la paleta y su
+   contraste están en la maqueta) e intermunicipales aparte; insignia más
+   grande en el aviso de ruta elegida; (d) pie legal único, chico, verde y sin
+   fondo (leyenda + atribución Leaflet/OSM), avisos del mapa discretos,
+   «estimado» en minúscula; (e) «¿A dónde quieres ir?»: catálogo de los
+   lugares de inicio y fin, rutas que empiezan o terminan a ≤ 1 km en tarjetas
+   del mismo tamaño, «Usar mi ubicación» (GPS solo en el teléfono) con la
+   parada de OSM más cercana marcada en el mapa, y leyendas juntas al fondo.
+   Pruebas: reescribir las de `pruebas-navegador/b2a.spec.mjs` y
+   `d50.spec.mjs` que usan `#ruta`; inventario de selectores antes de borrar
+   estilos (lección 13); pruebas de la regla, no del conteo (lección 11);
+   `npm run verificar`, leer el resultado y solo entonces commit (lección 10).
+   Cambian la regla 5 y la 9 de `CLAUDE.md` (sin `<select>`).
+2. **Hallazgo [sin verificar]:** Francisco Villa y Las Águilas tienen casi la
+   misma coordenada en los extremos (~2 m). Se revisa en B3 · R-03.
+3. **Turno nocturno:** sin tareas que pueda tomar (R-04 es de día; R-05 y R-06
+   esperan R-03). Bandera en EN SESIÓN.
+
+### Relevo anterior (20 nov 2026, 6:12 pm)
 
 0. **Lo hecho de las 5:27 pm a las 6:12 pm:** D-52 construido (detalle más
    visual, sin fuentes en pantalla, tarjetas a la mitad). D-50 y D-52 subidos
