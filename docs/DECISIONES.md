@@ -1335,7 +1335,7 @@ Miguel).
   `pruebas-navegador/d50.spec.mjs`. Capturas en `docs/evidencia/d50/`.
 - **Decide:** Miguel, al verlo en su teléfono.
 
-## D-53 · 20 nov 2026 · Pantalla limpia: sin menú desplegable, botón de paradas, «¿A dónde quieres ir?» · CONSTRUIDA (EN REVISIÓN)
+## D-53 · 20 nov 2026 · Pantalla limpia: sin menú desplegable, botón de paradas, «¿A dónde quieres ir?» · CONSTRUIDA · APROBADA (Miguel, en su teléfono, 21 nov 2026, 12:34 am)
 - **Pedido (Miguel, 20 nov 2026, 6:11 pm), al probar D-50/D-52 en su teléfono:**
   1. **Botón de paradas:** en vez del botón «Paradas», un botón redondo junto
      al buscador de arriba con el pictograma del camión (el del pin de
@@ -1473,7 +1473,7 @@ Miguel).
 - **Impacta:** `CLAUDE.md` («Cómo trabajar»), `docs/PLAN.md` (relevo: D-53
   empieza por su maqueta).
 
-## D-55 · 20 nov 2026 · Bienvenida «Así funciona» y tarjetas parejas · CONSTRUIDA (en revisión de Miguel)
+## D-55 · 20 nov 2026 · Bienvenida «Así funciona» y tarjetas parejas · CONSTRUIDA · APROBADA (Miguel, en su teléfono, 21 nov 2026, 12:34 am)
 - **Pedido (Miguel, 20 nov 2026, 9:24 pm),** al probar D-53 en el navegador:
   1. **Cuadro de bienvenida** al entrar, como el «Así funciona» de su otro
      proyecto (Avisos SJDR; Miguel mandó la captura, no se abrió ese proyecto:
@@ -1595,7 +1595,7 @@ Miguel).
     transbordos y camino a pie por calles.
 - **Decide:** Miguel.
 
-## D-57 · 20 nov 2026 · «Calcula tu ruta»: la parada más cercana arriba y con poca letra · CONSTRUIDA (en revisión de Miguel)
+## D-57 · 20 nov 2026 · «Calcula tu ruta»: la parada más cercana arriba y con poca letra · CONSTRUIDA · APROBADA (Miguel, en su teléfono, 21 nov 2026, 12:34 am)
 - **Pedido (Miguel, 20 nov 2026, 10:55 pm),** al probar D-55: al escribir el
   lugar, «Tu parada más cercana» se va hasta el fondo y hay que hacer scroll para
   encontrarla. Que quede **arriba**, y abajo «¿A dónde quieres ir?»; que diga
@@ -1645,3 +1645,23 @@ Miguel).
   - Capturas en `docs/evidencia/d57/` y lado a lado en
     `docs/evidencia/d57/comparacion/`. Inventario: ningún selector se fue.
 - **Decide:** Miguel.
+
+## D-58 · 21 nov 2026 · Zoom «+ / −» en píldora y formato píldora en los cuadros · MAQUETA (en revisión de Miguel)
+- **Pedido (Miguel, 21 nov 2026, 12:34 am),** al aprobar D-53 + D-55 + D-57 en su
+  teléfono: falta el control «más / menos» para acercar el mapa, en teléfono y en
+  computadora, como botón en forma de píldora. Y «todos los cuadros que apliquen y
+  que quepan» en formato píldora, como casi todo lo demás; nombró las tarjetas de
+  ruta. Primero se actualiza la pantalla y después se integra v0.2.
+- **Maqueta (D-54):** `docs/maquetas/d58/maqueta.html` (parte de la de D-57),
+  capturas a 390 y 1280 px en `docs/maquetas/d58/capturas/`. Inventario de lo que
+  cambió y de lo que no, con su razón: `docs/maquetas/d58/inventario.md`.
+- **Medición (lección 14: el pedido choca con lo aprobado en D-55):** la tarjeta
+  de ruta mide 100 × 70 px en teléfono; en píldora completa las puntas redondas se
+  comen 70 de los 100 px y **10 nombres no caben** (letra a 7.5–8 px). Con esquina
+  de 22 px («suave») caben los 42 y la letra queda casi igual (promedio 10.1 px
+  contra 10.2 hoy; mínimo 7.75 contra 8). En computadora (119 × 60 px) caben las
+  dos, pero la completa baja la letra (27 tarjetas debajo de 9 px).
+  Por eso la tarjeta de ruta **no se cambió por omisión** en la maqueta: las
+  opciones se ven con `?tarjeta=suave` y `?tarjeta=pildora`. Decide Miguel.
+- **Decide:** Miguel.
+
