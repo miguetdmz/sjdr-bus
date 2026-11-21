@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (21 nov 2026, 2:01 am)
+## Estado actual (21 nov 2026, 2:31 am)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -29,7 +29,21 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (21 nov 2026, 2:01 am)
+### Relevo para la siguiente sesión (21 nov 2026, 2:31 am)
+
+0. **Lo hecho de las 2:01 am a las 2:31 am:** D-60 ajuste 2 (acostado, encuadre de
+   ciudad al elegir ruta) construido y subido: rama en `b48173a`, Actions y Vercel en
+   verde. Miguel pidió D-61 (2:29 am): con el teléfono parado, zoom arriba abajo del
+   botón de paradas y un círculo «mi ubicación». Maqueta en `docs/maquetas/d61/`, en
+   revisión; no se construyó (paro de contexto, 40 %).
+1. **Siguiente:** Miguel aprueba la maqueta D-61 → construir en `web/` con pruebas →
+   subir (con permiso) → Miguel aprueba D-58 a D-61 en su teléfono → integra el PR 1 a
+   `main` (v0.2; lo hace Miguel, lección 6) → verificar `main` y la versión publicada →
+   «el tema del PDF» (FALTANTE) → D-56 fase 2, maqueta primero.
+2. **Preguntas abiertas y pendientes:** como en el relevo de las 2:01 am, más la de
+   D-61 (¿el círculo de ubicación también acostado y en computadora?).
+
+### Relevo anterior (21 nov 2026, 2:01 am)
 
 0. **Lo hecho de la 1:15 am a las 2:01 am:** subidos D-58 y D-59 (`26630de`); GitHub
    Actions falló por 7 px (zoom × chip con otra fuente): arreglado en `33ea5bd`

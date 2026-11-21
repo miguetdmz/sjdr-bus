@@ -1767,3 +1767,23 @@ Miguel).
   parado, con inicio y fin enteros y sin tapar; falló con el defecto (10 contra 13) y
   pasa con el arreglo (captura `docs/evidencia/d60/4-encuadre-844x280.jpg`).
 - **Decide:** Miguel (en su teléfono, con D-58 y D-59).
+
+## D-61 · 21 nov 2026 · Teléfono parado: zoom arriba y círculo «mi ubicación» · MAQUETA (en revisión de Miguel)
+- **Pedido (Miguel, 21 nov 2026, 2:29 am):** con el teléfono parado, el «+ / −» está
+  muy abajo; va abajo del botón de paradas (arriba a la derecha) con un espacio, y
+  debajo, otro espacio y un botón en círculo de ubicación, para que quien entra al mapa
+  sepa dónde está. Pidió dejarlo guardado y documentado en git antes del chat nuevo.
+- **Maqueta (D-54):** `docs/maquetas/d61/maqueta.html` (parte de la de D-60). Solo
+  teléfono parado: el zoom pasa arriba a la derecha (12 px bajo el botón de paradas) y
+  debajo, a 10 px, un círculo de 46 px «Mostrar mi ubicación en el mapa». En la maqueta
+  el círculo lleva a una ubicación de MUESTRA (Plaza Independencia, HANDOFF §11.3).
+  Acostado y computadora quedan como D-60 (zoom abajo a la derecha, sin el círculo).
+- **Medido** (`docs/maquetas/d61/capturas/`): a 390 × 844 el zoom empieza en 74 px (el
+  botón de paradas termina en 62), el círculo queda a 10 px del zoom y nada se encima
+  con el chip de la ruta. A 844 × 280 y 1280 × 800, igual que D-60.
+- **Al construir (con el sí de Miguel):** el círculo usa la ubicación del teléfono
+  (como «Buscar mi parada más cercana», D-57): no sale del teléfono, sin red (regla 7);
+  si no hay permiso, el aviso sale y la app sigue.
+- **Pregunta para Miguel (lección 14, no se aplicó):** ¿el círculo de ubicación también
+  acostado y en computadora?
+- **Decide:** Miguel.
