@@ -1472,3 +1472,53 @@ Miguel).
   Second Brain la lleva; no se sube sin el sí de Miguel).
 - **Impacta:** `CLAUDE.md` («Cómo trabajar»), `docs/PLAN.md` (relevo: D-53
   empieza por su maqueta).
+
+## D-55 · 20 nov 2026 · Bienvenida «Así funciona» y tarjetas parejas · APROBADA (por hacer su maqueta)
+- **Pedido (Miguel, 20 nov 2026, 9:24 pm),** al probar D-53 en el navegador:
+  1. **Cuadro de bienvenida** al entrar, como el «Así funciona» de su otro
+     proyecto (Avisos SJDR; Miguel mandó la captura, no se abrió ese proyecto:
+     regla 4 de standards): título, **3 pasos muy cortos** numerados de lo que
+     hace la app, botón **X** para cerrarlo y después seguir. En su referencia:
+     tarjeta blanca abajo a la izquierda sobre el mapa, pasos con número en
+     círculo y verbo en negritas, dos botones de acción y la nota «Sale solo la
+     primera vez. Se recuerda en este dispositivo, sin cookies».
+  2. **Tarjetas de ruta:** la insignia (camión + R1, R2…) **más grande**; el
+     nombre de inicio y fin («Pedregoso – Centro») **sin negritas y más chico**;
+     **todas las tarjetas del mismo tamaño** (hoy cambian de alto según las
+     líneas del nombre; captura de Miguel en computadora, 4 columnas).
+- **Referencias (fuera de git, lección 8 y regla 7 de standards):**
+  `referencias/d55/tarjetas-escritorio-miguel.png` y
+  `referencias/d55/asi-funciona-avisos-sjdr.webp`.
+- **Orden (Miguel: «sí, va en ese orden», 9:31 pm):** fase 1 de 3. Maqueta en
+  `docs/maquetas/d55/` con capturas a 390 y 1280 px (D-54) → sí de Miguel →
+  construir en `web/` → cierra B2 (v0.2).
+- **Abierto (se pregunta en la maqueta, una a la vez):** los 3 pasos y sus
+  textos; si lleva botones de acción (p. ej. «Elegir ruta» / «¿A dónde quieres
+  ir?») además de la X; si sale solo la primera vez (localStorage, sin cookies).
+- **Decide:** Miguel.
+
+## D-56 · 20 nov 2026 · «Calcula tu ruta» de punta a punta: caminar, tomar la ruta, bajar y caminar · APROBADA EN FASES
+- **Pedido (Miguel, 20 nov 2026, 9:24 pm):** escribir **cualquier lugar** (p. ej.
+  «Cinépolis») y que la app diga: camina a esta parada, toma esta ruta, bájate
+  en tal parada y camina otros N minutos al lugar. «Es importante que se incluya.»
+- **Ya estaba planeado:** es D-15 (B6 · Calcula tu ruta, 17 nov). Miguel se
+  adelanta; se le dijo así (9:24 pm).
+- **Qué se puede y qué no, hoy (límite honesto, regla 1):**
+  - **Buscar cualquier lugar: sí.** Hoy el catálogo son los lugares de inicio y
+    fin de las rutas; `datos/cache/overpass/lugares.json` trae 80 lugares de OSM
+    y Cinépolis no está. Hace falta **una descarga nueva** de lugares con nombre
+    de OpenStreetMap (Overpass, al construir el dato, con caché; regla 7; $0).
+  - **Parada más cercana a ti y al destino, con distancia a pie en línea recta
+    (ESTIMADO): sí.** El camino a pie por calles, con minutos, necesita calcular
+    rutas a pie en el teléfono sin servicios en vivo: B6.
+  - **«Toma esta ruta y bájate en tal parada»: no todavía.** Falta el recorrido
+    de cada ruta (B3: R-03 a R-06) y qué rutas paran en cada parada, en orden y
+    por sentido (R-07). Sin eso sería un recorrido inventado.
+- **Orden aprobado (Miguel, 9:31 pm):**
+  - Fase 1: D-55 (bienvenida y tarjetas).
+  - Fase 2: D-56 parte posible: catálogo amplio de lugares de OSM + parada más
+    cercana a ti y al destino, con distancia en línea recta (ESTIMADO). Maqueta
+    primero (D-54).
+  - Fase 3: B3 (R-03 a R-06) → R-07 → B6 completo: qué ruta tomar, dónde bajar,
+    transbordos y camino a pie por calles.
+- **Decide:** Miguel.

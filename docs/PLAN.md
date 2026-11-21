@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 9:08 pm)
+## Estado actual (20 nov 2026, 9:31 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -13,7 +13,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
 | Versión en espera (PR 1 «B2 · Primera pantalla publicable → v0.2», https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, selector visual con tarjetas y zonas probables (D-50), nombre SJDR Bus. Integra Miguel cuando cierre B2 |
 | Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
-| Tarea en curso | **E-03 · D-53 · Pantalla limpia**: maqueta aprobada (7:04 pm) y **construida en `web/`** (9:08 pm): sin desplegable, botón de paradas, 20 colores, pie legal único y «¿A dónde quieres ir?». Puerta en verde; capturas junto a la maqueta en `docs/evidencia/d53/comparacion/`. **Falta:** el visto bueno de Miguel a las capturas y en su teléfono |
+| Tarea en curso | **E-03 · D-53 · Pantalla limpia**: maqueta aprobada (7:04 pm) y **construida en `web/`** (9:08 pm): sin desplegable, botón de paradas, 20 colores, pie legal único y «¿A dónde quieres ir?». Puerta en verde; capturas junto a la maqueta en `docs/evidencia/d53/comparacion/`. Subido (`0ea1cb3`): GitHub Actions y Vercel en verde. Al probarlo, Miguel pidió **D-55** (bienvenida «Así funciona» y tarjetas parejas) y **D-56** («Calcula tu ruta» de punta a punta, en 3 fases) |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -29,7 +29,27 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (20 nov 2026, 9:08 pm)
+### Relevo para la siguiente sesión (20 nov 2026, 9:31 pm)
+
+0. **Lo hecho de las 9:08 pm a las 9:31 pm:** D-53 subido (`0ea1cb3`; puerta
+   en la Mac, GitHub Actions y Vercel en verde). Miguel lo probó y pidió D-55 y
+   D-56; orden aprobado a las 9:31 pm (ver `docs/DECISIONES.md`).
+1. **Siguiente (chat nuevo): fase 1 = D-55.** Maqueta en `docs/maquetas/d55/`
+   (D-54), con las referencias de `referencias/d55/` (fuera de git):
+   bienvenida «Así funciona» con 3 pasos y X, y tarjetas con insignia más
+   grande, nombre sin negritas y más chico, todas del mismo tamaño. Con el sí
+   de Miguel, construir en `web/` con criterio medible antes y las lecciones 3,
+   5, 10, 11 y 13. Luego Miguel aprueba en su teléfono y cierra B2 (v0.2).
+2. **Después: fase 2 = D-56, parte posible** (catálogo amplio de lugares de
+   OSM con una descarga nueva + parada más cercana a ti y al destino, en línea
+   recta, ESTIMADO). Fase 3 espera B3 y R-07.
+3. **Candidata a lección (preguntar al cerrar el bloque):** la primera versión
+   de la prueba del defecto de encuadre pasaba con el defecto puesto (revisaba
+   antes de que el mapa se moviera). Se detectó reintroduciendo el defecto a
+   propósito. Regla posible: toda prueba de un defecto se valida haciéndola
+   fallar con el defecto.
+
+### Relevo anterior (20 nov 2026, 9:08 pm)
 
 0. **Lo hecho de las 8:31 pm a las 9:08 pm:** D-53 construido en `web/` con la
    maqueta como referencia, en el orden (a) → (e). Criterios escritos antes de
