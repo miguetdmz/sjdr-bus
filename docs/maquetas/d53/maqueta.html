@@ -23,8 +23,6 @@ button { font: inherit; color: inherit; }
 .app { position: fixed; inset: 0; overflow: hidden; }
 .mapa { position: absolute; inset: 0; }
 .leaflet-tile-pane { filter: grayscale(.82) brightness(1.05) contrast(.9) sepia(.08); }
-.leaflet-control-attribution { font-size: 10px; background: rgba(255,255,255,.9) !important; }
-.leaflet-bottom.leaflet-right { bottom: 32px; }
 .leaflet-control-zoom { display: none; }
 
 /* ── Barra de arriba (teléfono): ☰ · «¿A dónde quieres ir?» · paradas ── */
@@ -48,25 +46,22 @@ button { font: inherit; color: inherit; }
 .buscar svg { flex: none; }
 
 .pie {
-  position: absolute; z-index: 900; left: 0; right: 0; bottom: 0; margin: 0; padding: 3px 8px;
-  font-size: 10.5px; line-height: 1.3; background: rgba(255,255,255,.92); text-align: center;
+  /* D-53, ajuste de Miguel (6:49 pm): todo lo legal junto, abajo, chico y en verde:
+     leyenda de iniciativa, sello de maqueta y atribución de OpenStreetMap (regla 6). */
+  position: absolute; z-index: 1250; left: 0; right: 0; bottom: 0; margin: 0; padding: 3px 10px;
+  font-size: 9px; line-height: 1.3; text-align: center; color: var(--primario);
+  background: rgba(255,255,255,.88);
 }
-.sello {
-  position: absolute; z-index: 2000; right: 4px; top: 50%; writing-mode: vertical-rl; padding: 3px 8px; border-radius: 6px;
-  background: #8a5300; color: #fff; font-size: 10px; font-weight: 800; letter-spacing: .05em; pointer-events: none;
-}
-
-/* Aviso flotante (paradas, zonas) */
+.pie a { color: inherit; }
 .aviso-mapa {
-  position: absolute; z-index: 950; left: 50%; transform: translateX(-50%); bottom: 56px;
-  max-width: calc(100% - 24px); padding: 8px 14px; border-radius: 18px; background: var(--tarjeta);
-  box-shadow: var(--sombra); font-size: 12.5px; line-height: 1.35; text-align: center; white-space: nowrap;
+  position: absolute; z-index: 950; left: 50%; transform: translateX(-50%); bottom: 40px;
+  max-width: calc(100% - 24px); padding: 3px 10px; border-radius: 12px; background: rgba(255,255,255,.88);
+  font-size: 11px; line-height: 1.35; text-align: center; white-space: nowrap; color: var(--primario);
 }
-.aviso-mapa b { color: #8a5300; }
 
 /* Ruta elegida con el menú cerrado: chip abajo */
 .chip-ruta {
-  position: absolute; z-index: 950; left: 12px; right: 12px; bottom: 56px;
+  position: absolute; z-index: 950; left: 12px; right: 12px; bottom: 44px;
   display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 10px;
   border-radius: 18px; background: var(--tarjeta); box-shadow: var(--sombra);
 }
@@ -79,7 +74,7 @@ button { font: inherit; color: inherit; }
 .hoja {
   position: absolute; z-index: 1200; top: 0; left: 0; bottom: 0; width: min(380px, 88vw);
   background: var(--tarjeta); display: flex; flex-direction: column;
-  border-radius: 0 22px 22px 0; box-shadow: var(--sombra); padding: 14px 16px 10px;
+  border-radius: 0 22px 0 0; box-shadow: var(--sombra); padding: 14px 16px 36px;
 }
 .cerrado .hoja, .cerrado .velo { display: none; }
 .hoja-cabeza { flex: none; display: flex; align-items: center; gap: 10px; padding-bottom: 10px; }
@@ -155,14 +150,12 @@ button { font: inherit; color: inherit; }
 }
 .resultado small { display: block; font-weight: 500; font-size: 11.5px; color: var(--suave); }
 .resultado.elegido { background: var(--primario-suave); box-shadow: inset 0 0 0 2px var(--primario); }
-.lista-cerca { display: grid; gap: 5px; }
-.cerca { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 12px; background: var(--c); color: var(--ct); }
-.cerca .tarjeta-nombre { font-size: 11.5px; -webkit-line-clamp: 2; }
-.cerca .dist { margin-left: auto; flex: none; font-size: 11px; font-weight: 700; opacity: .95; }
+.rejilla.cerca .tarjeta { height: 74px; }
+.rejilla.cerca .tarjeta-nombre { -webkit-line-clamp: 2; }
+.tarjeta .dist { margin-top: auto; font-size: 10px; font-weight: 700; opacity: .92; }
 .ubicacion { width: 100%; min-height: 46px; border: 0; border-radius: 23px; background: var(--primario); color: #fff; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.nota { margin: 6px 0 0; font-size: 11.5px; line-height: 1.4; color: var(--suave); }
-.nota b { color: #8a5300; }
-.proximamente { margin-top: 14px; padding: 10px 12px; border-radius: 12px; border: 1.5px dashed var(--borde); font-size: 12px; line-height: 1.4; color: var(--suave); }
+.nota { margin: 6px 0 0; font-size: 10.5px; line-height: 1.4; color: var(--primario); }
+.proximamente { margin: 14px 0 0; font-size: 10.5px; line-height: 1.4; color: var(--primario); }
 
 /* Marcadores */
 .pin { background: none; border: 0; }
@@ -179,16 +172,15 @@ button { font: inherit; color: inherit; }
   .buscar { flex: 0 1 460px; height: 44px; box-shadow: none; font-size: 15px; }
   .redondo.paradas { width: 44px; height: 44px; box-shadow: none; }
   .redondo.paradas.activo { background: var(--acento); color: var(--tinta); }
-  .sello { top: 70px; writing-mode: horizontal-tb; right: 8px; }
-  .pie { right: auto; text-align: left; border-top-right-radius: 6px; }
-  .abierto .pie { right: auto; }
-  .leaflet-bottom.leaflet-right { bottom: 19px; }
+  .pie { text-align: right; font-size: 10px; }
+  .aviso-mapa { bottom: 28px; }
+  .chip-ruta { bottom: 32px; }
   .mapa { top: 60px; }
   .abierto .mapa { left: 400px; }
-  .abierto .pie, .abierto .aviso-mapa, .abierto .chip-ruta { left: 400px; }
+  .abierto .aviso-mapa, .abierto .chip-ruta { left: 400px; }
   .abierto .aviso-mapa { transform: none; left: calc(400px + (100% - 400px) / 2); translate: -50% 0; }
   .velo { display: none !important; }
-  .hoja { top: 60px; width: 400px; border-radius: 0; box-shadow: 1px 0 0 var(--borde); padding: 0 16px 12px; }
+  .hoja { top: 60px; width: 400px; border-radius: 0; box-shadow: 1px 0 0 var(--borde); padding: 0 16px 24px; }
   .hoja-cabeza { display: none; }
   .pestanas button { min-height: 52px; font-size: 14px; }
   .rejilla { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
@@ -205,8 +197,7 @@ button { font: inherit; color: inherit; }
     <button class="buscar" id="buscar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d7a72" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>¿A dónde quieres ir?</button>
     <button class="redondo paradas" id="boton-paradas" aria-label="Ver paradas" aria-pressed="false"></button>
   </header>
-  <p class="pie">Iniciativa ciudadana independiente · no oficial · datos en proceso de validación</p>
-  <div class="sello">MAQUETA D-53 · ESQUEMÁTICO</div>
+  <p class="pie">Iniciativa ciudadana independiente · no oficial · datos en proceso de validación · Maqueta D-53 · ESQUEMÁTICO · <a href="https://leafletjs.com">Leaflet</a> | © <a href="https://www.openstreetmap.org/copyright">colaboradores de OpenStreetMap</a></p>
   <div id="flotante"></div>
   <div class="velo"></div>
   <aside class="hoja" aria-label="Menú de SJDR Bus">
@@ -270,7 +261,7 @@ const redondeo = (m) => (m < 1000 ? `${Math.round(m / 10) * 10} m` : `${(m / 100
 
 // ── Mapa real ──
 const escritorio = innerWidth >= 768;
-const mapa = L.map('mapa', { zoomControl: false, attributionControl: true }).setView([20.389, -99.975], escritorio ? 14 : 13);
+const mapa = L.map('mapa', { zoomControl: false, attributionControl: false }).setView([20.389, -99.975], escritorio ? 14 : 13);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19, attribution: '© <a href="https://www.openstreetmap.org/copyright">colaboradores de OpenStreetMap</a>',
 }).addTo(mapa);
@@ -353,16 +344,15 @@ function destino() {
     </div>
     <div class="bloque">
       <h3 class="titulo-seccion">Rutas que empiezan o terminan cerca</h3>
-      <div class="lista-cerca">${cerca.map(({ i, d }) => `<div class="cerca" style="${estilo(i)}">${camion(insignia(rutas[i]))}<span class="tarjeta-nombre">${rutas[i].nombre}</span><span class="dist">${d < 50 ? 'ahí' : 'a ' + redondeo(d)}</span></div>`).join('')}</div>
-      <p class="nota"><b>ESTIMADO</b> · distancia en línea recta a la zona de inicio o fin, hasta 1 km.</p>
+      <div class="rejilla cerca">${cerca.map(({ i, d }) => `<button class="tarjeta" style="${estilo(i)}">${camion(insignia(rutas[i]))}<span class="tarjeta-nombre">${rutas[i].nombre}</span><span class="dist">${d < 50 ? 'ahí' : 'a ' + redondeo(d)}</span></button>`).join('')}</div>
+      <p class="nota">ESTIMADO · distancia en línea recta a la zona de inicio o fin, hasta 1 km.</p>
     </div>
     <div class="bloque">
       <h3 class="titulo-seccion">Tu parada más cercana</h3>
       <button class="ubicacion">${BUS('#fff', '#0d7a72')}Usar mi ubicación</button>
-      <button class="resultado" style="margin-top:6px"><span style="color:#0d7a72">${BUS()}</span><span>Parada de OpenStreetMap${parada.nombre && parada.nombre !== 'Parada' ? ` · ${parada.nombre}` : ''}<small>a ${redondeo(parada.d)} en línea recta · POR VERIFICAR EN CAMPO</small></span></button>
-      <p class="nota">En la maqueta se usa una ubicación de muestra (${yo.lugar}). Tu ubicación no sale del teléfono.</p>
+      <p class="nota">Maqueta: con una ubicación de muestra (${yo.lugar}), la parada más cercana queda a ${redondeo(parada.d)} en línea recta y se marca en el mapa · POR VERIFICAR EN CAMPO. Tu ubicación no sale del teléfono.</p>
     </div>
-    <div class="proximamente"><b>Próximamente</b> (fases posteriores): qué ruta tomar desde tu parada, el recorrido de cada ruta y el camino a pie por calles.</div>`;
+    <p class="proximamente">Próximamente (fases posteriores): qué ruta tomar desde tu parada, el recorrido de cada ruta y el camino a pie por calles.</p>`;
 
   mapa.setView([(dest.lat + yo.lat) / 2, (dest.lon + yo.lon) / 2], escritorio ? 14 : 13);
   L.circle([dest.lat, dest.lon], { radius: dest.radio_m, color: '#a8432a', fillColor: '#a8432a', fillOpacity: .14, weight: 2.5, dashArray: '6 6' }).addTo(mapa);
@@ -390,7 +380,7 @@ if (vista === 'paradas') {
   bp.classList.add('activo');
   bp.innerHTML = BUS(escritorio ? '#12262d' : '#fff', escritorio ? '#f0a032' : '#0d7a72');
   paradas.forEach((p) => L.marker([p.lat, p.lon], { icon: icono(PIN, [30, 38], [15, 37]) }).addTo(mapa));
-  flotante.innerHTML = `<div class="aviso-mapa">${paradas.length} paradas de OpenStreetMap · <b>POR VERIFICAR</b></div>`;
+  flotante.innerHTML = `<div class="aviso-mapa">${paradas.length} paradas de OpenStreetMap · por verificar en campo</div>`;
 }
 if (vista === 'destino') {
   abrir();

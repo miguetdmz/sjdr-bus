@@ -1394,6 +1394,21 @@ Miguel).
     asignada todavía:** el camino a pie por calles hasta la parada (necesita
     calcular rutas en el teléfono sin servicios en vivo, regla 7); se propone
     dentro de B6.
+- **Maqueta (D-54):** `docs/maquetas/d53/maqueta.html`, capturas en
+  `docs/maquetas/d53/capturas/` (6 pantallas a 390 y 1280 px). Miguel: «me
+  gusta, buen trabajo» (20 nov 2026, 6:49 pm), con estos ajustes, ya aplicados
+  en la maqueta:
+  1. **Todo lo legal junto, abajo, chico y en verde** (el verde de la barra):
+     leyenda de iniciativa independiente, «datos en proceso de validación»,
+     sello de maqueta y atribución de Leaflet y OpenStreetMap, en un solo pie.
+     «Discreto, pero anunciado; profesional.»
+  2. **Avisos del mapa discretos** (p. ej. «49 paradas de OpenStreetMap · por
+     verificar en campo»): letra chica, verde, sin recuadro grande.
+  3. **«Rutas que empiezan o terminan cerca»:** tarjetas del mismo tamaño
+     (rectángulo con esquinas redondeadas, como las del menú), compactas; no
+     renglones a lo ancho.
+  4. **Se quita el cuadro «Parada de OpenStreetMap»** (no era botón); la
+     parada se marca en el mapa y la nota va en verde, chica.
 - **Decide:** Miguel. Se construye en el chat siguiente (contexto de este chat
   al 29 %, umbral de aviso 30 %).
 
