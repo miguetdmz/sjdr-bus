@@ -70,7 +70,13 @@ import {
 // Independencia (HANDOFF §11.3, coordenada verificada: 20.38883, -99.99639)
 // queda a la vista, al oeste del centro de la pantalla.
 const VISTA_CIUDAD: L.LatLngTuple = [20.389, -99.975];
-const escritorio = () => window.matchMedia('(min-width: 768px)').matches;
+// D-59, 2: computadora = ancho de 768 px o más Y alto de más de 500 px (igual que
+// estilos.css): el teléfono acostado se queda con la vista de teléfono.
+const escritorio = () => window.matchMedia('(min-width: 768px) and (min-height: 501px)').matches;
+
+// D-59, 1: Safari de iPhone ignora user-scalable=no; se frena el pellizco de la
+// página. El mapa no lo pierde: Leaflet usa eventos de toque, no estos.
+for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
 
 const mapa = L.map('mapa', { zoomControl: false, attributionControl: false }).setView(VISTA_CIUDAD, escritorio() ? 14 : 13);
 // D-58, 1: zoom «+ / −» en píldora, abajo a la derecha (teléfono y computadora).

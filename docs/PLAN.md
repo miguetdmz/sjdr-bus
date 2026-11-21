@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (21 nov 2026, 12:50 am)
+## Estado actual (21 nov 2026, 1:15 am)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -13,7 +13,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
 | Versión en espera (PR 1 «B2 · Primera pantalla publicable → v0.2», https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, selector visual con tarjetas y zonas probables (D-50), nombre SJDR Bus. Integra Miguel cuando cierre B2 |
 | Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
-| Tarea en curso | **E-03 · D-58: CONSTRUIDA en `web/`** (zoom «+ / −» en píldora; chip, insignias, encabezado, etiqueta, botones y «Calcula tu ruta» en píldora; tarjeta de ruta en esquina suave de 22 px). D-53 + D-55 + D-57 **aprobadas** por Miguel en su teléfono (21 nov, 12:34 am); maqueta D-58 aprobada a las 12:43 am. **Falta: subir la rama, que Miguel apruebe D-58 en su teléfono e integre el PR 1** para cerrar B2 (v0.2) |
+| Tarea en curso | **E-03 · D-58 y D-59: CONSTRUIDAS en `web/`.** D-58: zoom «+ / −» y cuadros en píldora (tarjeta de ruta en esquina suave). D-59 (pedido de Miguel al probar, 12:59 am): el pellizco acerca solo el mapa y el teléfono acostado se ve como teléfono. D-53 + D-55 + D-57 **aprobadas** (12:34 am). **Falta: subir la rama, que Miguel apruebe D-58 + D-59 en su teléfono e integre el PR 1** para cerrar B2 (v0.2) |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -29,7 +29,20 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (21 nov 2026, 12:50 am)
+### Relevo para la siguiente sesión (21 nov 2026, 1:15 am)
+
+0. **Lo hecho de las 12:59 am a la 1:15 am:** Miguel probó la vista previa y pidió
+   D-59 (pellizco solo en el mapa; teléfono acostado como teléfono). Maqueta en
+   `docs/maquetas/d59/`, aprobada a la 1:13 am y construida en `web/` con 3 pruebas
+   validadas con el defecto.
+1. **Siguiente:** subir la rama (con permiso) → Miguel aprueba D-58 + D-59 en su
+   teléfono (el pellizco real queda POR VERIFICAR ahí) → integra el PR 1 a `main`
+   (v0.2; lo hace Miguel, lección 6) → verificar `main` y https://sjdrbus-sjr.vercel.app
+   → «el tema del PDF» (FALTANTE: preguntarle cuál) → D-56 fase 2, maqueta primero.
+2. **Preguntas abiertas de D-55, pendientes con el sí de Miguel y turno:** sin
+   cambio (ver el relevo de las 12:50 am).
+
+### Relevo anterior (21 nov 2026, 12:50 am)
 
 0. **Lo hecho de las 12:26 am a las 12:50 am:** Miguel aprobó D-53 + D-55 + D-57
    en su teléfono (12:34 am) y pidió D-58: zoom «+ / −» en píldora y formato

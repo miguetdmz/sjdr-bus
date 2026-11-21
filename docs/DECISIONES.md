@@ -1677,7 +1677,7 @@ Miguel).
 - **Decide:** Miguel (en su teléfono, con D-53 + D-55 + D-57 ya aprobadas).
 
 
-## D-59 · 21 nov 2026 · Pellizco solo en el mapa y teléfono acostado como teléfono · MAQUETA (en revisión de Miguel)
+## D-59 · 21 nov 2026 · Pellizco solo en el mapa y teléfono acostado como teléfono · CONSTRUIDA (en revisión de Miguel)
 - **Pedido (Miguel, 21 nov 2026, 12:59 am),** al probar la vista previa (`5253b01`,
   todavía sin D-58) en su teléfono, con capturas: (1) al pellizcar para acercar,
   se agranda toda la página (barra, botones) y ya no se puede regresar; el
@@ -1701,4 +1701,12 @@ Miguel).
   pixel a pixel: solo cambia el texto «Maqueta D-58/D-59» del pie).
 - **A considerar:** sin el zoom de la página, quien ve poco ya no puede agrandar
   la letra con el pellizco (el mapa sí se acerca). Es lo que hacen las apps de mapas.
-- **Decide:** Miguel.
+- **Aprobada (Miguel, 21 nov 2026, 1:13 am)** y **construida en `web/`** (1:15 am):
+  criterios escritos antes (`docs/evidencia/d59/criterios.md`), 3 pruebas en
+  `pruebas-navegador/d59.spec.mjs` (390 px, 844 × 390 y 1280 × 800). Validadas con
+  el defecto: con `web/` como en D-58 fallan las dos de D-59 (la tercera es la
+  guardia de computadora sin cambio, pasa en ambos); sin el freno de Safari, la
+  prueba lo nombra. Ningún selector se fue (`docs/evidencia/d59/inventario-selectores.md`).
+  Capturas en `docs/evidencia/d59/` y lado a lado en `docs/evidencia/d59/comparacion/`.
+  POR VERIFICAR en el iPhone de Miguel: el pellizco real (Playwright no lo imita).
+- **Decide:** Miguel (en su teléfono, junto con D-58).

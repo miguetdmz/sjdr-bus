@@ -25,6 +25,10 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; overflow: hidden; }
+/* D-59, 1 (maqueta aprobada por Miguel, 21 nov 2026, 1:13 am): la página no se acerca
+   con pellizco ni doble toque; solo el mapa (Leaflet maneja el suyo). El menú sigue
+   con su scroll. */
+html, body { touch-action: pan-x pan-y; }
 button { font: inherit; color: inherit; cursor: pointer; }
 [hidden] { display: none !important; }
 
@@ -47,7 +51,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ── Barra de arriba (teléfono): ☰ · «¿A dónde quieres ir?» · paradas ── */
 .barra {
-  position: absolute; z-index: 1000; top: var(--arriba); left: 10px; right: 10px;
+  position: absolute; z-index: 1000; top: var(--arriba);
+  /* D-59, 2: con el teléfono acostado, fuera de la muesca (antes 10px y 10px). */
+  left: max(10px, env(safe-area-inset-left)); right: max(10px, env(safe-area-inset-right));
   display: flex; align-items: center; gap: 8px;
 }
 .redondo {
@@ -109,6 +115,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .leaflet-control-zoom.leaflet-bar a:first-child { border-bottom: 1px solid var(--borde); }
 .leaflet-control-zoom.leaflet-bar a.leaflet-disabled { color: #b9c2c5; }
+.leaflet-right .leaflet-control-zoom.leaflet-bar { margin-right: max(12px, env(safe-area-inset-right)); } /* D-59, 2: muesca */
 
 /* ── Menú lateral izquierdo, cerrado al cargar ── */
 .velo { position: absolute; inset: 0; z-index: 1150; background: rgba(18, 38, 45, 0.28); }
@@ -353,7 +360,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ── Computadora: barra verde a todo lo ancho con ☰ y nombre; el menú queda
    pegado a la izquierda, debajo de la barra, y el mapa se recorre. ── */
-@media (min-width: 768px) {
+/* D-59, 2: computadora = ancho de 768 px o más Y alto de más de 500 px. Un teléfono
+   acostado (unos 844 × 390) se queda con la vista de teléfono. Igual en main.ts. */
+@media (min-width: 768px) and (min-height: 501px) {
   .barra {
     top: 0; left: 0; right: 0; height: 60px; padding: 0 12px; gap: 10px; z-index: 1300;
     background: var(--primario); box-shadow: 0 2px 10px rgba(18, 38, 45, 0.18);
