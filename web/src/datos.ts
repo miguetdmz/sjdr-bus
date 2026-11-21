@@ -15,6 +15,18 @@ export interface Sentido {
   fecha_consulta: string;
 }
 
+// D-50: extremo de la ruta como zona probable (scripts/datos-app.mjs).
+export interface ZonaExtremo {
+  lugar: string;
+  estado: string;
+  lat?: number;
+  lon?: number;
+  radio_m?: number;
+  fuente?: string;
+  cerca_de?: string;
+  faltante?: true;
+}
+
 export interface Ruta {
   route_id: string;
   numero: string;
@@ -24,6 +36,7 @@ export interface Ruta {
   nivel: 'A' | 'B' | 'C';
   fuente: string;
   fecha: string;
+  extremos: { origen: ZonaExtremo; destino: ZonaExtremo };
   sentidos?: { ida: Sentido; vuelta: Sentido };
 }
 

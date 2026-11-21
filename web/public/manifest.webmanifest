@@ -1,0 +1,19 @@
+{
+  "name": "SJDR Bus",
+  "short_name": "SJDR Bus",
+  "description": "Tiempos estimados de autobús para San Juan del Río, Qro. Iniciativa ciudadana independiente.",
+  "lang": "es-MX",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0d7a72",
+  "background_color": "#f4f2ec",
+  "icons": [
+    { "src": "iconos/icono.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "iconos/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "iconos/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "iconos/icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

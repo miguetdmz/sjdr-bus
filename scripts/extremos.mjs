@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// R-02 (D-24): origen y destino de las 42 rutas con coordenada.
+// R-02 (D-24): origen y destino de las 40 rutas vigentes (D-36) con coordenada.
 // Orden de fuentes: 1) coordenadas verificadas de HANDOFF §11.3; 2) parada de OSM
 // (N-08) con el mismo nombre; 3) Nominatim, una consulta por segundo, en caché.
 // Todo lo nuevo entra POR VERIFICAR. Lo que cae fuera del municipio, no coincide en
@@ -53,6 +53,8 @@ export const LUGARES = {
   'Valle Real': { q: 'Valle Real, San Juan del Río', nombres: ['VALLE REAL'] },
   'La Peña': { q: 'La Peña, San Juan del Río', nombres: ['LA PENA'] },
   'Francisco Villa': { q: 'Francisco Villa, San Juan del Río', nombres: ['FRANCISCO VILLA', 'COLONIA FRANCISCO VILLA'] },
+  // D-35: Miguel corrige el nombre del lugar (el inventario dice «Col. Industrial Nuevo San Juan»).
+  'Nuevo Parque Industrial': { q: 'Nuevo San Juan, San Juan del Río', nombres: ['NUEVO PARQUE INDUSTRIAL', 'PARQUE INDUSTRIAL NUEVO SAN JUAN', 'INDUSTRIAL NUEVO SAN JUAN'] },
   'Col. Industrial Nuevo San Juan': { q: 'Nuevo San Juan, San Juan del Río', nombres: ['INDUSTRIAL NUEVO SAN JUAN', 'COLONIA INDUSTRIAL NUEVO SAN JUAN', 'NUEVO SAN JUAN'] },
   'Pedregoso 2ª Sección': { q: 'Pedregoso 2a Sección, San Juan del Río', nombres: ['PEDREGOSO 2A SECCION', 'PEDREGOSO SEGUNDA SECCION', 'EL PEDREGOSO 2A SECCION'] },
   'San Isidro': { q: 'San Isidro, San Juan del Río', nombres: ['SAN ISIDRO'] },
@@ -63,14 +65,11 @@ export const LUGARES = {
   'Granjas Banthí': { q: 'Granjas Banthí, San Juan del Río', nombres: ['GRANJAS BANTHI'] },
   'Solares Banthí': { q: 'Solares Banthí, San Juan del Río', nombres: ['SOLARES BANTHI'] },
   'Barrio de la Cruz': { q: 'Barrio de la Cruz, San Juan del Río', nombres: ['BARRIO DE LA CRUZ'] },
-  'Nuevo San Isidro': { q: 'Nuevo San Isidro, San Juan del Río', nombres: ['NUEVO SAN ISIDRO'] },
   'Lomas del Pedregal': { q: 'Lomas del Pedregal, San Juan del Río', nombres: ['LOMAS DEL PEDREGAL'] },
   'Praderas del Sol': { q: 'Praderas del Sol, San Juan del Río', nombres: ['PRADERAS DEL SOL'] },
   'Las Torres': { q: 'Las Torres, San Juan del Río', nombres: ['LAS TORRES'] },
   'Rancho de Enmedio': { q: 'Rancho de Enmedio, San Juan del Río', nombres: ['RANCHO DE ENMEDIO', 'RANCHO DE EN MEDIO'] },
-  'PITSA': { q: 'PITSA, San Juan del Río', nombres: ['PITSA'], instalacion: true },
-  'Visthá': { q: 'Visthá, San Juan del Río', nombres: ['VISTHA'] },
-  'Visthá (CERESO)': { q: 'CERESO San Juan del Río', nombres: ['CERESO SAN JUAN DEL RIO', 'CERESO', 'CENTRO DE REINSERCION SOCIAL SAN JUAN DEL RIO'], instalacion: true },
+    'Visthá': { q: 'Visthá, San Juan del Río', nombres: ['VISTHA'] },
   'Manantiales / Nogales': { compuesto: 'el inventario nombra dos lugares como un solo extremo' },
   'Manantiales': { q: 'Manantiales, San Juan del Río', nombres: ['MANANTIALES'] },
   'Nogales': { q: 'Nogales, San Juan del Río', nombres: ['NOGALES', 'LOS NOGALES'] },
@@ -151,18 +150,33 @@ function resolver(lugar) {
   };
 }
 
+// D-35 (Miguel, 19 nov 2026): correcciones de conocimiento local. El nombre
+// de la ruta en routes.txt no cambia (es el del inventario y la página oficial);
+// solo el lugar donde se ubica el extremo.
+const CORRECCIONES = {
+  'Col. Industrial Nuevo San Juan': 'Nuevo Parque Industrial',
+  'La Rueda': 'Fracc. La Rueda', // es el mismo lugar: se elimina el duplicado
+  'Visthá (CERESO)': 'Visthá', // D-37: es el mismo lugar; el nombre correcto es «Visthá»
+};
+// Decisión que respalda cada corrección (va en el campo «correccion» de la ruta).
+const MARCA = { 'Visthá (CERESO)': 'D-37' };
+const corregir = (n) => CORRECCIONES[n] ?? n;
+
 const rutas = leerCSV(`${raiz}datos/gtfs-sjr/routes.txt`);
 const resueltos = new Map();
 const rut = rutas.map((r) => {
   const partes = r.route_long_name.split(' – ');
-  const [origen, destino] = [partes[0], partes.slice(1).join(' – ')];
+  const [origenInv, destinoInv] = [partes[0], partes.slice(1).join(' – ')];
   // «Manantiales – Nogales – IMSS» tiene tres nombres: origen = el primero,
   // destino = el último; el de en medio no es extremo.
-  const fin = partes.length > 2 ? partes.at(-1) : destino;
+  const finInv = partes.length > 2 ? partes.at(-1) : destinoInv;
+  const [origen, fin] = [corregir(origenInv), corregir(finInv)];
+  const corregidos = [origenInv, finInv].filter((n) => corregir(n) !== n);
   for (const l of [origen, fin]) if (!resueltos.has(l)) resueltos.set(l, resolver(l));
   return {
     route_id: r.route_id, numero: r.route_short_name, nombre: r.route_long_name,
     origen: origen, destino: fin,
+    correccion: corregidos.length ? corregidos.map((n) => `${MARCA[n] ?? 'D-35'}: «${n}» se ubica como «${corregir(n)}» (Miguel, 19 nov 2026)`).join('; ') : undefined,
     nota: partes.length > 2 ? `el nombre trae ${partes.length} lugares; «${partes.slice(1, -1).join(', ')}» queda como punto intermedio, no extremo` : undefined,
     sentidos: 'sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido',
   };

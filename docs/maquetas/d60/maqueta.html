@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<title>Maqueta D-60 · SJDR Bus · ESQUEMÁTICO</title>
+<!-- D-60 · maqueta (D-54). Parte de la de D-59 y cambia solo lo que pidió Miguel al
+     probar acostado en su iPhone (21 nov 2026, 1:42 am): (1) el zoom se encima con el
+     botón de paradas: bajarlo; (2) en el menú, subir «Rutas / Calcula tu ruta» y
+     quitar espacio abajo (donde termina el pie) para ver más tarjetas. Solo en
+     pantallas bajas (alto de 500 px o menos). Marca «D-60».
+     Lo de abajo es el encabezado de D-59:
+     D-59 · maqueta (D-54). Parte de la de D-58 (tarjeta de ruta en esquina suave, ya
+     aprobada) y cambia solo lo que pidió Miguel al probar en su teléfono (21 nov 2026,
+     12:59 am): (1) el pellizco acerca solo el mapa: la página, la barra y los botones
+     no se agrandan; (2) con el teléfono acostado se ve igual que parado (☰, buscador,
+     botón de paradas y menú), no como computadora. Cada cambio lleva la marca «D-59».
+     Lo de abajo es el encabezado de D-58:
+     D-58 · maqueta (D-54). Parte de la de D-57 (docs/maquetas/d57/) y cambia solo lo
+     que pidió Miguel (21 nov 2026, 12:34 am): (1) control de zoom «+ / −» en forma de
+     píldora, en teléfono y computadora; (2) formato píldora en los cuadros que apliquen
+     y quepan. Cada cambio lleva la marca «D-58» en su regla. Lo que no cambió, y por
+     qué, está en docs/maquetas/d58/inventario.md.
+     Tarjetas de ruta: sin cambio por omisión (no caben en píldora en teléfono, medido);
+     opciones para Miguel con ?tarjeta=pildora | suave (ver la regla «D-58, 2»).
+     Lo de abajo es el encabezado de D-57:
+     D-57 · maqueta (D-54). Parte de la de D-55 (docs/maquetas/d55/) y cambia solo la
+     pestaña «Calcula tu ruta»: la parada más cercana arriba, con menos texto, y
+     «¿A dónde quieres ir?» abajo (pedido de Miguel, 20 nov 2026, 10:55 pm).
+     Vistas nuevas: ?vista=destino (antes de ubicarte) | ubicado (después) | parada-mapa
+     (al tocar la línea de la parada: ajuste de Miguel, 11:07 pm).
+     Lo de abajo es el encabezado de D-55:
+     D-55 · maqueta (D-54). Parte de la maqueta aprobada de D-53 (docs/maquetas/d53/)
+     y cambia solo lo que pide D-55: (1) bienvenida «Así funciona» y (2) tarjetas
+     parejas, con la insignia más grande y el nombre sin negritas y más chico.
+     Datos reales: ../d53/datos-maqueta.js (sale de web/public/datos con armar-datos.mjs).
+     Mapa real: Leaflet + OpenStreetMap (regla 6). Nunca se publica como la app.
+     Vistas: ?vista=bienvenida | menu (las de D-53 siguen: inicio | detalle | ruta | paradas | destino) -->
+<link rel="stylesheet" href="../../../node_modules/leaflet/dist/leaflet.css" />
+<style>
+:root {
+  --tinta: #12262d; --primario: #0d7a72; --primario-suave: #e3f2ef;
+  --acento: #f0a032; --acento-suave: #fdf0dc; --fondo: #f4f2ec; --tarjeta: #fff;
+  --suave: #566870; --borde: #e3e0d8; --sombra: 0 10px 30px rgba(18, 38, 45, .16);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: var(--tinta); background: var(--fondo);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+/* D-59, 1: la página no se acerca con el pellizco ni con doble toque; solo el mapa
+   (Leaflet maneja su propio pellizco). El menú sigue con su scroll. */
+html, body { touch-action: pan-x pan-y; }
+button { font: inherit; color: inherit; }
+.app { position: fixed; inset: 0; overflow: hidden; }
+.mapa { position: absolute; inset: 0; }
+.leaflet-tile-pane { filter: grayscale(.82) brightness(1.05) contrast(.9) sepia(.08); }
+/* D-58, 1: control de zoom visible, una píldora vertical blanca con «+» arriba y «−»
+   abajo, del mismo estilo que los botones redondos. En teléfono va abajo a la derecha,
+   por encima del chip de ruta; en computadora, abajo a la derecha. */
+.leaflet-control-zoom.leaflet-bar {
+  border: 0; border-radius: 999px; overflow: hidden; background: var(--tarjeta);
+  box-shadow: var(--sombra); margin: 0 12px 116px 0;
+}
+.leaflet-control-zoom.leaflet-bar a {
+  width: 46px; height: 46px; line-height: 44px; font-size: 24px; font-weight: 500;
+  color: var(--tinta); background: var(--tarjeta); border: 0; border-radius: 0;
+}
+.leaflet-control-zoom.leaflet-bar a:first-child { border-bottom: 1px solid var(--borde); }
+.leaflet-control-zoom.leaflet-bar a.leaflet-disabled { color: #b9c2c5; }
+
+/* ── Barra de arriba (teléfono): ☰ · «¿A dónde quieres ir?» · paradas ── */
+.barra {
+  position: absolute; z-index: 1000; top: 10px; left: 10px; right: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.redondo {
+  flex: none; width: 52px; height: 52px; border: 0; border-radius: 50%;
+  background: var(--tarjeta); box-shadow: var(--sombra); display: grid; place-items: center; cursor: pointer;
+  color: var(--tinta);
+}
+.redondo.paradas { color: var(--primario); }
+.redondo.paradas.activo { background: var(--primario); color: #fff; }
+.marca-barra { display: none; }
+.buscar {
+  flex: 1; min-width: 0; height: 52px; border: 0; border-radius: 26px; background: var(--tarjeta);
+  box-shadow: var(--sombra); display: flex; align-items: center; gap: 10px; padding: 0 16px;
+  font-size: 16px; font-weight: 600; color: var(--suave); text-align: left; cursor: text;
+}
+.buscar svg { flex: none; }
+
+.pie {
+  /* D-53, ajuste de Miguel (6:49 pm): todo lo legal junto, abajo, chico y en verde:
+     leyenda de iniciativa, sello de maqueta y atribución de OpenStreetMap (regla 6). */
+  position: absolute; z-index: 1250; left: 0; right: 0; bottom: 0; margin: 0; padding: 3px 10px;
+  font-size: 9px; line-height: 1.3; text-align: center; color: var(--primario);
+  /* Ajuste 2 (6:57 pm): sin fondo, pegado abajo; un halo blanco lo deja leer sobre el mapa. */
+  background: none; padding: 1px 10px 2px; text-shadow: 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #fff;
+}
+.pie a { color: inherit; }
+.aviso-mapa {
+  position: absolute; z-index: 950; left: 50%; transform: translateX(-50%); bottom: 25px;
+  max-width: calc(100% - 24px); padding: 0 10px; background: none; text-shadow: 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #fff;
+  font-size: 11px; line-height: 1.35; text-align: center; white-space: nowrap; color: var(--primario);
+}
+
+/* Ruta elegida con el menú cerrado: chip abajo */
+.chip-ruta {
+  position: absolute; z-index: 950; left: 12px; right: 12px; bottom: 44px;
+  display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 10px;
+  border-radius: 999px; background: var(--tarjeta); box-shadow: var(--sombra); /* D-58: píldora (antes 18px) */
+}
+.chip-ruta .camion { font-size: 19px; padding: 6px 11px 6px 9px; border-radius: 999px; } /* D-58: píldora (antes 10px) */
+.chip-ruta .camion svg { width: 19px; height: 19px; }
+.chip-ruta .nombre-chip { flex: 1; min-width: 0; font-size: 13.5px; font-weight: 700; line-height: 1.25; }
+.chip-ruta .nombre-chip small { display: block; font-weight: 500; color: var(--suave); font-size: 11.5px; }
+.chip-ruta .ver { flex: none; min-height: 44px; padding: 0 14px; border: 0; border-radius: 22px; background: var(--primario); color: #fff; font-weight: 700; font-size: 14px; }
+
+/* ── Menú lateral ── */
+.velo { position: absolute; inset: 0; z-index: 1150; background: rgba(18,38,45,.28); }
+.hoja {
+  position: absolute; z-index: 1200; top: 0; left: 0; bottom: 0; width: min(380px, 88vw);
+  background: var(--tarjeta); display: flex; flex-direction: column;
+  border-radius: 0 22px 0 0; box-shadow: var(--sombra); padding: 14px 16px 36px;
+}
+.cerrado .hoja, .cerrado .velo { display: none; }
+.hoja-cabeza { flex: none; display: flex; align-items: center; gap: 10px; padding-bottom: 10px; }
+.logo { width: 34px; height: 34px; border-radius: 50%; /* D-58: círculo (antes 10px) */ background: var(--primario); display: grid; place-items: center; }
+.hoja-marca { flex: 1; min-width: 0; }
+.nombre-app { margin: 0; font-size: 16px; line-height: 1.2; }
+.leyenda { margin: 0; font-size: 11px; color: var(--suave); }
+.cerrar { flex: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--fondo); display: grid; place-items: center; }
+
+/* Pestañas arriba (D-53, 8) */
+.pestanas { flex: none; display: grid; grid-template-columns: 1fr 1fr; margin: 0 -16px 12px; border-bottom: 1px solid var(--borde); }
+.pestanas button {
+  min-height: 46px; border: 0; background: none; font-size: 13px; font-weight: 700; color: var(--suave);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.pestanas .activo { color: var(--primario); box-shadow: inset 0 -3px 0 var(--primario); }
+
+.hoja-cuerpo { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: none; display: flex; flex-direction: column; }
+.hoja-cuerpo > * { flex-shrink: 0; }
+/* Ajuste 2 (6:57 pm): las leyendas (estimado, maqueta, próximamente) juntas, hasta abajo. */
+.leyendas { margin-top: auto; padding-top: 18px; display: grid; gap: 4px; }
+.leyendas p { margin: 0; }
+.titulo-seccion { margin: 0 0 8px; font-size: 12px; font-weight: 700; color: var(--suave); text-transform: uppercase; letter-spacing: .05em; }
+.fila-titulo { display: flex; align-items: center; justify-content: space-between; }
+.borrar { min-height: 36px; padding: 0 12px; border: 0; border-radius: 18px; background: var(--fondo); font-size: 12px; font-weight: 700; color: var(--suave); }
+.aviso-colores { margin: 2px 0 8px; font-size: 10.5px; line-height: 1.35; color: var(--suave); }
+.recientes { margin-bottom: 12px; }
+
+/* Tarjetas (D-53, 3 y 4): sin «Ruta 001», 20 colores.
+   D-55, 2: todas del mismo alto (fijo, no según las líneas del nombre); insignia
+   más grande (11 → 14 px); nombre sin negritas y más chico (10 → 9.5 px, hasta 3 líneas). */
+.rejilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+.tarjeta {
+  display: grid; justify-items: start; align-content: start; gap: 4px; height: 76px; overflow: hidden;
+  padding: 6px 6px 6px; border: 0; border-radius: 10px; background: var(--c); color: var(--ct);
+  text-align: left; box-shadow: 0 1px 4px rgba(18,38,45,.14);
+}
+.camion {
+  display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px 2px 5px; border-radius: 999px; /* D-58: píldora (antes 7px) */
+  background: #fff; color: var(--ci); font-size: 14px; font-weight: 800; line-height: 1.25;
+}
+.camion svg { width: 14px; height: 14px; }
+.tarjeta-nombre {
+  font-size: 9.5px; font-weight: 400; line-height: 1.25;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* D-55, 2 · últimos cambios (Miguel, 20 nov 2026): la tarjeta partida a la mitad
+   (9:58 pm). Izquierda: el camión de frente arriba (casi 3/4) y la insignia abajo.
+   Derecha: inicio – fin en letra chica, sin negritas. 10:02 pm: 3 columnas como
+   antes, tarjeta más alta lo justo para que quepa el nombre, mismo espacio arriba
+   y abajo, para ver la mayor cantidad de rutas en la pantalla. Todas del mismo alto. */
+.tarjeta.partida {
+  grid-template-columns: 36px minmax(0, 1fr); align-items: center; justify-items: stretch;
+  align-content: center; gap: 0 3px; height: var(--alto, 70px); padding: 4px 3px;
+}
+.lado { display: grid; justify-items: center; align-content: center; gap: 1px; }
+.lado svg { display: block; width: 30px; height: 30px; }
+.insignia {
+  padding: 0 4px; border-radius: 999px; background: #fff; color: var(--ci); /* D-58: píldora (antes 4px y 0 3px) */
+  font-size: 11.5px; font-weight: 800; line-height: 1.3; white-space: nowrap; letter-spacing: -0.03em;
+}
+/* 10:10 pm: la letra se ajusta a cada tarjeta (más chica y delgada si el nombre es
+   largo, más grande si es corto) para que se vea apretada y pareja; sin guiones. */
+.tarjeta.partida .tarjeta-nombre {
+  display: block; -webkit-line-clamp: none; overflow: hidden; align-self: stretch;
+  align-content: center; display: grid;
+  hyphens: manual; overflow-wrap: normal; line-height: 1.12; letter-spacing: -0.015em;
+}
+.tarjeta.partida .tarjeta-nombre > span { display: block; }
+.tarjeta.partida .tarjeta-nombre b { font-weight: inherit; white-space: nowrap; }
+/* Computadora: 3 columnas (Miguel, 10:20 pm; antes 4): con 4, 10 nombres no cabían. */
+@media (min-width: 768px) and (min-height: 501px) { .tarjeta.partida { height: var(--alto, 60px); } }
+/* D-58, 2: la tarjeta de ruta en píldora. Mismo alto, mismas 3 columnas y la misma
+   letra que se ajusta (D-55); solo cambian la esquina y el margen de adentro, para que
+   la curva no corte el camión ni el nombre.
+   Medido (21 nov 2026, script de capturas): en teléfono, con píldora completa, 10 nombres no caben (la tarjeta
+   mide 100 × 70 px y las puntas redondas se comen 70 de los 100). Por eso la tarjeta
+   NO se cambia por omisión (lección 14) y las opciones se ven con ?tarjeta=:
+   pildora = píldora completa · suave = esquina de 22 px · antes = como en D-57. */
+.t-pildora .tarjeta.partida { border-radius: 999px; padding: 4px 11px 4px 9px; }
+.t-pildora .tarjeta.partida .tarjeta-nombre { margin: 6px 0; }
+.t-suave .tarjeta.partida { border-radius: 22px; padding: 4px 3px 4px 4px; }
+
+/* D-55, 1: bienvenida «Así funciona» (referencia de Miguel: tarjeta blanca abajo a
+   la izquierda sobre el mapa, pasos numerados en círculo, verbo en negritas, X). */
+.bienvenida {
+  position: absolute; z-index: 1260; left: 10px; right: 10px; bottom: 30px;
+  padding: 16px 16px 12px; border-radius: 18px; background: var(--tarjeta); box-shadow: var(--sombra);
+}
+.bienvenida-cabeza { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.bienvenida h2 { margin: 0; font-size: 19px; }
+.bienvenida .cerrar { background: none; margin: -8px -8px -8px 0; }
+.pasos { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.pasos li { display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: start; font-size: 14.5px; line-height: 1.35; }
+.num { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 15px; background: var(--primario-suave); color: var(--primario); }
+.pasos li:nth-child(3) .num { background: var(--acento-suave); color: #8a5300; }
+.acciones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+.acciones button { min-height: 46px; border-radius: 999px; /* D-58: píldora (antes 12px) */ font-size: 14px; font-weight: 700; }
+.acciones .lleno { border: 0; background: var(--primario); color: #fff; }
+.acciones .borde { border: 2px solid var(--primario); background: var(--tarjeta); color: var(--primario); }
+.bienvenida .recuerda { margin: 10px 0 0; font-size: 11px; line-height: 1.35; text-align: center; color: var(--suave); }
+
+/* Detalle (D-52 + D-53): el sentido vive dentro del menú, sin «Ruta 001» */
+.cambiar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.cambiar button { min-height: 40px; padding: 0 14px; border: 0; border-radius: 20px; background: var(--fondo); font-size: 13px; font-weight: 700; color: var(--suave); }
+.enc-ruta { display: flex; align-items: center; gap: 10px; padding: 10px 18px 10px 12px; border-radius: 999px; /* D-58: píldora (antes 16px y 10px 12px) */ background: var(--c); color: var(--ct); }
+.enc-ruta .camion { font-size: 16px; padding: 4px 9px 4px 7px; border-radius: 999px; } /* D-58: píldora (antes 8px) */
+.enc-ruta .camion svg { width: 16px; height: 16px; }
+.enc-ruta .enc-nombre { font-size: 16px; font-weight: 700; line-height: 1.25; }
+.detalle { margin-top: 10px; padding: 12px 14px; border-radius: 16px; background: var(--primario-suave); display: grid; gap: 12px; font-size: 14.5px; }
+.segmento { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; border-radius: 22px; background: var(--tarjeta); }
+.segmento span { display: grid; place-content: center; min-height: 44px; padding: 4px 8px; border-radius: 19px; font-weight: 700; font-size: 14px; color: var(--suave); text-align: center; }
+.segmento span small { font-weight: 500; font-size: 10.5px; }
+.segmento .sel { background: var(--primario); color: #fff; }
+.renglon { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-weight: 600; }
+.renglon .valor { font-weight: 800; }
+.renglon .icono { display: inline-grid; color: var(--primario); }
+.chip-tipo { padding: 2px 10px; border-radius: 12px; font-size: 12.5px; font-weight: 700; background: var(--tarjeta); color: var(--primario); }
+.duracion { display: inline-flex; align-items: center; gap: 5px; color: var(--primario); }
+.duracion i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .55; }
+.detalle-pie { padding-top: 8px; border-top: 1px solid var(--borde); font-size: 11.5px; color: var(--suave); }
+.etiqueta { display: inline-block; padding: 1px 7px; font-size: 10px; font-weight: 800; letter-spacing: .04em; border-radius: 999px; /* D-58: píldora (antes 5px y 1px 6px) */ background: var(--acento-suave); color: #8a5300; border: 1px solid #f3cf95; }
+
+/* «¿A dónde quieres ir?» (D-53, 7) */
+.campo {
+  display: flex; align-items: center; gap: 10px; height: 50px; padding: 0 14px; border-radius: 25px;
+  border: 2px solid var(--primario); background: var(--tarjeta); font-size: 16px; font-weight: 600;
+}
+.campo .cursor { width: 2px; height: 22px; background: var(--primario); margin-left: -8px; }
+.bloque { margin-top: 14px; }
+.resultado {
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; padding: 8px 12px;
+  border: 0; border-radius: 999px; background: var(--fondo); text-align: left; font-size: 14px; font-weight: 700; /* D-58: píldora (antes 14px) */
+  padding-left: 16px; padding-right: 16px;
+}
+.resultado small { display: block; font-weight: 500; font-size: 11.5px; color: var(--suave); }
+.resultado.elegido { background: var(--primario-suave); box-shadow: inset 0 0 0 2px var(--primario); }
+.rejilla.cerca .tarjeta { height: 74px; }
+.rejilla.cerca .tarjeta-nombre { -webkit-line-clamp: 2; }
+.tarjeta .dist { margin-top: auto; font-size: 10px; font-weight: 700; opacity: .92; }
+.ubicacion { width: 100%; min-height: 46px; border: 0; border-radius: 23px; background: var(--primario); color: #fff; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; }
+/* D-57: la parada más cercana, arriba y corta. Un botón; al ubicarte, una línea con
+   la parada y su distancia, y abajo «estimado · en línea recta · por verificar». */
+.mi-parada { margin-bottom: 14px; }
+/* Ajuste (Miguel, 11:07 pm): puros botones. La línea de la parada es un botón que
+   la muestra en el mapa con su ficha; a la derecha, un botón de ícono (ubicación
+   con flecha de actualizar) vuelve a leer el GPS, sin texto. */
+.parada-hallada { display: flex; align-items: stretch; gap: 8px; }
+.ver-parada {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 8px 16px 8px 16px;
+  border: 0; border-radius: 999px; /* D-58: píldora (antes 14px y 8px 10px 8px 12px) */ background: var(--primario-suave); box-shadow: inset 0 0 0 2px var(--primario);
+  text-align: left; cursor: pointer;
+}
+.ver-parada svg { flex: none; }
+.ver-parada b { display: block; font-size: 14px; }
+.ver-parada small { display: block; font-size: 11.5px; color: var(--suave); }
+.ver-parada .flecha { margin-left: auto; color: var(--primario); }
+.otra {
+  flex: none; width: 52px; height: 52px; align-self: center; border: 0; border-radius: 50%; background: var(--primario); color: #fff; /* D-58: círculo (antes 14px) */
+  display: grid; place-items: center; cursor: pointer;
+}
+.ficha-parada { display: grid; gap: 2px; font: 13px/1.4 system-ui, -apple-system, sans-serif; color: var(--tinta); }
+.ficha-parada b { font-size: 14px; }
+.ficha-parada span { color: var(--suave); }
+.ficha-parada .marca-verificar { color: #8a5300; font-weight: 800; letter-spacing: 0.03em; }
+/* Las tarjetas de «cerca» igual que en la app (D-53): D-57 no las cambia (lección 14). */
+.rejilla.cerca .tarjeta { gap: 3px; padding: 5px 6px 6px; }
+.rejilla.cerca .camion { font-size: 11px; padding: 1px 5px 1px 4px; border-radius: 6px; letter-spacing: -0.01em; }
+.rejilla.cerca .camion svg { width: 11px; height: 11px; }
+.rejilla.cerca .tarjeta-nombre { font-size: 10px; font-weight: 700; line-height: 1.2; }
+.nota { margin: 6px 0 0; font-size: 10.5px; line-height: 1.4; color: var(--primario); }
+.proximamente { margin: 0; font-size: 10.5px; line-height: 1.4; color: var(--primario); }
+
+/* Marcadores */
+.pin { background: none; border: 0; }
+.pin svg { display: block; filter: drop-shadow(0 2px 3px rgba(18,38,45,.35)); }
+.etq-zona { background: none; border: 0; display: flex; justify-content: center; }
+.etq-zona span { padding: 3px 9px; border-radius: 13px; font-size: 12px; font-weight: 800; color: #fff; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(18,38,45,.3); white-space: nowrap; }
+.yo { width: 16px; height: 16px; border-radius: 50%; background: #1d5b8f; border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(29,91,143,.25); }
+
+/* D-59, 2: teléfono acostado = como teléfono parado. Respeta la muesca (la barra y
+   el zoom no se meten debajo de ella). */
+.barra { left: max(10px, env(safe-area-inset-left)); right: max(10px, env(safe-area-inset-right)); }
+.leaflet-right .leaflet-control-zoom.leaflet-bar { margin-right: max(12px, env(safe-area-inset-right)); }
+
+/* D-60 (Miguel, 21 nov 2026, 1:42 am): pantalla baja (teléfono acostado, 500 px de
+   alto o menos). (1) El zoom baja hasta arriba del pie para no encimarse con el botón
+   de paradas; con una ruta elegida va al lado del chip (el chip deja libre la orilla
+   derecha). (2) El menú sube: menos aire arriba, bajo la cabeza y bajo las pestañas,
+   y abajo solo el renglón del pie. */
+@media (max-height: 500px) {
+  .leaflet-control-zoom.leaflet-bar { margin-bottom: 30px; }
+  /* Ajuste (Miguel, 1:49 am): con ruta elegida, el chip va a la izquierda y en
+     vertical, tres píldoras apiladas (insignia, nombre, «Ver detalle»), 30 % más
+     chico en letra, íconos y márgenes, para que se vea el mapa. «Ver detalle» se ve
+     de 31 px pero se puede tocar en 44 px (área táctil mínima). */
+  .chip-ruta {
+    right: auto; left: max(12px, env(safe-area-inset-left)); bottom: 26px;
+    flex-direction: column; align-items: flex-start; gap: 4px; max-width: 190px;
+    padding: 0; background: none; box-shadow: none; border-radius: 0;
+  }
+  .chip-ruta .camion { font-size: 13px; padding: 4px 8px 4px 6px; box-shadow: var(--sombra); }
+  .chip-ruta .camion svg { width: 13px; height: 13px; }
+  .chip-ruta .nombre-chip {
+    flex: none; padding: 5px 11px; border-radius: 999px; background: var(--tarjeta);
+    box-shadow: var(--sombra); font-size: 9.5px;
+  }
+  .chip-ruta .nombre-chip small { font-size: 8px; }
+  .chip-ruta .ver { position: relative; min-height: 31px; padding: 0 10px; border-radius: 999px; font-size: 10px; box-shadow: var(--sombra); }
+  .chip-ruta .ver::after { content: ''; position: absolute; inset: -7px -4px; }
+  .hoja { padding-top: 6px; padding-bottom: 18px; }
+  .hoja-cabeza { padding-bottom: 0; }
+  .pestanas { margin-bottom: 6px; }
+}
+
+/* ── Computadora ── D-59, 2: ancho de 768 px o más Y alto de más de 500 px. Un
+   teléfono acostado (unos 844 × 390) se queda con la vista de teléfono. */
+@media (min-width: 768px) and (min-height: 501px) {
+  .barra { top: 0; left: 0; right: 0; height: 60px; padding: 0 12px; gap: 10px; background: var(--primario); box-shadow: 0 2px 10px rgba(18,38,45,.18); z-index: 1300; }
+  .redondo.menu { width: 48px; height: 48px; border-radius: 12px; background: transparent; box-shadow: none; color: #fff; }
+  .marca-barra { display: block; color: #fff; font-size: 20px; font-weight: 800; margin-right: 16px; }
+  .buscar { flex: 0 1 460px; height: 44px; box-shadow: none; font-size: 15px; }
+  .redondo.paradas { width: 44px; height: 44px; box-shadow: none; }
+  .redondo.paradas.activo { background: var(--acento); color: var(--tinta); }
+  .pie { text-align: right; font-size: 10px; }
+  .aviso-mapa { bottom: 16px; }
+  .chip-ruta { bottom: 32px; }
+  .mapa { top: 60px; }
+  .abierto .mapa { left: 400px; }
+  .abierto .aviso-mapa, .abierto .chip-ruta { left: 400px; }
+  .abierto .aviso-mapa { transform: none; left: calc(400px + (100% - 400px) / 2); translate: -50% 0; }
+  .velo { display: none !important; }
+  .hoja { top: 60px; width: 400px; border-radius: 0; box-shadow: 1px 0 0 var(--borde); padding: 0 16px 24px; }
+  .hoja-cabeza { display: none; }
+  .pestanas button { min-height: 52px; font-size: 14px; }
+  .rejilla { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; } /* D-55: 3 columnas (10:20 pm) */
+  .rejilla.cerca { grid-template-columns: repeat(4, minmax(0, 1fr)); } /* como en la app (D-53); D-57 no lo cambia */
+  .chip-ruta { left: auto; right: auto; width: 420px; left: 50%; transform: translateX(-50%); }
+  .bienvenida { left: 16px; right: auto; bottom: 28px; width: 400px; padding: 20px 20px 14px; }
+  .bienvenida h2 { font-size: 21px; }
+}
+</style>
+</head>
+<body>
+<div class="app cerrado" id="app">
+  <main id="mapa" class="mapa" aria-label="Mapa de San Juan del Río"></main>
+  <header class="barra">
+    <button class="redondo menu" aria-label="Menú"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <span class="marca-barra">SJDR Bus</span>
+    <button class="buscar" id="buscar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d7a72" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>¿A dónde quieres ir?</button>
+    <button class="redondo paradas" id="boton-paradas" aria-label="Ver paradas" aria-pressed="false"></button>
+  </header>
+  <p class="pie">Iniciativa ciudadana independiente · no oficial · datos en proceso de validación · Maqueta D-60 · ESQUEMÁTICO · <a href="https://leafletjs.com">Leaflet</a> | © <a href="https://www.openstreetmap.org/copyright">colaboradores de OpenStreetMap</a></p>
+  <div id="flotante"></div>
+  <div class="velo"></div>
+  <aside class="hoja" aria-label="Menú de SJDR Bus">
+    <div class="hoja-cabeza">
+      <div class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 21v-3M16 21v-3"/></svg></div>
+      <div class="hoja-marca"><h1 class="nombre-app">SJDR Bus</h1><p class="leyenda">Iniciativa ciudadana independiente</p></div>
+      <button class="cerrar" aria-label="Cerrar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#12262d" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <nav class="pestanas">
+      <button id="p-rutas" class="activo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5" stroke-dasharray="3 3"/></svg>Rutas</button>
+      <button id="p-calcula"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Calcula tu ruta</button>
+    </nav>
+    <div class="hoja-cuerpo" id="cuerpo"></div>
+  </aside>
+</div>
+<script src="../../../node_modules/leaflet/dist/leaflet.js"></script>
+<script src="../d53/datos-maqueta.js"></script>
+<script>
+const { rutas, paradas } = window.MAQUETA;
+const vista = new URLSearchParams(location.search).get('vista') || 'inicio';
+const app = document.getElementById('app');
+const cuerpo = document.getElementById('cuerpo');
+const flotante = document.getElementById('flotante');
+
+// Pictograma del pin de parada (D-49), en versión de botón: camión de frente.
+const BUS = (c = 'currentColor', v = '#fff') => `<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="2.5" width="15" height="15" rx="3" fill="${c}"/><rect x="6.5" y="4.6" width="11" height="5.6" rx="1" fill="${v}"/><circle cx="8.3" cy="13.8" r="1.2" fill="${v}"/><circle cx="15.7" cy="13.8" r="1.2" fill="${v}"/><rect x="6" y="17.5" width="3" height="3" rx=".7" fill="${c}"/><rect x="15" y="17.5" width="3" height="3" rx=".7" fill="${c}"/></svg>`;
+// Ajuste 2 (6:57 pm): parada como círculo levantado; una guía de puntitos baja al punto exacto.
+// Ajuste 3 (7:03 pm): el círculo lleva el camión de frente.
+const PARADA = '<svg width="26" height="44" viewBox="0 0 26 44" aria-hidden="true"><line x1="13" y1="25" x2="13" y2="40" stroke="#0d7a72" stroke-width="2" stroke-dasharray="0.1 3.4" stroke-linecap="round"/><circle cx="13" cy="41.5" r="2.2" fill="#0d7a72" stroke="#fff" stroke-width="1"/><circle cx="13" cy="13" r="11" fill="#0d7a72" stroke="#fff" stroke-width="2.5"/><rect x="8" y="6.5" width="10" height="10" rx="2" fill="#fff"/><rect x="9.3" y="7.9" width="7.4" height="3.6" rx=".6" fill="#0d7a72"/><circle cx="10.3" cy="14.2" r=".9" fill="#0d7a72"/><circle cx="15.7" cy="14.2" r=".9" fill="#0d7a72"/><rect x="8.9" y="16.5" width="2" height="2" rx=".5" fill="#fff"/><rect x="15.1" y="16.5" width="2" height="2" rx=".5" fill="#fff"/></svg>';
+const icParada = () => icono(PARADA, [26, 44], [13, 41.5]);
+const PIN = '<svg width="30" height="38" viewBox="0 0 30 38"><path d="M15 37s12-12.2 12-22A12 12 0 0 0 3 15c0 9.8 12 22 12 22z" fill="#0d7a72" stroke="#fff" stroke-width="2"/><rect x="8" y="6" width="14" height="13" rx="2.6" fill="#fff"/><rect x="9.8" y="8" width="10.4" height="5" rx="1" fill="#0d7a72"/><path d="M15 8v5" stroke="#fff" stroke-width="1.2"/><circle cx="11.2" cy="16.2" r="1.1" fill="#0d7a72"/><circle cx="18.8" cy="16.2" r="1.1" fill="#0d7a72"/><rect x="9.4" y="18.4" width="2.8" height="2.4" rx=".6" fill="#fff"/><rect x="17.8" y="18.4" width="2.8" height="2.4" rx=".6" fill="#fff"/></svg>';
+const BUS_CHICO = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 10h14"/><circle cx="9" cy="13.5" r=".7" fill="currentColor"/><circle cx="15" cy="13.5" r=".7" fill="currentColor"/><path d="M8 20v-3M16 20v-3"/></svg>';
+const RELOJ = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>';
+const PARADAS_ICONO = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><path d="M6 8v8"/></svg>';
+document.getElementById('boton-paradas').innerHTML = BUS();
+
+// D-53, 4: 20 colores propios en rotación, todos con contraste AA (≥ 4.5:1)
+// con su texto. Las intermunicipales llevan uno aparte. Ninguno es oficial.
+const OSCURO = '#12262d';
+const ROTACION = ['#0d7a72', '#b5462c', '#1d5b8f', '#f0a032', '#12262d', '#2e7d32', '#9c3d6e', '#8a5a00', '#0f6e8c', '#c2410c',
+  '#3d5a40', '#e8b84a', '#7a3b2e', '#1b7f5a', '#a33b3b', '#5b6b2f', '#9ad1c8', '#2f4a6d', '#f2c6a0', '#6d4c41'];
+const CLAROS = new Set(['#f0a032', '#e8b84a', '#9ad1c8', '#f2c6a0']);
+const INTER = '#4b3f8f';
+const color = (i) => {
+  const r = rutas[i];
+  const fondo = r.tipo === 'intermunicipal' ? INTER : ROTACION[rutas.slice(0, i).filter((x) => x.tipo === 'urbana').length % ROTACION.length];
+  const claro = CLAROS.has(fondo);
+  return { fondo, texto: claro ? OSCURO : '#fff', insignia: claro ? OSCURO : fondo };
+};
+// Insignia (D-50, 2): R urbanas, T intermunicipales, sin ceros. «Ruta 001» no se ve (D-53, 6:23 pm).
+const insignia = (r) => (r.tipo === 'intermunicipal' ? 'T' : 'R') + r.numero.replace(/^0+(?=\d)/, '');
+const camion = (t) => `<span class="camion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 10h14M8 20v-3M16 20v-3"/></svg><strong>${t}</strong></span>`;
+const estilo = (i) => { const c = color(i); return `--c:${c.fondo};--ct:${c.texto};--ci:${c.insignia}`; };
+// D-55 (9:58 pm): tarjeta partida. El camión de frente es el mismo pictograma del botón
+// de paradas: cuerpo del color del texto, ventanas del color de la tarjeta.
+const tarjeta = (i) => {
+  const c = color(i);
+  return `<button class="tarjeta partida" style="${estilo(i)}"><span class="lado">${BUS(c.texto, c.fondo)}<span class="insignia">${insignia(rutas[i])}</span></span><span class="tarjeta-nombre">${rutas[i].nombre}</span></button>`;
+};
+// 10:10 pm: el nombre toma el tamaño de letra más grande (de 11 a 7.5 px) que cabe
+// completo en su mitad de la tarjeta sin partir palabras. Debajo de 9 px, letra delgada.
+function ajustarLetra() {
+  for (const n of document.querySelectorAll('.tarjeta.partida .tarjeta-nombre')) {
+    // El guion «–» se pega a la palabra vecina más corta: nunca queda solo en un renglón.
+    const pal = n.textContent.split(' ');
+    pal.forEach((w, k) => { if (w === '–' && k > 0 && k < pal.length - 1) {
+      if (pal[k - 1].length <= pal[k + 1].length) { pal[k - 1] = `<b>${pal[k - 1]} –</b>`; pal[k] = ''; }
+      else { pal[k + 1] = `<b>– ${pal[k + 1]}</b>`; pal[k] = ''; } } });
+    n.innerHTML = `<span>${pal.filter(Boolean).join(' ')}</span>`; const s = n.firstChild;
+    let f = 11;
+    for (; f > 7.5; f -= 0.25) {
+      s.style.fontSize = f + 'px'; s.style.fontWeight = f < 9 ? '300' : '400';
+      if (s.scrollWidth <= n.clientWidth && s.getBoundingClientRect().height <= n.clientHeight - 4) break; // 2 px libres arriba y abajo
+    }
+    n.dataset.letra = f;
+  }
+}
+const ALTO = new URLSearchParams(location.search).get('alto'); // solo para medir el alto mínimo
+if (ALTO) document.documentElement.style.setProperty('--alto', ALTO);
+const idx = (num) => rutas.findIndex((r) => r.numero === num);
+
+// Distancia en línea recta (haversine), en metros.
+const dist = (a, b) => {
+  const R = 6371000, rad = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * rad, dLon = (b.lon - a.lon) * rad;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+};
+const redondeo = (m) => (m < 1000 ? `${Math.round(m / 10) * 10} m` : `${(m / 1000).toFixed(1)} km`);
+
+// ── Mapa real ──
+const escritorio = matchMedia('(min-width: 768px) and (min-height: 501px)').matches; // D-59, 2
+const mapa = L.map('mapa', { zoomControl: false, attributionControl: false }).setView([20.389, -99.975], escritorio ? 14 : 13);
+// D-58, 1: zoom «+ / −» en píldora, abajo a la derecha (teléfono y computadora).
+L.control.zoom({ position: 'bottomright', zoomInTitle: 'Acercar', zoomOutTitle: 'Alejar' }).addTo(mapa);
+document.body.classList.add('t-' + (new URLSearchParams(location.search).get('tarjeta') || 'suave')); // D-58 aprobada: suave
+// D-59, 1: Safari de iPhone ignora user-scalable=no; se frena el pellizco de la página.
+for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19, attribution: '© <a href="https://www.openstreetmap.org/copyright">colaboradores de OpenStreetMap</a>',
+}).addTo(mapa);
+const icono = (html, size, anchor, cls = 'pin') => L.divIcon({ className: cls, html, iconSize: size, iconAnchor: anchor });
+
+function zonas(r) {
+  const { origen, destino } = r.extremos;
+  const puntos = [];
+  for (const [papel, z, c] of [['Inicio', origen, '#0d7a72'], ['Fin', destino, '#a8432a']]) {
+    if (z.faltante || z.lat == null) continue;
+    L.circle([z.lat, z.lon], { radius: z.radio_m, color: c, fillColor: c, fillOpacity: .14, weight: 2.5, dashArray: '6 6' }).addTo(mapa);
+    L.marker([z.lat, z.lon], { icon: icono(`<span style="background:${c}">${papel}: ${z.lugar}</span>`, [180, 26], [90, 13], 'etq-zona') }).addTo(mapa);
+    puntos.push([z.lat, z.lon]);
+  }
+  return puntos;
+}
+
+// ── Vistas ──
+function selector() {
+  const recientes = ['001', '012', '062'].map(idx);
+  cuerpo.innerHTML = `
+    <section class="recientes">
+      <div class="fila-titulo"><h3 class="titulo-seccion">Tus rutas recientes</h3><button class="borrar">Borrar</button></div>
+      <div class="rejilla">${recientes.map(tarjeta).join('')}</div>
+    </section>
+    <h3 class="titulo-seccion">Elige tu ruta</h3>
+    <p class="aviso-colores">Los colores solo ayudan a distinguir las tarjetas; no indican nada de la ruta.</p>
+    <div class="rejilla">${rutas.map((_, i) => tarjeta(i)).join('')}</div>`;
+}
+
+function detalle(i, sentido = 'ida') {
+  const r = rutas[i];
+  const s = r.sentidos?.[sentido];
+  const { origen, destino } = r.extremos;
+  const puntosDur = s ? Math.max(3, Math.floor(s.duracion_min / 10) + 1) : 0;
+  cuerpo.innerHTML = `
+    <div class="cambiar"><h3 class="titulo-seccion" style="margin:0">Tu ruta</h3><button>Cambiar ruta</button></div>
+    <div class="enc-ruta" style="${estilo(i)}">${camion(insignia(r))}<span class="enc-nombre">${r.nombre}</span></div>
+    <div class="detalle">
+      <div class="segmento">
+        <span class="${sentido === 'ida' ? 'sel' : ''}">Ida<small>${origen.lugar} → ${destino.lugar}</small></span>
+        <span class="${sentido === 'vuelta' ? 'sel' : ''}">Vuelta<small>${destino.lugar} → ${origen.lugar}</small></span>
+      </div>
+      <div class="renglon"><span class="chip-tipo">${r.tipo === 'urbana' ? 'Urbana' : 'Intermunicipal'}</span>
+        ${s ? `<span class="icono">${PARADAS_ICONO}</span><span class="valor">${s.paradas}</span> paradas` : ''}</div>
+      ${s ? `<div class="renglon"><span class="duracion">${BUS_CHICO}${'<i></i>'.repeat(puntosDur)}${BUS_CHICO}</span><span class="valor">${s.duracion_min} min</span></div>
+      <div class="renglon"><span class="icono">${RELOJ}</span><span class="valor">${s.horario ? `${s.horario.inicio} a ${s.horario.fin}` : 'Por verificar en campo'}</span></div>` : ''}
+      <div class="detalle-pie"><span class="etiqueta">NIVEL C · RECORRIDO POR VERIFICAR</span><br>El recorrido todavía no se dibuja en el mapa: está por verificar.</div>
+    </div>`;
+}
+
+// Catálogo guardado: los lugares de inicio y fin de las 39 rutas (D-53, a).
+function catalogo() {
+  const m = new Map();
+  rutas.forEach((r) => { for (const z of [r.extremos.origen, r.extremos.destino]) if (!z.faltante && z.lat != null && !m.has(z.lugar)) m.set(z.lugar, z); });
+  return [...m.values()];
+}
+
+function destino(ubicado = false) {
+  const texto = 'Hospital General';
+  const norm = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const encontrados = catalogo().filter((z) => norm(z.lugar).includes(norm(texto)));
+  const dest = encontrados[0];
+  // D-53, c: rutas que empiezan o terminan a 1 km o menos (criterio de trabajo, ESTIMADO).
+  const RADIO = 1000;
+  const cerca = rutas.map((r, i) => {
+    const d = Math.min(...[r.extremos.origen, r.extremos.destino].filter((z) => z.lat != null).map((z) => dist(dest, z)));
+    return { i, d };
+  }).filter((x) => x.d <= RADIO).sort((a, b) => a.d - b.d);
+  // D-53, b: parada de OSM más cercana a una ubicación de MUESTRA (en la app será el GPS del teléfono).
+  const yo = { lat: 20.38883, lon: -99.99639, lugar: 'Centro' };
+  const parada = paradas.map((p) => ({ ...p, d: dist(yo, p) })).sort((a, b) => a.d - b.d)[0];
+  const ACTUALIZAR = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v4h-4"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg>';
+  const PIN_UB = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>';
+
+  // D-57 (Miguel, 10:55 pm): la parada más cercana va ARRIBA y con poca letra; abajo
+  // «¿A dónde quieres ir?». Antes de ubicarte: un solo botón. Después: una línea.
+  const miParada = ubicado
+    ? `<div class="parada-hallada"><button class="ver-parada" aria-label="Ver tu parada más cercana en el mapa">${BUS('#0d7a72', '#e3f2ef')}<span><b>${parada.nombre || 'Parada sin nombre'} · a ${redondeo(parada.d)}</b><small>Tu parada más cercana · en línea recta · por verificar</small></span><svg class="flecha" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button><button class="otra" aria-label="Volver a buscar tu parada más cercana">${ACTUALIZAR}</button></div>`
+    : `<button class="ubicacion">${PIN_UB}Buscar mi parada más cercana</button>`;
+
+  cuerpo.innerHTML = `
+    <section class="mi-parada">${miParada}</section>
+    <h3 class="titulo-seccion">¿A dónde quieres ir?</h3>
+    <div class="campo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d7a72" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>${texto}<span class="cursor"></span></div>
+    <div class="bloque">
+      <h3 class="titulo-seccion">Lugares guardados</h3>
+      ${encontrados.map((z) => `<button class="resultado elegido"><span style="color:#a8432a">${BUS_CHICO}</span><span>${z.lugar}<small>Inicio o fin de ruta · zona aproximada</small></span></button>`).join('')}
+    </div>
+    <div class="bloque">
+      <h3 class="titulo-seccion">Rutas que empiezan o terminan cerca</h3>
+      <div class="rejilla cerca">${cerca.map(({ i, d }) => `<button class="tarjeta" style="${estilo(i)}">${camion(insignia(rutas[i]))}<span class="tarjeta-nombre">${rutas[i].nombre}</span><span class="dist">${d < 50 ? 'ahí' : 'a ' + redondeo(d)}</span></button>`).join('')}</div>
+    </div>
+    <div class="leyendas">
+      <p class="nota">estimado · distancia en línea recta a la zona de inicio o fin de cada ruta, hasta 1 km.</p>
+      <p class="nota">Tu ubicación no sale del teléfono.${ubicado ? ` Maqueta: ubicación de muestra (${yo.lugar}).` : ''}</p>
+      <p class="proximamente">Próximamente (fases posteriores): qué ruta tomar desde tu parada, el recorrido de cada ruta y el camino a pie por calles.</p>
+    </div>`;
+
+  mapa.setView([(dest.lat + yo.lat) / 2, (dest.lon + yo.lon) / 2], escritorio ? 14 : 13);
+  L.circle([dest.lat, dest.lon], { radius: dest.radio_m, color: '#a8432a', fillColor: '#a8432a', fillOpacity: .14, weight: 2.5, dashArray: '6 6' }).addTo(mapa);
+  L.marker([dest.lat, dest.lon], { icon: icono(`<span style="background:#a8432a">Destino: ${dest.lugar}</span>`, [200, 26], [100, 13], 'etq-zona') }).addTo(mapa);
+  if (ubicado) {
+    L.marker([yo.lat, yo.lon], { icon: icono('<div class="yo"></div>', [16, 16], [8, 8], 'pin') }).addTo(mapa);
+    const m = L.marker([parada.lat, parada.lon], { icon: L.divIcon({ className: 'pin', html: PARADA, iconSize: [26, 44], iconAnchor: [13, 41.5], popupAnchor: [0, -32] }) }).addTo(mapa);
+    m.bindPopup(`<div class="ficha-parada"><b>${parada.nombre || 'Parada sin nombre en OpenStreetMap'}</b><span>Fuente: OpenStreetMap</span><span>Consulta del 18 nov 2026</span><span class="marca-verificar">POR VERIFICAR EN CAMPO</span><span>No está ligada a ninguna ruta todavía.</span></div>`, { maxWidth: 260 });
+    if (ubicado === 'mapa') {
+      // Tocar la línea: en el teléfono se cierra el menú; el mapa se centra en la parada y abre su ficha.
+      mapa.setView([parada.lat, parada.lon], 17);
+      setTimeout(() => m.openPopup(), 300);
+      return;
+    }
+  }
+  if (escritorio) mapa.fitBounds([[dest.lat, dest.lon], [yo.lat, yo.lon]], { padding: [80, 80] });
+}
+
+// ── Arranque según la vista ──
+const abrir = () => { app.classList.remove('cerrado'); app.classList.add('abierto'); };
+if (vista === 'menu') { abrir(); selector(); ajustarLetra(); }
+// D-55, 1: bienvenida. Textos, botones y la nota «sale solo la primera vez» son la
+// PROPUESTA de la maqueta: Miguel los decide uno por uno.
+if (vista === 'bienvenida') {
+  const X = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#12262d" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+  flotante.innerHTML = `
+    <section class="bienvenida" role="dialog" aria-labelledby="t-bienvenida">
+      <div class="bienvenida-cabeza"><h2 id="t-bienvenida">Así funciona</h2><button class="cerrar" aria-label="Cerrar">${X}</button></div>
+      <ol class="pasos">
+        <li><span class="num">1</span><span><strong>Elige tu ruta</strong> en el menú ☰ y mira dónde empieza y dónde termina.</span></li>
+        <li><span class="num">2</span><span><strong>Escribe a dónde quieres ir</strong> y ve qué rutas empiezan o terminan cerca.</span></li>
+        <li><span class="num">3</span><span><strong>Toca el camión</strong> de arriba para ver las paradas en el mapa.</span></li>
+      </ol>
+      <div class="acciones"><button class="lleno">Elegir ruta</button><button class="borde">¿A dónde quieres ir?</button></div>
+      <p class="recuerda">Sale solo la primera vez. Se recuerda en este dispositivo, sin cookies.</p>
+    </section>`;
+}
+if (vista === 'detalle' || vista === 'ruta') {
+  const i = idx('001');
+  const pts = zonas(rutas[i]);
+  if (vista === 'detalle') { abrir(); detalle(i); }
+  else {
+    const r = rutas[i];
+    flotante.innerHTML = `<div class="chip-ruta">${camion(insignia(r)).replace('class="camion"', `class="camion" style="${estilo(i)};background:${color(i).fondo};color:${color(i).texto}"`)}<span class="nombre-chip">${r.nombre}<small>Ida · zonas aproximadas (estimado)</small></span><button class="ver">Ver detalle</button></div>`;
+  }
+  setTimeout(() => { mapa.invalidateSize(); mapa.fitBounds(pts, { padding: escritorio ? [120, 120] : [70, 70] }); }, 50);
+}
+if (vista === 'paradas') {
+  const bp = document.getElementById('boton-paradas');
+  bp.classList.add('activo');
+  bp.innerHTML = BUS(escritorio ? '#12262d' : '#fff', escritorio ? '#f0a032' : '#0d7a72');
+  paradas.forEach((p) => L.marker([p.lat, p.lon], { icon: icParada() }).addTo(mapa));
+  flotante.innerHTML = `<div class="aviso-mapa">${paradas.length} paradas de OpenStreetMap · por verificar en campo</div>`;
+}
+if (vista === 'destino' || vista === 'ubicado' || vista === 'parada-mapa') {
+  abrir();
+  document.getElementById('p-rutas').classList.remove('activo');
+  document.getElementById('p-calcula').classList.add('activo');
+  if (vista === 'parada-mapa' && !escritorio) { app.classList.add('cerrado'); app.classList.remove('abierto'); }
+  setTimeout(() => { mapa.invalidateSize(); destino(vista === 'parada-mapa' ? 'mapa' : vista === 'ubicado'); }, 50);
+}
+setTimeout(() => mapa.invalidateSize(), 60);
+</script>
+</body>
+</html>

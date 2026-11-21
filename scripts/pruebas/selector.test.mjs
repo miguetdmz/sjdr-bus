@@ -13,9 +13,9 @@ const grupos = gruposSelector(rutas);
 const html = readFileSync(new URL('../../web/index.html', import.meta.url), 'utf8');
 const css = readFileSync(new URL('../../web/src/estilos.css', import.meta.url), 'utf8');
 
-test('selector: 42 opciones agrupadas 40 Urbanas + 2 Intermunicipales', () => {
+test('selector: 39 opciones agrupadas 37 Urbanas + 2 Intermunicipales', () => {
   assert.deepEqual(grupos.map((g) => g.etiqueta), ['Urbanas', 'Intermunicipales']);
-  assert.equal(grupos[0].opciones.length, 40);
+  assert.equal(grupos[0].opciones.length, 37);
   assert.equal(grupos[1].opciones.length, 2);
 });
 
@@ -27,21 +27,20 @@ test('selector: orden y textos de HANDOFF §4 («001 — Pedregoso – Centro»)
   assert.deepEqual(opciones.slice(-2).map((o) => o.valor), ['I-062', 'I-023']);
 });
 
-test('selector: <select> nativo con <label> «Ruta» y estado inicial sin ruta', () => {
-  assert.match(html, /<label for="ruta">Ruta<\/label>/);
-  assert.match(html, /<select id="ruta"/);
-  assert.match(html, /<option value="" disabled selected>Selecciona tu ruta<\/option>/);
-  // Nunca texto libre, y nada de listas, rejillas ni tarjetas de rutas.
-  assert.doesNotMatch(html, /<input[^>]+type="(text|search)"|<datalist|<ul|<ol|<table|class="[^"]*(tarjeta|card|chip)/);
+test('selector (D-53): sin <select>; la ruta se elige en las tarjetas, sin ruta al cargar', () => {
+  assert.doesNotMatch(html, /<select/);
+  assert.match(html, /<div class="ruta-elegida" id="ruta-elegida" hidden>/);
+  assert.doesNotMatch(html, /<datalist|<table/);
 });
 
+
 test('sentido: control segmentado aparte, Ida (0) y Vuelta (1), operable con teclado', () => {
-  assert.match(html, /<fieldset class="sentido">\s*<legend>Sentido<\/legend>/);
+  assert.match(html, /<fieldset class="sentido"[^>]*>\s*<legend>Sentido<\/legend>/);
   const radios = [...html.matchAll(/<input type="radio" name="sentido" value="(\w+)"/g)].map((m) => m[1]);
   assert.deepEqual(radios, ['ida', 'vuelta']);
   // Botones de radio nativos: se recorren con Tab y flechas. Foco visible.
   assert.match(css, /\.segmento input:focus-visible \+ span/);
-  assert.match(css, /select:focus-visible/);
+  assert.match(css, /\.tarjeta-ruta:focus-visible/);
 });
 
 test('áreas táctiles de al menos 44 px', () => {

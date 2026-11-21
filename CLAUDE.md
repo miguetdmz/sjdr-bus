@@ -1,6 +1,6 @@
-# SJDRbus · Reglas de trabajo
+# SJDR Bus · Reglas de trabajo
 
-Nombre de trabajo: **SJDRbus** (provisional; el nombre visible está pendiente, D-02).
+Nombre visible: **SJDR Bus** (D-28). Repositorio público: `miguetdmz/sjdr-bus` (D-29).
 App ciudadana de tiempos **estimados** de autobús para San Juan del Río, Qro.,
 construida sobre un GTFS propio (GTFS-SJR). Proyecto de código abierto.
 
@@ -22,7 +22,8 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
 ## Reglas que no se negocian (resumen de HANDOFF §14)
 1. Nada esquemático, de referencia o simulado se presenta como real u
    oficial. Cada cifra lleva fuente (GTFS oficial / Moovit / campo / AMEQ),
-   estado y fecha.
+   estado y fecha en los datos; en la pantalla basta la leyenda general «datos
+   en proceso de validación» y las fuentes van en los términos (D-52).
 2. Todo tiempo calculado dice ESTIMADO (o MEDIDO EN CAMPO con fecha). EN VIVO
    solo con una posición GPS real detrás.
 3. Presupuesto $0. Antes de cualquier paso con costo, avisar a Miguel con el
@@ -30,22 +31,29 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
 4. Iniciativa independiente: no usar la marca "Qrobús" como nombre de la app
    ni afirmar que la AMEQ/Qrobús opera las unidades de San Juan. Leyenda de
    iniciativa independiente visible. Sin escudo ni colores oficiales.
-5. Móvil primero: la primera pantalla es mapa + selector de ruta + sentido,
-   sin scroll y sin textos de reporte encima.
+5. Móvil primero: la primera pantalla es el mapa completo con ☰, «¿A dónde
+   quieres ir?» y el botón de paradas, sin scroll y sin textos de reporte encima.
+   La ruta se elige en las tarjetas del menú y su sentido va dentro del detalle
+   (D-53, cambia D-49 y HANDOFF §14).
 6. Mapa real o nada: Leaflet + OpenStreetMap con atribución visible. Cero
    Google (ni mapas, ni fuentes, ni geocodificación).
 7. OSRM, Nominatim y Overpass solo al **construir el dato**, con caché en el
    repositorio. La app nunca los consulta en vivo.
 8. Niveles de precisión A/B/C por tramo (HANDOFF §11.4). Un tramo C nunca se
    dibuja como línea continua.
-9. Las 42 rutas solo en un menú desplegable. Ninguna se oculta por falta de
-   datos y ninguna se completa con datos supuestos.
+9. Las rutas vigentes (39: D-36, D-39 y D-40) en un selector visual de tarjetas,
+   en el orden de `routes.txt`, sin menú desplegable (D-53, cambia D-50). Las
+   tarjetas muestran insignia (R1, T62) y nombre, nunca «Ruta 001».
+   Ninguna se oculta por falta de datos y ninguna se completa con datos supuestos.
 10. Nunca usar el dato de un sentido para el otro: cada sentido lleva su
     propio conteo de paradas y su duración.
 
 ## Cómo trabajar
 - Un bloque de `docs/PLAN.md` a la vez. No iniciar el siguiente sin la
   aprobación de Miguel.
+- **Primero la maqueta, después la construcción (D-54):** todo cambio de
+  pantalla empieza con una maqueta en `docs/maquetas/<tarea>/` y sus capturas
+  a 390 y 1280 px; con el sí de Miguel se construye en `web/`.
 - Responder en español. Explicar cada concepto nuevo con una analogía breve
   de manufactura o calidad.
 - Decir cómo verificar cada entrega (en el navegador y en ancho de teléfono).
@@ -55,22 +63,27 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
 - Pedir permiso antes de hacer push, crear repositorios, desplegar o
   publicar algo.
 
-## Turno nocturno (trabajo autónomo, D-10, D-12, D-13, D-20)
-- **El turno arranca donde se quedó Miguel (D-20).** Miguel trabaja hasta las
-  11:30 pm. Antes de esa hora la sesión del día hace el **relevo de turno**:
-  commit, rama subida a GitHub con su PR en borrador, y `docs/PLAN.md` y
-  `docs/COLA-NOCTURNA.md` al día con las tareas APROBADA. Lo que no está
+## Turno nocturno (trabajo autónomo, D-10, D-12, D-13, D-20, D-44)
+- **Relevo por bandera (D-44).** Miguel trabaja sin hora fija de cierre. Al
+  cerrar, la sesión del día hace el **relevo de turno**: commit, rama subida a
+  GitHub con su PR en borrador, `docs/PLAN.md` y `docs/COLA-NOCTURNA.md` al día
+  con las tareas APROBADA y, en el último commit, `docs/RELEVO.md` en
+  **ENTREGADO**. Si son las 6:00 pm o después, dispara el turno al momento
+  (RemoteTrigger `run` de `trig_01TQ5dA2RtFfQaYGVmwgvYJY`). Lo que no está
   subido a GitHub, el turno no lo ve.
-- 11:30 pm: el turno sale de la rama abierta más reciente (la del día o la
-  de la noche anterior; si no hay, de `main`) y toma en orden las tareas
-  **APROBADA** del bloque activo de `docs/COLA-NOCTURNA.md`, un commit por
-  tarea; no empieza tareas después de las 4:30 am y cierra antes de las
-  5:00 am.
+- El turno sale de la rama abierta más reciente (la del día o la de la noche
+  anterior; si no hay, de `main`), solo si su bandera dice ENTREGADO para esa
+  noche, y toma en orden las tareas **APROBADA** del bloque activo de
+  `docs/COLA-NOCTURNA.md`, un commit por tarea. Respaldo: se asoma cada hora de
+  11:39 pm a 3:39 am. No empieza tareas después de las 4:30 am y cierra antes
+  de las 5:00 am.
 - Una rama y un PR en **borrador** por noche (`noche/AAAA-MM-DD`, con la
-  fecha de la mañana en que termina), nunca en `main`. Las reglas completas
-  están en la cola.
-- 5:15 am: el inspector revisa el PR y deja LIBERADO o RETENIDO con el
-  reporte para Miguel.
+  fecha de la mañana en que termina), nunca en `main`. Al terminar marca
+  **TURNO TERMINADO** en `docs/RELEVO.md`. Las reglas completas están en la
+  cola.
+- El inspector se asoma cada hora de 12:15 a 5:15 am: revisa el PR en cuanto
+  ve TURNO TERMINADO (un comentario por commit) y deja LIBERADO o RETENIDO con
+  el reporte para Miguel. A las 5:15 am revisa lo que haya.
 - Nunca integra, publica, despliega ni gasta. Si una tarea exige una
   decisión de Miguel, se detiene y la deja anotada en el PR.
 
@@ -122,6 +135,24 @@ puede, convertir la regla en una prueba automática.
    corrida. Regla: toda herramienta nueva de `npm run verificar` se comprueba
    en los dos ambientes (GitHub Actions y la Mac de Miguel) antes de dar la
    tarea por hecha.
+   - 2026-11-19 (2.ª vez): la prueba nueva `scripts/pruebas/bajas.test.mjs`
+     pasó en la Mac y falló en GitHub Actions: leía `web/public/datos/rutas.json`,
+     que se genera al compilar y no está en git (ENOENT). Detección temprana:
+     antes de subir una prueba nueva, correrla sin los archivos ignorados por
+     git (como los ve GitHub).
+   - 2026-11-21 (3.ª vez): la prueba de D-58 «el zoom no se encima con el chip»
+     pasó en la Mac y falló en GitHub Actions por 7 px: con la fuente de Linux el
+     nombre de la ruta ocupó un renglón más, el chip creció y el zoom (a altura fija)
+     quedó encima. Era un defecto real (en un teléfono de 320 px se enciman 71 px).
+     Arreglo: el zoom mide el alto real del chip; prueba nueva a 320 px con la ruta de
+     nombre más largo, validada con el defecto.
+   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de Miguel):
+   toda prueba de posición o tamaño corre también a 320 px y con una fuente más ancha
+   que la de la Mac (proyecto extra de Playwright), para ver en la Mac lo que verá
+   GitHub. Prueba: la falla de D-58 (antes del arreglo) aparece en la Mac.
+   **ALERTA DE CALIDAD (19 nov 2026, Miguel):** se repitió; compartirla con
+   todos los proyectos. La cosecha del Second Brain la lleva a la bóveda y
+   propone subirla a `standards.md` (no se sube sin el sí de Miguel).
 6. **Claude le ofreció a Miguel una acción que los candados no permiten (17
    nov 2026).** Ofreció integrar el PR, pero `.claude/settings.json` le niega
    `gh pr merge`, `gh pr ready` y el push a `main`. Regla: antes de ofrecer
@@ -137,6 +168,44 @@ puede, convertir la regla en una prueba automática.
    `TZ=America/Mexico_City date`; el prompt lleva la fecha y la hora
    absolutas. Si ya pasaron las 11:30 pm, el relevo de esa noche se perdió y
    se dice así.
+   - 2026-11-18 (1.ª vez): este caso.
+   - 2026-11-20 (2.ª vez, 1:28 y 1:43 am): Claude escribió en notas de D-43 y
+     en un comentario de `scripts/cruces.mjs` horas de memoria («1:45 am»,
+     «1:47 am») en vez de sacarlas de `date`; se corrigió antes de subir.
+     Regla añadida: toda hora que se escribe en una nota, un commit o el código
+     sale de `TZ=America/Mexico_City date` corrido en ese momento.
+   - 2026-11-20 (3.ª vez, ~2:14 am): Claude escribió «2:13 am» de memoria en
+     un comentario de `scripts/cruces.mjs` (decisión de Miguel sobre la
+     23/023); el `date` corrido al recibir el mensaje decía 2:14 am. Se
+     corrigió antes del commit 9cf286d.
+   - 2026-11-20 (4.ª vez, ya con el control): Claude escribió de memoria la hora
+     del ajuste 2 de D-48; el hook avisó «18 min DESPUÉS de la hora real» y se
+     corrigió antes del commit. El control funcionó.
+   - 2026-11-20 (5.ª vez, ya con el control): en el relevo de `docs/PLAN.md` Claude
+     escribió la hora antes de correr `date` en el mismo comando; el hook avisó
+     14 min de diferencia y se corrigió antes del commit. Detección temprana: correr
+     `date` en un paso aparte, antes de escribir.
+   **Causa raíz (análisis pedido por Miguel, 20 nov 2026, anotado a las 4:13 pm):**
+   «si el hook siempre tiene la razón, el error es recurrente y hay que
+   resolverlo de raíz». Las 5 ocurrencias tienen la misma causa: Claude no
+   tiene reloj en su contexto, y casi todas las horas que escribe son «a qué
+   hora decidió Miguel», un momento que nunca midió; la estimaba, y mientras
+   más larga la tarea, más se desviaba. El hook hora-real solo detecta después.
+   **Acción de raíz (prevención):** hook `.claude/hooks/reloj.mjs`
+   (UserPromptSubmit): con cada mensaje de Miguel entrega la hora real de
+   México de ese instante; esa es la fuente de «Miguel decidió a las…».
+   Cualquier otra hora sale de `date` en un paso aparte. Prueba:
+   `scripts/pruebas/reloj.test.mjs` (el caso «3:38 pm» contra 3:52 pm).
+   Si vuelve a ocurrir con el reloj puesto, se cambia el aviso por bloqueo.
+   Ocurrencias: 5 · Estado: **PROMOVIDA → hook `reloj` (prevención, 20 nov 2026) + hook `hora-real` (detección)** (hora-real: 20 nov 2026,
+   con el sí de Miguel): `.claude/hooks/hora-real.mjs`, conectado en
+   `.claude/settings.json` (PostToolUse de Edit, Write, MultiEdit y Bash). Si
+   el texto nuevo trae una hora («2:13 am», «1:28 y 1:43 am») que no estaba
+   antes, le devuelve a Claude la hora real de México y cuántos minutos
+   difiere; una hora posterior a la real se marca fuerte. Es aviso, no bloqueo.
+   Prueba: `scripts/pruebas/hora-real.test.mjs` (atrapa el caso real de la 3.ª
+   ocurrencia). Verde en la Mac, en UTC y sin archivos ignorados; en GitHub
+   Actions se confirma al subir (lección 5).
 8. **Una página descargada traía una llave de sesión (19 nov 2026).** En R-01
    la página pública de rutas se guardó primero en `datos/cache/qrobus/`, dentro
    del repositorio, y traía una llave de sesión (`csrf-token`). Se detectó a
@@ -146,6 +215,136 @@ puede, convertir la regla en una prueba automática.
    de git) y al repositorio entra solo lo extraído, con su huella sha256. Prueba
    que lo evita: `scripts/reglas.mjs` rechaza cualquier archivo de `datos/` o de
    la app que traiga una llave de sesión.
+9. **El prompt de arranque no servía en el momento en que Miguel lo pega
+   (19 nov 2026).** Al cerrar, Claude entregó un arranque «para pegar mañana» y
+   luego gastó tres mensajes explicando cuándo abrir el chat; Miguel quería
+   dejar el chat siguiente abierto y con el prompt pegado desde ya, para que
+   mañana, con un solo mensaje suyo, le reporte el turno con links directos y
+   pasos exactos para aprobar en GitHub. Causa: el arranque se escribe para el
+   momento que Claude imagina, no para el momento en que Miguel lo pega (al
+   cerrar). Regla: todo prompt de arranque se puede pegar en cuanto se entrega;
+   si el trabajo debe esperar (turno nocturno corriendo), el prompt mismo le
+   dice al chat nuevo que no haga nada hasta el primer mensaje de Miguel y que
+   entonces reporte con links directos y pasos exactos. Detección temprana:
+   antes de entregar un arranque, preguntarse «¿qué pasa si lo pega ahora
+   mismo?».
+   - 2026-11-17 (1.ª vez, en la memoria de Claude): una tarjeta de sesión nueva
+     no aclaraba si se podía abrir mientras el turno nocturno trabajaba.
+   - 2026-11-19 (2.ª vez): este caso.
+   - 2026-11-20 (3.ª vez, 1:18 am): Claude entregó el arranque y, cuando el
+     estado cambió (PR 2 integrado, commits subidos, M-08 verificada en la
+     Mac), mandó «una corrección a ese arranque» y pendientes sueltos en vez
+     de reemitir uno solo. Miguel: «tú eres el responsable de que la hoja
+     viajera pase correcta». Regla añadida: si algo cambia después de
+     entregar el arranque, se reemite completo y verificado contra el estado
+     real (git, GitHub, bandera, datos); nunca un parche aparte.
+   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (20 nov 2026):
+   `scripts/arranque.mjs` que arme el bloque de estado del arranque desde la
+   realidad (hora de México, rama, commits sin subir, PR abiertos con link,
+   bandera de `docs/RELEVO.md`, resumen de `cruces.json`, pendientes de la
+   cola). Prueba: con un commit sin subir, el bloque lo muestra. Se construye
+   con el sí de Miguel.
+
+10. **Claude hizo un commit con una prueba en rojo (20 nov 2026).** En R-03
+   corrió las pruebas, la salida decía «fail 1» y aun así hizo el commit
+   3daac3a; se corrigió en el siguiente (d09d9d5) y no llegó a GitHub porque el
+   candado de `.githooks/pre-push` lo habría frenado. Causa: no tratar «fail > 0»
+   como paro de línea; las pruebas se corrían en el mismo comando que el commit.
+   Regla: nunca commit si la última corrida de pruebas dice fail > 0; correr las
+   pruebas, leer el resultado y solo entonces hacer el commit, en pasos aparte.
+   Detección temprana: el commit va en un comando distinto al de las pruebas.
+   - 2026-11-20 (1.ª vez): este caso.
+   Ocurrencias: 1 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de
+   Miguel): `.githooks/pre-commit` que corra `node --test scripts/pruebas/` y
+   detenga el commit con fail > 0. Prueba: con una prueba que falla a propósito,
+   `git commit` se niega.
+11. **Pruebas que fijaban el número del día se rompieron con arreglos buenos (20
+   nov 2026).** En R-03, tres pruebas exigían valores del momento: «exactamente
+   690 UBICADOS», «al menos 26 APROXIMADOS» y «México 120 × Benito Juárez nunca
+   tiene punto». Arreglos legítimos con evidencia (Jurica, «MÉXICO 120» = Federal
+   120) las pusieron en rojo y hubo que reescribirlas. Causa: la prueba revisaba
+   la medición del lote, no la especificación (la regla de fondo). Regla: una
+   prueba revisa la regla («D-45 no toca los UBICADOS»: ninguno trae método ni
+   estado anterior), no el conteo del día; un número fijo solo si la regla es
+   ese número (39 rutas). Detección temprana: al escribir un número en una
+   prueba, preguntarse «¿un arreglo bueno lo cambiaría?»; si sí, no va.
+   - 2026-11-20 (1.ª vez, ~9:49 am): «exactamente 690» falló con Jurica.
+   - 2026-11-20 (2.ª vez, ~11:49 am): «al menos 26» y «México 120 sin punto»
+     fallaron con «MÉXICO 120» = Federal 120.
+   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
+12. **Miguel no sabía en qué parte del proyecto íbamos (20 nov 2026).** La
+   rama, el PR y el chat se llamaban por fecha («cierre/2026-11-19-publico»,
+   «Cierre 19 nov»). El PR 1 juntó 70 commits sin integrarse a `main` (abierto
+   desde el 19 nov, 9:18 am, según GitHub; `main` con 1 commit). El PR 2 entró
+   a esa rama y no a `main`, y el reporte decía «integrado» sin decir a dónde.
+   Causa: el trabajo se nombraba por fecha y no por la estructura del plan, así
+   que nada mostraba la estación, la operación ni lo que ya estaba liberado.
+   Regla (D-47): todo se nombra **Bloque · Tarea · Versión**. Bloque = fase del
+   plan (B3 Trazos); tarea = entregable dentro del bloque (R-03 cruces);
+   versión = lo integrado en `main` y publicado (v0.1, v0.2…), que sube un
+   número con cada integración. Ramas de día: `bN/tarea-tema` (p. ej.
+   `b3/r03-cruces`); las del turno siguen `noche/AAAA-MM-DD` (D-44). Todo
+   reporte de «integrado» dice a qué rama. «Estado actual» de `docs/PLAN.md`
+   abre con esa línea. Detección temprana: si el nombre de una rama, un PR o
+   un chat no dice su bloque y su tarea, se renombra antes de seguir.
+   **Para todos los proyectos (Miguel, 20 nov 2026):** la cosecha del Second
+   Brain la lleva a la bóveda y propone subirla a `standards.md` (no se sube
+   sin el sí de Miguel).
+   - 2026-11-20 (1.ª vez): este caso.
+   - 2026-11-20 (2.ª vez, Miguel lo señaló a las 4:27 pm): este chat se llamaba
+     «Cierre 19 nov: nombre «SJDR Bus»…» y el reporte de estado abrió con la rama
+     por fecha. Causa: la app titula el chat con el título del PR vinculado (el
+     PR 1 se sigue llamando «Cierre 19 nov…») y la detección temprana no se
+     aplicó al arrancar. Arreglo: chat renombrado a «B2 · E-03/D-50 Selector
+     visual de rutas · hacia v0.2». Detección temprana añadida: al arrancar un
+     chat, revisar su título y el del PR vinculado; todo reporte abre con Bloque ·
+     Tarea · Versión, y la rama por fecha solo se menciona como dato técnico.
+   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
+13. **Al rehacer los estilos se borraron reglas que seguían en uso (20 nov
+   2026).** En E-03 (D-48), al quitar bloques completos del CSS por posición,
+   se fueron el fondo blanco del menú (salió transparente) y la regla que
+   quitaba el velo en computadora (el mapa salió gris). Las dos se vieron en la
+   revisión visual antes del commit. Causa: se borró un bloque entero sin hacer
+   inventario de los selectores que contenía. Regla: antes de borrar o mover un
+   bloque de estilos, listar sus selectores y confirmar dónde queda cada uno;
+   revisar en 390 px y 1280 px antes del commit. Prueba que lo evita
+   (`pruebas-navegador/b2a.spec.mjs`): el menú abierto tiene fondo opaco y en
+   computadora no hay velo. Detección temprana: si un cambio de estilos borra
+   más líneas de las que agrega, revisar qué selectores desaparecieron.
+   - 2026-11-20 (1.ª y 2.ª vez, misma sesión): fondo del menú y velo.
+   - 2026-11-20 (3.ª vez, ~10:20 pm): en la maqueta de D-55 (`docs/maquetas/d55/`),
+     un reemplazo por número de línea (`sed '153s/.*/…/'`) pisó la regla
+     `.tarjeta.partida .tarjeta-nombre b` (la que mantiene el «–» pegado a su
+     palabra). Se vio en la salida del mismo comando y se restauró antes de las
+     capturas. Misma causa: tocar estilos por posición sin ver qué había ahí.
+   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de
+   Miguel): `scripts/selectores.mjs`, llamado desde `npm run reglas`, que compara
+   los selectores de `web/src/estilos.css` y de los `<style>` de
+   `docs/maquetas/*/maqueta.html` contra la última versión en git y falla si
+   desaparece un selector que no esté anotado en el inventario de la tarea
+   (`docs/evidencia/<tarea>/inventario-selectores.md`). Prueba: borrar a
+   propósito `.tarjeta.partida .tarjeta-nombre b` y ver que `npm run reglas`
+   falla y nombra el selector. Detección temprana añadida: nunca editar estilos
+   por número de línea; reemplazar por texto exacto.
+   Registrada con el sí de Miguel.
+
+14. **Claude cambió en la maqueta algo que Miguel no pidió (20 nov 2026).** En
+   D-55 Miguel pidió partir la tarjeta (camión y R1 a la izquierda, nombre a la
+   derecha). Como con 3 columnas no cabían los nombres (medido), Claude pasó por
+   su cuenta a 2 columnas y lo mandó ya aplicado, anotado como «decidido al hacer
+   la maqueta». Miguel (10:02 pm): «rompiste una regla… si es que no modificas
+   otra cosa». Causa: un choque entre el pedido y algo ya aprobado se resolvió
+   cambiando lo aprobado, en vez de mostrar el choque con la medición y
+   preguntar. Regla: en una maqueta o construcción se cambia solo lo pedido; si
+   el pedido choca con algo aprobado, se busca primero cómo cumplir el pedido sin
+   tocar lo aprobado (aquí: letra que se ajusta y tarjeta más alta), y si no se
+   puede, se muestran las opciones como alternativas, sin aplicarlas, y se
+   pregunta. Detección temprana: antes de mandar capturas, listar cada diferencia
+   contra la versión anterior; toda diferencia que no salga del pedido es una
+   pregunta, no un cambio.
+   - 2026-11-20 (1.ª vez): este caso.
+   Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
+   `standards.md` (no se sube sin el sí de Miguel).
 
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:

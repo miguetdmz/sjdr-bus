@@ -1,0 +1,28 @@
+{
+  "tarea": "B2 · D-50, respuesta 5 (Miguel, 20 nov 2026, 5:17 pm)",
+  "como_leer": [
+    "Cómo se dibuja cada extremo de ruta como zona probable (D-46, D-50). Lo lee scripts/datos-app.mjs; los puntos salen de extremos-finales.json, aquí solo van los radios y las zonas por cercanía.",
+    "radios_m: radio del círculo según el estado del punto. Criterio de trabajo (ESTIMADO), no medición.",
+    "cercania: lugares FALTANTES (D-41) que se muestran como zona alrededor del lugar conocido más cercano, con su nombre y «cerca de». El punto no es al azar: es el centro de ese lugar conocido.",
+    "Un FALTANTE que no está en cercania se queda sin círculo: la app dice su nombre y FALTANTE."
+  ],
+  "radios_m": {
+    "VERIFICADA": 150,
+    "UBICADO POR MIGUEL": 300,
+    "POR VERIFICAR": 300,
+    "REFERENCIA DE ZONA": 500,
+    "CERCANIA": 900
+  },
+  "cercania": [
+    {
+      "lugar": "Manantiales / Nogales",
+      "cerca_de": "Manantiales",
+      "evidencia": "Comparte el nombre con el punto de Miguel de la 046; el último cruce UBICADO de la lista de la 042 (Hidalgo e Ignacio Zaragoza, 20.40975, -100.00445) queda a ~0.7 km de ese punto (datos/investigacion/cruces.json)."
+    },
+    {
+      "lugar": "Valle Dorado II",
+      "cerca_de": "Valle Dorado I",
+      "evidencia": "Solo comparte el nombre con el punto de Miguel de la 043 [sin verificar]; la lista de la 044 no trae cruces."
+    }
+  ]
+}

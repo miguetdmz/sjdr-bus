@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Muestra patrón · SJDR Bus</title>
+<!--
+  MUESTRA PATRÓN (maqueta de diseño para que Miguel apruebe el aspecto).
+  ESQUEMÁTICO: ruta, paradas y tiempos son de ejemplo. No es la app ni usa sus datos.
+  La línea de ejemplo sigue calles reales: es un tramo de una relación de OpenStreetMap
+  (consulta única del 19 nov 2026, guardada fuera del repositorio), sin nombre ni número.
+  No se compila con la app: Vite solo compila web/index.html.
+-->
+<style>
+  :root {
+    --tinta: #12262d;
+    --primario: #0d7a72;
+    --primario-suave: #e3f2ef;
+    --acento: #f0a032;
+    --acento-suave: #fdf0dc;
+    --fondo: #f4f2ec;
+    --tarjeta: #ffffff;
+    --suave: #66767c;
+    --borde: #e3e0d8;
+    --sombra: 0 10px 30px rgba(18, 38, 45, .16);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--tinta);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #dcd8cf; }
+
+  .portada { max-width: 1260px; margin: 0 auto; padding: 28px 20px 8px; }
+  .portada h1 { margin: 0 0 6px; font-size: 26px; letter-spacing: -.02em; }
+  .aviso-esq {
+    display: inline-block; background: var(--acento); color: #2b1a00; font-weight: 800;
+    font-size: 12px; letter-spacing: .06em; padding: 4px 10px; border-radius: 6px; margin-bottom: 10px;
+  }
+  .portada p { margin: 4px 0; color: #3d4b50; max-width: 820px; line-height: 1.45; }
+
+  .tira {
+    display: flex; gap: 28px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 20px; max-width: 1300px; margin: 0 auto;
+  }
+  .marco { flex: 0 0 auto; scroll-snap-align: center; }
+  .marco h2 { font-size: 15px; margin: 0 0 10px 6px; color: #2c3a3f; }
+  .marco h2 span { color: var(--suave); font-weight: 500; }
+
+  .telefono {
+    width: 390px; height: 844px; border-radius: 46px; background: #0b1316; padding: 12px;
+    box-shadow: 0 30px 60px rgba(0,0,0,.28);
+  }
+  .pantalla {
+    position: relative; width: 100%; height: 100%; border-radius: 36px; overflow: hidden;
+    background: var(--fondo);
+  }
+  .mapa { position: absolute; inset: 0; }
+  .mapa .leaflet-tile-pane { filter: grayscale(.82) brightness(1.05) contrast(.9) sepia(.08); }
+  .leaflet-control-attribution { font-size: 10px; background: rgba(255,255,255,.85) !important; }
+
+  /* Franja de ejemplo: siempre visible en cada pantalla. */
+  .franja {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 1200; background: var(--acento);
+    color: #2b1a00; font-size: 10.5px; font-weight: 800; letter-spacing: .07em; text-align: center;
+    padding: 4px 0 3px;
+  }
+
+  /* Barra superior flotante */
+  .barra {
+    position: absolute; top: 34px; left: 14px; right: 14px; z-index: 1000;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .marca {
+    flex: 1; display: flex; align-items: center; gap: 10px; background: var(--tarjeta);
+    border-radius: 16px; padding: 8px 12px; box-shadow: var(--sombra);
+  }
+  .logo {
+    width: 34px; height: 34px; border-radius: 10px; background: var(--primario);
+    display: grid; place-items: center; flex: 0 0 auto;
+  }
+  .marca b { display: block; font-size: 16px; letter-spacing: -.01em; }
+  .marca small { display: block; font-size: 11px; color: var(--suave); }
+  .boton-redondo {
+    width: 46px; height: 46px; border-radius: 14px; background: var(--tarjeta); box-shadow: var(--sombra);
+    display: grid; place-items: center; border: 0; flex: 0 0 auto;
+  }
+
+  .chip-mapa {
+    position: absolute; z-index: 1000; left: 14px; top: 100px; background: rgba(255,255,255,.95);
+    border-radius: 999px; padding: 6px 11px; font-size: 11.5px; font-weight: 600; box-shadow: var(--sombra);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .chip-mapa .punteado { width: 22px; border-top: 3px dashed var(--primario); }
+  .ubicarme { position: absolute; z-index: 1000; right: 14px; }
+
+  /* Hoja inferior */
+  .hoja {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 1100; background: var(--tarjeta);
+    border-radius: 26px 26px 0 0; box-shadow: 0 -8px 30px rgba(18,38,45,.14);
+    padding: 8px 18px 0;
+  }
+  .asa { width: 40px; height: 5px; border-radius: 3px; background: #d4d0c7; margin: 0 auto 12px; }
+  .hoja h3 { margin: 0 0 12px; font-size: 21px; letter-spacing: -.02em; }
+
+  .buscador {
+    display: flex; align-items: center; gap: 10px; width: 100%; padding: 14px 14px;
+    border-radius: 14px; background: var(--fondo); border: 1.5px solid var(--borde);
+    font-size: 16px; color: var(--suave);
+  }
+  .buscador .flecha { margin-left: auto; }
+
+  .rotulo { font-size: 12px; font-weight: 700; color: var(--suave); text-transform: uppercase; letter-spacing: .06em; margin: 14px 0 7px; }
+  .segmento { display: grid; grid-template-columns: 1fr 1fr; background: var(--fondo); border-radius: 13px; padding: 4px; gap: 4px; }
+  .segmento div { text-align: center; padding: 10px 6px; border-radius: 10px; font-weight: 700; font-size: 15px; color: var(--suave); }
+  .segmento div small { display: block; font-weight: 500; font-size: 11.5px; margin-top: 1px; }
+  .segmento .activo { background: var(--tarjeta); color: var(--tinta); box-shadow: 0 2px 8px rgba(18,38,45,.12); }
+  .segmento.apagado { opacity: .55; }
+
+  .nota { font-size: 12px; color: var(--suave); margin: 10px 0 0; line-height: 1.4; }
+
+  .pestanas {
+    display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--borde);
+    margin: 14px -18px 0; padding: 8px 0 22px;
+  }
+  .pestanas div { text-align: center; font-size: 11.5px; font-weight: 600; color: var(--suave); }
+  .pestanas div svg { display: block; margin: 0 auto 3px; }
+  .pestanas .activo { color: var(--primario); }
+
+  /* Ruta elegida */
+  .encabezado-ruta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .insignia {
+    min-width: 52px; height: 52px; border-radius: 14px; background: var(--primario); color: #fff;
+    display: grid; place-items: center; font-weight: 800; font-size: 19px; letter-spacing: -.02em;
+  }
+  .encabezado-ruta b { display: block; font-size: 17px; letter-spacing: -.01em; }
+  .encabezado-ruta small { color: var(--suave); font-size: 12.5px; }
+  .cerrar { margin-left: auto; width: 34px; height: 34px; border-radius: 50%; background: var(--fondo); display: grid; place-items: center; }
+
+  .eta {
+    margin-top: 12px; border-radius: 18px; background: var(--primario-suave); padding: 14px 16px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .eta .numero { font-size: 38px; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--primario); white-space: nowrap; }
+  .eta .numero small { font-size: 16px; font-weight: 700; letter-spacing: 0; }
+  .eta .texto { font-size: 13px; line-height: 1.35; }
+  .eta .texto b { display: block; font-size: 14px; }
+  .sello {
+    display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .08em; padding: 2px 7px;
+    border-radius: 5px; background: var(--acento-suave); color: #8a5300; border: 1px solid #f3cf95; vertical-align: 2px;
+  }
+
+  .linea-tiempo { display: flex; align-items: center; margin: 16px 2px 2px; }
+  .linea-tiempo .p { width: 12px; height: 12px; border-radius: 50%; border: 3px solid var(--primario); background: #fff; flex: 0 0 auto; }
+  .linea-tiempo .p.pasada { border-color: #b9c5c4; }
+  .linea-tiempo .p.tu { position: relative; }
+  .linea-tiempo .p.tu::after { content: "Parada D (tú)"; position: absolute; top: 22px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 11px; font-weight: 700; color: var(--tinta); }
+  .linea-tiempo .p.tu { width: 18px; height: 18px; border-width: 5px; }
+  .linea-tiempo .t { flex: 1; height: 0; border-top: 3px dashed var(--primario); }
+  .linea-tiempo .t.pasada { border-color: #b9c5c4; }
+  .linea-tiempo .bus-mini { width: 26px; height: 26px; border-radius: 50%; background: var(--acento); display: grid; place-items: center; flex: 0 0 auto; box-shadow: 0 0 0 4px rgba(240,160,50,.25); }
+  .etiquetas-tiempo { display: flex; justify-content: space-between; font-size: 11px; color: var(--suave); margin-top: 6px; }
+  .etiquetas-tiempo b { color: var(--tinta); }
+
+  /* Lista de paradas */
+  .lista { margin: 4px 0 0; padding: 0; list-style: none; }
+  .lista li { display: grid; grid-template-columns: 26px 1fr auto; align-items: center; gap: 10px; min-height: 44px; position: relative; }
+  .lista li::before { content: ""; position: absolute; left: 12px; top: 0; bottom: 0; border-left: 3px dashed var(--primario); }
+  .lista li:first-child::before { top: 50%; }
+  .lista li:last-child::before { bottom: 50%; }
+  .lista li.pasada::before { border-color: #c4cdcc; }
+  .lista .punto { width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--primario); background: #fff; position: relative; z-index: 1; margin-left: 6px; }
+  .lista li.pasada .punto { border-color: #c4cdcc; }
+  .lista li.pasada span { color: #9aa6a8; }
+  .lista li.tu { background: var(--primario-suave); border-radius: 12px; margin: 2px -8px; padding: 0 8px; grid-template-columns: 26px 1fr auto; }
+  .lista li.tu .punto { width: 20px; height: 20px; border-width: 5px; margin-left: 3px; }
+  .lista li.tu span { font-weight: 700; }
+  .lista li.bus { min-height: 34px; }
+  .lista li.bus .icono-bus { width: 26px; height: 26px; border-radius: 50%; background: var(--acento); display: grid; place-items: center; position: relative; z-index: 1; box-shadow: 0 0 0 4px rgba(240,160,50,.25); }
+  .lista li.bus span { font-size: 12.5px; color: #8a5300; font-weight: 700; }
+  .lista .min { font-weight: 700; font-size: 14px; color: var(--primario); }
+  .lista li.pasada .min { color: #9aa6a8; font-weight: 500; font-size: 12px; }
+  .fuente { font-size: 11px; color: var(--suave); line-height: 1.45; border-top: 1px solid var(--borde); padding-top: 10px; margin-top: 8px; }
+
+  /* Marcadores del mapa */
+  .m-parada { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 3px solid var(--primario); box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+  .m-parada.tu { width: 24px; height: 24px; border-width: 6px; }
+  .m-extremo { width: 26px; height: 26px; border-radius: 8px; background: var(--tinta); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 800; box-shadow: 0 2px 6px rgba(0,0,0,.3); }
+  .m-gris { width: 9px; height: 9px; border-radius: 50%; background: #fff; border: 2px solid #8fa0a3; }
+  .m-bus { position: relative; width: 40px; height: 40px; }
+  .m-bus .halo { position: absolute; inset: -10px; border-radius: 50%; background: rgba(240,160,50,.30); animation: latido 1.8s ease-out infinite; }
+  .m-bus .cuerpo { position: absolute; inset: 0; border-radius: 50%; background: var(--acento); border: 3px solid #fff; display: grid; place-items: center; box-shadow: 0 3px 10px rgba(0,0,0,.3); }
+  .m-bus .globo {
+    position: absolute; bottom: 46px; left: 50%; transform: translateX(-50%); white-space: nowrap;
+    background: var(--tinta); color: #fff; font-size: 11.5px; font-weight: 700; padding: 5px 9px; border-radius: 9px;
+  }
+  .m-bus .globo::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px; border: 5px solid transparent; border-top-color: var(--tinta); }
+  @keyframes latido { 0% { transform: scale(.6); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+
+  .criterios { max-width: 1260px; margin: 0 auto; padding: 4px 20px 40px; color: #2c3a3f; }
+  .criterios h2 { font-size: 18px; }
+  .criterios li { margin: 6px 0; line-height: 1.45; }
+
+  @media (max-width: 520px) {
+    .telefono { width: 100vw; height: auto; aspect-ratio: 390 / 844; border-radius: 0; padding: 0; box-shadow: none; }
+    .pantalla { border-radius: 0; }
+    .tira { padding: 12px 0; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="portada">
+  <div class="aviso-esq">MUESTRA PATRÓN · ESQUEMÁTICO</div>
+  <h1>SJDR Bus — así se vería la app</h1>
+  <p>Maqueta de diseño para aprobar el aspecto antes de construirlo. <b>La ruta, las paradas y los tiempos son de ejemplo</b>: no son datos de ninguna ruta de San Juan. La línea sí sigue calles reales de OpenStreetMap para que nada cruce manzanas.</p>
+  <p>Desliza de lado para ver las 3 pantallas. El camión de las pantallas 2 y 3 se mueve para mostrar la sensación de avance; en la app real su posición será <b>ESTIMADA</b> (calculada con horarios), nunca «en vivo».</p>
+</header>
+
+<main class="tira">
+
+  <!-- 1. Inicio -->
+  <section class="marco">
+    <h2>1. Inicio <span>· mapa + ruta + sentido, sin scroll</span></h2>
+    <div class="telefono"><div class="pantalla">
+      <div class="franja">EJEMPLO DE DISEÑO · DATOS INVENTADOS</div>
+      <div class="mapa" id="mapa1"></div>
+      <div class="barra">
+        <div class="marca">
+          <div class="logo" data-icono="bus-blanco"></div>
+          <div><b>SJDR Bus</b><small>Iniciativa ciudadana independiente</small></div>
+        </div>
+        <button class="boton-redondo" aria-label="Información" data-icono="info"></button>
+      </div>
+      <button class="boton-redondo ubicarme" style="bottom: 318px" aria-label="Mi ubicación" data-icono="ubicar"></button>
+      <div class="hoja">
+        <div class="asa"></div>
+        <h3>¿Qué camión tomas?</h3>
+        <div class="buscador"><span data-icono="lupa"></span>Busca por número o colonia<span class="flecha" data-icono="abajo"></span></div>
+        <div class="rotulo">Sentido</div>
+        <div class="segmento apagado"><div class="activo">Ida</div><div>Vuelta</div></div>
+        <p class="nota">42 rutas: 40 urbanas y 2 suburbanas. Los puntos grises son paradas de OpenStreetMap <b>por verificar en campo</b>.</p>
+        <div class="pestanas">
+          <div class="activo"><span data-icono="ruta"></span>Rutas</div>
+          <div><span data-icono="calcula"></span>Calcula tu ruta</div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- 2. Ruta elegida -->
+  <section class="marco">
+    <h2>2. Ruta elegida <span>· recorrido y camión estimado</span></h2>
+    <div class="telefono"><div class="pantalla">
+      <div class="franja">EJEMPLO DE DISEÑO · DATOS INVENTADOS</div>
+      <div class="mapa" id="mapa2"></div>
+      <div class="barra">
+        <div class="marca">
+          <div class="logo" data-icono="bus-blanco"></div>
+          <div><b>SJDR Bus</b><small>Iniciativa ciudadana independiente</small></div>
+        </div>
+        <button class="boton-redondo" aria-label="Información" data-icono="info"></button>
+      </div>
+      <div class="chip-mapa"><span class="punteado"></span>Recorrido ESTIMADO · Nivel C</div>
+      <button class="boton-redondo ubicarme" style="bottom: 352px" aria-label="Mi ubicación" data-icono="ubicar"></button>
+      <div class="hoja">
+        <div class="asa"></div>
+        <div class="encabezado-ruta">
+          <div class="insignia">00X</div>
+          <div><b>Colonia A → Centro</b><small>Ruta de ejemplo · cada ~15 min</small></div>
+          <div class="cerrar" data-icono="cerrar"></div>
+        </div>
+        <div class="segmento"><div class="activo">Ida<small>hacia Centro</small></div><div>Vuelta<small>hacia Colonia A</small></div></div>
+        <div class="eta">
+          <div class="numero">≈8<small> min</small></div>
+          <div class="texto"><b>Llega a Parada D</b>Tu parada más cercana <span class="sello">ESTIMADO</span></div>
+        </div>
+        <div class="linea-tiempo">
+          <div class="p pasada"></div><div class="t pasada"></div>
+          <div class="p pasada"></div><div class="t pasada"></div>
+          <div class="bus-mini" data-icono="bus-mini"></div><div class="t"></div>
+          <div class="p"></div><div class="t"></div>
+          <div class="p tu"></div><div class="t"></div>
+          <div class="p"></div><div class="t"></div>
+          <div class="p"></div>
+        </div>
+        <div class="etiquetas-tiempo"><span>Colonia A</span><span>Centro</span></div>
+        <div class="pestanas">
+          <div class="activo"><span data-icono="ruta"></span>Rutas</div>
+          <div><span data-icono="calcula"></span>Calcula tu ruta</div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- 3. Paradas con tiempos -->
+  <section class="marco">
+    <h2>3. Paradas y tiempos <span>· la hoja se desliza hacia arriba</span></h2>
+    <div class="telefono"><div class="pantalla">
+      <div class="franja">EJEMPLO DE DISEÑO · DATOS INVENTADOS</div>
+      <div class="mapa" id="mapa3"></div>
+      <div class="hoja" style="top: 300px">
+        <div class="asa"></div>
+        <div class="encabezado-ruta">
+          <div class="insignia">00X</div>
+          <div><b>Ida · hacia Centro</b><small>6 paradas · ~25 min de punta a punta</small></div>
+          <div class="cerrar" data-icono="cerrar"></div>
+        </div>
+        <ul class="lista">
+          <li class="pasada"><div class="punto"></div><span>Colonia A (inicio)</span><span class="min">ya pasó</span></li>
+          <li class="pasada"><div class="punto"></div><span>Parada B</span><span class="min">ya pasó</span></li>
+          <li class="bus"><div class="icono-bus" data-icono="bus-mini"></div><span>Camión estimado aquí</span><span></span></li>
+          <li><div class="punto"></div><span>Parada C</span><span class="min">≈ 3 min</span></li>
+          <li class="tu"><div class="punto"></div><span>Parada D · tu parada</span><span class="min">≈ 8 min</span></li>
+          <li><div class="punto"></div><span>Parada E</span><span class="min">≈ 13 min</span></li>
+          <li><div class="punto"></div><span>Centro (fin)</span><span class="min">≈ 19 min</span></li>
+        </ul>
+        <div class="fuente"><span class="sello">ESTIMADO</span> Tiempos calculados con horarios, no en vivo. Recorrido: OpenStreetMap, nivel C (por verificar). Actualizado 19 nov 2026.</div>
+      </div>
+    </div></div>
+  </section>
+
+</main>
+
+<section class="criterios">
+  <h2>Qué decidir al verla</h2>
+  <ol>
+    <li><b>Estilo general</b>: mapa suave en grises, verde azulado para la ruta y ámbar para el camión. ¿Te gusta o prefieres otros colores (sin usar los oficiales)?</li>
+    <li><b>Hoja inferior</b> que se desliza hacia arriba, en lugar del panel fijo de hoy.</li>
+    <li><b>El tiempo grande</b> (≈ 8 min) como lo principal de la pantalla 2.</li>
+    <li><b>El camión que avanza</b> sobre la línea punteada, siempre con la etiqueta ESTIMADO.</li>
+  </ol>
+</section>
+
+<script type="module">
+  import 'leaflet/dist/leaflet.css';
+  import L from 'leaflet';
+
+  // Iconos en línea (sin fuentes externas).
+  const ICONOS = {
+    'bus-blanco': '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 21v-3M16 21v-3"/><circle cx="8" cy="14.5" r=".6" fill="#fff"/><circle cx="16" cy="14.5" r=".6" fill="#fff"/></svg>',
+    'bus-mini': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2b1a00" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16M8 21v-3M16 21v-3"/></svg>',
+    info: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#12262d" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>',
+    ubicar: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0d7a72" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',
+    lupa: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#66767c" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>',
+    abajo: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#66767c" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>',
+    cerrar: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#12262d" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+    ruta: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5" stroke-dasharray="3 3"/></svg>',
+    calcula: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+  };
+  document.querySelectorAll('[data-icono]').forEach((el) => { el.innerHTML = ICONOS[el.dataset.icono] + el.innerHTML; });
+
+  // Tramo de calles reales (OpenStreetMap, consulta única). Solo para el ejemplo de diseño.
+  const LINEA = [[20.37408,-99.96309],[20.37431,-99.96176],[20.3745,-99.96064],[20.37448,-99.96058],[20.37448,-99.96052],[20.37492,-99.96056],[20.37538,-99.96061],[20.37584,-99.96067],[20.3763,-99.96073],[20.3763,-99.96077],[20.3763,-99.96082],[20.37629,-99.96086],[20.37623,-99.96122],[20.37617,-99.96162],[20.37611,-99.96201],[20.37617,-99.96241],[20.37634,-99.96355],[20.37644,-99.96454],[20.37646,-99.96473],[20.37682,-99.96468],[20.37718,-99.96464],[20.37812,-99.96453],[20.37834,-99.96443],[20.37848,-99.96442],[20.37857,-99.96442],[20.37908,-99.96437],[20.37967,-99.96432],[20.37978,-99.96431],[20.37996,-99.9643],[20.38049,-99.96426],[20.38096,-99.96422],[20.38105,-99.96421],[20.38132,-99.96419],[20.38234,-99.96411],[20.38311,-99.96404],[20.38352,-99.96401],[20.38497,-99.9639],[20.38531,-99.96388],[20.3858,-99.96385],[20.38609,-99.96383],[20.38641,-99.96381],[20.38651,-99.96402],[20.38653,-99.96444],[20.38655,-99.9649],[20.38656,-99.96501],[20.38658,-99.96543],[20.38661,-99.96587],[20.38662,-99.96596],[20.38664,-99.96639],[20.38667,-99.96685],[20.38667,-99.96691],[20.38668,-99.96702],[20.3867,-99.96738],[20.38672,-99.96761],[20.38672,-99.96765],[20.38672,-99.96771],[20.38673,-99.96787],[20.38676,-99.96833],[20.38677,-99.96855],[20.3868,-99.96908],[20.38681,-99.9692],[20.38684,-99.96968],[20.38685,-99.96986],[20.38686,-99.96994],[20.38772,-99.96988],[20.38808,-99.96986],[20.38816,-99.96985],[20.38853,-99.96983],[20.38942,-99.96977],[20.38976,-99.96976],[20.39046,-99.9697],[20.39051,-99.97061],[20.39059,-99.97153],[20.39063,-99.97188],[20.39063,-99.97197],[20.3907,-99.97262],[20.39074,-99.97273]];
+
+  // Distancias acumuladas para poner paradas y mover el camión sobre la línea.
+  const acum = [0];
+  for (let i = 1; i < LINEA.length; i++) {
+    const [a, b] = [LINEA[i - 1], LINEA[i]];
+    acum.push(acum[i - 1] + Math.hypot(a[0] - b[0], (a[1] - b[1]) * 0.94));
+  }
+  const total = acum.at(-1);
+  function puntoEn(f) {
+    const d = f * total;
+    let i = acum.findIndex((x) => x >= d);
+    if (i <= 0) return LINEA[0];
+    const t = (d - acum[i - 1]) / (acum[i] - acum[i - 1]);
+    return [LINEA[i - 1][0] + (LINEA[i][0] - LINEA[i - 1][0]) * t, LINEA[i - 1][1] + (LINEA[i][1] - LINEA[i - 1][1]) * t];
+  }
+  // Fracciones del recorrido: A(inicio) B C D(tú) E Centro(fin).
+  const PARADAS = [0, 0.17, 0.5, 0.66, 0.82, 1];
+  const TU = 3;
+
+  function nuevoMapa(id, abajo) {
+    const m = L.map(id, { zoomControl: false, attributionControl: true });
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">Colaboradores de OpenStreetMap</a>',
+    }).addTo(m);
+    m.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
+    m.fitBounds(L.latLngBounds(LINEA), { paddingTopLeft: [40, 150], paddingBottomRight: [40, abajo] });
+    return m;
+  }
+  const icono = (html, w, h) => L.divIcon({ className: '', html, iconSize: [w, h], iconAnchor: [w / 2, h / 2] });
+
+  function dibujarRuta(m, conTu) {
+    L.polyline(LINEA, { color: '#fff', weight: 10, opacity: .9, lineCap: 'round' }).addTo(m);
+    L.polyline(LINEA, { color: '#0d7a72', weight: 5, dashArray: '2 10', lineCap: 'round' }).addTo(m);
+    PARADAS.forEach((f, i) => {
+      const p = puntoEn(f);
+      if (i === 0) L.marker(p, { icon: icono('<div class="m-extremo">A</div>', 26, 26) }).addTo(m);
+      else if (i === PARADAS.length - 1) L.marker(p, { icon: icono('<div class="m-extremo">⚑</div>', 26, 26) }).addTo(m);
+      else if (conTu && i === TU) L.marker(p, { icon: icono('<div class="m-parada tu"></div>', 24, 24) }).addTo(m);
+      else L.marker(p, { icon: icono('<div class="m-parada"></div>', 14, 14) }).addTo(m);
+    });
+  }
+
+  function camion(m, texto) {
+    const html = `<div class="m-bus"><div class="halo"></div><div class="cuerpo">${ICONOS['bus-mini'].replace('14', '18').replace('14', '18')}</div><div class="globo">${texto}</div></div>`;
+    const mk = L.marker(puntoEn(0.38), { icon: icono(html, 40, 40), zIndexOffset: 1000 }).addTo(m);
+    return mk;
+  }
+
+  // 1. Inicio: sin ruta elegida; solo puntos grises (paradas por verificar).
+  const m1 = nuevoMapa('mapa1', 330);
+  m1.setView([20.384, -99.968], 15);
+  [0.05, 0.2, 0.33, 0.47, 0.6, 0.74, 0.9].forEach((f, i) => {
+    const p = puntoEn(f);
+    L.marker([p[0] + (i % 2 ? 0.0012 : -0.001), p[1] + (i % 3 ? 0.0015 : -0.0012)], { icon: icono('<div class="m-gris"></div>', 9, 9) }).addTo(m1);
+  });
+
+  // 2 y 3. Ruta elegida con camión estimado que avanza.
+  const m2 = nuevoMapa('mapa2', 380);
+  dibujarRuta(m2, true);
+  const c2 = camion(m2, '≈ 8 min a tu parada');
+
+  const m3 = nuevoMapa('mapa3', 560);
+  m3.setView(puntoEn(0.42), 15, { animate: false });
+  m3.panBy([0, 265], { animate: false });
+  dibujarRuta(m3, true);
+  const c3 = camion(m3, 'ESTIMADO');
+
+  // Avance suave entre la parada B y la D, en bucle (solo para mostrar la sensación).
+  const inicio = performance.now();
+  function animar(ahora) {
+    const f = 0.19 + ((ahora - inicio) / 24000 % 1) * 0.29;
+    const p = puntoEn(f);
+    c2.setLatLng(p); c3.setLatLng(p);
+    requestAnimationFrame(animar);
+  }
+  requestAnimationFrame(animar);
+</script>
+</body>
+</html>
