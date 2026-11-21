@@ -1722,3 +1722,21 @@ Miguel).
   igual que la maqueta). Prueba nueva a 320 px con la ruta de nombre más largo: fallaba
   por 71 px antes del arreglo, pasa después. Lección 5, 3.ª ocurrencia.
 - **Decide:** Miguel (en su teléfono, junto con D-58).
+
+## D-60 · 21 nov 2026 · Teléfono acostado: zoom más abajo y menú más arriba · MAQUETA (en revisión de Miguel)
+- **Pedido (Miguel, 21 nov 2026, 1:42 am),** al probar acostado en su iPhone (vista
+  previa `26630de`): (1) el «+ / −» se encima con el botón de paradas: bajarlo;
+  (2) en el menú, subir «Rutas / Calcula tu ruta» y quitar espacio abajo (donde
+  termina el pie) para ver al menos una fila completa de rutas, mejor dos. La isla
+  del iPhone tapa un poco la marca del menú: Miguel dijo que está bien.
+- **Maqueta (D-54):** `docs/maquetas/d60/maqueta.html` (parte de la de D-59). Solo en
+  pantallas de 500 px de alto o menos: el zoom baja hasta arriba del pie; con ruta
+  elegida va al lado del chip (el chip deja libre la orilla derecha: cambio que no se
+  pidió, necesario para que no se encimen; pregunta para Miguel); el menú quita aire
+  arriba, bajo la cabeza, bajo las pestañas y abajo (36 → 18 px).
+- **Medido** (Safari acostado con pestañas ≈ 844 × 280, según las capturas de Miguel):
+  zoom × paradas se enciman a 844 × 212 en D-59, ya no en D-60; filas completas de
+  rutas a la vista al desplazar: 1 → 2 (alto útil 117 → 159 px). Teléfono parado y
+  computadora sin cambio (mismas filas y posiciones). Capturas en
+  `docs/maquetas/d60/capturas/` (`menu-antes-despues-844x280.jpg`).
+- **Decide:** Miguel.
