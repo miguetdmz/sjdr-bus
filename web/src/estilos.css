@@ -401,3 +401,41 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .bienvenida { left: 16px; right: auto; bottom: 28px; width: 400px; padding: 20px 20px 14px; }
   .bienvenida h2 { font-size: 21px; }
 }
+
+
+/* D-60 (maqueta aprobada por Miguel, 21 nov 2026, 1:59 am): pantalla baja (teléfono
+   acostado, 500 px de alto o menos). (1) El zoom baja hasta arriba del pie y no se
+   encima con el botón de paradas. (2) El menú sube: menos aire arriba, bajo la cabeza,
+   bajo las pestañas y abajo (solo el renglón del pie). (3) Con ruta elegida, el chip va
+   a la izquierda y en vertical (insignia, nombre, «Ver detalle»), 30 % más chico, para
+   que se vea el mapa; «Ver detalle» se ve de 31 px y el botón mide 44 px. */
+@media (max-height: 500px) {
+  .leaflet-control-zoom.leaflet-bar { margin-bottom: calc(var(--abajo) + 30px); }
+  .hoja { padding-top: max(6px, env(safe-area-inset-top)); padding-bottom: calc(var(--abajo) + 18px); }
+  .hoja-cabeza { padding-bottom: 0; }
+  .pestanas { margin-bottom: 6px; }
+  .chip-ruta {
+    right: auto; left: max(12px, env(safe-area-inset-left)); bottom: calc(var(--abajo) + 26px);
+    flex-direction: column; align-items: flex-start; gap: 4px; max-width: 190px;
+    padding: 0; background: none; box-shadow: none; border-radius: 0;
+  }
+  .chip-ruta .placa { padding: 4px 8px 4px 6px; box-shadow: var(--sombra); }
+  .chip-ruta .camion { font-size: 13px; }
+  .chip-ruta .camion svg { width: 13px; height: 13px; }
+  .chip-ruta .nombre-chip {
+    flex: none; padding: 5px 11px; border-radius: 999px; background: var(--tarjeta);
+    box-shadow: var(--sombra); font-size: 9.5px;
+  }
+  .chip-ruta .nombre-chip small { font-size: 8px; }
+  /* El botón mide 44 px (área táctil mínima, regla del proyecto); la píldora verde de
+     31 px se dibuja dentro (::before), así se ve 30 % más chica sin achicar el toque. */
+  .chip-ruta .ver {
+    position: relative; z-index: 0; min-height: 44px; margin: -6.5px 0; padding: 0 10px;
+    font-size: 10px; background: none; box-shadow: none;
+  }
+  .chip-ruta .ver::before {
+    content: ''; position: absolute; z-index: -1; left: 0; right: 0; top: 6.5px; bottom: 6.5px;
+    border-radius: 999px; background: var(--primario); box-shadow: var(--sombra);
+  }
+}
+/* (Bloque al final del archivo: así gana a las reglas base de .hoja y .chip-ruta.) */

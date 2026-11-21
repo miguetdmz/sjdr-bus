@@ -1723,7 +1723,7 @@ Miguel).
   por 71 px antes del arreglo, pasa después. Lección 5, 3.ª ocurrencia.
 - **Decide:** Miguel (en su teléfono, junto con D-58).
 
-## D-60 · 21 nov 2026 · Teléfono acostado: zoom más abajo y menú más arriba · MAQUETA (en revisión de Miguel)
+## D-60 · 21 nov 2026 · Teléfono acostado: zoom más abajo y menú más arriba · CONSTRUIDA (en revisión de Miguel)
 - **Pedido (Miguel, 21 nov 2026, 1:42 am),** al probar acostado en su iPhone (vista
   previa `26630de`): (1) el «+ / −» se encima con el botón de paradas: bajarlo;
   (2) en el menú, subir «Rutas / Calcula tu ruta» y quitar espacio abajo (donde
@@ -1747,4 +1747,18 @@ Miguel).
   táctil mínima, con un margen invisible). Medido: el chip tapa 7 % de la pantalla a
   844 × 280 (antes 21 %) y 9 % a 844 × 212 (antes 27 %); no se encima con el zoom ni con
   la barra; parado y computadora sin cambio. Captura: `ruta-844x280.jpg`.
-- **Decide:** Miguel.
+- **Aprobada (Miguel, 21 nov 2026, 1:59 am)** y **construida en `web/`** (2:01 am):
+  criterios antes (`docs/evidencia/d60/criterios.md`), 4 pruebas en
+  `pruebas-navegador/d60.spec.mjs` (844 × 280, 844 × 212 y 390 × 844). Validadas con el
+  defecto: sin el bloque de D-60 fallan las 3 de acostado (la 4.ª es la guardia de
+  «parado sin cambio»). La prueba b3 de D-59 pasa de «zoom arriba del chip» a «no se
+  enciman» (acostado el chip va a la izquierda). Ningún selector se fue. Capturas en
+  `docs/evidencia/d60/`. Tropiezo corregido antes del commit: el bloque quedó antes de
+  la regla base del menú y no se aplicaba (lo atrapó la prueba e2); se movió al final.
+  Segundo tropiezo: la prueba unitaria «áreas táctiles de al menos 44 px» falló con
+  «Ver detalle» de 31 px (el toque de 44 px era un margen invisible). Arreglo correcto:
+  el botón mide 44 px y la píldora verde de 31 px se dibuja dentro; se ve igual.
+- **Visto, sin tocar (lección 14), pregunta para Miguel:** acostado, al elegir ruta el
+  mapa se aleja de más (sale toda la región y las etiquetas de inicio y fin se enciman).
+  Ya pasaba antes de D-60 (captura de Miguel de la 1:20 am).
+- **Decide:** Miguel (en su teléfono, con D-58 y D-59).

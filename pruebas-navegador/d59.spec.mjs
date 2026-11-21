@@ -77,7 +77,9 @@ test.describe('teléfono acostado 844 × 390', () => {
     await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
     const chip = await page.locator('#chip-ruta').boundingBox();
     const zoom = await page.locator('.leaflet-control-zoom').boundingBox();
-    expect(zoom.y + zoom.height, 'el zoom se encima con el chip').toBeLessThanOrEqual(chip.y);
+    // D-60: acostado, el chip va a la izquierda y el zoom a la derecha: no se enciman.
+    const encima = zoom.x < chip.x + chip.width && chip.x < zoom.x + zoom.width && zoom.y < chip.y + chip.height && chip.y < zoom.y + zoom.height;
+    expect(encima, 'el zoom se encima con el chip').toBe(false);
     await captura(page, '3-ruta');
   });
 });
