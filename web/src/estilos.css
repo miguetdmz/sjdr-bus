@@ -256,6 +256,28 @@ button { font: inherit; color: inherit; cursor: pointer; }
   font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;
 }
 .ubicacion:disabled { opacity: .7; cursor: progress; }
+
+/* D-57 (maqueta aprobada por Miguel, 20 nov 2026, 11:20 pm): la parada más cercana
+   arriba de «¿A dónde quieres ir?». Ubicado: una línea tocable (la muestra en el
+   mapa) y un botón de ícono que vuelve a buscar. Puros botones, poca letra. */
+.mi-parada { margin-bottom: 14px; }
+.mi-parada .nota { margin-top: 6px; }
+.parada-hallada { display: flex; align-items: stretch; gap: 8px; }
+.ver-parada {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 8px 10px 8px 12px;
+  border: 0; border-radius: 14px; background: var(--primario-suave); box-shadow: inset 0 0 0 2px var(--primario);
+  color: var(--primario); text-align: left;
+}
+.ver-parada svg { flex: none; }
+.ver-parada b { display: block; font-size: 14px; color: var(--tinta); }
+.ver-parada small { display: block; font-size: 11.5px; color: var(--suave); }
+.ver-parada .flecha { margin-left: auto; }
+.otra {
+  flex: none; width: 52px; padding: 0; border: 0; border-radius: 14px; background: var(--primario); color: #fff;
+  display: grid; place-items: center;
+}
+.otra:disabled { opacity: .7; cursor: progress; }
+.ver-parada:focus-visible, .otra:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
 /* Ajuste 2.1 (6:57 pm): las leyendas (estimado, próximamente) juntas, hasta abajo. */
 .leyendas { margin-top: auto; padding-top: 18px; display: grid; gap: 4px; }
 .leyendas p, .nota { margin: 0; font-size: 10.5px; line-height: 1.4; color: var(--primario); }

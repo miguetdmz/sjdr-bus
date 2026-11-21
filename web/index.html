@@ -102,6 +102,18 @@
             </div>
           </div>
           <section id="modo-calcula" class="modo calcula" aria-labelledby="destino-titulo" hidden>
+            <!-- D-57 (maqueta aprobada por Miguel, 20 nov 2026, 11:20 pm): la parada más
+                 cercana va ARRIBA y con poca letra. Antes de ubicarte, un botón; después,
+                 una línea tocable (la muestra en el mapa) y un botón de ícono que vuelve
+                 a buscar. Puros botones. -->
+            <section class="mi-parada" id="mi-parada" aria-label="Tu parada más cercana">
+              <button type="button" class="ubicacion" id="usar-ubicacion"></button>
+              <div class="parada-hallada" id="parada-hallada" hidden>
+                <button type="button" class="ver-parada" id="ver-parada"></button>
+                <button type="button" class="otra" id="otra-vez" aria-label="Volver a buscar tu parada más cercana"></button>
+              </div>
+              <p class="nota" id="nota-ubicacion" aria-live="polite" hidden></p>
+            </section>
             <!-- D-53, 7: «¿A dónde quieres ir?», primera versión (6:29 pm). -->
             <h2 class="titulo-seccion" id="destino-titulo"><label for="destino">¿A dónde quieres ir?</label></h2>
             <div class="campo">
@@ -116,13 +128,9 @@
               <h3 class="titulo-seccion">Rutas que empiezan o terminan cerca</h3>
               <div class="rejilla cerca" id="lista-cerca"></div>
             </div>
-            <div class="bloque">
-              <h3 class="titulo-seccion">Tu parada más cercana</h3>
-              <button type="button" class="ubicacion" id="usar-ubicacion"></button>
-            </div>
             <!-- D-53, ajuste 2.1: las leyendas juntas, hasta abajo. -->
             <div class="leyendas" id="leyendas-destino">
-              <p class="nota" id="nota-ubicacion" aria-live="polite" hidden></p>
+              <p>Tu ubicación no sale del teléfono.</p>
             </div>
           </section>
         </div>

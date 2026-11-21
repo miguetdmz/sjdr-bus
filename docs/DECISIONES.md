@@ -1594,3 +1594,54 @@ Miguel).
   - Fase 3: B3 (R-03 a R-06) → R-07 → B6 completo: qué ruta tomar, dónde bajar,
     transbordos y camino a pie por calles.
 - **Decide:** Miguel.
+
+## D-57 · 20 nov 2026 · «Calcula tu ruta»: la parada más cercana arriba y con poca letra · CONSTRUIDA (en revisión de Miguel)
+- **Pedido (Miguel, 20 nov 2026, 10:55 pm),** al probar D-55: al escribir el
+  lugar, «Tu parada más cercana» se va hasta el fondo y hay que hacer scroll para
+  encontrarla. Que quede **arriba**, y abajo «¿A dónde quieres ir?»; que diga
+  algo como «encontrar la parada más cercana desde donde estoy», con **menos
+  letra**. «Con ese ajuste finalmente concluiríamos todo» (cierra B2).
+- **Maqueta (D-54):** `docs/maquetas/d57/maqueta.html` (parte de la de D-55;
+  vistas `?vista=destino` y `?vista=ubicado`), capturas a 390 y 1280 px en
+  `docs/maquetas/d57/capturas/` y comparación con la app de hoy
+  (`comparacion-390.jpg`, `comparacion-1280.jpg`).
+- **Diferencias contra la app de hoy (lección 14):**
+  1. Arriba de la pestaña: un solo botón «Buscar mi parada más cercana» (antes:
+     título «Tu parada más cercana» + botón «Usar mi ubicación», al fondo).
+  2. «¿A dónde quieres ir?», lugares guardados y rutas cerca quedan abajo, sin
+     otro cambio (las tarjetas de «cerca» como en D-53).
+  3. Al ubicarte, el botón se vuelve una línea: «Parada · a 280 m» y abajo «Tu
+     parada más cercana · en línea recta · por verificar», con «Actualizar».
+     Sustituye a la nota larga del fondo, que queda solo como «Tu ubicación no
+     sale del teléfono.» **Propuesta para cumplir «menos letra»: se pregunta.**
+- **Respuestas y ajuste (Miguel, 11:01 y 11:07 pm):**
+  - «Actualizar» confundía (Miguel pensó que era editar la dirección): ahora es
+    un **botón de ícono** (ubicación con flecha de actualizar), sin texto, que
+    vuelve a leer el GPS. «Puros botones.»
+  - **Tocar la línea de la parada** (ahora un botón, con «›»): en el teléfono se
+    cierra el menú; el mapa se centra en la parada y abre su ficha (nombre,
+    fuente OSM, fecha de consulta, POR VERIFICAR EN CAMPO). En computadora el
+    menú se queda (el mapa está al lado). Vista `?vista=parada-mapa`; capturas
+    `3-parada-mapa-*.jpg` y tiras `ajuste-390.jpg`, `ajuste-1280.jpg`.
+  - **Editar la dirección de salida** (escribir desde dónde sales): va con el
+    catálogo amplio de OSM, en D-56 fase 2 (regla 7: sin geocodificar en vivo).
+  - **Ruta caminando:** D-56 fase 3 (B6). No se dibuja antes en línea recta
+    (regla 1).
+- **Maqueta aprobada (Miguel, 11:20 pm): «Sí, constrúyela».**
+- **Construida en `web/` (de las 11:20 pm a las 11:28 pm),** igual a la maqueta,
+  con criterio escrito antes (`docs/evidencia/d57/criterios.md`): bloque
+  `#mi-parada` arriba en `web/index.html`; `buscarParada()`, la línea
+  `#ver-parada` y el botón de ícono `#otra-vez` (lectura nueva del GPS) en
+  `web/src/main.ts`; íconos en `web/src/iconos.ts`. Errores de ubicación junto
+  al botón (no estaban dibujados). Pruebas: `pruebas-navegador/d57.spec.mjs` (5);
+  las de `d53.spec.mjs` que leían la nota larga se actualizaron solo en eso.
+  Validadas con 3 defectos a propósito (parada al fondo, ficha sin abrir,
+  «buscar de nuevo» con la ubicación guardada): las 3 los atraparon.
+  - **Defecto encontrado en la comparación visual (lección 3) y corregido:** si
+    se tocaba la parada antes de 330 ms, el encuadre pendiente de «ubicarte»
+    alejaba el mapa y cortaba la ficha. Las pruebas pasaban; las capturas lo
+    mostraron. Se agregó a la prueba (ficha entera, zoom de cerca), se vio
+    fallar con el defecto y pasar con el arreglo.
+  - Capturas en `docs/evidencia/d57/` y lado a lado en
+    `docs/evidencia/d57/comparacion/`. Inventario: ningún selector se fue.
+- **Decide:** Miguel.

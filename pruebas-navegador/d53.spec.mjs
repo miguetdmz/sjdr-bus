@@ -271,13 +271,14 @@ test.describe('con ubicación de PRUEBA (Plaza Independencia)', () => {
     const cuerpo = await page.locator('#cuerpo').boundingBox();
     expect(ley.y + ley.height).toBeGreaterThanOrEqual(cuerpo.y + cuerpo.height - 2);
     await page.locator('#usar-ubicacion').click();
-    const nota = page.locator('#nota-ubicacion');
+    // D-57: la nota larga pasó a una línea corta arriba (#ver-parada).
+    const nota = page.locator('#ver-parada');
     await expect(nota).toContainText('en línea recta');
     const yo = { lat: PLAZA.latitude, lon: PLAZA.longitude };
     const m = Math.min(...paradas.map((p) => distancia(yo, p)));
-    await expect(nota).toContainText(m < 50 ? 'queda ahí' : m < 1000 ? `a ${Math.round(m / 10) * 10} m` : `a ${(m / 1000).toFixed(1)} km`);
-    await expect(nota).toContainText('por verificar en campo');
-    await expect(nota).toContainText('Tu ubicación no sale del teléfono');
+    await expect(nota).toContainText(m < 50 ? 'ahí' : m < 1000 ? `a ${Math.round(m / 10) * 10} m` : `a ${(m / 1000).toFixed(1)} km`);
+    await expect(nota).toContainText('por verificar');
+    await expect(page.locator('#leyendas-destino')).toContainText('Tu ubicación no sale del teléfono');
     await expect(page.locator('.yo')).toHaveCount(1);
     await expect(page.locator('.parada-toque')).toHaveCount(1);
     expect(red).toEqual([]);
@@ -334,7 +335,7 @@ test.describe('computadora 1280 × 800', () => {
     await page.locator('#boton-paradas').click();
     await page.locator('#boton-destino').click();
     await page.locator('#usar-ubicacion').click();
-    await expect(page.locator('#nota-ubicacion')).toContainText('en línea recta');
+    await expect(page.locator('#ver-parada')).toContainText('en línea recta'); // D-57
     await page.locator('#destino').fill('Hospital General');
     const hg = page.locator('#lista-lugares .resultado').first();
     if (await hg.count()) {

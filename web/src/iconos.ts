@@ -57,3 +57,13 @@ export const ICONO_LUPA =
 // Ícono de paradas del detalle (D-52 en la maqueta): dos puntos unidos.
 export const ICONO_PARADAS_DETALLE =
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><path d="M6 8v8"/></svg>';
+
+// D-57 (maqueta aprobada, 20 nov 2026): «Buscar mi parada más cercana» con una mira
+// de ubicación; el botón de ícono que vuelve a buscar (ubicación con flecha de
+// actualizar), y la flechita «›» que dice que la línea de la parada se toca.
+export const ICONO_UBICAR =
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>';
+export const ICONO_ACTUALIZAR =
+  '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v4h-4"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg>';
+export const ICONO_FLECHA =
+  '<svg class="flecha" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';

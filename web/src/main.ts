@@ -23,14 +23,17 @@ import L from 'leaflet';
 import { cargarDatos, type Ruta } from './datos';
 import { vistaDetalle, type NombreSentido } from './detalle';
 import {
+  ICONO_ACTUALIZAR,
   ICONO_BUS_CHICO,
   ICONO_CALCULA,
   ICONO_CERRAR,
+  ICONO_FLECHA,
   ICONO_LUPA,
   ICONO_MENU,
   ICONO_PARADAS_DETALLE,
   ICONO_RELOJ,
   ICONO_RUTAS,
+  ICONO_UBICAR,
   PARADA_CIRCULO,
   camioncito,
   iconoBus,
@@ -627,6 +630,9 @@ const listaLugares = document.querySelector<HTMLElement>('#lista-lugares')!;
 const bloqueCerca = document.querySelector<HTMLElement>('#bloque-cerca')!;
 const listaCerca = document.querySelector<HTMLElement>('#lista-cerca')!;
 const botonUbicacion = document.querySelector<HTMLButtonElement>('#usar-ubicacion')!;
+const paradaHallada = document.querySelector<HTMLElement>('#parada-hallada')!;
+const verParada = document.querySelector<HTMLButtonElement>('#ver-parada')!;
+const otraVez = document.querySelector<HTMLButtonElement>('#otra-vez')!;
 const notaUbicacion = document.querySelector<HTMLElement>('#nota-ubicacion')!;
 const leyendasDestino = document.querySelector<HTMLElement>('#leyendas-destino')!;
 
@@ -646,8 +652,13 @@ botonDestino.addEventListener('click', () => {
   leyendasDestino.append(prox);
 }
 
-const TEXTO_UBICACION = `${iconoBus('#0d7a72')}<span>Usar mi ubicación</span>`;
+// D-57: arriba y con poca letra; el botón de ícono no lleva texto (su nombre va
+// en aria-label, para el lector de pantalla).
+const TEXTO_UBICACION = `${ICONO_UBICAR}<span>Buscar mi parada más cercana</span>`;
 botonUbicacion.innerHTML = TEXTO_UBICACION;
+otraVez.innerHTML = ICONO_ACTUALIZAR;
+// La parada hallada: tocar su línea la muestra en el mapa con su ficha.
+let marcadorCercana: L.Marker | null = null;
 
 function pintarLugares(): void {
   const encontrados = buscar(lugares, campoDestino.value);
@@ -719,15 +730,17 @@ function avisar(textoNota: string): void {
   notaUbicacion.hidden = false;
 }
 
-botonUbicacion.addEventListener('click', () => {
+function buscarParada(fresca: boolean): void {
   if (!('geolocation' in navigator)) {
     avisar('Este navegador no puede dar tu ubicación.');
     return;
   }
   botonUbicacion.disabled = true;
-  botonUbicacion.innerHTML = `${iconoBus('#0d7a72')}<span>Buscando tu ubicación…</span>`;
+  otraVez.disabled = true;
+  botonUbicacion.innerHTML = `${ICONO_UBICAR}<span>Buscando tu ubicación…</span>`;
   const terminar = () => {
     botonUbicacion.disabled = false;
+    otraVez.disabled = false;
     botonUbicacion.innerHTML = TEXTO_UBICACION;
   };
   navigator.geolocation.getCurrentPosition(
@@ -737,6 +750,7 @@ botonUbicacion.addEventListener('click', () => {
       const lista = await paradasListas.catch(() => [] as Parada[]);
       const cercana = masCercana(lista, yo);
       capaUbicacion.clearLayers();
+      marcadorCercana = null;
       L.marker([yo.lat, yo.lon], { icon: L.divIcon({ className: 'punto-yo', html: '<div class="yo"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }), title: 'Tú', alt: 'Tu ubicación', keyboard: false }).addTo(capaUbicacion);
       if (cercana) {
         const p = cercana.punto;
@@ -744,13 +758,17 @@ botonUbicacion.addEventListener('click', () => {
         const f = fichaParada(p);
         const ficha = fichaConMargenes(260);
         ficha.setContent(() => cajaFicha(f.nombre, f.lineas, (_, linea) => linea === f.lineas[2]));
-        L.marker([p.lat, p.lon], { icon: iconoParada, title: nombre, alt: `Tu parada más cercana: ${nombre}`, keyboard: true }).bindPopup(ficha).addTo(capaUbicacion);
-        const donde = p.nombre ? `«${p.nombre}»` : 'sin nombre en OpenStreetMap';
-        avisar(
-          `Tu parada más cercana (${donde}) queda ${cercana.metros < 50 ? 'ahí' : textoDistancia(cercana.metros)} en línea recta y se marca en el mapa · estimado · por verificar en campo. Tu ubicación no sale del teléfono.`,
-        );
+        marcadorCercana = L.marker([p.lat, p.lon], { icon: iconoParada, title: nombre, alt: `Tu parada más cercana: ${nombre}`, keyboard: true }).bindPopup(ficha).addTo(capaUbicacion);
+        // D-57: una línea corta en lugar de la nota larga del fondo.
+        const distancia = textoDistancia(cercana.metros);
+        verParada.innerHTML = `${iconoBus('#e3f2ef')}<span><b></b><small>Tu parada más cercana · en línea recta · por verificar</small></span>${ICONO_FLECHA}`;
+        verParada.querySelector('b')!.textContent = `${nombre} · ${distancia}`;
+        verParada.setAttribute('aria-label', `Ver en el mapa tu parada más cercana: ${nombre}, ${distancia} en línea recta, por verificar`);
+        botonUbicacion.hidden = true;
+        paradaHallada.hidden = false;
+        notaUbicacion.hidden = true;
       } else {
-        avisar('Todavía no se cargan las paradas; intenta de nuevo en un momento. Tu ubicación no sale del teléfono.');
+        avisar('Todavía no se cargan las paradas; intenta de nuevo en un momento.');
       }
       const destino = estado.destino ? [L.latLngBounds([[estado.destino.lat, estado.destino.lon]])] : [];
       encuadrar([...limitesUbicacion(), ...destino]);
@@ -764,8 +782,27 @@ botonUbicacion.addEventListener('click', () => {
       );
       terminar();
     },
-    { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
+    // «Buscar de nuevo» pide una lectura nueva del GPS (sin la guardada de antes).
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: fresca ? 0 : 60000 },
   );
+}
+
+botonUbicacion.addEventListener('click', () => buscarParada(false));
+// El botón de ícono vuelve a leer el GPS.
+otraVez.addEventListener('click', () => buscarParada(true));
+
+// D-57: tocar la línea de la parada. En el teléfono se cierra el menú (si no, tapa
+// el mapa); en computadora se queda, porque el mapa está al lado. El mapa se
+// centra en la parada y abre su ficha.
+verParada.addEventListener('click', () => {
+  if (!marcadorCercana) return;
+  const m = marcadorCercana;
+  // El encuadre de «ubicarte» llega 330 ms después: si quedó pendiente, alejaría
+  // el mapa y cortaría la ficha (defecto visto en las capturas de D-57).
+  window.clearTimeout(encuadrePendiente);
+  if (!escritorio()) ponerPanel(false, false);
+  mapa.setView(m.getLatLng(), Math.max(mapa.getZoom(), 17), { animate: false });
+  m.openPopup();
 });
 
 // --- Arranque ------------------------------------------------------------------

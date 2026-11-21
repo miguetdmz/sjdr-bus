@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (20 nov 2026, 10:44 pm)
+## Estado actual (20 nov 2026, 11:28 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -13,7 +13,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
 | Versión en espera (PR 1 «B2 · Primera pantalla publicable → v0.2», https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, selector visual con tarjetas y zonas probables (D-50), nombre SJDR Bus. Integra Miguel cuando cierre B2 |
 | Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
-| Tarea en curso | **E-03 · D-55 · Bienvenida y tarjetas: CONSTRUIDA en `web/`** (20 nov, 10:44 pm), igual a la maqueta: bienvenida «Así funciona» la primera vez (localStorage, sin cookies) y tarjeta partida, 3 columnas, 70 / 60 px, letra ajustada a cada nombre. Puerta completa en verde en la Mac (163 pruebas, 41 en navegador). **Falta: que Miguel la apruebe en su teléfono** (junto con D-53) para cerrar B2 |
+| Tarea en curso | **E-03 · D-55 y D-57: CONSTRUIDAS en `web/`.** D-55 (bienvenida y tarjetas partidas, `f3b4681`, subido, Actions y Vercel en verde). D-57 (en «Calcula tu ruta» la parada más cercana arriba, botón de ícono para volver a buscar, tocar la parada la muestra en el mapa con su ficha; Miguel aprobó la maqueta a las 11:20 pm) construida a las 11:28 pm, puerta en verde en la Mac (163 + 46 en navegador). **Falta: que Miguel apruebe D-53 + D-55 + D-57 en su teléfono** para cerrar B2 |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -29,7 +29,25 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (20 nov 2026, 10:44 pm)
+### Relevo para la siguiente sesión (20 nov 2026, 11:28 pm)
+
+0. **Lo hecho de las 10:46 pm a las 11:28 pm:** D-55 subido (`f3b4681`, Actions
+   y Vercel en verde). Miguel pidió D-57 (10:55 pm): maqueta en
+   `docs/maquetas/d57/`, ajuste con sus respuestas (11:07 pm), aprobada (11:20 pm)
+   y construida en `web/` con criterio antes, 5 pruebas nuevas validadas con
+   defectos y un defecto visto en las capturas y corregido (ver D-57).
+1. **Siguiente:** Miguel aprueba D-53 + D-55 + D-57 en su teléfono → cierra B2
+   integrando el PR 1 (v0.2; lo hace Miguel, lección 6) → Miguel dijo que después
+   sigue «el tema del PDF» (FALTANTE: no se sabe cuál es; preguntarle) → D-56
+   fase 2 (incluye editar la dirección de salida), maqueta primero.
+2. **Preguntas abiertas de D-55 (sin aplicar):** ¿tarjetas de «cerca» partidas?;
+   ¿botón «Borrar» a 36 px?
+3. **Pendientes con el sí de Miguel:** sin cambio. La candidata a lección («una
+   prueba de un defecto se valida haciéndola fallar con el defecto») se aplicó en
+   D-55 y D-57; en D-57 además la comparación visual atrapó lo que las pruebas no.
+4. **Turno nocturno:** sin tareas APROBADA. Bandera en EN SESIÓN.
+
+### Relevo anterior (20 nov 2026, 10:44 pm)
 
 0. **Lo hecho de las 10:34 pm a las 10:44 pm:** D-55 construido en `web/` con
    criterio escrito antes (`docs/evidencia/d55/criterios.md`), 16 pruebas
