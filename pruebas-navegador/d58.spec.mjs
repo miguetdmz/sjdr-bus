@@ -153,6 +153,24 @@ test('k1–k3 (390 px): píldoras en el detalle, las tarjetas y «Calcula tu rut
   await captura(page, '6-ubicado');
 });
 
+// z4 en el peor caso (falla vista en GitHub Actions, 21 nov 2026: con otra fuente el
+// chip crece un renglón y el zoom se le enciman 7 px). Teléfono angosto (320 px) y la
+// ruta de nombre más largo: el chip crece y el zoom debe subir con él.
+test.describe('teléfono angosto 320 × 568', () => {
+  test.use({ viewport: { width: 320, height: 568 } });
+
+  test('z4: con la ruta de nombre más largo, el zoom no se encima con el chip', async ({ page }) => {
+    const larga = [...rutas].sort((a, b) => b.nombre.length - a.nombre.length)[0];
+    await cerrarBienvenida(page);
+    await elegirRuta(page, larga.route_id);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#hoja')).toHaveClass(/cerrada/);
+    const chip = await page.locator('#chip-ruta').boundingBox();
+    const control = await page.locator('.leaflet-control-zoom').boundingBox();
+    expect(control.y + control.height, 'el zoom se encima con el chip').toBeLessThanOrEqual(chip.y);
+  });
+});
+
 test.describe('computadora 1280 × 800', () => {
   test.use({ viewport: { width: 1280, height: 800 }, isMobile: false, hasTouch: false });
 

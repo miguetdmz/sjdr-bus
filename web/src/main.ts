@@ -92,6 +92,11 @@ const app = document.querySelector<HTMLElement>('.app')!;
 const barra = document.querySelector<HTMLElement>('#barra')!;
 const hoja = document.querySelector<HTMLElement>('#hoja')!;
 const chip = document.querySelector<HTMLElement>('#chip-ruta')!;
+// D-58: el zoom va arriba del chip; si el nombre de la ruta ocupa más renglones el
+// chip crece y el zoom sube con él (estilos.css usa --chip-alto, mínimo 60 px).
+new ResizeObserver(() => {
+  document.documentElement.style.setProperty('--chip-alto', `${Math.max(chip.hidden ? 0 : chip.offsetHeight, 60)}px`);
+}).observe(chip);
 
 // La ficha de una parada o zona nunca queda debajo de la barra, del menú abierto
 // o del aviso de la ruta: el mapa se mueve lo necesario. Se mide contra la caja

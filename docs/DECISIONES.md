@@ -1716,4 +1716,9 @@ Miguel).
   (el pie está escrito en 9 px). Arreglo: `text-size-adjust: 100%` en la página; es
   el tamaño de la maqueta aprobada, no un cambio de diseño. Prueba a4 en
   `d59.spec.mjs`, validada con el defecto (sin la regla: «auto», falla).
+- **Falla en GitHub Actions al subir (21 nov 2026, `26630de`):** «el zoom se encima
+  con el chip» por 7 px (pasaba en la Mac). Con otra fuente el chip creció un renglón.
+  Arreglo: el zoom se coloca con el alto real del chip (`--chip-alto`, mínimo 60 px:
+  igual que la maqueta). Prueba nueva a 320 px con la ruta de nombre más largo: fallaba
+  por 71 px antes del arreglo, pasa después. Lección 5, 3.ª ocurrencia.
 - **Decide:** Miguel (en su teléfono, junto con D-58).

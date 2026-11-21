@@ -111,7 +111,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
    la ruta; en computadora, igual. */
 .leaflet-control-zoom.leaflet-bar {
   border: 0; border-radius: 999px; overflow: hidden; background: var(--tarjeta);
-  box-shadow: var(--sombra); margin: 0 12px calc(var(--abajo) + 116px) 0;
+  box-shadow: var(--sombra);
+  /* Arriba del chip de la ruta: 44 px (donde empieza el chip) + su alto real + 12 px.
+     main.ts mide el chip en --chip-alto (mínimo 60 px = 116 px como en la maqueta);
+     si el nombre ocupa más renglones, el zoom sube con él (falla vista en GitHub
+     Actions, 21 nov 2026). */
+  margin: 0 12px calc(var(--abajo) + 44px + var(--chip-alto, 60px) + 12px) 0;
 }
 .leaflet-control-zoom.leaflet-bar a {
   width: 46px; height: 46px; line-height: 44px; font-size: 24px; font-weight: 500;

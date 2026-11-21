@@ -140,7 +140,16 @@ puede, convertir la regla en una prueba automática.
      que se genera al compilar y no está en git (ENOENT). Detección temprana:
      antes de subir una prueba nueva, correrla sin los archivos ignorados por
      git (como los ve GitHub).
-   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control).
+   - 2026-11-21 (3.ª vez): la prueba de D-58 «el zoom no se encima con el chip»
+     pasó en la Mac y falló en GitHub Actions por 7 px: con la fuente de Linux el
+     nombre de la ruta ocupó un renglón más, el chip creció y el zoom (a altura fija)
+     quedó encima. Era un defecto real (en un teléfono de 320 px se enciman 71 px).
+     Arreglo: el zoom mide el alto real del chip; prueba nueva a 320 px con la ruta de
+     nombre más largo, validada con el defecto.
+   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de Miguel):
+   toda prueba de posición o tamaño corre también a 320 px y con una fuente más ancha
+   que la de la Mac (proyecto extra de Playwright), para ver en la Mac lo que verá
+   GitHub. Prueba: la falla de D-58 (antes del arreglo) aparece en la Mac.
    **ALERTA DE CALIDAD (19 nov 2026, Miguel):** se repitió; compartirla con
    todos los proyectos. La cosecha del Second Brain la lleva a la bóveda y
    propone subirla a `standards.md` (no se sube sin el sí de Miguel).
