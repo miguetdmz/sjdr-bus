@@ -1423,6 +1423,9 @@ Miguel).
   4. **«estimado» en minúscula** y letra chica en las leyendas (sigue dicho en
      pantalla, regla 2).
   5. **Insignia R1 más grande** en el aviso de ruta elegida con el menú cerrado.
+- **Ajuste 3 (Miguel, 20 nov 2026, 7:03 pm):** el círculo de la parada lleva
+  dentro **el camión de frente** (el mismo pictograma del botón). «Se ve
+  increíble.» Ya en la maqueta.
 - **Decide:** Miguel. Se construye en el chat siguiente (contexto de este chat
   al 29 %, umbral de aviso 30 %).
 
