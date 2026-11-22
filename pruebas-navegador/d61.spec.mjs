@@ -127,23 +127,5 @@ test.describe('sin permiso de ubicación (390 × 844)', () => {
   });
 });
 
-for (const [ancho, alto, extra] of [[844, 280, {}], [1280, 800, { isMobile: false, hasTouch: false }]]) {
-  test.describe(`${ancho} × ${alto}`, () => {
-    test.use({ viewport: { width: ancho, height: alto }, ...extra });
-
-    test('p6: sin círculo y el zoom abajo a la derecha, como en D-60', async ({ page }) => {
-      await expect(page.locator(UBICAME)).toHaveCount(0);
-      await expect(page.locator(`.leaflet-bottom.leaflet-right ${ZOOM}`)).toHaveCount(1);
-    });
-  });
-}
-
-test('p7: al girar el teléfono los controles se acomodan solos', async ({ page }) => {
-  await expect(page.locator(`.leaflet-top.leaflet-right ${ZOOM}`)).toHaveCount(1);
-  await page.setViewportSize({ width: 844, height: 390 });
-  await expect(page.locator(UBICAME)).toHaveCount(0);
-  await expect(page.locator(`.leaflet-bottom.leaflet-right ${ZOOM}`)).toHaveCount(1);
-  await page.setViewportSize({ width: 390, height: 844 });
-  await expect(page.locator(`.leaflet-top.leaflet-right ${ZOOM}`)).toHaveCount(1);
-  await revisarColumna(page);
-});
+// p6 y p7 (acostado y computadora sin círculo) los reemplaza D-62 (Miguel, 22 nov
+// 2026): el círculo va en los tres. Ver pruebas-navegador/d62.spec.mjs.

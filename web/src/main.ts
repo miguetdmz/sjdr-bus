@@ -81,7 +81,7 @@ for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev
 
 const mapa = L.map('mapa', { zoomControl: false, attributionControl: false }).setView(VISTA_CIUDAD, escritorio() ? 14 : 13);
 // D-58, 1: zoom «+ / −» en píldora, abajo a la derecha (teléfono y computadora).
-// D-61: con el teléfono parado sube arriba a la derecha (ver «Círculo mi ubicación»).
+// D-61 y D-62: parado y en computadora sube arriba a la derecha (ver «Círculo mi ubicación»).
 const controlZoom = L.control.zoom({ position: 'bottomright', zoomInTitle: 'Acercar', zoomOutTitle: 'Alejar' }).addTo(mapa);
 
 // Teselas estándar de OpenStreetMap: solo las del área visible, con la caché
@@ -841,11 +841,11 @@ verParada.addEventListener('click', () => {
 });
 
 // --- Círculo «mi ubicación» (D-61, maqueta aprobada por Miguel, 21 nov 2026) -------
-// Solo con el teléfono parado: el zoom sube arriba a la derecha, abajo del botón de
-// paradas, y debajo va este círculo. Acostado y en computadora, como D-60 (zoom
-// abajo, sin círculo). Usa la ubicación como «Buscar mi parada más cercana» (D-57):
+// Con el teléfono parado el zoom sube arriba a la derecha, abajo del botón de
+// paradas, y debajo va este círculo (D-62 lo lleva también a acostado y a
+// computadora). Usa la ubicación como «Buscar mi parada más cercana» (D-57):
 // se queda en el teléfono, sin ninguna petición de red (regla 7).
-const parado = window.matchMedia('(max-width: 767px) and (min-height: 501px)');
+const acostado = window.matchMedia('(max-height: 500px)');
 const botonUbicame = document.createElement('button');
 botonUbicame.type = 'button';
 botonUbicame.id = 'ubicame';
@@ -895,13 +895,18 @@ botonUbicame.addEventListener('click', () => {
   );
 });
 
+// D-62 (maqueta aprobada por Miguel, 22 nov 2026, 3:47 pm): el círculo va en los
+// tres. Parado y computadora: arriba a la derecha, primero «+ / −» y abajo el círculo.
+// Acostado: el zoom abajo (D-60) y el círculo a su izquierda (estilos.css).
 function acomodarControles(): void {
+  const lugar = acostado.matches ? 'bottomright' : 'topright';
   controlUbicame.remove();
-  controlZoom.setPosition(parado.matches ? 'topright' : 'bottomright');
-  if (parado.matches) controlUbicame.addTo(mapa);
+  controlZoom.setPosition(lugar);
+  controlUbicame.setPosition(lugar);
+  controlUbicame.addTo(mapa);
 }
 acomodarControles();
-parado.addEventListener('change', acomodarControles);
+acostado.addEventListener('change', acomodarControles);
 
 // --- Arranque ------------------------------------------------------------------
 cargarDatos()

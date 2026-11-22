@@ -1808,7 +1808,7 @@ Miguel).
   la etiqueta «Inicio: Las Águilas» queda en parte debajo del círculo (detalle y
   opciones en `docs/evidencia/d61/criterios.md`).
 
-## D-62 · 22 nov 2026 · Círculo «mi ubicación» también acostado y en computadora · MAQUETA (en revisión de Miguel)
+## D-62 · 22 nov 2026 · Círculo «mi ubicación» también acostado y en computadora · CONSTRUIDA (falta la revisión de Miguel en su teléfono y computadora)
 - **Pedido (Miguel, 22 nov 2026, 3:39 pm):** a la pregunta de D-61 (lección 14) «¿el
   círculo de ubicación también acostado y en computadora?», respondió «en los tres».
 - **Maqueta (D-54):** `docs/maquetas/d62/maqueta.html` (parte de la de D-61). El zoom no
@@ -1829,3 +1829,12 @@ Miguel).
   cambia el lugar del zoom en computadora que había dejado D-58 (abajo), por pedido de
   Miguel. Maqueta y capturas actualizadas en `docs/maquetas/d62/`.
 - **Decide:** Miguel.
+- **Aprobada y construida (Miguel aprobó la maqueta ajustada a las 3:47 pm; construida
+  a las 3:51 pm):** computadora, zoom y círculo arriba a la derecha (12 px bajo la barra
+  verde, círculo 10 px bajo el zoom); acostado, el zoom donde lo dejó D-60 y el círculo
+  a su izquierda, alineado abajo; parado, como D-61. Criterios escritos antes
+  (`docs/evidencia/d62/criterios.md`); prueba `pruebas-navegador/d62.spec.mjs` (9 casos
+  a 1280 × 800, 1024 × 768, 844 × 280, 844 × 212 y al girar); antes del cambio fallaban
+  los 9. Las pruebas p6 y p7 de D-61 (acostado y computadora sin círculo) se
+  reemplazan por estas. Inventario de selectores en
+  `docs/evidencia/d62/inventario-selectores.md` (ningún selector desaparece).

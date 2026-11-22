@@ -133,11 +133,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
    (D-60), así que estas reglas solo aplican cuando están arriba. */
 .leaflet-top.leaflet-right { margin-top: calc(var(--arriba) + 52px); }
 .leaflet-top.leaflet-right .leaflet-control-zoom.leaflet-bar { margin: 12px max(12px, env(safe-area-inset-right)) 0 0; }
-.leaflet-top.leaflet-right .ubicame {
-  width: 46px; height: 46px; margin: 10px max(12px, env(safe-area-inset-right)) 0 0; padding: 0;
+.ubicame {
+  width: 46px; height: 46px; padding: 0;
   border: 0; border-radius: 50%; background: var(--tarjeta); box-shadow: var(--sombra);
   display: grid; place-items: center; color: var(--primario); cursor: pointer;
 }
+.leaflet-top.leaflet-right .ubicame { margin: 10px max(12px, env(safe-area-inset-right)) 0 0; }
 .ubicame:disabled { opacity: .7; cursor: progress; }
 .ubicame:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
 /* El aviso de «mi ubicación» usa el lugar y el estilo del aviso de paradas (D-53,
@@ -403,6 +404,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .pie { text-align: right; font-size: 10px; }
   .aviso-mapa { bottom: 16px; }
   .chip-ruta { bottom: 32px; right: auto; width: 420px; left: 50%; transform: translateX(-50%); }
+  /* D-62 ajuste (Miguel, 22 nov 2026, 3:43 pm): zoom y círculo arriba a la derecha,
+     12 px bajo la barra verde (el mapa ya empieza abajo de ella). */
+  .leaflet-top.leaflet-right { margin-top: 0; }
 
   .mapa { top: 60px; transition: left 280ms cubic-bezier(.2, .8, .2, 1); }
   .app.menu-abierto .mapa { left: 400px; }
@@ -429,6 +433,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
    que se vea el mapa; «Ver detalle» se ve de 31 px y el botón mide 44 px. */
 @media (max-height: 500px) {
   .leaflet-control-zoom.leaflet-bar { margin-bottom: calc(var(--abajo) + 30px); }
+  /* D-62 (maqueta aprobada por Miguel, 22 nov 2026, 3:47 pm): el círculo «mi
+     ubicación» a la izquierda del zoom, alineado con su parte de abajo, 10 px de
+     espacio (en columna no cabe a 844 × 212). El zoom no se mueve (D-60). */
+  .leaflet-bottom.leaflet-right .ubicame {
+    position: absolute; margin: 0; bottom: calc(var(--abajo) + 30px);
+    right: calc(max(12px, env(safe-area-inset-right)) + 46px + 10px);
+  }
   .hoja { padding-top: max(6px, env(safe-area-inset-top)); padding-bottom: calc(var(--abajo) + 18px); }
   .hoja-cabeza { padding-bottom: 0; }
   .pestanas { margin-bottom: 6px; }
