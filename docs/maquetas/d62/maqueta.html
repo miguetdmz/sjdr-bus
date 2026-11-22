@@ -324,11 +324,14 @@ button { font: inherit; color: inherit; }
 }
 
 /* D-62 (Miguel, 22 nov 2026, 3:39 pm): el círculo «mi ubicación» también acostado y
-   en computadora. El zoom no se mueve de donde lo dejaron D-58 y D-60.
-   Computadora: el círculo va arriba del zoom, con 10 px de espacio (columna como en
-   parado). Acostado: va a la izquierda del zoom, alineado con su parte de abajo, con
-   10 px de espacio (medido: en columna no cabe a 844 × 212, se encimaría con el
-   botón de paradas). */
+   en computadora. Ajuste (3:43 pm): en computadora el zoom y el círculo van arriba a
+   la derecha, como en parado (primero «+ / −», abajo el círculo), 12 px bajo la barra
+   verde. Acostado: el zoom no se mueve (D-60) y el círculo va a la izquierda del zoom,
+   alineado con su parte de abajo, con 10 px de espacio (medido: en columna no cabe a
+   844 × 212, se encimaría con el botón de paradas). */
+@media (min-width: 768px) and (min-height: 501px) {
+  .leaflet-top.leaflet-right { margin-top: 2px; }
+}
 .leaflet-bottom.leaflet-right .ubicame {
   width: 46px; height: 46px; margin: 0 max(12px, env(safe-area-inset-right)) 10px 0; padding: 0;
   border: 0; border-radius: 50%; background: var(--tarjeta); box-shadow: var(--sombra);
@@ -525,17 +528,18 @@ const Ubicame = L.Control.extend({
   },
 });
 const ubicame = new Ubicame();
+const acostado = matchMedia('(max-height: 500px)');
 function acomodarControles() {
-  // D-62: el círculo en los tres. En las esquinas de abajo Leaflet pone arriba el
-  // último control agregado: zoom primero y círculo después = círculo arriba del zoom.
+  // D-62 ajuste (Miguel, 3:43 pm): parado y computadora, arriba a la derecha (primero
+  // «+ / −» y abajo el círculo); acostado, abajo, el círculo a la izquierda del zoom.
   ubicame.remove();
-  const lugar = parado.matches ? 'topright' : 'bottomright';
+  const lugar = acostado.matches ? 'bottomright' : 'topright';
   zoomCtl.setPosition(lugar);
   ubicame.options.position = lugar;
   ubicame.addTo(mapa);
 }
 acomodarControles();
-parado.addEventListener('change', acomodarControles);
+acostado.addEventListener('change', acomodarControles);
 document.body.classList.add('t-' + (new URLSearchParams(location.search).get('tarjeta') || 'suave')); // D-58 aprobada: suave
 // D-59, 1: Safari de iPhone ignora user-scalable=no; se frena el pellizco de la página.
 for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });

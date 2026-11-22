@@ -1822,4 +1822,10 @@ Miguel).
 - **Medido** (`docs/maquetas/d62/capturas/`, con y sin ruta, a 390 × 844, 844 × 280,
   844 × 212 y 1280 × 800): el círculo no se encima con el zoom, el botón de paradas, el
   chip de la ruta ni el pie, y el zoom queda donde estaba.
+- **Ajuste (Miguel, 22 nov 2026, 3:43 pm):** acostado, aprobado como se propuso. En
+  computadora el zoom y el círculo van **arriba** a la derecha, primero «+ / −» y abajo
+  el círculo (como en parado). Medido a 1280 × 800: el zoom empieza 12 px bajo la barra
+  verde y el círculo 10 px bajo el zoom; no se enciman con el chip de la ruta. Esto
+  cambia el lugar del zoom en computadora que había dejado D-58 (abajo), por pedido de
+  Miguel. Maqueta y capturas actualizadas en `docs/maquetas/d62/`.
 - **Decide:** Miguel.
