@@ -1807,3 +1807,19 @@ Miguel).
 - **Hallazgo sin aplicar (lección 14), pregunta para Miguel:** a 320 × 568, con la R40,
   la etiqueta «Inicio: Las Águilas» queda en parte debajo del círculo (detalle y
   opciones en `docs/evidencia/d61/criterios.md`).
+
+## D-62 · 22 nov 2026 · Círculo «mi ubicación» también acostado y en computadora · MAQUETA (en revisión de Miguel)
+- **Pedido (Miguel, 22 nov 2026, 3:39 pm):** a la pregunta de D-61 (lección 14) «¿el
+  círculo de ubicación también acostado y en computadora?», respondió «en los tres».
+- **Maqueta (D-54):** `docs/maquetas/d62/maqueta.html` (parte de la de D-61). El zoom no
+  se mueve de donde lo dejaron D-58 y D-60 (lo aprobado no se toca). Computadora: el
+  círculo va arriba del zoom, 10 px de espacio (columna, como en parado). Acostado: va
+  a la izquierda del zoom, alineado con su parte de abajo, 10 px de espacio. Parado:
+  como D-61.
+- **Por qué acostado va al lado y no arriba (medido):** a 844 × 212 el zoom empieza en
+  y = 90 y el botón de paradas termina en y = 62; el círculo arriba del zoom empezaría
+  en y = 34 y se encimaría con el botón de paradas.
+- **Medido** (`docs/maquetas/d62/capturas/`, con y sin ruta, a 390 × 844, 844 × 280,
+  844 × 212 y 1280 × 800): el círculo no se encima con el zoom, el botón de paradas, el
+  chip de la ruta ni el pie, y el zoom queda donde estaba.
+- **Decide:** Miguel.
