@@ -34,6 +34,7 @@ import {
   ICONO_RELOJ,
   ICONO_RUTAS,
   ICONO_UBICAR,
+  ICONO_MI_UBICACION,
   PARADA_CIRCULO,
   camioncito,
   iconoBus,
@@ -80,7 +81,8 @@ for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev
 
 const mapa = L.map('mapa', { zoomControl: false, attributionControl: false }).setView(VISTA_CIUDAD, escritorio() ? 14 : 13);
 // D-58, 1: zoom «+ / −» en píldora, abajo a la derecha (teléfono y computadora).
-L.control.zoom({ position: 'bottomright', zoomInTitle: 'Acercar', zoomOutTitle: 'Alejar' }).addTo(mapa);
+// D-61: con el teléfono parado sube arriba a la derecha (ver «Círculo mi ubicación»).
+const controlZoom = L.control.zoom({ position: 'bottomright', zoomInTitle: 'Acercar', zoomOutTitle: 'Alejar' }).addTo(mapa);
 
 // Teselas estándar de OpenStreetMap: solo las del área visible, con la caché
 // normal del navegador (HANDOFF §11.6). La atribución va en el pie (#pie),
@@ -752,6 +754,18 @@ function avisar(textoNota: string): void {
   notaUbicacion.hidden = false;
 }
 
+// El punto «Tú» en el mapa: uno solo, lo ponen «Buscar mi parada más cercana» y el
+// círculo «mi ubicación» (D-61).
+let marcadorYo: L.Marker | null = null;
+function ponerYo(yo: Punto): void {
+  estado.yo = yo;
+  if (marcadorYo && capaUbicacion.hasLayer(marcadorYo)) {
+    marcadorYo.setLatLng([yo.lat, yo.lon]);
+    return;
+  }
+  marcadorYo = L.marker([yo.lat, yo.lon], { icon: L.divIcon({ className: 'punto-yo', html: '<div class="yo"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }), title: 'Tú', alt: 'Tu ubicación', keyboard: false }).addTo(capaUbicacion);
+}
+
 function buscarParada(fresca: boolean): void {
   if (!('geolocation' in navigator)) {
     avisar('Este navegador no puede dar tu ubicación.');
@@ -768,12 +782,11 @@ function buscarParada(fresca: boolean): void {
   navigator.geolocation.getCurrentPosition(
     async (pos) => {
       const yo = { lat: pos.coords.latitude, lon: pos.coords.longitude };
-      estado.yo = yo;
       const lista = await paradasListas.catch(() => [] as Parada[]);
       const cercana = masCercana(lista, yo);
       capaUbicacion.clearLayers();
       marcadorCercana = null;
-      L.marker([yo.lat, yo.lon], { icon: L.divIcon({ className: 'punto-yo', html: '<div class="yo"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }), title: 'Tú', alt: 'Tu ubicación', keyboard: false }).addTo(capaUbicacion);
+      ponerYo(yo);
       if (cercana) {
         const p = cercana.punto;
         const nombre = p.nombre ?? 'Parada sin nombre';
@@ -826,6 +839,69 @@ verParada.addEventListener('click', () => {
   mapa.setView(m.getLatLng(), Math.max(mapa.getZoom(), 17), { animate: false });
   m.openPopup();
 });
+
+// --- Círculo «mi ubicación» (D-61, maqueta aprobada por Miguel, 21 nov 2026) -------
+// Solo con el teléfono parado: el zoom sube arriba a la derecha, abajo del botón de
+// paradas, y debajo va este círculo. Acostado y en computadora, como D-60 (zoom
+// abajo, sin círculo). Usa la ubicación como «Buscar mi parada más cercana» (D-57):
+// se queda en el teléfono, sin ninguna petición de red (regla 7).
+const parado = window.matchMedia('(max-width: 767px) and (min-height: 501px)');
+const botonUbicame = document.createElement('button');
+botonUbicame.type = 'button';
+botonUbicame.id = 'ubicame';
+botonUbicame.className = 'ubicame';
+botonUbicame.title = 'Mi ubicación';
+botonUbicame.setAttribute('aria-label', 'Mostrar mi ubicación en el mapa');
+botonUbicame.innerHTML = ICONO_MI_UBICACION;
+L.DomEvent.disableClickPropagation(botonUbicame);
+const ControlUbicame = L.Control.extend({ onAdd: () => botonUbicame });
+const controlUbicame = new ControlUbicame({ position: 'topright' });
+
+const avisoUbicacion = document.querySelector<HTMLElement>('#aviso-ubicacion')!;
+let avisoUbicacionFin: number | undefined;
+function avisarEnMapa(textoAviso: string): void {
+  avisoUbicacion.textContent = textoAviso;
+  avisoUbicacion.hidden = false;
+  window.clearTimeout(avisoUbicacionFin);
+  avisoUbicacionFin = window.setTimeout(() => {
+    avisoUbicacion.hidden = true;
+  }, 6000);
+}
+
+botonUbicame.addEventListener('click', () => {
+  if (!('geolocation' in navigator)) {
+    avisarEnMapa('Este navegador no da tu ubicación; la app sigue igual');
+    return;
+  }
+  botonUbicame.disabled = true;
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const yo = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+      ponerYo(yo);
+      avisoUbicacion.hidden = true;
+      window.clearTimeout(encuadrePendiente);
+      mapa.setView([yo.lat, yo.lon], Math.max(mapa.getZoom(), 16));
+      botonUbicame.disabled = false;
+    },
+    (error) => {
+      avisarEnMapa(
+        error.code === error.PERMISSION_DENIED
+          ? 'Sin permiso de ubicación; la app sigue igual'
+          : 'No se pudo obtener tu ubicación; intenta de nuevo',
+      );
+      botonUbicame.disabled = false;
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
+  );
+});
+
+function acomodarControles(): void {
+  controlUbicame.remove();
+  controlZoom.setPosition(parado.matches ? 'topright' : 'bottomright');
+  if (parado.matches) controlUbicame.addTo(mapa);
+}
+acomodarControles();
+parado.addEventListener('change', acomodarControles);
 
 // --- Arranque ------------------------------------------------------------------
 cargarDatos()

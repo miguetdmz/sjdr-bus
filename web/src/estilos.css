@@ -126,6 +126,24 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .leaflet-control-zoom.leaflet-bar a.leaflet-disabled { color: #b9c2c5; }
 .leaflet-right .leaflet-control-zoom.leaflet-bar { margin-right: max(12px, env(safe-area-inset-right)); } /* D-59, 2: muesca */
 
+/* D-61 (maqueta aprobada por Miguel, 21 nov 2026, 2:51 am), teléfono parado: el zoom
+   va arriba a la derecha, abajo del botón de paradas (barra + 52 px + 12 px de
+   espacio), y debajo, con 10 px de espacio, el círculo «mi ubicación». main.ts los
+   pone arriba solo con el teléfono parado; acostado y en computadora quedan abajo
+   (D-60), así que estas reglas solo aplican cuando están arriba. */
+.leaflet-top.leaflet-right { margin-top: calc(var(--arriba) + 52px); }
+.leaflet-top.leaflet-right .leaflet-control-zoom.leaflet-bar { margin: 12px max(12px, env(safe-area-inset-right)) 0 0; }
+.leaflet-top.leaflet-right .ubicame {
+  width: 46px; height: 46px; margin: 10px max(12px, env(safe-area-inset-right)) 0 0; padding: 0;
+  border: 0; border-radius: 50%; background: var(--tarjeta); box-shadow: var(--sombra);
+  display: grid; place-items: center; color: var(--primario); cursor: pointer;
+}
+.ubicame:disabled { opacity: .7; cursor: progress; }
+.ubicame:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
+/* El aviso de «mi ubicación» usa el lugar y el estilo del aviso de paradas (D-53,
+   ajuste 1.2); mientras se ve, el de paradas espera oculto para no encimarse. */
+#aviso-ubicacion:not([hidden]) + #aviso-paradas { visibility: hidden; }
+
 /* ── Menú lateral izquierdo, cerrado al cargar ── */
 .velo { position: absolute; inset: 0; z-index: 1150; background: rgba(18, 38, 45, 0.28); }
 .hoja {

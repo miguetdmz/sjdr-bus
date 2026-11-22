@@ -1768,7 +1768,7 @@ Miguel).
   pasa con el arreglo (captura `docs/evidencia/d60/4-encuadre-844x280.jpg`).
 - **Decide:** Miguel (en su teléfono, con D-58 y D-59).
 
-## D-61 · 21 nov 2026 · Teléfono parado: zoom arriba y círculo «mi ubicación» · MAQUETA APROBADA (se construye después de las 10:00 am)
+## D-61 · 21 nov 2026 · Teléfono parado: zoom arriba y círculo «mi ubicación» · CONSTRUIDA (22 nov 2026; falta la revisión de Miguel en su teléfono)
 - **Pedido (Miguel, 21 nov 2026, 2:29 am):** con el teléfono parado, el «+ / −» está
   muy abajo; va abajo del botón de paradas (arriba a la derecha) con un espacio, y
   debajo, otro espacio y un botón en círculo de ubicación, para que quien entra al mapa
@@ -1791,3 +1791,19 @@ Miguel).
   semanal de Claude iba en 94 % (tope de Miguel: 95 %) y se reinicia el 21 nov a las
   10:00 am. Consumo de la construcción: ESTIMADO 1 a 3 puntos del semanal, sin medir.
 - **Decide:** Miguel.
+- **Construida (22 nov 2026, 3:13 pm):** `web/` como la maqueta. Con el teléfono parado
+  el zoom sube arriba a la derecha (12 px bajo el botón de paradas) y debajo, a 10 px,
+  el círculo «mi ubicación» de 46 px. Tocarlo pone el punto «Tú» y centra el mapa ahí
+  (zoom 16 o más); la ubicación no sale del teléfono (regla 7). Sin permiso, un aviso
+  «Sin permiso de ubicación; la app sigue igual» (6 s, mismo estilo y lugar que el
+  aviso de paradas, que espera oculto). Acostado y computadora quedan como D-60; al
+  girar el teléfono los controles se acomodan solos. El punto «Tú» es uno solo,
+  compartido con «Buscar mi parada más cercana».
+- **Evidencia:** criterios escritos antes (`docs/evidencia/d61/criterios.md`), prueba
+  `pruebas-navegador/d61.spec.mjs` (8 casos, a 390, 375 y 320 px parado, 844 × 280 y
+  1280 × 800); antes del cambio fallaban 6 de 8 (los 2 que pasaban revisan que
+  acostado y computadora no cambien). Capturas en `docs/evidencia/d61/`. Inventario de
+  selectores: 0 quitados (`inventario-selectores.md`).
+- **Hallazgo sin aplicar (lección 14), pregunta para Miguel:** a 320 × 568, con la R40,
+  la etiqueta «Inicio: Las Águilas» queda en parte debajo del círculo (detalle y
+  opciones en `docs/evidencia/d61/criterios.md`).
