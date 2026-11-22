@@ -42,7 +42,8 @@ Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 2. **Preguntas abiertas y pendientes:** D-55 (¿tarjetas de «cerca» partidas?, ¿«Borrar»
    a 36 px?); candidatas a lección (vista previa probada antes de subir; commit de
    maqueta antes de `npm run verificar`); controles pendientes con el sí de Miguel
-   (lecciones 5, 9, 10, 13 y 14); Ezequiel Montes (023) FALTANTE; página de aviso de
+   (lecciones 5, 9, 10, 13 y 14); lecciones 14 y 15 propuestas para `standards.md`
+   (lección 15 registrada a las 4:26 pm: toda prueba nueva se corre con el defecto puesto); Ezequiel Montes (023) FALTANTE; página de aviso de
    privacidad y términos con las fuentes (FALTANTE de D-52).
 
 ### Relevo anterior (22 nov 2026, 4:09 pm)

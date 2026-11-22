@@ -346,6 +346,23 @@ puede, convertir la regla en una prueba automática.
    Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
    `standards.md` (no se sube sin el sí de Miguel).
 
+15. **Una prueba nueva pasaba con el defecto puesto (22 nov 2026).** En D-61, la
+   prueba p3b del encuadre (`pruebas-navegador/d61.spec.mjs`) revisaba que el
+   punto de inicio de la ruta no quedara bajo el círculo «mi ubicación»; pasaba
+   aun con el defecto, porque lo tapado era la etiqueta de ~163 px, no el punto.
+   Se detectó al regresar a propósito el código al estado con el defecto antes de
+   dar la prueba por buena; se quitó el ajuste (tampoco lo arreglaba) y el hallazgo
+   fue a Miguel, que decidió dejarlo así. Causa raíz: la prueba se escribió desde la
+   hipótesis del arreglo (mover el punto), no desde lo que se vio en la captura (la
+   etiqueta tapada), y no se había corrido contra el defecto. Regla: toda prueba
+   nueva de un defecto se corre una vez con el defecto puesto y debe fallar antes de
+   darla por buena; si pasa, mide otra cosa. Detección temprana: escribir la prueba
+   con el elemento que se ve mal en la captura (aquí, la etiqueta) y anotar en el
+   reporte «antes del cambio fallaban N de M».
+   - 2026-11-22 (1.ª vez, registrada a pedido de Miguel a las 4:26 pm): este caso.
+   Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
+   `standards.md` (no se sube sin el sí de Miguel).
+
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:
 1. Se cierra un bloque o se integra un entregable a `main`.
