@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (22 nov 2026, 3:51 pm)
+## Estado actual (22 nov 2026, 4:09 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -13,7 +13,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
 | Versión en espera (PR 1 «B2 · Primera pantalla publicable → v0.2», https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, selector visual con tarjetas y zonas probables (D-50), nombre SJDR Bus. Integra Miguel cuando cierre B2 |
 | Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
-| Tarea en curso | **E-03 · D-58, D-59 y D-60: CONSTRUIDAS en `web/`.** D-58 zoom y píldoras; D-59 pellizco solo en el mapa, teléfono acostado como teléfono y letra del pie sin agrandar; D-60 acostado: zoom más abajo, menú más arriba (2 filas de rutas) y chip vertical 30 % más chico. D-53 + D-55 + D-57 aprobadas (12:34 am). **D-61 (teléfono parado: zoom arriba y círculo «mi ubicación») y D-62 (el círculo también acostado y en computadora; en computadora el zoom sube arriba): CONSTRUIDAS en `web/` (22 nov, 3:51 pm).** Falta: que Miguel apruebe D-58 a D-61 en su teléfono e integre el PR 1 para cerrar B2 (v0.2) |
+| Tarea en curso | **Cierre de B2 (D-63): D-53, D-55 y D-57 a D-62 APROBADOS por Miguel (D-58 a D-62 a las 4:09 pm del 22 nov).** Falta: que Miguel integre el PR 1 a `main` (v0.2) y que Claude verifique `main` y la versión publicada |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -29,7 +29,17 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (22 nov 2026, 3:51 pm)
+### Relevo para la siguiente sesión (22 nov 2026, 4:09 pm)
+
+0. **Lo hecho de las 3:51 pm a las 4:09 pm:** D-62 subida (`262195f`, Actions y Vercel
+   en verde). Hallazgo de 320 px: Miguel decidió dejarlo así (4:06 pm). Miguel aprobó
+   D-58 a D-62 en su iPhone y computadora (4:09 pm, D-63).
+1. **Siguiente:** Miguel integra el PR 1 a `main` («Create a merge commit»; pasos en
+   el chat y en D-63) → Claude verifica `main` y https://sjdrbus-sjr.vercel.app con
+   evidencia y marca **v0.2** → «el tema del PDF» (FALTANTE) → D-56 fase 2.
+2. **Preguntas abiertas y pendientes:** como en el relevo de las 2:31 am del 21 nov.
+
+### Relevo anterior (22 nov 2026, 3:51 pm)
 
 0. **Lo hecho de las 3:13 pm a las 3:51 pm:** D-61 subida (`0a18310`, Actions y Vercel
    en verde). Miguel pidió el círculo en los tres (3:39 pm) y en computadora el zoom

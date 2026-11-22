@@ -1646,7 +1646,7 @@ Miguel).
     `docs/evidencia/d57/comparacion/`. Inventario: ningún selector se fue.
 - **Decide:** Miguel.
 
-## D-58 · 21 nov 2026 · Zoom «+ / −» en píldora y formato píldora en los cuadros · CONSTRUIDA (en revisión de Miguel)
+## D-58 · 21 nov 2026 · Zoom «+ / −» en píldora y formato píldora en los cuadros · APROBADA (Miguel, 22 nov 2026, 4:09 pm)
 - **Pedido (Miguel, 21 nov 2026, 12:34 am),** al aprobar D-53 + D-55 + D-57 en su
   teléfono: falta el control «más / menos» para acercar el mapa, en teléfono y en
   computadora, como botón en forma de píldora. Y «todos los cuadros que apliquen y
@@ -1677,7 +1677,7 @@ Miguel).
 - **Decide:** Miguel (en su teléfono, con D-53 + D-55 + D-57 ya aprobadas).
 
 
-## D-59 · 21 nov 2026 · Pellizco solo en el mapa y teléfono acostado como teléfono · CONSTRUIDA (en revisión de Miguel)
+## D-59 · 21 nov 2026 · Pellizco solo en el mapa y teléfono acostado como teléfono · APROBADA (Miguel, 22 nov 2026, 4:09 pm)
 - **Pedido (Miguel, 21 nov 2026, 12:59 am),** al probar la vista previa (`5253b01`,
   todavía sin D-58) en su teléfono, con capturas: (1) al pellizcar para acercar,
   se agranda toda la página (barra, botones) y ya no se puede regresar; el
@@ -1723,7 +1723,7 @@ Miguel).
   por 71 px antes del arreglo, pasa después. Lección 5, 3.ª ocurrencia.
 - **Decide:** Miguel (en su teléfono, junto con D-58).
 
-## D-60 · 21 nov 2026 · Teléfono acostado: zoom más abajo y menú más arriba · CONSTRUIDA (en revisión de Miguel)
+## D-60 · 21 nov 2026 · Teléfono acostado: zoom más abajo y menú más arriba · APROBADA (Miguel, 22 nov 2026, 4:09 pm)
 - **Pedido (Miguel, 21 nov 2026, 1:42 am),** al probar acostado en su iPhone (vista
   previa `26630de`): (1) el «+ / −» se encima con el botón de paradas: bajarlo;
   (2) en el menú, subir «Rutas / Calcula tu ruta» y quitar espacio abajo (donde
@@ -1768,7 +1768,7 @@ Miguel).
   pasa con el arreglo (captura `docs/evidencia/d60/4-encuadre-844x280.jpg`).
 - **Decide:** Miguel (en su teléfono, con D-58 y D-59).
 
-## D-61 · 21 nov 2026 · Teléfono parado: zoom arriba y círculo «mi ubicación» · CONSTRUIDA (22 nov 2026; falta la revisión de Miguel en su teléfono)
+## D-61 · 21 nov 2026 · Teléfono parado: zoom arriba y círculo «mi ubicación» · APROBADA (Miguel, 22 nov 2026, 4:09 pm)
 - **Pedido (Miguel, 21 nov 2026, 2:29 am):** con el teléfono parado, el «+ / −» está
   muy abajo; va abajo del botón de paradas (arriba a la derecha) con un espacio, y
   debajo, otro espacio y un botón en círculo de ubicación, para que quien entra al mapa
@@ -1809,7 +1809,7 @@ Miguel).
   `docs/evidencia/d61/criterios.md`). **Miguel decidió (22 nov 2026, 4:06 pm): dejarlo
   así (opción A)**; se ve completa moviendo el mapa. No se cambia el encuadre.
 
-## D-62 · 22 nov 2026 · Círculo «mi ubicación» también acostado y en computadora · CONSTRUIDA (falta la revisión de Miguel en su teléfono y computadora)
+## D-62 · 22 nov 2026 · Círculo «mi ubicación» también acostado y en computadora · APROBADA (Miguel, 22 nov 2026, 4:09 pm)
 - **Pedido (Miguel, 22 nov 2026, 3:39 pm):** a la pregunta de D-61 (lección 14) «¿el
   círculo de ubicación también acostado y en computadora?», respondió «en los tres».
 - **Maqueta (D-54):** `docs/maquetas/d62/maqueta.html` (parte de la de D-61). El zoom no
@@ -1839,3 +1839,19 @@ Miguel).
   los 9. Las pruebas p6 y p7 de D-61 (acostado y computadora sin círculo) se
   reemplazan por estas. Inventario de selectores en
   `docs/evidencia/d62/inventario-selectores.md` (ningún selector desaparece).
+
+## D-63 · 22 nov 2026 · Cierre de B2: D-58 a D-62 aprobados, PR 1 listo para integrarse a `main` (v0.2)
+- **Aprobación (Miguel, 22 nov 2026, 4:09 pm):** «todo bien» al probar en su iPhone y
+  en la computadora la vista previa del commit `262195f` (D-58 a D-62). Con eso se da
+  por verificado en el iPhone el pellizco solo en el mapa (D-59), que estaba POR
+  VERIFICAR.
+- **Estado del PR 1** («B2 · Primera pantalla publicable → v0.2»,
+  https://github.com/miguetdmz/sjdr-bus/pull/1), revisado a las 4:09 pm: en borrador,
+  se puede integrar sin conflictos (CLEAN), `main` (`06efa8c`, v0.1) es ancestro de la
+  rama y la única revisión obligatoria de `main` es «verificar».
+- **Quién integra:** Miguel. Claude tiene negados `gh pr ready`, `gh pr merge`,
+  `git merge` y el push a `main` (`.claude/settings.json`, lección 6).
+- **Forma de integrar:** «Create a merge commit» (conserva cada commit con su Bloque ·
+  Tarea, como el historial archivado de `main`).
+- **Después:** Claude verifica `main` y https://sjdrbus-sjr.vercel.app con evidencia y
+  marca v0.2 en PLAN. Siguiente: «el tema del PDF» (FALTANTE: Miguel dice cuál es).
