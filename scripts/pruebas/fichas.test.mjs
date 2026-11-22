@@ -1,4 +1,4 @@
-// N-05: archivos base del feed y una ficha de estado por cada una de las 42 rutas.
+// N-05: archivos base del feed y una ficha de estado por cada una de las 39 rutas.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -10,11 +10,11 @@ const fichas = JSON.parse(readFileSync(dato('fichas/rutas.json'), 'utf8')).rutas
 const rutas = leerCSV(dato('gtfs-sjr/routes.txt'));
 const idDe = (numero, intermunicipal) => rutas.find((r) => r.route_short_name === numero && r.route_id.startsWith(intermunicipal ? 'I-' : 'U-'))?.route_id;
 
-test('fichas: 42, en el orden de routes.txt; 10 verificadas y 32 de solo inventario', () => {
-  assert.equal(fichas.length, 42);
+test('fichas: 39, en el orden de routes.txt; 10 verificadas y 29 de solo inventario', () => {
+  assert.equal(fichas.length, 39);
   assert.deepEqual(fichas.map((f) => f.route_id), rutas.map((r) => r.route_id));
   assert.equal(fichas.filter((f) => f.grupo === 'verificada').length, 10);
-  assert.equal(fichas.filter((f) => f.grupo === 'solo-inventario').length, 32);
+  assert.equal(fichas.filter((f) => f.grupo === 'solo-inventario').length, 29);
 });
 
 test('fichas: el grupo de cada ruta coincide con HANDOFF §5.1 y §5.3', () => {
@@ -22,7 +22,7 @@ test('fichas: el grupo de cada ruta coincide con HANDOFF §5.1 y §5.3', () => {
   const verificadas = numerosVerificados().map((n) => idDe(n, n === '062'));
   const soloInventario = numerosSoloInventario().map(({ numero, intermunicipal }) => idDe(numero, intermunicipal));
   assert.equal(verificadas.length, 10);
-  assert.equal(soloInventario.length, 32);
+  assert.equal(soloInventario.length, 29);
   for (const f of fichas) {
     const esperado = verificadas.includes(f.route_id) ? 'verificada' : soloInventario.includes(f.route_id) ? 'solo-inventario' : null;
     assert.equal(f.grupo, esperado, `${f.route_id}`);
@@ -54,7 +54,7 @@ test('archivos base: agency.txt, feed_info.txt y calendar.txt', () => {
   }
 
   const [info] = leerCSV(dato('gtfs-sjr/feed_info.txt'));
-  assert.equal(info.feed_publisher_name, 'Colaboradores de SJDRbus');
+  assert.equal(info.feed_publisher_name, 'Colaboradores de SJDR Bus');
   assert.equal(info.feed_publisher_url, 'https://github.com/miguetdmz/sjdr-bus');
   assert.equal(info.feed_lang, 'es');
   assert.match(info.feed_version, /^\d+\.\d+\.\d+$/);

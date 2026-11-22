@@ -1,0 +1,971 @@
+#!/usr/bin/env node
+// R-03, hallazgo a (D-32, D-42): separa y ubica los cruces de las listas
+// oficiales de R-01 con las calles de OpenStreetMap. Sin red.
+//   entrada: datos/investigacion/calles-oficiales.json (R-01; solo las 19
+//            listas usables, D-33)
+//            datos/cache/overpass/calles.json (D-32)
+//            datos/cache/overpass/lugares.json (D-34)
+//   salida:  datos/investigacion/cruces.json
+//
+// La página oficial pega los cruces «CALLE A-CALLE B» uno tras otro, separados
+// solo con espacios. Antes de dejar algo POR VERIFICAR se arregla el dato con
+// evidencia (D-42):
+//   1. Nombres partidos: se elige el corte que mejor coincide con calles reales
+//      y con nombres que la misma lista repite («CARR. SAN JUAN DEL RÍO» no se
+//      parte en «CARR. SAN JUAN» + «DEL RÍO»).
+//   2. Abreviaturas y erratas («LIC.», «GRAL.», «COBARUBIAS», «GELEANA»): se
+//      aceptan solo si la calle corregida de verdad toca a la otra calle del
+//      cruce en el mapa de OSM (a 30 m o menos). Sin esa prueba no hay
+//      corrección (lección 4).
+//   3. Negocios y lugares («OFFICE DEPOT», «PARQUE LAS GARZAS»): no son calles.
+//      Si el lugar está en OSM junto a la calle, se ubica ahí; si no, el cruce
+//      queda como REFERENCIA: confirma la calle por donde pasa el camión, pero
+//      no aporta un punto propio.
+// Los cruces quedan en el orden de la lista oficial, que todavía junta ida y
+// vuelta (hallazgo c): aquí no se asigna sentido (regla 10).
+import { readFileSync, writeFileSync } from 'node:fs';
+
+const raiz = new URL('..', import.meta.url).pathname;
+const leer = (r) => JSON.parse(readFileSync(`${raiz}${r}`, 'utf8'));
+const oficiales = leer('datos/investigacion/calles-oficiales.json');
+const osm = leer('datos/cache/overpass/calles.json');
+const lugares = leer('datos/cache/overpass/lugares.json');
+const extremosRutas = leer('datos/investigacion/extremos.json').rutas;
+const extremosFinales = leer('datos/investigacion/extremos-finales.json').lugares;
+
+const UMBRAL_CRUCE_M = 30; // dos calles «se tocan» si sus trazos quedan a ≤ 30 m (ESTIMADO)
+// Calles que OSM dibuja más cortas de lo que son, confirmadas por Miguel (D-43):
+// para ellas el umbral sube, y la evidencia dice la distancia real.
+// Calles (o pares «A|B», en orden alfabético) que OSM dibuja cortas y Miguel
+// confirmó que sí llegan: el umbral sube solo para ellas.
+const TOLERANCIA_MIGUEL = {
+  'Cerrada de Uruguay': 50, // Miguel, 20 nov 2026, 1:39 am (a 31 m de Veracruz y 47 m de Av. Francia)
+  'Avenida Universidad|Circuito Querétaro Norte': 40, // solo este par, a 32 m en OSM; Miguel, 20 nov 2026, 2:39 am
+};
+const UMBRAL_LUGAR_M = 300; // un lugar de OSM cuenta para el cruce si queda a ≤ 300 m de la calle
+
+// ---------- normalización de nombres ----------
+const ABREV = {
+  AV: 'AVENIDA', AVE: 'AVENIDA', C: 'CALLE', CALL: 'CALLE', BLVD: 'BOULEVARD', BLV: 'BOULEVARD',
+  CAR: 'CARRETERA', CARR: 'CARRETERA', CARRET: 'CARRETERA', CTO: 'CIRCUITO', CIR: 'CIRCUITO', PROL: 'PROLONGACION',
+  PRIV: 'PRIVADA', CDA: 'CERRADA', CALZ: 'CALZADA', AND: 'ANDADOR', LIC: 'LICENCIADO', LICDO: 'LICENCIADO',
+  GRAL: 'GENERAL', GENL: 'GENERAL', PROF: 'PROFESOR', PROFA: 'PROFESORA', PROFR: 'PROFESOR',
+  ARQ: 'ARQUITECTO', ING: 'INGENIERO', DR: 'DOCTOR', DRA: 'DOCTORA', STA: 'SANTA', STO: 'SANTO',
+  SN: 'SAN', FCO: 'FRANCISCO', JOSE: 'JOSE', MA: 'MARIA', NO: 'NUMERO', NUM: 'NUMERO', FRACC: 'FRACCIONAMIENTO',
+  COL: 'COLONIA', CAM: 'CAMINO', LIB: 'LIBRAMIENTO',
+};
+const TIPOS = new Set(['AVENIDA', 'CALLE', 'BOULEVARD', 'CARRETERA', 'CIRCUITO', 'PROLONGACION', 'PRIVADA',
+  'CERRADA', 'CALZADA', 'ANDADOR', 'CAMINO', 'LIBRAMIENTO', 'RETORNO', 'PASAJE']);
+const TITULOS = new Set(['LICENCIADO', 'GENERAL', 'PROFESOR', 'PROFESORA', 'ARQUITECTO', 'INGENIERO',
+  'DOCTOR', 'DOCTORA', 'CORONEL', 'CAPITAN', 'MAESTRO', 'MAESTRA', 'PRESIDENTE']);
+const VACIAS = new Set(['DE', 'DEL', 'LA', 'LAS', 'LOS', 'EL', 'Y', 'E']);
+// Un pedazo de nombre no puede empezar con estas palabras ni ser solo un rumbo.
+const NO_INICIA = new Set(['DE', 'DEL', 'LA', 'LAS', 'LOS', 'Y', 'E']);
+const RUMBOS = new Set(['NORTE', 'SUR', 'ORIENTE', 'PONIENTE', 'OTE', 'PTE', 'NTE']);
+// Nombres de pila: solos no identifican una calle («VICENTE»), pero sí pueden
+// sobrar en el nombre oficial («BENITO JUÁREZ» → OSM «Avenida Juárez»).
+const NOMBRES_PILA = new Set(['BENITO', 'FRANCISCO', 'JOSE', 'MARIA', 'MIGUEL', 'VICENTE', 'IGNACIO', 'JUAN',
+  'MANUEL', 'EMILIANO', 'PAVON', 'COSTILLA', 'IGN', 'R']);
+
+const ORDINALES = { 1: 'PRIMERO', 2: 'SEGUNDO', 3: 'TERCERO', 4: 'CUARTO', 5: 'QUINTO' };
+const LUGAR = new Set(['PARQUE', 'PLAZA', 'PRIMARIA', 'SECUNDARIA', 'PREPARATORIA', 'ESCUELA', 'COLEGIO',
+  'INSTITUTO', 'UNIDAD', 'HOSPITAL', 'CLINICA', 'IMSS', 'ISSSTE', 'TIENDA', 'OXXO', 'SORIANA', 'BODEGA',
+  'MERCADO', 'IGLESIA', 'TEMPLO', 'PARROQUIA', 'CENTRO', 'GASOLINERA', 'FARMACIA', 'OFFICE', 'WALMART',
+  'AURRERA', 'COPPEL', 'ELEKTRA', 'TELMEX', 'CFE', 'PANTEON', 'CAPILLA', 'JARDIN', 'DEPORTIVA', 'AUDITORIO',
+  'PRESIDENCIA', 'TERMINAL', 'FABRICA', 'EMPRESA', 'KINDER', 'JARDIN', 'CBTIS', 'CONALEP', 'COBAQ', 'UTSJR',
+  'MONUMENTO']);
+const sinAcentos = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '');
+// Números escritos con letra = con cifra («AV. 1 PONIENTE» = «Avenida Uno
+// Poniente» en OSM; «CINCO DE MAYO» = «5 DE MAYO»). R-03, 20 nov 2026.
+const NUMEROS = { UNO: '1', DOS: '2', TRES: '3', CUATRO: '4', CINCO: '5', SEIS: '6', SIETE: '7',
+  OCHO: '8', NUEVE: '9', DIEZ: '10', DIECISEIS: '16', VEINTE: '20' };
+const palabras = (s) => sinAcentos(s).toUpperCase().replace(/[°º]/g, '').replace(/[.,;:"'()#]/g, ' ')
+  .split(/\s+/).filter(Boolean).map((w) => ABREV[w] ?? NUMEROS[w] ?? w)
+  // «ARTICULO 3O»: la «O» pegada al número es el «º» de «3º» (R-03, 20 nov 2026)
+  .map((w) => (/^\d+O$/.test(w) ? w.slice(0, -1) : w));
+// Núcleo: sin tipo de vía ni títulos; con rumbo aparte.
+const nucleo = (s) => palabras(s).filter((w) => !TIPOS.has(w) && !TITULOS.has(w));
+const clave = (s) => nucleo(s).join(' ');
+const sinRumbo = (ws) => ws.filter((w) => !RUMBOS.has(w));
+
+function lev(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    let minFila = i;
+    for (let j = 1; j <= b.length; j++) {
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      if (cur[j] < minFila) minFila = cur[j];
+    }
+    if (minFila > max) return max + 1;
+    prev = cur;
+  }
+  return prev[b.length];
+}
+
+// ---------- calles de OSM: por nombre, con índice espacial ----------
+const CELDA = 0.002; // ~200 m
+const celda = (lat, lon) => `${Math.floor(lat / CELDA)}:${Math.floor(lon / CELDA)}`;
+const calles = new Map(); // nombre OSM -> { nombre, nucleo, clave, segs: [[p,q]], celdas:Set }
+for (const t of osm.tramos) {
+  let c = calles.get(t.nombre);
+  if (!c) {
+    const nu = nucleo(t.nombre);
+    c = { nombre: t.nombre, nucleo: nu, clave: nu.join(' '), claveSR: sinRumbo(nu).join(' '), segs: [], celdas: new Map() };
+    calles.set(t.nombre, c);
+  }
+  for (let i = 1; i < t.trazo.length; i++) {
+    const s = [t.trazo[i - 1], t.trazo[i]];
+    const idx = c.segs.push(s) - 1;
+    for (const p of s) {
+      const k = celda(p[0], p[1]);
+      if (!c.celdas.has(k)) c.celdas.set(k, []);
+      c.celdas.get(k).push(idx);
+    }
+  }
+}
+const listaCalles = [...calles.values()];
+const porClave = new Map();
+for (const c of listaCalles) {
+  for (const k of new Set([c.clave, c.claveSR])) {
+    if (!porClave.has(k)) porClave.set(k, []);
+    porClave.get(k).push(c);
+  }
+}
+
+// Continuaciones: OSM a veces cambia el nombre de una calle a media cuadra
+// (la «Francisco Javier Mina» de la lista sigue en OSM como «Claustros»). Una
+// calle es continuación de otra si un tramo empieza justo donde termina el
+// otro (≤ 5 m) y sigue en la misma dirección (≤ 25°). Solo un paso.
+const extremosTramos = [];
+for (const t of osm.tramos) {
+  if (t.trazo.length < 2) continue;
+  const [p0, p1] = [t.trazo[0], t.trazo[1]];
+  const [q0, q1] = [t.trazo[t.trazo.length - 1], t.trazo[t.trazo.length - 2]];
+  // dirección «hacia afuera» del tramo en cada punta
+  extremosTramos.push({ nombre: t.nombre, p: p0, hacia: [p0[0] - p1[0], p0[1] - p1[1]] });
+  extremosTramos.push({ nombre: t.nombre, p: q0, hacia: [q0[0] - q1[0], q0[1] - q1[1]] });
+}
+const continuaciones = new Map(); // nombre -> Set(nombre)
+{
+  const porCelda = new Map();
+  for (const e of extremosTramos) {
+    const k = `${Math.floor(e.p[0] / 0.0002)}:${Math.floor(e.p[1] / 0.0002)}`;
+    if (!porCelda.has(k)) porCelda.set(k, []);
+    porCelda.get(k).push(e);
+  }
+  const ang = (u, v) => {
+    const a = [u[0] * 110574, u[1] * 104300], b = [v[0] * 110574, v[1] * 104300];
+    const c = (a[0] * b[0] + a[1] * b[1]) / (Math.hypot(...a) * Math.hypot(...b) || 1);
+    return (Math.acos(Math.max(-1, Math.min(1, c))) * 180) / Math.PI;
+  };
+  for (const e of extremosTramos) {
+    const [a, b] = [Math.floor(e.p[0] / 0.0002), Math.floor(e.p[1] / 0.0002)];
+    for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) {
+      for (const f of porCelda.get(`${a + i}:${b + j}`) ?? []) {
+        if (f.nombre === e.nombre) continue;
+        const d = Math.hypot((e.p[0] - f.p[0]) * 110574, (e.p[1] - f.p[1]) * 104300);
+        // e sale hacia afuera; f también: si siguen en línea, apuntan en sentidos opuestos
+        if (d <= 5 && ang(e.hacia, f.hacia) >= 155) {
+          if (!continuaciones.has(e.nombre)) continuaciones.set(e.nombre, new Set());
+          continuaciones.get(e.nombre).add(f.nombre);
+        }
+      }
+    }
+  }
+}
+
+// metros entre dos puntos (aprox. plana, suficiente a escala de ciudad)
+const M_LAT = 110574;
+const M_LON = 111320 * Math.cos((20.39 * Math.PI) / 180);
+const dist = (a, b) => Math.hypot((a[0] - b[0]) * M_LAT, (a[1] - b[1]) * M_LON);
+function distPuntoSeg(p, [a, b]) {
+  const ax = a[1] * M_LON, ay = a[0] * M_LAT, bx = b[1] * M_LON, by = b[0] * M_LAT;
+  const px = p[1] * M_LON, py = p[0] * M_LAT;
+  const dx = bx - ax, dy = by - ay;
+  const l2 = dx * dx + dy * dy;
+  const t = l2 ? Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / l2)) : 0;
+  const qx = ax + t * dx, qy = ay + t * dy;
+  return { d: Math.hypot(px - qx, py - qy), q: [qy / M_LAT, qx / M_LON] };
+}
+const vecinas = (k) => {
+  const [a, b] = k.split(':').map(Number);
+  const r = [];
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) r.push(`${a + i}:${b + j}`);
+  return r;
+};
+
+// Todos los lugares donde dos calles se tocan (≤ umbral), agrupados a 80 m.
+const memoCruce = new Map();
+function crucesEntre(c1, c2) {
+  const k = c1.nombre < c2.nombre ? `${c1.nombre}|${c2.nombre}` : `${c2.nombre}|${c1.nombre}`;
+  if (memoCruce.has(k)) return memoCruce.get(k);
+  const puntos = [];
+  const umbral = Math.max(UMBRAL_CRUCE_M, TOLERANCIA_MIGUEL[c1.nombre] ?? 0, TOLERANCIA_MIGUEL[c2.nombre] ?? 0, TOLERANCIA_MIGUEL[k] ?? 0);
+  for (const [ck, idx1] of c1.celdas) {
+    for (const vk of vecinas(ck)) {
+      const idx2 = c2.celdas.get(vk);
+      if (!idx2) continue;
+      for (const i of idx1) for (const j of idx2) {
+        const s1 = c1.segs[i], s2 = c2.segs[j];
+        for (const [p, s] of [[s1[0], s2], [s1[1], s2], [s2[0], s1], [s2[1], s1]]) {
+          const { d, q } = distPuntoSeg(p, s);
+          if (d <= umbral) puntos.push({ d, p: [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2] });
+        }
+      }
+    }
+  }
+  puntos.sort((a, b) => a.d - b.d);
+  const grupos = [];
+  for (const pt of puntos) if (!grupos.some((g) => dist(g.p, pt.p) < 80)) grupos.push(pt);
+  memoCruce.set(k, grupos);
+  return grupos;
+}
+function distCalle(c, p) {
+  let mejor = Infinity;
+  const k = celda(p[0], p[1]);
+  const [a, b] = k.split(':').map(Number);
+  const R = 2; // ±2 celdas (~400 m)
+  for (let i = -R; i <= R; i++) for (let j = -R; j <= R; j++) {
+    for (const idx of c.celdas.get(`${a + i}:${b + j}`) ?? []) mejor = Math.min(mejor, distPuntoSeg(p, c.segs[idx]).d);
+  }
+  return mejor;
+}
+
+// ---------- candidatos de calle para un texto ----------
+// tipo: exacto (1.0) · contenido (0.8: uno contiene al otro) · errata (0.7)
+const memoCand = new Map();
+// Alias locales confirmados por Miguel (D-43): el nombre de la lista oficial
+// que la gente usa → la calle de OSM. También aquí se exige la prueba del mapa.
+const ALIAS_MIGUEL = {
+  'PASEO CENTRAL': 'Avenida Central', // Miguel, 19 nov 2026, 10:05 pm
+  INDEPENDENCIA: 'Avenida Juárez', // junto al Jardín Independencia; Miguel, 19 nov 2026, 10:10 pm
+  'CARRETERA SAN JUAN DEL RIO': 'Avenida Central', // dentro de la ciudad; Miguel, 19 nov 2026, 10:12 pm
+  JURICA: 'Avenida Belisario Domínguez', // Miguel, 20 nov 2026, 12:47 am; única calle de OSM que toca Benito Juárez Ote., Fernando de Tapia y Av. Central
+  URUGUAY: 'Cerrada de Uruguay', // une Veracruz con Av. Francia (ruta 015B); Miguel, 20 nov 2026, 1:39 am
+  'MEXICAN FEDERAL HWY 120': 'San Juan del Río - Xilitla', // Carretera Federal 120 (ruta 032); Miguel, 20 nov 2026, 2:25 am
+  // «MÉXICO 120» es la misma Carretera Federal 120 en español (MEX-120, D-43)
+  'MÉXICO 120': 'San Juan del Río - Xilitla',
+  // el Walmart del km 3.2 está sobre el Paseo Central (009B, 016 y 030); Miguel, 20 nov 2026, 2:34 am
+  'CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2': 'Avenida Central',
+  // ruta 002: sale de la glorieta donde termina la Av. Benito Juárez Poniente; el
+  // «300» es el número de la Secretaría de Finanzas, no parte del nombre.
+  // Miguel, 20 nov 2026, 9:47 am
+  'CARRETERA QUERÉTARO 300': 'Carretera Panamericana a Querétaro',
+  // «El Cerezo» es el CERESO de Visthá (D-37): el camino «Acceso a Visthá», que
+  // toca Salinas, José Ballesteros López y la carretera a Xilitla (ruta 032).
+  // Miguel, 20 nov 2026, 11:01 am
+  'EL CEREZO': 'Acceso a Visthá',
+  CEREZO: 'Acceso a Visthá',
+  // la Carretera Estatal 122 es el mismo camino de acceso a Visthá (ruta 032);
+  // Miguel, 20 nov 2026, 1:04 pm
+  'CARRETERA ESTATAL 122': 'Acceso a Visthá',
+};
+// Nombres que traen su propio guion, confirmados por Miguel: el guion se cambia
+// por una raya (–) para que no se tome como separador de cruces.
+const UNIDOS_MIGUEL = ['CARRETERA SAN JUAN DEL RÍO-TEQUISQUIAPAN']; // Miguel, 20 nov 2026, 2:34 am
+const aliasPorClave = new Map(Object.entries(ALIAS_MIGUEL).map(([k, v]) => [clave(k), v]));
+// Continuaciones confirmadas por Miguel: la calle sigue con otro nombre en OSM.
+// No reemplazan al nombre original: se agregan como opción y solo ganan si
+// pasan la prueba del mapa (la calle original sigue sirviendo en sus cruces).
+const CONTINUACION_MIGUEL = {
+  'RIO MOCTEZUMA': 'Calle General Francisco Villa', // sigue 305 m hasta la Av. Central; Miguel, 20 nov 2026, 12:55 am
+};
+// Laterales confirmadas por Miguel: la lista nombra «AVENIDA-LATERAL», pero no
+// se cruzan; la lateral corre paralela a la avenida. Queda como REFERENCIA.
+// El lado sirve de pista para separar ida y vuelta (hallazgo c, regla 10).
+const LATERALES_MIGUEL = {
+  'Avenida Lomas de San Juan': { // Miguel, 20 nov 2026, 1:41 am
+    'Calle Sierra Paracaima': 'oriente (la lista la nombra de ida, hacia el norte)',
+    'Calle Sierra Tezonco': 'poniente (la lista la nombra de vuelta, hacia el sur)',
+  },
+};
+function lateralDe(A, B) {
+  const a = candidatosCalle(A)[0]?.calle.nombre, b = candidatosCalle(B)[0]?.calle.nombre;
+  for (const [via, lat] of [[a, b], [b, a]]) {
+    const lado = LATERALES_MIGUEL[via]?.[lat];
+    if (lado) return { via, lateral: lat, lado };
+  }
+  return null;
+}
+const contPorClave = new Map(Object.entries(CONTINUACION_MIGUEL).map(([k, v]) => [clave(k), v]));
+
+function candidatos(texto) {
+  if (memoCand.has(texto)) return memoCand.get(texto);
+  const nu = nucleo(texto);
+  const cl = nu.join(' ');
+  const clSR = sinRumbo(nu).join(' ');
+  const res = new Map();
+  const poner = (c, tipo, score) => { const v = res.get(c.nombre); if (!v || v.score < score) res.set(c.nombre, { calle: c, tipo, score }); };
+  if (cl) {
+    // alias de Miguel: igual o con una errata («PACESO CENTRAL»)
+    for (const [k, v] of aliasPorClave) {
+      const max = k.length >= 7 ? 1 : 0;
+      if ((k === cl || lev(k, cl, max) <= max) && calles.has(v)) poner(calles.get(v), 'alias de Miguel (D-43)', 1);
+    }
+    for (const [k, v] of contPorClave) if (k === cl && calles.has(v)) poner(calles.get(v), 'continuación confirmada por Miguel (D-43)', 0.9);
+    for (const c of porClave.get(cl) ?? []) poner(c, 'exacto', 1);
+    for (const c of porClave.get(clSR) ?? []) poner(c, 'exacto', 0.95);
+    // número como ordinal: «ARTICULO 3°» → «Artículo Tercero»
+    const nuOrd = nu.map((w) => ORDINALES[w] ?? w).join(' ');
+    if (nuOrd !== cl) for (const c of porClave.get(nuOrd) ?? []) poner(c, 'ordinal', 0.9);
+    const sig = sinRumbo(nu).filter((w) => !VACIAS.has(w));
+    const largo = sig.join('').length;
+    for (const c of listaCalles) {
+      if (res.has(c.nombre)) continue;
+      const cs = sinRumbo(c.nucleo).filter((w) => !VACIAS.has(w));
+      if (!cs.length || !sig.length) continue;
+      // contenido: el nombre oficial está completo dentro del de OSM (OSM trae el
+      // nombre más largo: «MERCEDES CAMACHO» → «Profesora Mercedes Camacho»).
+      // Al revés no: un texto largo que contiene una calle corta suele ser un
+      // corte mal hecho. Una inicial («R.») cuenta como la palabra que empieza así.
+      if (sig.length <= cs.length && sig.join('').length >= 5 && !(sig.length === 1 && NOMBRES_PILA.has(sig[0]))) {
+        let i = 0;
+        for (const w of cs) if (i < sig.length && (w === sig[i] || (sig[i].length === 1 && w[0] === sig[i]))) i++;
+        if (i === sig.length) { poner(c, 'contenido', 0.5 + 0.3 * (sig.length / cs.length)); continue; }
+        // contenido con UNA errata en una palabra larga: «PROL. BENITO JUÁRREZ» →
+        // «Prolongación Benito Juárez García» (R-03, 20 nov 2026). Puntaje menor.
+        let j = 0, erratas = 0;
+        for (const w of cs) {
+          if (j >= sig.length) break;
+          if (w === sig[j]) j++;
+          else if (!erratas && w.length >= 6 && sig[j].length >= 6 && w[0] === sig[j][0] && lev(w, sig[j], 1) <= 1) { j++; erratas++; }
+        }
+        if (j === sig.length && erratas === 1 && sig.length >= 2) { poner(c, 'contenido con errata', 0.45 + 0.3 * (sig.length / cs.length)); continue; }
+      }
+      // parcial: OSM trae el nombre corto y el oficial le agrega UN nombre de
+      // pila o título («BENITO JUÁREZ» → «Avenida Juárez»). Solo vale con la
+      // prueba del mapa.
+      if (cs.length === sig.length - 1 && cs.join('').length >= 5) {
+        let i = 0;
+        let sobra = null;
+        for (const w of sig) { if (i < cs.length && w === cs[i]) i++; else sobra = w; }
+        if (i === cs.length && NOMBRES_PILA.has(sobra)) { poner(c, 'parcial', 0.55); continue; }
+      }
+      // errata: distancia de edición pequeña sobre el núcleo
+      if (largo >= 5) {
+        const max = largo >= 7 ? 2 : 1;
+        const a = sig.join(' '), b = cs.join(' ');
+        if (Math.abs(a.length - b.length) <= max && a[0] === b[0] && lev(a, b, max) <= max) poner(c, 'errata', 0.7);
+      }
+    }
+  }
+  const out = [...res.values()].sort((a, b) => b.score - a.score).slice(0, 12);
+  memoCand.set(texto, out);
+  return out;
+}
+
+// ---------- lugares de OSM (negocios, escuelas, clínicas…) ----------
+function lugarDe(texto, cerca) {
+  const ws = new Set(nucleo(texto).filter((w) => !VACIAS.has(w) && w.length >= 3));
+  if (!ws.size) return null;
+  let mejor = null;
+  for (const l of lugares.lugares) {
+    const lw = new Set(nucleo(l.nombre).filter((w) => !VACIAS.has(w) && w.length >= 3));
+    let comunes = 0;
+    for (const w of ws) if (lw.has(w)) comunes++;
+    const cobertura = comunes / ws.size;
+    if (cobertura < 0.6 || comunes < 2) continue;
+    if (cerca && distCalle(cerca, l.centro) > UMBRAL_LUGAR_M) continue;
+    if (!mejor || cobertura > mejor.cobertura) mejor = { lugar: l, cobertura };
+  }
+  return mejor?.lugar ?? null;
+}
+
+// ---------- separación de una lista ----------
+// «PONIENTE 2» sí es nombre (Avenida Dos Poniente, escrita al revés).
+const rumboSuelto = (ws) => RUMBOS.has(ws[0]) && ws.length > 1 && !/^\d+$/.test(ws[1]) && !candidatos(ws.join(' ')).some((x) => x.tipo === 'exacto' && x.score >= 1);
+function puntajeTexto(ws, repetidos) {
+  if (!ws.length) return -Infinity;
+  // Empezar con «DE», «DEL», «LA»… solo vale si es una calle real («Del
+  // Granito», «De la Cantera»).
+  if (NO_INICIA.has(ws[0]) && !candidatos(ws.join(' ')).some((x) => x.score >= 0.95)) return -5;
+  if (ws.every((w) => RUMBOS.has(w))) return -5;
+  // Un rumbo al principio («PONIENTE CALLE CONSTITUYENTES») es la cola del
+  // nombre anterior («CALLE 5 PONIENTE»), salvo que OSM tenga la calle tal
+  // cual («Calle Norte 5»). R-03, 20 nov 2026.
+  if (rumboSuelto(ws)) return -5;
+  const ultima = ws[ws.length - 1];
+  if (TIPOS.has(ultima) || NO_INICIA.has(ultima) || ultima === 'A' || TITULOS.has(ultima) || LUGAR.has(ultima)) return -5;
+  const t = ws.join(' ');
+  // Para decidir el corte no cuentan las coincidencias débiles (parcial,
+  // continuación): un texto con una palabra de sobra no debe ganar el corte.
+  const c = candidatos(t).filter((x) => x.tipo !== 'parcial');
+  let s = c.length ? c[0].score : 0;
+  if (repetidos.has(clave(t))) s += 0.6; // la lista misma lo repite como nombre completo
+  return s;
+}
+
+// Nombres que la lista repite completos entre guiones: «…-X Y Z-…» se cuenta
+// cuando un mismo texto aparece como pedazo de varios cortes posibles.
+function nombresRepetidos(partes) {
+  // propio: aparece como principio o final de un pedazo (o es el primero o el
+  // último de la lista). entero: es un pedazo completo entre dos guiones. Un
+  // pedazo entero que se repite casi siempre es la misma parada en ida y en
+  // vuelta, así que solo cuenta si el nombre también aparece como propio.
+  const propio = new Map();
+  const entero = new Map();
+  const suma = (m, o) => { const c = clave(o); if (c.split(' ').length >= 2 || c.length >= 6) m.set(c, (m.get(c) ?? 0) + 1); };
+  // Un pedazo idéntico a otro ya visto es la misma parada en ida y en vuelta:
+  // sus principios y finales cuentan una sola vez. Si no, «20 DE NOVIEMBRE
+  // PONIENTE 2» dos veces en la 046 hacía de «20 DE NOVIEMBRE PONIENTE» un
+  // nombre repetido y el corte quedaba dudoso (R-03, 20 nov 2026).
+  const vistos = new Set();
+  partes.forEach((p, i) => {
+    const w = p.trim().split(/\s+/);
+    const opciones = new Set();
+    const ya = vistos.has(clave(w.join(' ')));
+    vistos.add(clave(w.join(' ')));
+    if (ya && i > 0 && i < partes.length - 1) { suma(entero, w.join(' ')); return; }
+    if (i === 0 || i === partes.length - 1) opciones.add(w.join(' '));
+    else suma(entero, w.join(' '));
+    for (let k = 1; k < w.length; k++) { opciones.add(w.slice(0, k).join(' ')); opciones.add(w.slice(k).join(' ')); }
+    for (const o of opciones) suma(propio, o);
+  });
+  const cuenta = new Map(propio);
+  for (const [c, n] of entero) if (propio.has(c)) cuenta.set(c, propio.get(c) + n);
+  // Si un nombre repetido cabe dentro de otro más largo que se repite igual o
+  // más («SAN JUAN» dentro de «SAN JUAN DEL RIO»), para el puntaje solo cuenta
+  // el largo; para no cortar a la mitad, cuentan todos.
+  const rep = [...cuenta].filter(([, n]) => n >= 2);
+  const largos = new Set(rep.filter(([c, n]) => !rep.some(([d, m]) => d !== c && d.includes(c) && m >= n)).map(([c]) => c));
+  largos.todos = new Set(rep.map(([c]) => c));
+  return largos;
+}
+
+// Negocios que Miguel confirmó (no son calles). Una calle de OSM con el mismo
+// nombre exacto sigue valiendo en otro barrio («Calle Sagitario», colonia de
+// los signos): solo se descarta la búsqueda aproximada.
+const NEGOCIOS_MIGUEL = new Set([
+  'SAGITARIO', // sobre la Av. Hidalgo, en el centro; Miguel, 20 nov 2026, 1:00 am
+  'WALMART', // km 3.2 de la carretera a Tequisquiapan, sobre el Paseo Central; Miguel, 20 nov 2026, 2:34 am
+]);
+const esLugar = (texto) => LUGAR.has(palabras(texto)[0]) || NEGOCIOS_MIGUEL.has(clave(texto));
+// Un negocio o lugar («PLAZA MORELOS», «PARQUE LAS GARZAS») solo se toma como
+// calle si OSM tiene una calle con ese nombre exacto.
+const candidatosCalle = (texto) => (esLugar(texto) ? candidatos(texto).filter((c) => c.tipo === 'exacto') : candidatos(texto));
+
+// Todas las formas de ubicar el cruce: cada par de calles candidatas que se
+// tocan, con cada lugar donde se tocan. Ordenadas de mejor a peor nombre.
+const memoPar = new Map();
+function opcionesCruce(textoA, textoB) {
+  const k = `${textoA}|${textoB}`;
+  if (memoPar.has(k)) return memoPar.get(k);
+  const ca = candidatosCalle(textoA), cb = candidatosCalle(textoB);
+  const ops = [];
+  for (const a of ca) for (const b of cb) {
+    if (a.calle === b.calle) continue;
+    for (const x of crucesEntre(a.calle, b.calle)) ops.push({ s: a.score + b.score, a, b, x });
+  }
+  // Sin cruce directo: probar la continuación en línea recta de cualquiera de
+  // las dos calles (cuesta 0.3 de puntaje y queda anotada).
+  if (!ops.length) ops.push(...opcionesContinuacion(textoA, textoB));
+  ops.sort((m, n) => n.s - m.s || m.x.d - n.x.d);
+  memoPar.set(k, ops);
+  return ops;
+}
+const memoCont = new Map();
+function opcionesContinuacion(textoA, textoB) {
+  const k = `${textoA}|${textoB}`;
+  if (memoCont.has(k)) return memoCont.get(k);
+  const ca = candidatosCalle(textoA), cb = candidatosCalle(textoB);
+  const ops = [];
+  const extender = (lista) => lista.flatMap((c) => [...(continuaciones.get(c.calle.nombre) ?? [])]
+    .map((n) => ({ calle: calles.get(n), tipo: 'continuación', score: c.score - 0.3, de: c })));
+  for (const [la, lb] of [[extender(ca), cb], [ca, extender(cb)]]) {
+    for (const a of la) for (const b of lb) {
+      if (a.calle === b.calle) continue;
+      for (const x of crucesEntre(a.calle, b.calle)) ops.push({ s: a.score + b.score, a, b, x });
+    }
+  }
+  ops.sort((m, n) => n.s - m.s || m.x.d - n.x.d);
+  memoCont.set(k, ops);
+  return ops;
+}
+const mejorParCalles = (A, B) => opcionesCruce(A, B)[0] ?? null;
+
+// ¿El corte cae a la mitad de un nombre repetido de 2+ palabras? (5 puntos)
+function partido(c, repetidos) {
+  // «20 DE NOVIEMBRE 20 DE NOVIEMBRE», «LA PALMA LA PALMA»: la misma calle
+  // cierra un cruce y abre el siguiente; el corte a la mitad es seguro.
+  if (!c.medio?.length && c.izq.length && clave(c.izq.join(' ')) === clave(c.der.join(' '))) return 0;
+  const ws = [...c.izq, ...(c.medio ?? []), ...c.der];
+  const cortes = [c.izq.length, c.izq.length + (c.medio?.length ?? 0)].filter((k) => k > 0 && k < ws.length);
+  for (let a = 0; a < ws.length; a++) for (let b = a + 2; b <= ws.length; b++) {
+    const k = cortes.find((x) => x > a && x < b);
+    if (k === undefined) continue;
+    // a los dos lados del corte debe quedar algo del nombre (no solo «AV.»)
+    if (!nucleo(ws.slice(a, k).join(' ')).length || !nucleo(ws.slice(k, b).join(' ')).length) continue;
+    const cl = clave(ws.slice(a, b).join(' '));
+    // solo cuenta si el nombre repetido existe en OSM (filtra pedazos sueltos
+    // que se repiten porque ida y vuelta repiten paradas)
+    if (cl.includes(' ') && !rumboSuelto(cl.split(' ')) && (repetidos.todos ?? repetidos).has(cl) && (candidatos(cl)[0]?.score ?? 0) >= 0.7) return 5;
+  }
+  return 0;
+}
+
+function separar(texto) {
+  // «SIN REFERENCIA» es la casilla vacía de referencia de la lista oficial, no
+  // parte de un nombre: aparece pegada antes o después de un cruce (R-03, 20 nov 2026).
+  texto = texto.replace(/\bSIN REFERENCIA\b/g, ' ').replace(/\s+/g, ' ').trim();
+  for (const u of UNIDOS_MIGUEL) texto = texto.split(u).join(u.replace('-', '–'));
+  const partes = texto.split('-');
+  const repetidos = nombresRepetidos(partes);
+  const n = partes.length;
+  // opciones de corte del pedazo i (1..n-2): [B_i, A_{i+1}]
+  const cortes = partes.map((p, i) => {
+    let w = p.trim().split(/\s+/);
+    // La lista a veces abre con la primera calle escrita dos veces seguidas
+    // («PASEO LOMA ALTA PASEO LOMA ALTA-LOMA DEL RIO», «HIDALGO HIDALGO-C.
+    // MIGUEL HIDALGO»): es una sola calle (R-03, 20 nov 2026).
+    const mitad = w.length / 2;
+    if (i === 0 && Number.isInteger(mitad) && w.slice(0, mitad).join(' ') === w.slice(mitad).join(' ')) w = w.slice(0, mitad);
+    if (i === 0 || i === n - 1) return [{ izq: w, der: w }];
+    const r = [];
+    for (let k = 1; k < w.length; k++) r.push({ izq: w.slice(0, k), der: w.slice(k), medio: [] });
+    // A veces la lista trae una calle suelta, sin cruce, entre dos cruces
+    // («…-LEONARDO BRAVO CALLE FRANCISCO JAVIER MINA 5 DE MAYO-…»): corte en tres.
+    for (let k = 1; k < w.length - 1; k++) for (let m = k + 1; m < w.length; m++) {
+      r.push({ izq: w.slice(0, k), medio: w.slice(k, m), der: w.slice(m) });
+    }
+    // Una calle completa entre dos guiones, escrita una sola vez, cierra un cruce
+    // y abre el siguiente: «JURICA-SAN JUAN DEL RÍO-MERCADO JUÁREZ» (022) son
+    // Jurica × San Juan del Río y San Juan del Río × Mercado Juárez. Solo si el
+    // pedazo entero es un nombre que la lista repite y está en OSM tal cual
+    // (R-03, 20 nov 2026).
+    const entero = w.join(' ');
+    if (w.length > 1 && (repetidos.todos ?? repetidos).has(clave(entero)) && (candidatos(entero)[0]?.score ?? 0) >= 0.95) {
+      r.push({ izq: w, der: w, medio: [] });
+    }
+    return r.length ? r : [{ izq: w, der: [], medio: [] }];
+  });
+  const pt = (ws) => (ws.length ? puntajeTexto(palabras(ws.join(' ')), repetidos) : -Infinity);
+  // programación dinámica: estado = corte elegido en el pedazo i
+  let dp = cortes[0].map((c) => ({ s: 0, camino: [c] }));
+  for (let i = 1; i < n; i++) {
+    const nuevo = [];
+    for (const c of cortes[i]) {
+      let mejor = null;
+      for (const prev of dp) {
+        const ult = prev.camino[prev.camino.length - 1];
+        const A = ult.der.join(' ');
+        const B = c.izq.join(' ');
+        let s = prev.s + pt(ult.der) + pt(c.izq);
+        // no cortar a la mitad un nombre que la lista repite («SAN JUAN | DEL RÍO»)
+        s -= partido(c, repetidos);
+        // la calle suelta solo se acepta si es una calle exacta de OSM; cuesta un poco
+        if (c.medio?.length) {
+          const cm = candidatos(c.medio.join(' '))[0];
+          const pm = palabras(c.medio.join(' '));
+          s += cm && cm.score >= 0.95 && !NO_INICIA.has(pm[0]) && !pm.every((w) => RUMBOS.has(w)) ? cm.score - 1.2 : -10;
+        }
+        if (A && B && mejorParCalles(A, B)) s += 1; // las dos calles se tocan en el mapa
+        if (!mejor || s > mejor.s) mejor = { s, camino: [...prev.camino, c] };
+      }
+      nuevo.push(mejor);
+    }
+    dp = nuevo;
+  }
+  const camino = dp.sort((a, b) => b.s - a.s)[0].camino;
+  const pares = [];
+  // Si el mejor corte de un pedazo parte un nombre que la lista repite, es
+  // porque el nombre trae su propio guion («JURICA-SAN JUAN DEL RÍO»): los dos
+  // cruces que tocan ese corte quedan dudosos (POR VERIFICAR), sin adivinar.
+  const dudoso = camino.map((c, i) => i > 0 && i < n - 1 && partido(c, repetidos) > 0);
+  for (let i = 1; i < n; i++) {
+    const par = [camino[i - 1].der.join(' '), camino[i].izq.join(' ')];
+    par.dudoso = dudoso[i - 1] || dudoso[i];
+    pares.push(par);
+    if (camino[i].medio?.length) pares.push([camino[i].medio.join(' '), '']);
+  }
+  return pares;
+}
+
+// ---------- ubicar cada cruce ----------
+// Una calle con el mismo nombre existe en varios pueblos del municipio, así que
+// cada cruce puede tener varias ubicaciones posibles. Se eligen todas a la vez
+// (programación dinámica, como un Viterbi): la lista va parada tras parada, así
+// que la mejor elección es la que junta buenos nombres con saltos cortos entre
+// cruces seguidos. Un error ya no arrastra a los siguientes.
+//   - Corredor: solo cuentan ubicaciones cerca de la ruta: el círculo que
+//     cubre sus dos extremos (extremos-finales.json) más 3 km. Sin extremos,
+//     el centro de las mejores opciones con 8 km.
+//   - Salto máximo entre dos cruces ubicados seguidos: 3 km (ESTIMADO).
+const SALTO_MAX_M = 3000;
+// Cada cruce sin ubicar entre dos ubicados alarga el salto permitido lo que
+// mide el tramo típico entre cruces de la lista (mediana 277 m, R-03, 20 nov
+// 2026; ESTIMADO): en la 009B, de Benito Juárez × Av. Central a Constituyentes
+// × Santa Fe hay 3.1 km con 5 cruces sin ubicar en medio, y el tope fijo de
+// 3 km dejaba fuera un cruce que la 032 y la 047 sí ubican con el mismo texto.
+const SALTO_POR_HUECO_M = 300;
+const MARGEN_M = 3000;
+function mediana(nums) { const v = [...nums].sort((a, b) => a - b); return v[Math.floor(v.length / 2)]; }
+function corredor(numero, pares) {
+  const r = extremosRutas.find((x) => x.numero === numero);
+  const pts = r ? [r.origen, r.destino].map((l) => extremosFinales.find((x) => x.lugar === l)).filter((x) => x?.lat != null).map((x) => [x.lat, x.lon]) : [];
+  if (pts.length === 2) {
+    const c = [(pts[0][0] + pts[1][0]) / 2, (pts[0][1] + pts[1][1]) / 2];
+    return { centro: c, radio: dist(pts[0], pts[1]) / 2 + MARGEN_M, fuente: 'extremos de la ruta' };
+  }
+  const primeras = pares.map(([A, B]) => (B ? opcionesCruce(A, B)[0] : null)).filter(Boolean);
+  if (!primeras.length) return null;
+  return { centro: [mediana(primeras.map((o) => o.x.p[0])), mediana(primeras.map((o) => o.x.p[1]))], radio: 8000, fuente: 'mediana de los cruces' };
+}
+// Dos cruces seguidos que nombran la misma calle de la lista van por la misma
+// calle de OSM (o por su continuación). Cambiar cuesta lo mismo que 1 km de
+// salto: en la 047, después de «MARIANO MATAMOROS-15 DE MAYO» (Calle Mariano
+// Matamoros) el camión sigue por ella hasta Fundadores, no salta a la «General
+// Mariano Matamoros» que sigue como 20 de Noviembre (R-03, 20 nov 2026).
+// «Calle Águila Blanca 112» y «Calle Águila Blanca» son la misma calle: OSM a
+// veces pega el número de casa al nombre de un tramo.
+// (Sin normalizar más: «Calle Mariano Matamoros» y «General Mariano
+// Matamoros» son tramos distintos en OSM.)
+const baseOSM = (c) => (c.de ?? c).calle.nombre.replace(/(\s\d+)+$/, '');
+function cambioDeCalle(parJ, q, parI, o) {
+  let castigo = 0;
+  for (const [tj, cj] of [[parJ[0], q.a], [parJ[1], q.b]]) {
+    for (const [ti, ci] of [[parI[0], o.a], [parI[1], o.b]]) {
+      if (tj && ti && clave(tj) === clave(ti) && baseOSM(cj) !== baseOSM(ci)) castigo = 1;
+    }
+  }
+  return castigo;
+}
+// Una lista que empieza y termina con el mismo cruce (al revés) es un circuito
+// que sale del extremo de origen de la ruta: en la 032, «FRANCISCO VILLA-CAR.
+// ESTATAL 122» … «CAR. ESTATAL 122-FRANCISCO VILLA», desde Visthá. Ese extremo
+// ancla el principio de la lista, para que dos cruces de otra zona con el mismo
+// nombre (Miguel Hidalgo × Venustiano Carranza, a 5 km) no le ganen a los de
+// Visthá (R-03, 20 nov 2026).
+const ANCLA_VALOR = 3;
+function anclaDe(numero, pares) {
+  const [p0, pn] = [pares[0], pares[pares.length - 1]];
+  if (!p0?.[1] || !pn?.[1] || clave(p0[0]) !== clave(pn[1]) || clave(p0[1]) !== clave(pn[0])) return null;
+  const r = extremosRutas.find((x) => x.numero === numero);
+  const o = r && extremosFinales.find((x) => x.lugar === r.origen);
+  return o?.lat != null ? [o.lat, o.lon] : null;
+}
+function elegir(pares, cor, ancla = null) {
+  const enCorredor = (l) => l.filter((o) => !cor || dist(o.x.p, cor.centro) <= cor.radio);
+  // Si el único cruce directo queda fuera del corredor (otro pueblo), se prueba
+  // la continuación: Matamoros sigue 48 m como Calle Fundadores hasta la Av.
+  // Hidalgo, y la Calle Miguel Hidalgo × Matamoros de otro pueblo, a 6 km, no
+  // debe taparla (R-03, 20 nov 2026).
+  const ops = pares.map(([A, B], i) => {
+    if (!B || pares[i].dudoso) return [];
+    const l = enCorredor(opcionesCruce(A, B));
+    return (l.length ? l : enCorredor(opcionesContinuacion(A, B))).slice(0, 30);
+  });
+  // mejor[i][k]: mejor puntaje terminando con la opción k del cruce i
+  const mejor = ops.map((l) => l.map(() => ({ v: -Infinity, prev: null })));
+  let top = { v: 0, i: -1, k: -1 };
+  for (let i = 0; i < ops.length; i++) {
+    ops[i].forEach((o, k) => {
+      const gana = 2 + o.s;
+      let m = { v: gana, prev: null }; // empezar aquí
+      // circuito: el principio de la lista sale del extremo de origen (ancla);
+      // vale como un cruce ubicado antes del #1
+      if (ancla) {
+        const d = dist(ancla, o.x.p);
+        if (i < 7 && d <= SALTO_MAX_M + SALTO_POR_HUECO_M * i) m = { v: ANCLA_VALOR + gana - d / 1000, prev: null };
+      }
+      for (let j = Math.max(0, i - 6); j < i; j++) {
+        ops[j].forEach((q, h) => {
+          const d = dist(q.x.p, o.x.p);
+          if (d > SALTO_MAX_M + SALTO_POR_HUECO_M * (i - j - 1)) return;
+          const v = mejor[j][h].v + gana - d / 1000 - cambioDeCalle(pares[j], q, pares[i], o);
+          if (v > m.v) m = { v, prev: [j, h] };
+        });
+      }
+      // también puede venir del mejor camino que termina antes de i - 6
+      if (top.v > 0 && top.i < i - 6 && top.v + gana > m.v) m = { v: top.v + gana, prev: [top.i, top.k] };
+      mejor[i][k] = m;
+    });
+    ops[i].forEach((o, k) => { if (mejor[i][k].v > top.v) top = { v: mejor[i][k].v, i, k }; });
+    // el mejor camino terminado hasta i (para saltar tramos sin ubicar)
+  }
+  const elegido = new Array(pares.length).fill(null);
+  let cur = top.i >= 0 ? [top.i, top.k] : null;
+  while (cur) { elegido[cur[0]] = ops[cur[0]][cur[1]]; cur = mejor[cur[0]][cur[1]].prev; }
+  return elegido;
+}
+function ubicar(pares, numero) {
+  const cor = corredor(numero, pares);
+  const elegido = elegir(pares, cor, anclaDe(numero, pares));
+  const dentro = (p) => !cor || dist(p, cor.centro) <= cor.radio;
+  return pares.map(([A, B], i) => {
+    const base = { orden: i + 1, texto: B ? `${A}-${B}` : A, calle: A, cruce_con: B || null };
+    if (!B) {
+      const ca = candidatosCalle(A)[0];
+      return ca
+        ? { ...base, estado: 'REFERENCIA', osm_calle: ca.calle.nombre, nota: 'calle suelta en la lista, sin cruce: confirma la calle, sin punto propio' }
+        : { ...base, estado: 'SIN UBICAR', nota: 'calle suelta que no aparece en OSM: POR VERIFICAR' };
+    }
+    if (pares[i].dudoso) {
+      return { ...base, estado: 'SIN UBICAR', nota: 'el nombre parece traer su propio guion y el corte no es seguro: POR VERIFICAR' };
+    }
+    const lat = lateralDe(A, B);
+    if (lat) {
+      return { ...base, estado: 'REFERENCIA', osm_calle: lat.via, osm_cruce: lat.lateral,
+        nota: `no es cruce: «${lat.lateral}» es la lateral ${lat.lado} de «${lat.via}» (corre paralela a ~50 m; Miguel, D-43). Confirma la calle, sin punto propio` };
+    }
+    const par = elegido[i];
+    if (par) {
+      const correcciones = [par.a, par.b].filter((c) => c.tipo !== 'exacto').map((c) => (c.tipo === 'continuación'
+        ? `continuación: «${c === par.a ? A : B}» (OSM «${c.de.calle.nombre}») sigue en línea recta como «${c.calle.nombre}»`
+        : `${c.tipo}: «${c === par.a ? A : B}» → «${c.calle.nombre}»`));
+      return {
+        ...base, estado: 'UBICADO', lat: Number(par.x.p[0].toFixed(5)), lon: Number(par.x.p[1].toFixed(5)),
+        osm_calle: par.a.calle.nombre, osm_cruce: par.b.calle.nombre,
+        evidencia: `las dos calles se tocan en OSM (${Math.round(par.x.d)} m), dentro del corredor de la ruta`
+          + (par.x.d > UMBRAL_CRUCE_M ? '; OSM dibuja la calle más corta y Miguel confirmó que llega (D-43)' : ''),
+        correcciones: correcciones.length ? correcciones : undefined,
+      };
+    }
+    // Si el primer texto es un negocio y el segundo una calle, la calle es el segundo.
+    const [tCalle, tRef] = esLugar(A) && !esLugar(B) ? [B, A] : [A, B];
+    const ca = candidatosCalle(tCalle)[0];
+    const lugar = lugarDe(tRef, ca?.calle);
+    if (ca && lugar && dentro(lugar.centro)) {
+      return {
+        ...base, estado: 'UBICADO POR LUGAR', lat: lugar.centro[0], lon: lugar.centro[1],
+        osm_calle: ca.calle.nombre, osm_lugar: `${lugar.nombre} (${lugar.osm})`,
+        evidencia: `el lugar está en OSM a ≤ ${UMBRAL_LUGAR_M} m de la calle, dentro del corredor de la ruta`,
+      };
+    }
+    if (ca) {
+      const cb = candidatosCalle(tRef)[0];
+      if (cb && !esLugar(tRef)) {
+        return {
+          ...base, estado: 'CALLES SIN CRUCE EN OSM', osm_calle: ca.calle.nombre,
+          nota: `las dos calles existen en OSM («${ca.calle.nombre}», «${cb.calle.nombre}») pero no se tocan cerca de la ruta: POR VERIFICAR`,
+        };
+      }
+      return {
+        ...base, estado: 'REFERENCIA', osm_calle: ca.calle.nombre,
+        nota: 'la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio',
+      };
+    }
+    return { ...base, estado: 'SIN UBICAR', nota: 'la calle no aparece en OSM: POR VERIFICAR' };
+  });
+}
+
+// ---------- D-45: cruces APROXIMADOS ----------
+// Lo que no tiene cruce exacto en OSM lleva hoy la mejor aproximación, con
+// etiqueta ESTIMADO, nivel C y el método; se verifica con el uso (Miguel, D-45,
+// 20 nov 2026). Nunca toca un cruce UBICADO.
+const CERCANIA_MAX_M = 300; // las dos calles pasan a ≤ 300 m (ESTIMADO)
+const VECINOS_MAX_M = 300; // el punto queda a ≤ 300 m de la mitad entre vecinos (ESTIMADO)
+function puntoEn(c, p) {
+  let r = { d: Infinity, q: null };
+  for (const s of c.segs) { const x = distPuntoSeg(p, s); if (x.d < r.d) r = x; }
+  return r;
+}
+function acercamiento(c1, c2) { // punto de c1 más cercano a c2
+  let r = { d: Infinity, q: null };
+  for (const s2 of c2.segs) for (const p of s2) { const x = puntoEn(c1, p); if (x.d < r.d) r = x; }
+  return r;
+}
+const numeroDe = (t) => { const n = palabras(t).find((w) => /^\d+$/.test(w)); return n ? Number(n) : null; };
+const ubicadoReal = (c) => c.estado === 'UBICADO' || c.estado === 'UBICADO POR LUGAR';
+function vecinosDe(lista, i) {
+  let prev = null, next = null;
+  for (let j = i - 1; j >= 0; j--) if (ubicadoReal(lista[j])) { prev = { j, p: [lista[j].lat, lista[j].lon] }; break; }
+  for (let j = i + 1; j < lista.length; j++) if (ubicadoReal(lista[j])) { next = { j, p: [lista[j].lat, lista[j].lon] }; break; }
+  return { prev, next };
+}
+const DESVIO_MAX_M = 300; // el punto no obliga al camión a ir y regresar más de 300 m (ESTIMADO)
+const HUECO_VECINOS_MAX = 3; // «entre vecinos» solo con ≤ 3 cruces sin ubicar en medio
+function saltoOk(q, i, { prev, next }, conDesvio = true) {
+  for (const v of [prev, next]) if (v && dist(q, v.p) > SALTO_MAX_M + SALTO_POR_HUECO_M * (Math.abs(i - v.j) - 1)) return false;
+  // en orden: pasar por el punto no alarga el camino de un vecino al otro más de
+  // 300 m (solo con vecinos cercanos en la lista: de lejos el camino no es recto)
+  if (conDesvio && prev && next && next.j - prev.j - 1 <= HUECO_VECINOS_MAX && dist(prev.p, q) + dist(q, next.p) > dist(prev.p, next.p) + DESVIO_MAX_M) return false;
+  return !!(prev || next);
+}
+// La misma calle de la lista va por la misma calle de OSM que su vecino de al
+// lado (como en la elección de UBICADO): «LA PALMA» después de cuatro cruces
+// sobre la Avenida La Palma no puede ser la «Avenida de las Palmas».
+function calleDelVecino(lista, i, texto) {
+  for (const j of [i - 1, i + 1]) {
+    const v = lista[j];
+    if (!v || !ubicadoReal(v)) continue;
+    if (clave(v.calle) === clave(texto)) return v.osm_calle;
+    if (v.cruce_con && clave(v.cruce_con) === clave(texto)) return v.osm_cruce;
+  }
+  return null;
+}
+function aproximarTodo(rutas) {
+  // cruces numerados ya ubicados sobre cada calle de OSM, de todas las rutas
+  const numerados = new Map(); // calle OSM -> Map(número -> punto)
+  for (const r of rutas) for (const c of r.cruces ?? []) {
+    if (c.estado !== 'UBICADO') continue;
+    for (const [via, otra] of [[c.osm_calle, c.osm_cruce], [c.osm_cruce, c.osm_calle]]) {
+      const n = numeroDe(otra);
+      if (n == null) continue;
+      if (!numerados.has(via)) numerados.set(via, new Map());
+      numerados.get(via).set(n, [c.lat, c.lon]);
+    }
+  }
+  const porNumero = (via, n) => {
+    const m = numerados.get(via);
+    if (!m || m.has(n)) return null;
+    const ns = [...m.keys()].sort((a, b) => a - b);
+    const bajo = ns.filter((k) => k < n).at(-1), alto = ns.find((k) => k > n);
+    let a, b, t;
+    if (bajo != null && alto != null) { a = bajo; b = alto; t = (n - bajo) / (alto - bajo); }
+    else if (ns.length >= 2 && bajo != null && n - bajo === 1) { a = ns.at(-2); b = bajo; t = (n - a) / (b - a); }
+    else if (ns.length >= 2 && alto != null && alto - n === 1) { a = alto; b = ns[1]; t = (n - a) / (b - a); }
+    else return null;
+    const pa = m.get(a), pb = m.get(b);
+    const como = t >= 0 && t <= 1 ? `interpolado por número entre sus cruces con las calles ${a} y ${b}`
+      : `extendido un número más allá de su cruce con la calle ${t > 1 ? b : a}, con el paso entre las calles ${Math.min(a, b)} y ${Math.max(a, b)}`;
+    return { p: [pa[0] + (pb[0] - pa[0]) * t, pa[1] + (pb[1] - pa[1]) * t], como };
+  };
+  const cand0 = (t) => (t ? candidatosCalle(t).slice(0, 6).map((x) => x.calle) : []);
+  for (const r of rutas) {
+    if (!r.cruces) continue;
+    r.cruces = r.cruces.map((c, i, lista) => {
+      if (c.estado !== 'CALLES SIN CRUCE EN OSM' && c.estado !== 'SIN UBICAR') return c;
+      if (/propio guion/.test(c.nota ?? '')) return { ...c, nota: `${c.nota}. Sin aproximación (D-45): el corte del texto es dudoso` };
+      const vec = vecinosDe(lista, i);
+      const cand = (t) => { const fija = t && calleDelVecino(lista, i, t); return fija ? [calles.get(fija)] : cand0(t); };
+      const A = c.calle, B = c.cruce_con;
+      const sale = (q, metodo, evidencia, osm) => ({
+        orden: c.orden, texto: c.texto, calle: c.calle, cruce_con: c.cruce_con,
+        estado: 'APROXIMADO', lat: Number(q[0].toFixed(5)), lon: Number(q[1].toFixed(5)),
+        etiqueta: 'ESTIMADO', precision: 'C', metodo, ...osm, evidencia,
+        verificacion: 'pendiente: se confirma con el uso de la app o en campo (D-45)',
+        antes: c.estado,
+      });
+      // 1. cercanía: las dos calles pasan a ≤ 300 m
+      let mejor = null;
+      for (const ca of cand(A)) for (const cb of cand(B)) {
+        if (ca === cb) continue;
+        const x = acercamiento(ca, cb);
+        if (x.d <= CERCANIA_MAX_M && saltoOk(x.q, i, vec) && (!mejor || x.d < mejor.x.d)) mejor = { x, ca, cb };
+      }
+      if (mejor) return sale(mejor.x.q, 'cercanía', `«${mejor.ca.nombre}» y «${mejor.cb.nombre}» no se tocan en OSM; pasan a ${Math.round(mejor.x.d)} m: punto de la primera más cercano a la segunda`, { osm_calle: mejor.ca.nombre, osm_cruce: mejor.cb.nombre });
+      // 2. numeración: la calle de cruce es numerada y la avenida tiene otras ubicadas
+      const n = numeroDe(B ?? '');
+      if (n != null) {
+        for (const ca of cand(A)) {
+          const pn = porNumero(ca.nombre, n);
+          if (!pn) continue;
+          const x = puntoEn(ca, pn.p);
+          if (x.d <= VECINOS_MAX_M && saltoOk(x.q, i, vec)) {
+            return sale(x.q, 'numeración', `«${B}» no está en OSM junto a «${ca.nombre}»; ${pn.como}, ya ubicados`, { osm_calle: ca.nombre });
+          }
+        }
+      }
+      // 3. entre vecinos: punto de la calle más cercano a la mitad entre los cruces ubicados de antes y de después
+      if (vec.prev && vec.next && vec.next.j - vec.prev.j - 1 <= HUECO_VECINOS_MAX) {
+        const m = [(vec.prev.p[0] + vec.next.p[0]) / 2, (vec.prev.p[1] + vec.next.p[1]) / 2];
+        let e = null;
+        for (const ca of [...cand(A), ...cand(B)]) {
+          const x = puntoEn(ca, m);
+          if (x.d <= VECINOS_MAX_M && saltoOk(x.q, i, vec) && (!e || x.d < e.x.d)) e = { x, ca };
+        }
+        if (e) return sale(e.x.q, 'entre vecinos', `punto de «${e.ca.nombre}» más cercano (${Math.round(e.x.d)} m) a la mitad entre los cruces ubicados #${vec.prev.j + 1} y #${vec.next.j + 1}`, { osm_calle: e.ca.nombre });
+      }
+      const porque = !cand0(A).length && !cand0(B).length ? 'ninguna de las dos calles está en OSM'
+        : vec.prev && vec.next && vec.next.j - vec.prev.j - 1 > HUECO_VECINOS_MAX ? 'sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo'
+        : !(vec.prev && vec.next) ? 'falta un cruce ubicado antes o después para acotarlo'
+        : 'las calles de OSM quedan lejos de sus cruces vecinos';
+      return { ...c, nota: `${c.nota}. Sin aproximación (D-45): ${porque}` };
+    });
+  }
+  // 4. mismo texto: otra ruta ya aproximó ese mismo cruce (lección 3: mismo
+  // texto, mismo punto), y el salto a los vecinos cuadra.
+  const aprox = new Map();
+  // primero los UBICADOS (punto exacto en otra ruta), luego los APROXIMADOS
+  for (const e of ['UBICADO', 'APROXIMADO']) for (const r of rutas) for (const c of r.cruces ?? []) if (c.estado === e && !aprox.has(c.texto)) aprox.set(c.texto, { ...c, ruta: r.numero });
+  for (const r of rutas) {
+    if (!r.cruces) continue;
+    r.cruces = r.cruces.map((c, i, lista) => {
+      const o = aprox.get(c.texto);
+      if (!o || (c.estado !== 'CALLES SIN CRUCE EN OSM' && c.estado !== 'SIN UBICAR') || /propio guion/.test(c.nota ?? '')) return c;
+      if (!saltoOk([o.lat, o.lon], i, vecinosDe(lista, i), false)) return c;
+      return {
+        orden: c.orden, texto: c.texto, calle: c.calle, cruce_con: c.cruce_con,
+        estado: 'APROXIMADO', lat: o.lat, lon: o.lon, etiqueta: 'ESTIMADO', precision: 'C', metodo: 'mismo texto',
+        osm_calle: o.osm_calle, osm_cruce: o.osm_cruce,
+        evidencia: `el mismo texto ya tiene punto en la ruta ${o.ruta} #${o.orden} (${o.estado === 'UBICADO' ? 'UBICADO' : `APROXIMADO por ${o.metodo}`}), pero aquí la elección de cruces no lo alcanzó; se usa el mismo punto`,
+        verificacion: 'pendiente: se confirma con el uso de la app o en campo (D-45)',
+        antes: c.estado,
+      };
+    });
+  }
+}
+
+// ---------- salida ----------
+const ESTADOS = ['UBICADO', 'UBICADO POR LUGAR', 'APROXIMADO', 'REFERENCIA', 'CALLES SIN CRUCE EN OSM', 'SIN UBICAR'];
+const rutas = [];
+// La página oficial trae el mismo texto en la 23 (Lomas del Pedregal – Centro,
+// renglón 428) y en la 023 (Tequisquiapan – Ezequiel Montes, renglón 441): dos
+// bloques en distinto orden. Miguel decidió (D-43, 20 nov 2026, 2:14 am): la 23
+// se queda con el bloque de calles (con guiones) y la 023 con el de lugares
+// (sin guiones). Candado: si la página deja de traer esos mismos dos bloques,
+// el programa se detiene en vez de separar a ciegas.
+const LUGARES_023 = { inicio: 'LAS CRUCITAS ', fin: ' SECUNDARIA NOGAL' };
+const MEZCLA_23_023 = (() => {
+  const t23 = oficiales.rutas.find((r) => r.numero === '23').lista_texto;
+  const t023 = oficiales.rutas.find((r) => r.numero === '023').lista_texto;
+  const i = t23.indexOf(LUGARES_023.inicio), f = t23.indexOf(LUGARES_023.fin);
+  const lugares = i >= 0 && f > i ? t23.slice(i, f + LUGARES_023.fin.length) : '';
+  const calles = (t23.slice(0, i) + ' ' + t23.slice(f + LUGARES_023.fin.length)).replace(/\s+/g, ' ').trim();
+  const mismo = (t) => t.replace(lugares, ' ').replace(/\s+/g, ' ').trim() === calles;
+  if (!lugares || lugares.includes('-') || !calles.includes('-') || !t023.includes(lugares) || !mismo(t023)) {
+    throw new Error('La 23 y la 023 ya no traen los mismos dos bloques (D-43): revisar la página oficial antes de separar.');
+  }
+  return { calles, lugares };
+})();
+
+for (const r of oficiales.rutas) {
+  if (!r.usable_sin_revision) {
+    rutas.push({ route_id: r.route_id, numero: r.numero, estado: 'lista oficial descartada (D-33): mezcla calles de Querétaro' });
+    continue;
+  }
+  if (r.numero === '023') {
+    rutas.push({
+      route_id: r.route_id, numero: r.numero, nombre: r.nombre_inventario,
+      estado: 'lista de lugares sin cruces: la página oficial la trae mezclada con la de la 23 (D-43); se queda solo con el bloque de lugares, sin guiones, que no se parte en cruces: POR VERIFICAR',
+      lugares_texto: MEZCLA_23_023.lugares,
+    });
+    continue;
+  }
+  const cruces = ubicar(separar(r.numero === '23' ? MEZCLA_23_023.calles : r.lista_texto), r.numero);
+  rutas.push({
+    route_id: r.route_id, numero: r.numero, nombre: r.nombre_inventario,
+    sentido: 'sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)',
+    total: cruces.length, conteo: null, cruces,
+  });
+}
+aproximarTodo(rutas);
+for (const r of rutas) if (r.cruces) r.conteo = Object.fromEntries(ESTADOS.map((e) => [e, r.cruces.filter((c) => c.estado === e).length]));
+const usadas = rutas.filter((r) => r.cruces);
+const total = usadas.reduce((s, r) => s + r.total, 0);
+const resumen = { rutas_con_lista_usable: usadas.length, cruces: total };
+for (const e of ESTADOS) resumen[e] = usadas.reduce((s, r) => s + r.conteo[e], 0);
+resumen.con_correccion = usadas.reduce((s, r) => s + r.cruces.filter((c) => c.correcciones?.length).length, 0);
+
+writeFileSync(`${raiz}datos/investigacion/cruces.json`, JSON.stringify({
+  tarea: 'R-03, hallazgo a (D-32, D-42)',
+  fuente: {
+    lista: oficiales.fuente,
+    calles: 'OpenStreetMap vía Overpass, 19 nov 2026 (datos/cache/overpass/calles.json), ODbL 1.0',
+    lugares: 'OpenStreetMap vía Overpass, 19 nov 2026 (datos/cache/overpass/lugares.json), ODbL 1.0',
+  },
+  como_leer: [
+    'UBICADO: las dos calles del cruce existen en OSM y se tocan (≤ 30 m); el punto es donde se tocan. Las abreviaturas y erratas corregidas se anotan en «correcciones» y solo se aceptan con esa prueba.',
+    'UBICADO POR LUGAR: el cruce es un lugar que OSM tiene junto a la calle.',
+    'REFERENCIA: la calle existe en OSM y el cruce es un negocio que OSM no tiene; confirma la calle por donde pasa el camión, sin punto propio.',
+    'APROXIMADO (D-45): sin cruce exacto en OSM; el punto es la mejor aproximación de hoy (método en «metodo»), ESTIMADO y de nivel C. Se verifica con el uso o en campo.',
+    'CALLES SIN CRUCE EN OSM / SIN UBICAR: POR VERIFICAR; la nota dice por qué ningún método de D-45 lo alcanzó.',
+    'Orden = el de la lista oficial. El sentido aún no se asigna (hallazgo c, regla 10).',
+    'Todo punto es ESTIMADO a partir de OSM, no medido en campo.',
+  ],
+  resumen,
+  rutas,
+}, null, 1) + '\n');
+console.log('cruces.json:', JSON.stringify(resumen));

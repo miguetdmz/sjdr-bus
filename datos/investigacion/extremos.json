@@ -7,10 +7,10 @@
     "Rectángulo del municipio (ESTIMADO): {\"sur\":20.25,\"norte\":20.5,\"oeste\":-100.15,\"este\":-99.85}."
   ],
   "resumen": {
-    "rutas": 42,
-    "lugares": 40,
+    "rutas": 39,
+    "lugares": 35,
     "con_coordenada": 12,
-    "sin_coordenada": 28
+    "sin_coordenada": 23
   },
   "lugares": [
     {
@@ -41,7 +41,7 @@
       "consulta": "Universidad Tecnológica de San Juan del Río"
     },
     {
-      "lugar": "Col. Industrial Nuevo San Juan",
+      "lugar": "Nuevo Parque Industrial",
       "lat": null,
       "lon": null,
       "estado": "SIN COORDENADA · POR VERIFICAR",
@@ -200,15 +200,6 @@
       "consulta": "Barrio de la Cruz, San Juan del Río"
     },
     {
-      "lugar": "Nuevo San Isidro",
-      "lat": null,
-      "lon": null,
-      "estado": "SIN COORDENADA · POR VERIFICAR",
-      "motivo": "ningún resultado de Nominatim pasa las reglas",
-      "descartes": [],
-      "consulta": "Nuevo San Isidro, San Juan del Río"
-    },
-    {
       "lugar": "Valle Real",
       "lat": null,
       "lon": null,
@@ -242,17 +233,6 @@
       "consulta": "Praderas del Sol, San Juan del Río"
     },
     {
-      "lugar": "Las Torres",
-      "lat": null,
-      "lon": null,
-      "estado": "SIN COORDENADA · POR VERIFICAR",
-      "motivo": "ningún resultado de Nominatim pasa las reglas",
-      "descartes": [
-        "«Las Torres»: es leisure/park, no una colonia o localidad"
-      ],
-      "consulta": "Las Torres, San Juan del Río"
-    },
-    {
       "lugar": "Las Águilas",
       "lat": "20.37589",
       "lon": "-99.94818",
@@ -272,17 +252,6 @@
       "consulta": "Rancho de Enmedio, San Juan del Río"
     },
     {
-      "lugar": "PITSA",
-      "lat": null,
-      "lon": null,
-      "estado": "SIN COORDENADA · POR VERIFICAR",
-      "motivo": "ningún resultado de Nominatim pasa las reglas",
-      "descartes": [
-        "«Privada Departamental Pitsa»: el nombre no coincide"
-      ],
-      "consulta": "PITSA, San Juan del Río"
-    },
-    {
       "lugar": "Visthá",
       "lat": "20.4472753",
       "lon": "-99.9748735",
@@ -291,17 +260,6 @@
       "tipo_osm": "boundary/administrative",
       "estado": "POR VERIFICAR",
       "consulta": "Visthá, San Juan del Río"
-    },
-    {
-      "lugar": "Visthá (CERESO)",
-      "lat": null,
-      "lon": null,
-      "estado": "SIN COORDENADA · POR VERIFICAR",
-      "motivo": "ningún resultado de Nominatim pasa las reglas",
-      "descartes": [
-        "«Acceso a Visthá»: el nombre no coincide"
-      ],
-      "consulta": "CERESO San Juan del Río"
     },
     {
       "lugar": "La Peña",
@@ -384,18 +342,6 @@
       "consulta": "IMSS, San Juan del Río"
     },
     {
-      "lugar": "La Rueda",
-      "lat": null,
-      "lon": null,
-      "estado": "SIN COORDENADA · POR VERIFICAR",
-      "motivo": "ningún resultado de Nominatim pasa las reglas",
-      "descartes": [
-        "«Avenida La Rueda»: el nombre no coincide",
-        "«Avenida La Rueda»: el nombre no coincide"
-      ],
-      "consulta": "La Rueda, San Juan del Río"
-    },
-    {
       "lugar": "San Juan del Río",
       "lat": "20.38883",
       "lon": "-99.99639",
@@ -442,8 +388,9 @@
       "route_id": "U-004",
       "numero": "004",
       "nombre": "Col. Industrial Nuevo San Juan – Centro",
-      "origen": "Col. Industrial Nuevo San Juan",
+      "origen": "Nuevo Parque Industrial",
       "destino": "Centro",
+      "correccion": "D-35: «Col. Industrial Nuevo San Juan» se ubica como «Nuevo Parque Industrial» (Miguel, 19 nov 2026)",
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {
@@ -559,14 +506,6 @@
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {
-      "route_id": "U-018",
-      "numero": "018",
-      "nombre": "Nuevo San Isidro – Centro",
-      "origen": "Nuevo San Isidro",
-      "destino": "Centro",
-      "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
-    },
-    {
       "route_id": "U-019",
       "numero": "019",
       "nombre": "Pedregoso – Valle Real",
@@ -607,14 +546,6 @@
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {
-      "route_id": "U-024C",
-      "numero": "024C",
-      "nombre": "Las Torres – Central de Autobuses",
-      "origen": "Las Torres",
-      "destino": "Central de Autobuses",
-      "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
-    },
-    {
       "route_id": "U-025",
       "numero": "025",
       "nombre": "Las Águilas – Centro",
@@ -639,14 +570,6 @@
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {
-      "route_id": "U-031",
-      "numero": "031",
-      "nombre": "Pedregoso – PITSA",
-      "origen": "Pedregoso",
-      "destino": "PITSA",
-      "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
-    },
-    {
       "route_id": "U-032",
       "numero": "032",
       "nombre": "Visthá – Central de Autobuses",
@@ -657,8 +580,8 @@
     {
       "route_id": "U-036",
       "numero": "036",
-      "nombre": "Visthá (CERESO) – 5 de Mayo",
-      "origen": "Visthá (CERESO)",
+      "nombre": "Visthá – 5 de Mayo",
+      "origen": "Visthá",
       "destino": "5 de Mayo",
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
@@ -739,8 +662,9 @@
       "route_id": "U-047",
       "numero": "047",
       "nombre": "La Rueda – Central de Autobuses",
-      "origen": "La Rueda",
+      "origen": "Fracc. La Rueda",
       "destino": "Central de Autobuses",
+      "correccion": "D-35: «La Rueda» se ubica como «Fracc. La Rueda» (Miguel, 19 nov 2026)",
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {

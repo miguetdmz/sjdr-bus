@@ -1,166 +1,470 @@
-/* Fuentes del sistema: no se descarga ninguna fuente (cero Google).
-   Colores neutros propios: sin escudo ni colores oficiales. */
+/* SJDR Bus · estilo aprobado D-30 (patrón: web/muestra-patron.html), pantalla de
+   D-53 (maqueta aprobada por Miguel, 20 nov 2026: docs/maquetas/d53/).
+   Fuentes del sistema: no se descarga ninguna fuente (cero Google).
+   Colores propios: sin escudo ni colores oficiales.
+   Inventario de selectores contra la versión anterior (lección 13):
+   docs/evidencia/d53/inventario-selectores.md. */
 :root {
-  --tinta: #1d232b;
-  --tinta-suave: #4a5561;
-  --fondo: #ffffff;
-  --borde: #d5dae0;
-  --acento: #1d232b;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --tinta: #12262d;
+  --primario: #0d7a72;
+  --primario-suave: #e3f2ef;
+  --acento: #f0a032;
+  --acento-suave: #fdf0dc;
+  --fondo: #f4f2ec;
+  --tarjeta: #ffffff;
+  --suave: #566870;
+  --borde: #e3e0d8;
+  --sombra: 0 10px 30px rgba(18, 38, 45, 0.16);
+  --halo: 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #fff;
+  --arriba: max(10px, env(safe-area-inset-top));
+  --abajo: env(safe-area-inset-bottom);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: var(--tinta);
   background: var(--fondo);
 }
 
 * { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+/* D-59, 1 (maqueta aprobada por Miguel, 21 nov 2026, 1:13 am): la página no se acerca
+   con pellizco ni doble toque; solo el mapa (Leaflet maneja el suyo). El menú sigue
+   con su scroll. */
+html, body { touch-action: pan-x pan-y; }
+/* D-59, 3 (Miguel, 21 nov 2026, 1:23 am: «la letra de Iniciativa ciudadana se ve muy
+   grande»): Safari del iPhone agranda solo la letra chica, sobre todo al girar. Se
+   respeta el tamaño escrito aquí (el pie mide 9 px, como en la maqueta). */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+button { font: inherit; color: inherit; cursor: pointer; }
+[hidden] { display: none !important; }
 
-html, body { margin: 0; height: 100%; }
+.app { position: fixed; inset: 0; overflow: hidden; background: var(--fondo); }
 
-.app {
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-  overflow: hidden;
+.solo-lector, .sentido legend {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 
+/* Mapa a pantalla completa, detrás de todo, con teselas suaves. */
+.mapa { position: absolute; inset: 0; }
+.leaflet-tile-pane { filter: grayscale(.82) brightness(1.05) contrast(.9) sepia(.08); }
+
+/* Foco visible en todo lo que se toca. */
+.redondo:focus-visible, .buscar:focus-visible, .cerrar:focus-visible, .pestanas button:focus-visible,
+.borrar:focus-visible, .ver:focus-visible, .ubicacion:focus-visible, .resultado:focus-visible,
+.segmento input:focus-visible + span { outline: 3px solid var(--primario); outline-offset: 2px; }
+.tarjeta-ruta:focus-visible { outline: 3px solid var(--tinta); outline-offset: 2px; }
+
+/* ── Barra de arriba (teléfono): ☰ · «¿A dónde quieres ir?» · paradas ── */
 .barra {
-  flex: none;
-  padding: 8px 12px;
-  padding-top: max(8px, env(safe-area-inset-top));
-  border-bottom: 1px solid var(--borde);
-  background: var(--fondo);
+  position: absolute; z-index: 1000; top: var(--arriba);
+  /* D-59, 2: con el teléfono acostado, fuera de la muesca (antes 10px y 10px). */
+  left: max(10px, env(safe-area-inset-left)); right: max(10px, env(safe-area-inset-right));
+  display: flex; align-items: center; gap: 8px;
+}
+.redondo {
+  flex: none; width: 52px; height: 52px; padding: 0; border: 0; border-radius: 50%;
+  background: var(--tarjeta); box-shadow: var(--sombra); display: grid; place-items: center; color: var(--tinta);
+}
+.boton-paradas { color: var(--primario); }
+.boton-paradas[aria-pressed="true"] { background: var(--primario); color: #fff; }
+.marca-barra { display: none; }
+.buscar {
+  flex: 1; min-width: 0; height: 52px; border: 0; border-radius: 26px; background: var(--tarjeta);
+  box-shadow: var(--sombra); display: flex; align-items: center; gap: 10px; padding: 0 16px;
+  font-size: 16px; font-weight: 600; color: var(--suave); text-align: left; white-space: nowrap; overflow: hidden;
+}
+.buscar svg { flex: none; }
+
+/* ── Pie legal único (D-53, ajustes 1 y 2): chico, verde, sin fondo, abajo.
+   Lleva la atribución de Leaflet y OpenStreetMap (regla 6). ── */
+.pie {
+  position: absolute; z-index: 1250; left: 0; right: 0; bottom: var(--abajo); margin: 0;
+  padding: 1px 10px 2px; font-size: 9px; line-height: 1.3; text-align: center;
+  color: var(--primario); background: none; text-shadow: var(--halo); pointer-events: none;
+}
+.pie a { color: inherit; pointer-events: auto; }
+
+/* Aviso del mapa discreto (D-53, ajuste 1.2). */
+.aviso-mapa {
+  position: absolute; z-index: 950; left: 50%; transform: translateX(-50%); bottom: calc(var(--abajo) + 25px);
+  max-width: calc(100% - 24px); margin: 0; padding: 0 10px; background: none; text-shadow: var(--halo);
+  font-size: 11px; line-height: 1.35; text-align: center; white-space: nowrap; color: var(--primario);
 }
 
-.nombre { margin: 0; font-size: 1.05rem; line-height: 1.2; }
-.provisional { font-weight: 400; font-size: 0.8rem; color: var(--tinta-suave); }
-.leyenda { margin: 2px 0 0; font-size: 0.8rem; color: var(--tinta-suave); }
-
-.mapa { flex: 1 1 auto; min-height: 0; }
-
-/* M-03: selector de ruta y control de sentido. Áreas táctiles de 44 px o más. */
-.controles {
-  flex: none;
-  display: grid;
-  gap: 6px;
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--borde);
-  background: var(--fondo);
+/* Ruta elegida con el menú cerrado: aviso abajo (D-53, ajuste 2.5: insignia grande). */
+.chip-ruta {
+  position: absolute; z-index: 950; left: 12px; right: 12px; bottom: calc(var(--abajo) + 44px);
+  display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 10px;
+  border-radius: 999px; background: var(--tarjeta); box-shadow: var(--sombra); /* D-58: píldora (antes 18px) */
+}
+.chip-ruta .placa { flex: none; display: grid; place-items: center; padding: 6px 11px 6px 9px; border-radius: 999px; background: var(--c); } /* D-58: píldora (antes 10px) */
+.chip-ruta .camion { font-size: 19px; padding: 0; background: none; color: var(--ct); }
+.chip-ruta .camion svg { width: 19px; height: 19px; }
+.chip-ruta .nombre-chip { flex: 1; min-width: 0; font-size: 13.5px; font-weight: 700; line-height: 1.25; }
+.chip-ruta .nombre-chip small { display: block; font-weight: 500; color: var(--suave); font-size: 11.5px; }
+.ver {
+  flex: none; min-height: 44px; padding: 0 14px; border: 0; border-radius: 22px;
+  background: var(--primario); color: #fff; font-weight: 700; font-size: 14px;
 }
 
-.campo, .sentido {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-width: 0;
+/* D-58, 1 (maqueta aprobada por Miguel, 21 nov 2026, 12:43 am): zoom «+ / −» visible,
+   una píldora vertical blanca abajo a la derecha. En teléfono va arriba del chip de
+   la ruta; en computadora, igual. */
+.leaflet-control-zoom.leaflet-bar {
+  border: 0; border-radius: 999px; overflow: hidden; background: var(--tarjeta);
+  box-shadow: var(--sombra);
+  /* Arriba del chip de la ruta: 44 px (donde empieza el chip) + su alto real + 12 px.
+     main.ts mide el chip en --chip-alto (mínimo 60 px = 116 px como en la maqueta);
+     si el nombre ocupa más renglones, el zoom sube con él (falla vista en GitHub
+     Actions, 21 nov 2026). */
+  margin: 0 12px calc(var(--abajo) + 44px + var(--chip-alto, 60px) + 12px) 0;
+}
+.leaflet-control-zoom.leaflet-bar a {
+  width: 46px; height: 46px; line-height: 44px; font-size: 24px; font-weight: 500;
+  color: var(--tinta); background: var(--tarjeta); border: 0; border-radius: 0;
+}
+.leaflet-control-zoom.leaflet-bar a:first-child { border-bottom: 1px solid var(--borde); }
+.leaflet-control-zoom.leaflet-bar a.leaflet-disabled { color: #b9c2c5; }
+.leaflet-right .leaflet-control-zoom.leaflet-bar { margin-right: max(12px, env(safe-area-inset-right)); } /* D-59, 2: muesca */
+
+/* D-61 (maqueta aprobada por Miguel, 21 nov 2026, 2:51 am), teléfono parado: el zoom
+   va arriba a la derecha, abajo del botón de paradas (barra + 52 px + 12 px de
+   espacio), y debajo, con 10 px de espacio, el círculo «mi ubicación». main.ts los
+   pone arriba solo con el teléfono parado; acostado y en computadora quedan abajo
+   (D-60), así que estas reglas solo aplican cuando están arriba. */
+.leaflet-top.leaflet-right { margin-top: calc(var(--arriba) + 52px); }
+.leaflet-top.leaflet-right .leaflet-control-zoom.leaflet-bar { margin: 12px max(12px, env(safe-area-inset-right)) 0 0; }
+.ubicame {
+  width: 46px; height: 46px; padding: 0;
+  border: 0; border-radius: 50%; background: var(--tarjeta); box-shadow: var(--sombra);
+  display: grid; place-items: center; color: var(--primario); cursor: pointer;
+}
+.leaflet-top.leaflet-right .ubicame { margin: 10px max(12px, env(safe-area-inset-right)) 0 0; }
+.ubicame:disabled { opacity: .7; cursor: progress; }
+.ubicame:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
+/* El aviso de «mi ubicación» usa el lugar y el estilo del aviso de paradas (D-53,
+   ajuste 1.2); mientras se ve, el de paradas espera oculto para no encimarse. */
+#aviso-ubicacion:not([hidden]) + #aviso-paradas { visibility: hidden; }
+
+/* ── Menú lateral izquierdo, cerrado al cargar ── */
+.velo { position: absolute; inset: 0; z-index: 1150; background: rgba(18, 38, 45, 0.28); }
+.hoja {
+  position: absolute; z-index: 1200; top: 0; left: 0; bottom: 0; width: min(380px, 88vw);
+  background: var(--tarjeta); display: flex; flex-direction: column;
+  border-radius: 0 22px 0 0; box-shadow: var(--sombra);
+  padding: max(14px, env(safe-area-inset-top)) 16px calc(var(--abajo) + 36px);
+  transform: translateX(0); opacity: 1; visibility: visible;
+  transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 0s;
+}
+.hoja.cerrada {
+  transform: translateX(calc(-100% - 24px)); opacity: 0; visibility: hidden;
+  transition: transform 280ms cubic-bezier(.2, .8, .2, 1), opacity 280ms ease, visibility 0s linear 280ms;
+}
+.hoja-cabeza { flex: none; display: flex; align-items: center; gap: 10px; padding-bottom: 10px; }
+.logo { flex: none; width: 34px; height: 34px; border-radius: 50%; /* D-58: círculo (antes 10px) */ background: var(--primario); display: grid; place-items: center; }
+.hoja-marca { flex: 1; min-width: 0; }
+.nombre { margin: 0; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em; }
+.leyenda { margin: 0; font-size: 11px; color: var(--suave); }
+.cerrar { flex: none; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: var(--fondo); display: grid; place-items: center; }
+
+/* Pestañas arriba (D-53, 8). */
+.pestanas { flex: none; display: grid; grid-template-columns: 1fr 1fr; margin: 0 -16px 12px; border-bottom: 1px solid var(--borde); }
+.pestanas button {
+  min-height: 46px; border: 0; background: none; font-size: 13px; font-weight: 700; color: var(--suave);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.pestanas button svg { flex: none; }
+.pestanas .activo { color: var(--primario); box-shadow: inset 0 -3px 0 var(--primario); }
+
+/* El scroll es del cuerpo del menú, nunca de la página. */
+.hoja-cuerpo {
+  flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none;
+  display: flex; flex-direction: column;
+}
+.hoja-cuerpo::-webkit-scrollbar { display: none; }
+.modo { flex: 1 0 auto; display: flex; flex-direction: column; }
+.modo > * { flex-shrink: 0; }
+
+.titulo-seccion { margin: 0 0 8px; font-size: 12px; font-weight: 700; color: var(--suave); text-transform: uppercase; letter-spacing: .05em; }
+.titulo-seccion label { cursor: inherit; }
+.fila-titulo { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.fila-titulo .titulo-seccion { margin: 0; }
+.borrar {
+  min-height: 44px; padding: 0 14px; border: 0; border-radius: 22px; background: var(--fondo);
+  font-size: 13px; font-weight: 700; color: var(--suave);
+}
+.aviso-colores { margin: 2px 0 8px; font-size: 10.5px; line-height: 1.35; color: var(--suave); }
+.recientes { margin-bottom: 12px; }
+.recientes .fila-titulo { margin-bottom: 4px; }
+
+/* Tarjetas (D-53, 3 y 4): más chicas, sin «Ruta 001», 20 colores. */
+.rejilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+.tarjeta-ruta {
+  --c: var(--primario); --ct: #fff; --ci: var(--primario);
+  display: grid; justify-items: start; align-content: start; gap: 3px; min-height: 44px;
+  padding: 5px 6px 6px; border: 0; border-radius: 10px; background: var(--c); color: var(--ct);
+  text-align: left; box-shadow: 0 1px 4px rgba(18, 38, 45, 0.14);
+}
+.tarjeta-ruta:active { transform: scale(.98); }
+.camion {
+  display: inline-flex; align-items: center; gap: 3px; padding: 1px 5px 1px 4px; border-radius: 999px; /* D-58: píldora (antes 6px) */
+  background: #fff; color: var(--ci); font-size: 11px; font-weight: 800; line-height: 1.25; letter-spacing: -0.01em;
+}
+.camion strong { font-weight: 800; }
+.camion svg { width: 11px; height: 11px; }
+.tarjeta-nombre {
+  font-size: 10px; font-weight: 700; line-height: 1.2;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 
-.campo label, .sentido legend {
-  font-size: 0.9rem;
-  font-weight: 600;
+/* D-55, 2 (maqueta terminada, Miguel, 20 nov 2026: docs/maquetas/d55/): tarjeta
+   partida a la mitad. Izquierda: el camión de frente arriba y la insignia abajo
+   (columna fija de 36 px = la insignia más ancha). Derecha: inicio – fin, sin
+   negritas. 3 columnas y todas del mismo alto: 70 px en teléfono, 60 px en
+   computadora. La letra del nombre la ajusta main.ts (ajustarLetra): de 11 px
+   hacia abajo hasta que cabe, sin partir palabras; el «–» va pegado (<b>). */
+.tarjeta-ruta.partida {
+  grid-template-columns: 36px minmax(0, 1fr); align-items: center; justify-items: stretch;
+  align-content: center; gap: 0 3px; height: 70px; padding: 4px 3px; overflow: hidden;
+  /* D-58 (Miguel, 21 nov 2026, 12:43 am): esquina suave de 22 px. La píldora completa
+     no cabe (medido en la maqueta: 10 nombres se salían); 1 px más de margen a la izquierda. */
+  border-radius: 22px; padding-left: 4px;
 }
-
-/* La leyenda de un fieldset no entra a la rejilla: se coloca a mano. */
-.sentido legend { float: left; padding: 0; }
-
-select {
-  width: 100%;
-  min-width: 0;
-  min-height: 44px;
-  padding: 0 10px;
-  font: inherit;
-  font-size: 1rem;
-  color: var(--tinta);
-  background: var(--fondo);
-  border: 1px solid var(--tinta-suave);
-  border-radius: 8px;
+.lado { display: grid; justify-items: center; align-content: center; gap: 1px; }
+.lado svg { display: block; width: 30px; height: 30px; }
+.insignia {
+  padding: 0 4px; border-radius: 999px; background: #fff; color: var(--ci); /* D-58: píldora (antes 4px y 0 3px) */
+  font-size: 11.5px; font-weight: 800; line-height: 1.3; white-space: nowrap; letter-spacing: -0.03em;
 }
-
-.segmentos {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border: 1px solid var(--tinta-suave);
-  border-radius: 8px;
-  overflow: hidden;
+.tarjeta-ruta.partida .tarjeta-nombre {
+  display: grid; align-content: center; align-self: stretch; overflow: hidden;
+  -webkit-line-clamp: none; font-size: 9.5px; font-weight: 400;
+  hyphens: manual; overflow-wrap: normal; line-height: 1.12; letter-spacing: -0.015em;
 }
+.tarjeta-ruta.partida .tarjeta-nombre > span { display: block; }
+.tarjeta-ruta.partida .tarjeta-nombre b { font-weight: inherit; white-space: nowrap; }
 
-.segmento { position: relative; display: block; }
-
-.segmento input {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  opacity: 0;
-  cursor: pointer;
+/* Detalle (D-52 + D-53): el sentido vive dentro del menú, sin «Ruta 001». */
+.enc-ruta {
+  display: flex; align-items: center; gap: 10px; padding: 10px 18px 10px 12px; border-radius: 999px; /* D-58: píldora (antes 16px y 10px 12px) */
+  background: var(--c, var(--primario)); color: var(--ct, #fff);
 }
-
+.enc-ruta .camion { flex: none; font-size: 16px; padding: 4px 9px 4px 7px; border-radius: 999px; } /* D-58: píldora (antes 8px) */
+.enc-ruta .camion svg { width: 16px; height: 16px; }
+.enc-nombre { font-size: 16px; font-weight: 700; line-height: 1.25; overflow-wrap: anywhere; }
+.detalle { margin-top: 10px; padding: 12px 14px; border-radius: 16px; background: var(--primario-suave); display: grid; gap: 12px; font-size: 14.5px; }
+.sentido { margin: 0; padding: 0; border: 0; min-width: 0; }
+.segmento { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; border-radius: 22px; background: var(--tarjeta); }
+.segmento label { position: relative; display: block; }
+.segmento input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
 .segmento span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  font-size: 1rem;
+  display: grid; place-content: center; min-height: 44px; padding: 4px 8px; border-radius: 19px;
+  font-weight: 700; font-size: 14px; color: var(--suave); text-align: center;
 }
-
-.segmento + .segmento span { border-left: 1px solid var(--tinta-suave); }
-
-.segmento input:checked + span {
-  background: var(--acento);
-  color: var(--fondo);
-  font-weight: 600;
-}
-
-/* Foco visible para quien usa teclado. */
-select:focus-visible,
-.segmento input:focus-visible + span {
-  outline: 3px solid #2f6fd6;
-  outline-offset: -3px;
-}
-
-/* M-04: detalle de la ruta elegida, debajo del mapa. Si no cabe, se desplaza
-   dentro de su propio panel: la página nunca hace scroll. */
-.detalle {
-  flex: none;
-  max-height: 42dvh;
-  overflow-y: auto;
-  padding: 10px 12px;
-  padding-bottom: max(10px, env(safe-area-inset-bottom));
-  border-top: 1px solid var(--borde);
-  background: var(--fondo);
-}
-
-.detalle[hidden] { display: none; }
-
-.detalle-titulo { margin: 0; font-size: 1rem; line-height: 1.3; }
-
-.detalle-etiquetas { margin: 6px 0 0; }
-
+.segmento small { font-weight: 500; font-size: 10.5px; overflow-wrap: anywhere; }
+.segmento small:empty { display: none; }
+.segmento input:checked + span { background: var(--primario); color: #fff; }
+#detalle-datos { display: grid; gap: 12px; }
+.detalle-filas { display: grid; gap: 12px; margin: 0; }
+.fila dd, .fila-doble { margin: 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-weight: 600; }
+.fila-doble { gap: 8px 10px; }
+.fila-doble > .fila dd { flex-wrap: nowrap; }
+.valor { font-weight: 800; }
+.icono { display: inline-grid; color: var(--primario); }
+.chip-tipo { padding: 2px 10px; border-radius: 12px; font-size: 12.5px; font-weight: 700; background: var(--tarjeta); color: var(--primario); }
+.linea-duracion { display: inline-flex; align-items: center; gap: 5px; color: var(--primario); }
+.linea-duracion .punto { width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .55; }
+.detalle-pie { padding-top: 8px; border-top: 1px solid var(--borde); font-size: 11.5px; color: var(--suave); }
+.detalle-aviso { margin: 4px 0 0; }
 .etiqueta {
-  display: inline-block;
-  padding: 2px 8px;
-  font-size: 0.8rem;
-  border: 1px dashed var(--tinta-suave);
-  border-radius: 999px;
+  display: inline-block; padding: 1px 7px; font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+  border-radius: 999px; /* D-58: píldora (antes 5px y 1px 6px) */ background: var(--acento-suave); color: #8a5300; border: 1px solid #f3cf95;
 }
 
-.detalle-filas {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 4px 12px;
-  margin: 8px 0 0;
-  font-size: 0.95rem;
+/* «¿A dónde quieres ir?» (D-53, 7). */
+.campo {
+  display: flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 14px; border-radius: 25px;
+  border: 2px solid var(--primario); background: var(--tarjeta);
+}
+.campo svg { flex: none; }
+.campo input {
+  flex: 1; min-width: 0; min-height: 44px; border: 0; outline: 0; background: none; padding: 0;
+  font: inherit; font-size: 16px; font-weight: 600; color: var(--tinta);
+}
+.campo:focus-within { box-shadow: 0 0 0 3px var(--primario-suave); }
+.bloque { margin-top: 14px; }
+.lista-lugares { display: grid; gap: 6px; }
+.resultado {
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; padding: 8px 16px; /* D-58: antes 8px 12px */
+  border: 0; border-radius: 999px; background: var(--fondo); /* D-58: píldora (antes 14px) */ text-align: left; font-size: 14px; font-weight: 700;
+}
+.resultado .icono { color: #a8432a; }
+.resultado small { display: block; font-weight: 500; font-size: 11.5px; color: var(--suave); }
+.resultado[aria-pressed="true"] { background: var(--primario-suave); box-shadow: inset 0 0 0 2px var(--primario); }
+.rejilla.cerca .tarjeta-ruta { height: 74px; }
+.rejilla.cerca .tarjeta-nombre { -webkit-line-clamp: 2; }
+.tarjeta-ruta .dist { margin-top: auto; font-size: 10px; font-weight: 700; opacity: .92; }
+.ubicacion {
+  width: 100%; min-height: 46px; border: 0; border-radius: 23px; background: var(--primario); color: #fff;
+  font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.ubicacion:disabled { opacity: .7; cursor: progress; }
+
+/* D-57 (maqueta aprobada por Miguel, 20 nov 2026, 11:20 pm): la parada más cercana
+   arriba de «¿A dónde quieres ir?». Ubicado: una línea tocable (la muestra en el
+   mapa) y un botón de ícono que vuelve a buscar. Puros botones, poca letra. */
+.mi-parada { margin-bottom: 14px; }
+.mi-parada .nota { margin-top: 6px; }
+.parada-hallada { display: flex; align-items: stretch; gap: 8px; }
+.ver-parada {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 8px 16px; /* D-58: antes 8px 10px 8px 12px */
+  border: 0; border-radius: 999px; /* D-58: píldora (antes 14px) */ background: var(--primario-suave); box-shadow: inset 0 0 0 2px var(--primario);
+  color: var(--primario); text-align: left;
+}
+.ver-parada svg { flex: none; }
+.ver-parada b { display: block; font-size: 14px; color: var(--tinta); }
+.ver-parada small { display: block; font-size: 11.5px; color: var(--suave); }
+.ver-parada .flecha { margin-left: auto; }
+.otra {
+  flex: none; width: 52px; height: 52px; align-self: center; padding: 0; border: 0; border-radius: 50%; /* D-58: círculo (antes 14px) */
+  background: var(--primario); color: #fff;
+  display: grid; place-items: center;
+}
+.otra:disabled { opacity: .7; cursor: progress; }
+.ver-parada:focus-visible, .otra:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
+/* Ajuste 2.1 (6:57 pm): las leyendas (estimado, próximamente) juntas, hasta abajo. */
+.leyendas { margin-top: auto; padding-top: 18px; display: grid; gap: 4px; }
+.leyendas p, .nota { margin: 0; font-size: 10.5px; line-height: 1.4; color: var(--primario); }
+.nota { margin-top: 6px; }
+
+/* D-55, 1: bienvenida «Así funciona» (maqueta aprobada, 9:58 pm): tarjeta blanca
+   abajo sobre el mapa, pasos numerados en círculo, verbo en negritas, X, dos
+   botones y la nota «Sale solo la primera vez…». Con el menú abierto no se ve. */
+.bienvenida {
+  position: absolute; z-index: 1260; left: 10px; right: 10px; bottom: calc(var(--abajo) + 30px);
+  padding: 16px 16px 12px; border-radius: 18px; background: var(--tarjeta); box-shadow: var(--sombra);
+}
+.app.menu-abierto .bienvenida { display: none; }
+.bienvenida-cabeza { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.bienvenida h2 { margin: 0; font-size: 19px; }
+.bienvenida .cerrar { background: none; margin: -8px -8px -8px 0; }
+.pasos { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.pasos li { display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: start; font-size: 14.5px; line-height: 1.35; }
+.num { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 15px; background: var(--primario-suave); color: var(--primario); }
+.pasos li:nth-child(3) .num { background: var(--acento-suave); color: #8a5300; }
+.acciones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+.acciones button { min-height: 46px; border-radius: 999px; /* D-58: píldora (antes 12px) */ font-size: 14px; font-weight: 700; }
+.acciones .lleno { border: 0; background: var(--primario); color: #fff; }
+.acciones .borde { border: 2px solid var(--primario); background: var(--tarjeta); color: var(--primario); }
+.acciones button:focus-visible, .bienvenida .cerrar:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
+.bienvenida .recuerda { margin: 10px 0 0; font-size: 11px; line-height: 1.35; text-align: center; color: var(--suave); }
+
+/* ── Marcadores del mapa ── */
+/* D-53: parada como círculo levantado con camión y guía de puntitos. */
+.parada-toque { display: block; background: none; border: 0; }
+.parada-toque svg { display: block; filter: drop-shadow(0 2px 3px rgba(18, 38, 45, 0.35)); }
+.parada-toque:focus-visible { outline: 3px solid var(--primario); outline-offset: 0; border-radius: 50%; }
+.ficha-parada { display: grid; gap: 2px; font: 13px/1.4 system-ui, -apple-system, sans-serif; color: var(--tinta); }
+.ficha-parada b { font-size: 14px; }
+.ficha-parada span { color: var(--suave); }
+.ficha-parada .marca-verificar { color: #8a5300; font-weight: 800; letter-spacing: 0.03em; }
+.yo { width: 16px; height: 16px; border-radius: 50%; background: #1d5b8f; border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(29, 91, 143, .25); }
+
+/* Zonas probables de inicio, fin y destino (D-50, D-46): círculo de borde
+   punteado y etiqueta. Sin línea entre ellas (no hay trazo verificado). */
+.zona { stroke-width: 2.5px; }
+.zona.zona-inicio { stroke: #0d7a72; fill: #0d7a72; }
+.zona.zona-fin, .zona.zona-destino { stroke: #a8432a; fill: #a8432a; }
+.punto-zona { background: none; border: 0; display: flex; justify-content: center; align-items: center; }
+.punto-zona span {
+  padding: 3px 9px; border-radius: 13px; font-size: 12px; font-weight: 800; color: #fff; white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(18, 38, 45, .3); border: 2px solid #fff; cursor: pointer;
+}
+.punto-zona.zona-inicio span { background: #0d7a72; }
+.punto-zona.zona-fin span, .punto-zona.zona-destino span { background: #a8432a; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hoja, .hoja.cerrada, .mapa { transition: none; }
 }
 
-.detalle-filas dt { color: var(--tinta-suave); }
-.detalle-filas dd { margin: 0; font-weight: 600; }
+/* ── Computadora: barra verde a todo lo ancho con ☰ y nombre; el menú queda
+   pegado a la izquierda, debajo de la barra, y el mapa se recorre. ── */
+/* D-59, 2: computadora = ancho de 768 px o más Y alto de más de 500 px. Un teléfono
+   acostado (unos 844 × 390) se queda con la vista de teléfono. Igual en main.ts. */
+@media (min-width: 768px) and (min-height: 501px) {
+  .barra {
+    top: 0; left: 0; right: 0; height: 60px; padding: 0 12px; gap: 10px; z-index: 1300;
+    background: var(--primario); box-shadow: 0 2px 10px rgba(18, 38, 45, 0.18);
+  }
+  .boton-menu { width: 48px; height: 48px; border-radius: 12px; background: transparent; box-shadow: none; color: #fff; }
+  .boton-menu:focus-visible { outline-color: #fff; }
+  .marca-barra { display: block; color: #fff; font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin-right: 16px; }
+  .buscar { flex: 0 1 460px; height: 44px; box-shadow: none; font-size: 15px; }
+  .boton-paradas { width: 44px; height: 44px; box-shadow: none; }
+  .boton-paradas[aria-pressed="true"] { background: var(--acento); color: var(--tinta); }
+  .pie { text-align: right; font-size: 10px; }
+  .aviso-mapa { bottom: 16px; }
+  .chip-ruta { bottom: 32px; right: auto; width: 420px; left: 50%; transform: translateX(-50%); }
+  /* D-62 ajuste (Miguel, 22 nov 2026, 3:43 pm): zoom y círculo arriba a la derecha,
+     12 px bajo la barra verde (el mapa ya empieza abajo de ella). */
+  .leaflet-top.leaflet-right { margin-top: 0; }
 
-.fuente {
-  display: block;
-  font-weight: 400;
-  font-size: 0.75rem;
-  color: var(--tinta-suave);
+  .mapa { top: 60px; transition: left 280ms cubic-bezier(.2, .8, .2, 1); }
+  .app.menu-abierto .mapa { left: 400px; }
+  .app.menu-abierto .aviso-mapa { transform: none; left: calc(400px + (100% - 400px) / 2); translate: -50% 0; }
+  .velo { display: none !important; }
+  .hoja { top: 60px; width: 400px; border-radius: 0; box-shadow: 1px 0 0 var(--borde); padding: 0 16px 24px; }
+  .hoja-cabeza { display: none; }
+  .pestanas button { min-height: 52px; font-size: 14px; }
+  /* D-55 (Miguel, 10:20 pm): 3 columnas en computadora (antes 4). Las de «cerca»
+     no estaban en la maqueta de D-55: se quedan en 4 (lección 14). */
+  .rejilla { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .rejilla.cerca { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .tarjeta-ruta.partida { height: 60px; }
+  .bienvenida { left: 16px; right: auto; bottom: 28px; width: 400px; padding: 20px 20px 14px; }
+  .bienvenida h2 { font-size: 21px; }
 }
 
-.detalle-aviso { margin: 8px 0 0; font-size: 0.85rem; color: var(--tinta-suave); }
+
+/* D-60 (maqueta aprobada por Miguel, 21 nov 2026, 1:59 am): pantalla baja (teléfono
+   acostado, 500 px de alto o menos). (1) El zoom baja hasta arriba del pie y no se
+   encima con el botón de paradas. (2) El menú sube: menos aire arriba, bajo la cabeza,
+   bajo las pestañas y abajo (solo el renglón del pie). (3) Con ruta elegida, el chip va
+   a la izquierda y en vertical (insignia, nombre, «Ver detalle»), 30 % más chico, para
+   que se vea el mapa; «Ver detalle» se ve de 31 px y el botón mide 44 px. */
+@media (max-height: 500px) {
+  .leaflet-control-zoom.leaflet-bar { margin-bottom: calc(var(--abajo) + 30px); }
+  /* D-62 (maqueta aprobada por Miguel, 22 nov 2026, 3:47 pm): el círculo «mi
+     ubicación» a la izquierda del zoom, alineado con su parte de abajo, 10 px de
+     espacio (en columna no cabe a 844 × 212). El zoom no se mueve (D-60). */
+  .leaflet-bottom.leaflet-right .ubicame {
+    position: absolute; margin: 0; bottom: calc(var(--abajo) + 30px);
+    right: calc(max(12px, env(safe-area-inset-right)) + 46px + 10px);
+  }
+  .hoja { padding-top: max(6px, env(safe-area-inset-top)); padding-bottom: calc(var(--abajo) + 18px); }
+  .hoja-cabeza { padding-bottom: 0; }
+  .pestanas { margin-bottom: 6px; }
+  .chip-ruta {
+    right: auto; left: max(12px, env(safe-area-inset-left)); bottom: calc(var(--abajo) + 26px);
+    flex-direction: column; align-items: flex-start; gap: 4px; max-width: 190px;
+    padding: 0; background: none; box-shadow: none; border-radius: 0;
+  }
+  .chip-ruta .placa { padding: 4px 8px 4px 6px; box-shadow: var(--sombra); }
+  .chip-ruta .camion { font-size: 13px; }
+  .chip-ruta .camion svg { width: 13px; height: 13px; }
+  .chip-ruta .nombre-chip {
+    flex: none; padding: 5px 11px; border-radius: 999px; background: var(--tarjeta);
+    box-shadow: var(--sombra); font-size: 9.5px;
+  }
+  .chip-ruta .nombre-chip small { font-size: 8px; }
+  /* El botón mide 44 px (área táctil mínima, regla del proyecto); la píldora verde de
+     31 px se dibuja dentro (::before), así se ve 30 % más chica sin achicar el toque. */
+  .chip-ruta .ver {
+    position: relative; z-index: 0; min-height: 44px; margin: -6.5px 0; padding: 0 10px;
+    font-size: 10px; background: none; box-shadow: none;
+  }
+  .chip-ruta .ver::before {
+    content: ''; position: absolute; z-index: -1; left: 0; right: 0; top: 6.5px; bottom: 6.5px;
+    border-radius: 999px; background: var(--primario); box-shadow: var(--sombra);
+  }
+}
+/* (Bloque al final del archivo: así gana a las reglas base de .hoja y .chip-ruta.) */

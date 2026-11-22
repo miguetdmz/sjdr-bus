@@ -1,0 +1,223 @@
+{
+  "tarea": "R-03 (D-34)",
+  "que_es": "Respuestas de Miguel en la página de confirmación de extremos. Todo punto queda POR VERIFICAR EN CAMPO.",
+  "respaldado": "2026-11-20T02:28:37.988Z",
+  "respondidos": 25,
+  "de": 27,
+  "decisiones": {
+    "Central de Autobuses": {
+      "estado": "movido",
+      "coordenada": [
+        20.37562,
+        -100.00191
+      ],
+      "candidato_osm": "way/551487177",
+      "fecha": "2026-11-19T23:34:35.277Z"
+    },
+    "5 de Mayo": {
+      "estado": "aprobado",
+      "coordenada": [
+        20.39279,
+        -99.99347
+      ],
+      "candidato_osm": "node/13976108729",
+      "fecha": "2026-11-19T23:34:29.523Z"
+    },
+    "Francisco Villa": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.37587,
+        -99.94821
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:38:32.816Z"
+    },
+    "Infonavit La Paz": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.40207,
+        -99.96782
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:39:50.163Z"
+    },
+    "La Peña": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.3999,
+        -99.96385
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:44:13.521Z"
+    },
+    "Universidad Tecnológica (UTSJR)": {
+      "estado": "aprobado",
+      "coordenada": [
+        20.3678,
+        -100.00858
+      ],
+      "candidato_osm": "way/707866085",
+      "fecha": "2026-11-19T23:44:23.278Z"
+    },
+    "Valle Real": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.44268,
+        -99.97988
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:45:38.573Z"
+    },
+    "Carrizo": {
+      "estado": "aprobado",
+      "coordenada": [
+        20.42385,
+        -99.99699
+      ],
+      "candidato_osm": "node/12626681980",
+      "fecha": "2026-11-19T23:47:26.799Z"
+    },
+    "Ezequiel Montes": {
+      "estado": "rechazado",
+      "coordenada": null,
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:50:23.767Z"
+    },
+    "Fracc. La Rueda": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.42725,
+        -99.98996
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:51:12.717Z"
+    },
+    "Granjas Banthí": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.38361,
+        -99.94602
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:52:35.352Z"
+    },
+    "IMSS": {
+      "estado": "aprobado",
+      "coordenada": [
+        20.37666,
+        -99.98689
+      ],
+      "candidato_osm": "way/51652707",
+      "fecha": "2026-11-19T23:53:07.986Z"
+    },
+    "Nuevo Parque Industrial": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.3617,
+        -99.96134
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-19T23:49:16.326Z"
+    },
+    "PITSA": {
+      "estado": "rechazado",
+      "coordenada": null,
+      "candidato_osm": null,
+      "fecha": "2026-11-20T01:27:09.827Z"
+    },
+    "Pedregoso 2ª Sección": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.3762,
+        -99.96082
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-20T01:29:07.282Z"
+    },
+    "Praderas del Sol": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.39805,
+        -99.96801
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-20T01:26:20.452Z"
+    },
+    "Rancho de Enmedio": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.36782,
+        -99.93784
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-20T01:24:27.808Z"
+    },
+    "San Isidro": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.42144,
+        -99.98297
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-20T01:22:43.856Z"
+    },
+    "Solares Banthí": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.39583,
+        -99.93563
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-20T01:21:38.831Z"
+    },
+    "Valle Dorado I": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.38243,
+        -99.90628
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-20T01:19:54.010Z"
+    },
+    "Visthá (CERESO)": {
+      "estado": "movido",
+      "coordenada": [
+        20.44656,
+        -99.97522
+      ],
+      "candidato_osm": "way/1533273705",
+      "fecha": "2026-11-20T01:15:33.060Z"
+    },
+    "Las Torres": {
+      "estado": "rechazado",
+      "coordenada": null,
+      "candidato_osm": null,
+      "fecha": "2026-11-20T01:41:27.459Z"
+    },
+    "Lomas del Pedregal": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.37024,
+        -99.98071
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-20T02:27:33.382Z"
+    },
+    "Manantiales": {
+      "estado": "ubicado",
+      "coordenada": [
+        20.41517,
+        -100.00103
+      ],
+      "candidato_osm": null,
+      "fecha": "2026-11-20T02:28:25.794Z"
+    },
+    "Nuevo San Isidro": {
+      "estado": "rechazado",
+      "coordenada": null,
+      "candidato_osm": null,
+      "fecha": "2026-11-20T02:28:37.982Z"
+    }
+  },
+  "fuente": "Página de trabajo web/confirmar-extremos.html (guardado automático en este archivo)"
+}

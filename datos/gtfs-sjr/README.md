@@ -16,7 +16,7 @@ Estado: en construcción (bloque B1). Archivos actuales:
 | Archivo | Contenido | Fuente |
 |---|---|---|
 | `agency.txt` | Una agencia genérica: los concesionarios de San Juan (por verificar) | Tarea N-05 |
-| `routes.txt` | Las 42 rutas del inventario, en su orden | HANDOFF §4 (listado oficial) |
+| `routes.txt` | Las 39 rutas vigentes del inventario, en su orden (HANDOFF §4 menos las bajas 031, D-36; 024C, D-39, y 018, D-40) | HANDOFF §4 (listado oficial), D-36, D-39 y D-40 |
 | `calendar.txt` | Servicio diario, por verificar | Tarea N-05 |
 | `feed_info.txt` | Editor, versión y vigencia del feed | Tarea N-05 |
 | `stops.txt` | 49 paradas que ya existían en OSM, POR VERIFICAR EN CAMPO, sin ruta asignada | OpenStreetMap (Overpass, 18 nov 2026), tarea N-08; caché en `datos/cache/overpass/`; se arma con `node scripts/paradas-osm.mjs` |

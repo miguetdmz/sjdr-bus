@@ -1,0 +1,415 @@
+{
+  "tarea": "R-03 (D-34, D-41)",
+  "como_leer": [
+    "Un renglón por lugar que es extremo de alguna ruta vigente.",
+    "UBICADO POR MIGUEL: punto puesto o aprobado por Miguel en la página de extremos; POR VERIFICAR EN CAMPO.",
+    "FALTANTE (D-41): no tiene punto. La app lo muestra como faltante; nunca se completa con un dato supuesto.",
+    "antes: la coordenada automática que el punto de Miguel reemplazó, para poder compararla."
+  ],
+  "resumen": {
+    "lugares": 35,
+    "con_coordenada": 32,
+    "de_miguel": 21,
+    "faltantes": 3
+  },
+  "lugares": [
+    {
+      "lugar": "Pedregoso",
+      "rutas": [
+        "001",
+        "002",
+        "019",
+        "022"
+      ],
+      "lat": 20.37609,
+      "lon": -99.96421,
+      "estado": "VERIFICADA (HANDOFF §11.3)",
+      "fuente": "HANDOFF §11.3 (verificada en la práctica con Nominatim)"
+    },
+    {
+      "lugar": "Centro",
+      "rutas": [
+        "001",
+        "004",
+        "009B",
+        "011B",
+        "012",
+        "014",
+        "016",
+        "017",
+        "022",
+        "23",
+        "024",
+        "025",
+        "037",
+        "041",
+        "042",
+        "044"
+      ],
+      "lat": 20.38883,
+      "lon": -99.99639,
+      "estado": "REFERENCIA DE ZONA · POR VERIFICAR",
+      "fuente": "HANDOFF §11.3 (verificada en la práctica con Nominatim)"
+    },
+    {
+      "lugar": "Universidad Tecnológica (UTSJR)",
+      "rutas": [
+        "002",
+        "040"
+      ],
+      "lat": 20.3678,
+      "lon": -100.00858,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (aprobado, propuesta OSM way/707866085), 2026-11-19T17:44-06:00"
+    },
+    {
+      "lugar": "Nuevo Parque Industrial",
+      "rutas": [
+        "004"
+      ],
+      "lat": 20.3617,
+      "lon": -99.96134,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T17:49-06:00"
+    },
+    {
+      "lugar": "Pedregoso 2ª Sección",
+      "rutas": [
+        "005"
+      ],
+      "lat": 20.3762,
+      "lon": -99.96082,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T19:29-06:00"
+    },
+    {
+      "lugar": "Central de Autobuses",
+      "rutas": [
+        "005",
+        "007",
+        "008",
+        "009",
+        "011",
+        "020",
+        "028",
+        "030",
+        "032",
+        "038",
+        "039",
+        "043",
+        "047"
+      ],
+      "lat": 20.37562,
+      "lon": -100.00191,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (movido, propuesta OSM way/551487177), 2026-11-19T17:34-06:00"
+    },
+    {
+      "lugar": "Parque Industrial",
+      "rutas": [
+        "007"
+      ],
+      "lat": 20.3673,
+      "lon": -99.96332,
+      "estado": "VERIFICADA (HANDOFF §11.3)",
+      "fuente": "HANDOFF §11.3 (verificada en la práctica con Nominatim)"
+    },
+    {
+      "lugar": "San Isidro",
+      "rutas": [
+        "008"
+      ],
+      "lat": 20.42144,
+      "lon": -99.98297,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T19:22-06:00"
+    },
+    {
+      "lugar": "San Pedro Ahuacatlán",
+      "rutas": [
+        "009"
+      ],
+      "lat": 20.43435,
+      "lon": -99.9848,
+      "estado": "VERIFICADA (HANDOFF §11.3)",
+      "fuente": "HANDOFF §11.3 (verificada en la práctica con Nominatim)"
+    },
+    {
+      "lugar": "Fracc. La Rueda",
+      "rutas": [
+        "009B",
+        "047"
+      ],
+      "lat": 20.42725,
+      "lon": -99.98996,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T17:51-06:00"
+    },
+    {
+      "lugar": "Cerro Gordo",
+      "rutas": [
+        "010"
+      ],
+      "lat": 20.3838907,
+      "lon": -99.9095482,
+      "estado": "POR VERIFICAR",
+      "fuente": "Nominatim (OpenStreetMap) node/13983749255, consulta 2026-11-19"
+    },
+    {
+      "lugar": "5 de Mayo",
+      "rutas": [
+        "010",
+        "013",
+        "015B",
+        "036"
+      ],
+      "lat": 20.39279,
+      "lon": -99.99347,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (aprobado, propuesta OSM node/13976108729), 2026-11-19T17:34-06:00"
+    },
+    {
+      "lugar": "Loma Alta",
+      "rutas": [
+        "011",
+        "011B"
+      ],
+      "lat": 20.37759,
+      "lon": -99.92699,
+      "estado": "VERIFICADA (HANDOFF §11.3)",
+      "fuente": "HANDOFF §11.3 (verificada en la práctica con Nominatim)"
+    },
+    {
+      "lugar": "Hospital General",
+      "rutas": [
+        "012"
+      ],
+      "lat": 20.37662,
+      "lon": -99.95389,
+      "estado": "VERIFICADA (HANDOFF §11.3)",
+      "fuente": "HANDOFF §11.3 (verificada en la práctica con Nominatim)"
+    },
+    {
+      "lugar": "Carrizo",
+      "rutas": [
+        "013"
+      ],
+      "lat": 20.42385,
+      "lon": -99.99699,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (aprobado, propuesta OSM node/12626681980), 2026-11-19T17:47-06:00"
+    },
+    {
+      "lugar": "Granjas Banthí",
+      "rutas": [
+        "014"
+      ],
+      "lat": 20.38361,
+      "lon": -99.94602,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T17:52-06:00"
+    },
+    {
+      "lugar": "Solares Banthí",
+      "rutas": [
+        "015B"
+      ],
+      "lat": 20.39583,
+      "lon": -99.93563,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T19:21-06:00"
+    },
+    {
+      "lugar": "Infonavit La Paz",
+      "rutas": [
+        "016",
+        "030"
+      ],
+      "lat": 20.40207,
+      "lon": -99.96782,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T17:39-06:00"
+    },
+    {
+      "lugar": "Barrio de la Cruz",
+      "rutas": [
+        "017"
+      ],
+      "lat": 20.3742994,
+      "lon": -100.0057338,
+      "estado": "POR VERIFICAR",
+      "fuente": "Nominatim (OpenStreetMap) node/2176751083, consulta 2026-11-19"
+    },
+    {
+      "lugar": "Valle Real",
+      "rutas": [
+        "019",
+        "020"
+      ],
+      "lat": 20.44268,
+      "lon": -99.97988,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T17:45-06:00"
+    },
+    {
+      "lugar": "Lomas del Pedregal",
+      "rutas": [
+        "23"
+      ],
+      "lat": 20.37024,
+      "lon": -99.98071,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T20:27-06:00"
+    },
+    {
+      "lugar": "Praderas del Sol",
+      "rutas": [
+        "024"
+      ],
+      "lat": 20.39805,
+      "lon": -99.96801,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T19:26-06:00"
+    },
+    {
+      "lugar": "Las Águilas",
+      "rutas": [
+        "025",
+        "040"
+      ],
+      "lat": 20.37589,
+      "lon": -99.94818,
+      "estado": "VERIFICADA (HANDOFF §11.3)",
+      "fuente": "HANDOFF §11.3 (verificada en la práctica con Nominatim)"
+    },
+    {
+      "lugar": "Rancho de Enmedio",
+      "rutas": [
+        "028"
+      ],
+      "lat": 20.36782,
+      "lon": -99.93784,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T19:24-06:00"
+    },
+    {
+      "lugar": "Visthá",
+      "rutas": [
+        "032",
+        "036"
+      ],
+      "lat": 20.44656,
+      "lon": -99.97522,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (movido, propuesta OSM way/1533273705), 2026-11-19T19:15-06:00",
+      "antes": {
+        "lat": 20.4472753,
+        "lon": -99.9748735,
+        "fuente": "Nominatim (OpenStreetMap) relation/4063470, consulta 2026-11-19"
+      }
+    },
+    {
+      "lugar": "La Peña",
+      "rutas": [
+        "037",
+        "038"
+      ],
+      "lat": 20.3999,
+      "lon": -99.96385,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T17:44-06:00"
+    },
+    {
+      "lugar": "Francisco Villa",
+      "rutas": [
+        "039",
+        "041"
+      ],
+      "lat": 20.37587,
+      "lon": -99.94821,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T17:38-06:00"
+    },
+    {
+      "lugar": "Manantiales / Nogales",
+      "rutas": [
+        "042"
+      ],
+      "lat": null,
+      "lon": null,
+      "estado": "FALTANTE (D-41) · se completa con la retroalimentación de la gente",
+      "motivo": "sin punto: ni OpenStreetMap ni Miguel lo ubicaron todavía"
+    },
+    {
+      "lugar": "Valle Dorado I",
+      "rutas": [
+        "043"
+      ],
+      "lat": 20.38243,
+      "lon": -99.90628,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T19:19-06:00"
+    },
+    {
+      "lugar": "Valle Dorado II",
+      "rutas": [
+        "044"
+      ],
+      "lat": null,
+      "lon": null,
+      "estado": "FALTANTE (D-41) · se completa con la retroalimentación de la gente",
+      "motivo": "sin punto: ni OpenStreetMap ni Miguel lo ubicaron todavía"
+    },
+    {
+      "lugar": "Manantiales",
+      "rutas": [
+        "046"
+      ],
+      "lat": 20.41517,
+      "lon": -100.00103,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T20:28-06:00"
+    },
+    {
+      "lugar": "IMSS",
+      "rutas": [
+        "046"
+      ],
+      "lat": 20.37666,
+      "lon": -99.98689,
+      "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
+      "fuente": "Miguel, página de extremos (aprobado, propuesta OSM way/51652707), 2026-11-19T17:53-06:00"
+    },
+    {
+      "lugar": "San Juan del Río",
+      "rutas": [
+        "062"
+      ],
+      "lat": 20.38883,
+      "lon": -99.99639,
+      "estado": "REFERENCIA DE ZONA · POR VERIFICAR",
+      "fuente": "HANDOFF §11.3 (verificada en la práctica con Nominatim)"
+    },
+    {
+      "lugar": "Tequisquiapan",
+      "rutas": [
+        "062",
+        "023"
+      ],
+      "lat": 20.54222,
+      "lon": -99.9479,
+      "estado": "VERIFICADA (HANDOFF §11.3)",
+      "fuente": "HANDOFF §11.3 (verificada en la práctica con Nominatim)"
+    },
+    {
+      "lugar": "Ezequiel Montes",
+      "rutas": [
+        "023"
+      ],
+      "lat": null,
+      "lon": null,
+      "estado": "FALTANTE (D-41) · se completa con la retroalimentación de la gente",
+      "motivo": "Miguel rechazó la propuesta (2026-11-19T17:50-06:00); dos o más resultados con el mismo nombre a más de 1.5 km: ambiguo"
+    }
+  ]
+}

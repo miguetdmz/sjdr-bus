@@ -55,3 +55,45 @@ export function detalleRuta(ruta: Ruta, sentido: NombreSentido): Detalle {
     aviso: 'El recorrido todavía no se dibuja en el mapa: está por verificar.',
   };
 }
+
+// --- D-52: vista del detalle, más visual y sin fuentes en pantalla -------------
+// La fuente de cada cifra sigue en los datos y en detalleRuta(); la pantalla solo
+// lleva la leyenda general LEYENDA_VALIDACION (cambio de la regla 1, D-52).
+export const LEYENDA_VALIDACION = 'Datos en proceso de validación';
+
+// Escala visual de la duración (D-52): 3 puntos hasta 29 min, 4 desde 30, y uno
+// más cada 10 min. Como un indicador de nivel: dice «corta o larga» de un vistazo;
+// el número exacto va al lado.
+export function puntosDuracion(minutos: number): number {
+  return Math.max(3, Math.floor(minutos / 10) + 1);
+}
+
+export interface VistaDetalle {
+  tipo: string;
+  sentido: string;
+  paradas: number | null;
+  duracion: { minutos: number; puntos: number } | null;
+  horario: string | null;
+  nivel: string;
+  notas: string[];
+}
+
+export function vistaDetalle(ruta: Ruta, sentido: NombreSentido): VistaDetalle {
+  const base = {
+    tipo: TIPOS[ruta.tipo],
+    sentido: sentido === 'ida' ? 'Ida' : 'Vuelta',
+    nivel: ETIQUETA_NIVEL_C,
+  };
+  if (ruta.grupo !== 'verificada' || !ruta.sentidos) {
+    return { ...base, paradas: null, duracion: null, horario: null, notas: [EN_VERIFICACION] };
+  }
+  // Siempre las cifras del sentido elegido; nunca las del otro (lección 2).
+  const s = ruta.sentidos[sentido];
+  return {
+    ...base,
+    paradas: s.paradas,
+    duracion: { minutos: s.duracion_min, puntos: puntosDuracion(s.duracion_min) },
+    horario: s.horario ? `${s.horario.inicio} a ${s.horario.fin}` : 'Por verificar en campo',
+    notas: ['El recorrido todavía no se dibuja en el mapa: está por verificar.'],
+  };
+}
