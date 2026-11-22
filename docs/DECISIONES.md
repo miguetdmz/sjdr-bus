@@ -1855,3 +1855,10 @@ Miguel).
   Tarea, como el historial archivado de `main`).
 - **Después:** Claude verifica `main` y https://sjdrbus-sjr.vercel.app con evidencia y
   marca v0.2 en PLAN. Siguiente: «el tema del PDF» (FALTANTE: Miguel dice cuál es).
+- **Resultado (verificado a las 4:18 pm):** Miguel integró el PR 1 a `main` el 22 nov
+  2026 a las 4:15 pm (commit de integración `9b8fca8`; `41af79c` está en `main`).
+  GitHub Actions «verificar» y Vercel en verde con `9b8fca8`.
+  https://sjdrbus-sjr.vercel.app sirve 39 rutas, el zoom arriba a la derecha y el
+  círculo «mi ubicación» a 390 y 1280 px (`docs/evidencia/v0.2/`). **B2 cerrado:
+  v0.2 publicada.** El título del commit de integración quedó como el de GitHub
+  («Merge pull request #1…») y «B2 · Primera pantalla publicable → v0.2» en su cuerpo.

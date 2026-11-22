@@ -4,16 +4,16 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (22 nov 2026, 4:09 pm)
+## Estado actual (22 nov 2026, 4:18 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
-| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.1**: foto inicial del 19 nov (`06efa8c`) |
-| Versión en espera (PR 1 «B2 · Primera pantalla publicable → v0.2», https://github.com/miguetdmz/sjdr-bus/pull/1) | **v0.2**: 39 rutas, pantalla nueva con mapa completo (D-48, D-49), pines de parada, selector visual con tarjetas y zonas probables (D-50), nombre SJDR Bus. Integra Miguel cuando cierre B2 |
-| Bloque en curso | **B2 · Primera pantalla publicable** (cerrándose); después vuelve **B3 · Trazos** |
-| Tarea en curso | **Cierre de B2 (D-63): D-53, D-55 y D-57 a D-62 APROBADOS por Miguel (D-58 a D-62 a las 4:09 pm del 22 nov).** Falta: que Miguel integre el PR 1 a `main` (v0.2) y que Claude verifique `main` y la versión publicada |
+| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.2** (`9b8fca8`, 22 nov 2026, 4:15 pm): Miguel integró el PR 1 «B2 · Primera pantalla publicable → v0.2». 39 rutas, mapa completo, selector de tarjetas, zonas probables, «Calcula tu ruta» con parada más cercana, zoom en píldora y círculo «mi ubicación» (D-48 a D-62). Antes: v0.1 (`06efa8c`, 19 nov) |
+| Versión en espera | Ninguna. Rama de trabajo: `b2/cierre-v02` (registro del cierre) |
+| Bloque en curso | **B2 · Primera pantalla publicable: CERRADO (v0.2).** Siguiente: «el tema del PDF» (FALTANTE: Miguel dice cuál es); después D-56 fase 2 y vuelve **B3 · Trazos** |
+| Tarea en curso | Ninguna abierta. Por decidir con Miguel: «el tema del PDF» |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -21,7 +21,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado. Repositorio **público** `miguetdmz/sjdr-bus` (D-29), con candado en `main` |
 | B1 | Datos base del GTFS-SJR | **7 de 7.** Desde D-36/D-39/D-40 son **39 rutas** (37 urbanas + 2 intermunicipales): de baja 031, 024C y 018; la 044 volvió |
 | B2a | Mockup navegable (PWA, Vite + Leaflet) | **8 de 8.** M-05 a M-08 hechas por el turno (PR 2, inspector: **LIBERADO**, 20 nov 2026, 12:17 am). Falta integrarlo y verlo en el teléfono |
-| B2 | Primera pantalla publicable | **E-03 (D-48, D-49) EN REVISIÓN:** mapa completo, «¿A dónde vas?» arriba, menú lateral izquierdo (integrado en computadora), detalle que se abre solo, sentido solo con ruta, pines de parada. Miguel: «se ve muy bien en computadora». **D-50 construido** (selector visual con camioncitos R1, R2…, zonas probables); **D-52 y D-53 construidos** (D-53: sin desplegable, botón de paradas, 20 colores, pie legal único, «¿A dónde quieres ir?»); falta la aprobación de Miguel en su teléfono para cerrar B2 |
+| B2 | Primera pantalla publicable | **CERRADO: v0.2 publicada** (22 nov 2026, 4:15 pm, `9b8fca8`). D-48 a D-62 aprobados por Miguel en su teléfono y computadora (D-63) |
 | B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 698 de 936 con punto exacto (75 %), **27 APROXIMADOS (3 %, D-45: ESTIMADO, nivel C)**, 191 referencias (20 %), 20 POR VERIFICAR (2 %) al 20 nov, 1:05 pm. **D-46 PROPUESTA:** extremos como zona probable (mapa de calor). Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
@@ -29,7 +29,23 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (22 nov 2026, 4:09 pm)
+### Relevo para la siguiente sesión (22 nov 2026, 4:18 pm)
+
+0. **Lo hecho de las 4:09 pm a las 4:18 pm:** commits subidos (`41af79c`, verde). Miguel
+   integró el PR 1 a `main` (4:15 pm, `9b8fca8`): **v0.2 publicada**. Verificado:
+   Actions y Vercel en verde con `9b8fca8`; https://sjdrbus-sjr.vercel.app sirve 39
+   rutas, el zoom arriba y el círculo «mi ubicación» a 390 y 1280 px (capturas en
+   `docs/evidencia/v0.2/`). Rama nueva `b2/cierre-v02` (desde `main`) con este registro.
+1. **Siguiente:** subir `b2/cierre-v02` con su PR en borrador (con permiso) → «el tema
+   del PDF» (FALTANTE: preguntar a Miguel cuál es antes de proponer) → D-56 fase 2
+   (maqueta primero) → B3.
+2. **Preguntas abiertas y pendientes:** D-55 (¿tarjetas de «cerca» partidas?, ¿«Borrar»
+   a 36 px?); candidatas a lección (vista previa probada antes de subir; commit de
+   maqueta antes de `npm run verificar`); controles pendientes con el sí de Miguel
+   (lecciones 5, 9, 10, 13 y 14); Ezequiel Montes (023) FALTANTE; página de aviso de
+   privacidad y términos con las fuentes (FALTANTE de D-52).
+
+### Relevo anterior (22 nov 2026, 4:09 pm)
 
 0. **Lo hecho de las 3:51 pm a las 4:09 pm:** D-62 subida (`262195f`, Actions y Vercel
    en verde). Hallazgo de 320 px: Miguel decidió dejarlo así (4:06 pm). Miguel aprobó
