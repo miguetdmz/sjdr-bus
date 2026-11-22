@@ -42,3 +42,4 @@ en x = 262 (de y = 74 a y = 222); la etiqueta mide ~163 px y llega a x ≈ 332. 
 lo arregla, porque la etiqueta es más ancha que esa reserva. Opciones para Miguel,
 sin aplicar: (A) dejarlo así (se ve moviendo el mapa); (B) en parado, encuadrar la
 ruta debajo del círculo (la ruta se ve más chica); (C) otra que él diga.
+**Decisión de Miguel (22 nov 2026, 4:06 pm): opción A, dejarlo así.**

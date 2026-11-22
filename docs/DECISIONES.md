@@ -1804,9 +1804,10 @@ Miguel).
   1280 × 800); antes del cambio fallaban 6 de 8 (los 2 que pasaban revisan que
   acostado y computadora no cambien). Capturas en `docs/evidencia/d61/`. Inventario de
   selectores: 0 quitados (`inventario-selectores.md`).
-- **Hallazgo sin aplicar (lección 14), pregunta para Miguel:** a 320 × 568, con la R40,
-  la etiqueta «Inicio: Las Águilas» queda en parte debajo del círculo (detalle y
-  opciones en `docs/evidencia/d61/criterios.md`).
+- **Hallazgo (lección 14):** a 320 × 568, con la R40, la etiqueta «Inicio: Las Águilas»
+  queda en parte debajo del círculo (detalle y opciones en
+  `docs/evidencia/d61/criterios.md`). **Miguel decidió (22 nov 2026, 4:06 pm): dejarlo
+  así (opción A)**; se ve completa moviendo el mapa. No se cambia el encuadre.
 
 ## D-62 · 22 nov 2026 · Círculo «mi ubicación» también acostado y en computadora · CONSTRUIDA (falta la revisión de Miguel en su teléfono y computadora)
 - **Pedido (Miguel, 22 nov 2026, 3:39 pm):** a la pregunta de D-61 (lección 14) «¿el

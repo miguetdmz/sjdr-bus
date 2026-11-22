@@ -35,8 +35,8 @@ Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
    en verde). Miguel pidió el círculo en los tres (3:39 pm) y en computadora el zoom
    arriba (3:43 pm); maqueta D-62 aprobada (3:47 pm) y construida, con criterios,
    prueba de 9 casos validada (fallaban los 9 antes del cambio) e inventario.
-1. **Siguiente:** subir (con permiso) → pregunta del hallazgo de 320 px (D-61) →
-   Miguel aprueba D-58 a D-62 en su teléfono y computadora → integra el PR 1 (v0.2)
+1. **Siguiente:** D-62 subida (`262195f`, Actions y Vercel en verde); hallazgo de 320 px:
+   Miguel decidió dejarlo así (4:06 pm) → Miguel aprueba D-58 a D-62 en su teléfono y computadora → integra el PR 1 (v0.2)
    → «el tema del PDF» (FALTANTE) → D-56 fase 2.
 2. **Preguntas abiertas y pendientes:** como en el relevo de las 2:31 am del 21 nov.
 
