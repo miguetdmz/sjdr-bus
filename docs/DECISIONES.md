@@ -1599,8 +1599,9 @@ Miguel).
   con ícono en el mismo renglón que tu parada (9:18 pm) y opción C: el texto chico
   debajo del renglón y el nombre de la parada 25 % más chico (9:25 pm); la línea del
   destino se queda a 14 px (9:33 pm). **Maqueta aprobada (Miguel, 9:34 pm): «Sí,
-  constrúyela».** Antes de descargar, Miguel aprueba la lista de tipos de lugar
-  (`docs/maquetas/d56f2/tipos-propuestos.md`).
+  constrúyela».** Tipos de lugar a descargar aprobados (9:40 pm, «sí, sin opcionales»:
+  sin farmacias, gasolineras ni tiendas de conveniencia):
+  `docs/maquetas/d56f2/tipos-propuestos.md`.
 
 ## D-57 · 20 nov 2026 · «Calcula tu ruta»: la parada más cercana arriba y con poca letra · CONSTRUIDA · APROBADA (Miguel, en su teléfono, 21 nov 2026, 12:34 am)
 - **Pedido (Miguel, 20 nov 2026, 10:55 pm),** al probar D-55: al escribir el

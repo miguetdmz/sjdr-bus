@@ -1,4 +1,4 @@
-# D-56 fase 2 · Tipos de lugar a descargar de OpenStreetMap (PROPUESTA)
+# D-56 fase 2 · Tipos de lugar a descargar de OpenStreetMap · APROBADA (Miguel, 22 nov 2026, 9:40 pm: «Sí, sin opcionales»)
 
 Una sola consulta a Overpass, al construir el dato (regla 7), con la respuesta completa
 en `referencias/` (fuera de git) y al repositorio solo lo extraído con su huella sha256
@@ -21,7 +21,7 @@ superiores, central y terminales).
 | Parques y deportivos | `leisure=park`, `stadium`, `sports_centre` | Parque / Deportivo |
 | Hoteles | `tourism=hotel` | Hotel |
 
-## Opcionales (muchos puntos; Miguel decide)
+## Opcionales: NO se descargan (Miguel, 9:40 pm)
 - Farmacias (`amenity=pharmacy`) y gasolineras (`amenity=fuel`): útiles como referencia,
   pero son muchas y con nombres repetidos («Farmacia Guadalajara»).
 - Tiendas de conveniencia (`shop=convenience`, p. ej. OXXO): cientos; **no se proponen**.
