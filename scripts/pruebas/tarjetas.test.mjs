@@ -73,10 +73,12 @@ test('colores: el aviso de que no significan nada está en la app', () => {
 test('regla 9 (D-53, 6): la ruta se elige solo en tarjetas; sin desplegable', () => {
   assert.doesNotMatch(html + main, /<select|createElement\('select'\)/);
   assert.match(html, /id="tarjetas"/);
-  // El único campo de texto es «¿A dónde quieres ir?» (D-53, 7), que busca en el
-  // catálogo guardado; no hay otro texto libre.
-  assert.equal((html.match(/<input[^>]+type="(text|search)"/g) ?? []).length, 1);
+  // Los únicos campos de texto son «¿A dónde quieres ir?» (D-53, 7) y «¿Desde dónde
+  // sales?» (D-56 fase 2, maqueta aprobada el 22 nov 2026); los dos buscan en el
+  // catálogo guardado de lugares. Ninguno elige ruta; no hay otro texto libre.
+  assert.equal((html.match(/<input[^>]+type="(text|search)"/g) ?? []).length, 2);
   assert.match(html, /<input type="search" id="destino"/);
+  assert.match(html, /<input type="search" id="salida"/);
   assert.doesNotMatch(html, /<datalist/);
 });
 

@@ -238,7 +238,12 @@ puede, convertir la regla en una prueba automática.
      viajera pase correcta». Regla añadida: si algo cambia después de
      entregar el arranque, se reemite completo y verificado contra el estado
      real (git, GitHub, bandera, datos); nunca un parche aparte.
-   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (20 nov 2026):
+   - 2026-11-22 (4.ª vez, corrección de Miguel escrita en el arranque de las 9:52 pm):
+     los arranques decían «no hagas nada hasta mi primer mensaje» aunque no hubiera
+     motivo para esperar. Regla corregida: **el prompt de arranque empieza a trabajar
+     en cuanto se pega.** Solo espera un mensaje de Miguel si hay una razón real
+     (el turno nocturno está corriendo o falta un sí de Miguel) y dice cuál.
+   Ocurrencias: 4 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (20 nov 2026):
    `scripts/arranque.mjs` que arme el bloque de estado del arranque desde la
    realidad (hora de México, rama, commits sin subir, PR abiertos con link,
    bandera de `docs/RELEVO.md`, resumen de `cruces.json`, pendientes de la

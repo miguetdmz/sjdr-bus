@@ -16,10 +16,26 @@ export interface Punto {
   lon: number;
 }
 
+// Un lugar del catálogo: inicio o fin de ruta (con radio de su zona) o lugar con
+// nombre de OpenStreetMap (D-56 fase 2: con tipo e id de OSM, sin radio).
 export interface LugarCatalogo extends Punto {
   lugar: string;
-  radio_m: number;
+  radio_m?: number;
   cerca_de?: string;
+  tipo?: string;
+  osm?: string;
+}
+
+// D-56 fase 2: un lugar de web/public/datos/lugares.json (de lugares-amplio.json).
+export interface LugarOSM extends Punto {
+  nombre: string;
+  tipo: string;
+  osm: string;
+}
+
+export interface DatosLugares {
+  consultado: string;
+  lugares: LugarOSM[];
 }
 
 // Criterio de trabajo de D-53 (c): hasta 1 km en línea recta. ESTIMADO.
@@ -28,8 +44,25 @@ export const RADIO_CERCA_M = 1000;
 export const LEYENDA_CERCA = 'estimado · distancia en línea recta a la zona de inicio o fin de cada ruta, hasta 1 km.';
 export const PROXIMAMENTE =
   'Próximamente (fases posteriores): qué ruta tomar desde tu parada, el recorrido de cada ruta y el camino a pie por calles.';
+// D-56 fase 2: el catálogo ya trae los lugares de OpenStreetMap; si no está, se dice
+// así, sin inventarlo (docs/maquetas/d56f2/tipos-propuestos.md).
 export const SIN_RESULTADOS =
-  'No está entre los lugares guardados. Por ahora solo se buscan los lugares donde empiezan o terminan las rutas.';
+  'No está entre los lugares guardados: los de inicio o fin de ruta y los lugares con nombre de OpenStreetMap.';
+
+const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+
+// D-56 fase 2: «Lugares: OpenStreetMap, consulta del 22 nov 2026.»
+export function leyendaLugares(consultado: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(consultado);
+  const fecha = m ? `${Number(m[3])} ${MESES[Number(m[2]) - 1]} ${m[1]}` : consultado;
+  return `Lugares: OpenStreetMap, consulta del ${fecha}.`;
+}
+
+// D-56 fase 2: cada fila dice su tipo y su fuente.
+export function textoFila(l: LugarCatalogo): string {
+  if (l.osm) return `${l.tipo} · OpenStreetMap`;
+  return l.cerca_de ? `Inicio o fin de ruta · zona aproximada, cerca de ${l.cerca_de}` : 'Inicio o fin de ruta · zona aproximada';
+}
 
 function conPunto(z: ZonaExtremo): z is ZonaExtremo & { lat: number; lon: number; radio_m: number } {
   return !z.faltante && z.lat != null && z.lon != null && z.radio_m != null;
@@ -47,6 +80,26 @@ export function catalogo(rutas: Ruta[]): LugarCatalogo[] {
     }
   }
   return [...m.values()];
+}
+
+// D-56 fase 2 (como la maqueta): primero los lugares de inicio y fin de ruta, después
+// los de OpenStreetMap, sin repetir nombres (sin acentos ni mayúsculas).
+export function catalogoAmplio(rutas: Ruta[], osm: LugarOSM[]): LugarCatalogo[] {
+  const lista = catalogo(rutas);
+  const vistos = new Set(lista.map((l) => normalizar(l.lugar)));
+  for (const o of osm) {
+    const clave = normalizar(o.nombre);
+    if (vistos.has(clave)) continue;
+    vistos.add(clave);
+    lista.push({ lugar: o.nombre, lat: o.lat, lon: o.lon, tipo: o.tipo, osm: o.osm });
+  }
+  return lista;
+}
+
+export async function cargarLugares(): Promise<DatosLugares> {
+  const respuesta = await fetch(new URL('datos/lugares.json', document.baseURI));
+  if (!respuesta.ok) throw new Error(`No se pudieron leer los lugares (${respuesta.status})`);
+  return respuesta.json();
 }
 
 // Sin acentos ni mayúsculas: «hospital general» encuentra «Hospital General».

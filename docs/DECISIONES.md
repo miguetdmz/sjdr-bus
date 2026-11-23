@@ -1602,6 +1602,15 @@ Miguel).
   constrúyela».** Tipos de lugar a descargar aprobados (9:40 pm, «sí, sin opcionales»:
   sin farmacias, gasolineras ni tiendas de conveniencia):
   `docs/maquetas/d56f2/tipos-propuestos.md`.
+- **Fase 2 · construida (22 nov 2026, de las 9:53 pm a las 10:20 pm):** descarga única
+  de Overpass (`datos/cache/overpass/lugares-amplio.json`, 295 lugares con tipo y
+  sha256; respuesta completa en `referencias/`, sin llaves). Cinépolis sí está en OSM
+  («Cinepolis», `way/550793653`). En `web/`, igual a la maqueta: catálogo amplio,
+  parada más cercana al destino, «Salgo de otro lugar» y opción C. Criterios,
+  diferencias, inventario de selectores y capturas: `docs/evidencia/d56f2/`. Pruebas
+  nuevas: antes del cambio fallaban 11 de 11 (navegador) y 5 de 9 (datos); cada uno de
+  6 defectos puestos a propósito se atrapó. `npm run verificar`: todo pasó. Pregunta
+  abierta: nombres repetidos en OSM (`inventario.md`, punto 5).
 
 ## D-57 · 20 nov 2026 · «Calcula tu ruta»: la parada más cercana arriba y con poca letra · CONSTRUIDA · APROBADA (Miguel, en su teléfono, 21 nov 2026, 12:34 am)
 - **Pedido (Miguel, 20 nov 2026, 10:55 pm),** al probar D-55: al escribir el

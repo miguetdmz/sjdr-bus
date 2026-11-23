@@ -69,7 +69,7 @@ async function antes(page) {
   await conDestino(page);
   // p1: arriba de «¿A dónde quieres ir?» y a la vista sin scroll, con el lugar elegido.
   const boton = await page.locator('#usar-ubicacion').boundingBox();
-  const campo = await page.locator('.campo').boundingBox();
+  const campo = await page.locator('.campo:has(#destino)').boundingBox();
   expect(boton.y + boton.height).toBeLessThanOrEqual(campo.y);
   expect(await aLaVista(page, '#usar-ubicacion')).toBe(true);
   // p2: un solo botón, ≥ 44 px, sin el título ni el texto de antes.
@@ -108,6 +108,8 @@ async function ubicado(page) {
 }
 
 // La ficha abierta es la de la parada y su marcador queda dentro del mapa visible.
+// D-56 fase 2: el destino trae su propia parada (.parada-destino) y hay un segundo
+// campo («¿Desde dónde sales?»); aquí se mide tu parada y el campo del destino.
 async function fichaEnMapa(page) {
   const ficha = page.locator('.leaflet-popup .ficha-parada');
   await expect(ficha).toBeVisible();
@@ -127,12 +129,12 @@ async function fichaEnMapa(page) {
   // De cerca (zoom 17 o más): metros por pixel entre tú y la parada, ≤ 1.2
   // (a zoom 17 y esta latitud son ~1.12; a zoom de ciudad, 9 o más).
   const yo = await page.locator('.yo').boundingBox();
-  const pa = await page.locator('.parada-toque').first().boundingBox();
+  const pa = await page.locator('.parada-toque:not(.parada-destino)').first().boundingBox();
   const px = Math.hypot(yo.x + yo.width / 2 - (pa.x + pa.width / 2), yo.y + yo.height / 2 - (pa.y + pa.height - 2.5));
   const cerca = paradas.map((x) => distancia({ lat: PLAZA.latitude, lon: PLAZA.longitude }, x)).sort((m, n) => m - n)[0];
   expect(cerca / px, 'metros por pixel').toBeLessThanOrEqual(1.2);
   await expect(async () => {
-    const m = await page.locator('.parada-toque').first().boundingBox();
+    const m = await page.locator('.parada-toque:not(.parada-destino)').first().boundingBox();
     const mapa = await page.locator('#mapa').boundingBox();
     const hoja = await page.locator('#hoja').boundingBox();
     const abierta = !(await page.locator('#hoja').getAttribute('class')).includes('cerrada');
@@ -178,7 +180,7 @@ test('p8: sin permiso, el aviso sale junto al botón y la app sigue', async ({ p
   const nota = page.locator('#mi-parada #nota-ubicacion');
   await expect(nota).toContainText('permiso');
   const n = await nota.boundingBox();
-  const campo = await page.locator('.campo').boundingBox();
+  const campo = await page.locator('.campo:has(#destino)').boundingBox();
   expect(n.y + n.height).toBeLessThanOrEqual(campo.y);
   await expect(page.locator('#usar-ubicacion')).toBeEnabled();
 });
