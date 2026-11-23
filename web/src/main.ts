@@ -66,11 +66,14 @@ import {
   catalogo,
   catalogoAmplio,
   cargarLugares,
+  distancia,
   leyendaLugares,
   masCercana,
+  puntoCentro,
   rutasCerca,
   textoDistancia,
   textoFila,
+  textoRepetido,
   textoVerMas,
   VISIBLES_LISTA,
   type LugarCatalogo,
@@ -718,6 +721,14 @@ let marcadorCercana: L.Marker | null = null;
 // D-56 fase 2: la parada más cercana al destino, igual.
 let marcadorDestino: L.Marker | null = null;
 
+// Ajuste «Orden» (D-56f2o): los repetidos se ordenan y se miden desde tu ubicación;
+// sin ella, desde el «Centro» de inicio o fin de ruta.
+function desdeLista(): { desde: Punto | null; deTi: boolean } {
+  if (estado.yo) return { desde: estado.yo, deTi: true };
+  return { desde: puntoCentro(lugares), deTi: false };
+}
+const buscarLugares = (texto: string): LugarCatalogo[] => buscar(lugares, texto, desdeLista().desde);
+
 // D-56 fase 2: una fila de la lista dice su tipo y su fuente (criterio c3).
 function filaLugar(l: LugarCatalogo, alElegir: () => void, elegido = false): HTMLButtonElement {
   const b = document.createElement('button');
@@ -731,6 +742,14 @@ function filaLugar(l: LugarCatalogo, alElegir: () => void, elegido = false): HTM
   t.textContent = l.lugar;
   const s = document.createElement('small');
   s.textContent = textoFila(l);
+  // Ajuste «Orden»: un repetido dice a qué distancia está, en un solo pedazo.
+  const { desde, deTi } = desdeLista();
+  if (l.repetido && desde) {
+    const lejos = document.createElement('span');
+    lejos.className = 'lejos';
+    lejos.textContent = textoRepetido(distancia(desde, l), deTi);
+    s.append(' ', lejos);
+  }
   t.append(s);
   b.append(tipo, t);
   b.addEventListener('click', alElegir);
@@ -771,7 +790,7 @@ function pintarLugares(): void {
     listaLugares.replaceChildren(filaLugar(d, () => elegirDestino(d), true));
     return;
   }
-  const encontrados = buscar(lugares, campoDestino.value);
+  const encontrados = buscarLugares(campoDestino.value);
   if (!encontrados.length) {
     listaLugares.replaceChildren(sinResultados());
     return;
@@ -789,7 +808,7 @@ campoDestino.addEventListener('input', () => {
 campoDestino.addEventListener('keydown', (e) => {
   if (e.key !== 'Enter') return;
   e.preventDefault();
-  const primero = buscar(lugares, campoDestino.value)[0];
+  const primero = buscarLugares(campoDestino.value)[0];
   if (primero) elegirDestino(primero);
 });
 
@@ -992,7 +1011,7 @@ function pintarSalida(): void {
     listaSalida.replaceChildren();
     return;
   }
-  const encontrados = buscar(lugares, texto);
+  const encontrados = buscarLugares(texto);
   if (!encontrados.length) {
     listaSalida.replaceChildren(sinResultados());
     return;
@@ -1051,7 +1070,7 @@ campoSalida.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') cancelarSalida.click();
   if (e.key !== 'Enter') return;
   e.preventDefault();
-  const primero = buscar(lugares, campoSalida.value)[0];
+  const primero = buscarLugares(campoSalida.value)[0];
   if (primero) void ponerSalida(primero);
 });
 salidaUbicacion.addEventListener('click', () => {

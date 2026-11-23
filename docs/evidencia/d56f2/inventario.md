@@ -110,3 +110,29 @@ bajo la marca «D-56f2»: `.otra.salida-otra`, `.fila-salida`, `.fila-salida .ub
   del destino seguía en curso al tocar la parada y, al terminar, regresaba el mapa.
   Arreglo en `irAParada()` (`web/src/main.ts`): espera a que termine la animación, igual
   que `encuadrar()`. Después: `d57` 25 de 25. No cambia la pantalla.
+
+## Ajuste «Orden de resultados y nombres repetidos» (maqueta `docs/maquetas/d56f2-orden/`, aprobada por Miguel el 23 nov 2026, 3:13 pm, «tal como está»)
+- Construido igual a la maqueta: `buscar()` ordena por coincidencia, inicio o fin de
+  ruta, tipo (`ORDEN_TIPOS`, la lista de la maqueta) y alfabético; `catalogoAmplio()`
+  junta el mismo nombre a ≤ 100 m (`MISMO_LUGAR_M`) y marca los repetidos distintos;
+  cada repetido dice «· a N km de ti» o «· del Centro» (`textoRepetido()`), en un solo
+  pedazo. En las dos listas. Las preguntas abiertas quedaron como en la maqueta.
+- Comparación: `comparacion/orden.jpg` (maqueta | app, «bodega» ubicado y «bana» en
+  «¿Desde dónde sales?»). La única diferencia es de estado: en la app los Banamex dicen
+  «de ti» porque la prueba ya se había ubicado; la maqueta se capturó sin ubicación.
+  Capturas: `orden-*-390x844.jpg`, `orden-*-320x640.jpg` y `orden-bodega-1280x800.jpg`
+  (a 1280: sin scroll de lado y ninguna distancia partida, medido).
+- Selectores (lección 13): ninguno se fue; 1 nuevo, `.resultado small .lejos`, con la
+  marca «D-56f2o».
+- Pruebas: 3 nuevas de datos en `scripts/pruebas/lugares.test.mjs` (la de c3 se rehízo:
+  «sin repetir nombres» pasa a «el mismo lugar a ≤ 100 m, una vez; ninguno se pierde»,
+  porque el pedido muestra los repetidos) y 4 de navegador en `d56f2.spec.mjs` (390 y
+  320 px). Antes del cambio: 3 de 3 y 4 de 4 en rojo.
+- Con defectos puestos (lección 15), cada uno atrapado: no juntar el mismo lugar (datos 1,
+  navegador 2), sin distancia (navegador 4), solo alfabético (datos 1, navegador 2),
+  distancia que se parte (navegador 4), el más lejano primero (datos 1, navegador 4).
+  **Hallazgo de la validación (lección 16):** la primera versión del defecto «sin
+  distancia» no compilaba, así que la prueba corrió contra la compilación anterior y dio
+  un número engañoso. Se repitió con un defecto que sí compila, revisando la salida de
+  la compilación en cada corrida.
+- `npm run verificar`: TODO PASÓ (174 de 174, 91 de 91, sin secretos).

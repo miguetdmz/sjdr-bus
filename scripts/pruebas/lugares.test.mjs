@@ -66,22 +66,78 @@ test('c2: el service worker guarda lugares.json', () => {
   assert.match(revisar, /\.\/datos\/lugares\.json/);
 });
 
-test('c3: catálogo amplio: primero los de ruta, después OSM, sin repetir nombres', () => {
+test('c3 y o2: catálogo amplio: primero los de ruta, después OSM; el mismo lugar a ≤ 100 m, una vez', () => {
   assert.equal(typeof destino.catalogoAmplio, 'function', 'falta catalogoAmplio en destino.ts');
   const rutas = datosApp.armarDatosApp().rutas;
   const osm = datosApp.armarLugaresApp().lugares;
   const todo = destino.catalogoAmplio(rutas, osm);
   const extremos = destino.catalogo(rutas);
   assert.deepEqual(todo.slice(0, extremos.length).map((l) => l.lugar), extremos.map((l) => l.lugar));
-  const nombres = todo.map((l) => destino.normalizar(l.lugar));
-  assert.equal(new Set(nombres).size, nombres.length, 'nombres repetidos');
-  // Todo nombre de OSM está en el catálogo (el primero de cada nombre).
-  for (const l of osm) assert.ok(nombres.includes(destino.normalizar(l.nombre)), `${l.nombre} falta`);
-  for (const l of todo.slice(extremos.length)) {
+  const deRuta = new Set(extremos.map((l) => destino.normalizar(l.lugar)));
+  const deOSM = todo.slice(extremos.length);
+  // o2: ningún par con el mismo nombre a 100 m o menos (sería el mismo lugar dos veces).
+  for (let i = 0; i < deOSM.length; i++) {
+    for (let k = i + 1; k < deOSM.length; k++) {
+      const a = deOSM[i], b = deOSM[k];
+      if (destino.normalizar(a.lugar) !== destino.normalizar(b.lugar)) continue;
+      assert.ok(destino.distancia(a, b) > destino.MISMO_LUGAR_M, `${a.lugar}: el mismo lugar dos veces (${Math.round(destino.distancia(a, b))} m)`);
+    }
+  }
+  // Ninguno de OSM se pierde, salvo un doble a ≤ 100 m o un nombre igual a uno de ruta.
+  for (const o of osm) {
+    const k = destino.normalizar(o.nombre);
+    if (deRuta.has(k)) continue;
+    assert.ok(deOSM.some((l) => destino.normalizar(l.lugar) === k && destino.distancia(l, o) <= destino.MISMO_LUGAR_M), `${o.nombre} (${o.osm}) se perdió`);
+  }
+  for (const l of deOSM) {
     const o = osm.find((x) => x.osm === l.osm);
     assert.ok(o, `${l.lugar}: no viene de OSM`);
     assert.deepEqual([l.lat, l.lon, l.tipo], [o.lat, o.lon, o.tipo], `${l.lugar}: dato movido`);
+    // o3: «repetido» = hay otro lugar distinto con el mismo nombre.
+    const iguales = deOSM.filter((x) => destino.normalizar(x.lugar) === destino.normalizar(l.lugar)).length;
+    assert.equal(Boolean(l.repetido), iguales > 1, `${l.lugar}: marca de repetido`);
   }
+  assert.equal(deOSM.filter((l) => l.lugar === 'Parque Héroes de Nacozari').length, 1, 'o2: Nacozari (18 m) una vez');
+  assert.equal(deOSM.filter((l) => l.lugar === 'Bodega Aurrera').length, 3, 'o3: las tres Bodega Aurrera');
+});
+
+const catalogoDePrueba = () => destino.catalogoAmplio(datosApp.armarDatosApp().rutas, datosApp.armarLugaresApp().lugares);
+
+test('o1: orden por coincidencia, luego inicio o fin de ruta, luego tipo, luego alfabético', () => {
+  const cat = catalogoDePrueba();
+  const nombres = (t) => destino.buscar(cat, t).map((l) => l.lugar);
+  assert.deepEqual(nombres('plaza').slice(0, 2), ['Plaza Punta Victoria', 'Plaza Santa Cruz Nieto']);
+  assert.equal(nombres('parque')[0], 'Parque Industrial');
+  assert.ok(!destino.buscar(cat, 'parque')[0].osm, 'con «parque» el primero es de inicio o fin de ruta');
+  // La regla, no el dato del día (lección 11): en cualquier búsqueda, la clave no baja.
+  const calidad = (n, t) => (n.startsWith(t) ? 0 : n.split(/[^a-z0-9]+/).some((w) => w.startsWith(t)) ? 1 : 2);
+  const tipo = (l) => (l.osm ? destino.ORDEN_TIPOS.indexOf(l.tipo) + 1 || 99 : 0);
+  for (const t of ['plaza', 'parque', 'centro', 'san', 'mercado', 'escuela', 'bodega', 'a']) {
+    const r = destino.buscar(cat, t);
+    for (let i = 1; i < r.length; i++) {
+      const a = [calidad(destino.normalizar(r[i - 1].lugar), t), tipo(r[i - 1])];
+      const b = [calidad(destino.normalizar(r[i].lugar), t), tipo(r[i])];
+      assert.ok(a[0] < b[0] || (a[0] === b[0] && a[1] <= b[1]), `«${t}»: ${r[i - 1].lugar} antes que ${r[i].lugar}`);
+    }
+  }
+  for (const t of ORDEN_TIPOS_DE_LA_MAQUETA) assert.ok(destino.ORDEN_TIPOS.includes(t), `falta el tipo ${t}`);
+  assert.deepEqual(destino.ORDEN_TIPOS, ORDEN_TIPOS_DE_LA_MAQUETA);
+});
+
+const ORDEN_TIPOS_DE_LA_MAQUETA = ['Terminal', 'Hospital', 'Clínica', 'Plaza comercial', 'Mercado', 'Gobierno', 'Supermercado', 'Tienda', 'Servicio público', 'Banco', 'Cultura', 'Hotel', 'Deportivo', 'Zona industrial', 'Ciudad', 'Localidad', 'Colonia', 'Fraccionamiento', 'Barrio', 'Escuela', 'Templo', 'Centro penitenciario', 'Parque'];
+
+test('o3: los repetidos, el más cercano primero, con su distancia de ti o del Centro', () => {
+  const cat = catalogoDePrueba();
+  const centro = destino.puntoCentro(cat);
+  assert.ok(centro && !centro.osm && destino.normalizar(centro.lugar) === 'centro', 'el «Centro» es el de inicio o fin de ruta');
+  for (const desde of [centro, { lat: 20.37, lon: -99.97 }]) {
+    const bodegas = destino.buscar(cat, 'bodega', desde).filter((l) => l.lugar === 'Bodega Aurrera');
+    const d = bodegas.map((l) => destino.distancia(desde, l));
+    assert.deepEqual(d, [...d].sort((a, b) => a - b), 'el más cercano primero');
+  }
+  assert.equal(destino.textoRepetido(1430, true), '· a 1.4 km de ti');
+  assert.equal(destino.textoRepetido(1430, false), '· a 1.4 km del Centro');
+  assert.equal(destino.textoRepetido(312, false), '· a 310 m del Centro');
 });
 
 test('c3: cada fila dice su tipo y su fuente; sin resultados lo dice sin inventar', () => {

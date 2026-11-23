@@ -74,6 +74,21 @@ async function mismoRenglon(page, selectores) {
   return cajas;
 }
 
+// o3: los repetidos se ven todos, con «· a N km de ti / del Centro» en un solo pedazo
+// y el más cercano primero.
+async function revisarRepetidos(page, lista, nombre, cuantos, desde) {
+  const filas = page.locator(`${lista} .resultado`).filter({ has: page.locator(`text="${nombre}"`) });
+  await expect(filas).toHaveCount(cuantos);
+  const lejos = filas.locator('small .lejos');
+  await expect(lejos).toHaveCount(cuantos);
+  const textos = await lejos.allInnerTexts();
+  for (const t of textos) expect(t).toMatch(new RegExp(`^· a [\\d.]+ k?m ${desde}$`));
+  const m = textos.map((t) => { const x = /a ([\d.]+) (k?m)/.exec(t); return +x[1] * (x[2] === 'km' ? 1000 : 1); });
+  expect(m, 'el más cercano primero').toEqual([...m].sort((a, b) => a - b));
+  const pedazos = await lejos.evaluateAll((es) => es.map((e) => e.getClientRects().length));
+  expect(pedazos, 'la distancia no se parte en dos renglones').toEqual(pedazos.map(() => 1));
+}
+
 // Nada se sale del menú ni hay scroll de lado.
 async function cabe(page) {
   const r = await page.evaluate(() => {
@@ -244,6 +259,38 @@ for (const tam of ANCHOS) {
       await page.locator('#salgo-otro').click();
       await page.locator('#salida').fill('parque');
       await revisarLista(page, '#lista-salida');
+    });
+
+    test('o1 y o3: orden nuevo; los repetidos con su distancia del Centro, el más cercano primero, sin partirse', async ({ page }) => {
+      await abrirCalcula(page);
+      await page.locator('#destino').fill('plaza');
+      const filas = page.locator('#lista-lugares .resultado');
+      await expect(filas.nth(0)).toContainText('Plaza Punta Victoria');
+      await expect(filas.nth(1)).toContainText('Plaza Santa Cruz Nieto');
+      await page.locator('#destino').fill('bodega');
+      await revisarRepetidos(page, '#lista-lugares', 'Bodega Aurrera', 3, 'del Centro');
+      await expect(filas.filter({ hasText: 'Bodega Ahurrera' }).locator('small')).not.toContainText(/del Centro|de ti/);
+      await page.locator('#destino').fill('nacozari');
+      await expect(filas.filter({ hasText: 'Parque Héroes de Nacozari' })).toHaveCount(1);
+      await cabe(page);
+      await captura(page, 'orden-nacozari');
+      await page.locator('#destino').fill('bodega');
+      await captura(page, 'orden-bodega');
+    });
+
+    test('o3 y o4: ubicado, «de ti»; en «¿Desde dónde sales?» los Banamex con su distancia', async ({ page }) => {
+      await abrirCalcula(page);
+      await page.locator('#usar-ubicacion').click();
+      await expect(page.locator('#ver-parada')).toBeVisible();
+      await page.locator('#destino').fill('bodega');
+      await revisarRepetidos(page, '#lista-lugares', 'Bodega Aurrera', 3, 'de ti');
+      await cabe(page);
+      await captura(page, 'orden-bodega-yo');
+      await page.locator('#salgo-otro').click();
+      await page.locator('#salida').fill('bana');
+      await revisarRepetidos(page, '#lista-salida', 'Banamex', 2, 'de ti');
+      await cabe(page);
+      await captura(page, 'orden-salida-banamex');
     });
 
     test('c7 y c8: salida y destino juntos; leyenda de lugares; búsqueda sin resultados', async ({ page }) => {

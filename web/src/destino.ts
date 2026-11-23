@@ -24,6 +24,8 @@ export interface LugarCatalogo extends Punto {
   cerca_de?: string;
   tipo?: string;
   osm?: string;
+  // Ajuste «Orden» (D-56f2o): hay otro lugar distinto con el mismo nombre.
+  repetido?: boolean;
 }
 
 // D-56 fase 2: un lugar de web/public/datos/lugares.json (de lugares-amplio.json).
@@ -89,18 +91,50 @@ export function catalogo(rutas: Ruta[]): LugarCatalogo[] {
   return [...m.values()];
 }
 
-// D-56 fase 2 (como la maqueta): primero los lugares de inicio y fin de ruta, después
-// los de OpenStreetMap, sin repetir nombres (sin acentos ni mayúsculas).
+// Ajuste «Orden de resultados y nombres repetidos» (maqueta docs/maquetas/d56f2-orden/,
+// aprobada por Miguel el 23 nov 2026, 3:13 pm). Como separar en el almacén la pieza
+// repetida en el sistema de las piezas iguales en dos racks distintos:
+//   - el mismo nombre a MISMO_LUGAR_M o menos es el mismo lugar dibujado dos veces en
+//     OSM (punto y área; medido: 2–94 m) y se ve una vez;
+//   - más lejos son lugares distintos (medido: 524 m o más) y se ven todos, marcados
+//     como repetidos, cada uno con su distancia.
+export const MISMO_LUGAR_M = 100;
+// Orden de importancia de los tipos para quien busca a dónde ir (propuesta de la
+// maqueta, aprobada «tal como está»).
+export const ORDEN_TIPOS = ['Terminal', 'Hospital', 'Clínica', 'Plaza comercial', 'Mercado', 'Gobierno', 'Supermercado', 'Tienda', 'Servicio público', 'Banco', 'Cultura', 'Hotel', 'Deportivo', 'Zona industrial', 'Ciudad', 'Localidad', 'Colonia', 'Fraccionamiento', 'Barrio', 'Escuela', 'Templo', 'Centro penitenciario', 'Parque'];
+
+// D-56 fase 2: primero los lugares de inicio y fin de ruta, después los de
+// OpenStreetMap. Un nombre de OSM igual a uno de ruta no se repite (gana el de ruta).
 export function catalogoAmplio(rutas: Ruta[], osm: LugarOSM[]): LugarCatalogo[] {
   const lista = catalogo(rutas);
-  const vistos = new Set(lista.map((l) => normalizar(l.lugar)));
+  const deRuta = new Set(lista.map((l) => normalizar(l.lugar)));
+  const grupos = new Map<string, LugarCatalogo[]>();
   for (const o of osm) {
     const clave = normalizar(o.nombre);
-    if (vistos.has(clave)) continue;
-    vistos.add(clave);
-    lista.push({ lugar: o.nombre, lat: o.lat, lon: o.lon, tipo: o.tipo, osm: o.osm });
+    if (deRuta.has(clave)) continue;
+    const grupo = grupos.get(clave) ?? [];
+    if (grupo.some((l) => distancia(l, o) <= MISMO_LUGAR_M)) continue;
+    grupo.push({ lugar: o.nombre, lat: o.lat, lon: o.lon, tipo: o.tipo, osm: o.osm });
+    grupos.set(clave, grupo);
+  }
+  for (const grupo of grupos.values()) {
+    for (const l of grupo) {
+      if (grupo.length > 1) l.repetido = true;
+      lista.push(l);
+    }
   }
   return lista;
+}
+
+// El «Centro» de inicio o fin de ruta: desde ahí se miden los repetidos sin ubicación.
+export function puntoCentro(lugares: LugarCatalogo[]): LugarCatalogo | null {
+  return lugares.find((l) => !l.osm && normalizar(l.lugar) === 'centro') ?? null;
+}
+
+// «· a 1.4 km de ti» / «· a 310 m del Centro» (en línea recta).
+export function textoRepetido(metros: number, deTi: boolean): string {
+  const d = metros < 1000 ? `${Math.round(metros / 10) * 10} m` : `${(metros / 1000).toFixed(1)} km`;
+  return `· a ${d} ${deTi ? 'de ti' : 'del Centro'}`;
 }
 
 export async function cargarLugares(): Promise<DatosLugares> {
@@ -114,10 +148,28 @@ export function normalizar(t: string): string {
   return t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
 }
 
-export function buscar(lugares: LugarCatalogo[], texto: string): LugarCatalogo[] {
+// Ajuste «Orden»: primero los que empiezan con lo escrito, luego los que tienen una
+// palabra que empieza así, al final los que solo lo contienen; dentro de cada grupo,
+// los de inicio o fin de ruta, luego por tipo (ORDEN_TIPOS) y luego alfabético. Nunca
+// por cercanía, salvo entre lugares con el mismo nombre (el más cercano a `desde`).
+function coincidencia(nombre: string, t: string): number {
+  if (nombre.startsWith(t)) return 0;
+  return nombre.split(/[^a-z0-9]+/).some((w) => w.startsWith(t)) ? 1 : 2;
+}
+
+export function buscar(lugares: LugarCatalogo[], texto: string, desde: Punto | null = null): LugarCatalogo[] {
   const t = normalizar(texto);
   if (!t) return [];
-  return lugares.filter((l) => normalizar(l.lugar).includes(t));
+  return lugares
+    .filter((l) => normalizar(l.lugar).includes(t))
+    .map((l) => ({
+      l,
+      c: coincidencia(normalizar(l.lugar), t),
+      p: l.osm ? ORDEN_TIPOS.indexOf(l.tipo ?? '') + 1 || ORDEN_TIPOS.length + 1 : 0,
+      d: desde ? distancia(desde, l) : 0,
+    }))
+    .sort((a, b) => a.c - b.c || a.p - b.p || a.l.lugar.localeCompare(b.l.lugar, 'es') || a.d - b.d)
+    .map((x) => x.l);
 }
 
 // Distancia en línea recta (haversine), en metros. No es el camino por calles.

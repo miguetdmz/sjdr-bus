@@ -67,3 +67,22 @@ Escritos antes de construir. Prueba: `pruebas-navegador/d56f2.spec.mjs` (casos �
   a 5. Con 5 o menos, no hay botón.
 - **r3.** Igual en «¿Desde dónde sales?».
 - **r4.** Cabe a 390, 320 y 1280 px; ningún selector se va (lección 13).
+
+## Ajuste «Orden de resultados y nombres repetidos» (maqueta `docs/maquetas/d56f2-orden/`, aprobada por Miguel el 23 nov 2026, 3:13 pm, «tal como está»)
+Escritos antes de construir. Las preguntas abiertas de la maqueta quedan como en ella: la
+lista de tipos propuesta, «del Centro» sin ubicación, «Anónimo» y «Área verde» se quedan.
+Pruebas: `scripts/pruebas/lugares.test.mjs` (o1–o3, con el archivo del repositorio,
+lección 5) y `pruebas-navegador/d56f2.spec.mjs` (casos «o», a 390 y 320 px).
+- **o1. Orden.** `buscar()` ordena por coincidencia (empieza > una palabra empieza >
+  contiene), luego inicio o fin de ruta, luego tipo (lista de la maqueta), luego
+  alfabético. Con «plaza» las dos primeras son «Plaza Punta Victoria» y «Plaza Santa Cruz
+  Nieto»; con «parque», la primera es «Parque Industrial» (inicio o fin de ruta).
+- **o2. Mismo lugar.** En el catálogo, ningún par con el mismo nombre está a 100 m o menos;
+  ninguno de OSM se pierde salvo esos dobles o un nombre igual a uno de ruta.
+  «Parque Héroes de Nacozari» se ve una vez.
+- **o3. Repetidos distintos.** Se ven todos («Bodega Aurrera» ×3), marcados como
+  repetidos, cada uno con «· a N km de ti» (ubicado) o «· a N km del Centro» (sin
+  ubicación) en el texto chico, en un solo pedazo (no se parte); el más cercano primero.
+  Los de nombre único no llevan distancia.
+- **o4.** Igual en «¿Desde dónde sales?».
+- **o5.** Nada más cambia; cabe a 390, 320 y 1280 px; ningún selector se va (lección 13).
