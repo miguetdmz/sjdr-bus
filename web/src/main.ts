@@ -1068,8 +1068,19 @@ function irAParada(m: L.Marker | null): void {
   // el mapa y cortaría la ficha (defecto visto en las capturas de D-57).
   window.clearTimeout(encuadrePendiente);
   if (!escritorio()) ponerPanel(false, false);
-  mapa.setView(m.getLatLng(), Math.max(mapa.getZoom(), 17), { animate: false });
-  m.openPopup();
+  // Si un acercamiento animado sigue en curso (p. ej. el encuadre del destino), al
+  // terminar regresaría el mapa a donde iba y la ficha quedaría fuera de la vista
+  // (defecto visto al subir D-56 fase 2, 23 nov 2026). Se espera a que termine,
+  // como encuadrar().
+  const ir = () => {
+    if ((mapa as unknown as { _animatingZoom?: boolean })._animatingZoom) {
+      mapa.once('zoomend', ir);
+      return;
+    }
+    mapa.setView(m.getLatLng(), Math.max(mapa.getZoom(), 17), { animate: false });
+    m.openPopup();
+  };
+  ir();
 }
 verParada.addEventListener('click', () => irAParada(marcadorCercana));
 verParadaDestino.addEventListener('click', () => irAParada(marcadorDestino));

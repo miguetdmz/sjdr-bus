@@ -27,3 +27,17 @@ export async function sinTapar(page, selector) {
     { x: caja.x + caja.width / 2, y: caja.y + caja.height / 2, selector },
   );
 }
+
+// Peticiones de red que no son teselas del mapa, contadas desde que la app terminó
+// de arrancar. La app pide sus propios archivos al abrir (rutas, paradas y, desde
+// D-56 fase 2, lugares.json después de rutas); si la prueba empieza a contar antes,
+// uno de esos archivos puede caer durante el toque y parecer causado por él (falló
+// así al subir, 23 nov 2026). Se espera a que la red quede quieta y luego se cuenta.
+export async function vigilarRed(page) {
+  await page.waitForLoadState('networkidle');
+  const vistas = [];
+  page.on('request', (r) => {
+    if (!/tile\.openstreetmap\.org/.test(r.url())) vistas.push(r.url());
+  });
+  return vistas;
+}

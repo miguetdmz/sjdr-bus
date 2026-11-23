@@ -94,3 +94,19 @@ bajo la marca «D-56f2»: `.otra.salida-otra`, `.fila-salida`, `.fila-salida .ub
   vuelve a 5 al escribir (2: solo toca el destino), sin botón (4).
 - Pregunta abierta (no se aplicó): el orden de la lista (primero los de ruta, luego
   alfabético) decide qué se ve en los primeros 5.
+
+## Al subir (23 nov 2026): una prueba con carrera y un defecto que destapó
+- **La subida se frenó** (candado de `.githooks/pre-push`): `d62` t1 a 844 × 280 vio
+  pedir `lugares.json` durante el toque del círculo. No lo pedía el toque: es un archivo
+  del arranque (se pide después de `rutas.json`) que en una corrida lenta cayó tarde.
+  Arreglo de la prueba: `vigilarRed()` pasa a `pruebas-navegador/ayuda.mjs` y empieza a
+  contar cuando la red del arranque quedó quieta; la usan `d53`, `d57`, `d61` y `d62`.
+  La regla que revisan (el toque no manda nada a la red, regla 7) no cambió.
+  Validación (lección 15): con el arranque retrasado a propósito, la prueba vieja fallaba
+  5 de 5 y la nueva pasa 5 de 5; con una petición puesta a propósito en el toque, la nueva
+  falla 5 de 5.
+- **Defecto real que destapó:** con el arranque ya terminado, `d57` a 1280 × 800 fallaba
+  10 de 10 (ficha fuera de la vista). Causa medida: el acercamiento animado del encuadre
+  del destino seguía en curso al tocar la parada y, al terminar, regresaba el mapa.
+  Arreglo en `irAParada()` (`web/src/main.ts`): espera a que termine la animación, igual
+  que `encuadrar()`. Después: `d57` 25 de 25. No cambia la pantalla.

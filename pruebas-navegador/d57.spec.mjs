@@ -5,7 +5,7 @@
 // Con CAPTURAS=1 deja cargar las teselas y guarda las 3 pantallas de la maqueta
 // (antes, ubicado y al tocar la parada), a 390 y 1280 px, en docs/evidencia/d57/.
 import { test, expect } from '@playwright/test';
-import { leerDatos } from './ayuda.mjs';
+import { leerDatos, vigilarRed } from './ayuda.mjs';
 
 const CAPTURAS = process.env.CAPTURAS === '1';
 const { paradas } = leerDatos('paradas.json');
@@ -33,13 +33,6 @@ async function captura(page, nombre) {
   await page.screenshot({ path: `docs/evidencia/d57/${nombre}-${page.viewportSize().width}.jpg`, type: 'jpeg', quality: 82 });
 }
 
-function vigilarRed(page) {
-  const vistas = [];
-  page.on('request', (r) => {
-    if (!/tile\.openstreetmap\.org/.test(r.url())) vistas.push(r.url());
-  });
-  return vistas;
-}
 
 test.beforeEach(async ({ page }) => {
   if (!CAPTURAS) await page.route(/tile\.openstreetmap\.org/, (r) => r.abort());
@@ -82,7 +75,7 @@ async function antes(page) {
 }
 
 async function ubicado(page) {
-  const red = vigilarRed(page);
+  const red = await vigilarRed(page);
   await page.locator('#usar-ubicacion').click();
   const linea = page.locator('#ver-parada');
   await expect(linea).toBeVisible();
