@@ -4,14 +4,14 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (22 nov 2026, 9:14 pm)
+## Estado actual (22 nov 2026, 9:44 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.2** (`9b8fca8`, 22 nov 2026, 4:15 pm): Miguel integró el PR 1 «B2 · Primera pantalla publicable → v0.2». 39 rutas, mapa completo, selector de tarjetas, zonas probables, «Calcula tu ruta» con parada más cercana, zoom en píldora y círculo «mi ubicación» (D-48 a D-62). Antes: v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | Ninguna. `main` en `3dc2065` (Miguel integró el PR 3, registro del cierre de v0.2, 22 nov, 8:33 pm). Rama de trabajo: `b6/d56f2-lugares` |
+| Versión en espera | Ninguna. `main` en `3dc2065` (Miguel integró el PR 3, registro del cierre de v0.2, 22 nov, 8:33 pm). Rama de trabajo: `b6/d56f2-lugares`, en GitHub con su PR 4 en borrador (https://github.com/miguetdmz/sjdr-bus/pull/4), verde |
 | Bloque en curso | **B2 · CERRADO (v0.2).** «El tema del PDF» resuelto (D-64: propuesta de Flotilla SJR, proyecto aparte, en pausa). Ahora: **D-56 fase 2** (camino a B6); después vuelve **B3 · Trazos** |
 | Tarea en curso | **B6 · D-56 fase 2 · Lugares y paradas cercanas: MAQUETA APROBADA** (Miguel, 22 nov, 9:34 pm; `docs/maquetas/d56f2/`). Tipos de lugar aprobados (9:40 pm, sin opcionales). Siguiente: descarga única de OSM → construir en `web/` |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
@@ -29,7 +29,26 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (22 nov 2026, 9:14 pm)
+### Relevo para la siguiente sesión (22 nov 2026, 9:44 pm)
+
+0. **Lo hecho de las 9:14 pm a las 9:44 pm:** ajustes de Miguel a la maqueta («Salgo de
+   otro lugar» como círculo con ícono en el renglón, 9:18 pm; opción C, 9:25 pm; destino
+   a 14 px, 9:33 pm). **Maqueta aprobada (9:34 pm)** y tipos de lugar aprobados sin
+   opcionales (9:40 pm). Rama subida (con el permiso de Miguel, 9:41 pm) y PR 4 en
+   borrador: Actions «verificar» y Vercel en verde.
+1. **Siguiente (chat nuevo, sesión de día o de noche con Miguel presente):** descarga
+   única de lugares de OSM con los tipos de `docs/maquetas/d56f2/tipos-propuestos.md`
+   (Overpass, respuesta completa a `referencias/`, al repositorio solo lo extraído con
+   sha256; revisar que no traiga llaves, lección 8) → criterios de construcción por
+   escrito → pruebas nuevas en rojo con el defecto (lección 15), también a 320 px
+   (lección 5) → construir en `web/` igual a la maqueta → `npm run verificar` → commit
+   aparte (lección 10) → permiso para subir → Miguel prueba la vista previa en su
+   teléfono.
+2. **Preguntas abiertas y pendientes:** sin cambio (relevo de las 4:18 pm, abajo).
+3. **Turno nocturno:** sin tareas APROBADA que pueda hacer (la descarga es de sesión
+   de día). Bandera: EN SESIÓN.
+
+### Relevo anterior (22 nov 2026, 9:14 pm)
 
 0. **Lo hecho de las 8:29 pm a las 9:14 pm:** Miguel integró el PR 3 a `main` (8:33 pm,
    `3dc2065`; Actions y Vercel en verde; el sitio sirve 39 rutas). «El tema del PDF»
