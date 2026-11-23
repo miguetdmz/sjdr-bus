@@ -368,6 +368,31 @@ puede, convertir la regla en una prueba automática.
    Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
    `standards.md` (no se sube sin el sí de Miguel).
 
+16. **Una prueba dependía de cuándo terminaba de cargar la app (23 nov 2026).** En
+   D-56 fase 2, la subida se frenó en el candado de `.githooks/pre-push`: la prueba
+   t1 de `pruebas-navegador/d62.spec.mjs` (844 × 280) cuenta las peticiones de red
+   al tocar el círculo «mi ubicación» y vio `lugares.json`. No lo pedía el toque: es
+   un archivo nuevo del arranque (se pide después de `rutas.json`) que en una corrida
+   lenta cayó durante el toque. Minutos antes, la misma revisión había pasado 87 de
+   87. Al arreglarla salió un defecto real que la prueba de D-57 a 1280 px no veía:
+   si tocabas tu parada durante un acercamiento animado, la ficha quedaba fuera de la
+   vista (10 de 10 fallas; arreglado en `irAParada()`, 25 de 25). Causa raíz: las
+   pruebas empezaban a contar mientras la app seguía arrancando, así que el
+   resultado dependía de qué llegaba primero (una carrera), y al agregar un archivo
+   al arranque no se revisaron las pruebas que vigilan la red. Regla: una prueba
+   que vigila la red o mide la pantalla después de una acción empieza cuando la app
+   terminó de arrancar (`vigilarRed()` de `pruebas-navegador/ayuda.mjs` espera la
+   red quieta); al agregar algo al arranque, se corren con `--repeat-each` las
+   pruebas que vigilan la red. Detección temprana: si una prueba pasa en una corrida
+   y falla en la siguiente sin cambios, es una carrera; se reproduce retrasando a
+   propósito el arranque (`page.route` con espera) antes de arreglarla. Validación
+   del arreglo (commit 0836589): con la carrera forzada, la prueba vieja fallaba 5
+   de 5 y la nueva pasaba 5 de 5; con una petición puesta a propósito en el toque,
+   la nueva falla 5 de 5.
+   - 2026-11-23 (1.ª vez, registrada a pedido de Miguel a las 12:27 pm): este caso.
+   Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
+   `standards.md` (no se sube sin el sí de Miguel).
+
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:
 1. Se cierra un bloque o se integra un entregable a `main`.
