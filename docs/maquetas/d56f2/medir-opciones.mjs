@@ -1,5 +1,7 @@
 // D-56f2, ajuste de las 9:18 pm: mide la línea de tu parada con las opciones a, b y c.
 // Uso: node docs/maquetas/d56f2/medir-opciones.mjs
+// Histórico: se corrió antes de que Miguel eligiera la C (9:25 pm). El parámetro ?salida=
+// ya no existe en la maqueta, así que hoy las tres corridas dan lo mismo (la C).
 import { chromium } from 'playwright';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
