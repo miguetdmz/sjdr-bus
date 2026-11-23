@@ -14,12 +14,21 @@ Capturas en `capturas/` a 390 × 844, 320 × 640 y 1280 × 800.
    «Parada del Seguro de Kimberly · a 80 m / Parada más cercana a tu destino · en
    línea recta · por verificar». Al tocarla, como en D-57: el mapa va a la parada y
    abre su ficha. Vistas `f2-destino` y `f2-mapa`.
-3. **Editar desde dónde sales** (pedido 3, D-57). Debajo de tu parada, un botón
-   «✎ Salgo de otro lugar». Abre «¿Desde dónde sales?» y se elige de la misma lista
+3. **Editar desde dónde sales** (pedido 3, D-57). **Ajuste de Miguel (22 nov 2026,
+   9:18 pm):** «Salgo de otro lugar» es **otro círculo de 52 px en el mismo renglón**
+   que tu parada y el botón de ubicación, con un ícono (pin con lápiz), sin texto; de
+   contorno para no confundirlo con el del GPS. Antes de ubicarte va al lado de «Buscar
+   mi parada más cercana». Abre «¿Desde dónde sales?» y se elige de la misma lista
    guardada (sin geocodificar en vivo, regla 7). Ya elegido: arriba dice «Sales de
-   Mercado 5 de mayo», la línea dice «Cerca de tu salida · en línea recta · por
-   verificar» y el botón redondo de la derecha cambia a «usar mi ubicación».
-   Vistas `f2-salida` y `f2-completo`.
+   Mercado 5 de mayo» y el círculo verde cambia a «usar mi ubicación».
+   **Opción C (Miguel, 9:25 pm),** porque con tres en el renglón la línea crecía (medido:
+   119 px a 390 y 179 px a 320, contra 59 y 102 de hoy): el texto chico («Tu parada más
+   cercana · en línea recta · por verificar» o «Cerca de tu salida · …») pasa debajo
+   del renglón, a todo el ancho, y el nombre de la parada baja 25 % (14 → 10.5 px).
+   Resultado: 52 px a 390 y 52 a 76 px a 320. Solo en este renglón; la línea de la
+   parada del destino no cambia. Vistas `f2-inicio`, `f2-destino`, `f2-salida` y
+   `f2-completo`. Opciones descartadas: A (tal cual, 179 px a 320) y B (círculos de
+   44 px, casi no ayudaba).
 4. **Mapa.** Con salida y destino: un punto con etiqueta para cada lugar (etiqueta
    debajo del punto, para no tapar el ícono de la parada) y sus dos paradas. **Sin
    línea entre ellos** (regla 1: el camino a pie es la fase 3).
@@ -30,7 +39,9 @@ Capturas en `capturas/` a 390 × 844, 320 × 640 y 1280 × 800.
 - Pestaña «Rutas», tarjetas, detalle, mapa, zoom, círculo «mi ubicación», bienvenida
   y pie: idénticos a D-62. Las vistas `destino` y `ubicado` de D-57 siguen iguales.
 - Inventario de estilos (lección 13): de 163 selectores de D-62 no desaparece
-  ninguno; se agregan 11, todos con la marca «D-56f2».
+  ninguno; los nuevos llevan la marca «D-56f2».
+- Las vistas `destino` y `ubicado` (D-57, como está publicado) conservan su línea de
+  14 px con el texto chico dentro (medido: 59 px a 390).
 
 ## Datos de la maqueta (reales, regla 1)
 - Lugares: `lugares-maqueta.js`, de `datos/cache/overpass/lugares.json` (OSM, 19 nov
@@ -47,12 +58,13 @@ Capturas en `capturas/` a 390 × 844, 320 × 640 y 1280 × 800.
   se sabe al descargar].
 
 ## Preguntas para Miguel (no se aplicaron)
-1. ¿«Salgo de otro lugar» como botón con texto debajo de tu parada te parece claro, o
-   lo prefieres solo con el ícono del lápiz?
-2. Observación, sin cambio: a 320 px el botón de D-57 «Buscar mi parada más cercana»
+1. Respondida (9:18 y 9:25 pm): círculo con ícono en el renglón, opción C.
+2. ¿La línea de la parada del **destino** también lleva el nombre a 10.5 px, para que
+   las dos se vean iguales? (No se aplicó: Miguel pidió solo la de tu parada.)
+3. Observación, sin cambio: a 320 px el botón de D-57 «Buscar mi parada más cercana»
    ya ocupa dos renglones (así está publicado en v0.2).
 
 ## Medición (`capturar.mjs`)
 24 vistas (6 nuevas + 2 de D-57, en 3 anchos): sin scroll de lado, sin textos
 cortados y sin errores de la página: **fail 0**. Con un defecto puesto a propósito
-(el botón «Salgo de otro lugar» angosto) la medición marcó 13 fallas (lección 15).
+(en la primera versión: el botón con texto «Salgo de otro lugar» angosto) la medición marcó 13 fallas (lección 15). Tras el ajuste de las 9:25 pm, otra vez fail 0.

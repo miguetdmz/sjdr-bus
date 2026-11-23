@@ -24,7 +24,7 @@ for (const [w, h] of TAMANOS) {
       const cuerpo = document.getElementById('cuerpo');
       const deCuerpo = cuerpo ? cuerpo.scrollWidth - cuerpo.clientWidth : 0;
       // Textos cortados: un elemento de la pestaña más ancho que su caja.
-      const cortados = [...document.querySelectorAll('#cuerpo .ver-parada, #cuerpo .resultado, #cuerpo .cambiar-salida, #cuerpo .ubicacion, #cuerpo .campo')]
+      const cortados = [...document.querySelectorAll('#cuerpo .ver-parada, #cuerpo .resultado, #cuerpo .salida-otra, #cuerpo .ubicacion, #cuerpo .campo')]
         .filter((e) => e.scrollWidth > e.clientWidth + 1).map((e) => e.className);
       return { dePagina, deCuerpo, cortados };
     });

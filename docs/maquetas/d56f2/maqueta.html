@@ -310,13 +310,19 @@ button { font: inherit; color: inherit; }
 .nota { margin: 6px 0 0; font-size: 10.5px; line-height: 1.4; color: var(--primario); }
 .proximamente { margin: 0; font-size: 10.5px; line-height: 1.4; color: var(--primario); }
 
-/* D-56f2: «Salgo de otro lugar» (editar la salida). Botón secundario debajo de la
-   línea de tu parada, con lápiz y texto (en D-57 un ícono solo confundió). */
-.cambiar-salida {
-  display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; min-height: 36px; padding: 0 14px;
-  border: 1.5px solid var(--primario); border-radius: 999px; background: var(--tarjeta); color: var(--primario);
-  font-size: 13px; font-weight: 700; cursor: pointer;
-}
+/* D-56f2, ajuste (Miguel, 22 nov 2026, 9:18 pm): «Salgo de otro lugar» es otro círculo
+   en el mismo renglón que tu parada y el botón de ubicación, con un ícono: pin con
+   lápiz (cambiar el lugar de salida). Contorno, para no confundirlo con el del GPS. */
+.otra.salida-otra { background: var(--tarjeta); color: var(--primario); box-shadow: inset 0 0 0 2px var(--primario); }
+.fila-salida { display: flex; align-items: center; gap: 8px; }
+.fila-salida .ubicacion { flex: 1; min-width: 0; }
+/* D-56f2, opción C (Miguel, 22 nov 2026, 9:25 pm): los tres en el mismo renglón y los
+   círculos del mismo tamaño (52 px); el texto chico de la línea pasa debajo del renglón,
+   a todo el ancho, y el nombre de la parada baja 25 % (14 → 10.5 px). Solo en el renglón
+   de tu parada; la línea de la parada del destino no cambia. */
+.nota-parada { margin: 6px 0 0 4px; font-size: 11.5px; color: var(--suave); }
+.parada-hallada.f2 .ver-parada small { display: none; }
+.parada-hallada.f2 .ver-parada b { font-size: 10.5px; }
 /* D-56f2: campo «¿Desde dónde sales?»: igual que «¿A dónde quieres ir?», más bajo. */
 .campo.salida { height: 44px; font-size: 15px; }
 .campo .quitar { margin-left: auto; width: 30px; height: 30px; border: 0; border-radius: 50%; background: var(--fondo); color: var(--suave); display: grid; place-items: center; }
@@ -706,7 +712,9 @@ const buscarF2 = (t) => catalogoF2().filter((l) => normF2(l.nombre).includes(nor
 const lugarF2 = (n) => catalogoF2().find((l) => l.nombre === n);
 const paradaCercaF2 = (p) => paradas.map((x) => ({ ...x, d: dist(p, x) })).sort((a, b) => a.d - b.d)[0];
 const LUPA_F2 = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d7a72" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>';
-const LAPIZ_F2 = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="m13.5 6.5 4 4"/></svg>';
+// Ícono «salgo de otro lugar»: pin de lugar con un lápiz encima (cambiar el lugar).
+const SALIDA_F2 = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M10 21s-6-5.4-6-10.2A6 6 0 0 1 15.6 8.4"/><circle cx="10" cy="10.5" r="2.2"/><path d="M14.5 20.5h2.2l5-5-2.2-2.2-5 5z"/></svg>';
+const BOTON_SALIDA_F2 = `<button class="otra salida-otra" aria-label="Salgo de otro lugar" title="Salgo de otro lugar">${SALIDA_F2}</button>`;
 const LUGAR_F2 = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
 const FLECHA_F2 = '<svg class="flecha" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>';
 const ACTUALIZAR_F2 = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v4h-4"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg>';
@@ -738,9 +746,9 @@ function destinoF2(estado) {
     const derecha = escrita
       ? `<button class="otra" aria-label="Usar mi ubicación">${UB_F2(24)}</button>`
       : `<button class="otra" aria-label="Volver a buscar tu parada más cercana">${ACTUALIZAR_F2}</button>`;
-    arriba = `${escrita ? `<h3 class="titulo-seccion f2">Sales de ${escrita.nombre}</h3>` : ''}<div class="parada-hallada">${lineaF2(pSal, texto)}${derecha}</div><button class="cambiar-salida">${LAPIZ_F2}Salgo de otro lugar</button>`;
+    arriba = `${escrita ? `<h3 class="titulo-seccion f2">Sales de ${escrita.nombre}</h3>` : ''}<div class="parada-hallada f2">${lineaF2(pSal, texto)}${derecha}${BOTON_SALIDA_F2}</div><p class="nota-parada">${texto}</p>`;
   } else {
-    arriba = `<button class="ubicacion">${UB_F2()}Buscar mi parada más cercana</button><button class="cambiar-salida">${LAPIZ_F2}Salgo de otro lugar</button>`;
+    arriba = `<div class="fila-salida"><button class="ubicacion">${UB_F2()}Buscar mi parada más cercana</button>${BOTON_SALIDA_F2}</div>`;
   }
 
   // Abajo: «¿A dónde quieres ir?» con el catálogo amplio.
