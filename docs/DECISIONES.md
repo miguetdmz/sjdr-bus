@@ -1617,6 +1617,17 @@ Miguel).
   listas largas («parque»: 33). Maqueta `docs/maquetas/d56f2-resultados/` **aprobada
   (10:40 pm: «Sí, constrúyela»)** y construida: «Resultados», 5 visibles y «Ver 5 más ·
   quedan N». Pregunta abierta: el orden de la lista.
+- **Ajuste «Orden de resultados y nombres repetidos» (pregunta de Miguel, 23 nov 2026,
+  12:32 pm: ¿cómo lo usaría alguien que llega a San Juan del Río?).** Análisis con los
+  datos: un visitante busca lugares conocidos, no rutas; el orden pesa poco (casi todas
+  las búsquedas traen 2–8 resultados) y lo que más le falla es «rutas cerca», que solo
+  usa el inicio y fin de cada ruta (Galerías y Walmart: 0 rutas a 1 km; pendiente de
+  datos de recorrido). Maqueta `docs/maquetas/d56f2-orden/` (pedida a las 2:59 pm)
+  **aprobada «tal como está» (3:13 pm: «Sí, constrúyela»)** y construida: orden por
+  coincidencia, inicio o fin de ruta, tipo y alfabético; el mismo nombre a ≤ 100 m es el
+  mismo lugar (se ve una vez); los repetidos distintos se ven todos con su distancia
+  «de ti» o «del Centro». Quedan como en la maqueta: la lista de tipos propuesta,
+  «del Centro» sin ubicación, «Anónimo» y «Área verde» en el catálogo.
 
 ## D-57 · 20 nov 2026 · «Calcula tu ruta»: la parada más cercana arriba y con poca letra · CONSTRUIDA · APROBADA (Miguel, en su teléfono, 21 nov 2026, 12:34 am)
 - **Pedido (Miguel, 20 nov 2026, 10:55 pm),** al probar D-55: al escribir el
