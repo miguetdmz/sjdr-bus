@@ -59,8 +59,8 @@ Capturas en `capturas/` a 390 × 844, 320 × 640 y 1280 × 800.
 
 ## Preguntas para Miguel (no se aplicaron)
 1. Respondida (9:18 y 9:25 pm): círculo con ícono en el renglón, opción C.
-2. ¿La línea de la parada del **destino** también lleva el nombre a 10.5 px, para que
-   las dos se vean iguales? (No se aplicó: Miguel pidió solo la de tu parada.)
+2. ¿La línea de la parada del **destino** también lleva el nombre a 10.5 px? Respuesta
+   de Miguel (22 nov 2026, 9:33 pm): «No, déjala así». Se queda a 14 px.
 3. Observación, sin cambio: a 320 px el botón de D-57 «Buscar mi parada más cercana»
    ya ocupa dos renglones (así está publicado en v0.2).
 
