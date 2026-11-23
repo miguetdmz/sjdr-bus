@@ -13,7 +13,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.2** (`9b8fca8`, 22 nov 2026, 4:15 pm): Miguel integró el PR 1 «B2 · Primera pantalla publicable → v0.2». 39 rutas, mapa completo, selector de tarjetas, zonas probables, «Calcula tu ruta» con parada más cercana, zoom en píldora y círculo «mi ubicación» (D-48 a D-62). Antes: v0.1 (`06efa8c`, 19 nov) |
 | Versión en espera | Ninguna. `main` en `3dc2065` (Miguel integró el PR 3, registro del cierre de v0.2, 22 nov, 8:33 pm). Rama de trabajo: `b6/d56f2-lugares` |
 | Bloque en curso | **B2 · CERRADO (v0.2).** «El tema del PDF» resuelto (D-64: propuesta de Flotilla SJR, proyecto aparte, en pausa). Ahora: **D-56 fase 2** (camino a B6); después vuelve **B3 · Trazos** |
-| Tarea en curso | **B6 · D-56 fase 2 · Lugares y paradas cercanas: MAQUETA lista** (`docs/maquetas/d56f2/`), espera el sí de Miguel para construir |
+| Tarea en curso | **B6 · D-56 fase 2 · Lugares y paradas cercanas: MAQUETA APROBADA** (Miguel, 22 nov, 9:34 pm; `docs/maquetas/d56f2/`). Siguiente: lista de tipos de lugar aprobada → descarga única de OSM → construir en `web/` |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
