@@ -50,6 +50,11 @@ test('c1: sin opcionales rechazados ni errores conocidos de geocodificación (le
   }
 });
 
+test('c1: sin nombres mal escritos que Miguel mandó quitar («Bodega Ahurrera», 23 nov 2026)', () => {
+  for (const l of cache.lugares) assert.notEqual(l.nombre, 'Bodega Ahurrera');
+  assert.ok(cache.fuera_del_catalogo.some((f) => f.startsWith('way/625186575 Bodega Ahurrera')), 'queda anotado por qué salió');
+});
+
 test('c2: la app recibe los lugares tal cual (nombre, tipo, id y coordenada)', () => {
   assert.equal(typeof datosApp.armarLugaresApp, 'function', 'falta armarLugaresApp en datos-app.mjs');
   const app = datosApp.armarLugaresApp();

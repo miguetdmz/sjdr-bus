@@ -1628,6 +1628,9 @@ Miguel).
   mismo lugar (se ve una vez); los repetidos distintos se ven todos con su distancia
   «de ti» o «del Centro». Quedan como en la maqueta: la lista de tipos propuesta,
   «del Centro» sin ubicación, «Anónimo» y «Área verde» en el catálogo.
+  **Probado por Miguel (23 nov 2026, 4:15 pm): «todo OK, excelente trabajo»,** salvo
+  «Bodega Ahurrera» (nombre mal escrito en OSM), que pidió quitar: sale del catálogo con
+  su motivo en `fuera_del_catalogo` (294 lugares).
 
 ## D-57 · 20 nov 2026 · «Calcula tu ruta»: la parada más cercana arriba y con poca letra · CONSTRUIDA · APROBADA (Miguel, en su teléfono, 21 nov 2026, 12:34 am)
 - **Pedido (Miguel, 20 nov 2026, 10:55 pm),** al probar D-55: al escribir el

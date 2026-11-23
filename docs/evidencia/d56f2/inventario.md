@@ -136,3 +136,10 @@ bajo la marca «D-56f2»: `.otra.salida-otra`, `.fila-salida`, `.fila-salida .ub
   un número engañoso. Se repitió con un defecto que sí compila, revisando la salida de
   la compilación en cada corrida.
 - `npm run verificar`: TODO PASÓ (174 de 174, 91 de 91, sin secretos).
+- **Al probar (Miguel, 23 nov 2026, 4:15 pm): «elimina de las opciones a Bodega Ahurrera, es
+  error ortográfico; de ahí fuera todo OK».** Se quitó en la extracción
+  (`scripts/lugares-amplio.mjs`, lista `FUERA` con su motivo): sale `way/625186575`
+  (estaba a 6–8 km de las tres «Bodega Aurrera»); no entra ni cambia ningún otro. Quedan
+  **294 lugares** (Plaza comercial: 7). Queda anotado en `fuera_del_catalogo`. Prueba
+  nueva de datos (en rojo antes) y la de navegador ajustada: con el dato viejo fallan
+  1 y 2. `npm run verificar`: TODO PASÓ (175 de 175, 91 de 91).

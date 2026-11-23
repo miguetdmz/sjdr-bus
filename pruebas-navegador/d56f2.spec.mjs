@@ -267,9 +267,11 @@ for (const tam of ANCHOS) {
       const filas = page.locator('#lista-lugares .resultado');
       await expect(filas.nth(0)).toContainText('Plaza Punta Victoria');
       await expect(filas.nth(1)).toContainText('Plaza Santa Cruz Nieto');
+      await expect(filas.nth(0).locator('small')).not.toContainText(/del Centro|de ti/);
       await page.locator('#destino').fill('bodega');
       await revisarRepetidos(page, '#lista-lugares', 'Bodega Aurrera', 3, 'del Centro');
-      await expect(filas.filter({ hasText: 'Bodega Ahurrera' }).locator('small')).not.toContainText(/del Centro|de ti/);
+      // Miguel pidió quitar «Bodega Ahurrera» (nombre mal escrito, 23 nov 2026).
+      await expect(filas.filter({ hasText: 'Bodega Ahurrera' })).toHaveCount(0);
       await page.locator('#destino').fill('nacozari');
       await expect(filas.filter({ hasText: 'Parque Héroes de Nacozari' })).toHaveCount(1);
       await cabe(page);

@@ -55,9 +55,14 @@ export const TIPOS = [
   ['landuse', 'industrial', 'Zona industrial'],
 ];
 
-// Lección 4: «Universidad Tecnológica Bridge» fue un error de geocodificación; no
-// entra al catálogo aunque esté en OSM.
-const FUERA = new Set(['Universidad Tecnológica Bridge']);
+// Lugares de OSM que no entran al catálogo, con su motivo:
+// - «Universidad Tecnológica Bridge» fue un error de geocodificación (lección 4).
+// - «Bodega Ahurrera» (way/625186575): nombre mal escrito; Miguel pidió quitarlo al
+//   probar el ajuste «Orden» (23 nov 2026, 4:15 pm). No se corrige a mano: OSM manda.
+const FUERA = new Map([
+  ['Universidad Tecnológica Bridge', 'lección 4: error de geocodificación conocido'],
+  ['Bodega Ahurrera', 'nombre mal escrito en OSM; Miguel pidió quitarlo, 23 nov 2026'],
+]);
 
 const entrada = process.argv[2];
 if (!entrada) throw new Error('Falta la ruta de la respuesta de Overpass.');
@@ -74,7 +79,7 @@ for (const e of r.elements) {
   const nombre = e.tags?.name?.trim();
   if (!nombre) continue;
   if (FUERA.has(nombre)) {
-    fuera.push(`${e.type}/${e.id} ${nombre}`);
+    fuera.push(`${e.type}/${e.id} ${nombre} (${FUERA.get(nombre)})`);
     continue;
   }
   const t = TIPOS.find(([k, v]) => e.tags[k] === v);
@@ -111,7 +116,7 @@ const salida = {
     'centro: [latitud, longitud] con 5 decimales; en vías y relaciones es el centro de su caja, no un acceso.',
     'Son lugares de OSM, no ubicaciones confirmadas: toda distancia que se calcule con ellos es ESTIMADA, en línea recta y POR VERIFICAR.',
   ],
-  fuera_del_catalogo: fuera.map((f) => `${f} (lección 4: error de geocodificación conocido)`),
+  fuera_del_catalogo: fuera,
   resumen: { lugares: lugares.length, por_tipo: porTipo },
   lugares,
 };
