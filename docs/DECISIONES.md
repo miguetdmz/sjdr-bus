@@ -1862,3 +1862,17 @@ Miguel).
   círculo «mi ubicación» a 390 y 1280 px (`docs/evidencia/v0.2/`). **B2 cerrado:
   v0.2 publicada.** El título del commit de integración quedó como el de GitHub
   («Merge pull request #1…») y «B2 · Primera pantalla publicable → v0.2» en su cuerpo.
+
+## D-64 · 22 nov 2026 · «El tema del PDF» era la propuesta de Flotilla SJR: proyecto aparte, en pausa
+- **Qué era:** Miguel no recordaba a qué se refería (8:39 pm). Pista en los chats del
+  20 nov: a las 11:07 pm, en el chat de D-55, dijo «si te apruebo, pues entonces
+  pasamos al tema del PDF»; a esas horas otro chat armaba el PDF de venta de
+  **Flotilla SJR** (bitácora de camiones para dueños) para una reunión con un dueño de
+  dos camiones. Miguel lo confirmó (9:02 pm): «Sí, es ese PDF».
+- **Estado del PDF:** terminado (11 páginas, horizontal, del 21 nov). Vive solo en la
+  computadora de Miguel, fuera del repositorio: trae sus datos de contacto
+  (`standards.md` regla 7) y es otro producto (regla 4).
+- **Decisión (Miguel, 9:03 pm):** el PDF está listo; lo presenta la semana próxima. Si
+  hay retroalimentación, avisa para decidir si se construye (en un proyecto aparte,
+  nunca en este repositorio). Mientras, se sigue con SJDR Bus: D-56 fase 2.
+- **Cierra:** el FALTANTE «el tema del PDF» de D-63 y de `docs/PLAN.md`.

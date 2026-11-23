@@ -4,16 +4,16 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (22 nov 2026, 4:18 pm)
+## Estado actual (22 nov 2026, 9:14 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.2** (`9b8fca8`, 22 nov 2026, 4:15 pm): Miguel integró el PR 1 «B2 · Primera pantalla publicable → v0.2». 39 rutas, mapa completo, selector de tarjetas, zonas probables, «Calcula tu ruta» con parada más cercana, zoom en píldora y círculo «mi ubicación» (D-48 a D-62). Antes: v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | Ninguna. Rama de trabajo: `b2/cierre-v02` (registro del cierre) |
-| Bloque en curso | **B2 · Primera pantalla publicable: CERRADO (v0.2).** Siguiente: «el tema del PDF» (FALTANTE: Miguel dice cuál es); después D-56 fase 2 y vuelve **B3 · Trazos** |
-| Tarea en curso | Ninguna abierta. Por decidir con Miguel: «el tema del PDF» |
+| Versión en espera | Ninguna. `main` en `3dc2065` (Miguel integró el PR 3, registro del cierre de v0.2, 22 nov, 8:33 pm). Rama de trabajo: `b6/d56f2-lugares` |
+| Bloque en curso | **B2 · CERRADO (v0.2).** «El tema del PDF» resuelto (D-64: propuesta de Flotilla SJR, proyecto aparte, en pausa). Ahora: **D-56 fase 2** (camino a B6); después vuelve **B3 · Trazos** |
+| Tarea en curso | **B6 · D-56 fase 2 · Lugares y paradas cercanas: MAQUETA lista** (`docs/maquetas/d56f2/`), espera el sí de Miguel para construir |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -29,7 +29,21 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (22 nov 2026, 4:18 pm)
+### Relevo para la siguiente sesión (22 nov 2026, 9:14 pm)
+
+0. **Lo hecho de las 8:29 pm a las 9:14 pm:** Miguel integró el PR 3 a `main` (8:33 pm,
+   `3dc2065`; Actions y Vercel en verde; el sitio sirve 39 rutas). «El tema del PDF»
+   era la propuesta de Flotilla SJR: lista, Miguel la presenta la semana próxima; en
+   pausa hasta su retroalimentación (D-64). Rama nueva `b6/d56f2-lugares` desde `main`
+   con la **maqueta de D-56 fase 2** (`docs/maquetas/d56f2/`: criterios, inventario,
+   capturas a 390, 320 y 1280 px; medición fail 0, y 13 fallas con un defecto puesto).
+1. **Siguiente:** Miguel revisa la maqueta y responde la pregunta 1 de
+   `docs/maquetas/d56f2/inventario.md` → con su sí: descarga nueva de lugares de OSM
+   (le muestro antes la lista de tipos) y construcción en `web/` con criterios y
+   pruebas (lecciones 5, 13 y 15) → B3.
+2. **Preguntas abiertas y pendientes:** sin cambio (abajo, relevo de las 4:18 pm).
+
+### Relevo anterior (22 nov 2026, 4:18 pm)
 
 0. **Lo hecho de las 4:09 pm a las 4:18 pm:** commits subidos (`41af79c`, verde). Miguel
    integró el PR 1 a `main` (4:15 pm, `9b8fca8`): **v0.2 publicada**. Verificado:
