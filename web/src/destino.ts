@@ -58,6 +58,13 @@ export function leyendaLugares(consultado: string): string {
   return `Lugares: OpenStreetMap, consulta del ${fecha}.`;
 }
 
+// Ajuste «Resultados» (maqueta aprobada por Miguel, 22 nov 2026, 10:40 pm): la lista
+// enseña 5 y un botón para ver 5 más, para que no se llene de relleno.
+export const VISIBLES_LISTA = 5;
+export function textoVerMas(quedan: number): string {
+  return `Ver ${Math.min(VISIBLES_LISTA, quedan)} más · quedan ${quedan}`;
+}
+
 // D-56 fase 2: cada fila dice su tipo y su fuente.
 export function textoFila(l: LugarCatalogo): string {
   if (l.osm) return `${l.tipo} · OpenStreetMap`;

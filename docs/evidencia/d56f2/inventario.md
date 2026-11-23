@@ -81,3 +81,16 @@ bajo la marca «D-56f2»: `.otra.salida-otra`, `.fila-salida`, `.fila-salida .ub
   un solo marcador). La prohibición de `polyline`, `polygon`, `circleMarker` y
   `geoJSON` sigue igual: por eso el punto del lugar es un ícono redondo y no un
   `circleMarker` como en la maqueta (se ve igual; comparado en `comparacion/`).
+
+## Ajuste «Resultados» (maqueta `docs/maquetas/d56f2-resultados/`, aprobada por Miguel el 22 nov 2026, 10:40 pm)
+- Construido igual a la maqueta: título «Resultados»; 5 visibles y «Ver 5 más · quedan
+  N» en «¿A dónde quieres ir?» y en «¿Desde dónde sales?». Al escribir otra cosa
+  vuelve a 5. Comparación: `comparacion/resultados.jpg`; capturas
+  `resultados-390x844.jpg` y `resultados-320x640.jpg`.
+- Selectores: 213 (antes de D-56 fase 2: 186); ninguno se fue. Nuevos: `.ver-mas` y
+  `.ver-mas:focus-visible`, con la marca «D-56f2r».
+- Pruebas r1 a r3 (4 casos, a 390 y 320 px): antes del cambio fallaban 4 de 4. Con
+  defectos puestos: 6 visibles (4 fallas), «Ver más» enseña todo de golpe (4), no
+  vuelve a 5 al escribir (2: solo toca el destino), sin botón (4).
+- Pregunta abierta (no se aplicó): el orden de la lista (primero los de ruta, luego
+  alfabético) decide qué se ve en los primeros 5.

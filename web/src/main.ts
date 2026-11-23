@@ -71,6 +71,8 @@ import {
   rutasCerca,
   textoDistancia,
   textoFila,
+  textoVerMas,
+  VISIBLES_LISTA,
   type LugarCatalogo,
   type Punto,
 } from './destino';
@@ -742,9 +744,28 @@ function sinResultados(): HTMLElement {
   return p;
 }
 
+// Ajuste «Resultados»: pinta los primeros `cuantos` lugares y, si quedan, el botón
+// «Ver 5 más · quedan N»; cada toque agrega 5. Al escribir otra cosa vuelve a 5.
+function pintarLista(cont: HTMLElement, encontrados: LugarCatalogo[], cuantos: number, fila: (l: LugarCatalogo) => HTMLElement, verMas: () => void): void {
+  const filas: HTMLElement[] = encontrados.slice(0, cuantos).map(fila);
+  const quedan = encontrados.length - cuantos;
+  if (quedan > 0) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'ver-mas';
+    b.textContent = textoVerMas(quedan);
+    b.addEventListener('click', verMas);
+    filas.push(b);
+  }
+  cont.replaceChildren(...filas);
+}
+
+let visiblesDestino = VISIBLES_LISTA;
+let visiblesSalida = VISIBLES_LISTA;
+
 function pintarLugares(): void {
   bloqueLugares.hidden = !campoDestino.value.trim();
-  // D-56 fase 2 (como la maqueta): ya elegido, «Lugares guardados» muestra solo ese.
+  // D-56 fase 2 (como la maqueta): ya elegido, «Resultados» muestra solo ese.
   if (estado.destino && campoDestino.value === estado.destino.lugar) {
     const d = estado.destino;
     listaLugares.replaceChildren(filaLugar(d, () => elegirDestino(d), true));
@@ -755,10 +776,16 @@ function pintarLugares(): void {
     listaLugares.replaceChildren(sinResultados());
     return;
   }
-  listaLugares.replaceChildren(...encontrados.map((l) => filaLugar(l, () => elegirDestino(l), estado.destino?.lugar === l.lugar)));
+  pintarLista(listaLugares, encontrados, visiblesDestino, (l) => filaLugar(l, () => elegirDestino(l), estado.destino?.lugar === l.lugar), () => {
+    visiblesDestino += VISIBLES_LISTA;
+    pintarLugares();
+  });
 }
 
-campoDestino.addEventListener('input', pintarLugares);
+campoDestino.addEventListener('input', () => {
+  visiblesDestino = VISIBLES_LISTA;
+  pintarLugares();
+});
 campoDestino.addEventListener('keydown', (e) => {
   if (e.key !== 'Enter') return;
   e.preventDefault();
@@ -966,7 +993,14 @@ function pintarSalida(): void {
     return;
   }
   const encontrados = buscar(lugares, texto);
-  listaSalida.replaceChildren(...(encontrados.length ? encontrados.map((l) => filaLugar(l, () => ponerSalida(l))) : [sinResultados()]));
+  if (!encontrados.length) {
+    listaSalida.replaceChildren(sinResultados());
+    return;
+  }
+  pintarLista(listaSalida, encontrados, visiblesSalida, (l) => filaLugar(l, () => ponerSalida(l)), () => {
+    visiblesSalida += VISIBLES_LISTA;
+    pintarSalida();
+  });
 }
 
 function abrirSalida(): void {
@@ -974,6 +1008,7 @@ function abrirSalida(): void {
   bloqueDestino.hidden = true;
   elegirSalida.hidden = false;
   campoSalida.value = '';
+  visiblesSalida = VISIBLES_LISTA;
   pintarSalida();
   window.requestAnimationFrame(() => campoSalida.focus({ preventScroll: true }));
 }
@@ -1008,7 +1043,10 @@ cancelarSalida.addEventListener('click', () => {
   cerrarSalida();
   salgoOtro.focus({ preventScroll: true });
 });
-campoSalida.addEventListener('input', pintarSalida);
+campoSalida.addEventListener('input', () => {
+  visiblesSalida = VISIBLES_LISTA;
+  pintarSalida();
+});
 campoSalida.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') cancelarSalida.click();
   if (e.key !== 'Enter') return;

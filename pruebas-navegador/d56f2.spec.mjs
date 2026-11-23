@@ -203,6 +203,49 @@ for (const tam of ANCHOS) {
       await captura(page, 'mapa');
     });
 
+    // Ajuste «Resultados» (maqueta aprobada por Miguel, 22 nov 2026): 5 visibles y
+    // «Ver 5 más · quedan N». Revisa la regla, no el conteo del día (lección 11).
+    async function revisarLista(page, lista) {
+      const filas = page.locator(`${lista} .resultado`);
+      const boton = page.locator(`${lista} .ver-mas`);
+      await expect(filas).toHaveCount(5);
+      await expect(boton).toBeVisible();
+      const quedan = Number((await boton.innerText()).match(/quedan (\d+)/)[1]);
+      expect(quedan).toBeGreaterThan(0);
+      await expect(boton).toHaveText(`Ver ${Math.min(5, quedan)} más · quedan ${quedan}`);
+      const total = 5 + quedan;
+      let vistos = 5;
+      while (vistos < total) {
+        await boton.click();
+        vistos = Math.min(total, vistos + 5);
+        await expect(filas).toHaveCount(vistos);
+      }
+      await expect(boton).toHaveCount(0);
+      await cabe(page);
+    }
+
+    test('r1 y r2: «Resultados»; 5 visibles y «Ver 5 más» hasta mostrar todos; al escribir otra cosa vuelve a 5', async ({ page }) => {
+      await abrirCalcula(page);
+      await page.locator('#destino').fill('parque');
+      await expect(page.locator('#bloque-lugares h3')).toHaveText('Resultados');
+      await expect(page.locator('#modo-calcula')).not.toContainText('Lugares guardados');
+      await captura(page, 'resultados');
+      await revisarLista(page, '#lista-lugares');
+      await page.locator('#destino').fill('parqu');
+      await expect(page.locator('#lista-lugares .resultado')).toHaveCount(5);
+      // Con 5 o menos, sin botón.
+      await page.locator('#destino').fill('cinepolis');
+      await expect(page.locator('#lista-lugares .resultado')).not.toHaveCount(0);
+      await expect(page.locator('#lista-lugares .ver-mas')).toHaveCount(0);
+    });
+
+    test('r3: «¿Desde dónde sales?» también enseña 5 y «Ver 5 más»', async ({ page }) => {
+      await abrirCalcula(page);
+      await page.locator('#salgo-otro').click();
+      await page.locator('#salida').fill('parque');
+      await revisarLista(page, '#lista-salida');
+    });
+
     test('c7 y c8: salida y destino juntos; leyenda de lugares; búsqueda sin resultados', async ({ page }) => {
       const fuera = [];
       page.on('request', (r) => {

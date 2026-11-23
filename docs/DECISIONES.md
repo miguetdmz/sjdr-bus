@@ -1611,6 +1611,12 @@ Miguel).
   nuevas: antes del cambio fallaban 11 de 11 (navegador) y 5 de 9 (datos); cada uno de
   6 defectos puestos a propósito se atrapó. `npm run verificar`: todo pasó. Pregunta
   abierta: nombres repetidos en OSM (`inventario.md`, punto 5).
+- **Ajuste «Resultados» (pedido de Miguel, 22 nov 2026, 10:23 pm: que la lista no se
+  llene de relleno).** Hallazgo: los destinos buscados no se guardan en el teléfono;
+  el riesgo real era el título «Lugares guardados» (se leía como historial) y las
+  listas largas («parque»: 33). Maqueta `docs/maquetas/d56f2-resultados/` **aprobada
+  (10:40 pm: «Sí, constrúyela»)** y construida: «Resultados», 5 visibles y «Ver 5 más ·
+  quedan N». Pregunta abierta: el orden de la lista.
 
 ## D-57 · 20 nov 2026 · «Calcula tu ruta»: la parada más cercana arriba y con poca letra · CONSTRUIDA · APROBADA (Miguel, en su teléfono, 21 nov 2026, 12:34 am)
 - **Pedido (Miguel, 20 nov 2026, 10:55 pm),** al probar D-55: al escribir el

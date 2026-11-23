@@ -373,6 +373,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .punto-lugar { flex: none; width: 17px; height: 17px; margin-bottom: 1.5px; border-radius: 50%; border: 2.5px solid #fff; box-sizing: border-box; }
 .pin-lugar.salida .punto-lugar { background: #0d7a72; }
 .pin-lugar.destino .punto-lugar { background: #a8432a; }
+/* D-56f2r, ajuste «Resultados» (maqueta aprobada por Miguel, 22 nov 2026, 10:40 pm): la
+   lista enseña 5 y un botón para ver 5 más; sin fondo, para que no compita con los
+   resultados. */
+.ver-mas { width: 100%; min-height: 44px; border: 0; border-radius: 999px; background: none; box-shadow: inset 0 0 0 2px var(--primario-suave); color: var(--primario); font-size: 14px; font-weight: 700; }
+.ver-mas:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
 /* Ajuste 2.1 (6:57 pm): las leyendas (estimado, próximamente) juntas, hasta abajo. */
 .leyendas { margin-top: auto; padding-top: 18px; display: grid; gap: 4px; }
 .leyendas p, .nota { margin: 0; font-size: 10.5px; line-height: 1.4; color: var(--primario); }

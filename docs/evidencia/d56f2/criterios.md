@@ -56,3 +56,14 @@ Solo cambia la pestaña «Calcula tu ruta» (lección 14). Cada criterio tiene s
 Las pruebas nuevas se corren primero contra la app de hoy (sin el cambio): deben
 fallar. Después, con defectos puestos a propósito (sin 10.5 px, círculo fuera del
 renglón, línea del destino sin la parada correcta), cada uno debe atraparse.
+
+## Ajuste «Resultados» (maqueta `docs/maquetas/d56f2-resultados/`, aprobada por Miguel el 22 nov 2026, 10:40 pm)
+Escritos antes de construir. Prueba: `pruebas-navegador/d56f2.spec.mjs` (casos «r1» a «r3»).
+- **r1.** El título de la lista es «Resultados»; «Lugares guardados» ya no aparece en la
+  pestaña.
+- **r2.** La lista de «¿A dónde quieres ir?» enseña como máximo 5 lugares. Si hay más,
+  abajo un botón «Ver 5 más · quedan N» (o «Ver N más» con menos de 5); cada toque
+  agrega 5 hasta mostrar todos, y entonces el botón se va. Al escribir otra cosa vuelve
+  a 5. Con 5 o menos, no hay botón.
+- **r3.** Igual en «¿Desde dónde sales?».
+- **r4.** Cabe a 390, 320 y 1280 px; ningún selector se va (lección 13).
