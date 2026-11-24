@@ -4,17 +4,17 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (23 nov 2026, 6:26 pm)
+## Estado actual (23 nov 2026, 7:43 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
-| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.2** (`9b8fca8`, 22 nov 2026, 4:15 pm): Miguel integró el PR 1 «B2 · Primera pantalla publicable → v0.2». 39 rutas, mapa completo, selector de tarjetas, zonas probables, «Calcula tu ruta» con parada más cercana, zoom en píldora y círculo «mi ubicación» (D-48 a D-62). Antes: v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | **v0.3 = PR 4** «B6 · D-56 fase 2 → v0.3» (https://github.com/miguetdmz/sjdr-bus/pull/4): rama `b6/d56f2-lugares` en `159deba`, 17 commits sobre `main` (`3dc2065`), sin conflictos, Actions y Vercel en verde. **Lo integra Miguel** (D-65) |
-| Bloque en curso | **D-56 fase 2 · CERRADA** (Miguel, 23 nov, 6:25 pm; D-65), en espera de integrarse. Después vuelve **B3 · Trazos** |
-| Tarea en curso | **B6 · D-56 fase 2 · Lugares y paradas cercanas: CONSTRUIDA Y APROBADA** (Miguel, 23 nov, 4:15 pm: «todo OK»). 294 lugares de OSM, parada cercana a la salida y al destino, «Salgo de otro lugar», 5 resultados y «Ver 5 más», orden por importancia y repetidos con distancia |
-| Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
+| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.3** (`7b20c7e`, 23 nov 2026, 7:40 pm): Miguel integró el PR 4 «B6 · D-56 fase 2 → v0.3»: 294 lugares de OSM, parada cercana a la salida y al destino, «Salgo de otro lugar» (D-65). Verificada a las 7:42 pm: Actions y Vercel en verde, 39 rutas y 294 lugares en línea, capturas en `docs/evidencia/v0.3/`. Antes: v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
+| Versión en espera | Ninguna de código. Rama de documentos `b6/cierre-v03` (lección 17, v0.3 marcada, evidencia): la sube Claude con el sí de Miguel y la integra Miguel |
+| Bloque en curso | **B3 · Trazos** (vuelve tras v0.3). Rama `b3/r03-cruces` creada desde `main` (`7b20c7e`) |
+| Tarea en curso | **B3 · R-03 · Cruces de calles**: plan (secuencia por sentido, hallazgos b y c) PROPUESTO a Miguel el 23 nov a las 7:43 pm; no se construye sin su sí. 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
+| Tarea en pausa | Ninguna |
 
 | Bloque | Qué es | Estado |
 |---|---|---|
@@ -25,11 +25,26 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 698 de 936 con punto exacto (75 %), **27 APROXIMADOS (3 %, D-45: ESTIMADO, nivel C)**, 191 referencias (20 %), 20 POR VERIFICAR (2 %) al 20 nov, 1:05 pm. **D-46 PROPUESTA:** extremos como zona probable (mapa de calor). Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
-| B6 | Calcula tu ruta (D-15) | **D-56 fase 2 cerrada** (D-65): lugares de OSM y paradas cercanas, en espera de integrarse (v0.3). Falta: qué ruta tomar, recorrido y camino a pie (necesitan B3) |
+| B6 | Calcula tu ruta (D-15) | **D-56 fase 2 cerrada y publicada en v0.3** (D-65): lugares de OSM y paradas cercanas. Falta: qué ruta tomar, recorrido y camino a pie (necesitan B3) |
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (23 nov 2026, 6:26 pm)
+### Relevo para la siguiente sesión (23 nov 2026, 7:43 pm)
+
+0. **v0.3 publicada y verificada** (D-65): integración `7b20c7e` (Miguel, 7:40 pm),
+   GitHub Actions y Vercel en verde, 39 rutas y 294 lugares en línea, capturas a 390 y
+   1280 px en `docs/evidencia/v0.3/`. Marcada aquí y en D-65, en la rama `b6/cierre-v03`
+   (junto con la lección 17). El commit de la lección 17 cayó primero en
+   `b3/r03-cruces` porque dos chats trabajaban en la misma carpeta; se movió a
+   `b6/cierre-v03` sin perder nada.
+1. **Siguiente (Miguel):** dar el sí para subir `b6/cierre-v03` y abrir su PR; luego
+   integrarlo. **Siguiente (Claude):** plan de B3 · R-03 (secuencia por sentido,
+   hallazgos b y c) propuesto en fases con criterio medible; se construye en
+   `b3/r03-cruces` solo con el sí de Miguel.
+2. Pendientes y preguntas abiertas: los del relevo de las 6:26 pm (punto 2), sin
+   cambios.
+
+### Relevo anterior (23 nov 2026, 6:26 pm)
 
 0. **Lo hecho el 23 nov:** D-56 fase 2 construida igual a la maqueta, con dos ajustes
    aprobados por Miguel («Resultados», 22 nov, 10:40 pm; «Orden de resultados y nombres
@@ -37,11 +52,14 @@ Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
    perdía tras un acercamiento (lección 16). Miguel probó la vista previa (4:15 pm):
    todo OK salvo «Bodega Ahurrera», que salió (`159deba`, 294 lugares). Rama subida
    (6:11 pm) con Actions y Vercel en verde. **Fase cerrada (6:25 pm, D-65).**
-1. **Siguiente (Miguel):** pasar el PR 4 a listo e integrarlo a `main` con «Create a
-   merge commit» (D-65). **Siguiente (chat nuevo):** verificar `main` y
+   **Miguel integró el PR 4 a `main` a las 7:40 pm** (`7b20c7e`, según GitHub); falta
+   verificar v0.3. Lección 17 registrada (7:41 pm) en la rama `b6/cierre-v03` (desde
+   `main`), con su PR en borrador.
+1. **Siguiente (chat nuevo, en la rama `b6/cierre-v03`):** verificar `main` y
    https://sjdrbus-sjr.vercel.app con evidencia (Actions y Vercel en verde, 294
    lugares en `datos/lugares.json`, capturas a 390 y 1280 px en `docs/evidencia/v0.3/`)
-   → marcar **v0.3** aquí y en D-65 → rama `b3/r03-cruces` desde `main` → volver a
+   → marcar **v0.3** aquí y en D-65 → subir y que Miguel integre `b6/cierre-v03` → rama
+   `b3/r03-cruces` desde `main` → volver a
    B3 · R-03 (secuencia por sentido, hallazgos b y c).
 2. **Preguntas abiertas y pendientes:** «rutas cerca» solo mide los extremos de ruta
    (Galerías y Walmart dan 0 rutas; se arregla con los recorridos de B3); D-55
