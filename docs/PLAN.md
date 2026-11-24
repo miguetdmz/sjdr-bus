@@ -11,7 +11,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Nivel | Hoy |
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.2** (`9b8fca8`, 22 nov 2026, 4:15 pm): Miguel integró el PR 1 «B2 · Primera pantalla publicable → v0.2». 39 rutas, mapa completo, selector de tarjetas, zonas probables, «Calcula tu ruta» con parada más cercana, zoom en píldora y círculo «mi ubicación» (D-48 a D-62). Antes: v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | **v0.3 = PR 4** «B6 · D-56 fase 2 → v0.3» (https://github.com/miguetdmz/sjdr-bus/pull/4): rama `b6/d56f2-lugares` en `159deba`, 17 commits sobre `main` (`3dc2065`), sin conflictos, Actions y Vercel en verde. **Lo integra Miguel** (D-65) |
+| Versión en espera | **v0.3 integrada, sin verificar:** Miguel integró el PR 4 «B6 · D-56 fase 2 → v0.3» a `main` el 23 nov a las 7:40 pm (`7b20c7e`). El chat siguiente la verifica con evidencia y la marca aquí |
 | Bloque en curso | **D-56 fase 2 · CERRADA** (Miguel, 23 nov, 6:25 pm; D-65), en espera de integrarse. Después vuelve **B3 · Trazos** |
 | Tarea en curso | **B6 · D-56 fase 2 · Lugares y paradas cercanas: CONSTRUIDA Y APROBADA** (Miguel, 23 nov, 4:15 pm: «todo OK»). 294 lugares de OSM, parada cercana a la salida y al destino, «Salgo de otro lugar», 5 resultados y «Ver 5 más», orden por importancia y repetidos con distancia |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
@@ -37,11 +37,14 @@ Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
    perdía tras un acercamiento (lección 16). Miguel probó la vista previa (4:15 pm):
    todo OK salvo «Bodega Ahurrera», que salió (`159deba`, 294 lugares). Rama subida
    (6:11 pm) con Actions y Vercel en verde. **Fase cerrada (6:25 pm, D-65).**
-1. **Siguiente (Miguel):** pasar el PR 4 a listo e integrarlo a `main` con «Create a
-   merge commit» (D-65). **Siguiente (chat nuevo):** verificar `main` y
+   **Miguel integró el PR 4 a `main` a las 7:40 pm** (`7b20c7e`, según GitHub); falta
+   verificar v0.3. Lección 17 registrada (7:41 pm) en la rama `b6/cierre-v03` (desde
+   `main`), con su PR en borrador.
+1. **Siguiente (chat nuevo, en la rama `b6/cierre-v03`):** verificar `main` y
    https://sjdrbus-sjr.vercel.app con evidencia (Actions y Vercel en verde, 294
    lugares en `datos/lugares.json`, capturas a 390 y 1280 px en `docs/evidencia/v0.3/`)
-   → marcar **v0.3** aquí y en D-65 → rama `b3/r03-cruces` desde `main` → volver a
+   → marcar **v0.3** aquí y en D-65 → subir y que Miguel integre `b6/cierre-v03` → rama
+   `b3/r03-cruces` desde `main` → volver a
    B3 · R-03 (secuencia por sentido, hallazgos b y c).
 2. **Preguntas abiertas y pendientes:** «rutas cerca» solo mide los extremos de ruta
    (Galerías y Walmart dan 0 rutas; se arregla con los recorridos de B3); D-55

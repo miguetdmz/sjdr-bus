@@ -393,6 +393,29 @@ puede, convertir la regla en una prueba automática.
    Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
    `standards.md` (no se sube sin el sí de Miguel).
 
+17. **Una validación con el defecto puesto corrió contra la compilación anterior (23
+   nov 2026).** En el ajuste «Orden» de D-56 fase 2 (commit e7c6b3d), al hacer la
+   prueba de la lección 15 se pusieron uno por uno cinco defectos a propósito. El
+   defecto B («sin distancia») no compilaba (error de tipos), la compilación falló y
+   Playwright sirvió la carpeta `web/dist` del defecto anterior (A): el número que
+   salió no medía el defecto B. Se vio en la salida, se repitió con un defecto que sí
+   compila (`void lejos;`) revisando la salida de la compilación en cada corrida, y
+   quedó anotado en `docs/evidencia/d56f2/inventario.md`. Causa raíz: el guion de
+   validación no se detenía si la compilación fallaba, y `vite preview` sirve lo que
+   haya en `web/dist` aunque sea viejo; nada confirmaba que el defecto estuviera
+   dentro de lo que se probó. Regla: en cada corrida con un defecto puesto, la
+   compilación debe salir con código 0 antes de correr las pruebas; si falla, la
+   corrida no cuenta y el defecto se reescribe para que compile. Detección temprana:
+   el guion corta con `set -e` (o revisa `$?`) después de `npm run build`, y el
+   reporte dice «compilación OK» junto a cada número de fallas.
+   - 2026-11-23 (1.ª vez, registrada a pedido de Miguel a las 7:41 pm): este caso.
+   Ocurrencias: 1 · Estado: ACTIVA. Va de la mano con la lección 15 (es la forma
+   correcta de hacer su prueba). **PROPUESTA DE CONTROL** (con el sí de Miguel):
+   `scripts/validar-defecto.mjs`, que compila, se detiene si la compilación falla y
+   solo entonces corre las pruebas indicadas. Prueba: con un defecto que no compila,
+   el guion se niega a dar un número. Aplica a todos los proyectos: propuesta para
+   `standards.md` (no se sube sin el sí de Miguel).
+
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:
 1. Se cierra un bloque o se integra un entregable a `main`.
