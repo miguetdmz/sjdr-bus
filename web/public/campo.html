@@ -87,7 +87,7 @@ function metros(a, b) { const R = 6371000, r = Math.PI / 180, dl = (b.lat - a.la
   const h = Math.sin(dl / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dn / 2) ** 2; return Math.round(2 * R * Math.asin(Math.sqrt(h))); }
 
 let RUTAS = [], S = { viajes: [] }, pantalla = 'inicio', borrar = null, renombrar = false, nueva = false;
-let eleccion = { ruta: '', desde: '', hacia: '' }, pos = null, gpsEstado = 'buscando', watch = null, candado = null;
+let marca = null, eleccion = { ruta: '', desde: '', hacia: '' }, pos = null, gpsEstado = 'buscando', watch = null, candado = null;
 try { const g = JSON.parse(localStorage.getItem(CLAVE)); if (g && Array.isArray(g.viajes)) S = g; } catch {}
 const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify(S)); } catch { aviso('No se pudo guardar en este teléfono (memoria llena).'); } };
 const actual = () => S.viajes.find((v) => v.id === S.abierto);
@@ -126,9 +126,10 @@ document.addEventListener('visibilitychange', () => { const v = actual(); if (do
 const siguiente = (v) => v.respuestas.filter((r) => r.orden != null).length;
 function responder(estado, nombre) {
   const v = actual(), ruta = rutaDe(v), i = siguiente(v), of = estado === 'nueva' ? null : ruta.paradas[i];
-  const r = { estado, orden: of ? of.orden : null, oficial: of ? of.nombre : null, nombre: nombre ?? (of ? of.nombre : ''), t: new Date().toISOString() };
-  if (pos) { r.lat = pos.lat; r.lon = pos.lon; r.prec = pos.prec; }
-  if (of && of.lat != null && pos && estado !== 'otro') r.dist_m = metros(pos, of);
+  const m = marca ?? { t: new Date().toISOString(), pos }; marca = null;
+  const r = { estado, orden: of ? of.orden : null, oficial: of ? of.nombre : null, nombre: nombre ?? (of ? of.nombre : ''), t: m.t };
+  if (m.pos) { r.lat = m.pos.lat; r.lon = m.pos.lon; r.prec = m.pos.prec; }
+  if (of && of.lat != null && m.pos && estado !== 'otro') r.dist_m = metros(m.pos, of);
   v.respuestas.push(r); renombrar = false; nueva = false; guardar(); pintar();
   aviso({ si: 'Guardada: sí es esta', posible: 'Guardada como parada posible', otro: 'Anotada: no pasa por aquí', nueva: 'Guardada: parada nueva' }[estado]);
 }
@@ -164,7 +165,7 @@ function vistaViaje(v) {
   const barra = `<div class="barra"><span><span class="ins">${esc(insignia(ruta))}</span><b>${esc(hora(new Date().toISOString()))}</b></span><span class="gps" id="gps"><i></i><span></span></span></div>`;
   if (renombrar && of) return `${barra}<div class="preg"><small>Parada ${i + 1} de ${ruta.paradas.length} · lista oficial</small><div class="nom tachado">${esc(of.nombre)}</div></div>
     <div class="rename"><label for="nombre" style="margin-top:0">¿Cómo se llama donde paró? (parada posible)</label><input id="nombre" value="${esc(of.nombre)}" autocomplete="off">
-    <label>Hora y lugar</label><div class="nota" style="margin:0;font-size:15px">${esc(hora(new Date().toISOString(), true))} · ${pos ? 'tu punto actual' : 'sin ubicación'}</div>
+    <label>Hora y lugar</label><div class="nota" style="margin:0;font-size:15px">${esc(hora(marca.t, true))} · ${marca.pos ? 'tu punto al tocar «renombrar»' : 'sin ubicación'}</div>
     <button class="btn verde chico" data-a="guardar-posible">Guardar como parada posible</button><button class="btn" data-a="cancelar">Cancelar</button></div>
     <p class="nota">La oficial no se borra: queda «no confirmada» y la tuya queda como POSIBLE, con su hora y su punto.</p>`;
   if (nueva) return `${barra}<div class="rename"><label for="nombre" style="margin-top:0">Nombre de la parada nueva (calle y esquina)</label><input id="nombre" value="" autocomplete="off" placeholder="Ej. Av. Central – Calle 3 Lagunas">
@@ -229,9 +230,9 @@ document.addEventListener('click', async (e) => {
   }
   else if (a === 'si') responder('si');
   else if (a === 'otro') responder('otro');
-  else if (a === 'renombrar') { renombrar = true; pintar(); }
-  else if (a === 'nueva') { nueva = true; pintar(); }
-  else if (a === 'cancelar') { renombrar = false; nueva = false; pintar(); }
+  else if (a === 'renombrar') { marca = { t: new Date().toISOString(), pos }; renombrar = true; pintar(); }
+  else if (a === 'nueva') { marca = { t: new Date().toISOString(), pos }; nueva = true; pintar(); }
+  else if (a === 'cancelar') { marca = null; renombrar = false; nueva = false; pintar(); }
   else if (a === 'guardar-posible') { const n = $('#nombre').value.trim(); if (!n) { aviso('Escribe el nombre.'); return; } responder('posible', n); }
   else if (a === 'guardar-nueva') { const n = $('#nombre').value.trim(); if (!n) { aviso('Escribe el nombre.'); return; } responder('nueva', n); }
   else if (a === 'deshacer') { const r = v.respuestas.pop(); guardar(); pintar(); if (r) aviso(`Se quitó: ${r.nombre}`); }
@@ -244,6 +245,7 @@ document.addEventListener('click', async (e) => {
   else if (a === 'borrar-si') { S.viajes = S.viajes.filter((x) => x.id !== b.dataset.id); if (S.abierto === b.dataset.id) S.abierto = null; borrar = null; guardar(); pintar(); aviso('Viaje borrado.'); }
 });
 
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('./sw.js').catch(() => {});
 fetch('datos/campo.json').then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }).then((d) => {
   RUTAS = d.rutas; arrancarGPS(); pintar();
   const v = actual(); if (v && !v.fin) pantallaEncendida();
