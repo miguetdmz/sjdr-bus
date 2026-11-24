@@ -1990,6 +1990,20 @@ Miguel).
   GPX con las paradas como puntos). El GPX se graba con una app gratuita aparte (el
   artefacto no puede usar el GPS del teléfono) y se empieza a grabar en la parada,
   nunca en casa.
+- **Cambio de herramienta (Miguel, 23 nov 2026, 11:36 pm y 11:40 pm):** Open GPX Tracker
+  tiene malas reseñas y Miguel pidió confirmar en el camión, una por una, las paradas de la
+  lista oficial. Maqueta `docs/maquetas/d66-campo/` aprobada («Sí, constrúyela», 11:40 pm).
+  Construida como **página web de campo** `web/public/campo.html` (rama `b3/d66-campo`):
+  usa el GPS del teléfono solo con la página abierta, pregunta «¿Es X la parada N?» (Sí /
+  renombrar como POSIBLE / otro sentido / parada nueva), deshace la última y al terminar da
+  el resumen con la distancia al punto oficial («revisar» a más de 150 m: criterio de
+  trabajo, ESTIMADO) y exporta JSON. Guarda en el teléfono; no envía nada a ningún servidor.
+  Lista oficial de 18 de las 39 rutas (las otras 21 solo marcan paradas nuevas: D-33, D-43).
+  Nada la enlaza desde la app; se prueba en la vista previa de Vercel de su rama (subir la
+  rama necesita el sí de Miguel). Si la rama se integra a `main`, la página queda publicada
+  en `/campo.html`: se decide antes de integrar. La bitácora del artefacto queda de respaldo.
+  Diferencias con la maqueta, todas por función: «Deshacer la última», «Terminar viaje»,
+  la lista de viajes guardados con «Borrar» (pedido de Miguel, 11:18 pm) y «← Viajes».
 - **Impacta:** D-22 (deja de ser absoluta), D-16 (paradas verificables en campo),
   HANDOFF §11.7, `docs/PLAN.md` (B3 y B4).
 - **Estado:** PROPUESTA, completa (costo, fecha y entregable definidos el 23 nov,

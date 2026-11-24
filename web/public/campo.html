@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>Recorrido de campo · SJDR Bus (herramienta de trabajo)</title>
+<!--
+  D-66 · HERRAMIENTA DE TRABAJO, no es parte de la app: nada la enlaza. Construida igual
+  a la maqueta aprobada por Miguel (docs/maquetas/d66-campo/, 23 nov 2026, 11:40 pm).
+  Confirma en el camión, una por una, las paradas de la lista oficial de la ruta
+  (datos/campo.json, que sale de datos/investigacion/cruces.json: lista oficial de la AMEQ).
+  Usa el GPS del teléfono (solo con la página abierta) y guarda todo en el teléfono
+  (localStorage). Nada se envía a ningún servidor; se exporta a mano (JSON).
+  Sin mapas en vivo ni fuentes externas (reglas 6 y 7).
+-->
+<style>
+:root{--bg:#fff;--ink:#16181d;--mute:#5d6169;--line:#dcdcd8;--card:#f4f4f1;--red:#c8102e;--ok:#1d6b3a;--warn:#8a5a00;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;background:var(--bg)}
+body{font-size:16px;line-height:1.45}
+main{max-width:560px;margin:0 auto;padding:max(12px,env(safe-area-inset-top)) 16px calc(32px + env(safe-area-inset-bottom))}
+.barra{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--mute);border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:12px}
+.barra b{color:var(--ink);font-size:15px}
+.gps{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--ok);text-align:right}
+.gps i{flex:none;width:9px;height:9px;border-radius:50%;background:var(--ok)}
+.gps.mal{color:var(--red)}.gps.mal i{background:var(--red)}
+.ins{display:inline-block;font-weight:800;background:var(--ink);color:#fff;border-radius:6px;padding:2px 8px;margin-right:6px}
+label{display:block;font-size:13px;color:var(--mute);margin:12px 0 4px}
+select,input{font:inherit;font-size:16px;width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:8px;padding:10px;background:#fff;color:var(--ink)}
+button{font:inherit;cursor:pointer;color:var(--ink);background:#fff}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.opc{display:grid;gap:8px}
+.opc button{border:2px solid var(--ink);border-radius:10px;padding:10px 12px;font-weight:500;text-align:left;min-height:48px}
+.opc button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.btn{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:48px;border-radius:10px;border:2px solid var(--ink);font-weight:700;padding:8px 12px;margin-top:10px}
+.btn:disabled{opacity:.45}
+.rojo{background:var(--red);border-color:var(--red);color:#fff;font-size:19px;min-height:60px}
+.verde{background:var(--ok);border-color:var(--ok);color:#fff;font-size:18px;min-height:58px}
+.chico{font-size:16px;min-height:48px}
+.nota{font-size:13px;color:var(--mute);margin:8px 0 0}
+.preg{background:var(--card);border-radius:14px;padding:14px;margin-top:4px}
+.preg small{color:var(--mute);font-size:13px}
+.preg .nom{font-size:21px;font-weight:800;line-height:1.15;margin:6px 0}
+.preg .dist{font-size:14px;color:var(--ok);font-weight:600}
+.sig{font-size:13px;color:var(--mute);border-top:1px dashed var(--line);margin-top:14px;padding-top:10px}
+.sig b{color:var(--ink);font-weight:600}
+.hecho{list-style:none;padding:0;margin:12px 0 0;font-size:14px}
+.hecho li{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:2px 8px;padding:8px 0;border-top:1px solid var(--line)}
+.hecho .n{font-weight:800;color:var(--red);text-align:center}
+.hecho .h{color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hecho small{grid-column:2/4;color:var(--mute)}
+.chip{display:inline-block;font-size:12px;font-weight:700;border-radius:5px;padding:0 6px;margin-right:4px}
+.c-si{background:#dcefe2;color:var(--ok)}.c-posible{background:#fbeccc;color:var(--warn)}.c-otro{background:#e6e6e2;color:var(--mute)}.c-nueva{background:#f8d9de;color:var(--red)}
+.cont{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+.cont div{background:var(--card);border-radius:10px;padding:8px 10px;font-size:13px;color:var(--mute)}
+.cont b{display:block;font-size:24px;color:var(--ink);line-height:1.1}
+.rename{background:#fbf6ea;border:1.5px solid #e3cf9f;border-radius:12px;padding:12px;margin-top:8px}
+.tachado{text-decoration:line-through;color:var(--mute)}
+.fila{display:flex;gap:8px;flex-wrap:wrap}.fila .btn{flex:1 1 140px}
+.viajes{list-style:none;padding:0;margin:8px 0 0}
+.viajes li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;background:var(--card);border-radius:12px;padding:8px;margin-top:8px}
+.viajes .abrir{border:0;background:transparent;text-align:left;padding:6px;min-height:48px}
+.viajes .abrir small{display:block;color:var(--mute);font-size:13px}
+.viajes .conf{grid-column:1/3;display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:0 6px 4px}
+.peligro{border:2px solid var(--red);color:var(--red);border-radius:10px;font-weight:700;min-height:44px;padding:6px 12px}
+h2{font-size:17px;margin:26px 0 4px}
+.aviso{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;max-width:92vw;font-size:15px;opacity:0;pointer-events:none;transition:opacity .2s}
+.aviso.ver{opacity:1}
+@media (prefers-reduced-motion:reduce){.aviso{transition:none}}
+</style>
+</head>
+<body>
+<main id="vista"><p class="nota">Cargando la lista oficial…</p></main>
+<div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+<script>
+{
+const CLAVE = 'sjdrbus.campo.v1', TZ = 'America/Mexico_City', REVISAR_M = 150;
+const $ = (s) => document.querySelector(s);
+const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const insignia = (r) => `${r.tipo === 'intermunicipal' ? 'T' : 'R'}${r.numero.replace(/^0+(?=\d)/, '')}`;
+const hora = (iso, seg) => new Date(iso).toLocaleTimeString('es-MX', { timeZone: TZ, hour: 'numeric', minute: '2-digit', ...(seg ? { second: '2-digit' } : {}), hour12: true }).replace(/\s?([ap])\.?\s?m\.?/i, ' $1m');
+const hoy = () => new Date().toLocaleDateString('en-CA', { timeZone: TZ });
+const fechaTxt = (iso) => new Date(iso).toLocaleDateString('es-MX', { timeZone: TZ, weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+function metros(a, b) { const R = 6371000, r = Math.PI / 180, dl = (b.lat - a.lat) * r, dn = (b.lon - a.lon) * r;
+  const h = Math.sin(dl / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dn / 2) ** 2; return Math.round(2 * R * Math.asin(Math.sqrt(h))); }
+
+let RUTAS = [], S = { viajes: [] }, pantalla = 'inicio', borrar = null, renombrar = false, nueva = false;
+let eleccion = { ruta: '', desde: '', hacia: '' }, pos = null, gpsEstado = 'buscando', watch = null, candado = null;
+try { const g = JSON.parse(localStorage.getItem(CLAVE)); if (g && Array.isArray(g.viajes)) S = g; } catch {}
+const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify(S)); } catch { aviso('No se pudo guardar en este teléfono (memoria llena).'); } };
+const actual = () => S.viajes.find((v) => v.id === S.abierto);
+const rutaDe = (v) => RUTAS.find((r) => r.route_id === v.route_id);
+function aviso(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('ver'); clearTimeout(aviso.t); aviso.t = setTimeout(() => a.classList.remove('ver'), 2600); }
+
+// GPS: solo mientras la página está abierta y al frente.
+function arrancarGPS() {
+  if (watch != null) return;
+  if (!('geolocation' in navigator)) { gpsEstado = 'sin'; pintarGPS(); return; }
+  watch = navigator.geolocation.watchPosition((p) => {
+    pos = { lat: p.coords.latitude, lon: p.coords.longitude, prec: Math.round(p.coords.accuracy), t: new Date(p.timestamp).toISOString() };
+    gpsEstado = 'ok';
+    const v = actual();
+    if (v && !v.fin) { const u = v.trazo[v.trazo.length - 1];
+      if (!u || Date.parse(pos.t) - Date.parse(u.t) >= 3000) { v.trazo.push(pos); guardar(); } }
+    pintarGPS(); pintarDistancia();
+  }, (e) => { gpsEstado = e.code === 1 ? 'negado' : 'buscando'; pintarGPS(); }, { enableHighAccuracy: true, maximumAge: 0, timeout: 20000 });
+}
+function textoGPS() {
+  const v = actual();
+  if (gpsEstado === 'negado') return ['mal', 'Sin permiso de ubicación'];
+  if (gpsEstado === 'sin') return ['mal', 'Este teléfono no da ubicación'];
+  if (!pos) return ['mal', 'Buscando ubicación…'];
+  if (v && !v.fin) return ['', `Grabando · ${Math.max(0, Math.round((Date.now() - Date.parse(v.inicio)) / 60000))} min`];
+  return ['', `Ubicación lista (±${pos.prec} m)`];
+}
+function pintarGPS() { const g = $('#gps'); if (!g) return; const [c, t] = textoGPS(); g.className = 'gps ' + c; g.lastChild.textContent = t; }
+async function pantallaEncendida() {
+  try { if ('wakeLock' in navigator) { candado = await navigator.wakeLock.request('screen'); return true; } } catch {}
+  return false;
+}
+document.addEventListener('visibilitychange', () => { const v = actual(); if (document.visibilityState === 'visible' && v && !v.fin) pantallaEncendida(); });
+
+// Respuestas
+const siguiente = (v) => v.respuestas.filter((r) => r.orden != null).length;
+function responder(estado, nombre) {
+  const v = actual(), ruta = rutaDe(v), i = siguiente(v), of = estado === 'nueva' ? null : ruta.paradas[i];
+  const r = { estado, orden: of ? of.orden : null, oficial: of ? of.nombre : null, nombre: nombre ?? (of ? of.nombre : ''), t: new Date().toISOString() };
+  if (pos) { r.lat = pos.lat; r.lon = pos.lon; r.prec = pos.prec; }
+  if (of && of.lat != null && pos && estado !== 'otro') r.dist_m = metros(pos, of);
+  v.respuestas.push(r); renombrar = false; nueva = false; guardar(); pintar();
+  aviso({ si: 'Guardada: sí es esta', posible: 'Guardada como parada posible', otro: 'Anotada: no pasa por aquí', nueva: 'Guardada: parada nueva' }[estado]);
+}
+function distanciaTexto(of) {
+  if (!of) return '';
+  if (of.lat == null) return 'Esta parada oficial no tiene punto para comparar';
+  if (!pos) return 'Sin ubicación para medir la distancia';
+  return `Estás a ${metros(pos, of)} m del punto oficial`;
+}
+function pintarDistancia() { const d = $('#dist'), v = actual(); if (!d || !v) return; const of = rutaDe(v).paradas[siguiente(v)]; d.textContent = distanciaTexto(of); }
+
+// Pantallas
+function vistaInicio() {
+  const r = RUTAS.find((x) => x.route_id === eleccion.ruta), p = r ? r.nombre.split(' – ') : [];
+  const a = p[0], b = p[p.length - 1], lista = S.viajes.slice().sort((x, y) => y.inicio.localeCompare(x.inicio));
+  return `<div class="barra"><b>Recorrido de campo</b><span class="gps" id="gps"><i></i><span></span></span></div>
+  <label for="ruta">Ruta en la que te subes</label>
+  <select id="ruta"><option value="">Elige la ruta…</option>${RUTAS.map((x) => `<option value="${esc(x.route_id)}"${x.route_id === eleccion.ruta ? ' selected' : ''}>${esc(insignia(x))} · ${esc(x.nombre)}${x.paradas.length ? '' : ' (sin lista oficial)'}</option>`).join('')}</select>
+  ${r ? `<label>Sentido</label><div class="opc">
+    <button data-a="sentido" data-d="${esc(a)}" data-h="${esc(b)}" aria-pressed="${eleccion.desde === a}">${esc(a)} → ${esc(b)}</button>
+    <button data-a="sentido" data-d="${esc(b)}" data-h="${esc(a)}" aria-pressed="${eleccion.desde === b}">${esc(b)} → ${esc(a)}</button></div>
+  <div class="cont"><div><b>${r.paradas.length || '—'}</b>${r.paradas.length ? 'paradas en la lista oficial' : 'sin lista oficial utilizable'}</div><div><b>${esc(fechaTxt(new Date().toISOString()).split(',')[0])} ${esc(new Date().toLocaleDateString('es-MX', { timeZone: TZ, day: 'numeric' }))}</b>${esc(new Date().toLocaleDateString('es-MX', { timeZone: TZ, month: 'short', year: 'numeric' }))}</div></div>
+  ${r.paradas.length ? '' : `<p class="nota">Esta ruta no tiene lista oficial que sirva (${esc(r.sin_lista)}). Solo podrás marcar paradas nuevas.</p>`}` : ''}
+  <button class="btn rojo" data-a="iniciar"${r && eleccion.desde ? '' : ' disabled'}>Iniciar viaje</button>
+  <p class="nota">Al tocar «Iniciar viaje» se guarda la hora de salida y empieza a grabar el trazo. La pantalla se queda encendida. No bloquees el teléfono ni cambies de app: el GPS se detiene.</p>
+  ${lista.length ? `<h2>Viajes guardados en este teléfono</h2><ul class="viajes">${lista.map((v) => { const rr = rutaDe(v);
+    return `<li><button class="abrir" data-a="abrir" data-id="${esc(v.id)}"><b><span class="ins">${esc(rr ? insignia(rr) : '?')}</span>${esc(v.desde)} → ${esc(v.hacia)}</b><small>${esc(fechaTxt(v.inicio))} · ${v.respuestas.length} respuestas${v.fin ? '' : ' · en curso'}</small></button>
+    ${borrar === v.id ? `<div class="conf"><span>¿Borrar este viaje?</span><button class="peligro" data-a="borrar-si" data-id="${esc(v.id)}">Sí, borrar</button><button class="peligro" style="border-color:var(--ink);color:var(--ink)" data-a="borrar-no">No</button></div>` : `<button class="peligro" data-a="borrar" data-id="${esc(v.id)}">Borrar</button>`}</li>`; }).join('')}</ul>` : ''}`;
+}
+
+function vistaViaje(v) {
+  const ruta = rutaDe(v), i = siguiente(v), of = ruta.paradas[i], sig = ruta.paradas[i + 1];
+  const barra = `<div class="barra"><span><span class="ins">${esc(insignia(ruta))}</span><b>${esc(hora(new Date().toISOString()))}</b></span><span class="gps" id="gps"><i></i><span></span></span></div>`;
+  if (renombrar && of) return `${barra}<div class="preg"><small>Parada ${i + 1} de ${ruta.paradas.length} · lista oficial</small><div class="nom tachado">${esc(of.nombre)}</div></div>
+    <div class="rename"><label for="nombre" style="margin-top:0">¿Cómo se llama donde paró? (parada posible)</label><input id="nombre" value="${esc(of.nombre)}" autocomplete="off">
+    <label>Hora y lugar</label><div class="nota" style="margin:0;font-size:15px">${esc(hora(new Date().toISOString(), true))} · ${pos ? 'tu punto actual' : 'sin ubicación'}</div>
+    <button class="btn verde chico" data-a="guardar-posible">Guardar como parada posible</button><button class="btn" data-a="cancelar">Cancelar</button></div>
+    <p class="nota">La oficial no se borra: queda «no confirmada» y la tuya queda como POSIBLE, con su hora y su punto.</p>`;
+  if (nueva) return `${barra}<div class="rename"><label for="nombre" style="margin-top:0">Nombre de la parada nueva (calle y esquina)</label><input id="nombre" value="" autocomplete="off" placeholder="Ej. Av. Central – Calle 3 Lagunas">
+    <button class="btn verde chico" data-a="guardar-nueva">Guardar parada nueva</button><button class="btn" data-a="cancelar">Cancelar</button></div>`;
+  const pregunta = of ? `<div class="preg"><small>Parada ${i + 1} de ${ruta.paradas.length} · lista oficial</small>
+      <div class="nom">¿Es «${esc(of.nombre)}» la parada ${i + 1}?</div><span class="dist" id="dist">${esc(distanciaTexto(of))}</span></div>
+      <button class="btn verde" data-a="si">Sí, es esta</button>
+      <button class="btn" data-a="renombrar">No: tiene otro nombre (renombrar)</button>
+      <button class="btn" data-a="otro">No pasa por aquí (otro sentido)</button>`
+    : `<div class="preg"><small>Lista oficial</small><div class="nom">${ruta.paradas.length ? `Ya respondiste las ${ruta.paradas.length} paradas de la lista.` : 'Esta ruta no tiene lista oficial.'}</div><span class="nota">Marca las paradas nuevas que veas y toca «Terminar viaje» al bajar.</span></div>`;
+  return `${barra}${pregunta}
+    <button class="btn rojo chico" data-a="nueva">+ Parada que no está en la lista</button>
+    ${sig ? `<div class="sig">Después: <b>${i + 2} · ${esc(sig.nombre)}</b></div>` : ''}
+    <p class="nota">Cada respuesta guarda la hora y tu punto en el mapa.</p>
+    <div class="fila" style="margin-top:18px"><button class="btn" data-a="deshacer"${v.respuestas.length ? '' : ' disabled'}>Deshacer la última</button><button class="btn" data-a="terminar">Terminar viaje</button></div>`;
+}
+
+function vistaResumen(v) {
+  const ruta = rutaDe(v), c = (e) => v.respuestas.filter((r) => r.estado === e).length;
+  const min = Math.round((Date.parse(v.fin) - Date.parse(v.inicio)) / 60000);
+  const detalle = (r) => r.estado === 'nueva' ? 'parada nueva' : r.estado === 'otro' ? 'no pasa en este sentido'
+    : r.dist_m != null ? `a ${r.dist_m} m del punto oficial${r.dist_m > REVISAR_M ? ' · revisar' : ''}` : (r.lat == null ? 'sin ubicación al responder' : 'la oficial no tiene punto para comparar');
+  const pend = ruta.paradas.length - v.respuestas.filter((r) => r.orden != null).length;
+  return `<div class="barra"><span><span class="ins">${esc(insignia(ruta))}</span><b>Terminado</b></span><span>${esc(hora(v.inicio))} → ${esc(hora(v.fin))} · ${min} min</span></div>
+    <p class="nota" style="margin-top:0">${esc(v.desde)} → ${esc(v.hacia)} · ${esc(fechaTxt(v.inicio))} · MEDIDO EN CAMPO</p>
+    <div class="cont"><div><b>${c('si')}</b><span class="chip c-si">SÍ</span>confirmadas</div><div><b>${c('posible')}</b><span class="chip c-posible">POSIBLE</span>renombradas</div>
+    <div><b>${c('otro')}</b><span class="chip c-otro">OTRO SENTIDO</span>no pasa</div><div><b>${c('nueva')}</b><span class="chip c-nueva">NUEVA</span>no estaban</div></div>
+    ${pend > 0 ? `<p class="nota">${pend} paradas de la lista quedaron sin responder.</p>` : ''}
+    <ul class="hecho">${v.respuestas.map((r, k) => `<li><span class="n">${k + 1}</span><span><span class="chip c-${r.estado}">${{ si: 'SÍ', posible: 'POSIBLE', otro: 'OTRO SENTIDO', nueva: 'NUEVA' }[r.estado]}</span>${esc(r.nombre)}</span><span class="h">${esc(hora(r.t))}</span><small>${esc(detalle(r))}</small></li>`).join('')}</ul>
+    <button class="btn" data-a="exportar">Exportar todo (JSON)</button>
+    <p class="nota">Trazo: ${v.trazo.length} puntos de GPS. «Revisar»: a más de ${REVISAR_M} m del punto oficial (criterio de trabajo, ESTIMADO).</p>
+    <button class="btn" data-a="volver">← Viajes</button>`;
+}
+
+function pintar() {
+  const v = actual();
+  $('#vista').innerHTML = !v ? vistaInicio() : v.fin ? vistaResumen(v) : vistaViaje(v);
+  pintarGPS(); const n = $('#nombre'); if (n) { n.focus(); n.select(); }
+}
+setInterval(() => { const v = actual(); if (v && !v.fin) { const b = document.querySelector('.barra b'); if (b) b.textContent = hora(new Date().toISOString()); pintarGPS(); } }, 15000);
+
+async function exportar(v) {
+  const ruta = rutaDe(v);
+  const datos = { herramienta: 'SJDR Bus · recorrido de campo (D-66)', etiqueta: 'MEDIDO EN CAMPO', exportado: new Date().toISOString(),
+    fuente_lista: 'lista oficial de rutas de la AMEQ, consulta del 19 nov 2026, vía datos/investigacion/cruces.json', ruta: { route_id: ruta.route_id, numero: ruta.numero, nombre: ruta.nombre }, ...v };
+  const nombre = `campo-${v.inicio.slice(0, 10)}-${insignia(ruta)}-${v.desde.replace(/[^\wÁÉÍÓÚÑáéíóúñ]+/g, '')}.json`;
+  const archivo = new File([JSON.stringify(datos, null, 2)], nombre, { type: 'application/json' });
+  try { if (navigator.canShare && navigator.canShare({ files: [archivo] })) { await navigator.share({ files: [archivo], title: nombre }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(archivo); a.download = nombre; document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000); aviso('Archivo descargado.');
+}
+
+document.addEventListener('change', (e) => { if (e.target.id === 'ruta') { eleccion = { ruta: e.target.value, desde: '', hacia: '' }; borrar = null; pintar(); } });
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-a]'); if (!b || b.disabled) return; const a = b.dataset.a, v = actual();
+  if (a === 'sentido') { eleccion.desde = b.dataset.d; eleccion.hacia = b.dataset.h; pintar(); }
+  else if (a === 'iniciar') {
+    const id = 'c' + Date.now().toString(36);
+    S.viajes.push({ id, route_id: eleccion.ruta, desde: eleccion.desde, hacia: eleccion.hacia, inicio: new Date().toISOString(), fin: null, respuestas: [], trazo: pos ? [pos] : [] });
+    S.abierto = id; guardar(); arrancarGPS(); pintar();
+    if (!(await pantallaEncendida())) aviso('Este teléfono no deja mantener la pantalla encendida: no la bloquees.');
+  }
+  else if (a === 'si') responder('si');
+  else if (a === 'otro') responder('otro');
+  else if (a === 'renombrar') { renombrar = true; pintar(); }
+  else if (a === 'nueva') { nueva = true; pintar(); }
+  else if (a === 'cancelar') { renombrar = false; nueva = false; pintar(); }
+  else if (a === 'guardar-posible') { const n = $('#nombre').value.trim(); if (!n) { aviso('Escribe el nombre.'); return; } responder('posible', n); }
+  else if (a === 'guardar-nueva') { const n = $('#nombre').value.trim(); if (!n) { aviso('Escribe el nombre.'); return; } responder('nueva', n); }
+  else if (a === 'deshacer') { const r = v.respuestas.pop(); guardar(); pintar(); if (r) aviso(`Se quitó: ${r.nombre}`); }
+  else if (a === 'terminar') { v.fin = new Date().toISOString(); if (pos) v.trazo.push(pos); guardar(); try { await candado?.release(); } catch {} candado = null; pintar(); }
+  else if (a === 'exportar') exportar(v);
+  else if (a === 'volver') { S.abierto = null; guardar(); pintar(); }
+  else if (a === 'abrir') { S.abierto = b.dataset.id; borrar = null; guardar(); pintar(); }
+  else if (a === 'borrar') { borrar = b.dataset.id; pintar(); }
+  else if (a === 'borrar-no') { borrar = null; pintar(); }
+  else if (a === 'borrar-si') { S.viajes = S.viajes.filter((x) => x.id !== b.dataset.id); if (S.abierto === b.dataset.id) S.abierto = null; borrar = null; guardar(); pintar(); aviso('Viaje borrado.'); }
+});
+
+fetch('datos/campo.json').then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }).then((d) => {
+  RUTAS = d.rutas; arrancarGPS(); pintar();
+  const v = actual(); if (v && !v.fin) pantallaEncendida();
+}).catch(() => { $('#vista').innerHTML = '<p class="nota">No se pudo cargar la lista oficial (datos/campo.json). Revisa tu conexión y recarga.</p>'; });
+}
+</script>
+</body>
+</html>
