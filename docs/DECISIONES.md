@@ -2004,6 +2004,16 @@ Miguel).
   en `/campo.html`: se decide antes de integrar. La bitácora del artefacto queda de respaldo.
   Diferencias con la maqueta, todas por función: «Deshacer la última», «Terminar viaje»,
   la lista de viajes guardados con «Borrar» (pedido de Miguel, 11:18 pm) y «← Viajes».
+- **Versión 3 (Miguel, 24 nov 2026):** al simular un viaje de la R11
+  (`docs/evidencia/d66/simular-viaje.mjs`) subir a medio camino costaba 19 toques mal
+  anotados, la vuelta 49, y «renombrar» guardaba el punto 399 m después. Maqueta
+  `docs/maquetas/d66-gps/` con el estilo de una imagen de Miguel en colores de noche y menos
+  letra; aprobada («Sí, constrúyela», 12:16 am). Construida: la pregunta empieza en la parada
+  oficial más cercana y luego sigue el orden de la lista; «Enfrente» ofrece la del otro lado
+  de la calle (60 m o menos); «No la vi» la deja sin responder; «Parada aquí» guarda al
+  instante y el nombre se pone en el resumen; el resumen marca los huecos del GPS (más de
+  60 s sin punto). Criterios 60 m, 60 s y 150 m: de trabajo, ESTIMADO. Simulación con la v3:
+  0 toques para empezar a medio camino o de regreso, y el renombre queda a 0 m.
 - **Impacta:** D-22 (deja de ser absoluta), D-16 (paradas verificables en campo),
   HANDOFF §11.7, `docs/PLAN.md` (B3 y B4).
 - **Estado:** PROPUESTA, completa (costo, fecha y entregable definidos el 23 nov,
