@@ -280,7 +280,7 @@ function vistaInicio() {
         <button data-a="sentido" data-d="${esc(b)}" data-h="${esc(a)}" aria-pressed="${eleccion.desde === b}">${esc(b)} → ${esc(a)}</button></div>
         <div class="dato"><b>${r.paradas.length || '—'}</b><span class="px">${r.paradas.length ? 'paradas en la lista oficial' : 'sin lista oficial'}</span></div>` : ''}
     </div>
-    <button class="iniciar px" data-a="iniciar"${r && eleccion.desde ? '' : ' disabled'}>Iniciar viaje</button>
+    <button class="iniciar px" data-a="iniciar">Iniciar viaje</button>
     ${lista.length ? `<div class="titulo px">Viajes en este teléfono</div>${lista.map((v) => { const rr = rutaDe(v);
       return `<div class="viaje"><button class="abrir" data-a="abrir" data-id="${esc(v.id)}"><b>${esc(rr ? insignia(rr) : '?')} · ${esc(v.desde)} → ${esc(v.hacia)}</b><small>${esc(fecha(v.inicio))} · ${v.respuestas.length} respuestas${v.fin ? '' : ' · en curso'}</small></button>
       <button class="borrar px" data-a="borrar" data-id="${esc(v.id)}" aria-label="Borrar este viaje">Borrar</button>
@@ -367,12 +367,14 @@ async function exportar(v) {
   setTimeout(() => URL.revokeObjectURL(a.href), 4000); aviso('Archivo descargado', 'sube');
 }
 
-document.addEventListener('change', (e) => { if (e.target.id === 'ruta') { eleccion = { ruta: e.target.value, desde: '', hacia: '' }; borrar = null; pintar(); } });
+document.addEventListener('change', (e) => { if (e.target.id === 'ruta') { const r = RUTAS.find((x) => x.route_id === e.target.value), p = r ? r.nombre.split(' – ') : [];
+    eleccion = { ruta: e.target.value, desde: p[0] ?? '', hacia: p[p.length - 1] ?? '' }; borrar = null; pintar(); } });
 document.addEventListener('input', (e) => { const k = e.target.dataset.k, v = actual(); if (k != null && v) { v.respuestas[+k].nombre = e.target.value; guardar(); } });
 document.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.id === 'nombre') $('[data-a="guardar-nombre"]')?.click(); });
 document.addEventListener('click', async (e) => {
   const b = e.target.closest('[data-a]'); if (!b || b.disabled) return; const a = b.dataset.a, v = actual();
   if (a === 'sentido') { eleccion.desde = b.dataset.d; eleccion.hacia = b.dataset.h; pintar(); }
+  else if (a === 'iniciar' && !(eleccion.ruta && eleccion.desde)) aviso('Primero elige la ruta', 'aviso');
   else if (a === 'iniciar') {
     const id = 'c' + Date.now().toString(36);
     const nuevo = { id, route_id: eleccion.ruta, desde: eleccion.desde, hacia: eleccion.hacia, inicio: new Date().toISOString(), fin: null, actual: null, respuestas: [], trazo: pos ? [pos] : [] };
