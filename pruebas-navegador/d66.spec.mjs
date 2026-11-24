@@ -25,6 +25,16 @@ async function iniciar(page, routeId, sentido = 0) {
 const guardado = (page) => page.evaluate(() => JSON.parse(localStorage.getItem('sjdrbus.campo.v1')).viajes[0]);
 const sinScrollDeLado = (page) => page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
 
+test('c0: elegir la ruta y tocar «Iniciar viaje» basta (el sentido viene marcado); sin ruta, avisa', async ({ page }) => {
+  await abrir(page);
+  await page.locator('[data-a="iniciar"]').click();
+  await expect(page.locator('#toast')).toContainText('Primero elige la ruta');
+  await page.locator('#ruta').selectOption('U-011');
+  await expect(page.locator('[data-a="sentido"]').first()).toHaveAttribute('aria-pressed', 'true');
+  await page.locator('[data-a="iniciar"]').click();
+  await expect(page.locator('.parada .no')).toBeVisible();
+});
+
 test('c1: subir a medio camino pregunta por la parada oficial más cercana, no por la 1', async ({ page, context }) => {
   await context.setGeolocation({ latitude: P(20).lat, longitude: P(20).lon });
   await abrir(page);
