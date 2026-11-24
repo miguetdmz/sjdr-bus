@@ -86,6 +86,21 @@ test('c3: un viaje se borra desde la lista, con confirmación, y no vuelve al re
   await expect(page.locator('.viajes li')).toHaveCount(0);
 });
 
+test('c5: renombrar guarda la hora y el punto de cuando se tocó, no de cuando se guardó', async ({ page, context }) => {
+  await abrir(page);
+  await iniciar(page, 'U-011');
+  await page.locator('[data-a="renombrar"]').click();
+  const lejos = r11.paradas.find((p) => p.orden === 23);
+  await context.setGeolocation({ latitude: lejos.lat, longitude: lejos.lon }); // el camión avanza mientras escribes
+  await expect(page.locator('#gps')).toContainText('Grabando');
+  await page.waitForTimeout(500);
+  await page.locator('#nombre').fill('Nombre escrito con calma');
+  await page.locator('[data-a="guardar-posible"]').click();
+  const r = await page.evaluate(() => JSON.parse(localStorage.getItem('sjdrbus.campo.v1')).viajes[0].respuestas[0]);
+  expect(r.dist_m).toBe(0);
+  expect(r.lat).toBeCloseTo(p1.lat, 6);
+});
+
 for (const [w, h] of [[320, 640], [1280, 800]]) {
   test(`c4: sin scroll de lado a ${w} px, en el inicio y con la pregunta`, async ({ page }) => {
     await page.setViewportSize({ width: w, height: h });
