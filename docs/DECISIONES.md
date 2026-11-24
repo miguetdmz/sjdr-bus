@@ -1940,3 +1940,53 @@ Miguel).
   https://sjdrbus-sjr.vercel.app sirve 39 rutas y 294 lugares (`datos/lugares.json`,
   sin «Bodega Ahurrera»), sin errores de consola y sin scroll a 390 y 1280 px
   (`docs/evidencia/v0.3/`, con el buscador «Galerías»). **v0.3 publicada.**
+
+## D-66 · 23 nov 2026 · Recorridos de campo a bordo con choferes de un operador · PROPUESTA (pedida por Miguel, 23 nov 2026, 10:04 pm)
+- **Origen:** plática de Miguel con un operador de camiones de San Juan del Río
+  (contacto de Miguel), grabada y pegada en el chat el 23 nov 2026, 10:00 pm. La
+  minuta filtrada vive fuera de git (`referencias/minuta-profe-2026-11-23.md`, D-07):
+  trae nombres de terceros, que no entran al repositorio público.
+- **Lo que dijo el operador** (dato de plática, [sin verificar] con documento):
+  1. Existe una **programación** acordada entre los operadores y Movilidad: cada
+     ruta tiene un tiempo de vuelta establecido, distinto de ida y de vuelta, y un
+     número de camiones. La lleva una persona responsable.
+  2. Los camiones de una ruta salen por **turno** (1, 2, 3…) y los **checadores**
+     cuidan el espacio entre ellos. Las unidades cambian de ruta cada día.
+  3. Ofrece que Miguel se suba con sus choferes cuando quiera; él les avisa. Puede
+     coordinar **sábado, domingo y lunes** (de martes a viernes está fuera).
+  4. Orden que sugiere: primero el campo (paradas y trayectos); después, si hace
+     falta, la persona de la programación.
+- **Propuesta (cambia D-22 en parte):**
+  1. Se permiten **recorridos de campo de Miguel a bordo**, con choferes de ese
+     operador. Siguen fuera de alcance los voluntarios que comparten su GPS
+     (D-22). Las rutas sin recorrido siguen con el proceso de escritorio de D-22.
+  2. **Qué se mide en cada recorrido, por sentido y nunca copiado al otro (regla
+     10):** fecha, ruta, sentido, hora de salida y de llegada en los extremos,
+     paradas en orden con la hora de paso, traza GPX del teléfono de Miguel y las
+     respuestas del chofer (duración típica, paradas que no están en la lista).
+     Las respuestas del chofer son dato de plática, no medición.
+  3. **Etiqueta:** lo medido dice **MEDIDO EN CAMPO** con su fecha (HANDOFF §14
+     regla 2). Un recorrido es una sola muestra: el tiempo de un día no se
+     presenta como el tiempo de la ruta. Con traza GPX el tramo puede subir a
+     nivel A (HANDOFF §11.4 y §11.7, que D-22 había dejado fuera de alcance).
+  4. **La programación del operador** se pide después, como sugiere él. Si llega,
+     entra como fuente «programación del operador, [fecha]» y se publica solo con
+     su permiso escrito, porque el repositorio y los datos son públicos (ODbL,
+     D-05). Nunca se dice que el operador o la AMEQ operan o respaldan la app
+     (regla 4).
+  5. **Privacidad:** nombres del operador, de los choferes y números de unidad
+     no entran al repositorio ni a la app.
+- **Costo (regla 3):** cada recorrido cuesta un pasaje por tramo (monto [sin
+  verificar]). Alternativa $0: preguntarle al operador si Miguel puede subir sin
+  pagar. Se confirma el monto antes del primer recorrido.
+- **Fechas posibles:** sábado 28, domingo 29 y lunes 30 de noviembre de 2026.
+- **Por aclarar en el primer recorrido:** la 016 en los datos es «Infonavit La Paz –
+  Centro», pero en la plática se dijo «creo que va para San Isidro» (la de San
+  Isidro es la 008); las rutas «65» y «J1», que Miguel recuerda, no están entre las
+  39 vigentes (`datos/gtfs-sjr/routes.txt`). Ninguna se agrega sin fuente (regla 9).
+- **Entregable antes del primer recorrido (con el sí de Miguel):** hoja de campo
+  (formato en papel o en el teléfono) y la app gratuita para grabar el GPX
+  ([sin verificar] cuál).
+- **Impacta:** D-22 (deja de ser absoluta), D-16 (paradas verificables en campo),
+  HANDOFF §11.7, `docs/PLAN.md` (B3 y B4).
+- **Estado:** PROPUESTA. Decide Miguel.
