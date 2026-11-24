@@ -44,6 +44,21 @@ Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
    regreso (antes 19 y 49). Puerta de calidad: TODO PASÓ (175 de 175, 101 de 101, sin
    secretos). Rama `b3/d66-campo` puesta encima de `main` (`8c860b9`) y subida con el sí de
    Miguel (12:27 am).
+0b. **Arreglo subido (12:44 am):** «Iniciar viaje» no reaccionaba en el iPhone de Miguel
+   (esperaba un sentido sin marcar); ahora el sentido viene marcado. Último commit
+   `2fe5dd2`, Vercel en verde. Prueba de usuario en WebKit con iPhone 13:
+   `docs/evidencia/d66/probar-iphone.mjs` (11 de 11). Lección 5, 5.ª ocurrencia.
+0c. **PEDIDO NUEVO DE MIGUEL (12:57 am), por construir con maqueta primero (D-54):** al iniciar,
+   la primera pregunta es **el inicio del sentido elegido**, no la parada más cercana; y un
+   **botón discreto «Más cercana»** en la misma línea de la barra de arriba (la de «R11 ·
+   hora · franjas»), acomodado simétrico, para saltar a la parada más cercana cuando él
+   quiera. Revisado contra los datos: «inicio del sentido» = parada oficial más cercana al
+   extremo de origen de ese sentido (`datos/rutas.json` → `extremos`); las 18 rutas con lista
+   tienen sus dos extremos con punto. R11: Loma Alta → Central empieza en la 1 (281 m del
+   extremo); Central → Loma Alta en la 35 (335 m; la lista repite esa esquina en 35 y 36:
+   parece el punto de vuelta). Mostrar a Miguel esas dos paradas en la maqueta. Después:
+   pruebas, prueba de usuario en WebKit con iPhone (como si fuera Miguel, desde cero) y
+   subir con su sí, antes de su prueba caminando.
 1. **Siguiente (Miguel, antes del lunes 30):** abrir en su iPhone el link de vista previa de
    Vercel de `b3/d66-campo` + `/campo.html`, con la pantalla encendida, y caminar 5
    minutos con una ruta cualquiera: ¿la pantalla no se apaga?, ¿el GPS graba (resumen
