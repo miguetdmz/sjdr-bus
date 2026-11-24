@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Maqueta D-66 · La pregunta sigue al GPS · estilo cuadrícula nocturno · ESQUEMÁTICO</title>
+<!-- D-66 · maqueta (D-54), pedida por Miguel (24 nov 2026, 12:04 am; estilo: 12:05 am y
+     12:07 am). Estilo tomado de la imagen que mandó Miguel (página de precios con
+     cuadrícula): papel con grano, líneas finas que dividen celdas, títulos con remate
+     muy gruesos, etiquetas en mayúsculas tipo pixel, bloque mostaza y franjas de colores;
+     pasado a colores de noche. Solo se toma el estilo: ni nombre ni logo de esa página.
+     Sin fuentes externas (regla 6): remate = Iowan Old Style / Georgia; pixel = monoespaciada
+     del sistema (aproximación).
+     Contenido: el mismo de los 4 cambios pedidos (la pregunta sigue al GPS, «Saltar»,
+     «+ Parada aquí» al instante con nombre después, aviso de huecos del GPS).
+     Paradas reales de la R11 (datos/investigacion/cruces.json); la 22 y la 57 están a 19 m
+     (medido). Horas, distancias y conteos: EJEMPLO. Marca «D-66g». -->
+<style>
+:root{
+  --papel:#17160f;--tinta:#ece7d6;--suave:#a9a390;--linea:#ece7d6;
+  --mostaza:#e2bf00;--cian:#14c4c4;--verde:#2fae2a;--naranja:#ec6a12;--rosa:#d77fd0;
+  --grano:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --remate:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --pixel:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:#0b0a07 var(--grano);color:var(--tinta);font:16px/1.4 var(--remate)}
+.px{font-family:var(--pixel);text-transform:uppercase;letter-spacing:.02em;font-size:13px;font-weight:600}
+header{max-width:1240px;margin:0 auto;padding:22px 16px 6px}
+header h1{font-weight:900;font-size:34px;line-height:1.02;margin:6px 0 8px;letter-spacing:-.01em}
+header p{margin:0;color:var(--suave);font-size:15px;max-width:72ch}
+.esq{display:inline-block;color:#111;background:var(--mostaza);padding:3px 8px}
+.pasos{max-width:1240px;margin:0 auto;padding:12px 16px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;align-items:start}
+.paso>h2{margin:0 0 8px;color:var(--suave);font-weight:400}
+.paso>h2 b{color:var(--tinta)}
+.cambio{display:inline-block;color:#111;background:var(--naranja);padding:0 5px;margin-right:4px}
+/* El teléfono: papel oscuro con grano y una cuadrícula de líneas finas */
+.tel{background:var(--papel) var(--grano);border:1px solid var(--linea);position:relative}
+.celdas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.celdas>*{border-top:1px solid var(--linea);padding:12px 14px}
+.celdas>*:nth-child(odd){border-right:1px solid var(--linea)}
+.celdas .ancho{grid-column:1/3;border-right:0}
+.barra{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:stretch;border-bottom:1px solid var(--linea)}
+.barra .ruta{font-weight:900;font-size:26px;padding:8px 14px;border-right:1px solid var(--linea);line-height:1}
+.barra .hora{padding:12px 12px;color:var(--suave);align-self:center}
+.franjas{display:flex;width:64px;border-left:1px solid var(--linea)}
+.franjas i{flex:1}.franjas i:nth-child(1){background:var(--cian)}.franjas i:nth-child(2){background:var(--verde);flex:.3}.franjas i:nth-child(3){background:var(--mostaza)}.franjas i:nth-child(4){background:var(--naranja)}.franjas i:nth-child(5){background:var(--rosa)}
+.estado{display:flex;justify-content:space-between;gap:8px;padding:8px 14px;border-bottom:1px solid var(--linea);color:var(--suave)}
+.estado .rec{color:var(--verde)}
+.estado .rec::before{content:"";display:inline-block;width:8px;height:8px;background:var(--verde);margin-right:6px}
+.preg{background:var(--mostaza);color:#141209;padding:16px 14px 18px}
+.preg .px{opacity:.8}
+.preg .nom{font-weight:900;font-size:25px;line-height:1.08;margin:8px 0 0;letter-spacing:-.01em}
+.num{font-weight:900;font-size:30px;line-height:1;margin-top:6px;letter-spacing:-.01em}
+.num small{font-family:var(--pixel);font-size:12px;font-weight:600;margin-left:3px;color:var(--suave)}
+.dato .px{color:var(--suave)}
+.cerca{border-top:1px solid var(--linea);display:grid;grid-template-columns:10px minmax(0,1fr)}
+.cerca::before{content:"";background:var(--rosa)}
+.cerca div{padding:10px 14px}
+.cerca b{display:block;font-size:17px;margin:4px 0;font-weight:800}
+.cerca span{color:var(--suave);font-size:14px}
+.botones{display:grid;gap:0;border-top:1px solid var(--linea)}
+.b{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 14px;border-bottom:1px solid var(--linea);font-family:var(--pixel);text-transform:uppercase;font-weight:700;font-size:15px;letter-spacing:.02em}
+.b::after{content:">>>";opacity:.7}
+.b.si{background:var(--verde);color:#08140a;min-height:60px;font-size:17px}
+.b.nueva{background:var(--naranja);color:#1a0c02}
+.b.tenue{color:var(--suave)}
+.b.tenue::after{content:"·"}
+.toast{margin:12px 14px 0;background:var(--tinta);color:#141209;padding:10px 12px}
+.sig{padding:12px 14px;color:var(--suave);font-size:15px}
+.sig b{color:var(--tinta)}
+.nota{padding:0 14px 14px;color:var(--suave);font-size:14px;margin:0}
+.hueco{background:var(--naranja);color:#1a0c02;padding:12px 14px;font-size:15px}
+.hueco .px{display:block;margin-bottom:4px}
+.lista{list-style:none;margin:0;padding:0}
+.lista li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:2px 10px;padding:10px 14px;border-top:1px solid var(--linea);font-size:15px}
+.lista .n{font-weight:900;font-size:20px;line-height:1.1}
+.lista .h{font-family:var(--pixel);font-size:13px;color:var(--suave)}
+.lista small{grid-column:2/4;color:var(--suave);font-size:13px}
+.chip{display:inline-block;font-family:var(--pixel);font-size:11px;font-weight:700;text-transform:uppercase;padding:1px 5px;margin-right:6px;color:#111;vertical-align:1px}
+.k-si{background:var(--verde)}.k-pos{background:var(--mostaza)}.k-salto{background:var(--cian)}.k-nueva{background:var(--rosa)}
+.ponle{grid-column:2/4;border:1px dashed var(--mostaza);padding:9px 10px;color:var(--suave);font-family:var(--pixel);font-size:13px;text-transform:uppercase}
+.exportar{display:flex;justify-content:space-between;align-items:center;min-height:56px;padding:0 14px;border-top:1px solid var(--linea);background:var(--mostaza);color:#141209;font-family:var(--pixel);font-weight:700;text-transform:uppercase}
+.exportar::after{content:">>>"}
+@media(max-width:600px){header h1{font-size:28px}}
+@media(max-width:340px){.preg .nom{font-size:22px}.num{font-size:26px}}
+</style>
+</head>
+<body>
+<header>
+  <span class="esq px">MAQUETA · ESQUEMÁTICO · horas, distancias y conteos de EJEMPLO</span>
+  <h1>La pregunta sigue al GPS</h1>
+  <p>Estilo de la imagen que mandaste, en colores de noche. Mismo contenido: los cambios 1 a 4 (etiquetas naranjas). Paradas reales de la lista oficial de la R11; la 22 y la 57 están a 19 m, una en cada lado de la carretera.</p>
+</header>
+<main class="pasos">
+
+  <section class="paso"><h2 class="px"><span class="cambio">1</span><b>Subes a medio camino</b> · empieza en la más cercana</h2>
+    <div class="tel">
+      <div class="barra"><span class="ruta">R11</span><span class="hora px">12:08 pm</span><span class="franjas"><i></i><i></i><i></i><i></i><i></i></span></div>
+      <div class="estado px"><span class="rec">Grabando</span><span>±8 m</span></div>
+      <div class="preg"><span class="px">La más cercana a ti · parada 22 de 80</span><div class="nom">¿Es «Carr. San Juan del Río – Otoño» tu parada?</div></div>
+      <div class="celdas"><div class="dato"><span class="px">Distancia</span><div class="num">30<small>m</small></div></div><div class="dato"><span class="px">Lista oficial</span><div class="num">80<small>paradas</small></div></div></div>
+      <div class="cerca"><div><span>También muy cerca, del otro lado de la calle:</span><b>57 · Carr. San Juan del Río – Río San Juan (a 25 m)</b><span>Tócala si vas hacia Loma Alta.</span></div></div>
+      <div class="botones">
+        <div class="b si">Sí, es esta</div>
+        <div class="b">No: tiene otro nombre (renombrar)</div>
+        <div class="b">No pasa por aquí (otro sentido)</div>
+        <div class="b tenue">Saltar (no la vi)</div>
+        <div class="b nueva">+ Parada aquí</div>
+      </div>
+      <p class="nota" style="padding-top:12px">Ya no empieza en la parada 1: empieza donde estás y luego sigue el orden de la lista.</p>
+    </div>
+  </section>
+
+  <section class="paso"><h2 class="px"><span class="cambio">2</span><span class="cambio">3</span><b>En camino</b> · saltar y marcar al instante</h2>
+    <div class="tel">
+      <div class="barra"><span class="ruta">R11</span><span class="hora px">12:10 pm</span><span class="franjas"><i></i><i></i><i></i><i></i><i></i></span></div>
+      <div class="estado px"><span class="rec">Grabando · 2 min</span><span>±6 m</span></div>
+      <div class="preg"><span class="px">Parada 24 de 80 · lista oficial</span><div class="nom">¿Es «Plaza Morelos Oriente – Agustín Melgar» la parada 24?</div></div>
+      <div class="celdas"><div class="dato ancho"><span class="px">Distancia</span><div class="num" style="font-size:19px">Sin punto oficial para comparar</div></div></div>
+      <div class="botones">
+        <div class="b si">Sí, es esta</div>
+        <div class="b">No: tiene otro nombre (renombrar)</div>
+        <div class="b">No pasa por aquí (otro sentido)</div>
+        <div class="b tenue">Saltar (no la vi)</div>
+        <div class="b nueva">+ Parada aquí</div>
+      </div>
+      <div class="toast px">Parada guardada · 12:10:31 pm · ponle nombre al terminar</div>
+      <div class="sig">Después: <b>25 · Av. Benito Juárez Oriente – Primavera</b></div>
+      <p class="nota">«+ Parada aquí» guarda la hora y tu punto con un toque. «Saltar» la deja sin responder, no como otro sentido.</p>
+    </div>
+  </section>
+
+  <section class="paso"><h2 class="px"><span class="cambio">3</span><span class="cambio">4</span><b>Al bajar</b> · nombres y huecos del GPS</h2>
+    <div class="tel">
+      <div class="barra"><span class="ruta">R11</span><span class="hora px">Terminado · 12:08 → 12:41</span><span class="franjas"><i></i><i></i><i></i><i></i><i></i></span></div>
+      <div class="hueco"><span class="px">GPS: 2 huecos</span>De 12:19 a 12:24 y de 12:33 a 12:34 no hubo trazo. Seguramente se apagó la pantalla.</div>
+      <div class="celdas">
+        <div class="dato"><span class="px">Confirmadas</span><div class="num">14</div></div>
+        <div class="dato"><span class="px">Posibles</span><div class="num">2</div></div>
+        <div class="dato"><span class="px">Sin responder</span><div class="num">3</div></div>
+        <div class="dato"><span class="px">Nuevas</span><div class="num">2</div></div>
+      </div>
+      <ul class="lista">
+        <li><span class="n">1</span><span><span class="chip k-si">Sí</span>Carr. San Juan del Río – Otoño</span><span class="h">12:08</span><small>a 30 m del punto oficial</small></li>
+        <li><span class="n">2</span><span><span class="chip k-salto">Sin responder</span>Carr. San Juan del Río – Av. Benito Juárez Oriente</span><span class="h">12:09</span><small>saltada: no la viste</small></li>
+        <li><span class="n">3</span><span><span class="chip k-nueva">Nueva</span>Sin nombre</span><span class="h">12:10</span><div class="ponle">Ponle nombre (calle y esquina)…</div></li>
+        <li><span class="n">4</span><span><span class="chip k-si">Sí</span>Plaza Morelos Oriente – Agustín Melgar</span><span class="h">12:10</span><small>la oficial no tiene punto para comparar</small></li>
+        <li><span class="n">5</span><span><span class="chip k-pos">Posible</span>Av. Benito Juárez – Primavera (frente al OXXO)</span><span class="h">12:11</span><small>a 60 m del punto oficial · toca para corregir el nombre</small></li>
+      </ul>
+      <div class="exportar">Exportar todo (JSON)</div>
+    </div>
+  </section>
+
+  <section class="paso"><h2 class="px"><span class="cambio">1</span><b>De regreso</b> · ya no empieza en la 1</h2>
+    <div class="tel">
+      <div class="barra"><span class="ruta">R11</span><span class="hora px">12:55 pm</span><span class="franjas"><i></i><i></i><i></i><i></i><i></i></span></div>
+      <div class="estado px"><span class="rec">Grabando</span><span>±5 m</span></div>
+      <div class="preg"><span class="px">La más cercana a ti · parada 57 de 80</span><div class="nom">¿Es «Carr. San Juan del Río – Río San Juan» tu parada?</div></div>
+      <div class="celdas"><div class="dato"><span class="px">Distancia</span><div class="num">15<small>m</small></div></div><div class="dato"><span class="px">Lista oficial</span><div class="num">80<small>paradas</small></div></div></div>
+      <div class="cerca"><div><span>También muy cerca, del otro lado de la calle:</span><b>22 · Carr. San Juan del Río – Otoño (a 20 m)</b><span>Tócala si vas hacia el centro.</span></div></div>
+      <div class="botones">
+        <div class="b si">Sí, es esta</div>
+        <div class="b">No: tiene otro nombre (renombrar)</div>
+        <div class="b">No pasa por aquí (otro sentido)</div>
+        <div class="b tenue">Saltar (no la vi)</div>
+        <div class="b nueva">+ Parada aquí</div>
+      </div>
+      <div class="sig">Después: <b>58 · Paseo Central – Plaza Aramil</b></div>
+      <p class="nota">Antes había que tocar «No pasa por aquí» 49 veces para llegar a la vuelta (medido en la simulación).</p>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
