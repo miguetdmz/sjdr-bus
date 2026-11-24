@@ -432,6 +432,27 @@ puede, convertir la regla en una prueba automática.
    el guion se niega a dar un número. Aplica a todos los proyectos: propuesta para
    `standards.md` (no se sube sin el sí de Miguel).
 
+18. **Un chat de consulta terminó construyendo fuera del plan (23 y 24 nov 2026).**
+   El chat «Análisis de minuta con profesor» se abrió para analizar la minuta de una
+   plática con un operador. Terminó proponiendo y construyendo D-66 (maquetas, página
+   de campo y 12 commits) en la misma carpeta donde otro chat cerraba v0.3 y preparaba
+   R-03. Consecuencias: un commit de cierre cayó en la rama del otro chat (7:42 pm y
+   se movió a mano), quedaron 3 commits de D-66 duplicados en `b3/r03-cruces` local, y
+   el plan de R-03 esperó con el trabajo de los dos chats cruzado. Miguel (23 nov,
+   11:57 pm): «era una consulta externa… me hubiera gustado que esa ejecución hubiera
+   sido como parte de alguna de nuestras fases». Causa raíz: la consulta se volvió
+   construcción sin pasar por el plan (bloque, fase y su sí en el chat del bloque) y
+   sin revisar si otro chat escribía en la carpeta. Regla: un chat de consulta no
+   construye. La idea que salga se registra como IDEA o PROPUESTA en DECISIONES y el
+   chat del bloque la vuelve fase del plan con el sí de Miguel. Antes de cambiar de
+   rama, hacer commit o escribir en PLAN o DECISIONES, revisar con `list_sessions` y
+   `git status` que ningún otro chat trabaje en la carpeta (estándar 13: «VOY» y
+   «LIBRE»). Detección temprana: si un chat cuyo título no dice Bloque · Tarea (lección
+   12) va a escribir en git, se detiene y pregunta.
+   - 2026-11-23 (1.ª vez, registrada a las 1:21 am del 24 nov): este caso.
+   Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
+   `standards.md` (complementa la regla 13; no se sube sin el sí de Miguel).
+
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:
 1. Se cierra un bloque o se integra un entregable a `main`.

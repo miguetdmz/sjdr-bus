@@ -1940,6 +1940,10 @@ Miguel).
   https://sjdrbus-sjr.vercel.app sirve 39 rutas y 294 lugares (`datos/lugares.json`,
   sin «Bodega Ahurrera»), sin errores de consola y sin scroll a 390 y 1280 px
   (`docs/evidencia/v0.3/`, con el buscador «Galerías»). **v0.3 publicada.**
+- **Cierre en `main` (23 nov 2026, 11:46 pm):** Miguel integró el PR 5 «B6 · Cierre de
+  v0.3» (https://github.com/miguetdmz/sjdr-bus/pull/5; commit de integración `8c860b9`):
+  v0.3 marcada, evidencia y lección 17. «Puerta de calidad» (run 45335666602) y Vercel en
+  verde con `8c860b9`.
 
 ## D-66 · 23 nov 2026 · Recorridos de campo a bordo con choferes de un operador · PROPUESTA (pedida por Miguel, 23 nov 2026, 10:04 pm)
 - **Origen:** plática de Miguel con un operador de camiones de San Juan del Río
@@ -2028,3 +2032,46 @@ Miguel).
   muestra (D-54: maqueta primero) y cómo se nombra la tarjeta sin usar la marca
   como nombre de la app ni sugerir que el gobierno opera o respalda la app (regla 4).
 - **Estado:** IDEA, fuera de D-66. Se diseña cuando Miguel lo pida.
+
+## D-68 · 23 nov 2026 · Plan de B3 · R-03 aprobado (78 secuencias) y pendientes de D-66 dentro del plan · VIGENTE
+- **Aprobación (Miguel, 23 nov 2026, 11:39 pm: «Sí, apruebo y espera»):** plan de R-03 en
+  fases, con criterio medible antes de construir. Construcción en espera hasta que un solo
+  chat trabaje en la carpeta (estándar 13, lección 18).
+- **Cambia el criterio de R-03** (`docs/COLA-NOCTURNA.md`): de 84 secuencias (42 rutas) a
+  **78 ruta-sentidos** (39 rutas, D-36, D-39, D-40): **36** con secuencia (las 18 rutas con
+  lista usable de `datos/investigacion/cruces.json`) y **42 «sin datos»** con su motivo
+  (D-33: listas mezcladas con calles de Querétaro).
+- **Fases de R-03:**
+  1. **Hallazgo b (negocios):** las 191 REFERENCIA se cruzan contra los 294 lugares de
+     OSM ya guardados (D-56, consulta del 22 nov), sin consultas nuevas. Criterio: ningún
+     UBICADO cambia; cada punto nuevo dice su nombre en OSM y su distancia a la calle
+     (≤ 150 m, ESTIMADO); los dudosos van a Miguel en orden de Pareto (como D-43).
+  2. **Hallazgo c (ida y vuelta):** cada una de las 18 listas se corta en el cruce más
+     cercano al extremo de destino (`extremos-finales.json`; 17 de 18 rutas tienen sus dos
+     extremos con punto, la 042 no tiene origen). Criterio: 18 de 18 con corte y evidencia
+     o en la lista de dudas de Miguel; ningún cruce en los dos sentidos salvo que el texto
+     oficial lo repita; la prueba falla si se copia la ida a la vuelta (regla 10).
+  3. **Secuencia por sentido:** `datos/investigacion/secuencias.json`, extremo → cruces en
+     orden → extremo. Criterio: 78 de 78 entradas; saltos ≤ 3 km; APROXIMADO con nivel C;
+     cada prueba nueva se corre con el defecto puesto y debe fallar (lecciones 15 y 17).
+  4. **Revisión de Miguel y cierre:** página de revisión con el mapa de cada ruta-sentido;
+     con su sí, R-03 hecha y R-04 (OSRM, sesión de día) desbloqueada.
+  5. **Campo (D-66, pedido de Miguel, 23 nov, 11:57 pm: que la ejecución de D-66 sea
+     parte de las fases):** los recorridos a bordo confirman las paradas oficiales por
+     sentido y el punto de vuelta de cada lista (insumo de la fase 2). Primer recorrido:
+     lunes 30 nov 2026 (D-66).
+- **Pendientes de D-66 que entran al plan** (Miguel, 24 nov 2026, 1:20 am), con maqueta
+  primero (D-54): (a) al iniciar, la primera pregunta es el **inicio del sentido elegido**
+  (parada oficial más cercana al extremo de origen de ese sentido); (b) **botón discreto
+  «Más cercana»** en la barra de arriba, simétrico, para saltar a la parada más cercana;
+  (c) **modo prueba** con veredicto **CORRESPONDE / NO CORRESPONDE**, para la prueba de
+  Miguel en carro de su casa a su trabajo [detalle sin definir: se precisa en la maqueta].
+  Detalle de (a) y (b) en `docs/PLAN.md`, relevo del 24 nov, 12:28 am, punto 0c.
+- **Orden propuesto (decide Miguel al arrancar el chat siguiente):** primero los
+  pendientes de D-66 (tienen fecha: prueba de Miguel en carro y recorrido del lunes 30),
+  después R-03 fases 1 a 4; la fase 5 corre en cada recorrido de campo.
+- **Ramas:** los pendientes de D-66 siguen en `b3/d66-campo`. `b3/r03-cruces` local trae
+  3 commits de D-66 duplicados (`1e32feb`, `3c69aaf`, `b8b954a`; viven reescritos en
+  `b3/d66-campo` como `1785a8c`, `fbcc88a`, `a410392`): se recrea desde `main` antes de la
+  fase 1 de R-03, con el sí de Miguel.
+- **Impacta:** R-03 y R-07 (`docs/COLA-NOCTURNA.md`), D-66, `docs/PLAN.md` (B3).

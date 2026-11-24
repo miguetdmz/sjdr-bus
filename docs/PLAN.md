@@ -4,16 +4,16 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (24 nov 2026, 12:28 am)
+## Estado actual (24 nov 2026, 1:22 am)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.3** (`7b20c7e`, 23 nov 2026, 7:40 pm): Miguel integró el PR 4 «B6 · D-56 fase 2 → v0.3»: 294 lugares de OSM, parada cercana a la salida y al destino, «Salgo de otro lugar» (D-65). Verificada a las 7:42 pm: Actions y Vercel en verde, 39 rutas y 294 lugares en línea, capturas en `docs/evidencia/v0.3/`. Antes: v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | Ninguna de código. Rama de documentos `b6/cierre-v03` (lección 17, v0.3 marcada, evidencia): la sube Claude con el sí de Miguel y la integra Miguel |
-| Bloque en curso | **B3 · Trazos** (vuelve tras v0.3). Rama `b3/r03-cruces` creada desde `main` (`7b20c7e`). Además, **B3 · D-66 · Recorrido de campo** en la rama `b3/d66-campo` (desde `main` `8c860b9`) |
-| Tarea en curso | **B3 · R-03 · Cruces de calles**: plan (secuencia por sentido, hallazgos b y c) PROPUESTO a Miguel el 23 nov a las 7:43 pm; no se construye sin su sí. 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
+| Versión en espera | Ninguna. El cierre de v0.3 ya está en `main` (PR 5, `8c860b9`, Miguel, 23 nov, 11:46 pm). Rama abierta: `b3/d66-campo` (en GitHub, sin PR) |
+| Bloque en curso | **B3 · Trazos**: un solo plan (D-68) con R-03 y los pendientes de D-66. Rama de trabajo `b3/d66-campo` (desde `main` `8c860b9`). `b3/r03-cruces` local se recrea desde `main` antes de R-03 (trae 3 commits de D-66 duplicados) |
+| Tarea en curso | **B3 · R-03 · Cruces y secuencias: plan APROBADO** (Miguel, 23 nov, 11:39 pm; D-68): 78 ruta-sentidos (36 con secuencia, 42 «sin datos» con motivo), fases 1 negocios, 2 ida y vuelta, 3 secuencias, 4 revisión, 5 campo (D-66). Sin construir. 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 | Tarea en curso (2) | **B3 · D-66 · Recorrido de campo: CONSTRUIDA, falta la prueba de Miguel en su iPhone.** Página de trabajo `web/public/campo.html` (no la enlaza la app): confirma en el camión las paradas de la lista oficial con el GPS del teléfono. D-66 sigue PROPUESTA. Primer recorrido: **lunes 30 nov 2026** con un operador (costo $0) |
 | Tarea en pausa | Ninguna |
 
@@ -30,7 +30,28 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (24 nov 2026, 12:28 am)
+### Relevo para la siguiente sesión (24 nov 2026, 1:22 am)
+
+0. **Cierre del 23 y 24 nov:** v0.3 verificada y su cierre integrado a `main` (PR 5,
+   `8c860b9`, en verde). Plan de R-03 aprobado (D-68) con los pendientes de D-66 dentro.
+   El chat de D-66 («Análisis de minuta con profesor») terminó y se archivó: rama
+   `b3/d66-campo` en GitHub hasta `2fe5dd2` (Vercel en verde); su relevo (`d6102e9`) y este
+   cierre van en el commit siguiente, que se sube con el sí de Miguel. Lección 18 (un chat
+   de consulta no construye; un solo chat por carpeta). Queda un solo chat de SJDR Bus.
+1. **Siguiente (chat nuevo, sesión de día):** proponer a Miguel el orden de D-68 (sugerido:
+   primero los pendientes de D-66, que tienen fecha). Pendientes de D-66, con maqueta
+   primero (D-54): (a) empezar en el inicio del sentido elegido; (b) botón discreto «Más
+   cercana»; (c) modo prueba con veredicto CORRESPONDE / NO CORRESPONDE para la prueba de
+   Miguel en carro de su casa al trabajo. Después, R-03 fase 1 en `b3/r03-cruces` recreada
+   desde `main`.
+2. **Miguel, antes del lunes 30:** su prueba de la página de campo (punto 1 del relevo de
+   las 12:28 am) y su prueba en carro con el modo prueba.
+3. **Procesos:** `npm run presentar --sin-abrir` (servidor local, abierto desde el 23 nov
+   en la tarde) sigue corriendo: Claude no pudo detenerlo (permiso denegado); lo detiene
+   Miguel con Ctrl+C en su terminal o se pide al arrancar.
+4. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+
+### Relevo anterior (24 nov 2026, 12:28 am)
 
 0. **Lo hecho del 23 nov, 10:00 pm, al 24 nov, 12:28 am (B3 · D-66):** minuta de la plática
    con un operador (fuera de git, `referencias/minuta-profe-2026-11-23.md`); D-66
