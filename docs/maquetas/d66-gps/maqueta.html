@@ -3,171 +3,176 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Maqueta D-66 · La pregunta sigue al GPS · estilo cuadrícula nocturno · ESQUEMÁTICO</title>
-<!-- D-66 · maqueta (D-54), pedida por Miguel (24 nov 2026, 12:04 am; estilo: 12:05 am y
-     12:07 am). Estilo tomado de la imagen que mandó Miguel (página de precios con
-     cuadrícula): papel con grano, líneas finas que dividen celdas, títulos con remate
-     muy gruesos, etiquetas en mayúsculas tipo pixel, bloque mostaza y franjas de colores;
-     pasado a colores de noche. Solo se toma el estilo: ni nombre ni logo de esa página.
-     Sin fuentes externas (regla 6): remate = Iowan Old Style / Georgia; pixel = monoespaciada
-     del sistema (aproximación).
-     Contenido: el mismo de los 4 cambios pedidos (la pregunta sigue al GPS, «Saltar»,
-     «+ Parada aquí» al instante con nombre después, aviso de huecos del GPS).
+<title>Maqueta D-66 · La pregunta sigue al GPS · versión visual · ESQUEMÁTICO</title>
+<!-- D-66 · maqueta (D-54). Versión 3, pedida por Miguel (24 nov 2026, 12:09 am): «buen
+     approach, pero tiene demasiada letra; más visual, user friendly, intuitiva». Mismo estilo
+     (imagen de Miguel en colores de noche, 12:05 y 12:07 am) y mismos 4 cambios; cambia solo
+     la cantidad de texto: la pregunta se vuelve una tarjeta de parada con botones de ícono,
+     una línea de paradas tipo metro muestra dónde vas y el resumen es la misma línea con
+     colores. Versión anterior (con más texto): commit a9d0341.
      Paradas reales de la R11 (datos/investigacion/cruces.json); la 22 y la 57 están a 19 m
-     (medido). Horas, distancias y conteos: EJEMPLO. Marca «D-66g». -->
+     (medido). Horas, distancias y conteos: EJEMPLO. Sin fuentes externas (regla 6). -->
 <style>
 :root{
   --papel:#17160f;--tinta:#ece7d6;--suave:#a9a390;--linea:#ece7d6;
-  --mostaza:#e2bf00;--cian:#14c4c4;--verde:#2fae2a;--naranja:#ec6a12;--rosa:#d77fd0;
+  --mostaza:#e2bf00;--cian:#14c4c4;--verde:#2fae2a;--naranja:#ec6a12;--rosa:#d77fd0;--gris:#4a473c;
   --grano:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   --remate:"Iowan Old Style","Palatino Linotype",Georgia,serif;
   --pixel:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box;min-width:0}
-body{margin:0;background:#0b0a07 var(--grano);color:var(--tinta);font:16px/1.4 var(--remate)}
-.px{font-family:var(--pixel);text-transform:uppercase;letter-spacing:.02em;font-size:13px;font-weight:600}
+body{margin:0;background:#0b0a07 var(--grano);color:var(--tinta);font:16px/1.35 var(--remate)}
+.px{font-family:var(--pixel);text-transform:uppercase;letter-spacing:.02em;font-size:13px;font-weight:700}
 header{max-width:1240px;margin:0 auto;padding:22px 16px 6px}
-header h1{font-weight:900;font-size:34px;line-height:1.02;margin:6px 0 8px;letter-spacing:-.01em}
-header p{margin:0;color:var(--suave);font-size:15px;max-width:72ch}
+header h1{font-weight:900;font-size:34px;line-height:1.02;margin:6px 0 0}
 .esq{display:inline-block;color:#111;background:var(--mostaza);padding:3px 8px}
-.pasos{max-width:1240px;margin:0 auto;padding:12px 16px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;align-items:start}
-.paso>h2{margin:0 0 8px;color:var(--suave);font-weight:400}
-.paso>h2 b{color:var(--tinta)}
-.cambio{display:inline-block;color:#111;background:var(--naranja);padding:0 5px;margin-right:4px}
-/* El teléfono: papel oscuro con grano y una cuadrícula de líneas finas */
-.tel{background:var(--papel) var(--grano);border:1px solid var(--linea);position:relative}
-.celdas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-.celdas>*{border-top:1px solid var(--linea);padding:12px 14px}
-.celdas>*:nth-child(odd){border-right:1px solid var(--linea)}
-.celdas .ancho{grid-column:1/3;border-right:0}
-.barra{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:stretch;border-bottom:1px solid var(--linea)}
+.pasos{max-width:1240px;margin:0 auto;padding:14px 16px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;align-items:start}
+.paso>h2{margin:0 0 8px;color:var(--suave)}
+.paso>h2 b{display:inline-block;color:#111;background:var(--tinta);padding:0 6px;margin-right:6px}
+.tel{background:var(--papel) var(--grano);border:1px solid var(--linea)}
+svg.i{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
+/* Barra */
+.barra{display:grid;grid-template-columns:auto minmax(0,1fr) auto;border-bottom:1px solid var(--linea)}
 .barra .ruta{font-weight:900;font-size:26px;padding:8px 14px;border-right:1px solid var(--linea);line-height:1}
-.barra .hora{padding:12px 12px;color:var(--suave);align-self:center}
-.franjas{display:flex;width:64px;border-left:1px solid var(--linea)}
+.barra .gps{display:flex;align-items:center;gap:8px;padding:0 12px;color:var(--verde)}
+.barra .gps i{width:10px;height:10px;background:var(--verde);box-shadow:0 0 0 4px rgba(47,174,42,.25)}
+.franjas{display:flex;width:56px;border-left:1px solid var(--linea)}
 .franjas i{flex:1}.franjas i:nth-child(1){background:var(--cian)}.franjas i:nth-child(2){background:var(--verde);flex:.3}.franjas i:nth-child(3){background:var(--mostaza)}.franjas i:nth-child(4){background:var(--naranja)}.franjas i:nth-child(5){background:var(--rosa)}
-.estado{display:flex;justify-content:space-between;gap:8px;padding:8px 14px;border-bottom:1px solid var(--linea);color:var(--suave)}
-.estado .rec{color:var(--verde)}
-.estado .rec::before{content:"";display:inline-block;width:8px;height:8px;background:var(--verde);margin-right:6px}
-.preg{background:var(--mostaza);color:#141209;padding:16px 14px 18px}
-.preg .px{opacity:.8}
-.preg .nom{font-weight:900;font-size:25px;line-height:1.08;margin:8px 0 0;letter-spacing:-.01em}
-.num{font-weight:900;font-size:30px;line-height:1;margin-top:6px;letter-spacing:-.01em}
-.num small{font-family:var(--pixel);font-size:12px;font-weight:600;margin-left:3px;color:var(--suave)}
-.dato .px{color:var(--suave)}
-.cerca{border-top:1px solid var(--linea);display:grid;grid-template-columns:10px minmax(0,1fr)}
-.cerca::before{content:"";background:var(--rosa)}
-.cerca div{padding:10px 14px}
-.cerca b{display:block;font-size:17px;margin:4px 0;font-weight:800}
-.cerca span{color:var(--suave);font-size:14px}
-.botones{display:grid;gap:0;border-top:1px solid var(--linea)}
-.b{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 14px;border-bottom:1px solid var(--linea);font-family:var(--pixel);text-transform:uppercase;font-weight:700;font-size:15px;letter-spacing:.02em}
-.b::after{content:">>>";opacity:.7}
-.b.si{background:var(--verde);color:#08140a;min-height:60px;font-size:17px}
-.b.nueva{background:var(--naranja);color:#1a0c02}
-.b.tenue{color:var(--suave)}
-.b.tenue::after{content:"·"}
-.toast{margin:12px 14px 0;background:var(--tinta);color:#141209;padding:10px 12px}
-.sig{padding:12px 14px;color:var(--suave);font-size:15px}
-.sig b{color:var(--tinta)}
-.nota{padding:0 14px 14px;color:var(--suave);font-size:14px;margin:0}
-.hueco{background:var(--naranja);color:#1a0c02;padding:12px 14px;font-size:15px}
-.hueco .px{display:block;margin-bottom:4px}
-.lista{list-style:none;margin:0;padding:0}
-.lista li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:2px 10px;padding:10px 14px;border-top:1px solid var(--linea);font-size:15px}
-.lista .n{font-weight:900;font-size:20px;line-height:1.1}
-.lista .h{font-family:var(--pixel);font-size:13px;color:var(--suave)}
-.lista small{grid-column:2/4;color:var(--suave);font-size:13px}
-.chip{display:inline-block;font-family:var(--pixel);font-size:11px;font-weight:700;text-transform:uppercase;padding:1px 5px;margin-right:6px;color:#111;vertical-align:1px}
-.k-si{background:var(--verde)}.k-pos{background:var(--mostaza)}.k-salto{background:var(--cian)}.k-nueva{background:var(--rosa)}
-.ponle{grid-column:2/4;border:1px dashed var(--mostaza);padding:9px 10px;color:var(--suave);font-family:var(--pixel);font-size:13px;text-transform:uppercase}
-.exportar{display:flex;justify-content:space-between;align-items:center;min-height:56px;padding:0 14px;border-top:1px solid var(--linea);background:var(--mostaza);color:#141209;font-family:var(--pixel);font-weight:700;text-transform:uppercase}
-.exportar::after{content:">>>"}
+/* Línea de paradas tipo metro */
+.metro{position:relative;display:flex;justify-content:space-between;align-items:center;padding:16px 18px 10px;border-bottom:1px solid var(--linea)}
+.metro::before{content:"";position:absolute;left:18px;right:18px;top:27px;height:3px;background:var(--gris)}
+.metro span{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;font-family:var(--pixel);font-size:11px;color:var(--suave)}
+.metro span i{width:14px;height:14px;border:3px solid var(--gris);background:var(--papel);border-radius:50%}
+.metro .si i{background:var(--verde);border-color:var(--verde)}
+.metro .salto i{background:var(--cian);border-color:var(--cian)}
+.metro .nueva i{background:var(--rosa);border-color:var(--rosa);transform:rotate(45deg);border-radius:2px}
+.metro .ya i{background:var(--mostaza);border-color:var(--tinta);width:26px;height:26px;margin-top:-6px;box-shadow:0 0 0 4px rgba(226,191,0,.3)}
+.metro .ya{color:var(--tinta);font-weight:700}
+/* Tarjeta de la parada */
+.parada{background:var(--mostaza);color:#141209;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:center;padding:14px}
+.parada .no{font-weight:900;font-size:56px;line-height:.9;letter-spacing:-.02em}
+.parada .nom{font-weight:900;font-size:22px;line-height:1.08}
+.dist{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--linea)}
+.dist b{font-weight:900;font-size:30px;line-height:1}
+.dist .px{color:var(--suave)}
+.dist .bien{color:var(--verde)}
+.enfrente{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--linea);background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(215,127,208,.08) 8px 16px)}
+.enfrente svg{color:var(--rosa)}
+.enfrente .px{color:var(--rosa)}
+.enfrente b{font-weight:800}
+/* Botones de ícono */
+.si-b{display:flex;align-items:center;justify-content:center;gap:12px;min-height:76px;background:var(--verde);color:#08140a;border-bottom:1px solid var(--linea)}
+.si-b svg.i{width:40px;height:40px;stroke-width:3.2}
+.si-b .px{font-size:22px}
+.tres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--linea)}
+.tres div{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:84px;padding:8px 4px;text-align:center}
+.tres div+div{border-left:1px solid var(--linea)}
+.tres .px{font-size:11.5px;line-height:1.15}
+.tres .ren svg{color:var(--mostaza)}.tres .otro svg{color:var(--tinta)}.tres .salta svg{color:var(--cian)}
+.aqui{display:flex;align-items:center;justify-content:center;gap:10px;min-height:64px;background:var(--naranja);color:#1a0c02}
+.aqui .px{font-size:17px}
+.toast{display:flex;align-items:center;gap:8px;margin:10px 14px;padding:8px 10px;background:var(--tinta);color:#141209}
+.toast svg.i{width:22px;height:22px}
+/* Resumen */
+.cuenta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--linea)}
+.cuenta div{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 2px}
+.cuenta div+div{border-left:1px solid var(--linea)}
+.cuenta b{font-weight:900;font-size:30px;line-height:1}
+.cuenta svg.i{width:24px;height:24px}
+.c-si{color:var(--verde)}.c-ren{color:var(--mostaza)}.c-salto{color:var(--cian)}.c-nueva{color:var(--rosa)}
+.huecos{padding:12px 14px;border-bottom:1px solid var(--linea)}
+.huecos .px{display:flex;align-items:center;gap:8px;color:var(--naranja)}
+.huecos .px svg.i{width:22px;height:22px}
+.barrag{display:flex;height:12px;margin-top:8px}
+.barrag i{background:var(--verde)}.barrag i.h{background:var(--naranja)}
+.horas{display:flex;justify-content:space-between;font-family:var(--pixel);font-size:11px;color:var(--suave);margin-top:4px}
+.linea{list-style:none;margin:0;padding:6px 0;position:relative}
+.linea::before{content:"";position:absolute;left:25px;top:18px;bottom:18px;width:3px;background:var(--gris)}
+.linea li{position:relative;display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:2px 12px;align-items:center;padding:8px 14px}
+.linea li>i{width:14px;height:14px;border-radius:50%;margin-left:5px}
+.linea .si>i{background:var(--verde)}.linea .ren>i{background:var(--mostaza)}.linea .salto>i{background:var(--cian)}.linea .nueva>i{background:var(--rosa);border-radius:2px;transform:rotate(45deg)}
+.linea .n{font-weight:800;font-size:16px}
+.linea .salto .n{color:var(--suave);text-decoration:line-through}
+.linea .m{font-family:var(--pixel);font-size:12px;color:var(--suave);white-space:nowrap}
+.linea .m.lejos{color:var(--naranja)}
+.ponle{display:flex;align-items:center;gap:8px;border:1.5px dashed var(--rosa);padding:8px 10px;color:var(--rosa)}
+.ponle svg.i{width:20px;height:20px}
+.exportar{display:flex;align-items:center;justify-content:center;gap:10px;min-height:60px;border-top:1px solid var(--linea);background:var(--mostaza);color:#141209}
 @media(max-width:600px){header h1{font-size:28px}}
-@media(max-width:340px){.preg .nom{font-size:22px}.num{font-size:26px}}
+@media(max-width:340px){.parada .no{font-size:44px}.parada .nom{font-size:19px}.tres .px{font-size:10.5px}}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="si" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+  <symbol id="lapiz" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></symbol>
+  <symbol id="cruce" viewBox="0 0 24 24"><path d="M7 4L3 8l4 4"/><path d="M3 8h13"/><path d="M17 12l4 4-4 4"/><path d="M21 16H8"/></symbol>
+  <symbol id="salta" viewBox="0 0 24 24"><path d="M4 6l8 6-8 6V6z"/><path d="M12 6l8 6-8 6V6z"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="pinmas" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><path d="M12 6.5v6M9 9.5h6"/></symbol>
+  <symbol id="aviso" viewBox="0 0 24 24"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.01"/></symbol>
+  <symbol id="sube" viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 14v6h14v-6"/></symbol>
+</svg>
 <header>
-  <span class="esq px">MAQUETA · ESQUEMÁTICO · horas, distancias y conteos de EJEMPLO</span>
+  <span class="esq px">Maqueta · esquemático · horas y distancias de EJEMPLO</span>
   <h1>La pregunta sigue al GPS</h1>
-  <p>Estilo de la imagen que mandaste, en colores de noche. Mismo contenido: los cambios 1 a 4 (etiquetas naranjas). Paradas reales de la lista oficial de la R11; la 22 y la 57 están a 19 m, una en cada lado de la carretera.</p>
 </header>
 <main class="pasos">
 
-  <section class="paso"><h2 class="px"><span class="cambio">1</span><b>Subes a medio camino</b> · empieza en la más cercana</h2>
+  <section class="paso"><h2 class="px"><b>1</b>Subes</h2>
     <div class="tel">
-      <div class="barra"><span class="ruta">R11</span><span class="hora px">12:08 pm</span><span class="franjas"><i></i><i></i><i></i><i></i><i></i></span></div>
-      <div class="estado px"><span class="rec">Grabando</span><span>±8 m</span></div>
-      <div class="preg"><span class="px">La más cercana a ti · parada 22 de 80</span><div class="nom">¿Es «Carr. San Juan del Río – Otoño» tu parada?</div></div>
-      <div class="celdas"><div class="dato"><span class="px">Distancia</span><div class="num">30<small>m</small></div></div><div class="dato"><span class="px">Lista oficial</span><div class="num">80<small>paradas</small></div></div></div>
-      <div class="cerca"><div><span>También muy cerca, del otro lado de la calle:</span><b>57 · Carr. San Juan del Río – Río San Juan (a 25 m)</b><span>Tócala si vas hacia Loma Alta.</span></div></div>
-      <div class="botones">
-        <div class="b si">Sí, es esta</div>
-        <div class="b">No: tiene otro nombre (renombrar)</div>
-        <div class="b">No pasa por aquí (otro sentido)</div>
-        <div class="b tenue">Saltar (no la vi)</div>
-        <div class="b nueva">+ Parada aquí</div>
+      <div class="barra"><span class="ruta">R11</span><span class="gps px"><i></i>12:08</span><span class="franjas"><i></i><i></i><i></i><i></i><i></i></span></div>
+      <div class="metro"><span class="ya"><i></i>22</span><span><i></i>23</span><span><i></i>24</span><span><i></i>25</span><span><i></i>26</span></div>
+      <div class="parada"><span class="no">22</span><span class="nom">Carr. San Juan del Río – Otoño</span></div>
+      <div class="dist"><svg class="i bien"><use href="#pin"/></svg><b class="bien">30 m</b></div>
+      <div class="enfrente"><svg class="i"><use href="#cruce"/></svg><span><span class="px">Enfrente</span><br><b>57 · Río San Juan · 25 m</b></span></div>
+      <div class="si-b"><svg class="i"><use href="#si"/></svg><span class="px">Sí, aquí</span></div>
+      <div class="tres">
+        <div class="ren"><svg class="i"><use href="#lapiz"/></svg><span class="px">Otro<br>nombre</span></div>
+        <div class="otro"><svg class="i"><use href="#cruce"/></svg><span class="px">Otro<br>sentido</span></div>
+        <div class="salta"><svg class="i"><use href="#salta"/></svg><span class="px">No la<br>vi</span></div>
       </div>
-      <p class="nota" style="padding-top:12px">Ya no empieza en la parada 1: empieza donde estás y luego sigue el orden de la lista.</p>
+      <div class="aqui"><svg class="i"><use href="#pinmas"/></svg><span class="px">Parada aquí</span></div>
     </div>
   </section>
 
-  <section class="paso"><h2 class="px"><span class="cambio">2</span><span class="cambio">3</span><b>En camino</b> · saltar y marcar al instante</h2>
+  <section class="paso"><h2 class="px"><b>2</b>En camino</h2>
     <div class="tel">
-      <div class="barra"><span class="ruta">R11</span><span class="hora px">12:10 pm</span><span class="franjas"><i></i><i></i><i></i><i></i><i></i></span></div>
-      <div class="estado px"><span class="rec">Grabando · 2 min</span><span>±6 m</span></div>
-      <div class="preg"><span class="px">Parada 24 de 80 · lista oficial</span><div class="nom">¿Es «Plaza Morelos Oriente – Agustín Melgar» la parada 24?</div></div>
-      <div class="celdas"><div class="dato ancho"><span class="px">Distancia</span><div class="num" style="font-size:19px">Sin punto oficial para comparar</div></div></div>
-      <div class="botones">
-        <div class="b si">Sí, es esta</div>
-        <div class="b">No: tiene otro nombre (renombrar)</div>
-        <div class="b">No pasa por aquí (otro sentido)</div>
-        <div class="b tenue">Saltar (no la vi)</div>
-        <div class="b nueva">+ Parada aquí</div>
+      <div class="barra"><span class="ruta">R11</span><span class="gps px"><i></i>12:10</span><span class="franjas"><i></i><i></i><i></i><i></i><i></i></span></div>
+      <div class="metro"><span class="si"><i></i>22</span><span class="salto"><i></i>23</span><span class="nueva"><i></i>+</span><span class="ya"><i></i>24</span><span><i></i>25</span></div>
+      <div class="parada"><span class="no">24</span><span class="nom">Plaza Morelos Oriente – Agustín Melgar</span></div>
+      <div class="dist"><svg class="i" style="color:var(--suave)"><use href="#pin"/></svg><b style="color:var(--suave)">—</b><span class="px">sin punto oficial</span></div>
+      <div class="toast px"><svg class="i"><use href="#pinmas"/></svg>Guardada · 12:10</div>
+      <div class="si-b"><svg class="i"><use href="#si"/></svg><span class="px">Sí, aquí</span></div>
+      <div class="tres">
+        <div class="ren"><svg class="i"><use href="#lapiz"/></svg><span class="px">Otro<br>nombre</span></div>
+        <div class="otro"><svg class="i"><use href="#cruce"/></svg><span class="px">Otro<br>sentido</span></div>
+        <div class="salta"><svg class="i"><use href="#salta"/></svg><span class="px">No la<br>vi</span></div>
       </div>
-      <div class="toast px">Parada guardada · 12:10:31 pm · ponle nombre al terminar</div>
-      <div class="sig">Después: <b>25 · Av. Benito Juárez Oriente – Primavera</b></div>
-      <p class="nota">«+ Parada aquí» guarda la hora y tu punto con un toque. «Saltar» la deja sin responder, no como otro sentido.</p>
+      <div class="aqui"><svg class="i"><use href="#pinmas"/></svg><span class="px">Parada aquí</span></div>
     </div>
   </section>
 
-  <section class="paso"><h2 class="px"><span class="cambio">3</span><span class="cambio">4</span><b>Al bajar</b> · nombres y huecos del GPS</h2>
+  <section class="paso"><h2 class="px"><b>3</b>Al bajar</h2>
     <div class="tel">
-      <div class="barra"><span class="ruta">R11</span><span class="hora px">Terminado · 12:08 → 12:41</span><span class="franjas"><i></i><i></i><i></i><i></i><i></i></span></div>
-      <div class="hueco"><span class="px">GPS: 2 huecos</span>De 12:19 a 12:24 y de 12:33 a 12:34 no hubo trazo. Seguramente se apagó la pantalla.</div>
-      <div class="celdas">
-        <div class="dato"><span class="px">Confirmadas</span><div class="num">14</div></div>
-        <div class="dato"><span class="px">Posibles</span><div class="num">2</div></div>
-        <div class="dato"><span class="px">Sin responder</span><div class="num">3</div></div>
-        <div class="dato"><span class="px">Nuevas</span><div class="num">2</div></div>
+      <div class="barra"><span class="ruta">R11</span><span class="gps px" style="color:var(--suave)">12:08 → 12:41</span><span class="franjas"><i></i><i></i><i></i><i></i><i></i></span></div>
+      <div class="cuenta">
+        <div class="c-si"><svg class="i"><use href="#si"/></svg><b>14</b></div>
+        <div class="c-ren"><svg class="i"><use href="#lapiz"/></svg><b>2</b></div>
+        <div class="c-salto"><svg class="i"><use href="#salta"/></svg><b>3</b></div>
+        <div class="c-nueva"><svg class="i"><use href="#pinmas"/></svg><b>2</b></div>
       </div>
-      <ul class="lista">
-        <li><span class="n">1</span><span><span class="chip k-si">Sí</span>Carr. San Juan del Río – Otoño</span><span class="h">12:08</span><small>a 30 m del punto oficial</small></li>
-        <li><span class="n">2</span><span><span class="chip k-salto">Sin responder</span>Carr. San Juan del Río – Av. Benito Juárez Oriente</span><span class="h">12:09</span><small>saltada: no la viste</small></li>
-        <li><span class="n">3</span><span><span class="chip k-nueva">Nueva</span>Sin nombre</span><span class="h">12:10</span><div class="ponle">Ponle nombre (calle y esquina)…</div></li>
-        <li><span class="n">4</span><span><span class="chip k-si">Sí</span>Plaza Morelos Oriente – Agustín Melgar</span><span class="h">12:10</span><small>la oficial no tiene punto para comparar</small></li>
-        <li><span class="n">5</span><span><span class="chip k-pos">Posible</span>Av. Benito Juárez – Primavera (frente al OXXO)</span><span class="h">12:11</span><small>a 60 m del punto oficial · toca para corregir el nombre</small></li>
+      <div class="huecos"><span class="px"><svg class="i"><use href="#aviso"/></svg>GPS: 2 huecos</span>
+        <div class="barrag"><i style="flex:11"></i><i class="h" style="flex:5"></i><i style="flex:9"></i><i class="h" style="flex:1"></i><i style="flex:7"></i></div>
+        <div class="horas"><span>12:08</span><span>12:19</span><span>12:33</span><span>12:41</span></div></div>
+      <ul class="linea">
+        <li class="si"><i></i><span class="n">22 · Otoño</span><span class="m">30 m</span></li>
+        <li class="salto"><i></i><span class="n">23 · Av. Benito Juárez Ote.</span><span class="m">no la vi</span></li>
+        <li class="nueva"><i></i><span class="ponle px"><svg class="i"><use href="#lapiz"/></svg>Ponle nombre</span><span class="m">12:10</span></li>
+        <li class="si"><i></i><span class="n">24 · Agustín Melgar</span><span class="m">—</span></li>
+        <li class="ren"><i></i><span class="n">25 · Primavera (OXXO)</span><span class="m lejos">160 m</span></li>
       </ul>
-      <div class="exportar">Exportar todo (JSON)</div>
-    </div>
-  </section>
-
-  <section class="paso"><h2 class="px"><span class="cambio">1</span><b>De regreso</b> · ya no empieza en la 1</h2>
-    <div class="tel">
-      <div class="barra"><span class="ruta">R11</span><span class="hora px">12:55 pm</span><span class="franjas"><i></i><i></i><i></i><i></i><i></i></span></div>
-      <div class="estado px"><span class="rec">Grabando</span><span>±5 m</span></div>
-      <div class="preg"><span class="px">La más cercana a ti · parada 57 de 80</span><div class="nom">¿Es «Carr. San Juan del Río – Río San Juan» tu parada?</div></div>
-      <div class="celdas"><div class="dato"><span class="px">Distancia</span><div class="num">15<small>m</small></div></div><div class="dato"><span class="px">Lista oficial</span><div class="num">80<small>paradas</small></div></div></div>
-      <div class="cerca"><div><span>También muy cerca, del otro lado de la calle:</span><b>22 · Carr. San Juan del Río – Otoño (a 20 m)</b><span>Tócala si vas hacia el centro.</span></div></div>
-      <div class="botones">
-        <div class="b si">Sí, es esta</div>
-        <div class="b">No: tiene otro nombre (renombrar)</div>
-        <div class="b">No pasa por aquí (otro sentido)</div>
-        <div class="b tenue">Saltar (no la vi)</div>
-        <div class="b nueva">+ Parada aquí</div>
-      </div>
-      <div class="sig">Después: <b>58 · Paseo Central – Plaza Aramil</b></div>
-      <p class="nota">Antes había que tocar «No pasa por aquí» 49 veces para llegar a la vuelta (medido en la simulación).</p>
+      <div class="exportar px"><svg class="i"><use href="#sube"/></svg>Exportar</div>
     </div>
   </section>
 
