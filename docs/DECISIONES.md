@@ -1934,3 +1934,9 @@ Miguel).
   Forma: «Create a merge commit», como D-63.
 - **Después:** Claude verifica `main` y https://sjdrbus-sjr.vercel.app con evidencia y
   marca **v0.3** en `docs/PLAN.md`. Siguiente bloque: vuelve **B3 · Trazos** (R-03).
+- **Resultado (verificado a las 7:42 pm):** Miguel integró el PR 4 a `main` el 23 nov
+  2026 a las 7:40 pm (commit de integración `7b20c7e`; `404d5c2` está en `main`).
+  GitHub Actions «Puerta de calidad» (run 45306748034) y Vercel en verde con `7b20c7e`.
+  https://sjdrbus-sjr.vercel.app sirve 39 rutas y 294 lugares (`datos/lugares.json`,
+  sin «Bodega Ahurrera»), sin errores de consola y sin scroll a 390 y 1280 px
+  (`docs/evidencia/v0.3/`, con el buscador «Galerías»). **v0.3 publicada.**
