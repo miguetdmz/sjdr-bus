@@ -4,16 +4,16 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (22 nov 2026, 4:18 pm)
+## Estado actual (23 nov 2026, 6:26 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.2** (`9b8fca8`, 22 nov 2026, 4:15 pm): Miguel integró el PR 1 «B2 · Primera pantalla publicable → v0.2». 39 rutas, mapa completo, selector de tarjetas, zonas probables, «Calcula tu ruta» con parada más cercana, zoom en píldora y círculo «mi ubicación» (D-48 a D-62). Antes: v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | Ninguna. Rama de trabajo: `b2/cierre-v02` (registro del cierre) |
-| Bloque en curso | **B2 · Primera pantalla publicable: CERRADO (v0.2).** Siguiente: «el tema del PDF» (FALTANTE: Miguel dice cuál es); después D-56 fase 2 y vuelve **B3 · Trazos** |
-| Tarea en curso | Ninguna abierta. Por decidir con Miguel: «el tema del PDF» |
+| Versión en espera | **v0.3 = PR 4** «B6 · D-56 fase 2 → v0.3» (https://github.com/miguetdmz/sjdr-bus/pull/4): rama `b6/d56f2-lugares` en `159deba`, 17 commits sobre `main` (`3dc2065`), sin conflictos, Actions y Vercel en verde. **Lo integra Miguel** (D-65) |
+| Bloque en curso | **D-56 fase 2 · CERRADA** (Miguel, 23 nov, 6:25 pm; D-65), en espera de integrarse. Después vuelve **B3 · Trazos** |
+| Tarea en curso | **B6 · D-56 fase 2 · Lugares y paradas cercanas: CONSTRUIDA Y APROBADA** (Miguel, 23 nov, 4:15 pm: «todo OK»). 294 lugares de OSM, parada cercana a la salida y al destino, «Salgo de otro lugar», 5 resultados y «Ver 5 más», orden por importancia y repetidos con distancia |
 | Tarea en pausa | **B3 · R-03 · Cruces de calles**: 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
 
 | Bloque | Qué es | Estado |
@@ -25,11 +25,67 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 698 de 936 con punto exacto (75 %), **27 APROXIMADOS (3 %, D-45: ESTIMADO, nivel C)**, 191 referencias (20 %), 20 POR VERIFICAR (2 %) al 20 nov, 1:05 pm. **D-46 PROPUESTA:** extremos como zona probable (mapa de calor). Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
-| B6 | Calcula tu ruta (D-15) | Sin iniciar |
+| B6 | Calcula tu ruta (D-15) | **D-56 fase 2 cerrada** (D-65): lugares de OSM y paradas cercanas, en espera de integrarse (v0.3). Falta: qué ruta tomar, recorrido y camino a pie (necesitan B3) |
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (22 nov 2026, 4:18 pm)
+### Relevo para la siguiente sesión (23 nov 2026, 6:26 pm)
+
+0. **Lo hecho el 23 nov:** D-56 fase 2 construida igual a la maqueta, con dos ajustes
+   aprobados por Miguel («Resultados», 22 nov, 10:40 pm; «Orden de resultados y nombres
+   repetidos», 3:13 pm). Arreglo de pruebas de red con carrera y de la ficha que se
+   perdía tras un acercamiento (lección 16). Miguel probó la vista previa (4:15 pm):
+   todo OK salvo «Bodega Ahurrera», que salió (`159deba`, 294 lugares). Rama subida
+   (6:11 pm) con Actions y Vercel en verde. **Fase cerrada (6:25 pm, D-65).**
+1. **Siguiente (Miguel):** pasar el PR 4 a listo e integrarlo a `main` con «Create a
+   merge commit» (D-65). **Siguiente (chat nuevo):** verificar `main` y
+   https://sjdrbus-sjr.vercel.app con evidencia (Actions y Vercel en verde, 294
+   lugares en `datos/lugares.json`, capturas a 390 y 1280 px en `docs/evidencia/v0.3/`)
+   → marcar **v0.3** aquí y en D-65 → rama `b3/r03-cruces` desde `main` → volver a
+   B3 · R-03 (secuencia por sentido, hallazgos b y c).
+2. **Preguntas abiertas y pendientes:** «rutas cerca» solo mide los extremos de ruta
+   (Galerías y Walmart dan 0 rutas; se arregla con los recorridos de B3); D-55
+   (¿tarjetas de «cerca» partidas?, ¿«Borrar» a 36 px?); controles pendientes con el sí
+   de Miguel (lecciones 5, 9, 10, 13 y 14); lecciones 14, 15 y 16 propuestas para
+   `standards.md`; Ezequiel Montes (023) FALTANTE; página de aviso de privacidad y
+   términos con las fuentes (FALTANTE de D-52). Flotilla SJR en pausa (D-64).
+3. **Turno nocturno:** sin tareas APROBADA que pueda hacer (R-04 a R-06 esperan R-03,
+   que es de sesión de día). Bandera: EN SESIÓN.
+
+### Relevo anterior (22 nov 2026, 9:44 pm)
+
+0. **Lo hecho de las 9:14 pm a las 9:44 pm:** ajustes de Miguel a la maqueta («Salgo de
+   otro lugar» como círculo con ícono en el renglón, 9:18 pm; opción C, 9:25 pm; destino
+   a 14 px, 9:33 pm). **Maqueta aprobada (9:34 pm)** y tipos de lugar aprobados sin
+   opcionales (9:40 pm). Rama subida (con el permiso de Miguel, 9:41 pm) y PR 4 en
+   borrador: Actions «verificar» y Vercel en verde.
+1. **Siguiente (chat nuevo, sesión de día o de noche con Miguel presente):** descarga
+   única de lugares de OSM con los tipos de `docs/maquetas/d56f2/tipos-propuestos.md`
+   (Overpass, respuesta completa a `referencias/`, al repositorio solo lo extraído con
+   sha256; revisar que no traiga llaves, lección 8) → criterios de construcción por
+   escrito → pruebas nuevas en rojo con el defecto (lección 15), también a 320 px
+   (lección 5) → construir en `web/` igual a la maqueta → `npm run verificar` → commit
+   aparte (lección 10) → permiso para subir → Miguel prueba la vista previa en su
+   teléfono.
+2. **Preguntas abiertas y pendientes:** sin cambio (relevo de las 4:18 pm, abajo).
+3. **Turno nocturno:** sin tareas APROBADA que pueda hacer (la descarga es de sesión
+   de día). Bandera: EN SESIÓN.
+
+### Relevo anterior (22 nov 2026, 9:14 pm)
+
+0. **Lo hecho de las 8:29 pm a las 9:14 pm:** Miguel integró el PR 3 a `main` (8:33 pm,
+   `3dc2065`; Actions y Vercel en verde; el sitio sirve 39 rutas). «El tema del PDF»
+   era la propuesta de Flotilla SJR: lista, Miguel la presenta la semana próxima; en
+   pausa hasta su retroalimentación (D-64). Rama nueva `b6/d56f2-lugares` desde `main`
+   con la **maqueta de D-56 fase 2** (`docs/maquetas/d56f2/`: criterios, inventario,
+   capturas a 390, 320 y 1280 px; medición fail 0, y 13 fallas con un defecto puesto).
+1. **Siguiente:** Miguel revisa la maqueta y responde la pregunta 1 de
+   `docs/maquetas/d56f2/inventario.md` → con su sí: descarga nueva de lugares de OSM
+   (le muestro antes la lista de tipos) y construcción en `web/` con criterios y
+   pruebas (lecciones 5, 13 y 15) → B3.
+2. **Preguntas abiertas y pendientes:** sin cambio (abajo, relevo de las 4:18 pm).
+
+### Relevo anterior (22 nov 2026, 4:18 pm)
 
 0. **Lo hecho de las 4:09 pm a las 4:18 pm:** commits subidos (`41af79c`, verde). Miguel
    integró el PR 1 a `main` (4:15 pm, `9b8fca8`): **v0.2 publicada**. Verificado:

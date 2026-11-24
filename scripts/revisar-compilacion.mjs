@@ -26,7 +26,7 @@ if (!existsSync(swRuta)) falla('falta sw.js');
 else {
   const sw = readFileSync(swRuta, 'utf8');
   const lista = JSON.parse(sw.match(/const ARCHIVOS = (\[[\s\S]*?\]);/)?.[1] ?? '[]');
-  for (const a of ['./', './datos/rutas.json', './datos/paradas.json', './manifest.webmanifest']) {
+  for (const a of ['./', './datos/rutas.json', './datos/paradas.json', './datos/lugares.json', './manifest.webmanifest']) {
     if (!lista.includes(a)) falla(`el service worker no guarda ${a}`);
   }
   for (const a of lista) {

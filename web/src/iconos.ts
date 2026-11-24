@@ -71,3 +71,14 @@ export const ICONO_FLECHA =
 // dibujo de la maqueta (mira con el centro relleno).
 export const ICONO_MI_UBICACION =
   '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.6" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>';
+// D-56 fase 2 (maqueta aprobada, 22 nov 2026): «Salgo de otro lugar» = pin de lugar
+// con un lápiz encima (cambiar el lugar de salida); el pin de un lugar de OSM en la
+// lista; la X que cancela «¿Desde dónde sales?», y la mira de 24 px de «usar mi
+// ubicación» (el mismo dibujo de ICONO_UBICAR, más grande, como en la maqueta).
+export const ICONO_SALIDA =
+  '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 21s-6-5.4-6-10.2A6 6 0 0 1 15.6 8.4"/><circle cx="10" cy="10.5" r="2.2"/><path d="M14.5 20.5h2.2l5-5-2.2-2.2-5 5z"/></svg>';
+export const ICONO_LUGAR =
+  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+export const ICONO_QUITAR =
+  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+export const ICONO_UBICAR_GRANDE = ICONO_UBICAR.replace('width="20" height="20"', 'width="24" height="24"');

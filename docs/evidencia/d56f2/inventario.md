@@ -1,0 +1,145 @@
+# D-56 fase 2 · Construcción: diferencias contra la maqueta y contra v0.2 (lecciones 13 y 14)
+
+Criterios: `criterios.md`. Capturas de la app en esta carpeta (390 × 844, 320 × 640 y
+1280 × 800) y lado a lado con la maqueta en `comparacion/`.
+
+## Datos
+- Descarga única de Overpass (22 nov 2026, 9:57 pm, según `consultado.txt` de la
+  descarga): respuesta completa en `referencias/overpass-2026-11-22/` (fuera de git),
+  sha256 `aee71d99…dd300f`. Revisada en busca de llaves (lección 8): ninguna; las dos
+  coincidencias del filtro eran «Secretaría de Educación Pública» y «Secretaria de
+  Salud».
+- Al repositorio: `datos/cache/overpass/lugares-amplio.json` (extraído por
+  `scripts/lugares-amplio.mjs`) y la consulta `lugares-amplio.overpassql`.
+  **295 lugares** (296 elementos; se quitó «Universidad Tecnológica Bridge», lección 4).
+  Por tipo: Parque 83 · Escuela 41 · Localidad 31 · Templo 24 · Supermercado 15 ·
+  Zona industrial 11 · Banco 10 · Cultura 9 · Colonia 8 · Hotel 8 · Plaza comercial 8 ·
+  Hospital 7 · Gobierno 7 · Tienda 6 · Servicio público 6 · Mercado 5 ·
+  Fraccionamiento 5 · Clínica 5 · Terminal 2 · Deportivo 1 · Centro penitenciario 1 ·
+  Barrio 1 · Ciudad 1.
+- **Cinépolis sí está**: «Cinepolis» (así, sin acento, en OSM), `way/550793653`, tipo
+  Cultura. También «Cinebox».
+- `datos/cache/overpass/lugares.json` (R-03) no se tocó: sigue siendo la fuente de los
+  extremos de ruta.
+
+## Igual a la maqueta
+Catálogo amplio con tipo y fuente; parada más cercana al destino (línea terracota,
+nombre a 14 px); «Salgo de otro lugar» como círculo de 52 px con pin y lápiz en el
+renglón; opción C (texto chico debajo, nombre de tu parada a 10.5 px); «¿Desde dónde
+sales?» con cancelar y «Buscar mi parada más cercana»; «Sales de …» y el círculo verde
+como «usar mi ubicación»; en el mapa, punto con etiqueta debajo y sin línea; leyenda
+«Lugares: OpenStreetMap, consulta del 22 nov 2026.».
+
+## Diferencias que se ven (ninguna es un cambio por cuenta propia)
+1. **Más resultados** en las listas: es la descarga nueva (la maqueta usaba 79 lugares).
+2. **Campo con un nombre largo:** a 390 px la app corta «…de Zona 3» y la maqueta lo
+   mostraba completo. Causa medida: el campo de búsqueda del navegador reserva ~14 px
+   para su botón de borrar (texto 248 px, campo 249 px). La maqueta ya lo anotaba («en
+   la app el campo es un input de una línea; el texto largo se corta igual») y a 320 px
+   también cortaba. Se deja así.
+3. **Leyenda «estimado · distancia en línea recta…»:** en la app se ve siempre, como en
+   v0.2; en la maqueta solo con destino. No es parte del pedido: se dejó como v0.2.
+4. **Encuadre del mapa en computadora:** un poco más cerca que la maqueta; es la
+   función de encuadre que la app ya usaba (v0.2), sin cambio.
+5. **Nombres repetidos en OSM:** como la maqueta, el catálogo no repite nombres
+   (primero los de ruta). Con la descarga nueva hay 19 nombres repetidos (p. ej.
+   «Bodega Aurrera» ×3, bancos, «Área verde» ×4, «Anónimo» ×4): de cada uno se ve el
+   primero. **Pregunta para Miguel** (no se aplicó).
+
+## Lo que no cambia
+Pestaña «Rutas», tarjetas, detalle, zoom, círculo «mi ubicación», bienvenida y pie.
+Un destino que es inicio o fin de ruta sigue como zona (v0.2).
+
+## Inventario de selectores (lección 13)
+`web/src/estilos.css`: 186 antes, 208 después. **Ninguno desapareció.** 22 nuevos, todos
+bajo la marca «D-56f2»: `.otra.salida-otra`, `.fila-salida`, `.fila-salida .ubicacion`,
+`.fila-salida .parada-hallada`, `.nota-parada`, `.parada-hallada.f2 .ver-parada small`,
+`.parada-hallada.f2 .ver-parada b`, `.campo.salida`, `.campo .quitar`,
+`.titulo-seccion.f2`, `.elegir-salida`, `.elegir-salida > .ubicacion`, `.resultados-f2`,
+`.resultado .tipo`, `.resultado .tipo.extremo`, `.ver-parada.destino`,
+`.ver-parada.destino .flecha`, `.ver-parada.destino:focus-visible`, `.pin-lugar`,
+`.pin-lugar span`, `.pin-lugar.salida span`, `.pin-lugar.destino span`.
+`.resultado .icono` se queda en el CSS aunque las filas ya usan `.tipo`.
+
+## Pruebas
+- Nuevas: `scripts/pruebas/lugares.test.mjs` (9) y `pruebas-navegador/d56f2.spec.mjs`
+  (11: cinco a 390, cinco a 320 y una a 1280).
+- **Antes del cambio (lección 15):** fallaban 11 de 11 en navegador y 5 de 9 de datos
+  (las 4 que pasaban revisan la descarga, que ya estaba hecha).
+- **Con defectos puestos a propósito, cada uno atrapado:** nombre a 14 px (2 fallas),
+  círculo fuera del renglón (7), parada equivocada en el destino (2), línea a pie
+  entre el lugar y su parada (2), texto chico dentro de la línea (2), farmacia en los
+  datos (3 de datos).
+- Pruebas de antes que se ajustaron, solo por lo que agrega el pedido:
+  `pruebas-navegador/d57.spec.mjs` usaba `.campo` (ahora hay dos campos: se usa el del
+  destino) y «la primera `.parada-toque`» (ahora el destino trae su propia parada, con
+  clase `parada-destino`: se mide la tuya). La regla que revisan no cambió.
+  `scripts/pruebas/tarjetas.test.mjs` (regla 9) pedía un solo campo de texto: ahora son
+  dos, «¿A dónde quieres ir?» y «¿Desde dónde sales?», ambos sobre el catálogo
+  guardado (ninguno elige ruta). `scripts/pruebas/detalle.test.mjs` (sin trazo) permitía
+  hasta 4 tipos de marcador: ahora 5, con el lugar elegido de OSM (punto y etiqueta en
+  un solo marcador). La prohibición de `polyline`, `polygon`, `circleMarker` y
+  `geoJSON` sigue igual: por eso el punto del lugar es un ícono redondo y no un
+  `circleMarker` como en la maqueta (se ve igual; comparado en `comparacion/`).
+
+## Ajuste «Resultados» (maqueta `docs/maquetas/d56f2-resultados/`, aprobada por Miguel el 22 nov 2026, 10:40 pm)
+- Construido igual a la maqueta: título «Resultados»; 5 visibles y «Ver 5 más · quedan
+  N» en «¿A dónde quieres ir?» y en «¿Desde dónde sales?». Al escribir otra cosa
+  vuelve a 5. Comparación: `comparacion/resultados.jpg`; capturas
+  `resultados-390x844.jpg` y `resultados-320x640.jpg`.
+- Selectores: 213 (antes de D-56 fase 2: 186); ninguno se fue. Nuevos: `.ver-mas` y
+  `.ver-mas:focus-visible`, con la marca «D-56f2r».
+- Pruebas r1 a r3 (4 casos, a 390 y 320 px): antes del cambio fallaban 4 de 4. Con
+  defectos puestos: 6 visibles (4 fallas), «Ver más» enseña todo de golpe (4), no
+  vuelve a 5 al escribir (2: solo toca el destino), sin botón (4).
+- Pregunta abierta (no se aplicó): el orden de la lista (primero los de ruta, luego
+  alfabético) decide qué se ve en los primeros 5.
+
+## Al subir (23 nov 2026): una prueba con carrera y un defecto que destapó
+- **La subida se frenó** (candado de `.githooks/pre-push`): `d62` t1 a 844 × 280 vio
+  pedir `lugares.json` durante el toque del círculo. No lo pedía el toque: es un archivo
+  del arranque (se pide después de `rutas.json`) que en una corrida lenta cayó tarde.
+  Arreglo de la prueba: `vigilarRed()` pasa a `pruebas-navegador/ayuda.mjs` y empieza a
+  contar cuando la red del arranque quedó quieta; la usan `d53`, `d57`, `d61` y `d62`.
+  La regla que revisan (el toque no manda nada a la red, regla 7) no cambió.
+  Validación (lección 15): con el arranque retrasado a propósito, la prueba vieja fallaba
+  5 de 5 y la nueva pasa 5 de 5; con una petición puesta a propósito en el toque, la nueva
+  falla 5 de 5.
+- **Defecto real que destapó:** con el arranque ya terminado, `d57` a 1280 × 800 fallaba
+  10 de 10 (ficha fuera de la vista). Causa medida: el acercamiento animado del encuadre
+  del destino seguía en curso al tocar la parada y, al terminar, regresaba el mapa.
+  Arreglo en `irAParada()` (`web/src/main.ts`): espera a que termine la animación, igual
+  que `encuadrar()`. Después: `d57` 25 de 25. No cambia la pantalla.
+
+## Ajuste «Orden de resultados y nombres repetidos» (maqueta `docs/maquetas/d56f2-orden/`, aprobada por Miguel el 23 nov 2026, 3:13 pm, «tal como está»)
+- Construido igual a la maqueta: `buscar()` ordena por coincidencia, inicio o fin de
+  ruta, tipo (`ORDEN_TIPOS`, la lista de la maqueta) y alfabético; `catalogoAmplio()`
+  junta el mismo nombre a ≤ 100 m (`MISMO_LUGAR_M`) y marca los repetidos distintos;
+  cada repetido dice «· a N km de ti» o «· del Centro» (`textoRepetido()`), en un solo
+  pedazo. En las dos listas. Las preguntas abiertas quedaron como en la maqueta.
+- Comparación: `comparacion/orden.jpg` (maqueta | app, «bodega» ubicado y «bana» en
+  «¿Desde dónde sales?»). La única diferencia es de estado: en la app los Banamex dicen
+  «de ti» porque la prueba ya se había ubicado; la maqueta se capturó sin ubicación.
+  Capturas: `orden-*-390x844.jpg`, `orden-*-320x640.jpg` y `orden-bodega-1280x800.jpg`
+  (a 1280: sin scroll de lado y ninguna distancia partida, medido).
+- Selectores (lección 13): ninguno se fue; 1 nuevo, `.resultado small .lejos`, con la
+  marca «D-56f2o».
+- Pruebas: 3 nuevas de datos en `scripts/pruebas/lugares.test.mjs` (la de c3 se rehízo:
+  «sin repetir nombres» pasa a «el mismo lugar a ≤ 100 m, una vez; ninguno se pierde»,
+  porque el pedido muestra los repetidos) y 4 de navegador en `d56f2.spec.mjs` (390 y
+  320 px). Antes del cambio: 3 de 3 y 4 de 4 en rojo.
+- Con defectos puestos (lección 15), cada uno atrapado: no juntar el mismo lugar (datos 1,
+  navegador 2), sin distancia (navegador 4), solo alfabético (datos 1, navegador 2),
+  distancia que se parte (navegador 4), el más lejano primero (datos 1, navegador 4).
+  **Hallazgo de la validación (lección 16):** la primera versión del defecto «sin
+  distancia» no compilaba, así que la prueba corrió contra la compilación anterior y dio
+  un número engañoso. Se repitió con un defecto que sí compila, revisando la salida de
+  la compilación en cada corrida.
+- `npm run verificar`: TODO PASÓ (174 de 174, 91 de 91, sin secretos).
+- **Al probar (Miguel, 23 nov 2026, 4:15 pm): «elimina de las opciones a Bodega Ahurrera, es
+  error ortográfico; de ahí fuera todo OK».** Se quitó en la extracción
+  (`scripts/lugares-amplio.mjs`, lista `FUERA` con su motivo): sale `way/625186575`
+  (estaba a 6–8 km de las tres «Bodega Aurrera»); no entra ni cambia ningún otro. Quedan
+  **294 lugares** (Plaza comercial: 7). Queda anotado en `fuera_del_catalogo`. Prueba
+  nueva de datos (en rojo antes) y la de navegador ajustada: con el dato viejo fallan
+  1 y 2. `npm run verificar`: TODO PASÓ (175 de 175, 91 de 91).

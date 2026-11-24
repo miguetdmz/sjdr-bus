@@ -13,7 +13,7 @@
 // No calcula nada: no hay tiempos, frecuencias ni trazos. Solo copia.
 //
 // Uso:
-//   node scripts/datos-app.mjs            escribe web/public/datos/rutas.json y paradas.json
+//   node scripts/datos-app.mjs            escribe web/public/datos/rutas.json, paradas.json y lugares.json
 //   node scripts/datos-app.mjs --salida=<archivo>
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -148,6 +148,21 @@ export function armarParadasApp() {
   };
 }
 
+// D-56 fase 2: catálogo amplio de lugares con nombre de OpenStreetMap para «¿A dónde
+// quieres ir?» y «¿Desde dónde sales?». Se copian tal cual de lugares-amplio.json
+// (una sola consulta, con su huella sha256): nombre, tipo en español, id de OSM y
+// centro. Ninguna coordenada se mueve.
+export function armarLugaresApp() {
+  const cache = JSON.parse(readFileSync(join(raiz, 'datos/cache/overpass/lugares-amplio.json'), 'utf8'));
+  return {
+    descripcion:
+      'Lugares con nombre de OpenStreetMap dentro de San Juan del Río. Archivo generado por scripts/datos-app.mjs desde datos/cache/overpass/lugares-amplio.json; no se edita a mano. Toda distancia que se calcule con ellos es ESTIMADA, en línea recta y POR VERIFICAR.',
+    licencia: 'ODbL 1.0 · © colaboradores de OpenStreetMap',
+    consultado: cache.fuente.consultado,
+    lugares: cache.lugares.map((l) => ({ nombre: l.nombre, tipo: l.tipo, osm: l.osm, lat: l.centro[0], lon: l.centro[1] })),
+  };
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const arg = process.argv.find((a) => a.startsWith('--salida='));
   const salida = arg ? arg.slice(9) : join(raiz, 'web/public/datos/rutas.json');
@@ -159,4 +174,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const paradas = armarParadasApp();
   writeFileSync(salidaParadas, JSON.stringify(paradas, null, 2) + '\n');
   console.log(`DATOS DE LA APP: ${paradas.paradas.length} paradas → ${salidaParadas.replace(raiz, '')}`);
+  const salidaLugares = join(dirname(salida), 'lugares.json');
+  const lugares = armarLugaresApp();
+  writeFileSync(salidaLugares, JSON.stringify(lugares, null, 2) + '\n');
+  console.log(`DATOS DE LA APP: ${lugares.lugares.length} lugares de OSM → ${salidaLugares.replace(raiz, '')}`);
 }

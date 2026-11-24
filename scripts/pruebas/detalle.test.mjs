@@ -59,8 +59,11 @@ test('detalle: cambiar de ruta o de sentido reemplaza todo (sin restos) y no se 
   assert.doesNotMatch(main, /L\.(polyline|polygon|circleMarker|geoJSON)\(/);
   // Marcadores permitidos (D-53): las paradas de OSM (de ninguna ruta), la
   // etiqueta de cada zona (inicio, fin, destino), tu punto y tu parada más cercana.
+  // D-56 fase 2 (maqueta aprobada, 22 nov 2026): + el lugar elegido de OSM (salida o
+  // destino: punto y etiqueta en un solo marcador). La parada más cercana a la salida
+  // o al destino usa el mismo marcador que tu parada (marcaParada).
   const marcadores = main.match(/L\.marker\(/g) ?? [];
-  assert.ok(marcadores.length <= 4, `${marcadores.length} marcadores`);
+  assert.ok(marcadores.length <= 5, `${marcadores.length} marcadores`);
   const paradas = main.slice(main.indexOf('function dibujarParadas'), main.indexOf('// Botón redondo de paradas'));
   assert.match(paradas, /L\.marker\(\[p\.lat, p\.lon\]/);
   assert.match(paradas, /\.addTo\(capaParadas\)/);

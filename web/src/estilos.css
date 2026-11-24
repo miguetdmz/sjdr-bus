@@ -331,6 +331,56 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .otra:disabled { opacity: .7; cursor: progress; }
 .ver-parada:focus-visible, .otra:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
+
+/* D-56f2, ajuste (Miguel, 22 nov 2026, 9:18 pm): «Salgo de otro lugar» es otro círculo
+   en el mismo renglón que tu parada y el botón de ubicación, con un ícono: pin con
+   lápiz (cambiar el lugar de salida). Contorno, para no confundirlo con el del GPS. */
+.otra.salida-otra { background: var(--tarjeta); color: var(--primario); box-shadow: inset 0 0 0 2px var(--primario); }
+.fila-salida { display: flex; align-items: center; gap: 8px; }
+.fila-salida .ubicacion { flex: 1; min-width: 0; }
+/* D-56f2: en la app, tu parada y su botón de ícono van en su propio grupo dentro del
+   renglón; el grupo toma el ancho que deja el círculo (mismo dibujo que la maqueta). */
+.fila-salida .parada-hallada { flex: 1; min-width: 0; }
+/* D-56f2, opción C (Miguel, 22 nov 2026, 9:25 pm): los tres en el mismo renglón y los
+   círculos del mismo tamaño (52 px); el texto chico de la línea pasa debajo del renglón,
+   a todo el ancho, y el nombre de la parada baja 25 % (14 → 10.5 px). Solo en el renglón
+   de tu parada; la línea de la parada del destino no cambia. */
+.nota-parada { margin: 6px 0 0 4px; font-size: 11.5px; color: var(--suave); }
+.parada-hallada.f2 .ver-parada small { display: none; }
+.parada-hallada.f2 .ver-parada b { font-size: 10.5px; }
+/* D-56f2: campo «¿Desde dónde sales?»: igual que «¿A dónde quieres ir?», más bajo. */
+.campo.salida { min-height: 44px; height: 44px; font-size: 15px; }
+.campo .quitar { margin-left: auto; flex: none; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; background: var(--fondo); color: var(--suave); display: grid; place-items: center; }
+.titulo-seccion.f2 { margin-top: 0; }
+.elegir-salida { margin-bottom: 14px; }
+.elegir-salida > .ubicacion { margin-top: 10px; }
+/* D-56f2: la lista de lugares es larga; cada fila dice su tipo y su fuente. */
+.resultados-f2 { display: grid; gap: 6px; }
+.resultado .tipo { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--tarjeta); color: var(--primario); }
+.resultado .tipo.extremo { color: #a8432a; }
+/* D-56f2: la parada más cercana al destino, con el mismo botón de D-57 en color destino. */
+.ver-parada.destino { background: #fbece7; box-shadow: inset 0 0 0 2px #a8432a; color: #a8432a; }
+.ver-parada.destino .flecha { color: #a8432a; }
+.ver-parada.destino:focus-visible { outline-color: #a8432a; }
+/* D-56f2: el lugar elegido en el mapa: un punto y su etiqueta DEBAJO, para no tapar el
+   ícono de la parada, que se dibuja hacia arriba de su punto. Sin línea entre ellos. */
+.pin-lugar span { display: inline-block; padding: 3px 9px; border-radius: 13px; font-size: 12px; font-weight: 800; color: #fff; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(18,38,45,.3); white-space: nowrap; }
+.pin-lugar { background: none; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+.pin-lugar.salida span { background: #0d7a72; }
+.pin-lugar.destino span { background: #a8432a; }
+/* D-56f2: el punto del lugar (radio 6 px y borde blanco de 2.5 px, como el de la
+   maqueta), con la etiqueta 1.5 px debajo (10 px bajo el centro del punto). */
+.punto-lugar { flex: none; width: 17px; height: 17px; margin-bottom: 1.5px; border-radius: 50%; border: 2.5px solid #fff; box-sizing: border-box; }
+.pin-lugar.salida .punto-lugar { background: #0d7a72; }
+.pin-lugar.destino .punto-lugar { background: #a8432a; }
+/* D-56f2r, ajuste «Resultados» (maqueta aprobada por Miguel, 22 nov 2026, 10:40 pm): la
+   lista enseña 5 y un botón para ver 5 más; sin fondo, para que no compita con los
+   resultados. */
+.ver-mas { width: 100%; min-height: 44px; border: 0; border-radius: 999px; background: none; box-shadow: inset 0 0 0 2px var(--primario-suave); color: var(--primario); font-size: 14px; font-weight: 700; }
+.ver-mas:focus-visible { outline: 3px solid var(--primario); outline-offset: 2px; }
+/* D-56f2o, ajuste «Orden de resultados y nombres repetidos» (maqueta aprobada por Miguel,
+   23 nov 2026, 3:13 pm): la distancia de un repetido brinca de renglón completa. */
+.resultado small .lejos { white-space: nowrap; }
 /* Ajuste 2.1 (6:57 pm): las leyendas (estimado, próximamente) juntas, hasta abajo. */
 .leyendas { margin-top: auto; padding-top: 18px; display: grid; gap: 4px; }
 .leyendas p, .nota { margin: 0; font-size: 10.5px; line-height: 1.4; color: var(--primario); }

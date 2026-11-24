@@ -5,7 +5,7 @@
 //
 // Con CAPTURAS=1 deja cargar las teselas y guarda las pantallas en docs/evidencia/d61/.
 import { test, expect } from '@playwright/test';
-import { leerDatos, elegirRuta, sinTapar } from './ayuda.mjs';
+import { leerDatos, elegirRuta, sinTapar, vigilarRed } from './ayuda.mjs';
 
 const CAPTURAS = process.env.CAPTURAS === '1';
 const { rutas } = leerDatos('rutas.json');
@@ -87,10 +87,7 @@ test.describe('con permiso de ubicación (390 × 844)', () => {
   test.use({ geolocation: PLAZA, permissions: ['geolocation'] });
 
   test('p4: el círculo pone «Tú» en el mapa, lo centra y no manda nada a la red', async ({ page }) => {
-    const vistas = [];
-    page.on('request', (r) => {
-      if (!/tile\.openstreetmap\.org/.test(r.url())) vistas.push(r.url());
-    });
+    const vistas = await vigilarRed(page);
     await page.locator(UBICAME).click();
     await expect(page.locator('.leaflet-marker-pane .yo')).toBeVisible();
     await page.waitForFunction(() => !document.querySelector('#mapa').classList.contains('leaflet-zoom-anim'));

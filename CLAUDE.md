@@ -238,7 +238,12 @@ puede, convertir la regla en una prueba automática.
      viajera pase correcta». Regla añadida: si algo cambia después de
      entregar el arranque, se reemite completo y verificado contra el estado
      real (git, GitHub, bandera, datos); nunca un parche aparte.
-   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (20 nov 2026):
+   - 2026-11-22 (4.ª vez, corrección de Miguel escrita en el arranque de las 9:52 pm):
+     los arranques decían «no hagas nada hasta mi primer mensaje» aunque no hubiera
+     motivo para esperar. Regla corregida: **el prompt de arranque empieza a trabajar
+     en cuanto se pega.** Solo espera un mensaje de Miguel si hay una razón real
+     (el turno nocturno está corriendo o falta un sí de Miguel) y dice cuál.
+   Ocurrencias: 4 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (20 nov 2026):
    `scripts/arranque.mjs` que arme el bloque de estado del arranque desde la
    realidad (hora de México, rama, commits sin subir, PR abiertos con link,
    bandera de `docs/RELEVO.md`, resumen de `cruces.json`, pendientes de la
@@ -360,6 +365,31 @@ puede, convertir la regla en una prueba automática.
    con el elemento que se ve mal en la captura (aquí, la etiqueta) y anotar en el
    reporte «antes del cambio fallaban N de M».
    - 2026-11-22 (1.ª vez, registrada a pedido de Miguel a las 4:26 pm): este caso.
+   Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
+   `standards.md` (no se sube sin el sí de Miguel).
+
+16. **Una prueba dependía de cuándo terminaba de cargar la app (23 nov 2026).** En
+   D-56 fase 2, la subida se frenó en el candado de `.githooks/pre-push`: la prueba
+   t1 de `pruebas-navegador/d62.spec.mjs` (844 × 280) cuenta las peticiones de red
+   al tocar el círculo «mi ubicación» y vio `lugares.json`. No lo pedía el toque: es
+   un archivo nuevo del arranque (se pide después de `rutas.json`) que en una corrida
+   lenta cayó durante el toque. Minutos antes, la misma revisión había pasado 87 de
+   87. Al arreglarla salió un defecto real que la prueba de D-57 a 1280 px no veía:
+   si tocabas tu parada durante un acercamiento animado, la ficha quedaba fuera de la
+   vista (10 de 10 fallas; arreglado en `irAParada()`, 25 de 25). Causa raíz: las
+   pruebas empezaban a contar mientras la app seguía arrancando, así que el
+   resultado dependía de qué llegaba primero (una carrera), y al agregar un archivo
+   al arranque no se revisaron las pruebas que vigilan la red. Regla: una prueba
+   que vigila la red o mide la pantalla después de una acción empieza cuando la app
+   terminó de arrancar (`vigilarRed()` de `pruebas-navegador/ayuda.mjs` espera la
+   red quieta); al agregar algo al arranque, se corren con `--repeat-each` las
+   pruebas que vigilan la red. Detección temprana: si una prueba pasa en una corrida
+   y falla en la siguiente sin cambios, es una carrera; se reproduce retrasando a
+   propósito el arranque (`page.route` con espera) antes de arreglarla. Validación
+   del arreglo (commit 0836589): con la carrera forzada, la prueba vieja fallaba 5
+   de 5 y la nueva pasaba 5 de 5; con una petición puesta a propósito en el toque,
+   la nueva falla 5 de 5.
+   - 2026-11-23 (1.ª vez, registrada a pedido de Miguel a las 12:27 pm): este caso.
    Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
    `standards.md` (no se sube sin el sí de Miguel).
 

@@ -108,14 +108,35 @@
                  cercana va ARRIBA y con poca letra. Antes de ubicarte, un botón; después,
                  una línea tocable (la muestra en el mapa) y un botón de ícono que vuelve
                  a buscar. Puros botones. -->
+            <!-- D-56 fase 2 (maqueta aprobada por Miguel, 22 nov 2026, docs/maquetas/d56f2/):
+                 «Salgo de otro lugar» es otro círculo de 52 px en el mismo renglón, con
+                 ícono (pin con lápiz). Opción C: el texto chico va debajo del renglón y
+                 el nombre de la parada a 10.5 px. -->
             <section class="mi-parada" id="mi-parada" aria-label="Tu parada más cercana">
-              <button type="button" class="ubicacion" id="usar-ubicacion"></button>
-              <div class="parada-hallada" id="parada-hallada" hidden>
-                <button type="button" class="ver-parada" id="ver-parada"></button>
-                <button type="button" class="otra" id="otra-vez" aria-label="Volver a buscar tu parada más cercana"></button>
+              <h3 class="titulo-seccion f2" id="sales-de" hidden></h3>
+              <div class="fila-salida" id="fila-salida">
+                <button type="button" class="ubicacion" id="usar-ubicacion"></button>
+                <div class="parada-hallada f2" id="parada-hallada" hidden>
+                  <button type="button" class="ver-parada" id="ver-parada"></button>
+                  <button type="button" class="otra" id="otra-vez" aria-label="Volver a buscar tu parada más cercana"></button>
+                </div>
+                <button type="button" class="otra salida-otra" id="salgo-otro" aria-label="Salgo de otro lugar" title="Salgo de otro lugar"></button>
               </div>
+              <p class="nota-parada" id="nota-parada" hidden></p>
               <p class="nota" id="nota-ubicacion" aria-live="polite" hidden></p>
             </section>
+            <!-- D-56 fase 2: «¿Desde dónde sales?», de la misma lista guardada (regla 7). -->
+            <section class="elegir-salida" id="elegir-salida" aria-labelledby="salida-titulo" hidden>
+              <h3 class="titulo-seccion f2" id="salida-titulo"><label for="salida">¿Desde dónde sales?</label></h3>
+              <div class="campo salida">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d7a72" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+                <input type="search" id="salida" name="salida" autocomplete="off" enterkeyhint="search" placeholder="Escribe un lugar" />
+                <button type="button" class="quitar" id="cancelar-salida" aria-label="Cancelar"></button>
+              </div>
+              <div class="bloque resultados-f2" id="lista-salida"></div>
+              <button type="button" class="ubicacion" id="salida-ubicacion"></button>
+            </section>
+            <div id="bloque-destino">
             <!-- D-53, 7: «¿A dónde quieres ir?», primera versión (6:29 pm). -->
             <h2 class="titulo-seccion" id="destino-titulo"><label for="destino">¿A dónde quieres ir?</label></h2>
             <div class="campo">
@@ -123,12 +144,19 @@
               <input type="search" id="destino" name="destino" autocomplete="off" enterkeyhint="search" placeholder="Escribe un lugar" />
             </div>
             <div class="bloque" id="bloque-lugares" hidden>
-              <h3 class="titulo-seccion">Lugares guardados</h3>
+              <!-- Ajuste «Resultados» (maqueta aprobada por Miguel, 22 nov 2026, 10:40 pm):
+                   antes «Lugares guardados», que se leía como historial del usuario. -->
+              <h3 class="titulo-seccion">Resultados</h3>
               <div class="lista-lugares" id="lista-lugares"></div>
+            </div>
+            <!-- D-56 fase 2: la parada más cercana al destino (línea terracota, 14 px). -->
+            <div class="bloque" id="bloque-parada-destino" hidden>
+              <button type="button" class="ver-parada destino" id="ver-parada-destino"></button>
             </div>
             <div class="bloque" id="bloque-cerca" hidden>
               <h3 class="titulo-seccion">Rutas que empiezan o terminan cerca</h3>
               <div class="rejilla cerca" id="lista-cerca"></div>
+            </div>
             </div>
             <!-- D-53, ajuste 2.1: las leyendas juntas, hasta abajo. -->
             <div class="leyendas" id="leyendas-destino">

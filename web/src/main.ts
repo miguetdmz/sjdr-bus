@@ -35,6 +35,10 @@ import {
   ICONO_RUTAS,
   ICONO_UBICAR,
   ICONO_MI_UBICACION,
+  ICONO_LUGAR,
+  ICONO_QUITAR,
+  ICONO_SALIDA,
+  ICONO_UBICAR_GRANDE,
   PARADA_CIRCULO,
   camioncito,
   iconoBus,
@@ -60,9 +64,18 @@ import {
   SIN_RESULTADOS,
   buscar,
   catalogo,
+  catalogoAmplio,
+  cargarLugares,
+  distancia,
+  leyendaLugares,
   masCercana,
+  puntoCentro,
   rutasCerca,
   textoDistancia,
+  textoFila,
+  textoRepetido,
+  textoVerMas,
+  VISIBLES_LISTA,
   type LugarCatalogo,
   type Punto,
 } from './destino';
@@ -262,9 +275,11 @@ interface Estado {
   sentido: NombreSentido;
   destino: LugarCatalogo | null;
   yo: Punto | null;
+  // D-56 fase 2: el lugar de salida escrito (null = se usa tu ubicación).
+  salida: LugarCatalogo | null;
 }
 
-const estado: Estado = { ruta: null, sentido: 'ida', destino: null, yo: null };
+const estado: Estado = { ruta: null, sentido: 'ida', destino: null, yo: null, salida: null };
 let rutas: Ruta[] = [];
 let rutasPorId = new Map<string, Ruta>();
 let lugares: LugarCatalogo[] = [];
@@ -659,6 +674,19 @@ const verParada = document.querySelector<HTMLButtonElement>('#ver-parada')!;
 const otraVez = document.querySelector<HTMLButtonElement>('#otra-vez')!;
 const notaUbicacion = document.querySelector<HTMLElement>('#nota-ubicacion')!;
 const leyendasDestino = document.querySelector<HTMLElement>('#leyendas-destino')!;
+// D-56 fase 2: «Salgo de otro lugar», «¿Desde dónde sales?» y la parada del destino.
+const miParada = document.querySelector<HTMLElement>('#mi-parada')!;
+const salesDe = document.querySelector<HTMLElement>('#sales-de')!;
+const salgoOtro = document.querySelector<HTMLButtonElement>('#salgo-otro')!;
+const notaParada = document.querySelector<HTMLElement>('#nota-parada')!;
+const elegirSalida = document.querySelector<HTMLElement>('#elegir-salida')!;
+const campoSalida = document.querySelector<HTMLInputElement>('#salida')!;
+const listaSalida = document.querySelector<HTMLElement>('#lista-salida')!;
+const cancelarSalida = document.querySelector<HTMLButtonElement>('#cancelar-salida')!;
+const salidaUbicacion = document.querySelector<HTMLButtonElement>('#salida-ubicacion')!;
+const bloqueDestino = document.querySelector<HTMLElement>('#bloque-destino')!;
+const bloqueParadaDestino = document.querySelector<HTMLElement>('#bloque-parada-destino')!;
+const verParadaDestino = document.querySelector<HTMLButtonElement>('#ver-parada-destino')!;
 
 botonDestino.innerHTML = `${ICONO_LUPA}<span>¿A dónde quieres ir?</span>`;
 botonDestino.addEventListener('click', () => {
@@ -667,56 +695,120 @@ botonDestino.addEventListener('click', () => {
   window.requestAnimationFrame(() => campoDestino.focus({ preventScroll: true }));
 });
 
+// D-56 fase 2: la leyenda de los lugares va entre «Tu ubicación no sale del
+// teléfono.» y «Próximamente…» (como la maqueta); su fecha sale de lugares.json.
+const leyendaOSM = document.createElement('p');
+leyendaOSM.hidden = true;
 {
   const cerca = document.createElement('p');
   cerca.textContent = LEYENDA_CERCA;
   const prox = document.createElement('p');
   prox.textContent = PROXIMAMENTE;
   leyendasDestino.prepend(cerca);
-  leyendasDestino.append(prox);
+  leyendasDestino.append(leyendaOSM, prox);
 }
 
 // D-57: arriba y con poca letra; el botón de ícono no lleva texto (su nombre va
 // en aria-label, para el lector de pantalla).
 const TEXTO_UBICACION = `${ICONO_UBICAR}<span>Buscar mi parada más cercana</span>`;
 botonUbicacion.innerHTML = TEXTO_UBICACION;
+salidaUbicacion.innerHTML = TEXTO_UBICACION;
 otraVez.innerHTML = ICONO_ACTUALIZAR;
+salgoOtro.innerHTML = ICONO_SALIDA;
+cancelarSalida.innerHTML = ICONO_QUITAR;
 // La parada hallada: tocar su línea la muestra en el mapa con su ficha.
 let marcadorCercana: L.Marker | null = null;
+// D-56 fase 2: la parada más cercana al destino, igual.
+let marcadorDestino: L.Marker | null = null;
 
-function pintarLugares(): void {
-  const encontrados = buscar(lugares, campoDestino.value);
-  bloqueLugares.hidden = !campoDestino.value.trim();
-  if (!encontrados.length) {
-    const p = document.createElement('p');
-    p.className = 'nota';
-    p.textContent = SIN_RESULTADOS;
-    listaLugares.replaceChildren(p);
-    return;
+// Ajuste «Orden» (D-56f2o): los repetidos se ordenan y se miden desde tu ubicación;
+// sin ella, desde el «Centro» de inicio o fin de ruta.
+function desdeLista(): { desde: Punto | null; deTi: boolean } {
+  if (estado.yo) return { desde: estado.yo, deTi: true };
+  return { desde: puntoCentro(lugares), deTi: false };
+}
+const buscarLugares = (texto: string): LugarCatalogo[] => buscar(lugares, texto, desdeLista().desde);
+
+// D-56 fase 2: una fila de la lista dice su tipo y su fuente (criterio c3).
+function filaLugar(l: LugarCatalogo, alElegir: () => void, elegido = false): HTMLButtonElement {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'resultado';
+  b.setAttribute('aria-pressed', String(elegido));
+  const tipo = document.createElement('span');
+  tipo.className = l.osm ? 'tipo' : 'tipo extremo';
+  tipo.innerHTML = l.osm ? ICONO_LUGAR : ICONO_BUS_CHICO;
+  const t = document.createElement('span');
+  t.textContent = l.lugar;
+  const s = document.createElement('small');
+  s.textContent = textoFila(l);
+  // Ajuste «Orden»: un repetido dice a qué distancia está, en un solo pedazo.
+  const { desde, deTi } = desdeLista();
+  if (l.repetido && desde) {
+    const lejos = document.createElement('span');
+    lejos.className = 'lejos';
+    lejos.textContent = textoRepetido(distancia(desde, l), deTi);
+    s.append(' ', lejos);
   }
-  listaLugares.replaceChildren(
-    ...encontrados.map((l) => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'resultado';
-      b.setAttribute('aria-pressed', String(estado.destino?.lugar === l.lugar));
-      const t = document.createElement('span');
-      t.textContent = l.lugar;
-      const s = document.createElement('small');
-      s.textContent = l.cerca_de ? `Inicio o fin de ruta · zona aproximada, cerca de ${l.cerca_de}` : 'Inicio o fin de ruta · zona aproximada';
-      t.append(s);
-      b.append(icono(ICONO_BUS_CHICO), t);
-      b.addEventListener('click', () => elegirDestino(l));
-      return b;
-    }),
-  );
+  t.append(s);
+  b.append(tipo, t);
+  b.addEventListener('click', alElegir);
+  return b;
 }
 
-campoDestino.addEventListener('input', pintarLugares);
+function sinResultados(): HTMLElement {
+  const p = document.createElement('p');
+  p.className = 'nota';
+  p.textContent = SIN_RESULTADOS;
+  return p;
+}
+
+// Ajuste «Resultados»: pinta los primeros `cuantos` lugares y, si quedan, el botón
+// «Ver 5 más · quedan N»; cada toque agrega 5. Al escribir otra cosa vuelve a 5.
+function pintarLista(cont: HTMLElement, encontrados: LugarCatalogo[], cuantos: number, fila: (l: LugarCatalogo) => HTMLElement, verMas: () => void): void {
+  const filas: HTMLElement[] = encontrados.slice(0, cuantos).map(fila);
+  const quedan = encontrados.length - cuantos;
+  if (quedan > 0) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'ver-mas';
+    b.textContent = textoVerMas(quedan);
+    b.addEventListener('click', verMas);
+    filas.push(b);
+  }
+  cont.replaceChildren(...filas);
+}
+
+let visiblesDestino = VISIBLES_LISTA;
+let visiblesSalida = VISIBLES_LISTA;
+
+function pintarLugares(): void {
+  bloqueLugares.hidden = !campoDestino.value.trim();
+  // D-56 fase 2 (como la maqueta): ya elegido, «Resultados» muestra solo ese.
+  if (estado.destino && campoDestino.value === estado.destino.lugar) {
+    const d = estado.destino;
+    listaLugares.replaceChildren(filaLugar(d, () => elegirDestino(d), true));
+    return;
+  }
+  const encontrados = buscarLugares(campoDestino.value);
+  if (!encontrados.length) {
+    listaLugares.replaceChildren(sinResultados());
+    return;
+  }
+  pintarLista(listaLugares, encontrados, visiblesDestino, (l) => filaLugar(l, () => elegirDestino(l), estado.destino?.lugar === l.lugar), () => {
+    visiblesDestino += VISIBLES_LISTA;
+    pintarLugares();
+  });
+}
+
+campoDestino.addEventListener('input', () => {
+  visiblesDestino = VISIBLES_LISTA;
+  pintarLugares();
+});
 campoDestino.addEventListener('keydown', (e) => {
   if (e.key !== 'Enter') return;
   e.preventDefault();
-  const primero = buscar(lugares, campoDestino.value)[0];
+  const primero = buscarLugares(campoDestino.value)[0];
   if (primero) elegirDestino(primero);
 });
 
@@ -724,24 +816,90 @@ function limitesUbicacion(): L.LatLngBounds[] {
   return capaUbicacion.getLayers().map((m) => L.latLngBounds([(m as L.Marker).getLatLng()]));
 }
 
+function limitesDestino(): L.LatLngBounds[] {
+  return capaDestino.getLayers().map((m) => ('getBounds' in m ? (m as L.Circle).getBounds() : L.latLngBounds([(m as L.Marker).getLatLng()])));
+}
+
+// D-56 fase 2: el lugar elegido de OSM en el mapa: un punto y su etiqueta DEBAJO (para
+// no tapar el ícono de la parada). Sin línea hacia la parada (regla 1).
+function etiquetaLugar(capa: L.LayerGroup, p: Punto, texto: string, clase: 'salida' | 'destino'): void {
+  // Un solo marcador: el punto (17 px, centrado en el lugar) y, 10 px debajo de su
+  // centro, la etiqueta. No es una figura de Leaflet: en el mapa nada se dibuja que
+  // pueda leerse como trazo (prueba de detalle, regla 8).
+  L.marker([p.lat, p.lon], {
+    icon: L.divIcon({ className: `pin-lugar ${clase}`, html: '<i class="punto-lugar"></i><span></span>', iconSize: [220, 46], iconAnchor: [110, 8.5] }),
+    zIndexOffset: -100,
+    title: texto,
+    alt: texto,
+    keyboard: false,
+  })
+    .on('add', (e) => {
+      const span = (e.target as L.Marker).getElement()?.querySelector('span');
+      if (span) span.textContent = texto;
+    })
+    .addTo(capa);
+}
+
+// Una parada con su ficha (nombre, fuente, fecha, POR VERIFICAR), como en D-57.
+// La del destino lleva su propia clase (parada-destino) para distinguirla de la tuya.
+const iconoParadaDestino = L.divIcon({ className: 'parada-toque parada-destino', html: PARADA_CIRCULO, iconSize: [26, 44], iconAnchor: [13, 41.5], popupAnchor: [0, -32] });
+function marcaParada(capa: L.LayerGroup, p: Parada, alt: string, destino = false): L.Marker {
+  const f = fichaParada(p);
+  const ficha = fichaConMargenes(260);
+  ficha.setContent(() => cajaFicha(f.nombre, f.lineas, (_, linea) => linea === f.lineas[2]));
+  return L.marker([p.lat, p.lon], { icon: destino ? iconoParadaDestino : iconoParada, title: p.nombre ?? 'Parada sin nombre', alt, keyboard: true }).bindPopup(ficha).addTo(capa);
+}
+
+// La línea de una parada (botón de D-57): nombre y distancia, y el texto chico.
+function pintarLinea(boton: HTMLButtonElement, p: Parada, metros: number, chico: string, ventana: string): void {
+  const nombre = p.nombre ?? 'Parada sin nombre';
+  const distancia = textoDistancia(metros);
+  boton.innerHTML = `${iconoBus(ventana)}<span><b></b><small></small></span>${ICONO_FLECHA}`;
+  boton.querySelector('b')!.textContent = `${nombre} · ${distancia}`;
+  boton.querySelector('small')!.textContent = chico;
+  boton.setAttribute('aria-label', `Ver en el mapa: ${nombre}, ${distancia}. ${chico}`);
+}
+
 function elegirDestino(l: LugarCatalogo): void {
   if (estado.ruta) elegirRuta(null);
   estado.destino = l;
+  campoDestino.value = l.lugar;
   pintarLugares();
   capaDestino.clearLayers();
-  const ficha = fichaConMargenes(280);
-  ficha.setContent(() => cajaFicha(`Destino: ${l.lugar}`, ['Zona aproximada (estimado) · en proceso de validación'], (i) => i === 0, 'ficha-zona'));
-  const limites = [dibujarZona(capaDestino, 'zona-destino', `Destino: ${l.lugar}`, l, l.radio_m, ficha), ...limitesUbicacion()];
-  encuadrar(limites);
+  marcadorDestino = null;
+  bloqueParadaDestino.hidden = true;
+  if (l.radio_m != null) {
+    // Inicio o fin de ruta: zona aproximada, como en v0.2.
+    const ficha = fichaConMargenes(280);
+    ficha.setContent(() => cajaFicha(`Destino: ${l.lugar}`, ['Zona aproximada (estimado) · en proceso de validación'], (i) => i === 0, 'ficha-zona'));
+    dibujarZona(capaDestino, 'zona-destino', `Destino: ${l.lugar}`, l, l.radio_m, ficha);
+  } else {
+    etiquetaLugar(capaDestino, l, `Destino: ${l.lugar}`, 'destino');
+  }
+  encuadrar([...limitesDestino(), ...limitesUbicacion()]);
   // (c) Rutas que empiezan o terminan a 1 km o menos, de la más cercana a la más lejana.
   listaCerca.replaceChildren(...rutasCerca(rutas, l).map(({ ruta, metros }) => tarjeta(ruta, textoDistancia(metros))));
   bloqueCerca.hidden = false;
+  // D-56 fase 2: la parada más cercana al destino, en línea recta (estimado).
+  paradasListas
+    .then((lista) => {
+      if (estado.destino !== l) return;
+      const cercana = masCercana(lista, l);
+      if (!cercana) return;
+      marcadorDestino = marcaParada(capaDestino, cercana.punto, `Parada más cercana a tu destino: ${cercana.punto.nombre ?? 'Parada sin nombre'}`, true);
+      pintarLinea(verParadaDestino, cercana.punto, cercana.metros, 'Parada más cercana a tu destino · en línea recta · por verificar', '#fbece7');
+      bloqueParadaDestino.hidden = false;
+      encuadrar([...limitesDestino(), ...limitesUbicacion()]);
+    })
+    .catch(() => undefined);
 }
 
 function quitarDestino(): void {
   if (!estado.destino) return;
   estado.destino = null;
   capaDestino.clearLayers();
+  marcadorDestino = null;
+  bloqueParadaDestino.hidden = true;
   bloqueCerca.hidden = true;
   listaCerca.replaceChildren();
   pintarLugares();
@@ -766,6 +924,36 @@ function ponerYo(yo: Punto): void {
   marcadorYo = L.marker([yo.lat, yo.lon], { icon: L.divIcon({ className: 'punto-yo', html: '<div class="yo"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }), title: 'Tú', alt: 'Tu ubicación', keyboard: false }).addTo(capaUbicacion);
 }
 
+// D-56 fase 2, opción C: la línea de tu parada (nombre a 10.5 px) y debajo, a todo el
+// ancho, su texto chico.
+function mostrarParadaHallada(p: Parada, metros: number, chico: string): void {
+  marcadorCercana = marcaParada(capaUbicacion, p, `${estado.salida ? 'Parada más cercana a tu salida' : 'Tu parada más cercana'}: ${p.nombre ?? 'Parada sin nombre'}`);
+  pintarLinea(verParada, p, metros, chico, '#e3f2ef');
+  notaParada.textContent = chico;
+  notaParada.hidden = false;
+  botonUbicacion.hidden = true;
+  paradaHallada.hidden = false;
+  notaUbicacion.hidden = true;
+}
+
+// El botón de ícono: con tu ubicación vuelve a leer el GPS; con una salida escrita,
+// regresa a tu ubicación (en la maqueta: «usar mi ubicación»).
+function ponerBotonIcono(): void {
+  if (estado.salida) {
+    otraVez.innerHTML = ICONO_UBICAR_GRANDE;
+    otraVez.setAttribute('aria-label', 'Usar mi ubicación');
+  } else {
+    otraVez.innerHTML = ICONO_ACTUALIZAR;
+    otraVez.setAttribute('aria-label', 'Volver a buscar tu parada más cercana');
+  }
+}
+
+function quitarSalida(): void {
+  estado.salida = null;
+  salesDe.hidden = true;
+  ponerBotonIcono();
+}
+
 function buscarParada(fresca: boolean): void {
   if (!('geolocation' in navigator)) {
     avisar('Este navegador no puede dar tu ubicación.');
@@ -784,29 +972,17 @@ function buscarParada(fresca: boolean): void {
       const yo = { lat: pos.coords.latitude, lon: pos.coords.longitude };
       const lista = await paradasListas.catch(() => [] as Parada[]);
       const cercana = masCercana(lista, yo);
+      quitarSalida();
       capaUbicacion.clearLayers();
       marcadorCercana = null;
       ponerYo(yo);
       if (cercana) {
-        const p = cercana.punto;
-        const nombre = p.nombre ?? 'Parada sin nombre';
-        const f = fichaParada(p);
-        const ficha = fichaConMargenes(260);
-        ficha.setContent(() => cajaFicha(f.nombre, f.lineas, (_, linea) => linea === f.lineas[2]));
-        marcadorCercana = L.marker([p.lat, p.lon], { icon: iconoParada, title: nombre, alt: `Tu parada más cercana: ${nombre}`, keyboard: true }).bindPopup(ficha).addTo(capaUbicacion);
         // D-57: una línea corta en lugar de la nota larga del fondo.
-        const distancia = textoDistancia(cercana.metros);
-        verParada.innerHTML = `${iconoBus('#e3f2ef')}<span><b></b><small>Tu parada más cercana · en línea recta · por verificar</small></span>${ICONO_FLECHA}`;
-        verParada.querySelector('b')!.textContent = `${nombre} · ${distancia}`;
-        verParada.setAttribute('aria-label', `Ver en el mapa tu parada más cercana: ${nombre}, ${distancia} en línea recta, por verificar`);
-        botonUbicacion.hidden = true;
-        paradaHallada.hidden = false;
-        notaUbicacion.hidden = true;
+        mostrarParadaHallada(cercana.punto, cercana.metros, 'Tu parada más cercana · en línea recta · por verificar');
       } else {
         avisar('Todavía no se cargan las paradas; intenta de nuevo en un momento.');
       }
-      const destino = estado.destino ? [L.latLngBounds([[estado.destino.lat, estado.destino.lon]])] : [];
-      encuadrar([...limitesUbicacion(), ...destino]);
+      encuadrar([...limitesUbicacion(), ...limitesDestino()]);
       terminar();
     },
     (error) => {
@@ -823,22 +999,110 @@ function buscarParada(fresca: boolean): void {
 }
 
 botonUbicacion.addEventListener('click', () => buscarParada(false));
-// El botón de ícono vuelve a leer el GPS.
-otraVez.addEventListener('click', () => buscarParada(true));
+// El botón de ícono vuelve a leer el GPS (o, con una salida escrita, usa tu ubicación).
+otraVez.addEventListener('click', () => buscarParada(!estado.salida));
+
+// --- D-56 fase 2: «Salgo de otro lugar» ---------------------------------------
+// Como cambiar la estación de arranque en la hoja de ruta: se elige de la misma lista
+// guardada (inicio o fin de ruta y lugares de OSM); nada se consulta en vivo (regla 7).
+function pintarSalida(): void {
+  const texto = campoSalida.value;
+  if (!texto.trim()) {
+    listaSalida.replaceChildren();
+    return;
+  }
+  const encontrados = buscarLugares(texto);
+  if (!encontrados.length) {
+    listaSalida.replaceChildren(sinResultados());
+    return;
+  }
+  pintarLista(listaSalida, encontrados, visiblesSalida, (l) => filaLugar(l, () => ponerSalida(l)), () => {
+    visiblesSalida += VISIBLES_LISTA;
+    pintarSalida();
+  });
+}
+
+function abrirSalida(): void {
+  miParada.hidden = true;
+  bloqueDestino.hidden = true;
+  elegirSalida.hidden = false;
+  campoSalida.value = '';
+  visiblesSalida = VISIBLES_LISTA;
+  pintarSalida();
+  window.requestAnimationFrame(() => campoSalida.focus({ preventScroll: true }));
+}
+
+function cerrarSalida(): void {
+  elegirSalida.hidden = true;
+  miParada.hidden = false;
+  bloqueDestino.hidden = false;
+}
+
+async function ponerSalida(l: LugarCatalogo): Promise<void> {
+  cerrarSalida();
+  estado.salida = l;
+  salesDe.textContent = `Sales de ${l.lugar}`;
+  salesDe.hidden = false;
+  ponerBotonIcono();
+  capaUbicacion.clearLayers();
+  marcadorCercana = null;
+  marcadorYo = null;
+  estado.yo = null;
+  etiquetaLugar(capaUbicacion, l, `Sales de: ${l.lugar}`, 'salida');
+  const lista = await paradasListas.catch(() => [] as Parada[]);
+  if (estado.salida !== l) return;
+  const cercana = masCercana(lista, l);
+  if (cercana) mostrarParadaHallada(cercana.punto, cercana.metros, 'Cerca de tu salida · en línea recta · por verificar');
+  else avisar('Todavía no se cargan las paradas; intenta de nuevo en un momento.');
+  encuadrar([...limitesUbicacion(), ...limitesDestino()]);
+}
+
+salgoOtro.addEventListener('click', abrirSalida);
+cancelarSalida.addEventListener('click', () => {
+  cerrarSalida();
+  salgoOtro.focus({ preventScroll: true });
+});
+campoSalida.addEventListener('input', () => {
+  visiblesSalida = VISIBLES_LISTA;
+  pintarSalida();
+});
+campoSalida.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') cancelarSalida.click();
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  const primero = buscarLugares(campoSalida.value)[0];
+  if (primero) void ponerSalida(primero);
+});
+salidaUbicacion.addEventListener('click', () => {
+  cerrarSalida();
+  buscarParada(false);
+});
 
 // D-57: tocar la línea de la parada. En el teléfono se cierra el menú (si no, tapa
 // el mapa); en computadora se queda, porque el mapa está al lado. El mapa se
-// centra en la parada y abre su ficha.
-verParada.addEventListener('click', () => {
-  if (!marcadorCercana) return;
-  const m = marcadorCercana;
+// centra en la parada y abre su ficha. D-56 fase 2: igual con la del destino.
+function irAParada(m: L.Marker | null): void {
+  if (!m) return;
   // El encuadre de «ubicarte» llega 330 ms después: si quedó pendiente, alejaría
   // el mapa y cortaría la ficha (defecto visto en las capturas de D-57).
   window.clearTimeout(encuadrePendiente);
   if (!escritorio()) ponerPanel(false, false);
-  mapa.setView(m.getLatLng(), Math.max(mapa.getZoom(), 17), { animate: false });
-  m.openPopup();
-});
+  // Si un acercamiento animado sigue en curso (p. ej. el encuadre del destino), al
+  // terminar regresaría el mapa a donde iba y la ficha quedaría fuera de la vista
+  // (defecto visto al subir D-56 fase 2, 23 nov 2026). Se espera a que termine,
+  // como encuadrar().
+  const ir = () => {
+    if ((mapa as unknown as { _animatingZoom?: boolean })._animatingZoom) {
+      mapa.once('zoomend', ir);
+      return;
+    }
+    mapa.setView(m.getLatLng(), Math.max(mapa.getZoom(), 17), { animate: false });
+    m.openPopup();
+  };
+  ir();
+}
+verParada.addEventListener('click', () => irAParada(marcadorCercana));
+verParadaDestino.addEventListener('click', () => irAParada(marcadorDestino));
 
 // --- Círculo «mi ubicación» (D-61, maqueta aprobada por Miguel, 21 nov 2026) -------
 // Con el teléfono parado el zoom sube arriba a la derecha, abajo del botón de
@@ -914,6 +1178,17 @@ cargarDatos()
     rutas = datos.rutas;
     rutasPorId = new Map(rutas.map((r) => [r.route_id, r]));
     lugares = catalogo(rutas);
+    // D-56 fase 2: el catálogo amplio con los lugares de OSM. Si no se pueden leer,
+    // sigue el catálogo de inicio y fin de ruta (como v0.2).
+    cargarLugares()
+      .then((osm) => {
+        lugares = catalogoAmplio(rutas, osm.lugares);
+        leyendaOSM.textContent = leyendaLugares(osm.consultado);
+        leyendaOSM.hidden = false;
+        if (campoDestino.value.trim()) pintarLugares();
+        if (campoSalida.value.trim()) pintarSalida();
+      })
+      .catch((error: unknown) => console.error(error));
     rutas.forEach((r, i) => colores.set(r.route_id, colorTarjeta(rutas, i)));
     contTarjetas.replaceChildren(...rutas.map((r) => tarjeta(r)));
     pintarRecientes();

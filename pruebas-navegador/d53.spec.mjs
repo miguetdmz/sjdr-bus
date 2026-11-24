@@ -6,7 +6,7 @@
 // a 390 y 1280 px, en docs/evidencia/d53/ con los mismos nombres, para
 // compararlas una a una (lección 3).
 import { test, expect } from '@playwright/test';
-import { abrirMenu, elegirRuta, leerDatos, sentido, sinTapar } from './ayuda.mjs';
+import { abrirMenu, elegirRuta, leerDatos, sentido, sinTapar, vigilarRed } from './ayuda.mjs';
 
 const CAPTURAS = process.env.CAPTURAS === '1';
 const { rutas } = leerDatos('rutas.json');
@@ -34,15 +34,6 @@ async function captura(page, nombre) {
   await page.evaluate(() => document.activeElement?.blur());
   const ancho = page.viewportSize().width;
   await page.screenshot({ path: `docs/evidencia/d53/${nombre}-${ancho}.jpg`, type: 'jpeg', quality: 82 });
-}
-
-// Peticiones de red que no son teselas del mapa.
-function vigilarRed(page) {
-  const vistas = [];
-  page.on('request', (r) => {
-    if (!/tile\.openstreetmap\.org/.test(r.url())) vistas.push(r.url());
-  });
-  return vistas;
 }
 
 // Defecto encontrado en la revisión (20 nov 2026): con la ubicación puesta, elegir
@@ -222,7 +213,7 @@ test('d1–d4: un solo pie legal, verde, chico y sin fondo; avisos discretos; «
 
 // ── (e) ──────────────────────────────────────────────────────────────────────
 test('e1–e4: «¿A dónde quieres ir?» busca en el catálogo guardado, sin red, y lista rutas a ≤ 1 km', async ({ page }) => {
-  const red = vigilarRed(page);
+  const red = await vigilarRed(page);
   await page.locator('#boton-destino').click();
   await expect(page.locator('#hoja')).not.toHaveClass(/cerrada/);
   await expect(page.locator('#modo-calcula')).toBeVisible();
@@ -264,7 +255,7 @@ test.describe('con ubicación de PRUEBA (Plaza Independencia)', () => {
   test.use({ geolocation: PLAZA, permissions: ['geolocation'] });
 
   test('e5 y e7: parada de OSM más cercana en línea recta, sin red; leyendas juntas al fondo', async ({ page }) => {
-    const red = vigilarRed(page);
+    const red = await vigilarRed(page);
     await page.locator('#boton-destino').click();
     // e7: con poco contenido, las leyendas quedan al fondo del menú.
     const ley = await page.locator('#leyendas-destino').boundingBox();

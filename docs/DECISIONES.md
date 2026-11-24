@@ -1594,6 +1594,43 @@ Miguel).
   - Fase 3: B3 (R-03 a R-06) → R-07 → B6 completo: qué ruta tomar, dónde bajar,
     transbordos y camino a pie por calles.
 - **Decide:** Miguel.
+- **Fase 2 · maqueta (22 nov 2026):** `docs/maquetas/d56f2/` (criterios, inventario,
+  capturas a 390, 320 y 1280 px). Ajustes de Miguel: «Salgo de otro lugar» como círculo
+  con ícono en el mismo renglón que tu parada (9:18 pm) y opción C: el texto chico
+  debajo del renglón y el nombre de la parada 25 % más chico (9:25 pm); la línea del
+  destino se queda a 14 px (9:33 pm). **Maqueta aprobada (Miguel, 9:34 pm): «Sí,
+  constrúyela».** Tipos de lugar a descargar aprobados (9:40 pm, «sí, sin opcionales»:
+  sin farmacias, gasolineras ni tiendas de conveniencia):
+  `docs/maquetas/d56f2/tipos-propuestos.md`.
+- **Fase 2 · construida (22 nov 2026, de las 9:53 pm a las 10:20 pm):** descarga única
+  de Overpass (`datos/cache/overpass/lugares-amplio.json`, 295 lugares con tipo y
+  sha256; respuesta completa en `referencias/`, sin llaves). Cinépolis sí está en OSM
+  («Cinepolis», `way/550793653`). En `web/`, igual a la maqueta: catálogo amplio,
+  parada más cercana al destino, «Salgo de otro lugar» y opción C. Criterios,
+  diferencias, inventario de selectores y capturas: `docs/evidencia/d56f2/`. Pruebas
+  nuevas: antes del cambio fallaban 11 de 11 (navegador) y 5 de 9 (datos); cada uno de
+  6 defectos puestos a propósito se atrapó. `npm run verificar`: todo pasó. Pregunta
+  abierta: nombres repetidos en OSM (`inventario.md`, punto 5).
+- **Ajuste «Resultados» (pedido de Miguel, 22 nov 2026, 10:23 pm: que la lista no se
+  llene de relleno).** Hallazgo: los destinos buscados no se guardan en el teléfono;
+  el riesgo real era el título «Lugares guardados» (se leía como historial) y las
+  listas largas («parque»: 33). Maqueta `docs/maquetas/d56f2-resultados/` **aprobada
+  (10:40 pm: «Sí, constrúyela»)** y construida: «Resultados», 5 visibles y «Ver 5 más ·
+  quedan N». Pregunta abierta: el orden de la lista.
+- **Ajuste «Orden de resultados y nombres repetidos» (pregunta de Miguel, 23 nov 2026,
+  12:32 pm: ¿cómo lo usaría alguien que llega a San Juan del Río?).** Análisis con los
+  datos: un visitante busca lugares conocidos, no rutas; el orden pesa poco (casi todas
+  las búsquedas traen 2–8 resultados) y lo que más le falla es «rutas cerca», que solo
+  usa el inicio y fin de cada ruta (Galerías y Walmart: 0 rutas a 1 km; pendiente de
+  datos de recorrido). Maqueta `docs/maquetas/d56f2-orden/` (pedida a las 2:59 pm)
+  **aprobada «tal como está» (3:13 pm: «Sí, constrúyela»)** y construida: orden por
+  coincidencia, inicio o fin de ruta, tipo y alfabético; el mismo nombre a ≤ 100 m es el
+  mismo lugar (se ve una vez); los repetidos distintos se ven todos con su distancia
+  «de ti» o «del Centro». Quedan como en la maqueta: la lista de tipos propuesta,
+  «del Centro» sin ubicación, «Anónimo» y «Área verde» en el catálogo.
+  **Probado por Miguel (23 nov 2026, 4:15 pm): «todo OK, excelente trabajo»,** salvo
+  «Bodega Ahurrera» (nombre mal escrito en OSM), que pidió quitar: sale del catálogo con
+  su motivo en `fuera_del_catalogo` (294 lugares).
 
 ## D-57 · 20 nov 2026 · «Calcula tu ruta»: la parada más cercana arriba y con poca letra · CONSTRUIDA · APROBADA (Miguel, en su teléfono, 21 nov 2026, 12:34 am)
 - **Pedido (Miguel, 20 nov 2026, 10:55 pm),** al probar D-55: al escribir el
@@ -1862,3 +1899,38 @@ Miguel).
   círculo «mi ubicación» a 390 y 1280 px (`docs/evidencia/v0.2/`). **B2 cerrado:
   v0.2 publicada.** El título del commit de integración quedó como el de GitHub
   («Merge pull request #1…») y «B2 · Primera pantalla publicable → v0.2» en su cuerpo.
+
+## D-64 · 22 nov 2026 · «El tema del PDF» era la propuesta de Flotilla SJR: proyecto aparte, en pausa
+- **Qué era:** Miguel no recordaba a qué se refería (8:39 pm). Pista en los chats del
+  20 nov: a las 11:07 pm, en el chat de D-55, dijo «si te apruebo, pues entonces
+  pasamos al tema del PDF»; a esas horas otro chat armaba el PDF de venta de
+  **Flotilla SJR** (bitácora de camiones para dueños) para una reunión con un dueño de
+  dos camiones. Miguel lo confirmó (9:02 pm): «Sí, es ese PDF».
+- **Estado del PDF:** terminado (11 páginas, horizontal, del 21 nov). Vive solo en la
+  computadora de Miguel, fuera del repositorio: trae sus datos de contacto
+  (`standards.md` regla 7) y es otro producto (regla 4).
+- **Decisión (Miguel, 9:03 pm):** el PDF está listo; lo presenta la semana próxima. Si
+  hay retroalimentación, avisa para decidir si se construye (en un proyecto aparte,
+  nunca en este repositorio). Mientras, se sigue con SJDR Bus: D-56 fase 2.
+- **Cierra:** el FALTANTE «el tema del PDF» de D-63 y de `docs/PLAN.md`.
+
+## D-65 · 23 nov 2026 · Cierre de D-56 fase 2: PR 4 listo para integrarse a `main` (v0.3)
+- **Aprobación (Miguel, 23 nov 2026, 4:15 pm):** «de ahí fuera todo OK, EXCELENTE
+  TRABAJO» al probar la vista previa del commit `ffd4a83`, con un solo pedido: quitar
+  «Bodega Ahurrera» (nombre mal escrito). Quedó fuera en `159deba` (294 lugares).
+- **Qué trae la fase 2 (17 commits sobre `main` `3dc2065`):** lugares con nombre de
+  OpenStreetMap en «¿A dónde quieres ir?» (consulta única del 22 nov, con caché),
+  parada cercana a la salida y al destino, «Salgo de otro lugar», 5 resultados y «Ver 5
+  más», orden de resultados por importancia y nombres repetidos con su distancia, y el
+  arreglo de la ficha que se perdía tras un acercamiento (lección 16).
+- **Subida (Miguel, 6:11 pm: «Sí, súbela»):** `159deba` en GitHub; candado local
+  «TODO PASÓ» (175 de 175, 91 de 91, sin secretos). GitHub Actions «verificar» y
+  Vercel en verde con `159deba`.
+- **Estado del PR 4** (https://github.com/miguetdmz/sjdr-bus/pull/4), revisado a las
+  6:25 pm: en borrador, sin conflictos (CLEAN), `main` (`3dc2065`) es ancestro de la
+  rama.
+- **Cierre (Miguel, 6:25 pm: «Sí, ciérrala»).** Quién integra: Miguel (Claude tiene
+  negados `gh pr ready`, `gh pr merge`, `git merge` y el push a `main`, lección 6).
+  Forma: «Create a merge commit», como D-63.
+- **Después:** Claude verifica `main` y https://sjdrbus-sjr.vercel.app con evidencia y
+  marca **v0.3** en `docs/PLAN.md`. Siguiente bloque: vuelve **B3 · Trazos** (R-03).
