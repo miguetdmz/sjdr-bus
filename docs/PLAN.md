@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (23 nov 2026, 7:43 pm)
+## Estado actual (24 nov 2026, 12:28 am)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -12,8 +12,9 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.3** (`7b20c7e`, 23 nov 2026, 7:40 pm): Miguel integró el PR 4 «B6 · D-56 fase 2 → v0.3»: 294 lugares de OSM, parada cercana a la salida y al destino, «Salgo de otro lugar» (D-65). Verificada a las 7:42 pm: Actions y Vercel en verde, 39 rutas y 294 lugares en línea, capturas en `docs/evidencia/v0.3/`. Antes: v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
 | Versión en espera | Ninguna de código. Rama de documentos `b6/cierre-v03` (lección 17, v0.3 marcada, evidencia): la sube Claude con el sí de Miguel y la integra Miguel |
-| Bloque en curso | **B3 · Trazos** (vuelve tras v0.3). Rama `b3/r03-cruces` creada desde `main` (`7b20c7e`) |
+| Bloque en curso | **B3 · Trazos** (vuelve tras v0.3). Rama `b3/r03-cruces` creada desde `main` (`7b20c7e`). Además, **B3 · D-66 · Recorrido de campo** en la rama `b3/d66-campo` (desde `main` `8c860b9`) |
 | Tarea en curso | **B3 · R-03 · Cruces de calles**: plan (secuencia por sentido, hallazgos b y c) PROPUESTO a Miguel el 23 nov a las 7:43 pm; no se construye sin su sí. 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
+| Tarea en curso (2) | **B3 · D-66 · Recorrido de campo: CONSTRUIDA, falta la prueba de Miguel en su iPhone.** Página de trabajo `web/public/campo.html` (no la enlaza la app): confirma en el camión las paradas de la lista oficial con el GPS del teléfono. D-66 sigue PROPUESTA. Primer recorrido: **lunes 30 nov 2026** con un operador (costo $0) |
 | Tarea en pausa | Ninguna |
 
 | Bloque | Qué es | Estado |
@@ -29,7 +30,34 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (23 nov 2026, 7:43 pm)
+### Relevo para la siguiente sesión (24 nov 2026, 12:28 am)
+
+0. **Lo hecho del 23 nov, 10:00 pm, al 24 nov, 12:28 am (B3 · D-66):** minuta de la plática
+   con un operador (fuera de git, `referencias/minuta-profe-2026-11-23.md`); D-66
+   PROPUESTA (recorridos de campo, cambia D-22 en parte; costo $0; lunes 30 nov) y D-67
+   IDEA (tarifas como referencia). Bitácora en un artefacto de claude.ai (respaldo, sin
+   GPS). Página de campo construida en tres vueltas con maqueta aprobada
+   (`docs/maquetas/d66-campo/`, `docs/maquetas/d66-gps/` v3 aprobada a las 12:16 am): la
+   pregunta sigue al GPS, «Enfrente», «No la vi», «Parada aquí» al instante, huecos del
+   GPS, estilo de una imagen de Miguel en colores de noche. Simulación R11
+   (`docs/evidencia/d66/simular-viaje.mjs`): 0 toques para empezar a medio camino o de
+   regreso (antes 19 y 49). Puerta de calidad: TODO PASÓ (175 de 175, 101 de 101, sin
+   secretos). Rama `b3/d66-campo` puesta encima de `main` (`8c860b9`) y subida con el sí de
+   Miguel (12:27 am).
+1. **Siguiente (Miguel, antes del lunes 30):** abrir en su iPhone el link de vista previa de
+   Vercel de `b3/d66-campo` + `/campo.html`, con la pantalla encendida, y caminar 5
+   minutos con una ruta cualquiera: ¿la pantalla no se apaga?, ¿el GPS graba (resumen
+   «GPS: sin huecos»)?, ¿exportar abre «Compartir»? Después borrar el viaje de prueba.
+   **Siguiente (Claude):** con el resultado, corregir lo que salga; pedir a Miguel la
+   aprobación de D-66; decidir con él si `campo.html` se integra a `main` (quedaría
+   publicada en `/campo.html`) o se usa solo desde la vista previa.
+2. **Ojo con las ramas:** `b3/r03-cruces` local trae 3 commits de D-66 sin subir (`1e32feb`,
+   `3c69aaf`, `b8b954a`) que ya viven, reescritos, en `b3/d66-campo`. Antes de seguir R-03,
+   decidir con Miguel quitarlos de `b3/r03-cruces` (no subirla así: duplicaría D-66).
+3. **Pendientes de antes:** plan de B3 · R-03 PROPUESTO (7:43 pm), sin el sí de Miguel; la
+   rama `b6/cierre-v03` ya está integrada (PR 5); el resto como en el relevo de las 6:26 pm.
+
+### Relevo anterior (23 nov 2026, 7:43 pm)
 
 0. **v0.3 publicada y verificada** (D-65): integración `7b20c7e` (Miguel, 7:40 pm),
    GitHub Actions y Vercel en verde, 39 rutas y 294 lugares en línea, capturas a 390 y

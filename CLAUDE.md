@@ -146,7 +146,14 @@ puede, convertir la regla en una prueba automática.
      quedó encima. Era un defecto real (en un teléfono de 320 px se enciman 71 px).
      Arreglo: el zoom mide el alto real del chip; prueba nueva a 320 px con la ruta de
      nombre más largo, validada con el defecto.
-   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de Miguel):
+   - 2026-11-23 (4.ª vez, ~11:18 pm): la bitácora de campo (artefacto de claude.ai) se
+     entregó probada solo como archivo en el navegador de Claude; en el iPhone de Miguel no
+     se pudieron borrar los viajes de prueba (el botón estaba al fondo, tras 7 secciones) y
+     las instrucciones del GPX no servían. Arreglo: borrar desde la lista y arriba; después,
+     página de campo con su simulación de viaje y prueba de Miguel en su iPhone antes de
+     usarla. Detección temprana: lo que Miguel usará en su teléfono se prueba ahí (vista
+     previa) antes de darlo por bueno.
+   Ocurrencias: 4 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de Miguel):
    toda prueba de posición o tamaño corre también a 320 px y con una fuente más ancha
    que la de la Mac (proyecto extra de Playwright), para ver en la Mac lo que verá
    GitHub. Prueba: la falla de D-58 (antes del arreglo) aparece en la Mac.
