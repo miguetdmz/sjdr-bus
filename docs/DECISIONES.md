@@ -1913,3 +1913,24 @@ Miguel).
   hay retroalimentación, avisa para decidir si se construye (en un proyecto aparte,
   nunca en este repositorio). Mientras, se sigue con SJDR Bus: D-56 fase 2.
 - **Cierra:** el FALTANTE «el tema del PDF» de D-63 y de `docs/PLAN.md`.
+
+## D-65 · 23 nov 2026 · Cierre de D-56 fase 2: PR 4 listo para integrarse a `main` (v0.3)
+- **Aprobación (Miguel, 23 nov 2026, 4:15 pm):** «de ahí fuera todo OK, EXCELENTE
+  TRABAJO» al probar la vista previa del commit `ffd4a83`, con un solo pedido: quitar
+  «Bodega Ahurrera» (nombre mal escrito). Quedó fuera en `159deba` (294 lugares).
+- **Qué trae la fase 2 (17 commits sobre `main` `3dc2065`):** lugares con nombre de
+  OpenStreetMap en «¿A dónde quieres ir?» (consulta única del 22 nov, con caché),
+  parada cercana a la salida y al destino, «Salgo de otro lugar», 5 resultados y «Ver 5
+  más», orden de resultados por importancia y nombres repetidos con su distancia, y el
+  arreglo de la ficha que se perdía tras un acercamiento (lección 16).
+- **Subida (Miguel, 6:11 pm: «Sí, súbela»):** `159deba` en GitHub; candado local
+  «TODO PASÓ» (175 de 175, 91 de 91, sin secretos). GitHub Actions «verificar» y
+  Vercel en verde con `159deba`.
+- **Estado del PR 4** (https://github.com/miguetdmz/sjdr-bus/pull/4), revisado a las
+  6:25 pm: en borrador, sin conflictos (CLEAN), `main` (`3dc2065`) es ancestro de la
+  rama.
+- **Cierre (Miguel, 6:25 pm: «Sí, ciérrala»).** Quién integra: Miguel (Claude tiene
+  negados `gh pr ready`, `gh pr merge`, `git merge` y el push a `main`, lección 6).
+  Forma: «Create a merge commit», como D-63.
+- **Después:** Claude verifica `main` y https://sjdrbus-sjr.vercel.app con evidencia y
+  marca **v0.3** en `docs/PLAN.md`. Siguiente bloque: vuelve **B3 · Trazos** (R-03).
