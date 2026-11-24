@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Maqueta D-66 · Recorrido de campo · SJDR Bus · ESQUEMÁTICO</title>
+<!-- D-66 · maqueta (D-54), pedida por Miguel (23 nov 2026, 11:36 pm): el flujo para
+     confirmar en el camión las paradas de la lista oficial, una por una.
+     Ejemplo: ruta 011 (Loma Alta – Central de Autobuses). Los nombres de las paradas
+     son los reales de la lista oficial (datos/investigacion/cruces.json, fuente
+     qrobus.gob.mx de la AMEQ, consulta del 19 nov 2026). Horas, distancias y conteos
+     del resumen son EJEMPLO. La línea «Ubicación» solo existe si la herramienta es una
+     página web con GPS (opción recomendada); sin ella, el resto es igual.
+     Sin fuentes de Google ni mapas en vivo (reglas 6 y 7). -->
+<style>
+:root{--bg:#fff;--ink:#16181d;--mute:#5d6169;--line:#dcdcd8;--card:#f4f4f1;--red:#c8102e;--ok:#1d6b3a;--warn:#8a5a00}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:#e9e9e5;color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{max-width:1240px;margin:0 auto;padding:20px 16px 4px}
+header h1{font-size:26px;line-height:1.1;margin:0 0 6px}
+header p{margin:0;color:var(--mute);font-size:14px;max-width:70ch}
+.esq{display:inline-block;font-size:12px;font-weight:700;color:var(--red);border:1.5px solid var(--red);border-radius:6px;padding:1px 6px;margin-bottom:8px}
+.pasos{max-width:1240px;margin:0 auto;padding:12px 16px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;align-items:start}
+.paso>h2{font-size:15px;margin:0 0 8px;color:var(--mute);font-weight:600}
+.paso>h2 b{color:var(--ink)}
+.tel{background:var(--bg);border-radius:22px;border:1px solid #cfcfca;padding:16px 14px 18px;min-height:600px;box-shadow:0 1px 0 #fff inset,0 8px 24px rgba(0,0,0,.08)}
+.barra{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--mute);border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:12px}
+.barra b{color:var(--ink);font-size:15px}
+.gps{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--ok)}
+.gps i{width:9px;height:9px;border-radius:50%;background:var(--ok)}
+.ins{display:inline-block;font-weight:800;background:var(--ink);color:#fff;border-radius:6px;padding:2px 8px;margin-right:6px}
+label{display:block;font-size:13px;color:var(--mute);margin:12px 0 4px}
+.campo{border:1.5px solid var(--line);border-radius:8px;padding:10px;min-height:44px;font-size:16px;background:#fff}
+.opc{display:grid;gap:8px}.opc div{border:2px solid var(--ink);border-radius:10px;padding:10px 12px;font-weight:500}
+.opc .si{background:var(--ink);color:#fff}
+.btn{display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;border-radius:10px;border:2px solid var(--ink);font-weight:700;padding:8px 12px;margin-top:10px}
+.rojo{background:var(--red);border-color:var(--red);color:#fff;font-size:19px;min-height:60px}
+.verde{background:var(--ok);border-color:var(--ok);color:#fff;font-size:18px;min-height:58px}
+.nota{font-size:13px;color:var(--mute);margin:8px 0 0}
+.preg{background:var(--card);border-radius:14px;padding:14px;margin-top:4px}
+.preg small{color:var(--mute);font-size:13px}
+.preg .nom{font-size:21px;font-weight:800;line-height:1.15;margin:6px 0}
+.preg .dist{font-size:14px;color:var(--ok);font-weight:600}
+.sig{font-size:13px;color:var(--mute);border-top:1px dashed var(--line);margin-top:14px;padding-top:10px}
+.sig b{color:var(--ink);font-weight:600}
+.hecho{list-style:none;padding:0;margin:12px 0 0;font-size:14px}
+.hecho li{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:2px 8px;padding:8px 0;border-top:1px solid var(--line)}
+.hecho .n{font-weight:800;color:var(--red);text-align:center}
+.hecho .h{color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hecho small{grid-column:2/4;color:var(--mute)}
+.chip{display:inline-block;font-size:12px;font-weight:700;border-radius:5px;padding:0 6px;margin-right:4px}
+.c-ok{background:#dcefe2;color:var(--ok)}.c-pos{background:#fbeccc;color:var(--warn)}.c-otro{background:#e6e6e2;color:var(--mute)}.c-new{background:#f8d9de;color:var(--red)}
+.cont{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+.cont div{background:var(--card);border-radius:10px;padding:8px 10px;font-size:13px;color:var(--mute)}
+.cont b{display:block;font-size:24px;color:var(--ink);line-height:1.1}
+.rename{background:#fbf6ea;border:1.5px solid #e3cf9f;border-radius:12px;padding:12px;margin-top:8px}
+.tachado{text-decoration:line-through;color:var(--mute)}
+@media(max-width:600px){header h1{font-size:23px}.tel{min-height:0}}
+</style>
+</head>
+<body>
+<header>
+  <span class="esq">MAQUETA · ESQUEMÁTICO · horas y distancias de EJEMPLO</span>
+  <h1>Recorrido de campo: confirmar las paradas oficiales una por una</h1>
+  <p>Ejemplo con la ruta 11. Los nombres de las paradas son los reales de la lista oficial (qrobus.gob.mx, AMEQ, consulta del 19 nov 2026). En esa lista la ruta 11 tiene 80 paradas y junta la ida y la vuelta.</p>
+</header>
+<main class="pasos">
+
+  <section class="paso"><h2><b>1 · Antes de subir</b> · eliges ruta y sentido</h2>
+    <div class="tel">
+      <div class="barra"><b>Recorrido de campo</b><span class="gps"><i></i>Ubicación lista (±8 m)</span></div>
+      <label>Ruta en la que te subes</label>
+      <div class="campo"><span class="ins">R11</span>Loma Alta – Central de Autobuses</div>
+      <label>Sentido</label>
+      <div class="opc"><div class="si">Loma Alta → Central de Autobuses</div><div>Central de Autobuses → Loma Alta</div></div>
+      <div class="cont"><div><b>80</b>paradas en la lista oficial</div><div><b>lun 30</b>nov 2026</div></div>
+      <div class="btn rojo">Iniciar viaje</div>
+      <p class="nota">Al tocar «Iniciar viaje» se guarda la hora de salida y empieza a grabar el trazo. La pantalla se queda encendida.</p>
+    </div>
+  </section>
+
+  <section class="paso"><h2><b>2 · En el camión</b> · la app te pregunta</h2>
+    <div class="tel">
+      <div class="barra"><span><span class="ins">R11</span><b>11:31 am</b></span><span class="gps"><i></i>Grabando · 1 min</span></div>
+      <div class="preg">
+        <small>Parada 1 de 80 · lista oficial</small>
+        <div class="nom">¿Es «Paseo Loma Alta – Loma del Río» la parada 1?</div>
+        <span class="dist">Estás a 35 m del punto oficial</span>
+      </div>
+      <div class="btn verde">Sí, es esta</div>
+      <div class="btn">No: tiene otro nombre (renombrar)</div>
+      <div class="btn">No pasa por aquí (otro sentido)</div>
+      <div class="btn rojo" style="font-size:16px;min-height:48px">+ Parada que no está en la lista</div>
+      <div class="sig">Después: <b>2 · Calle San Juan del Río – Calle 3 Lagunas</b></div>
+      <p class="nota">Cada respuesta guarda la hora y tu punto en el mapa.</p>
+    </div>
+  </section>
+
+  <section class="paso"><h2><b>3 · Si no coincide</b> · la renombras</h2>
+    <div class="tel">
+      <div class="barra"><span><span class="ins">R11</span><b>11:34 am</b></span><span class="gps"><i></i>Grabando · 4 min</span></div>
+      <div class="preg">
+        <small>Parada 2 de 80 · lista oficial</small>
+        <div class="nom tachado">Calle San Juan del Río – Calle 3 Lagunas</div>
+      </div>
+      <div class="rename">
+        <label style="margin-top:0">¿Cómo se llama donde paró? (parada posible)</label>
+        <div class="campo">Av. Central – Calle 3 Lagunas</div>
+        <label>Hora y lugar</label>
+        <div class="campo" style="color:var(--mute)">11:34:10 am · tu punto actual</div>
+        <div class="btn verde" style="font-size:16px;min-height:48px">Guardar como parada posible</div>
+        <div class="btn" style="min-height:44px">Cancelar</div>
+      </div>
+      <p class="nota">La oficial no se borra: queda «no confirmada» y la tuya queda como POSIBLE, con su hora y su punto.</p>
+    </div>
+  </section>
+
+  <section class="paso"><h2><b>4 · Al bajar</b> · el resumen</h2>
+    <div class="tel">
+      <div class="barra"><span><span class="ins">R11</span><b>Terminado</b></span><span>11:30 → 12:22 · 52 min</span></div>
+      <div class="cont">
+        <div><b>31</b><span class="chip c-ok">SÍ</span>confirmadas</div>
+        <div><b>6</b><span class="chip c-pos">POSIBLE</span>renombradas</div>
+        <div><b>43</b><span class="chip c-otro">OTRO SENTIDO</span>no pasa</div>
+        <div><b>2</b><span class="chip c-new">NUEVA</span>no estaban</div>
+      </div>
+      <ul class="hecho">
+        <li><span class="n">1</span><span><span class="chip c-ok">SÍ</span>Paseo Loma Alta – Loma del Río</span><span class="h">11:31</span><small>a 35 m del punto oficial</small></li>
+        <li><span class="n">2</span><span><span class="chip c-pos">POSIBLE</span>Av. Central – Calle 3 Lagunas</span><span class="h">11:34</span><small>la oficial no tiene punto para comparar</small></li>
+        <li><span class="n">3</span><span><span class="chip c-ok">SÍ</span>Ezequiel Montes – C. Peñamiller</span><span class="h">11:37</span><small>a 20 m del punto oficial</small></li>
+        <li><span class="n">4</span><span><span class="chip c-ok">SÍ</span>Ezequiel Montes – Arroyo Seco</span><span class="h">11:38</span><small>a 410 m del punto oficial · revisar</small></li>
+      </ul>
+      <div class="btn">Exportar todo (JSON)</div>
+      <p class="nota">Conteos, horas y distancias: EJEMPLO. Lo que mides entra al proyecto como MEDIDO EN CAMPO, con fecha.</p>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
