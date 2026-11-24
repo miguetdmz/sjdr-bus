@@ -1976,19 +1976,35 @@ Miguel).
      (regla 4).
   5. **Privacidad:** nombres del operador, de los choferes y números de unidad
      no entran al repositorio ni a la app.
-- **Costo (regla 3):** cada recorrido cuesta un pasaje por tramo (monto [sin
-  verificar]). Alternativa $0: preguntarle al operador si Miguel puede subir sin
-  pagar. Se confirma el monto antes del primer recorrido.
-- **Fechas posibles:** sábado 28, domingo 29 y lunes 30 de noviembre de 2026.
-- **Por aclarar en el primer recorrido:** la 016 en los datos es «Infonavit La Paz –
-  Centro», pero en la plática se dijo «creo que va para San Isidro» (la de San
-  Isidro es la 008); las rutas «65» y «J1», que Miguel recuerda, no están entre las
-  39 vigentes (`datos/gtfs-sjr/routes.txt`). Ninguna se agrega sin fuente (regla 9).
-- **Entregable antes del primer recorrido (con el sí de Miguel):** hoja de campo
-  (formato en papel o en el teléfono) y la app gratuita para grabar el GPX
-  ([sin verificar] cuál).
+- **Costo (regla 3): $0.** El operador confirmó que Miguel sube sin pagar (Miguel,
+  23 nov 2026, 11:03 pm).
+- **Fecha: lunes 30 de noviembre de 2026**, confirmada por Miguel con el operador
+  (11:03 pm). La ruta y la unidad se conocen ese día (cambian a diario).
+- **Aclarado sin campo (Miguel, 11:03 pm):** la 016 es «Infonavit La Paz – Centro»
+  como dicen los datos, y «65» y «J1» fueron un error al recordar; no hay rutas que
+  revisar por esa plática.
+- **Entregable antes del recorrido (pedido de Miguel, 11:03 pm):** bitácora de campo
+  en el teléfono (artefacto privado de Miguel en claude.ai): ruta y sentido de las 39
+  vigentes, hora de salida y llegada, paradas con su hora, respuestas del chofer, GPX
+  importado y dibujado con las paradas encima, y exportación (JSON, CSV de paradas y
+  GPX con las paradas como puntos). El GPX se graba con una app gratuita aparte (el
+  artefacto no puede usar el GPS del teléfono) y se empieza a grabar en la parada,
+  nunca en casa.
 - **Impacta:** D-22 (deja de ser absoluta), D-16 (paradas verificables en campo),
   HANDOFF §11.7, `docs/PLAN.md` (B3 y B4).
+- **Estado:** PROPUESTA, completa (costo, fecha y entregable definidos el 23 nov,
+  11:03 pm). Decide Miguel.
+
+## D-67 · 23 nov 2026 · Tarifas como referencia para quien visita · IDEA (Miguel, 23 nov 2026, 11:03 pm)
+- **Idea (Miguel):** que la app diga cuánto cuesta viajar, como referencia para un
+  visitante que quiere saber cómo moverse en San Juan del Río. Ejemplo dicho por
+  Miguel de memoria: tarifa normal $10 y con tarjeta de prepago $2. **[sin
+  verificar]:** ninguna cifra entra a la app sin fuente oficial y fecha (regla 1).
+- **Por definir:** fuente oficial de las tarifas (y de los descuentos), dónde se
+  muestra (D-54: maqueta primero) y cómo se nombra la tarjeta sin usar la marca
+  como nombre de la app ni sugerir que el gobierno opera o respalda la app (regla 4).
+- **Estado:** IDEA, fuera de D-66. Se diseña cuando Miguel lo pida.
+
 - **Estado:** PROPUESTA. Decide Miguel.
 
 ## D-70 · 25 nov 2026 · Las rutas de San Juan de qrobus.gob.mx son la referencia: vuelven 018, 024C y 031 (42 rutas) · VIGENTE
