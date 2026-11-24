@@ -153,8 +153,17 @@ puede, convertir la regla en una prueba automática.
      página de campo con su simulación de viaje y prueba de Miguel en su iPhone antes de
      usarla. Detección temprana: lo que Miguel usará en su teléfono se prueba ahí (vista
      previa) antes de darlo por bueno.
-   Ocurrencias: 4 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de Miguel):
-   toda prueba de posición o tamaño corre también a 320 px y con una fuente más ancha
+   - 2026-11-24 (5.ª vez, 12:39 am): la página de campo pasó 101 de 101 pruebas en Chromium
+     y la simulación de viaje, pero en el iPhone de Miguel «Iniciar viaje» no reaccionaba:
+     esperaba un sentido que nadie había marcado. Las pruebas y la simulación tocaban el
+     sentido porque Claude sabía que hacía falta; un usuario nuevo no. Arreglo: sentido
+     marcado solo; prueba de usuario en WebKit con iPhone 13
+     (`docs/evidencia/d66/probar-iphone.mjs`), solo con toques y sin pasos que el usuario no
+     sabría dar. **Corrección de Miguel:** antes de entregarle algo, Claude lo usa como si
+     fuera él, desde cero.
+   Ocurrencias: 5 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de Miguel): sumar
+   a `npm run verificar` la prueba de usuario en WebKit con iPhone de cada página que Miguel
+   use en su teléfono; además, toda prueba de posición o tamaño corre también a 320 px y con una fuente más ancha
    que la de la Mac (proyecto extra de Playwright), para ver en la Mac lo que verá
    GitHub. Prueba: la falla de D-58 (antes del arreglo) aparece en la Mac.
    **ALERTA DE CALIDAD (19 nov 2026, Miguel):** se repitió; compartirla con
