@@ -4,16 +4,16 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (24 nov 2026, 1:22 am)
+## Estado actual (25 nov 2026, 12:20 am)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.3** (`7b20c7e`, 23 nov 2026, 7:40 pm): Miguel integró el PR 4 «B6 · D-56 fase 2 → v0.3»: 294 lugares de OSM, parada cercana a la salida y al destino, «Salgo de otro lugar» (D-65). Verificada a las 7:42 pm: Actions y Vercel en verde, 39 rutas y 294 lugares en línea, capturas en `docs/evidencia/v0.3/`. Antes: v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | Ninguna. El cierre de v0.3 ya está en `main` (PR 5, `8c860b9`, Miguel, 23 nov, 11:46 pm). Rama abierta: `b3/d66-campo` (en GitHub, sin PR) |
+| Versión en espera | Ninguna. `main` en `4486c20` (PR 6, OR-03). Rama abierta: `b3/d66-campo` (en GitHub, sin PR; 2 commits atrás de `main`, sin conflictos) |
 | Bloque en curso | **B3 · Trazos**: un solo plan (D-68) con R-03 y los pendientes de D-66. Rama de trabajo `b3/d66-campo` (desde `main` `8c860b9`). `b3/r03-cruces` local se recrea desde `main` antes de R-03 (trae 3 commits de D-66 duplicados) |
-| Tarea en curso | **B3 · R-03 · Cruces y secuencias: plan APROBADO** (Miguel, 23 nov, 11:39 pm; D-68): 78 ruta-sentidos (36 con secuencia, 42 «sin datos» con motivo), fases 1 negocios, 2 ida y vuelta, 3 secuencias, 4 revisión, 5 campo (D-66). Sin construir. 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
+| Tarea en curso | **B3 · R-03 · Cruces y secuencias: plan APROBADO** (D-68), **ajustado por D-69** (25 nov, 12:19 am): se lee una vez la lista oficial de paradas por sentido de las 39 rutas (número P-, nombre, orden; sin trazo ni coordenadas); hasta 78 secuencias con datos. Prioridad de Miguel: **trazos visibles en la app** (R-03 → R-04 → R-06). Sin construir |
 | Tarea en curso (2) | **B3 · D-66 · Recorrido de campo: CONSTRUIDA, falta la prueba de Miguel en su iPhone.** Página de trabajo `web/public/campo.html` (no la enlaza la app): confirma en el camión las paradas de la lista oficial con el GPS del teléfono. D-66 sigue PROPUESTA. Primer recorrido: **lunes 30 nov 2026** con un operador (costo $0) |
 | Tarea en pausa | Ninguna |
 
@@ -30,7 +30,28 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (24 nov 2026, 1:22 am)
+### Relevo para la siguiente sesión (25 nov 2026, 12:20 am)
+
+0. **24 y 25 nov:** el arranque de la 1:30 am no se usó. Miguel abrió en el navegador la
+   página oficial de la 011: con «Ver ruta» trae las paradas **por sentido** con número
+   oficial (001: 29 + 21 = 50, igual a nuestra lista; 005, de las 21 sin usar, sale limpia).
+   **D-69** (Miguel, 12:19 am): cambia D-25 (una lectura de las listas visibles por
+   sentido, sin trazo ni coordenadas; Google no es referencia ni para comparar), ajusta
+   D-68 (hasta 78 secuencias), prioridad **trazos visibles en la app**, pendientes de campo
+   (d) identificador simple y (e) foto como IDEA, aclara el modo prueba (diseñado para
+   `campo.html`, **no construido**) y fija la **prueba como usuario** (WebKit con iPhone;
+   el Simulador de iOS con Xcode falta: 13 GB libres, se instala solo con el sí de Miguel).
+   `main` avanzó a `4486c20` (PR 6, OR-03). El proceso «presentar» que corre es de
+   Kaseta-KZ. Corrige el punto 3 del relevo de la 1:22 am (presentar ya no es de aquí).
+1. **Siguiente (chat nuevo), orden a proponer a Miguel:** (1) lectura única de las listas
+   oficiales por sentido de las 39 rutas (`datos/cache/qrobus/`, huella, fecha) y cruce con
+   `cruces.json`; (2) pendientes de D-66 (a–d) con maqueta primero, por el recorrido del
+   lunes 30 nov; (3) R-03 fases 1, 3 y 4 → R-04 (OSRM) → R-06 trazo punteado en la app.
+2. **Miguel:** prueba caminando de `campo.html` en su iPhone (punto 1 del relevo de las
+   12:28 am del 24 nov); la prueba en carro espera el modo prueba (c).
+3. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+
+### Relevo anterior (24 nov 2026, 1:22 am)
 
 0. **Cierre del 23 y 24 nov:** v0.3 verificada y su cierre integrado a `main` (PR 5,
    `8c860b9`, en verde). Plan de R-03 aprobado (D-68) con los pendientes de D-66 dentro.
