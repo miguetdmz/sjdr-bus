@@ -24,18 +24,8 @@ const URL_PAGINA = 'https://qrobus.gob.mx/Rutas';
 const rutas = leerCSV(`${raiz}datos/gtfs-sjr/routes.txt`);
 const json = (v) => JSON.stringify(v, null, 2) + '\n';
 
-// Calles y lugares de la zona metropolitana de la ciudad de Querétaro, no de San
-// Juan del Río. Criterio de Claude con contexto visto en la página (p. ej.
-// «5 DE FEBRERO Y CARRETERA A TLACOTE»), [sin verificar con mapa]. Se eligieron
-// solo nombres que no aparecen en las listas que no los mezclan; «Constituyentes»,
-// «Zaragoza» y «Ezequiel Montes» quedan fuera porque también existen en San Juan
-// o en la región. «A TLACOTE» (carretera) y no «TLACOTE» solo: en San Juan existe
-// la calle «Manantiales de Tlacote» (rutas 042 y 046).
-export const MARCAS_QUERETARO = [
-  'BERNARDO QUINTANA', 'HERCULES', 'EL CERRITO', 'CANDILES', 'PENUELAS', 'TLALOC',
-  '5 DE FEBRERO', 'QUERETARO 2000', 'UAQ', 'ITQ', 'TAQ', 'CIMATARIO', 'PUEBLITO',
-  'BALVANERA', 'PIE DE LA CUESTA', 'A TLACOTE',
-];
+import { MARCAS_QUERETARO } from './lib/queretaro.mjs';
+export { MARCAS_QUERETARO };
 
 const sinAcentos = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase();
 const nombreIgual = (a, b) => {

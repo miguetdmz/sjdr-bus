@@ -152,6 +152,55 @@ export function armarParadasApp() {
 // quieres ir?» y «¿Desde dónde sales?». Se copian tal cual de lugares-amplio.json
 // (una sola consulta, con su huella sha256): nombre, tipo en español, id de OSM y
 // centro. Ninguna coordenada se mueve.
+// D-66: lista oficial de paradas por ruta para la página de campo (web/public/campo.html).
+// Sale de datos/investigacion/cruces.json (lista de qrobus.gob.mx, AMEQ, R-03) en el
+// orden oficial. La lista junta ida y vuelta (hallazgo c): Miguel responde en campo
+// cuáles son de su sentido. Una ruta sin lista utilizable (D-33, D-43) va con
+// paradas vacías y su motivo; ninguna se completa con datos supuestos (regla 9).
+const MINUSCULAS = new Set(['de', 'del', 'la', 'las', 'los', 'y', 'el', 'a']);
+export function titulo(texto) {
+  return String(texto ?? '')
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((p, i) => (i > 0 && MINUSCULAS.has(p) ? p : p.charAt(0).toUpperCase() + p.slice(1)))
+    .join(' ');
+}
+
+export function armarCampoApp() {
+  const rutas = leerCSV(join(raiz, 'datos/gtfs-sjr/routes.txt'));
+  const cruces = JSON.parse(readFileSync(join(raiz, 'datos/investigacion/cruces.json'), 'utf8'));
+  const porId = new Map(cruces.rutas.map((r) => [r.route_id, r]));
+  return {
+    descripcion:
+      'Lista oficial de paradas por ruta para la página de campo (D-66). Archivo generado por scripts/datos-app.mjs desde datos/investigacion/cruces.json; no se edita a mano. La lista junta ida y vuelta: el sentido se responde en campo.',
+    // Sin la dirección del sitio: la app no lleva la marca (D-02); la dirección queda en cruces.json.
+    fuente: {
+      editor: cruces.fuente.lista.editor,
+      oficial: cruces.fuente.lista.oficial,
+      consultado: cruces.fuente.lista.consultado,
+      sha256: cruces.fuente.lista.sha256,
+      detalle: 'datos/investigacion/cruces.json',
+    },
+    rutas: rutas.map((r) => {
+      const c = porId.get(r.route_id);
+      const tipo = TIPOS[r.route_id.split('-')[0]];
+      const base = { route_id: r.route_id, numero: r.route_short_name, nombre: r.route_long_name, tipo };
+      if (!c || !Array.isArray(c.cruces)) return { ...base, paradas: [], sin_lista: c?.estado ?? 'sin lista oficial' };
+      return {
+        ...base,
+        paradas: c.cruces.map((x) => ({
+          orden: x.orden,
+          nombre: x.cruce_con ? `${titulo(x.calle)} – ${titulo(x.cruce_con)}` : titulo(x.texto),
+          texto: x.texto,
+          estado: x.estado,
+          ...(x.lat != null && x.lon != null ? { lat: x.lat, lon: x.lon } : {}),
+        })),
+      };
+    }),
+  };
+}
+
 export function armarLugaresApp() {
   const cache = JSON.parse(readFileSync(join(raiz, 'datos/cache/overpass/lugares-amplio.json'), 'utf8'));
   return {
@@ -178,4 +227,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const lugares = armarLugaresApp();
   writeFileSync(salidaLugares, JSON.stringify(lugares, null, 2) + '\n');
   console.log(`DATOS DE LA APP: ${lugares.lugares.length} lugares de OSM → ${salidaLugares.replace(raiz, '')}`);
+  const salidaCampo = join(dirname(salida), 'campo.json');
+  const campo = armarCampoApp();
+  writeFileSync(salidaCampo, JSON.stringify(campo) + '\n');
+  console.log(`DATOS DE LA APP: ${campo.rutas.filter((r) => r.paradas.length).length} rutas con lista oficial para campo → ${salidaCampo.replace(raiz, '')}`);
 }

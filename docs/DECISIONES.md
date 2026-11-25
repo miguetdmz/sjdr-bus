@@ -359,6 +359,7 @@ Miguel).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** `docs/COLA-NOCTURNA.md` (R-01, R-03, pregunta 1),
   `datos/investigacion/calles-oficiales.json`, `datos/investigacion/fuentes.json`.
+- **Cambiada por D-69** (25 nov 2026): también la lista visible de paradas por sentido.
 
 ## D-26 · 19 nov 2026 · Hosting: Vercel, con una vista previa ya · VIGENTE
 - **Decisión (Miguel, 19 nov 2026, ~2:30 am):** el hosting es Vercel (cierra
@@ -1940,6 +1941,191 @@ Miguel).
   https://sjdrbus-sjr.vercel.app sirve 39 rutas y 294 lugares (`datos/lugares.json`,
   sin «Bodega Ahurrera»), sin errores de consola y sin scroll a 390 y 1280 px
   (`docs/evidencia/v0.3/`, con el buscador «Galerías»). **v0.3 publicada.**
+- **Cierre en `main` (23 nov 2026, 11:46 pm):** Miguel integró el PR 5 «B6 · Cierre de
+  v0.3» (https://github.com/miguetdmz/sjdr-bus/pull/5; commit de integración `8c860b9`):
+  v0.3 marcada, evidencia y lección 17. «Puerta de calidad» (run 45335666602) y Vercel en
+  verde con `8c860b9`.
+
+## D-66 · 23 nov 2026 · Recorridos de campo a bordo con choferes de un operador · PROPUESTA (pedida por Miguel, 23 nov 2026, 10:04 pm)
+- **Origen:** plática de Miguel con un operador de camiones de San Juan del Río
+  (contacto de Miguel), grabada y pegada en el chat el 23 nov 2026, 10:00 pm. La
+  minuta filtrada vive fuera de git (`referencias/minuta-profe-2026-11-23.md`, D-07):
+  trae nombres de terceros, que no entran al repositorio público.
+- **Lo que dijo el operador** (dato de plática, [sin verificar] con documento):
+  1. Existe una **programación** acordada entre los operadores y Movilidad: cada
+     ruta tiene un tiempo de vuelta establecido, distinto de ida y de vuelta, y un
+     número de camiones. La lleva una persona responsable.
+  2. Los camiones de una ruta salen por **turno** (1, 2, 3…) y los **checadores**
+     cuidan el espacio entre ellos. Las unidades cambian de ruta cada día.
+  3. Ofrece que Miguel se suba con sus choferes cuando quiera; él les avisa. Puede
+     coordinar **sábado, domingo y lunes** (de martes a viernes está fuera).
+  4. Orden que sugiere: primero el campo (paradas y trayectos); después, si hace
+     falta, la persona de la programación.
+- **Propuesta (cambia D-22 en parte):**
+  1. Se permiten **recorridos de campo de Miguel a bordo**, con choferes de ese
+     operador. Siguen fuera de alcance los voluntarios que comparten su GPS
+     (D-22). Las rutas sin recorrido siguen con el proceso de escritorio de D-22.
+  2. **Qué se mide en cada recorrido, por sentido y nunca copiado al otro (regla
+     10):** fecha, ruta, sentido, hora de salida y de llegada en los extremos,
+     paradas en orden con la hora de paso, traza GPX del teléfono de Miguel y las
+     respuestas del chofer (duración típica, paradas que no están en la lista).
+     Las respuestas del chofer son dato de plática, no medición.
+  3. **Etiqueta:** lo medido dice **MEDIDO EN CAMPO** con su fecha (HANDOFF §14
+     regla 2). Un recorrido es una sola muestra: el tiempo de un día no se
+     presenta como el tiempo de la ruta. Con traza GPX el tramo puede subir a
+     nivel A (HANDOFF §11.4 y §11.7, que D-22 había dejado fuera de alcance).
+  4. **La programación del operador** se pide después, como sugiere él. Si llega,
+     entra como fuente «programación del operador, [fecha]» y se publica solo con
+     su permiso escrito, porque el repositorio y los datos son públicos (ODbL,
+     D-05). Nunca se dice que el operador o la AMEQ operan o respaldan la app
+     (regla 4).
+  5. **Privacidad:** nombres del operador, de los choferes y números de unidad
+     no entran al repositorio ni a la app.
+- **Costo (regla 3): $0.** El operador confirmó que Miguel sube sin pagar (Miguel,
+  23 nov 2026, 11:03 pm).
+- **Fecha: lunes 30 de noviembre de 2026**, confirmada por Miguel con el operador
+  (11:03 pm). La ruta y la unidad se conocen ese día (cambian a diario).
+- **Aclarado sin campo (Miguel, 11:03 pm):** la 016 es «Infonavit La Paz – Centro»
+  como dicen los datos, y «65» y «J1» fueron un error al recordar; no hay rutas que
+  revisar por esa plática.
+- **Entregable antes del recorrido (pedido de Miguel, 11:03 pm):** bitácora de campo
+  en el teléfono (artefacto privado de Miguel en claude.ai): ruta y sentido de las 39
+  vigentes, hora de salida y llegada, paradas con su hora, respuestas del chofer, GPX
+  importado y dibujado con las paradas encima, y exportación (JSON, CSV de paradas y
+  GPX con las paradas como puntos). El GPX se graba con una app gratuita aparte (el
+  artefacto no puede usar el GPS del teléfono) y se empieza a grabar en la parada,
+  nunca en casa.
+- **Cambio de herramienta (Miguel, 23 nov 2026, 11:36 pm y 11:40 pm):** Open GPX Tracker
+  tiene malas reseñas y Miguel pidió confirmar en el camión, una por una, las paradas de la
+  lista oficial. Maqueta `docs/maquetas/d66-campo/` aprobada («Sí, constrúyela», 11:40 pm).
+  Construida como **página web de campo** `web/public/campo.html` (rama `b3/d66-campo`):
+  usa el GPS del teléfono solo con la página abierta, pregunta «¿Es X la parada N?» (Sí /
+  renombrar como POSIBLE / otro sentido / parada nueva), deshace la última y al terminar da
+  el resumen con la distancia al punto oficial («revisar» a más de 150 m: criterio de
+  trabajo, ESTIMADO) y exporta JSON. Guarda en el teléfono; no envía nada a ningún servidor.
+  Lista oficial de 18 de las 39 rutas (las otras 21 solo marcan paradas nuevas: D-33, D-43).
+  Nada la enlaza desde la app; se prueba en la vista previa de Vercel de su rama (subir la
+  rama necesita el sí de Miguel). Si la rama se integra a `main`, la página queda publicada
+  en `/campo.html`: se decide antes de integrar. La bitácora del artefacto queda de respaldo.
+  Diferencias con la maqueta, todas por función: «Deshacer la última», «Terminar viaje»,
+  la lista de viajes guardados con «Borrar» (pedido de Miguel, 11:18 pm) y «← Viajes».
+- **Versión 3 (Miguel, 24 nov 2026):** al simular un viaje de la R11
+  (`docs/evidencia/d66/simular-viaje.mjs`) subir a medio camino costaba 19 toques mal
+  anotados, la vuelta 49, y «renombrar» guardaba el punto 399 m después. Maqueta
+  `docs/maquetas/d66-gps/` con el estilo de una imagen de Miguel en colores de noche y menos
+  letra; aprobada («Sí, constrúyela», 12:16 am). Construida: la pregunta empieza en la parada
+  oficial más cercana y luego sigue el orden de la lista; «Enfrente» ofrece la del otro lado
+  de la calle (60 m o menos); «No la vi» la deja sin responder; «Parada aquí» guarda al
+  instante y el nombre se pone en el resumen; el resumen marca los huecos del GPS (más de
+  60 s sin punto). Criterios 60 m, 60 s y 150 m: de trabajo, ESTIMADO. Simulación con la v3:
+  0 toques para empezar a medio camino o de regreso, y el renombre queda a 0 m.
+- **Impacta:** D-22 (deja de ser absoluta), D-16 (paradas verificables en campo),
+  HANDOFF §11.7, `docs/PLAN.md` (B3 y B4).
+- **Estado:** PROPUESTA, completa (costo, fecha y entregable definidos el 23 nov,
+  11:03 pm). Decide Miguel.
+
+## D-67 · 23 nov 2026 · Tarifas como referencia para quien visita · IDEA (Miguel, 23 nov 2026, 11:03 pm)
+- **Idea (Miguel):** que la app diga cuánto cuesta viajar, como referencia para un
+  visitante que quiere saber cómo moverse en San Juan del Río. Ejemplo dicho por
+  Miguel de memoria: tarifa normal $10 y con tarjeta de prepago $2. **[sin
+  verificar]:** ninguna cifra entra a la app sin fuente oficial y fecha (regla 1).
+- **Por definir:** fuente oficial de las tarifas (y de los descuentos), dónde se
+  muestra (D-54: maqueta primero) y cómo se nombra la tarjeta sin usar la marca
+  como nombre de la app ni sugerir que el gobierno opera o respalda la app (regla 4).
+- **Estado:** IDEA, fuera de D-66. Se diseña cuando Miguel lo pida.
+
+## D-68 · 23 nov 2026 · Plan de B3 · R-03 aprobado (78 secuencias) y pendientes de D-66 dentro del plan · VIGENTE
+- **Aprobación (Miguel, 23 nov 2026, 11:39 pm: «Sí, apruebo y espera»):** plan de R-03 en
+  fases, con criterio medible antes de construir. Construcción en espera hasta que un solo
+  chat trabaje en la carpeta (estándar 13, lección 18).
+- **Cambia el criterio de R-03** (`docs/COLA-NOCTURNA.md`): de 84 secuencias (42 rutas) a
+  **78 ruta-sentidos** (39 rutas, D-36, D-39, D-40): **36** con secuencia (las 18 rutas con
+  lista usable de `datos/investigacion/cruces.json`) y **42 «sin datos»** con su motivo
+  (D-33: listas mezcladas con calles de Querétaro).
+- **Fases de R-03:**
+  1. **Hallazgo b (negocios):** las 191 REFERENCIA se cruzan contra los 294 lugares de
+     OSM ya guardados (D-56, consulta del 22 nov), sin consultas nuevas. Criterio: ningún
+     UBICADO cambia; cada punto nuevo dice su nombre en OSM y su distancia a la calle
+     (≤ 150 m, ESTIMADO); los dudosos van a Miguel en orden de Pareto (como D-43).
+  2. **Hallazgo c (ida y vuelta):** cada una de las 18 listas se corta en el cruce más
+     cercano al extremo de destino (`extremos-finales.json`; 17 de 18 rutas tienen sus dos
+     extremos con punto, la 042 no tiene origen). Criterio: 18 de 18 con corte y evidencia
+     o en la lista de dudas de Miguel; ningún cruce en los dos sentidos salvo que el texto
+     oficial lo repita; la prueba falla si se copia la ida a la vuelta (regla 10).
+  3. **Secuencia por sentido:** `datos/investigacion/secuencias.json`, extremo → cruces en
+     orden → extremo. Criterio: 78 de 78 entradas; saltos ≤ 3 km; APROXIMADO con nivel C;
+     cada prueba nueva se corre con el defecto puesto y debe fallar (lecciones 15 y 17).
+  4. **Revisión de Miguel y cierre:** página de revisión con el mapa de cada ruta-sentido;
+     con su sí, R-03 hecha y R-04 (OSRM, sesión de día) desbloqueada.
+  5. **Campo (D-66, pedido de Miguel, 23 nov, 11:57 pm: que la ejecución de D-66 sea
+     parte de las fases):** los recorridos a bordo confirman las paradas oficiales por
+     sentido y el punto de vuelta de cada lista (insumo de la fase 2). Primer recorrido:
+     lunes 30 nov 2026 (D-66).
+- **Pendientes de D-66 que entran al plan** (Miguel, 24 nov 2026, 1:20 am), con maqueta
+  primero (D-54): (a) al iniciar, la primera pregunta es el **inicio del sentido elegido**
+  (parada oficial más cercana al extremo de origen de ese sentido); (b) **botón discreto
+  «Más cercana»** en la barra de arriba, simétrico, para saltar a la parada más cercana;
+  (c) **modo prueba** con veredicto **CORRESPONDE / NO CORRESPONDE**, para la prueba de
+  Miguel en carro de su casa a su trabajo [detalle sin definir: se precisa en la maqueta].
+  Detalle de (a) y (b) en `docs/PLAN.md`, relevo del 24 nov, 12:28 am, punto 0c.
+- **Orden propuesto (decide Miguel al arrancar el chat siguiente):** primero los
+  pendientes de D-66 (tienen fecha: prueba de Miguel en carro y recorrido del lunes 30),
+  después R-03 fases 1 a 4; la fase 5 corre en cada recorrido de campo.
+- **Ramas:** los pendientes de D-66 siguen en `b3/d66-campo`. `b3/r03-cruces` local trae
+  3 commits de D-66 duplicados (`1e32feb`, `3c69aaf`, `b8b954a`; viven reescritos en
+  `b3/d66-campo` como `1785a8c`, `fbcc88a`, `a410392`): se recrea desde `main` antes de la
+  fase 1 de R-03, con el sí de Miguel.
+- **Impacta:** R-03 y R-07 (`docs/COLA-NOCTURNA.md`), D-66, `docs/PLAN.md` (B3).
+- **Ajustada por D-69** (25 nov 2026): la fase 2 usa la lista oficial por sentido; hasta 78
+  secuencias con datos.
+
+## D-69 · 25 nov 2026 · Paradas oficiales por sentido (cambia D-25), trazos en la app y prueba como usuario · VIGENTE
+- **Hallazgo (Claude, 25 nov 2026, entre las 12:08 y las 12:19 am, en la página que Miguel abrió):** la
+  página de cada ruta (`qrobus.gob.mx/Rutas/<número>`), al tocar «Ver ruta», muestra en
+  texto las paradas **por sentido** (IDA / REGRESO), en orden, con su **número oficial**
+  (P-3537) y las rutas que pasan por cada una. Muestras: **001** ida 29 + regreso 21 = 50,
+  igual a los 50 cruces de nuestra lista (R-01); **011** ida 35 + regreso 48 = 83 (la lista
+  de R-01 trae 80: 3 diferencias por revisar); **005**, de las 21 que no se usan (D-33),
+  ida 35 + regreso 41, todas calles de San Juan.
+- **Decisión (Miguel, 25 nov 2026, 12:19 am: «de ahí en fuera todo lo demás que me dices
+  estoy de acuerdo»):** **cambia D-25.** Además de la lista general, se usa la lista
+  **visible** de cada ruta por sentido: número oficial, nombre, orden y sentido. Mismas
+  reglas que R-01 (D-25, lección 8): **una sola lectura** de las 39 rutas, la copia
+  completa fuera de git (`referencias/`), al repositorio solo el texto extraído con fuente,
+  fecha y huella sha256; cita de la fuente y leyenda de iniciativa independiente (regla 4).
+  **No se toman** el trazo del mapa ni coordenadas: los dibuja un mapa de Google (regla 6)
+  y salen de la consulta interna de la página.
+- **Google no es referencia, ni para comparar a ojo** (Miguel preguntó a las 12:19 am si se
+  podía navegar el mapa de Google para comparar calles con OSM): sigue D-45, punto 5. El
+  trazo sale de las paradas oficiales (texto) ubicadas en calles de OSM y enrutadas con
+  OSRM (R-04); lo confirman los recorridos de campo (D-66), no Google.
+- **Cambia el plan de R-03 (D-68):** la fase 2 («cortar ida y vuelta») se reemplaza por la
+  lista oficial de cada sentido; el criterio sube de 36 a **hasta 78 secuencias** con datos
+  (las 21 rutas de D-33 se revisan con su lista por sentido; si una trae calles de
+  Querétaro, sigue «sin datos» con su motivo). Fases 1, 3 y 4 sin cambio.
+- **Prioridad de Miguel (12:19 am):** que los **trazos se vean ya en la app** (visibilidad
+  y credibilidad); después, paradas confirmadas en campo y tiempos estimados. Ruta más
+  corta a eso: lectura oficial → secuencias (R-03) → enrutado (R-04, OSRM, sesión de día)
+  → trazo punteado «ESTIMADO · Nivel C» en la app (R-06, maqueta primero).
+- **Página de campo (pendientes de D-66, D-68):** (d) cada parada con su número oficial y
+  un identificador simple (p. ej. `R11-I-07`: ruta, Ida/Vuelta, orden), preguntando por el
+  **sentido correcto**; (e) **foto de la parada: IDEA**, Miguel decide en el recorrido del
+  lunes 30 si vale la pena.
+- **Aclaración del modo prueba (c):** lo diseñó el chat de D-66 (24 nov, ~1 am) para
+  `web/public/campo.html` (no para el artefacto de claude.ai, que es la bitácora de
+  respaldo sin GPS): un viaje marcado PRUEBA nunca dice MEDIDO EN CAMPO; al terminar da una
+  calificación (cuántas paradas oficiales de la ruta quedaron a ≤ 150 m de la traza GPS)
+  y el veredicto CORRESPONDE / NO CORRESPONDE. **No está construido** (revisado en
+  `campo.html` el 25 nov, 12:20 am). Con las listas por sentido compara contra el sentido
+  correcto. En carro: teléfono fijo, sin tocarlo manejando.
+- **Prueba como usuario (Miguel, 12:19 am: «siempre debes hacer la prueba como si fueras un
+  sanjuanense usando la app… entra, escribe, se abre el teclado en pantalla»):** toda
+  entrega de pantalla se prueba desde cero, solo con toques y teclado, en WebKit con iPhone
+  (Playwright, ya instalado; lección 5) y a 390 px. **Herramienta que falta:** el Simulador
+  de iOS (Xcode, gratis) mostraría el teclado real de iPhone; hoy no está instalado y el
+  disco tiene 13 GB libres (medido el 25 nov, 12:20 am), poco para Xcode y su simulador
+  [tamaño exacto sin verificar]. Se instala solo con el sí de Miguel, tras liberar espacio.
+- **Impacta:** D-25, D-68, R-01, R-03, R-04, R-06, `web/public/campo.html`, lección 5.
 
 ## D-70 · 25 nov 2026 · Las rutas de San Juan de qrobus.gob.mx son la referencia: vuelven 018, 024C y 031 (42 rutas) · VIGENTE
 - **Hallazgo (Claude, 25 nov 2026, 12:57 am, en la página que Miguel abrió):** la lista de
@@ -2011,3 +2197,141 @@ Miguel).
      así.
 - **Colores (Miguel, 25 nov 2026, 2:24 pm: «Sí, que se recorran»):** se queda la regla de
   D-53 (color por posición): las tarjetas de la 019 en adelante cambian de color con las 42.
+
+## D-71 · 25 nov 2026 · R-03 paso 1: lectura única de las paradas oficiales por sentido (cambia D-25 en un punto) · VIGENTE
+- **Hallazgo (Claude, 25 nov 2026, 3:51 pm):** la lista por sentido que D-69 vio al tocar «Ver
+  ruta» **no viene en la página**: `qrobus.gob.mx/Rutas/001` entrega la misma página general
+  (copia fuera de git en `referencias/fuentes-2026-11-25/qrobus-rutas-001-prueba/`, sha256
+  `cfd0494c…9121`). La lista la pide la página a la consulta interna `/Rutas/paradasTimeline`
+  (parámetros `ruta` y `direccion`: 0 = IDA, 1 = REGRESO), la misma que D-25 dejó fuera.
+- **Decisión (Miguel, 25 nov 2026, 3:51 pm: «Sí, solo el texto»):** **cambia D-25 solo en
+  este punto:** se usa `/Rutas/paradasTimeline` una sola vez, y de su respuesta solo el
+  **texto**: número oficial (P-), nombre y orden de cada parada, por sentido. **No se toman**
+  coordenadas, trazo (`/Rutas/rutaMostrar` sigue fuera) ni Google como referencia (D-69).
+  Riesgo aceptado: si qrobus lo reclama, la lista se retira del repositorio público.
+- **Criterio medible (escrito antes de construir, 25 nov 2026, 3:52 pm):**
+  1. **Una sola lectura:** 1 descarga de la página (para abrir la sesión) y 84 consultas
+     (42 rutas de `datos/cache/qrobus/rutas-sjr.json` × 2 sentidos), con pausa de 2 s o más
+     entre consultas. Solo se repite una consulta que falle por red (máximo 1 vez, anotada).
+  2. **Copia completa fuera de git** en `referencias/fuentes-2026-11-25/qrobus-paradas/`
+     (página y las 84 respuestas tal cual). Se revisa en busca de llaves antes de extraer
+     (lección 8); la cookie de sesión vive solo en la carpeta temporal y se borra al terminar.
+  3. **Al repositorio solo lo extraído:** `datos/cache/qrobus/paradas-sentido.json` (por
+     ruta y sentido: orden, número P- y nombre) y `paradas-sentido.meta.json` (fuente, fecha
+     y hora de la consulta, método y huella sha256 de cada respuesta). Ningún campo de
+     coordenadas ni trazo (`lat`, `lon`, `latitud`, `longitud`, `poly`): la prueba falla si
+     aparece uno, o si aparece un número con forma de coordenada de la zona.
+  4. **84 de 84 ruta-sentidos**, en el orden de `routes.txt`, cada uno con estado: **con
+     datos** o **sin datos** con su motivo (respuesta vacía, error de la consulta, o calles
+     de Querétaro). Ninguna ruta falta ni sobra (lección 11: se compara contra la referencia).
+  5. **Calles de Querétaro:** un ruta-sentido queda «sin datos» si alguna parada trae una
+     marca de `MARCAS_QUERETARO` (`scripts/calles-oficiales.mjs`, la misma regla de D-33); el
+     motivo nombra la parada y la marca. Las de nombre dudoso van a Miguel, no se adivinan.
+  6. **Regla 10:** cada sentido sale de su propia respuesta. La prueba falla si la vuelta es
+     copia de la ida (misma lista y mismo orden) sin que sus dos respuestas lo digan así.
+  7. **Cruce con `cruces.json`:** por ruta con lista usable (20), cuántas paradas oficiales
+     coinciden con un cruce de la lista general y cuántas no; resultado en
+     `datos/investigacion/paradas-cruce.json`. Es un conteo para R-03; no cambia ningún
+     UBICADO ni ningún dato de `cruces.json`.
+  8. **Lecciones 15 y 17:** cada prueba nueva se corre con el defecto puesto y debe fallar
+     (coordenada metida, vuelta copiada de la ida, una ruta quitada, una marca de Querétaro
+     ignorada); en cada corrida, primero la generación sale con código 0.
+- **Impacta:** D-25, D-69, R-03 (`docs/COLA-NOCTURNA.md`), `datos/cache/qrobus/`.
+- **Resultado (Claude, 25 nov 2026, 4:02 pm; commit `a8ca21c`, rama `b3/r03-paradas-oficiales`):**
+  1. Criterio 1: lectura única entre las 3:53 y las 3:57 pm: 1 página y 84 consultas, **84 de 84
+     con respuesta al primer intento** (ningún reintento). Antes, 1 descarga de prueba de
+     `/Rutas/001` (la del hallazgo). Lector: `scripts/leer-paradas-qrobus.mjs`, que se niega a
+     correr si la lectura ya existe. La cookie y la llave vivieron solo en memoria.
+  2. Criterio 2 (lección 8): copia completa en `referencias/fuentes-2026-11-25/qrobus-paradas/`.
+     Cada respuesta trae solo `sNombre` («P-3537: LABRADORITA-GALEANA») y `rutasParada`: **sin
+     coordenadas**. Búsqueda de llaves: 5 coincidencias, todas el nombre de la parada
+     «Secretaría de Finanzas»; ninguna llave.
+  3. Criterio 3 y 4: **84 de 84 ruta-sentidos con datos, 2,203 paradas, 544 números P-
+     distintos** (`datos/cache/qrobus/paradas-sentido.json` y su `.meta.json` con 84 huellas).
+     Cuadran con lo que D-69 vio a mano: 001 = 29 + 21, 011 = 35 + 48, 005 = 35 + 41. Las 72
+     paradas sin número P- son todas de las dos intermunicipales (062: 12 + 15; 023: 23 + 22):
+     así vienen de la fuente, se anotan `sin_numero_oficial`.
+  4. Criterio 5: **ninguna lista por sentido trae marcas de Querétaro**, tampoco las 21 de D-33
+     (031 incluida). La mezcla de D-33 era de la lista general de la página, no de «Ver ruta».
+     Prueba extra (sin guardar, en la copia local): las rutas que pasan por cada parada son
+     todas de las 42 de San Juan, salvo «L166» en una parada de la 023 regreso y «62» (la 062
+     escrita sin cero). Nada queda «sin datos».
+  5. Criterio 6 (regla 10): ninguna vuelta es igual a su ida.
+  6. Criterio 7: `datos/investigacion/paradas-cruce.json`. En las 20 rutas con lista general,
+     **940 de 1,021 paradas oficiales (92 %) coinciden** con un renglón de la lista general;
+     `cruces.json` no cambió. Hallazgo para R-03: las 22 rutas restantes ya tienen lista por
+     sentido, así que R-03 puede tener hasta **84 secuencias** con texto oficial (antes 40).
+  7. Criterio 8 (lecciones 15 y 17): con un defecto puesto a la vez y la generación en código 0,
+     las pruebas fallaron en los 5 casos: coordenada metida (2), vuelta copiada de la ida (2),
+     031 quitada (2), marca de Querétaro ignorada (1), vuelta copiada sin su huella (3). Todo
+     restaurado: 9 de 9. Copia limpia sin archivos ignorados y en UTC (lección 5): 185 pasan,
+     2 se saltan (la revisión local de la copia completa), 0 fallan. `npm run verificar`:
+     **TODO PASÓ** (187 de 187, 91 de 91 en navegador, sin secretos), después de regenerar
+     `web/public/datos/` (fuera de git; traía 39 rutas de la rama anterior).
+
+## D-72 · 25 nov 2026 · «Calcula tu ruta» confusa y teclado en horizontal: lo que Miguel espera · PROPUESTA (Miguel, 25 nov 2026, 3:46 a 3:55 pm)
+- **Origen:** Miguel usó v0.4 como usuario y se lo dijo al chat anterior de SJDR Bus (D-70),
+  que lo pasó a este chat para registrarlo (3:46 pm; partes A a C pedidas a las 3:52 pm, parte
+  D a las 3:55 pm). Registro de documentos, **sin construir**.
+- **Lo que vio:** en «Calcula tu ruta» escribe «Centro»; aparece «Centro · inicio o fin de ruta
+  aproximado», luego «parada más cercana a tu destino, 280 m», luego «rutas que empiezan o
+  terminan cerca» (R1). Al tocar R1 solo muestra la ruta. Le pareció confuso y repetido, y no
+  le dice cómo llegar.
+- **Lo que espera:**
+  - **A) Resultado:** UNA sola parada recomendada; al tocarla, las rutas que pasan ahí; al tocar
+    una ruta (R1), su información y, en el mapa, la ruta. Sin repetir «Centro» como lugar y como
+    parada. Defecto de lo publicado (D-56 fase 2). Maqueta primero (D-54), **justo después del
+    paso 1 de R-03**.
+  - **B) Indicaciones:** «estás aquí; camina a esta parada (X m); ahí puedes tomar la 1, 2, 3,
+    4». Necesita qué rutas pasan por cada parada (D-71 + R-03). Va como **B6 fase 3, después de
+    R-03**.
+  - **C) Siguiente camión:** al elegir una ruta, «el siguiente camión pasa en ~10 min»,
+    estimado con los camiones del día y la duración del recorrido. **Bloque B4**, siempre
+    ESTIMADO (regla 2).
+  - **D) Teléfono acostado:** al escribir en «¿A dónde quieres ir?» el teclado tapa lo que se
+    escribe. Misma solución que avisos-sjr: en horizontal no se abre el teclado; un aviso pide
+    girar el teléfono a vertical, con una animación muy sencilla (lección 5 de Miguel: sin salto
+    al final y sin resorte). Maqueta primero, **junto con A**. Fuente para aprender (solo leer,
+    sin copiar datos, estándar 4; Miguel lo autorizó): en avisos-sjr, `Girar.tsx` y su CSS,
+    `PasoUbicacion.tsx`, la prueba «B8b-17» de `tests/e2e/reportar.spec.ts` y sus lecciones 3
+    (al cambiar lo que permite una pantalla, auditar todos sus textos y avisos) y B8b-15.
+    avisos-sjr es React; aquí es TypeScript sin marco (`web/src/main.ts`): se adapta la idea,
+    no el código.
+    **Detalle (capturas de Miguel, 4:10 pm, de avisos-sjr.vercel.app en su iPhone acostado; es
+    la referencia aprobada):** (1) en horizontal el campo no abre el teclado: en lugar de su
+    texto de ayuda dice «Gira para escribir», con un ícono de teléfono girando a la izquierda;
+    (2) al tocar el campo sale una tarjeta blanca al centro, encima de todo: un teléfono con una
+    flecha curva que lo endereza (la animación) y el texto «Gira el teléfono para escribir»;
+    (3) la tarjeta se va sola, al tocarla o al girar el teléfono. **Duración, por decidir:**
+    Miguel la vio de unos **7 s**; el código de avisos-sjr (`Girar.tsx`) dice **3 s** (espera de
+    3000 ms; animación «enderezar» de 700 ms con 250 ms de espera). Se le pregunta a Miguel al
+    presentar la maqueta; Claude no elige.
+- **Corrección de Miguel (D-69, lección 5):** «antes de proponer, siempre actúa como un
+  usuario». Antes de la maqueta de A, se usa «Calcula tu ruta» desde cero en WebKit con iPhone
+  (como `docs/evidencia/d70/probar-iphone.mjs`) y se reporta lo que se ve. El chat de D-70 solo
+  probó las 3 rutas nuevas.
+- **Impacta:** D-56 fase 2, D-65, B6 (fase 3), B4, `web/src/main.ts`.
+- **Estado:** PROPUESTA. A y D se diseñan (maqueta) después del paso 1 de R-03, con el sí de
+  Miguel.
+
+## D-73 · 25 nov 2026 · Carril único de ramas; la página de campo entra al PR 8 y se publica sin enlace · VIGENTE
+- **Pedido (Miguel, 25 nov 2026, 4:53 pm):** repensar el manejo de ramas «desde el punto de
+  vista de un desarrollador experto… siento que cada vez vamos creando más derivaciones, más
+  ramas».
+- **Medido (Claude, 4:53 pm):** 19 ramas locales, 6 ya integradas a `main`; `b3/d66-campo` con
+  15 commits fuera de `main` desde hace 2 días; el choque simulado (sin tocar nada) daba solo 2
+  archivos, los dos de documentos (`DECISIONES.md` y `PLAN.md`).
+- **Decisión (Miguel, 5:14 pm: «Sí, apruebo como carril único»):**
+  1. **Carril único:** una sola rama de trabajo viva a la vez, de un día como máximo, integrada
+     a `main` en cuanto pasa la puerta de calidad. Nombre Bloque · Tarea (D-47). El turno
+     nocturno sigue con su rama por noche (D-44) y se integra a la mañana siguiente.
+  2. **Sin ramas nuevas para juntar trabajo:** lo de `b3/d66-campo` se trae con `git
+     cherry-pick` a la rama del PR 8 (`b3/r03-paradas-oficiales`), no a otra rama.
+  3. **La página de campo se publica sin enlace** al integrar el PR 8:
+     `sjdrbus-sjr.vercel.app/campo.html` (cierra el punto que D-66 dejó «se decide antes de
+     integrar»). La app no la enlaza.
+  4. **Limpieza:** se borran las ramas locales ya integradas (`git branch -d`, que se niega si
+     falta algo por integrar). Las de GitHub, con un sí aparte de Miguel.
+  5. **Para todos los proyectos:** lección 19 de `CLAUDE.md`; se avisa a Second Brain para su
+     cosecha y su propuesta a `standards.md` (no se sube sin el sí de Miguel).
+- **Impacta:** D-44, D-47, D-66, lección 12, lección 18, estándar 13.

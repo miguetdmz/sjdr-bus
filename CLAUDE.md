@@ -146,8 +146,24 @@ puede, convertir la regla en una prueba automática.
      quedó encima. Era un defecto real (en un teléfono de 320 px se enciman 71 px).
      Arreglo: el zoom mide el alto real del chip; prueba nueva a 320 px con la ruta de
      nombre más largo, validada con el defecto.
-   Ocurrencias: 3 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de Miguel):
-   toda prueba de posición o tamaño corre también a 320 px y con una fuente más ancha
+   - 2026-11-23 (4.ª vez, ~11:18 pm): la bitácora de campo (artefacto de claude.ai) se
+     entregó probada solo como archivo en el navegador de Claude; en el iPhone de Miguel no
+     se pudieron borrar los viajes de prueba (el botón estaba al fondo, tras 7 secciones) y
+     las instrucciones del GPX no servían. Arreglo: borrar desde la lista y arriba; después,
+     página de campo con su simulación de viaje y prueba de Miguel en su iPhone antes de
+     usarla. Detección temprana: lo que Miguel usará en su teléfono se prueba ahí (vista
+     previa) antes de darlo por bueno.
+   - 2026-11-24 (5.ª vez, 12:39 am): la página de campo pasó 101 de 101 pruebas en Chromium
+     y la simulación de viaje, pero en el iPhone de Miguel «Iniciar viaje» no reaccionaba:
+     esperaba un sentido que nadie había marcado. Las pruebas y la simulación tocaban el
+     sentido porque Claude sabía que hacía falta; un usuario nuevo no. Arreglo: sentido
+     marcado solo; prueba de usuario en WebKit con iPhone 13
+     (`docs/evidencia/d66/probar-iphone.mjs`), solo con toques y sin pasos que el usuario no
+     sabría dar. **Corrección de Miguel:** antes de entregarle algo, Claude lo usa como si
+     fuera él, desde cero.
+   Ocurrencias: 5 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de Miguel): sumar
+   a `npm run verificar` la prueba de usuario en WebKit con iPhone de cada página que Miguel
+   use en su teléfono; además, toda prueba de posición o tamaño corre también a 320 px y con una fuente más ancha
    que la de la Mac (proyecto extra de Playwright), para ver en la Mac lo que verá
    GitHub. Prueba: la falla de D-58 (antes del arreglo) aparece en la Mac.
    **ALERTA DE CALIDAD (19 nov 2026, Miguel):** se repitió; compartirla con
@@ -415,6 +431,50 @@ puede, convertir la regla en una prueba automática.
    solo entonces corre las pruebas indicadas. Prueba: con un defecto que no compila,
    el guion se niega a dar un número. Aplica a todos los proyectos: propuesta para
    `standards.md` (no se sube sin el sí de Miguel).
+
+18. **Un chat de consulta terminó construyendo fuera del plan (23 y 24 nov 2026).**
+   El chat «Análisis de minuta con profesor» se abrió para analizar la minuta de una
+   plática con un operador. Terminó proponiendo y construyendo D-66 (maquetas, página
+   de campo y 12 commits) en la misma carpeta donde otro chat cerraba v0.3 y preparaba
+   R-03. Consecuencias: un commit de cierre cayó en la rama del otro chat (7:42 pm y
+   se movió a mano), quedaron 3 commits de D-66 duplicados en `b3/r03-cruces` local, y
+   el plan de R-03 esperó con el trabajo de los dos chats cruzado. Miguel (23 nov,
+   11:57 pm): «era una consulta externa… me hubiera gustado que esa ejecución hubiera
+   sido como parte de alguna de nuestras fases». Causa raíz: la consulta se volvió
+   construcción sin pasar por el plan (bloque, fase y su sí en el chat del bloque) y
+   sin revisar si otro chat escribía en la carpeta. Regla: un chat de consulta no
+   construye. La idea que salga se registra como IDEA o PROPUESTA en DECISIONES y el
+   chat del bloque la vuelve fase del plan con el sí de Miguel. Antes de cambiar de
+   rama, hacer commit o escribir en PLAN o DECISIONES, revisar con `list_sessions` y
+   `git status` que ningún otro chat trabaje en la carpeta (estándar 13: «VOY» y
+   «LIBRE»). Detección temprana: si un chat cuyo título no dice Bloque · Tarea (lección
+   12) va a escribir en git, se detiene y pregunta.
+   - 2026-11-23 (1.ª vez, registrada a las 1:21 am del 24 nov): este caso.
+   Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
+   `standards.md` (complementa la regla 13; no se sube sin el sí de Miguel).
+
+19. **Las ramas vivían días y se multiplicaban (25 nov 2026).** Al integrar el PR 7, la
+   rama de campo `b3/d66-campo` llevaba 2 días con 15 commits fuera de `main` y chocó en
+   `docs/DECISIONES.md` y `docs/PLAN.md`. Había 19 ramas locales (6 ya integradas) y el
+   plan era abrir una rama más para resolver el choque. Miguel (4:53 pm): «cada vez vamos
+   creando más derivaciones, más ramas». Causa raíz: no había tope de ramas vivas (como
+   una línea sin límite de trabajo en proceso), y los dos documentos que todos editan al
+   final chocan entre más tiempo vive una rama. Regla (**D-73, carril único**, Miguel
+   aprobó a las 5:14 pm): una sola rama de trabajo viva a la vez, de un día como máximo,
+   integrada a `main` en cuanto pasa la puerta de calidad; lo que estaba en otra rama se
+   trae a la del día con `git cherry-pick`, no a una rama nueva; el turno nocturno sigue
+   con su rama por noche (D-44) y se integra a la mañana siguiente. Detección temprana:
+   antes de crear una rama, `git branch --no-merged origin/main` debe salir vacío (salvo la
+   del turno); si no, se termina o se integra la que está abierta.
+   - 2026-11-25 (1.ª vez): este caso. Arreglo: los 13 commits con contenido de
+     `b3/d66-campo` entraron al PR 8 (2 de relevo quedaron vacíos y se saltaron);
+     D-66 a D-69 quedaron idénticas, entre D-65 y D-70.
+   Ocurrencias: 1 · Estado: ACTIVA. Relacionada con la 12 (PR 1 juntó 70 commits) y la 18
+   (dos chats en la misma carpeta). **Aplica a todos los proyectos (Miguel, 5:14 pm):** se
+   avisa a Second Brain para su cosecha y su propuesta a `standards.md` (no se sube sin el
+   sí de Miguel). **PROPUESTA DE CONTROL** (con el sí de Miguel): en `npm run verificar`,
+   un aviso si hay más de una rama de trabajo sin integrar o una con más de 24 h. Prueba:
+   con dos ramas sin integrar, el aviso aparece.
 
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:

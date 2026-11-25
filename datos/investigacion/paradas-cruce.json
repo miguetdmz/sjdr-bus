@@ -1,0 +1,780 @@
+{
+  "tarea": "B3 · R-03 paso 1 · cruce de paradas oficiales por sentido con cruces.json (D-71, criterio 7)",
+  "como_leer": "Coincidir = el mismo texto (sin acentos ni signos) que un renglón de la lista general de esa ruta. Es un conteo: no cambia ningún UBICADO ni ningún dato de cruces.json.",
+  "resumen": {
+    "rutas_con_lista_general": 20,
+    "paradas_oficiales_en_esas_rutas": 1021,
+    "coinciden": 940
+  },
+  "rutas": [
+    {
+      "route_id": "U-001",
+      "numero": "001",
+      "lista_general": 50,
+      "sentidos": {
+        "IDA": {
+          "paradas": 29,
+          "coinciden_con_lista_general": 29,
+          "sin_pareja": []
+        },
+        "REGRESO": {
+          "paradas": 21,
+          "coinciden_con_lista_general": 21,
+          "sin_pareja": []
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "7. AV. LOMAS DE SAN JUAN-RAÚL RAMÍREZ"
+      ]
+    },
+    {
+      "route_id": "U-002",
+      "numero": "002",
+      "lista_general": 82,
+      "sentidos": {
+        "IDA": {
+          "paradas": 40,
+          "coinciden_con_lista_general": 39,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 42,
+          "coinciden_con_lista_general": 40,
+          "sin_pareja": [
+            "P-3452 CARRETERA QUERÉTARO 300-ANTIGUO CAMINO A OJO DE AGUA",
+            "P-3586 A. AMEALCO-CARR. QUERÉTERO-IXMIQUILPAN"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "1. LABRADORITA-GALEANA",
+        "5. AV. LOMAS DE SAN JUAN-RAÚL RAMÍREZ",
+        "23. PINO SUÁREZ NTE-5 DE MAYO",
+        "48. CARRETERA QUERÉTARO 300-ANTIGUO",
+        "49. CAMINO A OJO DE AGUA A. AMEALCO-LÁZARO CÁRDENAS",
+        "50. A. AMEALCO-CARR.",
+        "51. QUERÉTERO-IXMIQUILPAN"
+      ]
+    },
+    {
+      "route_id": "U-004",
+      "numero": "004",
+      "lista_general": 62,
+      "sentidos": {
+        "IDA": {
+          "paradas": 30,
+          "coinciden_con_lista_general": 29,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 32,
+          "coinciden_con_lista_general": 27,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA",
+            "P-3138 MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+            "P-3137 FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO",
+            "P-3397 49 NORTE. 4- NORTETE 5",
+            "P-3404 OESTE 10-NORTE 4"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "10. AV. LOMAS DE SAN JUAN-RAÚL RAMÍREZ",
+        "21. JURICA-AV. BENITO JUÁREZ ORIENTE",
+        "34. MONUMENTO A BENITO JUÁREZ-JURICA",
+        "35. SAN JUAN DEL RÍO",
+        "36. FERNANDO DE TAPIA-JURICA",
+        "37. SAN JUAN DEL RÍO",
+        "59. 49 NORTE. 4-NORTETE 5 OESTE",
+        "60. 10-NORTE 4"
+      ]
+    },
+    {
+      "route_id": "U-005",
+      "numero": "005",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-007",
+      "numero": "007",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-008",
+      "numero": "008",
+      "lista_general": 37,
+      "sentidos": {
+        "IDA": {
+          "paradas": 20,
+          "coinciden_con_lista_general": 19,
+          "sin_pareja": [
+            "P-3299 HIDALGO"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 20,
+          "coinciden_con_lista_general": 17,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA",
+            "P-3529 C.MIGUEL HIDALGO-HUERTA GRANDE",
+            "P-3299 HIDALGO"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "2. C.MIGUEL HIDALGO-ING. LUIS ROMERO SOTO",
+        "8. INDEPENDENCIA-VICENTE RIVAPALACIO",
+        "9. AV. BENITO JUÁREZ ORIENTE-GENERAL VICENTE GUERRERO",
+        "37. C.MIGUEL HIDALGO-HUERTA GRANDE HIDALGO"
+      ]
+    },
+    {
+      "route_id": "U-009",
+      "numero": "009",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-009B",
+      "numero": "009B",
+      "lista_general": 44,
+      "sentidos": {
+        "IDA": {
+          "paradas": 18,
+          "coinciden_con_lista_general": 17,
+          "sin_pareja": [
+            "P-3149 BENITO JUÁREZ-SAN JUAN DEL RÍO QUERÉTARO"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 24,
+          "coinciden_con_lista_general": 21,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA",
+            "P-3138 MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+            "P-3137 FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "8. BENITO JUÁREZ-FERNANDO DE TAPIA",
+        "9. BENITO JUÁREZ-SAN JUAN DEL RÍO",
+        "10. QUERÉTARO",
+        "24. MONUMENTO A BENITO JUÁREZ-JURICA",
+        "25. SAN JUAN DEL RÍO",
+        "26. FERNANDO DE TAPIA-JURICA",
+        "27. SAN JUAN DEL RÍO",
+        "32. PASEO CENTRAL-AV. UNIVERSIDAD"
+      ]
+    },
+    {
+      "route_id": "U-010",
+      "numero": "010",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-011",
+      "numero": "011",
+      "lista_general": 80,
+      "sentidos": {
+        "IDA": {
+          "paradas": 35,
+          "coinciden_con_lista_general": 32,
+          "sin_pareja": [
+            "P-3418 PASEO LOMA ALTA",
+            "P-3529 C.MIGUEL HIDALGO-HUERTA GRANDE",
+            "P-3299 HIDALGO"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 48,
+          "coinciden_con_lista_general": 42,
+          "sin_pareja": [
+            "P-3299 HIDALGO",
+            "P-3660 SIN REFERENCIA",
+            "P-3138 MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+            "P-3137 FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO",
+            "P-3415 PASEO LOMA ALTA-LOMA SECA",
+            "P-3416 PASEO LOMA ALTA"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "8. LUIS DONALDO COLOSIO-PLAZA PUNTA ORIENTE",
+        "29. INDEPENDENCIA-VICENTE RIVAPALACIO",
+        "30. AV. BENITO JUÁREZ ORIENTE-GENERAL VICENTE GUERRERO",
+        "33. C.MIGUEL HIDALGO-HUERTA GRANDE HIDALGO HIDALGO",
+        "35. C.MIGUEL HIDALGO-ING. LUIS ROMERO SOTO",
+        "51. MONUMENTO A BENITO JUÁREZ-JURICA",
+        "52. SAN JUAN DEL RÍO",
+        "53. FERNANDO DE TAPIA-JURICA",
+        "54. SAN JUAN DEL RÍO",
+        "80. PASEO LOMA ALTA-LOMA SECA PASEO LOMA ALTA"
+      ]
+    },
+    {
+      "route_id": "U-011B",
+      "numero": "011B",
+      "lista_general": 45,
+      "sentidos": {
+        "IDA": {
+          "paradas": 26,
+          "coinciden_con_lista_general": 25,
+          "sin_pareja": [
+            "P-3418 PASEO LOMA ALTA"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 22,
+          "coinciden_con_lista_general": 18,
+          "sin_pareja": [
+            "P-3125 AV. UNIVERSIDAD ANTONIO LA TOTA CARBAJAL",
+            "P-3520 AV. UNIVERSIDAD-UNIDAD DEPORTIVA MAQUÍO",
+            "P-3415 PASEO LOMA ALTA-LOMA SECA",
+            "P-3416 PASEO LOMA ALTA"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "4. AV. UNIVERSIDAD-BUGAMBILIAS",
+        "5. AV. UNIVERSIDAD-COLEGIO CONSTANTINO",
+        "9. AV. UNIVERSIDAD-AV.GANDHI",
+        "10. AV. UNIVERSIDAD-CARR. SAN JUAN DEL RÍO",
+        "21. PINO SUÁREZ NTE-5 DE MAYO",
+        "39. AV. UNIVERSIDAD ANTONIO LA TOTA CARBAJAL AV. UNIVERSIDAD-UNIDAD DEPORTIVA MAQUÍO",
+        "45. PASEO LOMA ALTA-LOMA SECA PASEO LOMA ALTA"
+      ]
+    },
+    {
+      "route_id": "U-012",
+      "numero": "012",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-013",
+      "numero": "013",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-014",
+      "numero": "014",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-015B",
+      "numero": "015B",
+      "lista_general": 61,
+      "sentidos": {
+        "IDA": {
+          "paradas": 38,
+          "coinciden_con_lista_general": 37,
+          "sin_pareja": [
+            "P-3431 TERMINAL DE AUTOBUSES DE SAN JUAN DEL RIO (B)"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 25,
+          "coinciden_con_lista_general": 23,
+          "sin_pareja": [
+            "P-3125 AV. UNIVERSIDAD ANTONIO LA TOTA CARBAJAL",
+            "P-3520 AV. UNIVERSIDAD-UNIDAD DEPORTIVA MAQUÍO"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "3. AV. UNIVERSIDAD-BUGAMBILIAS",
+        "4. AV. UNIVERSIDAD-COLEGIO CONSTANTINO",
+        "9. VERACRUZ-URUGUAY",
+        "10. URUGUAY-FRANCIA",
+        "11. BRASIL-FRANCIA",
+        "12. FRANCIA-URUGUAY",
+        "13. URUGUAY-VERACRUZ",
+        "20. AV. UNIVERSIDAD-AV.GANDHI",
+        "21. AV. UNIVERSIDAD-CARR. SAN JUAN DEL RÍO",
+        "29. PASEO CENTRAL-AV. UNIVERSIDAD",
+        "37. TERMINAL DE AUTOBUSES DE SAN JUAN DEL RIO (B) PROF. MERCEDES CAMACHO-ÁLVARO OBREGÓN",
+        "50. AV. UNIVERSIDAD ANTONIO LA TOTA CARBAJAL AV. UNIVERSIDAD-UNIDAD DEPORTIVA MAQUÍO"
+      ]
+    },
+    {
+      "route_id": "U-016",
+      "numero": "016",
+      "lista_general": 43,
+      "sentidos": {
+        "IDA": {
+          "paradas": 20,
+          "coinciden_con_lista_general": 20,
+          "sin_pareja": []
+        },
+        "REGRESO": {
+          "paradas": 22,
+          "coinciden_con_lista_general": 19,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA",
+            "P-3138 MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+            "P-3137 FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "1. MIGUEL HIDALGO-PRIV. EMILIANO ZAPATA",
+        "4. PALMAS-EL ROBLE",
+        "5. C. CHIRIMOYA-PROL. PALMAS",
+        "6. JACARANDAS-CHIRIMOYA",
+        "25. MONUMENTO A BENITO JUÁREZ-JURICA",
+        "26. SAN JUAN DEL RÍO",
+        "27. FERNANDO DE TAPIA-JURICA",
+        "28. SAN JUAN DEL RÍO",
+        "33. PASEO CENTRAL-AV. UNIVERSIDAD",
+        "42. MIGUEL HIDALGO-PRIV. EMILIANO ZAPATA"
+      ]
+    },
+    {
+      "route_id": "U-017",
+      "numero": "017",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-018",
+      "numero": "018",
+      "lista_general": 29,
+      "sentidos": {
+        "IDA": {
+          "paradas": 12,
+          "coinciden_con_lista_general": 12,
+          "sin_pareja": []
+        },
+        "REGRESO": {
+          "paradas": 18,
+          "coinciden_con_lista_general": 16,
+          "sin_pareja": [
+            "P-3431 TERMINAL DE AUTOBUSES DE SAN JUAN DEL RIO (B)",
+            "P-3554 PROF. MERCEDES CAMACHO-ÁLVARO OBREGÓN"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "1. LÁZARO CÁRDENAS-MANUEL ÁVILA CAMACHO",
+        "12. 5 DE MAYO-PROF. MERCEDES CAMACHO",
+        "14. TERMINAL DE AUTOBUSES DE SAN JUAN DEL RIO (B) PROF. MERCEDES CAMACHO-ÁLVARO OBREGÓN"
+      ]
+    },
+    {
+      "route_id": "U-019",
+      "numero": "019",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-020",
+      "numero": "020",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-022",
+      "numero": "022",
+      "lista_general": 38,
+      "sentidos": {
+        "IDA": {
+          "paradas": 18,
+          "coinciden_con_lista_general": 16,
+          "sin_pareja": [
+            "P-3151 AV. TECNOLÓGICO-SAN JUAN DEL RÍO, QUERÉTARO",
+            "P-3202 JURICA-SAN JUAN DEL RÍO-MERCADO JUÁREZ"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 18,
+          "coinciden_con_lista_general": 16,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA",
+            "P-3128 AV. TECNOLÓGICO-SAN JUAN DEL RÍO, QUERÉTARO"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "2. LABRADORITA-PEDREGOSO",
+        "9. AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
+        "10. QUERÉTARO",
+        "12. JURICA-SAN JUAN DEL RÍO",
+        "13. SAN JUAN DEL RÍO-MERCADO JUÁREZ",
+        "31. AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
+        "32. QUERÉTARO"
+      ]
+    },
+    {
+      "route_id": "U-23",
+      "numero": "23",
+      "lista_general": 35,
+      "sentidos": {
+        "IDA": {
+          "paradas": 15,
+          "coinciden_con_lista_general": 14,
+          "sin_pareja": [
+            "P-3151 AV. TECNOLÓGICO-SAN JUAN DEL RÍO, QUERÉTARO"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 17,
+          "coinciden_con_lista_general": 13,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA",
+            "P-3138 MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+            "P-3137 FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO",
+            "P-3128 AV. TECNOLÓGICO-SAN JUAN DEL RÍO, QUERÉTARO"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "4. AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
+        "5. QUERÉTARO",
+        "21. MONUMENTO A BENITO JUÁREZ-JURICA",
+        "22. SAN JUAN DEL RÍO",
+        "23. FERNANDO DE TAPIA-JURICA",
+        "24. SAN JUAN DEL RÍO",
+        "27. AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
+        "28. QUERÉTARO"
+      ]
+    },
+    {
+      "route_id": "U-024",
+      "numero": "024",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-024C",
+      "numero": "024C",
+      "lista_general": 71,
+      "sentidos": {
+        "IDA": {
+          "paradas": 30,
+          "coinciden_con_lista_general": 28,
+          "sin_pareja": [
+            "P-3529 C.MIGUEL HIDALGO-HUERTA GRANDE",
+            "P-3299 HIDALGO"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 41,
+          "coinciden_con_lista_general": 38,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA",
+            "P-3138 MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+            "P-3137 FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "1. MIRLO-LAS TORRES",
+        "9. AV. FRESNO-AV. OLMO",
+        "11. PROF. MERCEDES CAMACHO-FERNANDO DÍAZ R.",
+        "29. C.MIGUEL HIDALGO-HUERTA GRANDE HIDALGO",
+        "46. MONUMENTO A BENITO JUÁREZ-JURICA",
+        "47. SAN JUAN DEL RÍO",
+        "48. FERNANDO DE TAPIA-JURICA",
+        "49. SAN JUAN DEL RÍO",
+        "57. PROF. MERCEDES CAMACHO-AVENIDA UNIVERSIDAD"
+      ]
+    },
+    {
+      "route_id": "U-025",
+      "numero": "025",
+      "lista_general": 58,
+      "sentidos": {
+        "IDA": {
+          "paradas": 31,
+          "coinciden_con_lista_general": 30,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 28,
+          "coinciden_con_lista_general": 28,
+          "sin_pareja": []
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "5. ÁGUILAS-CALLE AGUILA BLANCA",
+        "9. SIERRA DE LA LUZ-AV. LOMAS DEL PEDREGOSO",
+        "12. AV. RIO MOCTEZUMA-ARQUITECTO FEDERICO E. MARISCAL",
+        "15. AV. RÍO MOCTEZUMA-LIC. MANUEL GÓMEZ MORÍN",
+        "51. ÁGUILAS-CALLE AGUILA AZTECA"
+      ]
+    },
+    {
+      "route_id": "U-028",
+      "numero": "028",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-030",
+      "numero": "030",
+      "lista_general": 64,
+      "sentidos": {
+        "IDA": {
+          "paradas": 30,
+          "coinciden_con_lista_general": 27,
+          "sin_pareja": [
+            "P-3186 CAM. A STA CRÚZ-SAN JUAN DEL RIO QUERÉTARO",
+            "P-3529 C.MIGUEL HIDALGO-HUERTA GRANDE",
+            "P-3299 HIDALGO"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 33,
+          "coinciden_con_lista_general": 30,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA",
+            "P-3138 MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+            "P-3137 FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "1. MIGUEL HIDALGO-PRIV. EMILIANO ZAPATA",
+        "10. CAM. A STA CRÚZ-SAN JUAN DEL RIO",
+        "11. QUERÉTARO",
+        "30. C.MIGUEL HIDALGO-HUERTA GRANDE HIDALGO",
+        "47. MONUMENTO A BENITO JUÁREZ-JURICA",
+        "48. SAN JUAN DEL RÍO",
+        "49. FERNANDO DE TAPIA-JURICA",
+        "50. SAN JUAN DEL RÍO",
+        "55. PASEO CENTRAL-AV. UNIVERSIDAD"
+      ]
+    },
+    {
+      "route_id": "U-031",
+      "numero": "031",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-032",
+      "numero": "032",
+      "lista_general": 54,
+      "sentidos": {
+        "IDA": {
+          "paradas": 28,
+          "coinciden_con_lista_general": 26,
+          "sin_pareja": [
+            "P-3529 C.MIGUEL HIDALGO-HUERTA GRANDE",
+            "P-3299 HIDALGO"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 28,
+          "coinciden_con_lista_general": 26,
+          "sin_pareja": [
+            "P-3475 MEXICAN FEDERAL HWY 120-CENTRO EXPOSITOR SAN JUAN DEL RÍO",
+            "P-3249 SAN NICOLAS"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "12. CALLE CONSTITUYENTES-CALLE 5 PONIENTE",
+        "23. INDEPENDENCIA-VICENTE RIVAPALACIO",
+        "24. AV. BENITO JUÁREZ ORIENTE-GENERAL VICENTE GUERRERO",
+        "27. C.MIGUEL HIDALGO-HUERTA GRANDE HIDALGO",
+        "29. C.MIGUEL HIDALGO-ING. LUIS ROMERO SOTO",
+        "51. MEXICAN FEDERAL HWY 120-CENTRO EXPOSITOR SAN JUAN DEL RÍO SAN NICOLAS"
+      ]
+    },
+    {
+      "route_id": "U-036",
+      "numero": "036",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-037",
+      "numero": "037",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-038",
+      "numero": "038",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-039",
+      "numero": "039",
+      "lista_general": 44,
+      "sentidos": {
+        "IDA": {
+          "paradas": 22,
+          "coinciden_con_lista_general": 21,
+          "sin_pareja": [
+            "P-3151 AV. TECNOLÓGICO-SAN JUAN DEL RÍO, QUERÉTARO"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 21,
+          "coinciden_con_lista_general": 18,
+          "sin_pareja": [
+            "P-3128 AV. TECNOLÓGICO-SAN JUAN DEL RÍO, QUERÉTARO",
+            "P-3102 AV. TECNOLÓGICO-PRIMARIA HÉROE DE NACOZARI",
+            "P-3374 AV. MARMOL"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "1. AV. ÁGUILA REAL-GRAL. RAFAEL CALY MAYOR",
+        "10. AV. LOMAS DEL PEDREGOSO-ZACATECAS",
+        "11. AV. LOMAS DEL PEDREGOSO-PEDREGOSO",
+        "17. AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
+        "18. QUERÉTARO",
+        "20. HACIENDA LOS ARRAYANES-PACESO CENTRAL",
+        "29. AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
+        "30. QUERÉTARO",
+        "33. AV. TECNOLÓGICO-PRIMARIA HÉROE DE NACOZARI AV. MARMOL",
+        "39. ÁGUILAS-CALLE AGUILA AZTECA"
+      ]
+    },
+    {
+      "route_id": "U-040",
+      "numero": "040",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-041",
+      "numero": "041",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-042",
+      "numero": "042",
+      "lista_general": 27,
+      "sentidos": {
+        "IDA": {
+          "paradas": 15,
+          "coinciden_con_lista_general": 14,
+          "sin_pareja": [
+            "P-3431 TERMINAL DE AUTOBUSES DE SAN JUAN DEL RIO (B)"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 13,
+          "coinciden_con_lista_general": 12,
+          "sin_pareja": [
+            "P-3554 PROF. MERCEDES CAMACHO-ÁLVARO OBREGÓN"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "15. TERMINAL DE AUTOBUSES DE SAN JUAN DEL RIO (B) PROF. MERCEDES CAMACHO-ÁLVARO OBREGÓN",
+        "22. AV. DEL FERROCARRIL"
+      ]
+    },
+    {
+      "route_id": "U-043",
+      "numero": "043",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-044",
+      "numero": "044",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "U-046",
+      "numero": "046",
+      "lista_general": 56,
+      "sentidos": {
+        "IDA": {
+          "paradas": 16,
+          "coinciden_con_lista_general": 13,
+          "sin_pareja": [
+            "P-3660 SIN REFERENCIA",
+            "P-3138 MONUMENTO A BENITO JUÁREZ-JURICA SAN JUAN DEL RÍO",
+            "P-3137 FERNANDO DE TAPIA-JURICA SAN JUAN DEL RÍO"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 17,
+          "coinciden_con_lista_general": 15,
+          "sin_pareja": [
+            "P-3151 AV. TECNOLÓGICO-SAN JUAN DEL RÍO, QUERÉTARO",
+            "P-3578 MANANTIAL DE MANANTIALES-SAN JUAN DEL RÍO, QUERÉTARO"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "6. C. MAURILIO MORELOS-20 DE NOVIEMBRE",
+        "12. MONUMENTO A BENITO JUÁREZ-JURICA",
+        "13. SAN JUAN DEL RÍO",
+        "14. FERNANDO DE TAPIA-JURICA",
+        "15. SAN JUAN DEL RÍO",
+        "17. PASEO CENTRAL-HDA. LOS ARRAYANES",
+        "19. HIDALGO",
+        "20. HIDALGO-C. MIGUEL HIDALGO",
+        "21. AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
+        "22. QUERÉTARO",
+        "23. PLAZA MORELOS ORIENTE-AGUSTÍN MELGAR",
+        "24. AV. BENITO JUÁREZ ORIENTE-PRIMAVERA",
+        "25. PLAZA MORELOS ORIENTE-CASTILLO DE CHAPULTEPEC",
+        "26. PLAZA MORELOS ORIENTE-ARTICULO 3°",
+        "27. PLAZA MORELOS ORIENTE-PANAMERICANA",
+        "28. JOSE MARIA PINO SUÁREZ-VALENTIN GOMEZ FARIA",
+        "29. PINO SUÁREZ NTE-5 DE MAYO",
+        "30. BOULEVARD PABLO CABRERA-CONSTITUYENTES",
+        "31. BOULEVARD PABLO CABRERA-C. ALVÁRO OBREGÓN",
+        "32. C. MAURILIO MORELOS-20 DE NOVIEMBRE",
+        "33. 20 DE NOVIEMBRE-5 DE MAYO",
+        "34. C.MIGUEL HIDALGO-20 DE NOVIEMBRE",
+        "35. PONIENTE 2-ÁLVARO OBREGÓN",
+        "36. MANANTIAL DE MANANTIALES-SAN JUAN DEL RÍO",
+        "37. QUERÉTARO",
+        "38. MANANTIALES DE AGUA AZUL-MANTIALES DE TLACOTE",
+        "39. AV. TECNOLÓGICO-SAN JUAN DEL RÍO",
+        "40. QUERÉTARO",
+        "54. MANANTIAL DE MANANTIALES-SAN JUAN DEL RÍO",
+        "55. QUERÉTARO"
+      ]
+    },
+    {
+      "route_id": "U-047",
+      "numero": "047",
+      "lista_general": 56,
+      "sentidos": {
+        "IDA": {
+          "paradas": 34,
+          "coinciden_con_lista_general": 30,
+          "sin_pareja": [
+            "P-3149 BENITO JUÁREZ-SAN JUAN DEL RÍO QUERÉTARO",
+            "P-3660 SIN REFERENCIA",
+            "P-3529 C.MIGUEL HIDALGO-HUERTA GRANDE",
+            "P-3299 HIDALGO"
+          ]
+        },
+        "REGRESO": {
+          "paradas": 24,
+          "coinciden_con_lista_general": 22,
+          "sin_pareja": [
+            "P-3260 EPIGMENIO GONZÁLEZ",
+            "P-3189 PLAZA LOS OLIVOS-DE OLVERA"
+          ]
+        }
+      },
+      "de_la_lista_general_sin_parada_oficial": [
+        "1. LA RUEDA-LAS TORRES",
+        "8. BENITO JUÁREZ-FERNANDO DE TAPIA",
+        "9. BENITO JUÁREZ-SAN JUAN DEL RÍO",
+        "10. QUERÉTARO",
+        "16. CALLE CONSTITUYENTES-CALLE 5 PONIENTE",
+        "33. C.MIGUEL HIDALGO-HUERTA GRANDE HIDALGO",
+        "50. EPIGMENIO GONZÁLEZ PLAZA LOS OLIVOS-DE OLVERA"
+      ]
+    },
+    {
+      "route_id": "I-062",
+      "numero": "062",
+      "lista_general": "sin lista usable (cruces.json)"
+    },
+    {
+      "route_id": "I-023",
+      "numero": "023",
+      "lista_general": "sin lista usable (cruces.json)"
+    }
+  ]
+}
