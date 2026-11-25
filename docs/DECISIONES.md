@@ -2011,3 +2011,43 @@ Miguel).
      así.
 - **Colores (Miguel, 25 nov 2026, 2:24 pm: «Sí, que se recorran»):** se queda la regla de
   D-53 (color por posición): las tarjetas de la 019 en adelante cambian de color con las 42.
+
+## D-71 · 25 nov 2026 · R-03 paso 1: lectura única de las paradas oficiales por sentido (cambia D-25 en un punto) · VIGENTE
+- **Hallazgo (Claude, 25 nov 2026, 3:51 pm):** la lista por sentido que D-69 vio al tocar «Ver
+  ruta» **no viene en la página**: `qrobus.gob.mx/Rutas/001` entrega la misma página general
+  (copia fuera de git en `referencias/fuentes-2026-11-25/qrobus-rutas-001-prueba/`, sha256
+  `cfd0494c…9121`). La lista la pide la página a la consulta interna `/Rutas/paradasTimeline`
+  (parámetros `ruta` y `direccion`: 0 = IDA, 1 = REGRESO), la misma que D-25 dejó fuera.
+- **Decisión (Miguel, 25 nov 2026, 3:51 pm: «Sí, solo el texto»):** **cambia D-25 solo en
+  este punto:** se usa `/Rutas/paradasTimeline` una sola vez, y de su respuesta solo el
+  **texto**: número oficial (P-), nombre y orden de cada parada, por sentido. **No se toman**
+  coordenadas, trazo (`/Rutas/rutaMostrar` sigue fuera) ni Google como referencia (D-69).
+  Riesgo aceptado: si qrobus lo reclama, la lista se retira del repositorio público.
+- **Criterio medible (escrito antes de construir, 25 nov 2026, 3:52 pm):**
+  1. **Una sola lectura:** 1 descarga de la página (para abrir la sesión) y 84 consultas
+     (42 rutas de `datos/cache/qrobus/rutas-sjr.json` × 2 sentidos), con pausa de 2 s o más
+     entre consultas. Solo se repite una consulta que falle por red (máximo 1 vez, anotada).
+  2. **Copia completa fuera de git** en `referencias/fuentes-2026-11-25/qrobus-paradas/`
+     (página y las 84 respuestas tal cual). Se revisa en busca de llaves antes de extraer
+     (lección 8); la cookie de sesión vive solo en la carpeta temporal y se borra al terminar.
+  3. **Al repositorio solo lo extraído:** `datos/cache/qrobus/paradas-sentido.json` (por
+     ruta y sentido: orden, número P- y nombre) y `paradas-sentido.meta.json` (fuente, fecha
+     y hora de la consulta, método y huella sha256 de cada respuesta). Ningún campo de
+     coordenadas ni trazo (`lat`, `lon`, `latitud`, `longitud`, `poly`): la prueba falla si
+     aparece uno, o si aparece un número con forma de coordenada de la zona.
+  4. **84 de 84 ruta-sentidos**, en el orden de `routes.txt`, cada uno con estado: **con
+     datos** o **sin datos** con su motivo (respuesta vacía, error de la consulta, o calles
+     de Querétaro). Ninguna ruta falta ni sobra (lección 11: se compara contra la referencia).
+  5. **Calles de Querétaro:** un ruta-sentido queda «sin datos» si alguna parada trae una
+     marca de `MARCAS_QUERETARO` (`scripts/calles-oficiales.mjs`, la misma regla de D-33); el
+     motivo nombra la parada y la marca. Las de nombre dudoso van a Miguel, no se adivinan.
+  6. **Regla 10:** cada sentido sale de su propia respuesta. La prueba falla si la vuelta es
+     copia de la ida (misma lista y mismo orden) sin que sus dos respuestas lo digan así.
+  7. **Cruce con `cruces.json`:** por ruta con lista usable (20), cuántas paradas oficiales
+     coinciden con un cruce de la lista general y cuántas no; resultado en
+     `datos/investigacion/paradas-cruce.json`. Es un conteo para R-03; no cambia ningún
+     UBICADO ni ningún dato de `cruces.json`.
+  8. **Lecciones 15 y 17:** cada prueba nueva se corre con el defecto puesto y debe fallar
+     (coordenada metida, vuelta copiada de la ida, una ruta quitada, una marca de Querétaro
+     ignorada); en cada corrida, primero la generación sale con código 0.
+- **Impacta:** D-25, D-69, R-03 (`docs/COLA-NOCTURNA.md`), `datos/cache/qrobus/`.
