@@ -215,7 +215,8 @@ test('cruces: «MEXICAN FEDERAL HWY 120» = carretera San Juan del Río - Xilitl
 
 test('cruces: Matamoros sigue como Calle Fundadores hasta la Av. Hidalgo; la misma calle de la lista va por la misma calle de OSM (20 nov 2026)', () => {
   const mm = todos.filter((c) => c.texto === 'MIGUEL HIDALGO NTE.-MARIANO MATAMOROS');
-  assert.deepEqual(mm.map((c) => c.ruta).sort(), ['002', '030', '047']);
+  // D-70: la 024C volvió y su lista trae el mismo cruce; la regla es que todas caigan en el mismo punto.
+  for (const n of ['002', '030', '047']) assert.ok(mm.some((c) => c.ruta === n), n);
   // mismo dato, mismo punto (lección 3): las tres en Av. Hidalgo × Fundadores, con la continuación anotada
   for (const c of mm) {
     assert.deepEqual([c.estado, c.osm_calle, c.osm_cruce, c.lat, c.lon], ['UBICADO', 'Avenida Miguel Hidalgo', 'Calle Fundadores', 20.39004, -99.99658], `${c.ruta} #${c.orden}`);

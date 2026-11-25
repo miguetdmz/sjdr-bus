@@ -1,6 +1,7 @@
 // R-02 (D-24): extremos de cada ruta con coordenada, fuente y estado.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { REFERENCIA } from '../lib/referencia.mjs';
 import { readFileSync, readdirSync } from 'node:fs';
 import { leerCSV } from '../lib/csv.mjs';
 import { tablaDeSeccion } from '../lib/handoff.mjs';
@@ -13,8 +14,8 @@ const cacheDir = `${raiz}datos/cache/nominatim/`;
 const caches = readdirSync(cacheDir).map((f) => JSON.parse(readFileSync(cacheDir + f, 'utf8')));
 const PROHIBIDAS = [['20.70044', '-99.81309'], ['20.39020', '-100.00150'], ['20.37650', '-99.93850'], ['20.38300', '-100.01000']];
 
-test('R-02: 39 rutas en orden y cada extremo tiene su ficha de lugar', () => {
-  assert.equal(ext.rutas.length, 39);
+test('R-02: las 42 rutas de la referencia (D-70) en orden y cada extremo tiene su ficha de lugar', () => {
+  assert.equal(ext.rutas.length, REFERENCIA.length);
   rutas.forEach((r, i) => assert.equal(ext.rutas[i].route_id, r.route_id));
   const lugares = new Set(ext.lugares.map((l) => l.lugar));
   for (const r of ext.rutas) for (const l of [r.origen, r.destino]) assert.ok(lugares.has(l), `${r.route_id}: «${l}»`);

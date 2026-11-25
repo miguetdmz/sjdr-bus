@@ -16,14 +16,17 @@ U-014,SJR-CONC,014,Granjas Banthí – Centro,3
 U-015B,SJR-CONC,015B,Solares Banthí – 5 de Mayo,3
 U-016,SJR-CONC,016,Infonavit La Paz – Centro,3
 U-017,SJR-CONC,017,Barrio de la Cruz – Centro,3
+U-018,SJR-CONC,018,Nuevo San Isidro – Centro,3
 U-019,SJR-CONC,019,Pedregoso – Valle Real,3
 U-020,SJR-CONC,020,Valle Real – Central de Autobuses,3
 U-022,SJR-CONC,022,Pedregoso – Centro,3
 U-23,SJR-CONC,23,Lomas del Pedregal – Centro,3
 U-024,SJR-CONC,024,Praderas del Sol – Centro,3
+U-024C,SJR-CONC,024C,Las Torres – Central de Autobuses,3
 U-025,SJR-CONC,025,Las Águilas – Centro,3
 U-028,SJR-CONC,028,Rancho de Enmedio – Central de Autobuses,3
 U-030,SJR-CONC,030,Infonavit La Paz – Central de Autobuses,3
+U-031,SJR-CONC,031,Pedregoso – PITSA,3
 U-032,SJR-CONC,032,Visthá – Central de Autobuses,3
 U-036,SJR-CONC,036,Visthá – 5 de Mayo,3
 U-037,SJR-CONC,037,La Peña – Centro,3

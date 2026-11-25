@@ -1,6 +1,7 @@
 // Lote de investigación (D-22): I-01 catálogo, I-02 matriz, I-03 Pareto.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { REFERENCIA } from '../lib/referencia.mjs';
 import { readFileSync } from 'node:fs';
 import { leerCSV } from '../lib/csv.mjs';
 
@@ -30,8 +31,8 @@ test('I-01: la tabla del PET 2022 tiene 41 renglones y la 1 coincide con la pág
   assert.deepEqual([r1.ruta, r1.vehiculos, r1.ida_km, r1.regreso_km, r1.ida_min, r1.regreso_min, r1.pagina], ['1', '8', '6.84', '5.79', '25', '18', '21740']);
 });
 
-test('I-02: 39 rutas × 2 sentidos, en el orden de routes.txt', () => {
-  assert.equal(matriz.length, 78);
+test('I-02: las rutas de la referencia (D-70) × 2 sentidos, en el orden de routes.txt', () => {
+  assert.equal(matriz.length, 2 * REFERENCIA.length);
   rutas.forEach((r, i) => {
     assert.equal(matriz[2 * i].route_id, r.route_id);
     assert.deepEqual([matriz[2 * i].sentido, matriz[2 * i + 1].sentido], ['0', '1']);

@@ -2,7 +2,7 @@
   "tarea": "R-03 (D-34)",
   "que_es": "Respuestas de Miguel en la página de confirmación de extremos. Todo punto queda POR VERIFICAR EN CAMPO.",
   "respaldado": "2026-11-20T02:28:37.988Z",
-  "respondidos": 25,
+  "respondidos": 22,
   "de": 27,
   "decisiones": {
     "Central de Autobuses": {
@@ -119,12 +119,6 @@
       "candidato_osm": null,
       "fecha": "2026-11-19T23:49:16.326Z"
     },
-    "PITSA": {
-      "estado": "rechazado",
-      "coordenada": null,
-      "candidato_osm": null,
-      "fecha": "2026-11-20T01:27:09.827Z"
-    },
     "Pedregoso 2ª Sección": {
       "estado": "ubicado",
       "coordenada": [
@@ -188,12 +182,6 @@
       "candidato_osm": "way/1533273705",
       "fecha": "2026-11-20T01:15:33.060Z"
     },
-    "Las Torres": {
-      "estado": "rechazado",
-      "coordenada": null,
-      "candidato_osm": null,
-      "fecha": "2026-11-20T01:41:27.459Z"
-    },
     "Lomas del Pedregal": {
       "estado": "ubicado",
       "coordenada": [
@@ -211,12 +199,6 @@
       ],
       "candidato_osm": null,
       "fecha": "2026-11-20T02:28:25.794Z"
-    },
-    "Nuevo San Isidro": {
-      "estado": "rechazado",
-      "coordenada": null,
-      "candidato_osm": null,
-      "fecha": "2026-11-20T02:28:37.982Z"
     }
   },
   "fuente": "Página de trabajo web/confirmar-extremos.html (guardado automático en este archivo)"

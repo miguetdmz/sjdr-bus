@@ -1,18 +1,19 @@
-// N-01: routes.txt contiene exactamente las 39 rutas vigentes de HANDOFF §4 (42 menos las bajas de D-36 y D-39), en ese orden,
+// N-01: routes.txt contiene exactamente las 42 rutas de HANDOFF §4, las de San Juan en qrobus.gob.mx (D-70), en ese orden,
 // con los textos exactos y las claves de D-08.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { leerCSV } from '../lib/csv.mjs';
 import { inventario } from '../lib/handoff.mjs';
+import { REFERENCIA, URBANAS, INTERMUNICIPALES } from '../lib/referencia.mjs';
 
 const rutas = leerCSV(new URL('../../datos/gtfs-sjr/routes.txt', import.meta.url).pathname);
 const fuente = inventario();
 
-test('routes.txt: 39 rutas, 37 urbanas y 2 intermunicipales', () => {
-  assert.equal(fuente.length, 39, 'HANDOFF §4 menos las bajas de D-36 y D-39 debía dar 39 filas');
-  assert.equal(rutas.length, 39);
-  assert.equal(rutas.filter((r) => r.route_id.startsWith('U-')).length, 37);
-  assert.equal(rutas.filter((r) => r.route_id.startsWith('I-')).length, 2);
+test('routes.txt: las rutas de la referencia (D-70), urbanas e intermunicipales', () => {
+  assert.equal(fuente.length, REFERENCIA.length, 'HANDOFF §4 debe dar tantas filas como la referencia');
+  assert.equal(rutas.length, REFERENCIA.length);
+  assert.equal(rutas.filter((r) => r.route_id.startsWith('U-')).length, URBANAS);
+  assert.equal(rutas.filter((r) => r.route_id.startsWith('I-')).length, INTERMUNICIPALES);
 });
 
 test('routes.txt: mismo orden y mismos textos que HANDOFF §4; claves según D-08', () => {

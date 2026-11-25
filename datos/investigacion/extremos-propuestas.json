@@ -15,9 +15,9 @@
     "Los lugares sin candidato se quedan sin coordenada (no se completan con datos supuestos)."
   ],
   "resumen": {
-    "lugares": 23,
+    "lugares": 26,
     "con_candidato": 5,
-    "sin_candidato": 18
+    "sin_candidato": 21
   },
   "lugares": [
     {
@@ -29,6 +29,7 @@
         "009",
         "011",
         "020",
+        "024C",
         "028",
         "030",
         "032",
@@ -290,6 +291,15 @@
       "descartados": []
     },
     {
+      "nombre": "Las Torres",
+      "rutas": [
+        "024C"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
       "nombre": "Lomas del Pedregal",
       "rutas": [
         "23"
@@ -326,9 +336,27 @@
       "descartados": []
     },
     {
+      "nombre": "Nuevo San Isidro",
+      "rutas": [
+        "018"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
       "nombre": "Pedregoso 2ª Sección",
       "rutas": [
         "005"
+      ],
+      "candidatos": [],
+      "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",
+      "descartados": []
+    },
+    {
+      "nombre": "PITSA",
+      "rutas": [
+        "031"
       ],
       "candidatos": [],
       "nota": "sin candidato en OpenStreetMap (nombre ni tipo coinciden)",

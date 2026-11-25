@@ -1940,3 +1940,72 @@ Miguel).
   https://sjdrbus-sjr.vercel.app sirve 39 rutas y 294 lugares (`datos/lugares.json`,
   sin «Bodega Ahurrera»), sin errores de consola y sin scroll a 390 y 1280 px
   (`docs/evidencia/v0.3/`, con el buscador «Galerías»). **v0.3 publicada.**
+
+## D-70 · 25 nov 2026 · Las rutas de San Juan de qrobus.gob.mx son la referencia: vuelven 018, 024C y 031 (42 rutas) · VIGENTE
+- **Hallazgo (Claude, 25 nov 2026, 12:57 am, en la página que Miguel abrió):** la lista de
+  qrobus.gob.mx/Rutas tiene hoy 216 renglones (215 el 19 nov; el nuevo es CH3 «Alameda –
+  Universidad Marista», de Querétaro). Las rutas de San Juan son las mismas **42** del 19 nov.
+  Nuestras 39 eran esas 42 menos 018 (D-40), 024C (D-39) y 031 (D-36). Ninguna ruta de otra
+  zona entra a San Juan: las coincidencias de nombres (calle Ezequiel Montes, «Hacienda
+  Tequisquiapan», carretera a San Juan en Conín) son de Querétaro; la T14 llega a Pedro
+  Escobedo y La Lira. Límite: qrobus solo lista el sistema estatal.
+- **Decisión (Miguel, 25 nov 2026, 1:01 am: «vamos a tomar exactamente las rutas de qrobus.
+  Eso va a ser nuestro nuevo benchmark. Si yo te dije que las omití fue un error mío»):** las
+  rutas de San Juan que lista qrobus.gob.mx/Rutas son la referencia del inventario. Vuelven
+  **018 «Nuevo San Isidro – Centro»**, **024C «Las Torres – Central de Autobuses»** y **031
+  «Pedregoso – PITSA»**: **42 rutas (40 urbanas + 2 intermunicipales)**. Cambia D-36, D-39 y
+  D-40 (las bajas) y la regla 9 de CLAUDE.md. La 044 y la 042 siguen (D-40). Rama aparte
+  `b1/rutas-qrobus` desde `main` (Miguel, 1:03 am).
+- **Criterio medible (escrito antes de construir, 25 nov 2026, 1:05 am):**
+  1. Los números de `routes.txt` son exactamente los 42 de San Juan de
+     `datos/cache/qrobus/rutas-sjr.json` (mismo conjunto, sin faltantes ni sobrantes), en el
+     orden de HANDOFF §4; 40 urbanas y 2 intermunicipales. Las pruebas comparan contra esa
+     lista, no contra un número fijo (lección 11).
+  2. No queda lista de bajas: si una ruta de la referencia falta en un dato derivado, la
+     prueba falla y la nombra.
+  3. Cada dato derivado (fichas, matriz, calles oficiales, extremos, extremos finales,
+     cruces y datos de la app) trae las 42 rutas en el orden de `routes.txt`.
+  4. **Nada de las otras 39 cambia:** la comparación de cada dato derivado contra `main`,
+     quitando las 3 rutas que vuelven, da 0 diferencias.
+  5. Los extremos nuevos (Nuevo San Isidro, Las Torres y PITSA) salen por la regla de R-02
+     con la caché de Nominatim ya guardada (sin consultas nuevas); si no hay punto, quedan
+     **FALTANTE** (D-41), nunca con un punto supuesto. Los «rechazado» que Miguel dio a esos
+     tres lugares el 19 nov (minutos antes de cada baja) se borran, como se hizo con la 044 y
+     la 042 en D-40.
+  6. La app muestra 42 tarjetas en el orden de `routes.txt`; las 3 nuevas abren su detalle
+     igual que cualquier ruta sin datos. Prueba como usuario en WebKit con iPhone (D-69):
+     desde cero, solo toques; capturas a 390 y 1280 px.
+  7. Lección 15: cada prueba nueva se corre con el defecto puesto (una ruta de la referencia
+     quitada de `routes.txt`; una baja puesta de vuelta) y debe fallar.
+- **Impacta:** D-36, D-39, D-40, regla 9 de CLAUDE.md, `scripts/lib/handoff.mjs`,
+  `routes.txt`, fichas, R-01, R-02, R-03 (pueden sumarse listas usables), D-41 (faltantes).
+- **Resultado (Claude, 25 nov 2026, 1:15 am; rama `b1/rutas-qrobus`):**
+  1. Criterio 1 y 2: `routes.txt` y el inventario traen exactamente las 42 de la referencia
+     (`scripts/lib/referencia.mjs`, prueba `scripts/pruebas/referencia.test.mjs`, que
+     reemplaza a `bajas.test.mjs`). Las 8 pruebas con «39» fijo ahora cuentan contra la
+     referencia (lección 11).
+  2. Criterio 3 y 4: los datos se regeneraron sin consultas nuevas (cachés de qrobus,
+     Nominatim y Overpass). Comparados contra `main` sin las 3 rutas: **0 diferencias** en
+     fichas, matriz, calles oficiales, extremos, propuestas, extremos finales, cruces y datos
+     de la app; solo cambian los totales.
+  3. Criterio 5: Nuevo San Isidro, Las Torres y PITSA quedan **FALTANTE (D-41)**; sus
+     «rechazado» del 19 nov (7:27, 7:41 y 8:28 pm, minutos antes de cada baja) se borraron.
+  4. **Para R-03:** la 018 (29 cruces) y la 024C (71) traen lista usable; la 031 mezcla calles
+     de Querétaro y queda «sin datos» (D-33). Cruces: 20 listas usables, 1,036 cruces (765
+     UBICADO, 30 APROXIMADO, 213 REFERENCIA). El tope de R-03 sube de 78 a **84
+     ruta-sentidos** (42 × 2; cambia la cifra de D-68 y D-69).
+  5. Criterio 6: la app muestra 42 tarjetas. Prueba como usuario en WebKit con iPhone 13
+     (`docs/evidencia/d70/probar-iphone.mjs`): 18 de 19 pasos; las 3 rutas se encuentran,
+     abren su detalle con su extremo FALTANTE y cambian a «Vuelta» con un toque. El paso que
+     falla es un aviso de WebKit («ResizeObserver loop…») que **ya ocurría sin este cambio**:
+     sale igual con Loma Alta, Visthá y Hospital General, y el código de la app no cambió.
+     Queda como hallazgo aparte. Capturas a 390 y 1280 px en `docs/evidencia/d70/`.
+  6. Criterio 7 (lección 15): con un defecto puesto a la vez, la prueba de referencia falló
+     en los 4 casos (031 quitada de `routes.txt`: 2 fallas; lista de bajas de vuelta: 2;
+     «rechazado» de PITSA de vuelta: 1; punto sin fuente en Las Torres: 1); la prueba de
+     iPhone, con la 031 quitada de la app compilada, falló en 2 pasos. Todo restaurado:
+     178 de 178. `npm run verificar`: **TODO PASÓ** (91 de 91 en navegador, sin secretos).
+  7. **Diferencia que no salió del pedido (lección 14):** el color de las tarjetas va por
+     posición (D-53), así que al entrar la 018 y la 024C **20 de las 39 tarjetas cambian de
+     color** (de la 019 en adelante). La regla aprobada no se tocó; decide Miguel si se queda
+     así.

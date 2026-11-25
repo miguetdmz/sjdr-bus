@@ -21,15 +21,15 @@
   "Todo punto es ESTIMADO a partir de OSM, no medido en campo."
  ],
  "resumen": {
-  "rutas_con_lista_usable": 18,
-  "cruces": 936,
-  "UBICADO": 695,
+  "rutas_con_lista_usable": 20,
+  "cruces": 1036,
+  "UBICADO": 765,
   "UBICADO POR LUGAR": 3,
-  "APROXIMADO": 27,
-  "REFERENCIA": 191,
+  "APROXIMADO": 30,
+  "REFERENCIA": 213,
   "CALLES SIN CRUCE EN OSM": 13,
-  "SIN UBICAR": 7,
-  "con_correccion": 300
+  "SIN UBICAR": 12,
+  "con_correccion": 323
  },
  "rutas": [
   {
@@ -6468,6 +6468,373 @@
    "estado": "lista oficial descartada (D-33): mezcla calles de Querétaro"
   },
   {
+   "route_id": "U-018",
+   "numero": "018",
+   "nombre": "Nuevo San Isidro – Centro",
+   "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
+   "total": 29,
+   "conteo": {
+    "UBICADO": 21,
+    "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 1,
+    "REFERENCIA": 5,
+    "CALLES SIN CRUCE EN OSM": 0,
+    "SIN UBICAR": 2
+   },
+   "cruces": [
+    {
+     "orden": 1,
+     "texto": "LÁZARO CÁRDENAS-MANUEL ÁVILA CAMACHO",
+     "calle": "LÁZARO CÁRDENAS",
+     "cruce_con": "MANUEL ÁVILA CAMACHO",
+     "estado": "UBICADO",
+     "lat": 20.41911,
+     "lon": -100.00655,
+     "osm_calle": "Calle Lázaro Cárdenas",
+     "osm_cruce": "Calle Manuel Avila Camacho",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 2,
+     "texto": "ETA-FRANCISCO I. MADERO",
+     "calle": "ETA",
+     "cruce_con": "FRANCISCO I. MADERO",
+     "estado": "UBICADO",
+     "lat": 20.41509,
+     "lon": -100.00583,
+     "osm_calle": "Calle Eta",
+     "osm_cruce": "Calle Francisco I. Madero",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 3,
+     "texto": "HIDALGO-AGUA VIVA",
+     "calle": "HIDALGO",
+     "cruce_con": "AGUA VIVA",
+     "estado": "UBICADO",
+     "lat": 20.41132,
+     "lon": -100.00344,
+     "osm_calle": "Avenida Hidalgo",
+     "osm_cruce": "Privada Agua Viva",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 4,
+     "texto": "EL CANELO-CAMINO REAL DEL ESPIRITU SANTO",
+     "calle": "EL CANELO",
+     "cruce_con": "CAMINO REAL DEL ESPIRITU SANTO",
+     "estado": "REFERENCIA",
+     "osm_calle": "Calle El Canelo",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 5,
+     "texto": "CAMINO REAL DEL ESPIRITU SANTO-BENITO JUÁREZ",
+     "calle": "CAMINO REAL DEL ESPIRITU SANTO",
+     "cruce_con": "BENITO JUÁREZ",
+     "estado": "SIN UBICAR",
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): sus cruces ubicados más cercanos están demasiado lejos en la lista para acotarlo"
+    },
+    {
+     "orden": 6,
+     "texto": "AV. GRAL. FELIPE ÁNGELES-CALLE 22",
+     "calle": "AV. GRAL. FELIPE ÁNGELES",
+     "cruce_con": "CALLE 22",
+     "estado": "REFERENCIA",
+     "osm_calle": "General Felipe Ángeles",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 7,
+     "texto": "AV. GRAL. FELIPE ÁNGELES-PARQUE PASO DE LOS GUZMÁN SJR",
+     "calle": "AV. GRAL. FELIPE ÁNGELES",
+     "cruce_con": "PARQUE PASO DE LOS GUZMÁN SJR",
+     "estado": "REFERENCIA",
+     "osm_calle": "General Felipe Ángeles",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 8,
+     "texto": "C. CORREGIDORA-SAN MARCOS",
+     "calle": "C. CORREGIDORA",
+     "cruce_con": "SAN MARCOS",
+     "estado": "UBICADO",
+     "lat": 20.39396,
+     "lon": -99.99941,
+     "osm_calle": "Calle Corregidora",
+     "osm_cruce": "Calle San Marcos",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 9,
+     "texto": "SAN MARCOS-MIGUEL HIDALGO NORTE",
+     "calle": "SAN MARCOS",
+     "cruce_con": "MIGUEL HIDALGO NORTE",
+     "estado": "UBICADO",
+     "lat": 20.39448,
+     "lon": -99.99592,
+     "osm_calle": "Calle San Marcos",
+     "osm_cruce": "Avenida Miguel Hidalgo",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 10,
+     "texto": "5 DE MAYO-NICOLAS ALCANTARA",
+     "calle": "5 DE MAYO",
+     "cruce_con": "NICOLAS ALCANTARA",
+     "estado": "UBICADO",
+     "lat": 20.394,
+     "lon": -99.99452,
+     "osm_calle": "Calle 5 de Mayo",
+     "osm_cruce": "Calle Nicolás Alcántara",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 11,
+     "texto": "5 DE MAYO-20 DE NOVIEMBRE",
+     "calle": "5 DE MAYO",
+     "cruce_con": "20 DE NOVIEMBRE",
+     "estado": "UBICADO",
+     "lat": 20.3933,
+     "lon": -99.99416,
+     "osm_calle": "Calle 5 de Mayo",
+     "osm_cruce": "Cale 20 de Noviembre",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «20 DE NOVIEMBRE» → «Cale 20 de Noviembre»"
+     ]
+    },
+    {
+     "orden": 12,
+     "texto": "5 DE MAYO-PROF. MERCEDES CAMACHO",
+     "calle": "5 DE MAYO",
+     "cruce_con": "PROF. MERCEDES CAMACHO",
+     "estado": "UBICADO",
+     "lat": 20.39243,
+     "lon": -99.99371,
+     "osm_calle": "Calle 5 de Mayo",
+     "osm_cruce": "Calle Profesor Mercedes Camacho",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 13,
+     "texto": "5 DE MAYO-PROF. MERCEDES CAMACHO",
+     "calle": "5 DE MAYO",
+     "cruce_con": "PROF. MERCEDES CAMACHO",
+     "estado": "UBICADO",
+     "lat": 20.39243,
+     "lon": -99.99371,
+     "osm_calle": "Calle 5 de Mayo",
+     "osm_cruce": "Calle Profesor Mercedes Camacho",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 14,
+     "texto": "TERMINAL DE AUTOBUSES DE SAN JUAN DEL RIO (B) PROF. MERCEDES CAMACHO-ÁLVARO OBREGÓN",
+     "calle": "TERMINAL DE AUTOBUSES DE SAN JUAN DEL RIO (B) PROF. MERCEDES CAMACHO",
+     "cruce_con": "ÁLVARO OBREGÓN",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Álvaro Obregón",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 15,
+     "texto": "ÁLVARO OBREGÓN-VILLAS SAN DIEGO",
+     "calle": "ÁLVARO OBREGÓN",
+     "cruce_con": "VILLAS SAN DIEGO",
+     "estado": "UBICADO",
+     "lat": 20.39378,
+     "lon": -99.99159,
+     "osm_calle": "Avenida Álvaro Obregón",
+     "osm_cruce": "Privada Villa De San Diego",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "errata: «VILLAS SAN DIEGO» → «Privada Villa De San Diego»"
+     ]
+    },
+    {
+     "orden": 16,
+     "texto": "C. MAURILIO MORELOS-20 DE NOVIEMBRE",
+     "calle": "C. MAURILIO MORELOS",
+     "cruce_con": "20 DE NOVIEMBRE",
+     "estado": "UBICADO",
+     "lat": 20.3935,
+     "lon": -99.99313,
+     "osm_calle": "Maurilio Morelos",
+     "osm_cruce": "Cale 20 de Noviembre",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «20 DE NOVIEMBRE» → «Cale 20 de Noviembre»"
+     ]
+    },
+    {
+     "orden": 17,
+     "texto": "20 DE NOVIEMBRE-5 DE MAYO",
+     "calle": "20 DE NOVIEMBRE",
+     "cruce_con": "5 DE MAYO",
+     "estado": "UBICADO",
+     "lat": 20.3933,
+     "lon": -99.99416,
+     "osm_calle": "Cale 20 de Noviembre",
+     "osm_cruce": "Calle 5 de Mayo",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «20 DE NOVIEMBRE» → «Cale 20 de Noviembre»"
+     ]
+    },
+    {
+     "orden": 18,
+     "texto": "20 DE NOVIEMBRE-C. CORREGIDORA",
+     "calle": "20 DE NOVIEMBRE",
+     "cruce_con": "C. CORREGIDORA",
+     "estado": "UBICADO",
+     "lat": 20.39217,
+     "lon": -100.00015,
+     "osm_calle": "Cale 20 de Noviembre",
+     "osm_cruce": "Calle Corregidora",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «20 DE NOVIEMBRE» → «Cale 20 de Noviembre»"
+     ]
+    },
+    {
+     "orden": 19,
+     "texto": "AV. GRAL. FELIPE ÁNGELES-AV. AYUNTAMIENTO",
+     "calle": "AV. GRAL. FELIPE ÁNGELES",
+     "cruce_con": "AV. AYUNTAMIENTO",
+     "estado": "UBICADO",
+     "lat": 20.3921,
+     "lon": -100.002,
+     "osm_calle": "General Felipe Ángeles",
+     "osm_cruce": "Avenida Ayuntamiento",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 20,
+     "texto": "AV. GRAL. FELIPE ÁNGELES-CENTRO CÍVICO MUNICIPAL SJR",
+     "calle": "AV. GRAL. FELIPE ÁNGELES",
+     "cruce_con": "CENTRO CÍVICO MUNICIPAL SJR",
+     "estado": "REFERENCIA",
+     "osm_calle": "General Felipe Ángeles",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 21,
+     "texto": "ADOLFO LÓPEZ MATEOS-GENERAL EMILIANO ZAPATA",
+     "calle": "ADOLFO LÓPEZ MATEOS",
+     "cruce_con": "GENERAL EMILIANO ZAPATA",
+     "estado": "UBICADO",
+     "lat": 20.39672,
+     "lon": -100.01019,
+     "osm_calle": "Calle Adolfo López Mateos",
+     "osm_cruce": "Callejón Emiliano Zapata",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «GENERAL EMILIANO ZAPATA» → «Callejón Emiliano Zapata»"
+     ]
+    },
+    {
+     "orden": 22,
+     "texto": "ADOLFO LÓPEZ MATEOS-AV. PUENTE DE FIERRO",
+     "calle": "ADOLFO LÓPEZ MATEOS",
+     "cruce_con": "AV. PUENTE DE FIERRO",
+     "estado": "UBICADO",
+     "lat": 20.40047,
+     "lon": -100.00922,
+     "osm_calle": "Calle Adolfo López Mateos",
+     "osm_cruce": "Avenida Puente de Fierro",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 23,
+     "texto": "AV. PUENTE DE FIERRO-ADOLFO LÓPEZ MATEOS",
+     "calle": "AV. PUENTE DE FIERRO",
+     "cruce_con": "ADOLFO LÓPEZ MATEOS",
+     "estado": "UBICADO",
+     "lat": 20.40047,
+     "lon": -100.00922,
+     "osm_calle": "Avenida Puente de Fierro",
+     "osm_cruce": "Calle Adolfo López Mateos",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 24,
+     "texto": "CAMINO REAL DEL ESPIRITU SANTO-AV. PUENTE DE FIERRO",
+     "calle": "CAMINO REAL DEL ESPIRITU SANTO",
+     "cruce_con": "AV. PUENTE DE FIERRO",
+     "estado": "SIN UBICAR",
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): las calles de OSM quedan lejos de sus cruces vecinos"
+    },
+    {
+     "orden": 25,
+     "texto": "CAMINO REAL DEL ESPIRITU SANTO-EL CANELO",
+     "calle": "CAMINO REAL DEL ESPIRITU SANTO",
+     "cruce_con": "EL CANELO",
+     "estado": "APROXIMADO",
+     "lat": 20.40629,
+     "lon": -100.00698,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "entre vecinos",
+     "osm_calle": "Calle El Canelo",
+     "evidencia": "punto de «Calle El Canelo» más cercano (256 m) a la mitad entre los cruces ubicados #23 y #26",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "SIN UBICAR"
+    },
+    {
+     "orden": 26,
+     "texto": "5 DE MAYO-HIDALGO",
+     "calle": "5 DE MAYO",
+     "cruce_con": "HIDALGO",
+     "estado": "UBICADO",
+     "lat": 20.40762,
+     "lon": -100.00592,
+     "osm_calle": "Privada 5 de Mayo",
+     "osm_cruce": "Avenida Hidalgo",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 27,
+     "texto": "HIDALGO-IGNACIO ZARAGOZA",
+     "calle": "HIDALGO",
+     "cruce_con": "IGNACIO ZARAGOZA",
+     "estado": "UBICADO",
+     "lat": 20.40975,
+     "lon": -100.00445,
+     "osm_calle": "Avenida Hidalgo",
+     "osm_cruce": "Calle Ignacio Zaragoza",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 28,
+     "texto": "LÁZARO CÁRDENAS-E. ALVAREZ",
+     "calle": "LÁZARO CÁRDENAS",
+     "cruce_con": "E. ALVAREZ",
+     "estado": "UBICADO",
+     "lat": 20.41808,
+     "lon": -100.00638,
+     "osm_calle": "Calle Lázaro Cárdenas",
+     "osm_cruce": "Calle Eduardo Álvarez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «E. ALVAREZ» → «Calle Eduardo Álvarez»"
+     ]
+    },
+    {
+     "orden": 29,
+     "texto": "LÁZARO CÁRDENAS-MANUEL ÁVILA CAMACHO",
+     "calle": "LÁZARO CÁRDENAS",
+     "cruce_con": "MANUEL ÁVILA CAMACHO",
+     "estado": "UBICADO",
+     "lat": 20.41911,
+     "lon": -100.00655,
+     "osm_calle": "Calle Lázaro Cárdenas",
+     "osm_cruce": "Calle Manuel Avila Camacho",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    }
+   ]
+  },
+  {
    "route_id": "U-019",
    "numero": "019",
    "estado": "lista oficial descartada (D-33): mezcla calles de Querétaro"
@@ -7387,6 +7754,872 @@
    "route_id": "U-024",
    "numero": "024",
    "estado": "lista oficial descartada (D-33): mezcla calles de Querétaro"
+  },
+  {
+   "route_id": "U-024C",
+   "numero": "024C",
+   "nombre": "Las Torres – Central de Autobuses",
+   "sentido": "sin asignar: la lista junta ida y vuelta (hallazgo c, regla 10)",
+   "total": 71,
+   "conteo": {
+    "UBICADO": 49,
+    "UBICADO POR LUGAR": 0,
+    "APROXIMADO": 2,
+    "REFERENCIA": 17,
+    "CALLES SIN CRUCE EN OSM": 0,
+    "SIN UBICAR": 3
+   },
+   "cruces": [
+    {
+     "orden": 1,
+     "texto": "MIRLO-LAS TORRES",
+     "calle": "MIRLO",
+     "cruce_con": "LAS TORRES",
+     "estado": "SIN UBICAR",
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
+    },
+    {
+     "orden": 2,
+     "texto": "PUENTE PANAMÁ-CARDENAL",
+     "calle": "PUENTE PANAMÁ",
+     "cruce_con": "CARDENAL",
+     "estado": "UBICADO",
+     "lat": 20.40406,
+     "lon": -99.9583,
+     "osm_calle": "Calle Puente Panama",
+     "osm_cruce": "Calle Cardenal",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 3,
+     "texto": "PROL. PALMAS-PARQUE VILLAS DEL PUENTE Y AMPLIACIÓN BANDHI",
+     "calle": "PROL. PALMAS",
+     "cruce_con": "PARQUE VILLAS DEL PUENTE Y AMPLIACIÓN BANDHI",
+     "estado": "REFERENCIA",
+     "osm_calle": "Calle Palmas",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 4,
+     "texto": "BRASIL-FRANCIA",
+     "calle": "BRASIL",
+     "cruce_con": "FRANCIA",
+     "estado": "UBICADO",
+     "lat": 20.39984,
+     "lon": -99.9613,
+     "osm_calle": "Calle Brasil",
+     "osm_cruce": "Avenida Francia",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 5,
+     "texto": "FRANCIA-BRASIL",
+     "calle": "FRANCIA",
+     "cruce_con": "BRASIL",
+     "estado": "UBICADO",
+     "lat": 20.39984,
+     "lon": -99.9613,
+     "osm_calle": "Avenida Francia",
+     "osm_cruce": "Calle Brasil",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 6,
+     "texto": "AV. GANDHI-FRANCIA",
+     "calle": "AV. GANDHI",
+     "cruce_con": "FRANCIA",
+     "estado": "UBICADO",
+     "lat": 20.39991,
+     "lon": -99.96402,
+     "osm_calle": "Avenida Gandhi",
+     "osm_cruce": "Avenida Francia",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 7,
+     "texto": "AV. GANDHI-CALLE ADOLFO PÉREZ EZQUIVEL",
+     "calle": "AV. GANDHI",
+     "cruce_con": "CALLE ADOLFO PÉREZ EZQUIVEL",
+     "estado": "UBICADO",
+     "lat": 20.3968,
+     "lon": -99.9647,
+     "osm_calle": "Avenida Gandhi",
+     "osm_cruce": "Calle Adolfo Pérez Ezquivel",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 8,
+     "texto": "AV. GANDHI-CALLE DALAI LAMA",
+     "calle": "AV. GANDHI",
+     "cruce_con": "CALLE DALAI LAMA",
+     "estado": "UBICADO",
+     "lat": 20.39464,
+     "lon": -99.96515,
+     "osm_calle": "Avenida Gandhi",
+     "osm_cruce": "Calle Dalai Lama",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 9,
+     "texto": "AV. FRESNO-AV. OLMO",
+     "calle": "AV. FRESNO",
+     "cruce_con": "AV. OLMO",
+     "estado": "UBICADO",
+     "lat": 20.39375,
+     "lon": -99.9671,
+     "osm_calle": "Avenida Fresno",
+     "osm_cruce": "Avenida Olmo",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 10,
+     "texto": "PROF. MERCEDES CAMACHO-ARQUITECTURA",
+     "calle": "PROF. MERCEDES CAMACHO",
+     "cruce_con": "ARQUITECTURA",
+     "estado": "UBICADO",
+     "lat": 20.38976,
+     "lon": -99.96976,
+     "osm_calle": "Calle Profesora Mercedes Camacho",
+     "osm_cruce": "Calle Arquitectura",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 11,
+     "texto": "PROF. MERCEDES CAMACHO-FERNANDO DÍAZ R.",
+     "calle": "PROF. MERCEDES CAMACHO",
+     "cruce_con": "FERNANDO DÍAZ R.",
+     "estado": "UBICADO",
+     "lat": 20.38807,
+     "lon": -99.96977,
+     "osm_calle": "Calle Profesora Mercedes Camacho",
+     "osm_cruce": "Calle Licenciado Fernando Díaz Ramírez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «FERNANDO DÍAZ R.» → «Calle Licenciado Fernando Díaz Ramírez»"
+     ]
+    },
+    {
+     "orden": 12,
+     "texto": "AV. RÍO MOCTEZUMA-LIC. MANUEL GÓMEZ MORÍN",
+     "calle": "AV. RÍO MOCTEZUMA",
+     "cruce_con": "LIC. MANUEL GÓMEZ MORÍN",
+     "estado": "UBICADO",
+     "lat": 20.38701,
+     "lon": -99.97119,
+     "osm_calle": "Avenida Río Moctezuma",
+     "osm_cruce": "Calle Licenciado Manuel Gómez Morín",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 13,
+     "texto": "AV. RÍO MOCTEZUMA-RÍO CARIBE",
+     "calle": "AV. RÍO MOCTEZUMA",
+     "cruce_con": "RÍO CARIBE",
+     "estado": "UBICADO",
+     "lat": 20.38736,
+     "lon": -99.97431,
+     "osm_calle": "Avenida Río Moctezuma",
+     "osm_cruce": "Calle Río Caribe",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 14,
+     "texto": "AV. RÍO MOCTEZUMA-RÍO LERMA",
+     "calle": "AV. RÍO MOCTEZUMA",
+     "cruce_con": "RÍO LERMA",
+     "estado": "UBICADO",
+     "lat": 20.38764,
+     "lon": -99.97687,
+     "osm_calle": "Avenida Río Moctezuma",
+     "osm_cruce": "Calle Río Lerma",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 15,
+     "texto": "AV. RÍO MOCTEZUMA-RÍO NEGRO",
+     "calle": "AV. RÍO MOCTEZUMA",
+     "cruce_con": "RÍO NEGRO",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Río Moctezuma",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 16,
+     "texto": "AV. RÍO MOCTEZUMA-CARR. SAN JUAN DEL RÍO",
+     "calle": "AV. RÍO MOCTEZUMA",
+     "cruce_con": "CARR. SAN JUAN DEL RÍO",
+     "estado": "UBICADO",
+     "lat": 20.38797,
+     "lon": -99.98467,
+     "osm_calle": "Calle General Francisco Villa",
+     "osm_cruce": "Avenida Central",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación confirmada por Miguel (D-43): «AV. RÍO MOCTEZUMA» → «Calle General Francisco Villa»",
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
+    },
+    {
+     "orden": 17,
+     "texto": "PASEO CENTRAL-OFFICE DEPOT",
+     "calle": "PASEO CENTRAL",
+     "cruce_con": "OFFICE DEPOT",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 18,
+     "texto": "CARR. SAN JUAN DEL RÍO-OTOÑO",
+     "calle": "CARR. SAN JUAN DEL RÍO",
+     "cruce_con": "OTOÑO",
+     "estado": "UBICADO",
+     "lat": 20.38321,
+     "lon": -99.98536,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Calle Otoño",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
+    },
+    {
+     "orden": 19,
+     "texto": "CARR. SAN JUAN DEL RÍO-AV. BENITO JUÁREZ ORIENTE",
+     "calle": "CARR. SAN JUAN DEL RÍO",
+     "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
+     "estado": "UBICADO",
+     "lat": 20.37963,
+     "lon": -99.98565,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Benito Juárez Oriente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»"
+     ]
+    },
+    {
+     "orden": 20,
+     "texto": "PLAZA MORELOS ORIENTE-AGUSTÍN MELGAR",
+     "calle": "PLAZA MORELOS ORIENTE",
+     "cruce_con": "AGUSTÍN MELGAR",
+     "estado": "REFERENCIA",
+     "osm_calle": "Calle Agustin Melgar",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 21,
+     "texto": "AV. BENITO JUÁREZ ORIENTE-PRIMAVERA",
+     "calle": "AV. BENITO JUÁREZ ORIENTE",
+     "cruce_con": "PRIMAVERA",
+     "estado": "UBICADO",
+     "lat": 20.38322,
+     "lon": -99.98904,
+     "osm_calle": "Avenida Benito Juárez Oriente",
+     "osm_cruce": "Calle Primavera",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 22,
+     "texto": "PLAZA MORELOS ORIENTE-CASTILLO DE CHAPULTEPEC",
+     "calle": "PLAZA MORELOS ORIENTE",
+     "cruce_con": "CASTILLO DE CHAPULTEPEC",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Castillo de Chapultepec",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 23,
+     "texto": "PLAZA MORELOS ORIENTE-ARTICULO 3°",
+     "calle": "PLAZA MORELOS ORIENTE",
+     "cruce_con": "ARTICULO 3°",
+     "estado": "REFERENCIA",
+     "osm_calle": "Calle Artículo Tercero",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 24,
+     "texto": "PLAZA MORELOS ORIENTE-PANAMERICANA",
+     "calle": "PLAZA MORELOS ORIENTE",
+     "cruce_con": "PANAMERICANA",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Panamericana",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 25,
+     "texto": "INDEPENDENCIA-VICENTE RIVAPALACIO",
+     "calle": "INDEPENDENCIA",
+     "cruce_con": "VICENTE RIVAPALACIO",
+     "estado": "UBICADO",
+     "lat": 20.38626,
+     "lon": -99.99481,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle Vicente Rivapalacio",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «INDEPENDENCIA» → «Avenida Juárez»"
+     ]
+    },
+    {
+     "orden": 26,
+     "texto": "AV. BENITO JUÁREZ ORIENTE-GENERAL VICENTE GUERRERO",
+     "calle": "AV. BENITO JUÁREZ ORIENTE",
+     "cruce_con": "GENERAL VICENTE GUERRERO",
+     "estado": "UBICADO",
+     "lat": 20.38645,
+     "lon": -99.99559,
+     "osm_calle": "Avenida Juárez",
+     "osm_cruce": "Calle General Vicente Guerrero",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "parcial: «AV. BENITO JUÁREZ ORIENTE» → «Avenida Juárez»"
+     ]
+    },
+    {
+     "orden": 27,
+     "texto": "C. MIGUEL HIDALGO-SAGITARIO",
+     "calle": "C. MIGUEL HIDALGO",
+     "cruce_con": "SAGITARIO",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 28,
+     "texto": "C. MIGUEL HIDALGO-IGNACIO ALLENDE",
+     "calle": "C. MIGUEL HIDALGO",
+     "cruce_con": "IGNACIO ALLENDE",
+     "estado": "UBICADO",
+     "lat": 20.38486,
+     "lon": -99.99756,
+     "osm_calle": "Avenida Miguel Hidalgo y Costilla",
+     "osm_cruce": "Calle Ignacio Allende",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «C. MIGUEL HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
+     ]
+    },
+    {
+     "orden": 29,
+     "texto": "C.MIGUEL HIDALGO-HUERTA GRANDE HIDALGO",
+     "calle": "C.MIGUEL HIDALGO",
+     "cruce_con": "HUERTA GRANDE HIDALGO",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 30,
+     "texto": "HIDALGO-C. MIGUEL HIDALGO",
+     "calle": "HIDALGO",
+     "cruce_con": "C. MIGUEL HIDALGO",
+     "estado": "UBICADO",
+     "lat": 20.38652,
+     "lon": -99.99722,
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "osm_cruce": "Avenida Miguel Hidalgo y Costilla",
+     "evidencia": "las dos calles se tocan en OSM (19 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «HIDALGO» → «Avenida Miguel Hidalgo»",
+      "contenido: «C. MIGUEL HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
+     ]
+    },
+    {
+     "orden": 31,
+     "texto": "C.MIGUEL HIDALGO-ING. LUIS ROMERO SOTO",
+     "calle": "C.MIGUEL HIDALGO",
+     "cruce_con": "ING. LUIS ROMERO SOTO",
+     "estado": "UBICADO",
+     "lat": 20.37712,
+     "lon": -99.99922,
+     "osm_calle": "Avenida Miguel Hidalgo y Costilla",
+     "osm_cruce": "Calle Ingeniero Luis Romero Soto",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «C.MIGUEL HIDALGO» → «Avenida Miguel Hidalgo y Costilla»"
+     ]
+    },
+    {
+     "orden": 32,
+     "texto": "AV. LIC. BENITO JUÁREZ PONIENTE-SECRETARÍA DE FINANZAS",
+     "calle": "AV. LIC. BENITO JUÁREZ PONIENTE",
+     "cruce_con": "SECRETARÍA DE FINANZAS",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Benito Juárez Poniente",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 33,
+     "texto": "C. CORREGIDORA-AV. LIC. BENITO JUÁREZ PTE",
+     "calle": "C. CORREGIDORA",
+     "cruce_con": "AV. LIC. BENITO JUÁREZ PTE",
+     "estado": "UBICADO",
+     "lat": 20.38517,
+     "lon": -100.00347,
+     "osm_calle": "Calle Corregidora",
+     "osm_cruce": "Avenida Benito Juárez Poniente",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 34,
+     "texto": "C. CORREGIDORA-CALLE IGNACIO ZARAGOZA",
+     "calle": "C. CORREGIDORA",
+     "cruce_con": "CALLE IGNACIO ZARAGOZA",
+     "estado": "UBICADO",
+     "lat": 20.38757,
+     "lon": -100.00223,
+     "osm_calle": "Calle Corregidora",
+     "osm_cruce": "Calle Ignacio Zaragoza",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 35,
+     "texto": "C. CORREGIDORA-SAN JOSE",
+     "calle": "C. CORREGIDORA",
+     "cruce_con": "SAN JOSE",
+     "estado": "APROXIMADO",
+     "lat": 20.38964,
+     "lon": -100.0013,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "entre vecinos",
+     "osm_calle": "Calle Corregidora",
+     "evidencia": "punto de «Calle Corregidora» más cercano (1 m) a la mitad entre los cruces ubicados #34 y #36",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
+    },
+    {
+     "orden": 36,
+     "texto": "C. CORREGIDORA-MARIANO MATAMOROS",
+     "calle": "C. CORREGIDORA",
+     "cruce_con": "MARIANO MATAMOROS",
+     "estado": "UBICADO",
+     "lat": 20.39171,
+     "lon": -100.00037,
+     "osm_calle": "Calle Corregidora",
+     "osm_cruce": "Calle Mariano Matamoros",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 37,
+     "texto": "MARIANO MATAMOROS-15 DE MAYO",
+     "calle": "MARIANO MATAMOROS",
+     "cruce_con": "15 DE MAYO",
+     "estado": "UBICADO",
+     "lat": 20.39057,
+     "lon": -99.9979,
+     "osm_calle": "Calle Mariano Matamoros",
+     "osm_cruce": "Calle 15 De Mayo",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 38,
+     "texto": "MIGUEL HIDALGO NTE.-MARIANO MATAMOROS",
+     "calle": "MIGUEL HIDALGO NTE.",
+     "cruce_con": "MARIANO MATAMOROS",
+     "estado": "UBICADO",
+     "lat": 20.39004,
+     "lon": -99.99658,
+     "osm_calle": "Avenida Miguel Hidalgo",
+     "osm_cruce": "Calle Fundadores",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "continuación: «MARIANO MATAMOROS» (OSM «Calle Mariano Matamoros») sigue en línea recta como «Calle Fundadores»"
+     ]
+    },
+    {
+     "orden": 39,
+     "texto": "CALLE JOSE MARIA MORELOS Y PAVÓN-ANTIGUA CALLE DON EUSEBIO BO. DE SAN JUAN",
+     "calle": "CALLE JOSE MARIA MORELOS Y PAVÓN",
+     "cruce_con": "ANTIGUA CALLE DON EUSEBIO BO. DE SAN JUAN",
+     "estado": "REFERENCIA",
+     "osm_calle": "Calle José María Morelos y Pavón",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 40,
+     "texto": "CALLE FRANCISCO JAVIER MINA",
+     "calle": "CALLE FRANCISCO JAVIER MINA",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Calle Francisco Javier Mina",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 41,
+     "texto": "5 DE MAYO-PROF. MERCEDES CAMACHO",
+     "calle": "5 DE MAYO",
+     "cruce_con": "PROF. MERCEDES CAMACHO",
+     "estado": "UBICADO",
+     "lat": 20.39243,
+     "lon": -99.99371,
+     "osm_calle": "Calle 5 de Mayo",
+     "osm_cruce": "Calle Profesor Mercedes Camacho",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 42,
+     "texto": "5 DE MAYO-HEROICO COLEGIO MILITAR",
+     "calle": "5 DE MAYO",
+     "cruce_con": "HEROICO COLEGIO MILITAR",
+     "estado": "UBICADO",
+     "lat": 20.39195,
+     "lon": -99.99346,
+     "osm_calle": "Calle 5 de Mayo",
+     "osm_cruce": "Calle Heroico Colegio Militar",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 43,
+     "texto": "5 DE MAYO-EMILIANO ZAPATA",
+     "calle": "5 DE MAYO",
+     "cruce_con": "EMILIANO ZAPATA",
+     "estado": "UBICADO",
+     "lat": 20.3898,
+     "lon": -99.99209,
+     "osm_calle": "Calle 5 de Mayo",
+     "osm_cruce": "Calle Emiliano Zapata",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 44,
+     "texto": "5 DE MAYO-SEUZ",
+     "calle": "5 DE MAYO",
+     "cruce_con": "SEUZ",
+     "estado": "REFERENCIA",
+     "osm_calle": "Calle 5 de Mayo",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 45,
+     "texto": "JURICA-AV. BENITO JUÁREZ ORIENTE",
+     "calle": "JURICA",
+     "cruce_con": "AV. BENITO JUÁREZ ORIENTE",
+     "estado": "UBICADO",
+     "lat": 20.38442,
+     "lon": -99.99048,
+     "osm_calle": "Avenida Belisario Domínguez",
+     "osm_cruce": "Avenida Benito Juaréz Oriente",
+     "evidencia": "las dos calles se tocan en OSM (17 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
+    },
+    {
+     "orden": 46,
+     "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
+     "calle": "MONUMENTO A BENITO JUÁREZ",
+     "cruce_con": "JURICA",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Belisario Domínguez",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 47,
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 48,
+     "texto": "FERNANDO DE TAPIA-JURICA",
+     "calle": "FERNANDO DE TAPIA",
+     "cruce_con": "JURICA",
+     "estado": "UBICADO",
+     "lat": 20.38313,
+     "lon": -99.99211,
+     "osm_calle": "Calle Fernando de Tapia",
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
+    },
+    {
+     "orden": 49,
+     "texto": "SAN JUAN DEL RÍO",
+     "calle": "SAN JUAN DEL RÍO",
+     "cruce_con": null,
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Central",
+     "nota": "calle suelta en la lista, sin cruce: confirma la calle, sin punto propio"
+    },
+    {
+     "orden": 50,
+     "texto": "AV. BENITO JUARÉZ-AGUSTÍN MELGAR",
+     "calle": "AV. BENITO JUARÉZ",
+     "cruce_con": "AGUSTÍN MELGAR",
+     "estado": "UBICADO",
+     "lat": 20.38126,
+     "lon": -99.98751,
+     "osm_calle": "Avenida Benito Juárez Oriente",
+     "osm_cruce": "Calle Agustín Melgar",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 51,
+     "texto": "CARR. SAN JUAN DEL RÍO-JURICA",
+     "calle": "CARR. SAN JUAN DEL RÍO",
+     "cruce_con": "JURICA",
+     "estado": "UBICADO",
+     "lat": 20.3778,
+     "lon": -99.98604,
+     "osm_calle": "Avenida Central",
+     "osm_cruce": "Avenida Belisario Domínguez",
+     "evidencia": "las dos calles se tocan en OSM (8 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "alias de Miguel (D-43): «CARR. SAN JUAN DEL RÍO» → «Avenida Central»",
+      "alias de Miguel (D-43): «JURICA» → «Avenida Belisario Domínguez»"
+     ]
+    },
+    {
+     "orden": 52,
+     "texto": "RÍO SAN JUAN-RÍO NAZAS",
+     "calle": "RÍO SAN JUAN",
+     "cruce_con": "RÍO NAZAS",
+     "estado": "UBICADO",
+     "lat": 20.38226,
+     "lon": -99.97968,
+     "osm_calle": "Avenida Río San Juan",
+     "osm_cruce": "Calle Río Nazas",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 53,
+     "texto": "RÍO SAN JUAN-RÍO FUERTE",
+     "calle": "RÍO SAN JUAN",
+     "cruce_con": "RÍO FUERTE",
+     "estado": "UBICADO",
+     "lat": 20.38484,
+     "lon": -99.97468,
+     "osm_calle": "Avenida Río San Juan",
+     "osm_cruce": "Calle Río Fuerte",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 54,
+     "texto": "RÍO SAN JUAN-ANDADOR RUBÍ",
+     "calle": "RÍO SAN JUAN",
+     "cruce_con": "ANDADOR RUBÍ",
+     "estado": "APROXIMADO",
+     "lat": 20.3857,
+     "lon": -99.97147,
+     "etiqueta": "ESTIMADO",
+     "precision": "C",
+     "metodo": "cercanía",
+     "osm_calle": "Avenida Río San Juan",
+     "osm_cruce": "Calle Rubi",
+     "evidencia": "«Avenida Río San Juan» y «Calle Rubi» no se tocan en OSM; pasan a 30 m: punto de la primera más cercano a la segunda",
+     "verificacion": "pendiente: se confirma con el uso de la app o en campo (D-45)",
+     "antes": "CALLES SIN CRUCE EN OSM"
+    },
+    {
+     "orden": 55,
+     "texto": "PROF. MERCEDES CAMACHO-AV. RIO MOCTEZUMA",
+     "calle": "PROF. MERCEDES CAMACHO",
+     "cruce_con": "AV. RIO MOCTEZUMA",
+     "estado": "UBICADO",
+     "lat": 20.38686,
+     "lon": -99.96994,
+     "osm_calle": "Calle Profesora Mercedes Camacho",
+     "osm_cruce": "Avenida Río Moctezuma",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 56,
+     "texto": "PROF. MERCEDES CAMACHO-FERNANDO DÍAZ R.",
+     "calle": "PROF. MERCEDES CAMACHO",
+     "cruce_con": "FERNANDO DÍAZ R.",
+     "estado": "UBICADO",
+     "lat": 20.38807,
+     "lon": -99.96977,
+     "osm_calle": "Calle Profesora Mercedes Camacho",
+     "osm_cruce": "Calle Licenciado Fernando Díaz Ramírez",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "contenido: «FERNANDO DÍAZ R.» → «Calle Licenciado Fernando Díaz Ramírez»"
+     ]
+    },
+    {
+     "orden": 57,
+     "texto": "PROF. MERCEDES CAMACHO-AVENIDA UNIVERSIDAD",
+     "calle": "PROF. MERCEDES CAMACHO",
+     "cruce_con": "AVENIDA UNIVERSIDAD",
+     "estado": "UBICADO",
+     "lat": 20.39051,
+     "lon": -99.96959,
+     "osm_calle": "Avenida Profesora Mercedes Camacho",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 58,
+     "texto": "PROF. MERCEDES CAMACHO-AVENIDA UNIVERSIDAD",
+     "calle": "PROF. MERCEDES CAMACHO",
+     "cruce_con": "AVENIDA UNIVERSIDAD",
+     "estado": "UBICADO",
+     "lat": 20.39051,
+     "lon": -99.96959,
+     "osm_calle": "Avenida Profesora Mercedes Camacho",
+     "osm_cruce": "Avenida Universidad",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 59,
+     "texto": "PROF. MERCEDES CAMACHO-AV. FRESNO",
+     "calle": "PROF. MERCEDES CAMACHO",
+     "cruce_con": "AV. FRESNO",
+     "estado": "UBICADO",
+     "lat": 20.39389,
+     "lon": -99.96901,
+     "osm_calle": "Avenida Profesora Mercedes Camacho",
+     "osm_cruce": "Avenida Fresno",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 60,
+     "texto": "AV. FRESNO-AV. OLMO",
+     "calle": "AV. FRESNO",
+     "cruce_con": "AV. OLMO",
+     "estado": "UBICADO",
+     "lat": 20.39375,
+     "lon": -99.9671,
+     "osm_calle": "Avenida Fresno",
+     "osm_cruce": "Avenida Olmo",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 61,
+     "texto": "AV. GANDHI-C. DALAI LAMA",
+     "calle": "AV. GANDHI",
+     "cruce_con": "C. DALAI LAMA",
+     "estado": "UBICADO",
+     "lat": 20.39464,
+     "lon": -99.96515,
+     "osm_calle": "Avenida Gandhi",
+     "osm_cruce": "Calle Dalai Lama",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 62,
+     "texto": "AV. GANDHI-CALLE RENÉ CASSIN",
+     "calle": "AV. GANDHI",
+     "cruce_con": "CALLE RENÉ CASSIN",
+     "estado": "UBICADO",
+     "lat": 20.39607,
+     "lon": -99.96472,
+     "osm_calle": "Avenida Gandhi",
+     "osm_cruce": "Calle Rene Cassin",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 63,
+     "texto": "AV. GANDHI-CALLE NELSON MANDELA",
+     "calle": "AV. GANDHI",
+     "cruce_con": "CALLE NELSON MANDELA",
+     "estado": "UBICADO",
+     "lat": 20.39756,
+     "lon": -99.96441,
+     "osm_calle": "Avenida Gandhi",
+     "osm_cruce": "Calle Nelson Mandela",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 64,
+     "texto": "AV. GANDHI-CALLE FRANCIA",
+     "calle": "AV. GANDHI",
+     "cruce_con": "CALLE FRANCIA",
+     "estado": "UBICADO",
+     "lat": 20.39991,
+     "lon": -99.96402,
+     "osm_calle": "Avenida Gandhi",
+     "osm_cruce": "Avenida Francia",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 65,
+     "texto": "CALLE FRANCIA-CALLE CUBA",
+     "calle": "CALLE FRANCIA",
+     "cruce_con": "CALLE CUBA",
+     "estado": "UBICADO",
+     "lat": 20.39984,
+     "lon": -99.96168,
+     "osm_calle": "Avenida Francia",
+     "osm_cruce": "Calle Cuba",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 66,
+     "texto": "BRASIL-SAÖ PABLO",
+     "calle": "BRASIL",
+     "cruce_con": "SAÖ PABLO",
+     "estado": "UBICADO",
+     "lat": 20.40151,
+     "lon": -99.96113,
+     "osm_calle": "Calle Brasil",
+     "osm_cruce": "Calle Sao Paolo",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "errata: «SAÖ PABLO» → «Calle Sao Paolo»"
+     ]
+    },
+    {
+     "orden": 67,
+     "texto": "GUADALUPE VICTORIA-BRASIL",
+     "calle": "GUADALUPE VICTORIA",
+     "cruce_con": "BRASIL",
+     "estado": "UBICADO",
+     "lat": 20.4027,
+     "lon": -99.961,
+     "osm_calle": "Calle Guadalupe Victoria",
+     "osm_cruce": "Calle Brasil",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
+    },
+    {
+     "orden": 68,
+     "texto": "PUENTE PANAMÁ-BENGAHLI",
+     "calle": "PUENTE PANAMÁ",
+     "cruce_con": "BENGAHLI",
+     "estado": "UBICADO",
+     "lat": 20.40402,
+     "lon": -99.95952,
+     "osm_calle": "Calle Puente Panama",
+     "osm_cruce": "Calle Bengalí",
+     "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta",
+     "correcciones": [
+      "errata: «BENGAHLI» → «Calle Bengalí»"
+     ]
+    },
+    {
+     "orden": 69,
+     "texto": "MIRLO-GOLONDRINA",
+     "calle": "MIRLO",
+     "cruce_con": "GOLONDRINA",
+     "estado": "SIN UBICAR",
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
+    },
+    {
+     "orden": 70,
+     "texto": "MIRLO-LAS TORRES",
+     "calle": "MIRLO",
+     "cruce_con": "LAS TORRES",
+     "estado": "SIN UBICAR",
+     "nota": "la calle no aparece en OSM: POR VERIFICAR. Sin aproximación (D-45): falta un cruce ubicado antes o después para acotarlo"
+    },
+    {
+     "orden": 71,
+     "texto": "LAS TORRES-MIRLO",
+     "calle": "LAS TORRES",
+     "cruce_con": "MIRLO",
+     "estado": "REFERENCIA",
+     "osm_calle": "Avenida Las Torres",
+     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+    }
+   ]
   },
   {
    "route_id": "U-025",
@@ -8982,6 +10215,11 @@
      "evidencia": "las dos calles se tocan en OSM (0 m), dentro del corredor de la ruta"
     }
    ]
+  },
+  {
+   "route_id": "U-031",
+   "numero": "031",
+   "estado": "lista oficial descartada (D-33): mezcla calles de Querétaro"
   },
   {
    "route_id": "U-032",

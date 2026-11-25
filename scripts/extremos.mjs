@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// R-02 (D-24): origen y destino de las 40 rutas vigentes (D-36) con coordenada.
+// R-02 (D-24): origen y destino de las 42 rutas (D-70: las de San Juan en qrobus.gob.mx) con coordenada.
 // Orden de fuentes: 1) coordenadas verificadas de HANDOFF §11.3; 2) parada de OSM
 // (N-08) con el mismo nombre; 3) Nominatim, una consulta por segundo, en caché.
 // Todo lo nuevo entra POR VERIFICAR. Lo que cae fuera del municipio, no coincide en
@@ -68,6 +68,9 @@ export const LUGARES = {
   'Lomas del Pedregal': { q: 'Lomas del Pedregal, San Juan del Río', nombres: ['LOMAS DEL PEDREGAL'] },
   'Praderas del Sol': { q: 'Praderas del Sol, San Juan del Río', nombres: ['PRADERAS DEL SOL'] },
   'Las Torres': { q: 'Las Torres, San Juan del Río', nombres: ['LAS TORRES'] },
+  // D-70: vuelven con sus rutas (031 y 018); mismas consultas que el 19 nov, ya en caché.
+  'PITSA': { q: 'PITSA, San Juan del Río', nombres: ['PITSA'], instalacion: true },
+  'Nuevo San Isidro': { q: 'Nuevo San Isidro, San Juan del Río', nombres: ['NUEVO SAN ISIDRO'] },
   'Rancho de Enmedio': { q: 'Rancho de Enmedio, San Juan del Río', nombres: ['RANCHO DE ENMEDIO', 'RANCHO DE EN MEDIO'] },
     'Visthá': { q: 'Visthá, San Juan del Río', nombres: ['VISTHA'] },
   'Manantiales / Nogales': { compuesto: 'el inventario nombra dos lugares como un solo extremo' },

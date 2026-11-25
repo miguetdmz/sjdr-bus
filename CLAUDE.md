@@ -41,7 +41,7 @@ Miguel no programa: Claude construye, Miguel aprueba y verifica.
    repositorio. La app nunca los consulta en vivo.
 8. Niveles de precisión A/B/C por tramo (HANDOFF §11.4). Un tramo C nunca se
    dibuja como línea continua.
-9. Las rutas vigentes (39: D-36, D-39 y D-40) en un selector visual de tarjetas,
+9. Las rutas vigentes (42: las de San Juan que lista qrobus.gob.mx/Rutas, D-70) en un selector visual de tarjetas,
    en el orden de `routes.txt`, sin menú desplegable (D-53, cambia D-50). Las
    tarjetas muestran insignia (R1, T62) y nombre, nunca «Ruta 001».
    Ninguna se oculta por falta de datos y ninguna se completa con datos supuestos.
@@ -271,7 +271,7 @@ puede, convertir la regla en una prueba automática.
    la medición del lote, no la especificación (la regla de fondo). Regla: una
    prueba revisa la regla («D-45 no toca los UBICADOS»: ninguno trae método ni
    estado anterior), no el conteo del día; un número fijo solo si la regla es
-   ese número (39 rutas). Detección temprana: al escribir un número en una
+   ese número (las rutas de la referencia de qrobus, D-70). Detección temprana: al escribir un número en una
    prueba, preguntarse «¿un arreglo bueno lo cambiaría?»; si sí, no va.
    - 2026-11-20 (1.ª vez, ~9:49 am): «exactamente 690» falló con Jurica.
    - 2026-11-20 (2.ª vez, ~11:49 am): «al menos 26» y «México 120 sin punto»

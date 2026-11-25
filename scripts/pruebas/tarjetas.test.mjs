@@ -94,12 +94,12 @@ test('recientes (D-50, resp. 4): hasta 3, la más nueva primero, sin repetir', (
   assert.equal(MAX_RECIENTES, 3);
 });
 
-test('recientes: lo guardado se limpia (rutas dadas de baja, basura, repetidas)', () => {
+test('recientes: lo guardado se limpia (rutas que no existen, basura, repetidas)', () => {
   const validos = new Set(rutas.map((r) => r.route_id));
   assert.deepEqual(leerRecientes(null, validos), []);
   assert.deepEqual(leerRecientes('no es json', validos), []);
   assert.deepEqual(leerRecientes('{"a":1}', validos), []);
-  assert.deepEqual(leerRecientes('["U-031","U-001","U-001",7,"U-002","U-004","U-005"]', validos), ['U-001', 'U-002', 'U-004']);
+  assert.deepEqual(leerRecientes('["U-999","U-001","U-001",7,"U-002","U-004","U-005"]', validos), ['U-001', 'U-002', 'U-004']);
 });
 
 test('recientes: solo localStorage, sin cookies', () => {
