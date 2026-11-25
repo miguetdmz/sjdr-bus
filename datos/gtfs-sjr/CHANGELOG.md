@@ -59,3 +59,10 @@ Formato por versión: fecha (hora de México) · qué cambió · fuente · autor
   (`U-044`, Miguel confirmó que existe) y se quita la 018 «Nuevo San Isidro –
   Centro» (`U-018`): ya no existe. Siguen 39 rutas (37 urbanas y 2
   intermunicipales) · fuente: Miguel, conocimiento local, 19 nov 2026 · Claude.
+- 25 nov 2026 · Corrección D-70: vuelven las rutas 018 «Nuevo San Isidro – Centro»
+  (`U-018`), 024C «Las Torres – Central de Autobuses» (`U-024C`) y 031 «Pedregoso –
+  PITSA» (`U-031`). La referencia del inventario son las rutas de San Juan que lista
+  qrobus.gob.mx/Rutas: 42 rutas (40 urbanas y 2 intermunicipales). Sus fichas entran
+  como `solo-inventario`, nivel C · fuente: qrobus.gob.mx/Rutas (copia del 19 nov 2026,
+  revisada contra la página el 25 nov 2026); Miguel deshizo las bajas de D-36, D-39 y
+  D-40 · Claude.

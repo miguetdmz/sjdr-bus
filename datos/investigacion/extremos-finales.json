@@ -7,10 +7,10 @@
     "antes: la coordenada automática que el punto de Miguel reemplazó, para poder compararla."
   ],
   "resumen": {
-    "lugares": 35,
+    "lugares": 38,
     "con_coordenada": 32,
     "de_miguel": 21,
-    "faltantes": 3
+    "faltantes": 6
   },
   "lugares": [
     {
@@ -19,7 +19,8 @@
         "001",
         "002",
         "019",
-        "022"
+        "022",
+        "031"
       ],
       "lat": 20.37609,
       "lon": -99.96421,
@@ -37,6 +38,7 @@
         "014",
         "016",
         "017",
+        "018",
         "022",
         "23",
         "024",
@@ -91,6 +93,7 @@
         "009",
         "011",
         "020",
+        "024C",
         "028",
         "030",
         "032",
@@ -241,6 +244,16 @@
       "fuente": "Nominatim (OpenStreetMap) node/2176751083, consulta 2026-11-19"
     },
     {
+      "lugar": "Nuevo San Isidro",
+      "rutas": [
+        "018"
+      ],
+      "lat": null,
+      "lon": null,
+      "estado": "FALTANTE (D-41) · se completa con la retroalimentación de la gente",
+      "motivo": "sin punto: ni OpenStreetMap ni Miguel lo ubicaron todavía"
+    },
+    {
       "lugar": "Valle Real",
       "rutas": [
         "019",
@@ -272,6 +285,16 @@
       "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T19:26-06:00"
     },
     {
+      "lugar": "Las Torres",
+      "rutas": [
+        "024C"
+      ],
+      "lat": null,
+      "lon": null,
+      "estado": "FALTANTE (D-41) · se completa con la retroalimentación de la gente",
+      "motivo": "sin punto: ni OpenStreetMap ni Miguel lo ubicaron todavía"
+    },
+    {
       "lugar": "Las Águilas",
       "rutas": [
         "025",
@@ -291,6 +314,16 @@
       "lon": -99.93784,
       "estado": "UBICADO POR MIGUEL · POR VERIFICAR EN CAMPO",
       "fuente": "Miguel, página de extremos (ubicado), 2026-11-19T19:24-06:00"
+    },
+    {
+      "lugar": "PITSA",
+      "rutas": [
+        "031"
+      ],
+      "lat": null,
+      "lon": null,
+      "estado": "FALTANTE (D-41) · se completa con la retroalimentación de la gente",
+      "motivo": "sin punto: ni OpenStreetMap ni Miguel lo ubicaron todavía"
     },
     {
       "lugar": "Visthá",

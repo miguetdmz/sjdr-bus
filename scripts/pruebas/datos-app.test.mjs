@@ -1,6 +1,7 @@
 // M-02: los datos de la app salen de routes.txt y de las fichas, sin cifras nuevas.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { REFERENCIA, URBANAS, INTERMUNICIPALES, SOLO_INVENTARIO, VERIFICADAS } from '../lib/referencia.mjs';
 import { readFileSync } from 'node:fs';
 import { leerCSV } from '../lib/csv.mjs';
 import { armarDatosApp } from '../datos-app.mjs';
@@ -9,20 +10,20 @@ const routes = leerCSV(new URL('../../datos/gtfs-sjr/routes.txt', import.meta.ur
 const fichas = JSON.parse(readFileSync(new URL('../../datos/fichas/rutas.json', import.meta.url), 'utf8'));
 const datos = armarDatosApp();
 
-test('datos de la app: 39 rutas en el orden de routes.txt, con número y nombre', () => {
-  assert.equal(datos.rutas.length, 39);
+test('datos de la app: las 42 rutas de la referencia (D-70) en el orden de routes.txt, con número y nombre', () => {
+  assert.equal(datos.rutas.length, REFERENCIA.length);
   datos.rutas.forEach((r, i) => {
     assert.equal(r.route_id, routes[i].route_id, `fila ${i + 1}`);
     assert.equal(r.numero, routes[i].route_short_name, `fila ${i + 1}`);
     assert.equal(r.nombre, routes[i].route_long_name, `fila ${i + 1}`);
   });
-  assert.equal(datos.rutas.filter((r) => r.tipo === 'urbana').length, 37);
-  assert.equal(datos.rutas.filter((r) => r.tipo === 'intermunicipal').length, 2);
+  assert.equal(datos.rutas.filter((r) => r.tipo === 'urbana').length, URBANAS);
+  assert.equal(datos.rutas.filter((r) => r.tipo === 'intermunicipal').length, INTERMUNICIPALES);
 });
 
-test('datos de la app: 10 verificadas y 29 de solo inventario', () => {
-  assert.equal(datos.rutas.filter((r) => r.grupo === 'verificada').length, 10);
-  assert.equal(datos.rutas.filter((r) => r.grupo === 'solo-inventario').length, 29);
+test('datos de la app: 10 verificadas y las demás (32) de solo inventario', () => {
+  assert.equal(datos.rutas.filter((r) => r.grupo === 'verificada').length, VERIFICADAS);
+  assert.equal(datos.rutas.filter((r) => r.grupo === 'solo-inventario').length, SOLO_INVENTARIO);
 });
 
 test('datos de la app: ninguna cifra que no esté en las fichas', () => {

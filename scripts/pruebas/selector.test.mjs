@@ -3,6 +3,7 @@
 // TypeScript simple. La prueba en navegador real llega con M-08.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { URBANAS, INTERMUNICIPALES } from '../lib/referencia.mjs';
 import { readFileSync } from 'node:fs';
 import { armarDatosApp } from '../datos-app.mjs';
 import { inventario } from '../lib/handoff.mjs';
@@ -13,10 +14,10 @@ const grupos = gruposSelector(rutas);
 const html = readFileSync(new URL('../../web/index.html', import.meta.url), 'utf8');
 const css = readFileSync(new URL('../../web/src/estilos.css', import.meta.url), 'utf8');
 
-test('selector: 39 opciones agrupadas 37 Urbanas + 2 Intermunicipales', () => {
+test('selector: las rutas de la referencia (D-70) agrupadas en Urbanas e Intermunicipales', () => {
   assert.deepEqual(grupos.map((g) => g.etiqueta), ['Urbanas', 'Intermunicipales']);
-  assert.equal(grupos[0].opciones.length, 37);
-  assert.equal(grupos[1].opciones.length, 2);
+  assert.equal(grupos[0].opciones.length, URBANAS);
+  assert.equal(grupos[1].opciones.length, INTERMUNICIPALES);
 });
 
 test('selector: orden y textos de HANDOFF §4 («001 — Pedregoso – Centro»)', () => {

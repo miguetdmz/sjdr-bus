@@ -2,15 +2,10 @@
 // contra su fuente escrita (como comparar una pieza contra su plano).
 import { readFileSync } from 'node:fs';
 
-// D-36 (Miguel, conocimiento local, 19 nov 2026): rutas que YA NO EXISTEN aunque
-// HANDOFF §4 y la página oficial de Qrobús (19 nov 2026) aún las listan. HANDOFF
-// no se edita (contrato de origen): la baja se aplica aquí, en su único punto de lectura.
-export const RUTAS_DADAS_DE_BAJA = {
-  '031': 'D-36: «Pedregoso – PITSA» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
-  '018': 'D-40: «Nuevo San Isidro – Centro» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
-  '024C': 'D-39: «Las Torres – Central de Autobuses» ya no existe (Miguel, conocimiento local, 19 nov 2026)',
-};
-const vigente = ({ numero }) => !(numero in RUTAS_DADAS_DE_BAJA);
+// D-70 (Miguel, 25 nov 2026, 1:01 am): las rutas de San Juan que lista qrobus.gob.mx/Rutas
+// son la referencia del inventario. Las bajas de D-36, D-39 y D-40 (018, 024C y 031) se
+// deshicieron: no hay lista de bajas. Si un día una ruta deja de existir, se quita porque
+// qrobus ya no la lista (y la prueba de referencia lo detecta), no por memoria.
 
 // D-37 (Miguel, 19 nov 2026): nombres corregidos sobre el de HANDOFF §4 y la
 // página oficial. El lugar se llama «Visthá», no «Visthá (CERESO)».
@@ -41,14 +36,14 @@ export function tablaDeSeccion(titulo) {
   return filas.slice(2);
 }
 
-// Las 39 rutas vigentes de HANDOFF §4 (42 menos las bajas de D-36, D-39 y D-40; la 044 volvió en D-40), en orden: {numero, nombre, tipo}.
+// Las 42 rutas de HANDOFF §4, las mismas de San Juan en qrobus.gob.mx (D-70), en orden: {numero, nombre, tipo}.
 // Quita la marca «`[CORREGIDO → D-xx]`», que no es parte del nombre ni del tipo.
 export function inventario() {
   return tablaDeSeccion('## 4.').map(([numero, nombre, tipo]) => ({
     numero,
     nombre,
     tipo: tipo.replace(/`\[CORREGIDO[^\]]*\]`/, '').trim(),
-  })).filter(vigente).map(corregirNombre);
+  })).map(corregirNombre);
 }
 
 // Números de las 10 rutas con ficha verificada (primera columna de HANDOFF §5.1).
@@ -56,7 +51,7 @@ export function numerosVerificados() {
   return tablaDeSeccion('### 5.1').map(([ruta]) => ruta.split(' ')[0]);
 }
 
-// Números de las 29 rutas vigentes de solo inventario (párrafo de HANDOFF §5.3), con la
+// Números de las 32 rutas de solo inventario (párrafo de HANDOFF §5.3), con la
 // marca «(intermunicipal)» donde la lleva: [{numero, intermunicipal}].
 export function numerosSoloInventario() {
   const texto = handoff();
@@ -64,7 +59,7 @@ export function numerosSoloInventario() {
   return [...parrafo.matchAll(/\b(\d{2,3}[A-Z]?)\b( \(intermunicipal\))?/g)].map((m) => ({
     numero: m[1],
     intermunicipal: Boolean(m[2]),
-  })).filter(vigente);
+  }));
 }
 
 // Cifras por sentido de HANDOFF §5.1: {numero: {ida: {paradas, duracion_min}, vuelta: {…}, horario}}.

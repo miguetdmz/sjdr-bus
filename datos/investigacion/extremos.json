@@ -7,10 +7,10 @@
     "Rectángulo del municipio (ESTIMADO): {\"sur\":20.25,\"norte\":20.5,\"oeste\":-100.15,\"este\":-99.85}."
   ],
   "resumen": {
-    "rutas": 39,
-    "lugares": 35,
+    "rutas": 42,
+    "lugares": 38,
     "con_coordenada": 12,
-    "sin_coordenada": 23
+    "sin_coordenada": 26
   },
   "lugares": [
     {
@@ -200,6 +200,15 @@
       "consulta": "Barrio de la Cruz, San Juan del Río"
     },
     {
+      "lugar": "Nuevo San Isidro",
+      "lat": null,
+      "lon": null,
+      "estado": "SIN COORDENADA · POR VERIFICAR",
+      "motivo": "ningún resultado de Nominatim pasa las reglas",
+      "descartes": [],
+      "consulta": "Nuevo San Isidro, San Juan del Río"
+    },
+    {
       "lugar": "Valle Real",
       "lat": null,
       "lon": null,
@@ -233,6 +242,17 @@
       "consulta": "Praderas del Sol, San Juan del Río"
     },
     {
+      "lugar": "Las Torres",
+      "lat": null,
+      "lon": null,
+      "estado": "SIN COORDENADA · POR VERIFICAR",
+      "motivo": "ningún resultado de Nominatim pasa las reglas",
+      "descartes": [
+        "«Las Torres»: es leisure/park, no una colonia o localidad"
+      ],
+      "consulta": "Las Torres, San Juan del Río"
+    },
+    {
       "lugar": "Las Águilas",
       "lat": "20.37589",
       "lon": "-99.94818",
@@ -250,6 +270,17 @@
         "«Camino a Rancho de enmedio»: el nombre no coincide"
       ],
       "consulta": "Rancho de Enmedio, San Juan del Río"
+    },
+    {
+      "lugar": "PITSA",
+      "lat": null,
+      "lon": null,
+      "estado": "SIN COORDENADA · POR VERIFICAR",
+      "motivo": "ningún resultado de Nominatim pasa las reglas",
+      "descartes": [
+        "«Privada Departamental Pitsa»: el nombre no coincide"
+      ],
+      "consulta": "PITSA, San Juan del Río"
     },
     {
       "lugar": "Visthá",
@@ -506,6 +537,14 @@
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {
+      "route_id": "U-018",
+      "numero": "018",
+      "nombre": "Nuevo San Isidro – Centro",
+      "origen": "Nuevo San Isidro",
+      "destino": "Centro",
+      "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
+    },
+    {
       "route_id": "U-019",
       "numero": "019",
       "nombre": "Pedregoso – Valle Real",
@@ -546,6 +585,14 @@
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {
+      "route_id": "U-024C",
+      "numero": "024C",
+      "nombre": "Las Torres – Central de Autobuses",
+      "origen": "Las Torres",
+      "destino": "Central de Autobuses",
+      "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
+    },
+    {
       "route_id": "U-025",
       "numero": "025",
       "nombre": "Las Águilas – Centro",
@@ -567,6 +614,14 @@
       "nombre": "Infonavit La Paz – Central de Autobuses",
       "origen": "Infonavit La Paz",
       "destino": "Central de Autobuses",
+      "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
+    },
+    {
+      "route_id": "U-031",
+      "numero": "031",
+      "nombre": "Pedregoso – PITSA",
+      "origen": "Pedregoso",
+      "destino": "PITSA",
       "sentidos": "sentido 0 va de origen a destino y sentido 1 de destino a origen (D-18); las coordenadas son de los lugares, no de las paradas de cada sentido"
     },
     {

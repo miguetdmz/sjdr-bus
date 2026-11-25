@@ -1,6 +1,7 @@
 // R-01 (D-24, D-25): calles oficiales por ruta desde la página pública de rutas.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { REFERENCIA } from '../lib/referencia.mjs';
 import { readFileSync } from 'node:fs';
 import { leerCSV } from '../lib/csv.mjs';
 
@@ -28,8 +29,8 @@ test('R-01: no se llamaron las consultas internas del mapa (D-25)', () => {
   }
 });
 
-test('R-01: 39 rutas en el orden de routes.txt, cada una con su lista o «sin lista»', () => {
-  assert.equal(calles.rutas.length, 39);
+test('R-01: las 42 rutas de la referencia (D-70) en el orden de routes.txt, cada una con su lista o «sin lista»', () => {
+  assert.equal(calles.rutas.length, REFERENCIA.length);
   rutas.forEach((r, i) => assert.equal(calles.rutas[i].route_id, r.route_id));
   for (const r of calles.rutas) {
     assert.ok(['con lista', 'sin lista'].includes(r.estado), r.route_id);
