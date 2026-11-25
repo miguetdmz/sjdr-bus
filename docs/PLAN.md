@@ -4,14 +4,14 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (25 nov 2026, 12:20 am)
+## Estado actual (25 nov 2026, 3:13 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.3** (`7b20c7e`, 23 nov 2026, 7:40 pm): Miguel integró el PR 4 «B6 · D-56 fase 2 → v0.3»: 294 lugares de OSM, parada cercana a la salida y al destino, «Salgo de otro lugar» (D-65). Verificada a las 7:42 pm: Actions y Vercel en verde, 39 rutas y 294 lugares en línea, capturas en `docs/evidencia/v0.3/`. Antes: v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | Ninguna. `main` en `4486c20` (PR 6, OR-03). Rama abierta: `b3/d66-campo` (en GitHub, sin PR; 2 commits atrás de `main`, sin conflictos) |
+| Versión en espera | **PR 7 → v0.4** (https://github.com/miguetdmz/sjdr-bus/pull/7, borrador): «B1 · D-70: las 42 rutas de San Juan de qrobus.gob.mx». Rama `b1/rutas-qrobus` (`6e296c2`), GitHub Actions y Vercel en verde. Lo integra Miguel. `main` sigue en `4486c20`. Rama abierta sin PR: `b3/d66-campo` (D-66 a D-69 y este relevo; no tiene D-70) |
 | Bloque en curso | **B3 · Trazos**: un solo plan (D-68) con R-03 y los pendientes de D-66. Rama de trabajo `b3/d66-campo` (desde `main` `8c860b9`). `b3/r03-cruces` local se recrea desde `main` antes de R-03 (trae 3 commits de D-66 duplicados) |
 | Tarea en curso | **B3 · R-03 · Cruces y secuencias: plan APROBADO** (D-68), **ajustado por D-69** (25 nov, 12:19 am): se lee una vez la lista oficial de paradas por sentido de las 39 rutas (número P-, nombre, orden; sin trazo ni coordenadas); hasta 78 secuencias con datos. Prioridad de Miguel: **trazos visibles en la app** (R-03 → R-04 → R-06). Sin construir |
 | Tarea en curso (2) | **B3 · D-66 · Recorrido de campo: CONSTRUIDA, falta la prueba de Miguel en su iPhone.** Página de trabajo `web/public/campo.html` (no la enlaza la app): confirma en el camión las paradas de la lista oficial con el GPS del teléfono. D-66 sigue PROPUESTA. Primer recorrido: **lunes 30 nov 2026** con un operador (costo $0) |
@@ -20,7 +20,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Bloque | Qué es | Estado |
 |---|---|---|
 | B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado. Repositorio **público** `miguetdmz/sjdr-bus` (D-29), con candado en `main` |
-| B1 | Datos base del GTFS-SJR | **7 de 7.** Desde D-36/D-39/D-40 son **39 rutas** (37 urbanas + 2 intermunicipales): de baja 031, 024C y 018; la 044 volvió |
+| B1 | Datos base del GTFS-SJR | **7 de 7.** **D-70 (Miguel, 25 nov, 1:01 am): la referencia son las rutas de San Juan de qrobus.gob.mx: 42 rutas** (40 urbanas + 2 intermunicipales); vuelven 018, 024C y 031 (deshace D-36, D-39 y D-40). En PR 7, sin integrar |
 | B2a | Mockup navegable (PWA, Vite + Leaflet) | **8 de 8.** M-05 a M-08 hechas por el turno (PR 2, inspector: **LIBERADO**, 20 nov 2026, 12:17 am). Falta integrarlo y verlo en el teléfono |
 | B2 | Primera pantalla publicable | **CERRADO: v0.2 publicada** (22 nov 2026, 4:15 pm, `9b8fca8`). D-48 a D-62 aprobados por Miguel en su teléfono y computadora (D-63) |
 | B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 698 de 936 con punto exacto (75 %), **27 APROXIMADOS (3 %, D-45: ESTIMADO, nivel C)**, 191 referencias (20 %), 20 POR VERIFICAR (2 %) al 20 nov, 1:05 pm. **D-46 PROPUESTA:** extremos como zona probable (mapa de calor). Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
@@ -30,7 +30,28 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (25 nov 2026, 12:20 am)
+### Relevo para la siguiente sesión (25 nov 2026, 3:13 pm)
+
+0. **25 nov:** Miguel aprobó el orden (12:57 am): (1) lectura oficial de paradas por
+   sentido, (2) pendientes de campo, (3) R-03 → R-04 → R-06. Antes, a su pedido, se revisó
+   qrobus.gob.mx contra nuestras rutas: **D-70** (1:01 am), las 42 rutas de San Juan son la
+   referencia; vuelven 018, 024C y 031 (sus extremos quedan FALTANTE, D-41). Colores de las
+   tarjetas: se recorren por D-53 (Miguel, 2:24 pm). Construido en `b1/rutas-qrobus` y
+   subido (2:32 pm): **PR 7** en borrador, Actions y Vercel en verde. D-70 vive en PR 7, no
+   en esta rama. R-03 sube a **84 ruta-sentidos** (42 × 2): la 018 y la 024C traen lista
+   usable; la 031 queda «sin datos» (D-33).
+1. **Miguel:** integrar el PR 7 (Ready for review → Merge pull request → Confirm merge).
+2. **Siguiente chat (paso 1 del orden):** con el PR 7 en `main`, crear la rama nueva
+   `b3/r03-paradas-oficiales` desde `main` (nombre nuevo para no reusar `b3/r03-cruces`,
+   que solo trae 3 commits de D-66 repetidos y queda sin usar). Escribir el criterio medible
+   y leer una vez las paradas por sentido de las **42** rutas (D-69).
+3. **Pendiente técnico:** `b3/d66-campo` (D-66 a D-69, `campo.html`) chocará con `main` en
+   `docs/DECISIONES.md` cuando entre el PR 7 (las dos agregan al final: D-66 a D-69 y D-70).
+   `git merge` está negado a Claude (candado); se resuelve con una rama nueva desde `main` y
+   `git cherry-pick` de sus commits, con el sí de Miguel, antes del lunes 30 nov.
+4. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+
+### Relevo anterior (25 nov 2026, 12:20 am)
 
 0. **24 y 25 nov:** el arranque de la 1:30 am no se usó. Miguel abrió en el navegador la
    página oficial de la 011: con «Ver ruta» trae las paradas **por sentido** con número
