@@ -4,14 +4,14 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (25 nov 2026, 4:02 pm)
+## Estado actual (25 nov 2026, 5:25 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.4** (`972e832`, 25 nov 2026, 3:27 pm según GitHub): Miguel integró el PR 7 «B1 · D-70: las 42 rutas de San Juan de qrobus.gob.mx». Verificado a las 3:28 pm: el sitio en línea trae 42 rutas. Antes: v0.3 (`7b20c7e`, 23 nov), v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | Ninguna. Rama de trabajo **`b3/r03-paradas-oficiales`** (desde `main` `972e832`): D-71 (paso 1 hecho) y D-72; sin subir, se sube con el sí de Miguel. Rama `b3/d66-campo` (D-66 a D-69 y `campo.html`) sigue sin PR: choca con `main` en `docs/DECISIONES.md` |
+| Versión en espera | **PR 8 → v0.5** (https://github.com/miguetdmz/sjdr-bus/pull/8, borrador): R-03 paso 1 (D-71), página de campo (D-66 a D-69, traída por cherry-pick) y carril único (D-73). Rama `b3/r03-paradas-oficiales`, única rama de trabajo viva (D-73). Lo integra Miguel; al integrarse, `campo.html` queda publicada sin enlace |
 | Bloque en curso | **B3 · Trazos**: un solo plan (D-68, ajustado por D-69 y D-71) con R-03 y los pendientes de D-66 |
 | Tarea en curso | **B3 · R-03 paso 1 · Paradas oficiales por sentido: HECHO** (D-71, 25 nov, 4:02 pm): lectura única de «Ver ruta» de las 42 rutas, **84 de 84 ruta-sentidos con datos**, 2,203 paradas con número P- (salvo las 2 intermunicipales), solo texto; 940 de 1,021 coinciden con la lista general. R-03 puede llegar a **84 secuencias**. Siguiente: pendientes de campo (paso 2) y R-03 fases 1, 3 y 4 |
 | Tarea en curso (2) | **B3 · D-66 · Recorrido de campo: CONSTRUIDA, falta la prueba de Miguel en su iPhone.** Página de trabajo `web/public/campo.html` (no la enlaza la app): confirma en el camión las paradas de la lista oficial con el GPS del teléfono. D-66 sigue PROPUESTA. Primer recorrido: **lunes 30 nov 2026** con un operador (costo $0) |
@@ -31,26 +31,28 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (25 nov 2026, 4:02 pm)
+### Relevo para la siguiente sesión (25 nov 2026, 5:25 pm)
 
-0. **25 nov, tarde:** Miguel integró el PR 7 (v0.4, 42 rutas en línea). Paso 1 del orden
-   **hecho** en la rama nueva `b3/r03-paradas-oficiales` (desde `main` `972e832`):
-   **D-71** (Miguel, 3:51 pm: «Sí, solo el texto»): la lista por sentido sale de la consulta
-   interna `/Rutas/paradasTimeline` (cambia D-25 solo en ese punto); lectura única de 84
-   consultas, 84 de 84 ruta-sentidos con datos, sin coordenadas, ninguna con calles de
-   Querétaro. Puerta de calidad: TODO PASÓ. **D-72** registrada como PROPUESTA (pedido de
-   Miguel por el chat anterior, 3:46 a 3:55 pm).
-1. **Miguel:** dar el sí para subir `b3/r03-paradas-oficiales` y abrir su PR en borrador.
-2. **Pendiente técnico (antes del lunes 30 nov):** `b3/d66-campo` (D-66 a D-69,
-   `campo.html`) choca con `main` en `docs/DECISIONES.md`. `git merge` está negado a Claude:
-   se resuelve llevando sus commits con `git cherry-pick` a una rama desde `main`, con el sí
-   de Miguel. Este `docs/PLAN.md` ya trae el texto más reciente de esa rama (relevo de las
-   3:13 pm) más este relevo.
-3. **Siguiente (orden aprobado el 25 nov, 12:57 am):** (2) pendientes de campo de D-66 (a–d)
-   con maqueta primero, por el recorrido del lunes 30 nov; (3) R-03 fases 1, 3 y 4 (ahora
-   hasta 84 secuencias) → R-04 → R-06. D-72 A y D: maqueta después del paso 1, con el sí de
-   Miguel, usando antes «Calcula tu ruta» como usuario en WebKit con iPhone.
-4. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+0. **25 nov, tarde:** v0.4 publicada (PR 7, 42 rutas). **R-03 paso 1 hecho** (D-71: 84 de 84
+   ruta-sentidos con paradas oficiales, solo texto). **D-72** registrada (PROPUESTA: «Calcula
+   tu ruta» y teclado en horizontal, con el detalle de las 4:10 pm). **D-73 carril único**
+   (Miguel, 5:14 pm): los 13 commits con contenido de `b3/d66-campo` entraron al PR 8 por
+   cherry-pick (D-66 a D-69 idénticas, entre D-65 y D-70); `campo.html` se publica sin enlace
+   al integrar. Lección 19. Se borraron 6 ramas locales ya integradas. Puerta de calidad al
+   subir: TODO PASÓ.
+1. **Miguel:** integrar el PR 8 (Ready for review → Merge pull request → Confirm merge).
+2. **Second Brain** (respondió a las 5:23 pm): propone el n.º 14 «Carril único de ramas» y un
+   ajuste al n.º 13 de `standards.md`; cosecha mejor después de integrar el PR 8. Espera el sí
+   de Miguel en el chat de Second Brain. La limpieza la hace el chat de cada proyecto.
+3. **Limpieza pendiente (con el sí de Miguel):** quedan 11 ramas locales (`b3/d66-campo`,
+   `b3/r03-cruces`, 7 `cierre/*`, `noche/2026-11-19`, `archivo-main`) y 7 en GitHub (6 ya
+   integradas y `b3/d66-campo`).
+4. **Siguiente (orden aprobado el 25 nov, 12:57 am):** (2) pendientes de campo de D-66 (a–d)
+   con maqueta primero, por el recorrido del lunes 30 nov; (3) R-03 fases 1, 3 y 4 (hasta 84
+   secuencias) → R-04 → R-06. D-72 A y D: maqueta, con el sí de Miguel, usando antes «Calcula
+   tu ruta» como usuario en WebKit con iPhone. Cada uno en una rama de un día, integrada al
+   pasar la puerta (D-73).
+5. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
 
 ### Relevo anterior (25 nov 2026, 3:13 pm)
 
