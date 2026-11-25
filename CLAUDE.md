@@ -453,6 +453,29 @@ puede, convertir la regla en una prueba automática.
    Ocurrencias: 1 · Estado: ACTIVA. Aplica a todos los proyectos: propuesta para
    `standards.md` (complementa la regla 13; no se sube sin el sí de Miguel).
 
+19. **Las ramas vivían días y se multiplicaban (25 nov 2026).** Al integrar el PR 7, la
+   rama de campo `b3/d66-campo` llevaba 2 días con 15 commits fuera de `main` y chocó en
+   `docs/DECISIONES.md` y `docs/PLAN.md`. Había 19 ramas locales (6 ya integradas) y el
+   plan era abrir una rama más para resolver el choque. Miguel (4:53 pm): «cada vez vamos
+   creando más derivaciones, más ramas». Causa raíz: no había tope de ramas vivas (como
+   una línea sin límite de trabajo en proceso), y los dos documentos que todos editan al
+   final chocan entre más tiempo vive una rama. Regla (**D-73, carril único**, Miguel
+   aprobó a las 5:14 pm): una sola rama de trabajo viva a la vez, de un día como máximo,
+   integrada a `main` en cuanto pasa la puerta de calidad; lo que estaba en otra rama se
+   trae a la del día con `git cherry-pick`, no a una rama nueva; el turno nocturno sigue
+   con su rama por noche (D-44) y se integra a la mañana siguiente. Detección temprana:
+   antes de crear una rama, `git branch --no-merged origin/main` debe salir vacío (salvo la
+   del turno); si no, se termina o se integra la que está abierta.
+   - 2026-11-25 (1.ª vez): este caso. Arreglo: los 13 commits con contenido de
+     `b3/d66-campo` entraron al PR 8 (2 de relevo quedaron vacíos y se saltaron);
+     D-66 a D-69 quedaron idénticas, entre D-65 y D-70.
+   Ocurrencias: 1 · Estado: ACTIVA. Relacionada con la 12 (PR 1 juntó 70 commits) y la 18
+   (dos chats en la misma carpeta). **Aplica a todos los proyectos (Miguel, 5:14 pm):** se
+   avisa a Second Brain para su cosecha y su propuesta a `standards.md` (no se sube sin el
+   sí de Miguel). **PROPUESTA DE CONTROL** (con el sí de Miguel): en `npm run verificar`,
+   un aviso si hay más de una rama de trabajo sin integrar o una con más de 24 h. Prueba:
+   con dos ramas sin integrar, el aviso aparece.
+
 ## Disparador de chat nuevo (acordado con Miguel, 17 nov 2026)
 Lo que ocurra primero:
 1. Se cierra un bloque o se integra un entregable a `main`.

@@ -2127,9 +2127,6 @@ Miguel).
   [tamaño exacto sin verificar]. Se instala solo con el sí de Miguel, tras liberar espacio.
 - **Impacta:** D-25, D-68, R-01, R-03, R-04, R-06, `web/public/campo.html`, lección 5.
 
-
-- **Estado:** PROPUESTA. Decide Miguel.
-
 ## D-70 · 25 nov 2026 · Las rutas de San Juan de qrobus.gob.mx son la referencia: vuelven 018, 024C y 031 (42 rutas) · VIGENTE
 - **Hallazgo (Claude, 25 nov 2026, 12:57 am, en la página que Miguel abrió):** la lista de
   qrobus.gob.mx/Rutas tiene hoy 216 renglones (215 el 19 nov; el nuevo es CH3 «Alameda –
@@ -2316,3 +2313,25 @@ Miguel).
 - **Impacta:** D-56 fase 2, D-65, B6 (fase 3), B4, `web/src/main.ts`.
 - **Estado:** PROPUESTA. A y D se diseñan (maqueta) después del paso 1 de R-03, con el sí de
   Miguel.
+
+## D-73 · 25 nov 2026 · Carril único de ramas; la página de campo entra al PR 8 y se publica sin enlace · VIGENTE
+- **Pedido (Miguel, 25 nov 2026, 4:53 pm):** repensar el manejo de ramas «desde el punto de
+  vista de un desarrollador experto… siento que cada vez vamos creando más derivaciones, más
+  ramas».
+- **Medido (Claude, 4:53 pm):** 19 ramas locales, 6 ya integradas a `main`; `b3/d66-campo` con
+  15 commits fuera de `main` desde hace 2 días; el choque simulado (sin tocar nada) daba solo 2
+  archivos, los dos de documentos (`DECISIONES.md` y `PLAN.md`).
+- **Decisión (Miguel, 5:14 pm: «Sí, apruebo como carril único»):**
+  1. **Carril único:** una sola rama de trabajo viva a la vez, de un día como máximo, integrada
+     a `main` en cuanto pasa la puerta de calidad. Nombre Bloque · Tarea (D-47). El turno
+     nocturno sigue con su rama por noche (D-44) y se integra a la mañana siguiente.
+  2. **Sin ramas nuevas para juntar trabajo:** lo de `b3/d66-campo` se trae con `git
+     cherry-pick` a la rama del PR 8 (`b3/r03-paradas-oficiales`), no a otra rama.
+  3. **La página de campo se publica sin enlace** al integrar el PR 8:
+     `sjdrbus-sjr.vercel.app/campo.html` (cierra el punto que D-66 dejó «se decide antes de
+     integrar»). La app no la enlaza.
+  4. **Limpieza:** se borran las ramas locales ya integradas (`git branch -d`, que se niega si
+     falta algo por integrar). Las de GitHub, con un sí aparte de Miguel.
+  5. **Para todos los proyectos:** lección 19 de `CLAUDE.md`; se avisa a Second Brain para su
+     cosecha y su propuesta a `standards.md` (no se sube sin el sí de Miguel).
+- **Impacta:** D-44, D-47, D-66, lección 12, lección 18, estándar 13.
