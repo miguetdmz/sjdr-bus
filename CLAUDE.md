@@ -425,7 +425,18 @@ puede, convertir la regla en una prueba automática.
    el guion corta con `set -e` (o revisa `$?`) después de `npm run build`, y el
    reporte dice «compilación OK» junto a cada número de fallas.
    - 2026-11-23 (1.ª vez, registrada a pedido de Miguel a las 7:41 pm): este caso.
-   Ocurrencias: 1 · Estado: ACTIVA. Va de la mano con la lección 15 (es la forma
+   - 2026-11-25 (2.ª vez, registrada a pedido de Miguel a las 5:29 pm): en D-71, la primera
+     corrida de `npm run verificar` falló en la prueba de D-70 («cada dato derivado trae
+     todas las rutas»): `web/public/datos/rutas.json` (generado, fuera de git) seguía con 39
+     rutas porque se armó en la rama anterior (`b3/d66-campo`) y al cambiar de rama nadie lo
+     regeneró. No era defecto del cambio; se regeneró con `node scripts/datos-app.mjs` y pasó
+     todo. Misma causa raíz, más general: **un archivo generado que git ignora (`web/dist`,
+     `web/public/datos/`) sobrevive al cambiar de rama y las pruebas lo usan como si fuera
+     del estado actual.** Regla añadida: después de cambiar de rama o traer commits, se
+     regenera lo generado (`npm run build` o `node scripts/datos-app.mjs`) antes de correr
+     pruebas. Detección temprana: si una prueba falla con un conteo de un estado anterior
+     (39 en vez de 42), revisar primero los archivos generados.
+   Ocurrencias: 2 · Estado: ACTIVA (a la 3.ª se promueve a control). Va de la mano con la lección 15 (es la forma
    correcta de hacer su prueba). **PROPUESTA DE CONTROL** (con el sí de Miguel):
    `scripts/validar-defecto.mjs`, que compila, se detiene si la compilación falla y
    solo entonces corre las pruebas indicadas. Prueba: con un defecto que no compila,
