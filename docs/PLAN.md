@@ -4,17 +4,17 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (25 nov 2026, 5:25 pm)
+## Estado actual (25 nov 2026, 5:31 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
-| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.4** (`972e832`, 25 nov 2026, 3:27 pm según GitHub): Miguel integró el PR 7 «B1 · D-70: las 42 rutas de San Juan de qrobus.gob.mx». Verificado a las 3:28 pm: el sitio en línea trae 42 rutas. Antes: v0.3 (`7b20c7e`, 23 nov), v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | **PR 8 → v0.5** (https://github.com/miguetdmz/sjdr-bus/pull/8, borrador): R-03 paso 1 (D-71), página de campo (D-66 a D-69, traída por cherry-pick) y carril único (D-73). Rama `b3/r03-paradas-oficiales`, única rama de trabajo viva (D-73). Lo integra Miguel; al integrarse, `campo.html` queda publicada sin enlace |
+| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.5** (`6a7a6ca`, 25 nov 2026, 5:27 pm según GitHub): Miguel integró el PR 8 (R-03 paso 1 D-71, página de campo D-66 a D-69, carril único D-73). Verificado a las 5:31 pm: Actions y Vercel en verde, el sitio trae 42 rutas y `/campo.html` abre (sin enlace en la app). Antes: v0.4 (`972e832`, 25 nov), v0.3 (`7b20c7e`, 23 nov), v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
+| Versión en espera | Ninguna. Rama del día: **`b3/d66-pendientes-campo`** (desde `main`, única rama de trabajo viva, D-73), con los 2 commits de relevo traídos por cherry-pick |
 | Bloque en curso | **B3 · Trazos**: un solo plan (D-68, ajustado por D-69 y D-71) con R-03 y los pendientes de D-66 |
-| Tarea en curso | **B3 · R-03 paso 1 · Paradas oficiales por sentido: HECHO** (D-71, 25 nov, 4:02 pm): lectura única de «Ver ruta» de las 42 rutas, **84 de 84 ruta-sentidos con datos**, 2,203 paradas con número P- (salvo las 2 intermunicipales), solo texto; 940 de 1,021 coinciden con la lista general. R-03 puede llegar a **84 secuencias**. Siguiente: pendientes de campo (paso 2) y R-03 fases 1, 3 y 4 |
-| Tarea en curso (2) | **B3 · D-66 · Recorrido de campo: CONSTRUIDA, falta la prueba de Miguel en su iPhone.** Página de trabajo `web/public/campo.html` (no la enlaza la app): confirma en el camión las paradas de la lista oficial con el GPS del teléfono. D-66 sigue PROPUESTA. Primer recorrido: **lunes 30 nov 2026** con un operador (costo $0) |
+| Tarea en curso | **B3 · D-66 · Pendientes de campo (paso 2 del orden)**: (a) primera pregunta = inicio del sentido; (b) botón «Más cercana»; (c) modo prueba CORRESPONDE / NO CORRESPONDE; (d) número oficial P- e identificador simple por sentido (de `paradas-sentido.json`, D-71); (e) foto sigue IDEA. Maqueta primero (D-54), para el recorrido del lunes 30 nov |
+| Hecho antes | **B3 · R-03 paso 1 · Paradas oficiales por sentido** (D-71, 25 nov): 84 de 84 ruta-sentidos con datos, publicado en v0.5. **D-66 · Página de campo** publicada en v0.5 sin enlace; falta la prueba de Miguel en su iPhone |
 | Tarea en pausa | Ninguna |
 | Pendiente registrado | **D-72 PROPUESTA** (Miguel, 3:46 a 3:55 pm): «Calcula tu ruta» confusa (A: una sola parada recomendada; B: indicaciones; C: siguiente camión ESTIMADO) y teclado con el teléfono acostado (D). A y D con maqueta primero después del paso 1, probando antes la app como usuario |
 
@@ -31,7 +31,18 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (25 nov 2026, 5:25 pm)
+### Relevo para la siguiente sesión (25 nov 2026, 5:31 pm)
+
+0. **25 nov, 5:27 pm:** Miguel integró el PR 8 → **v0.5 publicada** (Actions y Vercel en verde,
+   42 rutas, `/campo.html` abre). Rama del día `b3/d66-pendientes-campo` desde `main`, con
+   `621adeb` y `6d96553` traídos por cherry-pick (D-73).
+1. **En curso:** pendientes de campo de D-66 (a–d), maqueta primero en `docs/maquetas/`.
+2. **Limpieza pendiente (con el sí de Miguel):** 11 ramas locales viejas, más
+   `b3/r03-paradas-oficiales` (sus 2 commits ya están en la rama del día), y 7 en GitHub.
+3. **Después:** R-03 fases 1, 3 y 4; D-72 A y D en su propia rama del día, con el sí de Miguel.
+4. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+
+### Relevo anterior (25 nov 2026, 5:25 pm)
 
 0. **25 nov, tarde:** v0.4 publicada (PR 7, 42 rutas). **R-03 paso 1 hecho** (D-71: 84 de 84
    ruta-sentidos con paradas oficiales, solo texto). **D-72** registrada (PROPUESTA: «Calcula
