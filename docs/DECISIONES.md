@@ -2111,6 +2111,15 @@ Miguel).
     (al cambiar lo que permite una pantalla, auditar todos sus textos y avisos) y B8b-15.
     avisos-sjr es React; aquí es TypeScript sin marco (`web/src/main.ts`): se adapta la idea,
     no el código.
+    **Detalle (capturas de Miguel, 4:10 pm, de avisos-sjr.vercel.app en su iPhone acostado; es
+    la referencia aprobada):** (1) en horizontal el campo no abre el teclado: en lugar de su
+    texto de ayuda dice «Gira para escribir», con un ícono de teléfono girando a la izquierda;
+    (2) al tocar el campo sale una tarjeta blanca al centro, encima de todo: un teléfono con una
+    flecha curva que lo endereza (la animación) y el texto «Gira el teléfono para escribir»;
+    (3) la tarjeta se va sola, al tocarla o al girar el teléfono. **Duración, por decidir:**
+    Miguel la vio de unos **7 s**; el código de avisos-sjr (`Girar.tsx`) dice **3 s** (espera de
+    3000 ms; animación «enderezar» de 700 ms con 250 ms de espera). Se le pregunta a Miguel al
+    presentar la maqueta; Claude no elige.
 - **Corrección de Miguel (D-69, lección 5):** «antes de proponer, siempre actúa como un
   usuario». Antes de la maqueta de A, se usa «Calcula tu ruta» desde cero en WebKit con iPhone
   (como `docs/evidencia/d70/probar-iphone.mjs`) y se reporta lo que se ve. El chat de D-70 solo
