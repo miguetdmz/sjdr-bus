@@ -359,6 +359,7 @@ Miguel).
 - **Decidió:** Miguel, 19 nov 2026.
 - **Impacta:** `docs/COLA-NOCTURNA.md` (R-01, R-03, pregunta 1),
   `datos/investigacion/calles-oficiales.json`, `datos/investigacion/fuentes.json`.
+- **Cambiada por D-69** (25 nov 2026): también la lista visible de paradas por sentido.
 
 ## D-26 · 19 nov 2026 · Hosting: Vercel, con una vista previa ya · VIGENTE
 - **Decisión (Miguel, 19 nov 2026, ~2:30 am):** el hosting es Vercel (cierra
@@ -2075,6 +2076,57 @@ Miguel).
   `b3/d66-campo` como `1785a8c`, `fbcc88a`, `a410392`): se recrea desde `main` antes de la
   fase 1 de R-03, con el sí de Miguel.
 - **Impacta:** R-03 y R-07 (`docs/COLA-NOCTURNA.md`), D-66, `docs/PLAN.md` (B3).
+- **Ajustada por D-69** (25 nov 2026): la fase 2 usa la lista oficial por sentido; hasta 78
+  secuencias con datos.
+
+## D-69 · 25 nov 2026 · Paradas oficiales por sentido (cambia D-25), trazos en la app y prueba como usuario · VIGENTE
+- **Hallazgo (Claude, 25 nov 2026, entre las 12:08 y las 12:19 am, en la página que Miguel abrió):** la
+  página de cada ruta (`qrobus.gob.mx/Rutas/<número>`), al tocar «Ver ruta», muestra en
+  texto las paradas **por sentido** (IDA / REGRESO), en orden, con su **número oficial**
+  (P-3537) y las rutas que pasan por cada una. Muestras: **001** ida 29 + regreso 21 = 50,
+  igual a los 50 cruces de nuestra lista (R-01); **011** ida 35 + regreso 48 = 83 (la lista
+  de R-01 trae 80: 3 diferencias por revisar); **005**, de las 21 que no se usan (D-33),
+  ida 35 + regreso 41, todas calles de San Juan.
+- **Decisión (Miguel, 25 nov 2026, 12:19 am: «de ahí en fuera todo lo demás que me dices
+  estoy de acuerdo»):** **cambia D-25.** Además de la lista general, se usa la lista
+  **visible** de cada ruta por sentido: número oficial, nombre, orden y sentido. Mismas
+  reglas que R-01 (D-25, lección 8): **una sola lectura** de las 39 rutas, la copia
+  completa fuera de git (`referencias/`), al repositorio solo el texto extraído con fuente,
+  fecha y huella sha256; cita de la fuente y leyenda de iniciativa independiente (regla 4).
+  **No se toman** el trazo del mapa ni coordenadas: los dibuja un mapa de Google (regla 6)
+  y salen de la consulta interna de la página.
+- **Google no es referencia, ni para comparar a ojo** (Miguel preguntó a las 12:19 am si se
+  podía navegar el mapa de Google para comparar calles con OSM): sigue D-45, punto 5. El
+  trazo sale de las paradas oficiales (texto) ubicadas en calles de OSM y enrutadas con
+  OSRM (R-04); lo confirman los recorridos de campo (D-66), no Google.
+- **Cambia el plan de R-03 (D-68):** la fase 2 («cortar ida y vuelta») se reemplaza por la
+  lista oficial de cada sentido; el criterio sube de 36 a **hasta 78 secuencias** con datos
+  (las 21 rutas de D-33 se revisan con su lista por sentido; si una trae calles de
+  Querétaro, sigue «sin datos» con su motivo). Fases 1, 3 y 4 sin cambio.
+- **Prioridad de Miguel (12:19 am):** que los **trazos se vean ya en la app** (visibilidad
+  y credibilidad); después, paradas confirmadas en campo y tiempos estimados. Ruta más
+  corta a eso: lectura oficial → secuencias (R-03) → enrutado (R-04, OSRM, sesión de día)
+  → trazo punteado «ESTIMADO · Nivel C» en la app (R-06, maqueta primero).
+- **Página de campo (pendientes de D-66, D-68):** (d) cada parada con su número oficial y
+  un identificador simple (p. ej. `R11-I-07`: ruta, Ida/Vuelta, orden), preguntando por el
+  **sentido correcto**; (e) **foto de la parada: IDEA**, Miguel decide en el recorrido del
+  lunes 30 si vale la pena.
+- **Aclaración del modo prueba (c):** lo diseñó el chat de D-66 (24 nov, ~1 am) para
+  `web/public/campo.html` (no para el artefacto de claude.ai, que es la bitácora de
+  respaldo sin GPS): un viaje marcado PRUEBA nunca dice MEDIDO EN CAMPO; al terminar da una
+  calificación (cuántas paradas oficiales de la ruta quedaron a ≤ 150 m de la traza GPS)
+  y el veredicto CORRESPONDE / NO CORRESPONDE. **No está construido** (revisado en
+  `campo.html` el 25 nov, 12:20 am). Con las listas por sentido compara contra el sentido
+  correcto. En carro: teléfono fijo, sin tocarlo manejando.
+- **Prueba como usuario (Miguel, 12:19 am: «siempre debes hacer la prueba como si fueras un
+  sanjuanense usando la app… entra, escribe, se abre el teclado en pantalla»):** toda
+  entrega de pantalla se prueba desde cero, solo con toques y teclado, en WebKit con iPhone
+  (Playwright, ya instalado; lección 5) y a 390 px. **Herramienta que falta:** el Simulador
+  de iOS (Xcode, gratis) mostraría el teclado real de iPhone; hoy no está instalado y el
+  disco tiene 13 GB libres (medido el 25 nov, 12:20 am), poco para Xcode y su simulador
+  [tamaño exacto sin verificar]. Se instala solo con el sí de Miguel, tras liberar espacio.
+- **Impacta:** D-25, D-68, R-01, R-03, R-04, R-06, `web/public/campo.html`, lección 5.
+
 
 - **Estado:** PROPUESTA. Decide Miguel.
 
