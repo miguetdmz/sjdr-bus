@@ -2009,3 +2009,5 @@ Miguel).
      posición (D-53), así que al entrar la 018 y la 024C **20 de las 39 tarjetas cambian de
      color** (de la 019 en adelante). La regla aprobada no se tocó; decide Miguel si se queda
      así.
+- **Colores (Miguel, 25 nov 2026, 2:24 pm: «Sí, que se recorran»):** se queda la regla de
+  D-53 (color por posición): las tarjetas de la 019 en adelante cambian de color con las 42.
