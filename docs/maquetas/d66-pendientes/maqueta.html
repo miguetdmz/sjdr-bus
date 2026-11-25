@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#17160f" />
+<title>MAQUETA D-74 · Recorrido de campo por sentido</title>
+<!--
+  MAQUETA D-74 (25 nov 2026): copia de web/public/campo.html con los pendientes (a)–(d).
+  Cambia solo: lista por sentido (D-71) con P- e identificador, primera pregunta = orden 1 del
+  sentido, botón «Más cercana» en la barra y modo prueba con veredicto. Todo lo demás, igual.
+-->
+<!--
+  D-66 · HERRAMIENTA DE TRABAJO, no es parte de la app: nada la enlaza. Construida igual a
+  la maqueta v3 aprobada por Miguel (docs/maquetas/d66-gps/, 24 nov 2026, 12:16 am): la
+  pregunta sigue al GPS (empieza en la parada oficial más cercana y ofrece la de enfrente),
+  «No la vi», «Parada aquí» al instante con nombre después, y huecos del GPS en el resumen.
+  Lista oficial por ruta: datos/campo.json (sale de datos/investigacion/cruces.json, lista
+  oficial de la AMEQ). GPS del teléfono solo con la página abierta; todo se guarda en el
+  teléfono (localStorage) y se exporta a mano (JSON). Sin mapas en vivo ni fuentes externas
+  (reglas 6 y 7).
+-->
+<style>
+:root{
+  --papel:#17160f;--tinta:#ece7d6;--suave:#a9a390;--linea:#ece7d6;
+  --mostaza:#e2bf00;--cian:#14c4c4;--verde:#2fae2a;--naranja:#ec6a12;--rosa:#d77fd0;--gris:#4a473c;
+  --grano:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --remate:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --pixel:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;background:#0b0a07 var(--grano);color:var(--tinta)}
+body{font:16px/1.35 var(--remate)}
+main{max-width:560px;margin:0 auto;padding:max(10px,env(safe-area-inset-top)) 10px calc(24px + env(safe-area-inset-bottom))}
+.px{font-family:var(--pixel);text-transform:uppercase;letter-spacing:.02em;font-size:13px;font-weight:700}
+button,select,input{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+button:disabled{opacity:.4}
+:focus-visible{outline:3px solid var(--mostaza);outline-offset:-3px}
+.tel{background:var(--papel) var(--grano);border:1px solid var(--linea)}
+svg.i{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.barra{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;border-bottom:1px solid var(--linea)}
+.cerca{display:flex;align-items:center;gap:6px;padding:0 12px;border-left:1px solid var(--linea);color:var(--cian);font-size:12px}
+.cerca svg.i{width:18px;height:18px}
+.cerca.off{color:var(--gris)}
+.cerca.tag{color:var(--mostaza)}
+@media(max-width:380px){.cerca{padding:0 8px;font-size:11px;line-height:1.1;gap:5px}.cerca .t{width:min-content}.barra .gps{padding:0 8px;gap:6px}}
+.parada .ids{grid-column:2;font-family:var(--pixel);font-size:13px;font-weight:700;letter-spacing:.02em;opacity:.8}
+.sentidos button small{display:block;font-family:var(--pixel);font-size:11px;font-weight:700;text-transform:uppercase;opacity:.75;margin-top:2px}
+.sentidos button[data-s]{flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
+.modo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--linea);margin-top:12px}
+.modo button{min-height:52px;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px}
+.modo button+button{border-left:1px solid var(--linea)}
+.modo button[aria-pressed="true"]{background:var(--tinta);color:#141209}
+.prueba{padding:18px 14px;border-bottom:1px solid var(--linea);text-align:center}
+.prueba .px{color:var(--mostaza)}
+.prueba b{display:block;font-weight:900;font-size:64px;line-height:1;margin:10px 0 4px}
+.prueba p{margin:6px 0 0;color:var(--suave)}
+.veredicto{padding:16px 14px;border-bottom:1px solid var(--linea);color:#08140a;background:var(--verde)}
+.veredicto.no{background:var(--naranja);color:#1a0c02}
+.veredicto.sin{background:var(--gris);color:var(--tinta)}
+.veredicto b{display:block;font-weight:900;font-size:30px;line-height:1.05}
+.veredicto span{display:block;margin-top:6px}
+.veredicto small{display:block;margin-top:6px;font-family:var(--pixel);font-size:11px;text-transform:uppercase;opacity:.85}
+.barra .ruta{font-weight:900;font-size:26px;padding:8px 14px;border-right:1px solid var(--linea);line-height:1}
+.barra .gps{display:flex;align-items:center;gap:8px;padding:0 12px;color:var(--verde)}
+.barra .gps i{width:10px;height:10px;background:var(--verde);box-shadow:0 0 0 4px rgba(47,174,42,.25)}
+.barra .gps.mal{color:var(--naranja)}.barra .gps.mal i{background:var(--naranja);box-shadow:none}
+.barra .gps.quieto{color:var(--suave)}.barra .gps.quieto i{display:none}
+.franjas{display:flex;width:56px;border-left:1px solid var(--linea)}
+.franjas i{flex:1}.franjas i:nth-child(1){background:var(--cian)}.franjas i:nth-child(2){background:var(--verde);flex:.3}.franjas i:nth-child(3){background:var(--mostaza)}.franjas i:nth-child(4){background:var(--naranja)}.franjas i:nth-child(5){background:var(--rosa)}
+.metro{position:relative;display:flex;justify-content:space-between;align-items:center;padding:16px 18px 10px;border-bottom:1px solid var(--linea)}
+.metro::before{content:"";position:absolute;left:18px;right:18px;top:27px;height:3px;background:var(--gris)}
+.metro span{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;font-family:var(--pixel);font-size:11px;color:var(--suave)}
+.metro span i{width:14px;height:14px;border:3px solid var(--gris);background:var(--papel);border-radius:50%}
+.metro .si i{background:var(--verde);border-color:var(--verde)}
+.metro .posible i{background:var(--mostaza);border-color:var(--mostaza)}
+.metro .otro i{background:var(--gris)}
+.metro .salto i{background:var(--cian);border-color:var(--cian)}
+.metro .nueva i{background:var(--rosa);border-color:var(--rosa);transform:rotate(45deg);border-radius:2px}
+.metro .ya i{background:var(--mostaza);border-color:var(--tinta);width:26px;height:26px;margin-top:-6px;box-shadow:0 0 0 4px rgba(226,191,0,.3)}
+.metro .ya{color:var(--tinta);font-weight:700}
+.parada{background:var(--mostaza);color:#141209;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:center;padding:14px}
+.parada .no{font-weight:900;font-size:56px;line-height:.9;letter-spacing:-.02em}
+.parada .nom{font-weight:900;font-size:22px;line-height:1.08}
+.dist{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--linea);color:var(--suave)}
+.dist b{font-weight:900;font-size:30px;line-height:1}
+.dist.bien{color:var(--verde)}.dist.lejos{color:var(--naranja)}
+.enfrente{display:flex;align-items:center;gap:10px;width:100%;padding:10px 14px;border-bottom:1px solid var(--linea);background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(215,127,208,.08) 8px 16px)}
+.enfrente svg{color:var(--rosa)}.enfrente .px{color:var(--rosa)}.enfrente b{font-weight:800}
+.si-b{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:76px;background:var(--verde);color:#08140a;border-bottom:1px solid var(--linea)}
+.si-b svg.i{width:40px;height:40px;stroke-width:3.2}
+.si-b .px{font-size:22px}
+.tres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--linea)}
+.tres button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:84px;padding:8px 4px;text-align:center}
+.tres button+button{border-left:1px solid var(--linea)}
+.tres .px{font-size:11.5px;line-height:1.15}
+.tres .ren svg{color:var(--mostaza)}.tres .salta svg{color:var(--cian)}
+.aqui{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:64px;background:var(--naranja);color:#1a0c02}
+.aqui .px{font-size:17px}
+.pie{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--linea)}
+.pie button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;color:var(--suave)}
+.pie button+button{border-left:1px solid var(--linea)}
+.pie svg.i{width:22px;height:22px}
+.hoja{padding:14px;border-bottom:1px solid var(--linea)}
+.hoja label{display:block;color:var(--suave);margin-bottom:6px}
+.hoja input,.sel{width:100%;min-height:52px;font-size:17px;border:1.5px solid var(--linea);background:#0f0e0a;padding:10px 12px;border-radius:0}
+.hoja .fila{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:10px;border:1px solid var(--linea)}
+.hoja .fila button{min-height:52px;display:flex;align-items:center;justify-content:center;gap:8px}
+.hoja .fila button+button{border-left:1px solid var(--linea)}
+.hoja .ok{background:var(--verde);color:#08140a}
+.inicio{padding:14px;border-bottom:1px solid var(--linea)}
+.inicio label{display:block;color:var(--suave);margin:4px 0 6px}
+.sentidos{display:grid;border:1px solid var(--linea);margin-top:12px}
+.sentidos button{min-height:52px;padding:8px 12px;font-weight:800;font-size:17px;display:flex;align-items:center;gap:10px}
+.sentidos button+button{border-top:1px solid var(--linea)}
+.sentidos button[aria-pressed="true"]{background:var(--tinta);color:#141209}
+.dato{display:flex;align-items:baseline;gap:8px;margin-top:12px;color:var(--suave)}
+.dato b{font-weight:900;font-size:30px;color:var(--tinta);line-height:1}
+.iniciar{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:64px;padding:0 16px;background:var(--mostaza);color:#141209;font-size:19px}
+.iniciar::after{content:">>>"}
+.viaje{display:grid;grid-template-columns:minmax(0,1fr) auto;border-top:1px solid var(--linea)}
+.viaje .abrir{padding:12px 14px;min-height:56px}
+.viaje .abrir b{font-weight:800}
+.viaje .abrir small{display:block;color:var(--suave);font-family:var(--pixel);font-size:11px;text-transform:uppercase;margin-top:2px}
+.viaje .borrar{padding:0 14px;border-left:1px solid var(--linea);color:var(--naranja)}
+.viaje .conf{grid-column:1/3;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--linea)}
+.viaje .conf button{min-height:48px;display:flex;align-items:center;justify-content:center}
+.viaje .conf .si{background:var(--naranja);color:#1a0c02}
+.titulo{padding:12px 14px 6px;color:var(--suave)}
+.cuenta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--linea)}
+.cuenta div{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 2px}
+.cuenta div+div{border-left:1px solid var(--linea)}
+.cuenta b{font-weight:900;font-size:30px;line-height:1}
+.cuenta svg.i{width:24px;height:24px}
+.c-si{color:var(--verde)}.c-ren{color:var(--mostaza)}.c-salto{color:var(--cian)}.c-nueva{color:var(--rosa)}
+.huecos{padding:12px 14px;border-bottom:1px solid var(--linea)}
+.huecos .px{display:flex;align-items:center;gap:8px;color:var(--naranja)}
+.huecos .px.bien{color:var(--verde)}
+.huecos .px svg.i{width:22px;height:22px}
+.barrag{display:flex;height:12px;margin-top:8px}
+.barrag i{background:var(--verde)}.barrag i.h{background:var(--naranja)}
+.horas{display:flex;justify-content:space-between;font-family:var(--pixel);font-size:11px;color:var(--suave);margin-top:4px}
+.linea{list-style:none;margin:0;padding:6px 0;position:relative}
+.linea::before{content:"";position:absolute;left:25px;top:18px;bottom:18px;width:3px;background:var(--gris)}
+.linea li{position:relative;display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:2px 12px;align-items:center;padding:8px 14px}
+.linea li>i{width:14px;height:14px;border-radius:50%;margin-left:5px}
+.linea .si>i{background:var(--verde)}.linea .posible>i{background:var(--mostaza)}.linea .salto>i{background:var(--cian)}.linea .otro>i{background:var(--gris);border:2px solid var(--suave)}.linea .nueva>i{background:var(--rosa);border-radius:2px;transform:rotate(45deg)}
+.linea .n{font-weight:800;font-size:16px}
+.linea .salto .n,.linea .otro .n{color:var(--suave)}
+.linea .salto .n{text-decoration:line-through}
+.linea .m{font-family:var(--pixel);font-size:12px;color:var(--suave);white-space:nowrap}
+.linea .m.lejos{color:var(--naranja)}
+.linea input{width:100%;min-height:44px;border:1.5px dashed var(--rosa);background:transparent;padding:6px 10px;font-weight:800;font-size:16px}
+.linea .posible input{border-color:var(--mostaza)}
+.linea input::placeholder{color:var(--rosa);font-family:var(--pixel);font-size:13px;text-transform:uppercase}
+.exportar{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;border-top:1px solid var(--linea);background:var(--mostaza);color:#141209}
+.aviso{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;align-items:center;gap:8px;background:var(--tinta);color:#141209;padding:10px 14px;max-width:92vw;opacity:0;pointer-events:none;transition:opacity .2s}
+.aviso.ver{opacity:1}
+.aviso svg.i{width:22px;height:22px}
+@media(max-width:340px){.parada .no{font-size:44px}.parada .nom{font-size:19px}.tres .px{font-size:10.5px}}
+@media (prefers-reduced-motion:reduce){.aviso{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="si" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+  <symbol id="lapiz" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></symbol>
+  <symbol id="cruce" viewBox="0 0 24 24"><path d="M7 4L3 8l4 4"/><path d="M3 8h13"/><path d="M17 12l4 4-4 4"/><path d="M21 16H8"/></symbol>
+  <symbol id="salta" viewBox="0 0 24 24"><path d="M4 6l8 6-8 6V6z"/><path d="M12 6l8 6-8 6V6z"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="pinmas" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><path d="M12 6.5v6M9 9.5h6"/></symbol>
+  <symbol id="aviso" viewBox="0 0 24 24"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.01"/></symbol>
+  <symbol id="sube" viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 14v6h14v-6"/></symbol>
+  <symbol id="deshacer" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></symbol>
+  <symbol id="fin" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14"/></symbol>
+  <symbol id="atras" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="mira" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+</svg>
+<main id="vista"><p class="px" style="color:var(--suave)">Cargando la lista oficial…</p></main>
+<div class="aviso px" id="toast" role="status" aria-live="polite"></div>
+<script>
+{
+const CLAVE = 'sjdrbus.campo.maqueta-d74', TZ = 'America/Mexico_City';
+// Criterios de trabajo (ESTIMADO): «revisar» a más de 150 m del punto oficial; «enfrente» a
+// 60 m o menos de la parada que se pregunta; hueco del GPS cuando pasan más de 60 s sin punto.
+// Modo prueba (D-74, ESTIMADO, decide Miguel): CORRESPONDE con 80 % o más y al menos 5 paradas.
+const REVISAR_M = 150, ENFRENTE_M = 60, HUECO_S = 60, UMBRAL = 0.8, MINIMO = 5;
+const $ = (s) => document.querySelector(s);
+const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const ic = (id) => `<svg class="i" aria-hidden="true"><use href="#${id}"/></svg>`;
+const insignia = (r) => `${r.tipo === 'intermunicipal' ? 'T' : 'R'}${r.numero.replace(/^0+(?=\d)/, '')}`;
+const hhmm = (iso) => new Date(iso).toLocaleTimeString('en-GB', { timeZone: TZ, hour: '2-digit', minute: '2-digit' });
+const fecha = (iso) => new Date(iso).toLocaleDateString('es-MX', { timeZone: TZ, weekday: 'short', day: 'numeric', month: 'short' });
+function metros(a, b) { const R = 6371000, r = Math.PI / 180, dl = (b.lat - a.lat) * r, dn = (b.lon - a.lon) * r;
+  const h = Math.sin(dl / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dn / 2) ** 2; return Math.round(2 * R * Math.asin(Math.sqrt(h))); }
+const franjas = '<span class="franjas"><i></i><i></i><i></i><i></i><i></i></span>';
+const FRASE = { si: 'Sí, aquí', posible: 'Otro nombre', otro: 'Otro sentido', salto: 'No la vi', nueva: 'Parada aquí' };
+const ICONO = { si: 'si', posible: 'lapiz', otro: 'cruce', salto: 'salta', nueva: 'pinmas' };
+const SENTIDOS = ['IDA', 'REGRESO'];
+
+let RUTAS = [], FUENTE = '', S = { viajes: [] }, borrar = null, hoja = null, marca = null;
+let eleccion = { ruta: '', sentido: 'IDA', prueba: false }, pos = null, gpsEstado = 'buscando', watch = null, candado = null;
+try { const g = JSON.parse(localStorage.getItem(CLAVE)); if (g && Array.isArray(g.viajes)) S = g; } catch {}
+const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify(S)); } catch { aviso('Sin espacio en el teléfono', 'aviso'); } };
+const actual = () => S.viajes.find((v) => v.id === S.abierto);
+const rutaDe = (v) => RUTAS.find((r) => r.route_id === v.route_id);
+// (d) Cada viaje usa SOLO la lista de su sentido (regla 10).
+const listaDe = (v) => rutaDe(v).sentidos[v.sentido].paradas;
+const idSimple = (r, sentido, p) => `${insignia(r)}-${r.sentidos[sentido].letra}-${String(p.orden).padStart(2, '0')}`;
+const extremos = (r, s) => { const L = r.sentidos[s].paradas; return L.length ? [L[0].nombre, L[L.length - 1].nombre] : ['—', '—']; };
+const conPunto = (L) => L.filter((p) => p.lat != null).length;
+function aviso(t, icono = 'si') { const a = $('#toast'); a.innerHTML = ic(icono) + esc(t); a.classList.add('ver'); clearTimeout(aviso.t); aviso.t = setTimeout(() => a.classList.remove('ver'), 2400); }
+
+const respondidas = (v) => new Set(v.respuestas.filter((r) => r.orden != null).map((r) => r.orden));
+function masCercana(L, hechas, punto) {
+  let mejor = null;
+  for (const p of L) if (!hechas.has(p.orden) && p.lat != null) { const d = metros(punto, p); if (!mejor || d < mejor.d) mejor = { p, d }; }
+  return mejor;
+}
+function siguienteDe(L, hechas, desdeOrden) {
+  const k = L.findIndex((p) => p.orden === desdeOrden);
+  for (let j = 1; j <= L.length; j++) { const p = L[(k + j + L.length) % L.length]; if (!hechas.has(p.orden)) return p.orden; }
+  return null;
+}
+// (a) La primera pregunta es el inicio del sentido (orden 1); el GPS ya no la cambia.
+function elegirActual(v) {
+  const L = listaDe(v), hechas = respondidas(v);
+  if (!L.length) { v.actual = null; return; }
+  if (v.actual != null && !hechas.has(v.actual)) return;
+  v.actual = v.actual == null ? (L.find((p) => !hechas.has(p.orden))?.orden ?? null) : siguienteDe(L, hechas, v.actual);
+}
+const paradaActual = (v) => listaDe(v).find((p) => p.orden === v.actual);
+function enfrenteDe(v) {
+  const of = paradaActual(v); if (!of || of.lat == null) return null;
+  const hechas = respondidas(v); let mejor = null;
+  for (const p of listaDe(v)) if (p.orden !== of.orden && !hechas.has(p.orden) && p.lat != null) { const d = metros(of, p); if (d <= ENFRENTE_M && (!mejor || d < mejor.d)) mejor = { p, d }; }
+  return mejor;
+}
+
+function arrancarGPS() {
+  if (watch != null) return;
+  if (!('geolocation' in navigator)) { gpsEstado = 'sin'; pintarBarra(); return; }
+  watch = navigator.geolocation.watchPosition((p) => {
+    pos = { lat: p.coords.latitude, lon: p.coords.longitude, prec: Math.round(p.coords.accuracy), t: new Date(p.timestamp).toISOString() };
+    gpsEstado = 'ok';
+    const v = actual();
+    if (v && !v.fin) {
+      const u = v.trazo[v.trazo.length - 1];
+      if (!u || Date.parse(pos.t) - Date.parse(u.t) >= 3000) { v.trazo.push(pos); guardar(); }
+      if (v.prueba) { pintar(); return; }
+    }
+    pintarBarra(); pintarDistancia();
+  }, (e) => { gpsEstado = e.code === 1 ? 'negado' : 'buscando'; pintarBarra(); }, { enableHighAccuracy: true, maximumAge: 0, timeout: 20000 });
+}
+function pintarBarra() {
+  const g = $('#gps'); if (!g) return; const v = actual();
+  if (v && v.fin) { g.className = 'gps px quieto'; g.textContent = `${hhmm(v.inicio)} → ${hhmm(v.fin)}`; return; }
+  const sin = gpsEstado !== 'ok' || !pos;
+  g.className = 'gps px' + (sin ? ' mal' : '');
+  g.innerHTML = `<i></i>${sin ? (gpsEstado === 'negado' ? 'Sin permiso' : 'Buscando GPS') : hhmm(new Date().toISOString())}`;
+  const c = $('#cerca'); if (c && v && !v.prueba) c.classList.toggle('off', !(pos && conPunto(listaDe(v))));
+}
+function distanciaHTML(v) {
+  const of = paradaActual(v);
+  if (!of) return '';
+  if (of.lat == null) return `<div class="dist" id="dist">${ic('pin')}<b>—</b><span class="px">sin punto oficial</span></div>`;
+  if (!pos) return `<div class="dist" id="dist">${ic('pin')}<b>—</b><span class="px">sin GPS</span></div>`;
+  const d = metros(pos, of);
+  return `<div class="dist ${d <= REVISAR_M ? 'bien' : 'lejos'}" id="dist">${ic('pin')}<b>${d} m</b></div>`;
+}
+function pintarDistancia() { const d = $('#dist'), v = actual(); if (d && v && !v.fin) d.outerHTML = distanciaHTML(v); }
+async function pantallaEncendida() { try { if ('wakeLock' in navigator) { candado = await navigator.wakeLock.request('screen'); return true; } } catch {} return false; }
+document.addEventListener('visibilitychange', () => { const v = actual(); if (document.visibilityState === 'visible' && v && !v.fin) pantallaEncendida(); });
+
+function responder(estado, nombre) {
+  const v = actual(), m = marca ?? { t: new Date().toISOString(), pos, orden: v.actual }; marca = null; hoja = null;
+  const of = estado === 'nueva' ? null : listaDe(v).find((p) => p.orden === m.orden);
+  const r = { estado, orden: of ? of.orden : null, numero: of ? of.numero : null, id: of ? idSimple(rutaDe(v), v.sentido, of) : null, oficial: of ? of.nombre : null, nombre: nombre ?? (of ? of.nombre : ''), t: m.t };
+  if (m.pos) { r.lat = m.pos.lat; r.lon = m.pos.lon; r.prec = m.pos.prec; }
+  if (of && of.lat != null && m.pos && (estado === 'si' || estado === 'posible')) r.dist_m = metros(m.pos, of);
+  v.respuestas.push(r);
+  if (of) elegirActual(v);
+  guardar(); pintar();
+  aviso(estado === 'nueva' ? `Guardada · ${hhmm(r.t)}` : FRASE[estado], ICONO[estado]);
+}
+
+function huecos(v) {
+  const ini = Date.parse(v.inicio), fin = Date.parse(v.fin ?? new Date().toISOString());
+  const t = [ini, ...v.trazo.map((p) => Date.parse(p.t)).filter((x) => x >= ini && x <= fin), fin].sort((a, b) => a - b);
+  const out = []; for (let k = 1; k < t.length; k++) if (t[k] - t[k - 1] > HUECO_S * 1000) out.push([t[k - 1], t[k]]);
+  return out;
+}
+
+// (c) Modo prueba: distancia de cada parada con punto a la traza; tramo = de la primera a la
+// última que quedó cerca; veredicto con umbral ESTIMADO.
+function calificar(v) {
+  const L = listaDe(v).filter((p) => p.lat != null);
+  const filas = L.map((p) => ({ p, d: v.trazo.length ? Math.min(...v.trazo.map((t) => metros(t, p))) : null }));
+  const cerca = filas.filter((f) => f.d != null && f.d <= REVISAR_M);
+  if (!L.length) return { estado: 'sin', motivo: 'Este sentido no tiene paradas con punto en el mapa', filas: [], cerca: 0, tramo: 0 };
+  if (!cerca.length) return { estado: 'sin', motivo: 'Ninguna parada con punto quedó cerca de tu camino', filas: [], cerca: 0, tramo: 0 };
+  const a = cerca[0].p.orden, b = cerca[cerca.length - 1].p.orden;
+  const tramo = filas.filter((f) => f.p.orden >= a && f.p.orden <= b), n = tramo.filter((f) => f.d <= REVISAR_M).length;
+  if (tramo.length < MINIMO) return { estado: 'sin', motivo: `El tramo tiene ${tramo.length} parada${tramo.length === 1 ? '' : 's'} con punto (mínimo ${MINIMO})`, filas: tramo, cerca: n, tramo: tramo.length, a, b };
+  return { estado: n / tramo.length >= UMBRAL ? 'si' : 'no', filas: tramo, cerca: n, tramo: tramo.length, a, b };
+}
+
+function vistaInicio() {
+  const r = RUTAS.find((x) => x.route_id === eleccion.ruta);
+  const lista = S.viajes.slice().sort((x, y) => y.inicio.localeCompare(x.inicio));
+  const boton = (s) => { const [a, b] = extremos(r, s), L = r.sentidos[s].paradas;
+    return `<button data-a="sentido" data-s="${s}" aria-pressed="${eleccion.sentido === s}">${esc(a)} → ${esc(b)}<small>${s === 'IDA' ? 'Ida' : 'Regreso'} · ${L.length} paradas · ${conPunto(L)} con punto</small></button>`; };
+  return `<div class="tel">
+    <div class="barra"><span class="ruta">Campo</span><span class="gps px" id="gps"></span><span></span>${franjas}</div>
+    <div class="inicio">
+      <label class="px" for="ruta">Ruta</label>
+      <select class="sel" id="ruta"><option value="">Elige…</option>${RUTAS.map((x) => `<option value="${esc(x.route_id)}"${x.route_id === eleccion.ruta ? ' selected' : ''}>${esc(insignia(x))} · ${esc(x.nombre)}</option>`).join('')}</select>
+      ${r ? `<label class="px" style="margin-top:12px">Sentido (empieza en su primera parada)</label><div class="sentidos" style="margin-top:0">${SENTIDOS.map(boton).join('')}</div>
+        <div class="modo"><button class="px" data-a="modo" data-m="0" aria-pressed="${!eleccion.prueba}">Recorrido</button><button class="px" data-a="modo" data-m="1" aria-pressed="${eleccion.prueba}">Prueba en carro</button></div>` : ''}
+    </div>
+    <button class="iniciar px" data-a="iniciar">${eleccion.prueba ? 'Iniciar prueba' : 'Iniciar viaje'}</button>
+    ${lista.length ? `<div class="titulo px">Viajes en este teléfono</div>${lista.map((v) => { const rr = rutaDe(v);
+      return `<div class="viaje"><button class="abrir" data-a="abrir" data-id="${esc(v.id)}"><b>${esc(rr ? insignia(rr) : '?')} · ${esc(v.desde)} → ${esc(v.hacia)}</b><small>${v.prueba ? 'Prueba · ' : ''}${esc(fecha(v.inicio))} · ${v.prueba ? 'sin toques' : v.respuestas.length + ' respuestas'}${v.fin ? '' : ' · en curso'}</small></button>
+      <button class="borrar px" data-a="borrar" data-id="${esc(v.id)}" aria-label="Borrar este viaje">Borrar</button>
+      ${borrar === v.id ? `<div class="conf"><button class="si px" data-a="borrar-si" data-id="${esc(v.id)}">Sí, borrar</button><button class="px" data-a="borrar-no">No</button></div>` : ''}</div>`; }).join('')}` : ''}
+  </div>`;
+}
+
+function metroHTML(v, L) {
+  const prev = v.respuestas.slice(-3).map((r) => `<span class="${r.estado}"><i></i>${r.orden ?? '+'}</span>`);
+  const usadas = new Set([...respondidas(v), v.actual]), sig = []; let o = v.actual;
+  while (sig.length < 4 - prev.length) { o = siguienteDe(L, usadas, o); if (o == null) break; sig.push(o); usadas.add(o); }
+  return `<div class="metro" aria-hidden="true">${prev.join('')}<span class="ya"><i></i>${v.actual}</span>${sig.map((n) => `<span><i></i>${n}</span>`).join('')}</div>`;
+}
+const cercaBtn = (v) => `<button class="cerca px${pos && conPunto(listaDe(v)) ? '' : ' off'}" id="cerca" data-a="cercana" aria-label="Saltar a la parada más cercana">${ic('mira')}<span class="t">Más cercana</span></button>`;
+const tarjeta = (v, of) => `<div class="parada"><span class="no">${of.orden}</span><span class="nom">${esc(of.nombre)}</span><span class="ids">${esc(of.numero ?? 'sin número')} · ${esc(idSimple(rutaDe(v), v.sentido, of))}</span></div>`;
+
+function vistaPrueba(v) {
+  const ruta = rutaDe(v), q = calificar({ ...v });
+  return `<div class="tel"><div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px" id="gps"></span><span class="cerca tag px">Prueba</span>${franjas}</div>
+    <div class="prueba"><span class="px">No toques el teléfono manejando</span><b>${q.cerca}</b><span class="px" style="color:var(--suave)">paradas cerca de tu camino</span>
+    <p>${esc(v.desde)} → ${esc(v.hacia)}</p><p class="px" style="font-size:11px">${conPunto(listaDe(v))} de ${listaDe(v).length} paradas del sentido tienen punto</p></div>
+    <div class="pie"><button class="px" data-a="volver-prueba">${ic('atras')}Viajes</button><button class="px" data-a="terminar">${ic('fin')}Terminar</button></div></div>`;
+}
+
+function vistaViaje(v) {
+  if (v.prueba) return vistaPrueba(v);
+  const ruta = rutaDe(v), L = listaDe(v), of = paradaActual(v);
+  const barra = `<div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px" id="gps"></span>${cercaBtn(v)}${franjas}</div>`;
+  const pie = `<div class="pie"><button class="px" data-a="deshacer"${v.respuestas.length ? '' : ' disabled'}>${ic('deshacer')}Deshacer</button><button class="px" data-a="terminar">${ic('fin')}Terminar</button></div>`;
+  if (hoja && of) {
+    return `<div class="tel">${barra}${tarjeta(v, of)}
+      <div class="hoja"><label class="px" for="nombre">Otro nombre · ${hhmm(marca.t)}</label><input id="nombre" value="${esc(of.nombre)}" autocomplete="off" enterkeyhint="done">
+      <div class="fila"><button class="px ok" data-a="guardar-nombre">${ic('si')}Guardar</button><button class="px" data-a="cancelar">Cancelar</button></div></div></div>`;
+  }
+  if (!of) return `<div class="tel">${barra}<div class="parada"><span class="no">${L.length ? '✓' : '—'}</span><span class="nom">${L.length ? 'Lista completa' : 'Sin lista oficial'}</span></div>
+    <button class="aqui" data-a="nueva">${ic('pinmas')}<span class="px">Parada aquí</span></button>${pie}</div>`;
+  const enf = enfrenteDe(v);
+  return `<div class="tel">${barra}${metroHTML(v, L)}
+    ${tarjeta(v, of)}
+    ${distanciaHTML(v)}
+    ${enf ? `<button class="enfrente" data-a="enfrente" data-o="${enf.p.orden}">${ic('cruce')}<span><span class="px">Enfrente</span><br><b>${enf.p.orden} · ${esc(enf.p.nombre.split(' – ').pop())} · ${pos ? metros(pos, enf.p) : enf.d} m</b></span></button>` : ''}
+    <button class="si-b" data-a="si">${ic('si')}<span class="px">Sí, aquí</span></button>
+    <div class="tres">
+      <button class="ren" data-a="renombrar">${ic('lapiz')}<span class="px">Otro<br>nombre</span></button>
+      <button data-a="otro">${ic('cruce')}<span class="px">Otro<br>sentido</span></button>
+      <button class="salta" data-a="salto">${ic('salta')}<span class="px">No la<br>vi</span></button>
+    </div>
+    <button class="aqui" data-a="nueva">${ic('pinmas')}<span class="px">Parada aquí</span></button>${pie}</div>`;
+}
+
+function vistaResumenPrueba(v) {
+  const ruta = rutaDe(v), q = calificar(v), pc = q.tramo ? Math.round((100 * q.cerca) / q.tramo) : 0;
+  const titulo = q.estado === 'si' ? 'CORRESPONDE' : q.estado === 'no' ? 'NO CORRESPONDE' : 'SIN CALIFICACIÓN';
+  const cuenta = q.estado === 'sin' ? q.motivo : `${q.cerca} de ${q.tramo} paradas con punto a ≤ ${REVISAR_M} m de tu camino (${pc} %) · tramo ${q.a} a ${q.b}`;
+  return `<div class="tel">
+    <div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px quieto" id="gps"></span><span class="cerca tag px">Prueba</span>${franjas}</div>
+    <div class="veredicto ${q.estado === 'si' ? '' : q.estado}"><b>${titulo}</b><span>${esc(cuenta)}</span><small>Prueba · no es medición de campo · umbral ${Math.round(UMBRAL * 100)} % y ${MINIMO} paradas: ESTIMADO</small></div>
+    <div class="titulo px">${esc(v.desde)} → ${esc(v.hacia)}</div>
+    <ul class="linea">${q.filas.map((f) => `<li class="${f.d <= REVISAR_M ? 'si' : 'salto'}"><i></i><span class="n">${f.p.orden} · ${esc(f.p.nombre.split(' – ').pop())}</span><span class="m${f.d > REVISAR_M ? ' lejos' : ''}">${f.d} m</span></li>`).join('')}</ul>
+    <button class="exportar px" data-a="exportar">${ic('sube')}Exportar</button>
+    <div class="pie"><button class="px" data-a="volver">${ic('atras')}Viajes</button><button class="px" data-a="reabrir">${ic('deshacer')}Seguir prueba</button></div>
+  </div>`;
+}
+
+function vistaResumen(v) {
+  if (v.prueba) return vistaResumenPrueba(v);
+  const ruta = rutaDe(v), c = (e) => v.respuestas.filter((r) => r.estado === e).length;
+  const ini = Date.parse(v.inicio), fin = Date.parse(v.fin), hs = huecos(v);
+  let barra = '', t0 = ini;
+  for (const [a, b] of hs) { barra += `<i style="flex:${Math.max(1, a - t0)}"></i><i class="h" style="flex:${b - a}"></i>`; t0 = b; }
+  barra += `<i style="flex:${Math.max(1, fin - t0)}"></i>`;
+  const fila = (r, k) => {
+    const lado = r.estado === 'nueva' || r.estado === 'posible'
+      ? `<input data-k="${k}" value="${esc(r.nombre)}" placeholder="Ponle nombre" aria-label="Nombre de la parada">`
+      : `<span class="n">${esc(r.id ?? r.orden)} · ${esc(r.nombre.split(' – ').pop())}</span>`;
+    const m = r.estado === 'salto' ? 'no la vi' : r.estado === 'otro' ? 'otro sentido' : r.estado === 'nueva' ? hhmm(r.t) : r.dist_m != null ? `${r.dist_m} m` : '—';
+    return `<li class="${r.estado}"><i></i>${lado}<span class="m${r.dist_m > REVISAR_M ? ' lejos' : ''}">${esc(m)}</span></li>`;
+  };
+  return `<div class="tel">
+    <div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px quieto" id="gps"></span><span></span>${franjas}</div>
+    <div class="cuenta">
+      <div class="c-si">${ic('si')}<b>${c('si')}</b></div><div class="c-ren">${ic('lapiz')}<b>${c('posible')}</b></div>
+      <div class="c-salto">${ic('salta')}<b>${c('salto')}</b></div><div class="c-nueva">${ic('pinmas')}<b>${c('nueva')}</b></div>
+    </div>
+    <div class="huecos"><span class="px${hs.length ? '' : ' bien'}">${ic(hs.length ? 'aviso' : 'si')}GPS: ${hs.length ? `${hs.length} hueco${hs.length > 1 ? 's' : ''}` : 'sin huecos'}</span>
+      <div class="barrag">${barra}</div><div class="horas"><span>${hhmm(v.inicio)}</span>${hs.map(([a]) => `<span>${hhmm(new Date(a).toISOString())}</span>`).join('')}<span>${hhmm(v.fin)}</span></div></div>
+    <ul class="linea">${v.respuestas.map(fila).join('')}</ul>
+    <button class="exportar px" data-a="exportar">${ic('sube')}Exportar</button>
+    <div class="pie"><button class="px" data-a="volver">${ic('atras')}Viajes</button><button class="px" data-a="reabrir">${ic('deshacer')}Seguir viaje</button></div>
+  </div>`;
+}
+
+function pintar() {
+  const v = actual();
+  $('#vista').innerHTML = !v ? vistaInicio() : v.fin ? vistaResumen(v) : vistaViaje(v);
+  pintarBarra(); const n = $('#nombre'); if (n) { n.focus(); n.select(); }
+}
+setInterval(() => { const v = actual(); if (v && !v.fin) pintarBarra(); }, 15000);
+
+async function exportar(v) {
+  const ruta = rutaDe(v);
+  const datos = { herramienta: 'SJDR Bus · recorrido de campo (D-66, D-74)', etiqueta: v.prueba ? 'PRUEBA' : 'MEDIDO EN CAMPO', exportado: new Date().toISOString(),
+    fuente_lista: FUENTE, ruta: { route_id: ruta.route_id, numero: ruta.numero, nombre: ruta.nombre }, sentido: v.sentido,
+    ...(v.prueba ? { veredicto: calificar(v) } : {}), huecos_gps: huecos(v).map(([a, b]) => [new Date(a).toISOString(), new Date(b).toISOString()]), ...v };
+  const nombre = `campo-${v.inicio.slice(0, 10)}-${insignia(ruta)}-${ruta.sentidos[v.sentido].letra}${v.prueba ? '-prueba' : ''}.json`;
+  const archivo = new File([JSON.stringify(datos, null, 2)], nombre, { type: 'application/json' });
+  try { if (navigator.canShare && navigator.canShare({ files: [archivo] })) { await navigator.share({ files: [archivo], title: nombre }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(archivo); a.download = nombre; document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000); aviso('Archivo descargado', 'sube');
+}
+
+document.addEventListener('change', (e) => { if (e.target.id === 'ruta') { eleccion.ruta = e.target.value; eleccion.sentido = 'IDA'; borrar = null; pintar(); } });
+document.addEventListener('input', (e) => { const k = e.target.dataset.k, v = actual(); if (k != null && v) { v.respuestas[+k].nombre = e.target.value; guardar(); } });
+document.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.id === 'nombre') $('[data-a="guardar-nombre"]')?.click(); });
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-a]'); if (!b || b.disabled) return; const a = b.dataset.a, v = actual();
+  if (a === 'sentido') { eleccion.sentido = b.dataset.s; pintar(); }
+  else if (a === 'modo') { eleccion.prueba = b.dataset.m === '1'; pintar(); }
+  else if (a === 'iniciar' && !eleccion.ruta) aviso('Primero elige la ruta', 'aviso');
+  else if (a === 'iniciar') {
+    const r = RUTAS.find((x) => x.route_id === eleccion.ruta), [desde, hacia] = extremos(r, eleccion.sentido), id = 'c' + Date.now().toString(36);
+    const nuevo = { id, route_id: eleccion.ruta, sentido: eleccion.sentido, prueba: eleccion.prueba, desde, hacia, inicio: new Date().toISOString(), fin: null, actual: null, respuestas: [], trazo: pos ? [pos] : [] };
+    S.viajes.push(nuevo); S.abierto = id; elegirActual(nuevo); guardar(); arrancarGPS(); pintar();
+    if (!(await pantallaEncendida())) aviso('No bloquees la pantalla', 'aviso');
+  }
+  else if (a === 'cercana') {
+    if (!conPunto(listaDe(v))) aviso('Este sentido no tiene paradas con punto', 'aviso');
+    else if (!pos) aviso('Sin GPS todavía', 'aviso');
+    else { const m = masCercana(listaDe(v), respondidas(v), pos); if (!m) aviso('No quedan paradas con punto', 'aviso'); else { v.actual = m.p.orden; v.elegidaAMano = true; guardar(); pintar(); aviso(`Más cercana: ${m.p.orden} · ${m.d} m`, 'pin'); } }
+  }
+  else if (a === 'si' || a === 'otro' || a === 'salto') responder(a);
+  else if (a === 'renombrar') { marca = { t: new Date().toISOString(), pos, orden: v.actual }; hoja = 'posible'; pintar(); }
+  else if (a === 'nueva') { marca = { t: new Date().toISOString(), pos, orden: null }; responder('nueva', ''); }
+  else if (a === 'guardar-nombre') responder('posible', $('#nombre').value.trim() || paradaActual(v).nombre);
+  else if (a === 'cancelar') { marca = null; hoja = null; pintar(); }
+  else if (a === 'enfrente') { v.actual = +b.dataset.o; v.elegidaAMano = true; guardar(); pintar(); }
+  else if (a === 'deshacer') { const r = v.respuestas.pop(); if (r && r.orden != null) v.actual = r.orden; guardar(); pintar(); if (r) aviso('Se quitó la última', 'deshacer'); }
+  else if (a === 'terminar') { v.fin = new Date().toISOString(); if (pos) v.trazo.push(pos); guardar(); try { await candado?.release(); } catch {} candado = null; pintar(); }
+  else if (a === 'reabrir') { v.fin = null; guardar(); pintar(); pantallaEncendida(); }
+  else if (a === 'exportar') exportar(v);
+  else if (a === 'volver' || a === 'volver-prueba') { S.abierto = null; guardar(); pintar(); }
+  else if (a === 'abrir') { S.abierto = b.dataset.id; borrar = null; guardar(); pintar(); }
+  else if (a === 'borrar') { borrar = borrar === b.dataset.id ? null : b.dataset.id; pintar(); }
+  else if (a === 'borrar-no') { borrar = null; pintar(); }
+  else if (a === 'borrar-si') { S.viajes = S.viajes.filter((x) => x.id !== b.dataset.id); if (S.abierto === b.dataset.id) S.abierto = null; borrar = null; guardar(); pintar(); aviso('Viaje borrado'); }
+});
+
+fetch('campo-sentido.json').then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }).then((d) => {
+  RUTAS = d.rutas; FUENTE = d.fuente_lista; arrancarGPS(); pintar();
+  const v = actual(); if (v && !v.fin) pantallaEncendida();
+}).catch(() => { $('#vista').innerHTML = '<p class="px" style="color:var(--naranja)">No se pudo cargar la lista oficial. Revisa la señal y recarga.</p>'; });
+}
+</script>
+</body>
+</html>
