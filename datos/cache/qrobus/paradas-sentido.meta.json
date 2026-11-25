@@ -1,0 +1,771 @@
+{
+  "url_pagina": "https://qrobus.gob.mx/Rutas",
+  "url_consulta": "https://qrobus.gob.mx/Rutas/paradasTimeline (POST: ruta, direccion 0 = IDA, 1 = REGRESO)",
+  "metodo": "1 descarga de la página (sesión) y 1 consulta por ruta y sentido, pausa de 2.5 s (scripts/leer-paradas-qrobus.mjs). Se guarda solo sNombre partido en número P- y nombre, y su orden; el campo rutasParada no se guarda.",
+  "pagina": {
+    "consultado": "2026-11-25T21:53:16.613Z",
+    "status_http": 200,
+    "bytes": 1656589,
+    "sha256": "0c64afbfab36231bee8318a1413ea8560d89e1b8f60c3e91bfecd875c74a9d0a"
+  },
+  "copia_completa": "referencias/fuentes-2026-11-25/qrobus-paradas/ (fuera de git: la página trae una llave de sesión)",
+  "respuestas": [
+    {
+      "ruta": "001",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:53:17.455Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 6698,
+      "sha256": "2fd054f5de076d384884ee7e23457f4c6dad8f3d6171ed93c9911047ce3a2aae"
+    },
+    {
+      "ruta": "001",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:53:20.493Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1920,
+      "sha256": "580668b407da3ab74dc8151c3ff96545b0ca67a4c1ee730125ea2c29ac9b14b5"
+    },
+    {
+      "ruta": "002",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:53:24.096Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 6336,
+      "sha256": "690e35dbe7c59c12e9c6213bb1032fb87b91a2578f432b2290ff7e5c8b090317"
+    },
+    {
+      "ruta": "002",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:53:27.815Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 4011,
+      "sha256": "af33d87df11c994a5de47d39d2e1e8085e47ffed001febad4bfe02bf6a9e3a8a"
+    },
+    {
+      "ruta": "004",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:53:31.112Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5956,
+      "sha256": "0b220c23c207b24cf408a68ddca57384183a351fe268a847d6151cd4ed1d01ec"
+    },
+    {
+      "ruta": "004",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:53:34.366Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2707,
+      "sha256": "abfa436537e81724fcf916a97292310994843ded9c025b61cb0bf8be612e8719"
+    },
+    {
+      "ruta": "005",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:53:37.720Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 6707,
+      "sha256": "81240f718c26bd2d9de9e84c7705c7e99359dfb994776372b15fc2e75c500801"
+    },
+    {
+      "ruta": "005",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:53:41.080Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5020,
+      "sha256": "8fe941b9c735810fbe9335b37a866f4f1d07aa1d5c8aeb8941a9e4b6c782913b"
+    },
+    {
+      "ruta": "007",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:53:44.342Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 4779,
+      "sha256": "8b2e888ffd5e9cff54d51f55ce7b7f4626f2338da9efc7c466614d3544a5906c"
+    },
+    {
+      "ruta": "007",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:53:47.326Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3825,
+      "sha256": "c338087b202c681f86e693df3e2474255b2bb565bd5c7303d35a6faaad522073"
+    },
+    {
+      "ruta": "008",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:53:50.435Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2883,
+      "sha256": "a2e43de899e445b32ba1e8eb6569c2b681a7ac37401ed46e9666e2717957c0fb"
+    },
+    {
+      "ruta": "008",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:53:53.512Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3592,
+      "sha256": "66685aa8944330b2d52beb5ef7b94bc5568fe4626560c0be1265584d8cc1d317"
+    },
+    {
+      "ruta": "009",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:53:56.750Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3604,
+      "sha256": "5d45e2ae5d7567891b46dd194ba78f8bcba0bcbf72d9272596197e57d8bd72da"
+    },
+    {
+      "ruta": "009",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:53:59.953Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3379,
+      "sha256": "6be9a78ece4c9801cde503fcd125bdcfdb2841026015bbe78ffc36799b459ecb"
+    },
+    {
+      "ruta": "009B",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:54:03.083Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2869,
+      "sha256": "92ad4507623cd8292e3d56316775eff3f51cfb9939d6c5e48dc4350c5755e1f6"
+    },
+    {
+      "ruta": "009B",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:54:06.285Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2359,
+      "sha256": "ad9c0fe591597d59d6fc99127f89b9d99e6a17f7144b4e1c638ed857a123b3f7"
+    },
+    {
+      "ruta": "010",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:54:10.077Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5312,
+      "sha256": "0c9ec0bd8ce7e1f9fb5ceabf95027c97f09d2894472eacc79852c13d5d3cdeed"
+    },
+    {
+      "ruta": "010",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:54:13.221Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1737,
+      "sha256": "606b59aa25f6fa49579d104c0c33b011064ec1f676bf03bd2cf003fd1ff4527d"
+    },
+    {
+      "ruta": "011",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:54:16.716Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 6886,
+      "sha256": "c8f33ae9f87aec70cde7aaf5cb1af125739533680aa893857c732a81d3da154f"
+    },
+    {
+      "ruta": "011",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:54:20.334Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5782,
+      "sha256": "5d9db86b42b34ffb5d93b892d3cfd51e4bb21d7dadaf17beeeb7c114daf0cf98"
+    },
+    {
+      "ruta": "011B",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:54:23.547Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 4920,
+      "sha256": "5ff1f13c591241ea1dacb014e9d1b00a960cef18c4a0a59cc2caebaee61f663f"
+    },
+    {
+      "ruta": "011B",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:54:26.673Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1895,
+      "sha256": "5096b79f449add61643b0adf132c1a04779264c36b20d08eacdb22d957c50ab9"
+    },
+    {
+      "ruta": "012",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:54:30.018Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 6680,
+      "sha256": "4160eae4753d5862a3bdf8c0fd6c7c0780a3535199efce7f9a67f78289326e42"
+    },
+    {
+      "ruta": "012",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:54:33.297Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2453,
+      "sha256": "9ca6d3e4277c16ff95fa6160005e91ec84b3616dc12163ea62d1d3c046d26e70"
+    },
+    {
+      "ruta": "013",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:54:36.436Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2167,
+      "sha256": "7b8021770948407de2eacec5c40c6b677796e178b7b0c8f13a75e470c2d2ebce"
+    },
+    {
+      "ruta": "013",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:54:39.420Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1682,
+      "sha256": "86a2ff17daa58c185187bab82dba2be5919491ce6372859bd5020bc5f4ad61de"
+    },
+    {
+      "ruta": "014",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:54:42.952Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 6524,
+      "sha256": "e53f219ddb4fd1280a278e22c7b7f01d2c5281b1efd7f31b1749f7c462871f20"
+    },
+    {
+      "ruta": "014",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:54:46.261Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2666,
+      "sha256": "53596a7e842afcb5c392718690b81d4cf14e749fa7a30cd28d5ec7d7c35727af"
+    },
+    {
+      "ruta": "015B",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:54:49.772Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5894,
+      "sha256": "f32a92c43778125a7d576eb30409a519d0269c699213581695da0c005839e176"
+    },
+    {
+      "ruta": "015B",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:54:53.013Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2029,
+      "sha256": "7df5f79c07158dd4cc674f66a376374722ef0e983c86714def9dcebb21a4cc4f"
+    },
+    {
+      "ruta": "016",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:54:56.020Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3837,
+      "sha256": "74a9c83ddd7c6e23bf338113df96238a93141c1c177398638a7bb4fe3ede4b40"
+    },
+    {
+      "ruta": "016",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:54:59.028Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2167,
+      "sha256": "3f77fc5743845cb01ea75fa8e72143571cc89002cd374c554fd11adcde792d1d"
+    },
+    {
+      "ruta": "017",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:55:01.951Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2273,
+      "sha256": "9b644456e8f4b64a3f76825d5ff80af91e8cb263ea8dd544fe410a8f72521f36"
+    },
+    {
+      "ruta": "017",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:55:04.796Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2077,
+      "sha256": "14a806843e344c0f70abbfc5ef2d9c2dedb0e6c93d367ebdbb6fa7d50616d15d"
+    },
+    {
+      "ruta": "018",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:55:07.813Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1507,
+      "sha256": "e9d2590fc797ffbd9bbf360e2fa27056f849f972d643c266d4eea82df729120c"
+    },
+    {
+      "ruta": "018",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:55:10.772Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2170,
+      "sha256": "87ed3098b6b86968eb4156f17a09ff33e41b7f5afb2dcb972990560bcd89113a"
+    },
+    {
+      "ruta": "019",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:55:13.853Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3767,
+      "sha256": "4a53516be3a160f1661e0013680f18b3a00b6060ee2f871d466cdcea44770226"
+    },
+    {
+      "ruta": "019",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:55:17.042Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2603,
+      "sha256": "c4b126640a82577219cc08beba4e55735759e2c5844d034f601307a0684a1b3a"
+    },
+    {
+      "ruta": "020",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:55:20.274Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5482,
+      "sha256": "d91dd7dcc5da04c61c89a27ad8b2c31f418a5399aa232f3e6d3df762bf7b53ea"
+    },
+    {
+      "ruta": "020",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:55:23.441Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2869,
+      "sha256": "1df2f9028fdd0b3bc1f61925909424db8a25830184eb40182d1da1a853f61674"
+    },
+    {
+      "ruta": "022",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:55:26.458Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2965,
+      "sha256": "96ce8460d75a9f4bb2ab0c90a9ab1fce28337dd85ed26ed78986230d47b10e04"
+    },
+    {
+      "ruta": "022",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:55:29.451Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1647,
+      "sha256": "c0b2a879ae1926b21f707ed98936c750683daab9f01a58d4865c7efc6891d0a2"
+    },
+    {
+      "ruta": "23",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:55:32.423Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3668,
+      "sha256": "52ba33be8da0e4a2faece14460ac1cc6d9ddb887d44d91c5f8ad42bd213570ed"
+    },
+    {
+      "ruta": "23",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:55:35.364Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1677,
+      "sha256": "c3bfaa9d2c5a034696fec93b7d928a8c2a43e14d7c2269fe326dc873a4b221a2"
+    },
+    {
+      "ruta": "024",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:55:38.531Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 6127,
+      "sha256": "ebf03085c7e07f07d367ac8f48d2f477f66f5b459bb098d9217da1f8f97c1a56"
+    },
+    {
+      "ruta": "024",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:55:41.540Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2062,
+      "sha256": "d73d5edf518dbf413a533ceca483307223995281d7ff1a5b91fecec83edcaf98"
+    },
+    {
+      "ruta": "024C",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:55:44.762Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 6058,
+      "sha256": "5685e99cdcec5b5f690b8bcdbce0992874a91e44b93dcb2da1c005ad381ec725"
+    },
+    {
+      "ruta": "024C",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:55:48.120Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3987,
+      "sha256": "deb7762fa6eb5c869eb577dbf90088fb98ba235583dc53de8153e020611fbc62"
+    },
+    {
+      "ruta": "025",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:55:51.316Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5853,
+      "sha256": "b2d9462cb9f1e5c41d111761e9c40d2715f2b0081e328168eacbbaa68cc85fbd"
+    },
+    {
+      "ruta": "025",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:55:54.453Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2550,
+      "sha256": "71575bcae1a235afb594c2ccdc60617d7bb2be9c998d49f559d56ef730fa2e65"
+    },
+    {
+      "ruta": "028",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:55:57.565Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5426,
+      "sha256": "315a288588c1a0c0d44518c423cf190944449ed752556b726e84f1ee8e6904f8"
+    },
+    {
+      "ruta": "028",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:56:00.967Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 4911,
+      "sha256": "3eb0dee572b97c7c29e127093ce236281de9ab8038b22ea10eef5290c2b47f27"
+    },
+    {
+      "ruta": "030",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:56:04.286Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5078,
+      "sha256": "31e8f9f287788f93a715d6a6196d13865c56034d1147f357351db29be37eae8c"
+    },
+    {
+      "ruta": "030",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:56:07.478Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3509,
+      "sha256": "d089bbd860525d5ac3cca66ebd22001e716292e7e00b2c33a106c23aa938505a"
+    },
+    {
+      "ruta": "031",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:56:10.636Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 6608,
+      "sha256": "4e4eb41d59b8f14112df01afc297e6973fb12b473ad3b6b9a004d2f4ccf6adc3"
+    },
+    {
+      "ruta": "031",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:56:13.710Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1918,
+      "sha256": "9bc6ed469716a8d8b8228d55d32f8d0b16c5818f764538d395bbd9aa940de85b"
+    },
+    {
+      "ruta": "032",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:56:16.834Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 4355,
+      "sha256": "86ddb8ea21c629e496ca57846052808c95f55c6fb8a388c731e77d7c0ec33215"
+    },
+    {
+      "ruta": "032",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:56:19.920Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3308,
+      "sha256": "3045e639e396761398b387a10ed1065fd6e1717276c55c80dd550f67b6e4d62d"
+    },
+    {
+      "ruta": "036",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:56:22.872Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2686,
+      "sha256": "07a3881b97a6f4d1b02ec47c5225c31035c532daae7b28319abdeae1f99a1ea3"
+    },
+    {
+      "ruta": "036",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:56:25.829Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1717,
+      "sha256": "e51069b71fb10cb1445493ff40d87add6dc8eaa8b7bb2cd0b2f1b14e210aff62"
+    },
+    {
+      "ruta": "037",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:56:28.986Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5370,
+      "sha256": "257d11d5d43956d37001ff85376cf48b1c792c19d5dfc569e8bcd76863708ab5"
+    },
+    {
+      "ruta": "037",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:56:32.079Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2529,
+      "sha256": "49aae14cb8b2434b32c6c3153229b80eb23831ef2d57e994c5094dff1a405f56"
+    },
+    {
+      "ruta": "038",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:56:35.206Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3210,
+      "sha256": "fc321f9b8f2ea6d460342ca3673d44a4654d7faaaff66a3a77e32bfb26ad3eb4"
+    },
+    {
+      "ruta": "038",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:56:38.278Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1815,
+      "sha256": "6989cfdf2dacf6f7fff85368004ae83bdd2d6746bfc011bdb6f13c8df25f2d66"
+    },
+    {
+      "ruta": "039",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:56:41.306Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2765,
+      "sha256": "8b538997c197413541344d28c9ac44ec44f8ea4f83bc8313c8ab4ead21a49909"
+    },
+    {
+      "ruta": "039",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:56:44.365Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1699,
+      "sha256": "89d2fc0849074dc6a10f8f5b60d9f0a70b15fe92a94343badfadbb930cd119d6"
+    },
+    {
+      "ruta": "040",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:56:47.699Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5617,
+      "sha256": "552f4af19d47c4193289e4b16bb91d9f0d76327c6df33a95f1f5bdcd738053df"
+    },
+    {
+      "ruta": "040",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:56:50.907Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3068,
+      "sha256": "879f8ae0c89bed4dc72fa5400110dabc17e3df350f39b0e8f958fd8244d2caaf"
+    },
+    {
+      "ruta": "041",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:56:54.050Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5242,
+      "sha256": "14e15f7665818a91c09e7eabd28a641ad83aaece5b1049b3e3404c1a77e63573"
+    },
+    {
+      "ruta": "041",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:56:57.118Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2342,
+      "sha256": "210a3f22cd08cd9208714e84abb29757193941af326f7f1d2a897f29cd6d3c84"
+    },
+    {
+      "ruta": "042",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:57:00.092Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1632,
+      "sha256": "4e507e151a8e5cd5b359cd1cedc1ff1f89655c41624056231645a05ba2b8dcc5"
+    },
+    {
+      "ruta": "042",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:57:03.005Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1260,
+      "sha256": "4b60455c04fb4c7daf456e9e1fcd7fe8cb0a0adb5f6da3c8a95f93848f8eef89"
+    },
+    {
+      "ruta": "043",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:57:06.453Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 6265,
+      "sha256": "4dd74525587f7e6c2c7760bd2901bd0cadb5d451e54ec9948597dc6edf2b5cc0"
+    },
+    {
+      "ruta": "043",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:57:10.060Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 4916,
+      "sha256": "dcdcdcaba96b07580a57e7d84bd7c674d32e66b339510a6d8e32557384362276"
+    },
+    {
+      "ruta": "044",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:57:13.724Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 7837,
+      "sha256": "0f586038c1fb469a417ed3d751c2f7f3b6468681f9e592ccb745da662d091145"
+    },
+    {
+      "ruta": "044",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:57:17.080Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2576,
+      "sha256": "011f175fb09ddb30dc3b9086b7205f93bc5a3c1a8f43cea790aa7fb2f9e75e55"
+    },
+    {
+      "ruta": "046",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:57:20.154Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2197,
+      "sha256": "d99f202cfdb38595f699faea85dc088fb27fa6b4f03ac20a863c93b657993d78"
+    },
+    {
+      "ruta": "046",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:57:23.164Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 3519,
+      "sha256": "c86349ab81d32431f77002c29b99f2fab827e8c912dce6aef0f953346aeeed88"
+    },
+    {
+      "ruta": "047",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:57:26.538Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 5882,
+      "sha256": "e9a5d61e8d0f07589818df7ef0350ca9867c5193e9e275f9ae33e8ffc4699cc3"
+    },
+    {
+      "ruta": "047",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:57:29.727Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 2118,
+      "sha256": "3cfb4ac9d69530be81013815882c69a6e7d58ddfcfc420c669aa4e977d488906"
+    },
+    {
+      "ruta": "062",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:57:32.638Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 787,
+      "sha256": "d70229799fc3ccc5525d3362dbe9aad35dceb95146364ad876565741af8710eb"
+    },
+    {
+      "ruta": "062",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:57:35.744Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 797,
+      "sha256": "ce230f28515e9d5672dacd3303b910cdfd883e1dfbcd6f9e905b8e443e22df60"
+    },
+    {
+      "ruta": "023",
+      "sentido": "IDA",
+      "consultado": "2026-11-25T21:57:38.973Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1524,
+      "sha256": "9a3fb1117c1d0f9eb68632292581327aeaf0228d22596a9781450751d8387fb0"
+    },
+    {
+      "ruta": "023",
+      "sentido": "REGRESO",
+      "consultado": "2026-11-25T21:57:42.133Z",
+      "status_http": 200,
+      "intentos": 1,
+      "bytes": 1125,
+      "sha256": "47bdc2bed200c5322ae59b2c8405edcf343082f38174f0782aa3ab01f04055c1"
+    }
+  ],
+  "sha256_extraido": "fe8de4ff37482b003e9c4bf6143c87fe62cff89ba7f7bab47641eb8a40e9819b"
+}
