@@ -4,32 +4,160 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (23 nov 2026, 7:43 pm)
+## Estado actual (25 nov 2026, 4:02 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
-| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.3** (`7b20c7e`, 23 nov 2026, 7:40 pm): Miguel integró el PR 4 «B6 · D-56 fase 2 → v0.3»: 294 lugares de OSM, parada cercana a la salida y al destino, «Salgo de otro lugar» (D-65). Verificada a las 7:42 pm: Actions y Vercel en verde, 39 rutas y 294 lugares en línea, capturas en `docs/evidencia/v0.3/`. Antes: v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | Ninguna de código. Rama de documentos `b6/cierre-v03` (lección 17, v0.3 marcada, evidencia): la sube Claude con el sí de Miguel y la integra Miguel |
-| Bloque en curso | **B3 · Trazos** (vuelve tras v0.3). Rama `b3/r03-cruces` creada desde `main` (`7b20c7e`) |
-| Tarea en curso | **B3 · R-03 · Cruces de calles**: plan (secuencia por sentido, hallazgos b y c) PROPUESTO a Miguel el 23 nov a las 7:43 pm; no se construye sin su sí. 698 de 936 con punto exacto (75 %); 20 POR VERIFICAR |
+| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.4** (`972e832`, 25 nov 2026, 3:27 pm según GitHub): Miguel integró el PR 7 «B1 · D-70: las 42 rutas de San Juan de qrobus.gob.mx». Verificado a las 3:28 pm: el sitio en línea trae 42 rutas. Antes: v0.3 (`7b20c7e`, 23 nov), v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
+| Versión en espera | Ninguna. Rama de trabajo **`b3/r03-paradas-oficiales`** (desde `main` `972e832`): D-71 (paso 1 hecho) y D-72; sin subir, se sube con el sí de Miguel. Rama `b3/d66-campo` (D-66 a D-69 y `campo.html`) sigue sin PR: choca con `main` en `docs/DECISIONES.md` |
+| Bloque en curso | **B3 · Trazos**: un solo plan (D-68, ajustado por D-69 y D-71) con R-03 y los pendientes de D-66 |
+| Tarea en curso | **B3 · R-03 paso 1 · Paradas oficiales por sentido: HECHO** (D-71, 25 nov, 4:02 pm): lectura única de «Ver ruta» de las 42 rutas, **84 de 84 ruta-sentidos con datos**, 2,203 paradas con número P- (salvo las 2 intermunicipales), solo texto; 940 de 1,021 coinciden con la lista general. R-03 puede llegar a **84 secuencias**. Siguiente: pendientes de campo (paso 2) y R-03 fases 1, 3 y 4 |
+| Tarea en curso (2) | **B3 · D-66 · Recorrido de campo: CONSTRUIDA, falta la prueba de Miguel en su iPhone.** Página de trabajo `web/public/campo.html` (no la enlaza la app): confirma en el camión las paradas de la lista oficial con el GPS del teléfono. D-66 sigue PROPUESTA. Primer recorrido: **lunes 30 nov 2026** con un operador (costo $0) |
 | Tarea en pausa | Ninguna |
+| Pendiente registrado | **D-72 PROPUESTA** (Miguel, 3:46 a 3:55 pm): «Calcula tu ruta» confusa (A: una sola parada recomendada; B: indicaciones; C: siguiente camión ESTIMADO) y teclado con el teléfono acostado (D). A y D con maqueta primero después del paso 1, probando antes la app como usuario |
 
 | Bloque | Qué es | Estado |
 |---|---|---|
 | B0 | Estructura, documentos, puerta de calidad y repositorio | Cerrado. Repositorio **público** `miguetdmz/sjdr-bus` (D-29), con candado en `main` |
-| B1 | Datos base del GTFS-SJR | **7 de 7.** Desde D-36/D-39/D-40 son **39 rutas** (37 urbanas + 2 intermunicipales): de baja 031, 024C y 018; la 044 volvió |
+| B1 | Datos base del GTFS-SJR | **7 de 7.** **D-70 (Miguel, 25 nov, 1:01 am): la referencia son las rutas de San Juan de qrobus.gob.mx: 42 rutas** (40 urbanas + 2 intermunicipales); vuelven 018, 024C y 031. **Publicado en v0.4** (PR 7, 25 nov) |
 | B2a | Mockup navegable (PWA, Vite + Leaflet) | **8 de 8.** M-05 a M-08 hechas por el turno (PR 2, inspector: **LIBERADO**, 20 nov 2026, 12:17 am). Falta integrarlo y verlo en el teléfono |
 | B2 | Primera pantalla publicable | **CERRADO: v0.2 publicada** (22 nov 2026, 4:15 pm, `9b8fca8`). D-48 a D-62 aprobados por Miguel en su teléfono y computadora (D-63) |
-| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 698 de 936 con punto exacto (75 %), **27 APROXIMADOS (3 %, D-45: ESTIMADO, nivel C)**, 191 referencias (20 %), 20 POR VERIFICAR (2 %) al 20 nov, 1:05 pm. **D-46 PROPUESTA:** extremos como zona probable (mapa de calor). Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03 |
+| B3 | Trazos de las rutas (lote R, D-24) | R-01 y R-02 hechas. **R-03 a medias:** extremos listos (32 de 35, 3 FALTANTES por D-41). **Hallazgo a resuelto (D-42, D-43):** cruces de 18 listas separados y ubicados (la 023 trae solo un bloque de lugares: la página la mezclaba con la 23): 698 de 936 con punto exacto (75 %), **27 APROXIMADOS (3 %, D-45: ESTIMADO, nivel C)**, 191 referencias (20 %), 20 POR VERIFICAR (2 %) al 20 nov, 1:05 pm. **D-46 PROPUESTA:** extremos como zona probable (mapa de calor). Faltan los hallazgos b y c y la **secuencia por sentido**. R-04 a R-06 esperan R-03. **R-03 paso 1 hecho (D-71, 25 nov):** paradas oficiales por sentido de las 42 rutas, 84 de 84 con datos (`datos/cache/qrobus/paradas-sentido.json`) |
 | B4 | Estimador por parada y autobús animado | Sin iniciar |
 | B5 | Participa: botón de reporte (D-22, sin GPS) | Sin iniciar. **Idea aprobada (D-41):** canal «esto está mal / esto falta» para completar faltantes; diseño a presentar antes de construir |
-| B6 | Calcula tu ruta (D-15) | **D-56 fase 2 cerrada y publicada en v0.3** (D-65): lugares de OSM y paradas cercanas. Falta: qué ruta tomar, recorrido y camino a pie (necesitan B3) |
+| B6 | Calcula tu ruta (D-15) | **D-56 fase 2 cerrada y publicada en v0.3** (D-65): lugares de OSM y paradas cercanas. Falta: qué ruta tomar, recorrido y camino a pie (necesitan B3). **D-72 PROPUESTA:** resultado con una sola parada (A), indicaciones (B, fase 3) y teclado en horizontal (D) |
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (23 nov 2026, 7:43 pm)
+### Relevo para la siguiente sesión (25 nov 2026, 4:02 pm)
+
+0. **25 nov, tarde:** Miguel integró el PR 7 (v0.4, 42 rutas en línea). Paso 1 del orden
+   **hecho** en la rama nueva `b3/r03-paradas-oficiales` (desde `main` `972e832`):
+   **D-71** (Miguel, 3:51 pm: «Sí, solo el texto»): la lista por sentido sale de la consulta
+   interna `/Rutas/paradasTimeline` (cambia D-25 solo en ese punto); lectura única de 84
+   consultas, 84 de 84 ruta-sentidos con datos, sin coordenadas, ninguna con calles de
+   Querétaro. Puerta de calidad: TODO PASÓ. **D-72** registrada como PROPUESTA (pedido de
+   Miguel por el chat anterior, 3:46 a 3:55 pm).
+1. **Miguel:** dar el sí para subir `b3/r03-paradas-oficiales` y abrir su PR en borrador.
+2. **Pendiente técnico (antes del lunes 30 nov):** `b3/d66-campo` (D-66 a D-69,
+   `campo.html`) choca con `main` en `docs/DECISIONES.md`. `git merge` está negado a Claude:
+   se resuelve llevando sus commits con `git cherry-pick` a una rama desde `main`, con el sí
+   de Miguel. Este `docs/PLAN.md` ya trae el texto más reciente de esa rama (relevo de las
+   3:13 pm) más este relevo.
+3. **Siguiente (orden aprobado el 25 nov, 12:57 am):** (2) pendientes de campo de D-66 (a–d)
+   con maqueta primero, por el recorrido del lunes 30 nov; (3) R-03 fases 1, 3 y 4 (ahora
+   hasta 84 secuencias) → R-04 → R-06. D-72 A y D: maqueta después del paso 1, con el sí de
+   Miguel, usando antes «Calcula tu ruta» como usuario en WebKit con iPhone.
+4. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+
+### Relevo anterior (25 nov 2026, 3:13 pm)
+
+0. **25 nov:** Miguel aprobó el orden (12:57 am): (1) lectura oficial de paradas por
+   sentido, (2) pendientes de campo, (3) R-03 → R-04 → R-06. Antes, a su pedido, se revisó
+   qrobus.gob.mx contra nuestras rutas: **D-70** (1:01 am), las 42 rutas de San Juan son la
+   referencia; vuelven 018, 024C y 031 (sus extremos quedan FALTANTE, D-41). Colores de las
+   tarjetas: se recorren por D-53 (Miguel, 2:24 pm). Construido en `b1/rutas-qrobus` y
+   subido (2:32 pm): **PR 7** en borrador, Actions y Vercel en verde. D-70 vive en PR 7, no
+   en esta rama. R-03 sube a **84 ruta-sentidos** (42 × 2): la 018 y la 024C traen lista
+   usable; la 031 queda «sin datos» (D-33).
+1. **Miguel:** integrar el PR 7 (Ready for review → Merge pull request → Confirm merge).
+2. **Siguiente chat (paso 1 del orden):** con el PR 7 en `main`, crear la rama nueva
+   `b3/r03-paradas-oficiales` desde `main` (nombre nuevo para no reusar `b3/r03-cruces`,
+   que solo trae 3 commits de D-66 repetidos y queda sin usar). Escribir el criterio medible
+   y leer una vez las paradas por sentido de las **42** rutas (D-69).
+3. **Pendiente técnico:** `b3/d66-campo` (D-66 a D-69, `campo.html`) chocará con `main` en
+   `docs/DECISIONES.md` cuando entre el PR 7 (las dos agregan al final: D-66 a D-69 y D-70).
+   `git merge` está negado a Claude (candado); se resuelve con una rama nueva desde `main` y
+   `git cherry-pick` de sus commits, con el sí de Miguel, antes del lunes 30 nov.
+4. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+
+### Relevo anterior (25 nov 2026, 12:20 am)
+
+0. **24 y 25 nov:** el arranque de la 1:30 am no se usó. Miguel abrió en el navegador la
+   página oficial de la 011: con «Ver ruta» trae las paradas **por sentido** con número
+   oficial (001: 29 + 21 = 50, igual a nuestra lista; 005, de las 21 sin usar, sale limpia).
+   **D-69** (Miguel, 12:19 am): cambia D-25 (una lectura de las listas visibles por
+   sentido, sin trazo ni coordenadas; Google no es referencia ni para comparar), ajusta
+   D-68 (hasta 78 secuencias), prioridad **trazos visibles en la app**, pendientes de campo
+   (d) identificador simple y (e) foto como IDEA, aclara el modo prueba (diseñado para
+   `campo.html`, **no construido**) y fija la **prueba como usuario** (WebKit con iPhone;
+   el Simulador de iOS con Xcode falta: 13 GB libres, se instala solo con el sí de Miguel).
+   `main` avanzó a `4486c20` (PR 6, OR-03). El proceso «presentar» que corre es de
+   Kaseta-KZ. Corrige el punto 3 del relevo de la 1:22 am (presentar ya no es de aquí).
+1. **Siguiente (chat nuevo), orden a proponer a Miguel:** (1) lectura única de las listas
+   oficiales por sentido de las 39 rutas (`datos/cache/qrobus/`, huella, fecha) y cruce con
+   `cruces.json`; (2) pendientes de D-66 (a–d) con maqueta primero, por el recorrido del
+   lunes 30 nov; (3) R-03 fases 1, 3 y 4 → R-04 (OSRM) → R-06 trazo punteado en la app.
+2. **Miguel:** prueba caminando de `campo.html` en su iPhone (punto 1 del relevo de las
+   12:28 am del 24 nov); la prueba en carro espera el modo prueba (c).
+3. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+
+### Relevo anterior (24 nov 2026, 1:22 am)
+
+0. **Cierre del 23 y 24 nov:** v0.3 verificada y su cierre integrado a `main` (PR 5,
+   `8c860b9`, en verde). Plan de R-03 aprobado (D-68) con los pendientes de D-66 dentro.
+   El chat de D-66 («Análisis de minuta con profesor») terminó y se archivó: rama
+   `b3/d66-campo` en GitHub hasta `2fe5dd2` (Vercel en verde); su relevo (`d6102e9`) y este
+   cierre van en el commit siguiente, que se sube con el sí de Miguel. Lección 18 (un chat
+   de consulta no construye; un solo chat por carpeta). Queda un solo chat de SJDR Bus.
+1. **Siguiente (chat nuevo, sesión de día):** proponer a Miguel el orden de D-68 (sugerido:
+   primero los pendientes de D-66, que tienen fecha). Pendientes de D-66, con maqueta
+   primero (D-54): (a) empezar en el inicio del sentido elegido; (b) botón discreto «Más
+   cercana»; (c) modo prueba con veredicto CORRESPONDE / NO CORRESPONDE para la prueba de
+   Miguel en carro de su casa al trabajo. Después, R-03 fase 1 en `b3/r03-cruces` recreada
+   desde `main`.
+2. **Miguel, antes del lunes 30:** su prueba de la página de campo (punto 1 del relevo de
+   las 12:28 am) y su prueba en carro con el modo prueba.
+3. **Procesos:** `npm run presentar --sin-abrir` (servidor local, abierto desde el 23 nov
+   en la tarde) sigue corriendo: Claude no pudo detenerlo (permiso denegado); lo detiene
+   Miguel con Ctrl+C en su terminal o se pide al arrancar.
+4. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+
+### Relevo anterior (24 nov 2026, 12:28 am)
+
+0. **Lo hecho del 23 nov, 10:00 pm, al 24 nov, 12:28 am (B3 · D-66):** minuta de la plática
+   con un operador (fuera de git, `referencias/minuta-profe-2026-11-23.md`); D-66
+   PROPUESTA (recorridos de campo, cambia D-22 en parte; costo $0; lunes 30 nov) y D-67
+   IDEA (tarifas como referencia). Bitácora en un artefacto de claude.ai (respaldo, sin
+   GPS). Página de campo construida en tres vueltas con maqueta aprobada
+   (`docs/maquetas/d66-campo/`, `docs/maquetas/d66-gps/` v3 aprobada a las 12:16 am): la
+   pregunta sigue al GPS, «Enfrente», «No la vi», «Parada aquí» al instante, huecos del
+   GPS, estilo de una imagen de Miguel en colores de noche. Simulación R11
+   (`docs/evidencia/d66/simular-viaje.mjs`): 0 toques para empezar a medio camino o de
+   regreso (antes 19 y 49). Puerta de calidad: TODO PASÓ (175 de 175, 101 de 101, sin
+   secretos). Rama `b3/d66-campo` puesta encima de `main` (`8c860b9`) y subida con el sí de
+   Miguel (12:27 am).
+0b. **Arreglo subido (12:44 am):** «Iniciar viaje» no reaccionaba en el iPhone de Miguel
+   (esperaba un sentido sin marcar); ahora el sentido viene marcado. Último commit
+   `2fe5dd2`, Vercel en verde. Prueba de usuario en WebKit con iPhone 13:
+   `docs/evidencia/d66/probar-iphone.mjs` (11 de 11). Lección 5, 5.ª ocurrencia.
+0c. **PEDIDO NUEVO DE MIGUEL (12:57 am), por construir con maqueta primero (D-54):** al iniciar,
+   la primera pregunta es **el inicio del sentido elegido**, no la parada más cercana; y un
+   **botón discreto «Más cercana»** en la misma línea de la barra de arriba (la de «R11 ·
+   hora · franjas»), acomodado simétrico, para saltar a la parada más cercana cuando él
+   quiera. Revisado contra los datos: «inicio del sentido» = parada oficial más cercana al
+   extremo de origen de ese sentido (`datos/rutas.json` → `extremos`); las 18 rutas con lista
+   tienen sus dos extremos con punto. R11: Loma Alta → Central empieza en la 1 (281 m del
+   extremo); Central → Loma Alta en la 35 (335 m; la lista repite esa esquina en 35 y 36:
+   parece el punto de vuelta). Mostrar a Miguel esas dos paradas en la maqueta. Después:
+   pruebas, prueba de usuario en WebKit con iPhone (como si fuera Miguel, desde cero) y
+   subir con su sí, antes de su prueba caminando.
+1. **Siguiente (Miguel, antes del lunes 30):** abrir en su iPhone el link de vista previa de
+   Vercel de `b3/d66-campo` + `/campo.html`, con la pantalla encendida, y caminar 5
+   minutos con una ruta cualquiera: ¿la pantalla no se apaga?, ¿el GPS graba (resumen
+   «GPS: sin huecos»)?, ¿exportar abre «Compartir»? Después borrar el viaje de prueba.
+   **Siguiente (Claude):** con el resultado, corregir lo que salga; pedir a Miguel la
+   aprobación de D-66; decidir con él si `campo.html` se integra a `main` (quedaría
+   publicada en `/campo.html`) o se usa solo desde la vista previa.
+2. **Ojo con las ramas:** `b3/r03-cruces` local trae 3 commits de D-66 sin subir (`1e32feb`,
+   `3c69aaf`, `b8b954a`) que ya viven, reescritos, en `b3/d66-campo`. Antes de seguir R-03,
+   decidir con Miguel quitarlos de `b3/r03-cruces` (no subirla así: duplicaría D-66).
+3. **Pendientes de antes:** plan de B3 · R-03 PROPUESTO (7:43 pm), sin el sí de Miguel; la
+   rama `b6/cierre-v03` ya está integrada (PR 5); el resto como en el relevo de las 6:26 pm.
+
+### Relevo anterior (23 nov 2026, 7:43 pm)
 
 0. **v0.3 publicada y verificada** (D-65): integración `7b20c7e` (Miguel, 7:40 pm),
    GitHub Actions y Vercel en verde, 39 rutas y 294 lugares en línea, capturas a 390 y

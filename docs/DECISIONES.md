@@ -2051,3 +2051,70 @@ Miguel).
      (coordenada metida, vuelta copiada de la ida, una ruta quitada, una marca de Querétaro
      ignorada); en cada corrida, primero la generación sale con código 0.
 - **Impacta:** D-25, D-69, R-03 (`docs/COLA-NOCTURNA.md`), `datos/cache/qrobus/`.
+- **Resultado (Claude, 25 nov 2026, 4:02 pm; commit `a8ca21c`, rama `b3/r03-paradas-oficiales`):**
+  1. Criterio 1: lectura única entre las 3:53 y las 3:57 pm: 1 página y 84 consultas, **84 de 84
+     con respuesta al primer intento** (ningún reintento). Antes, 1 descarga de prueba de
+     `/Rutas/001` (la del hallazgo). Lector: `scripts/leer-paradas-qrobus.mjs`, que se niega a
+     correr si la lectura ya existe. La cookie y la llave vivieron solo en memoria.
+  2. Criterio 2 (lección 8): copia completa en `referencias/fuentes-2026-11-25/qrobus-paradas/`.
+     Cada respuesta trae solo `sNombre` («P-3537: LABRADORITA-GALEANA») y `rutasParada`: **sin
+     coordenadas**. Búsqueda de llaves: 5 coincidencias, todas el nombre de la parada
+     «Secretaría de Finanzas»; ninguna llave.
+  3. Criterio 3 y 4: **84 de 84 ruta-sentidos con datos, 2,203 paradas, 544 números P-
+     distintos** (`datos/cache/qrobus/paradas-sentido.json` y su `.meta.json` con 84 huellas).
+     Cuadran con lo que D-69 vio a mano: 001 = 29 + 21, 011 = 35 + 48, 005 = 35 + 41. Las 72
+     paradas sin número P- son todas de las dos intermunicipales (062: 12 + 15; 023: 23 + 22):
+     así vienen de la fuente, se anotan `sin_numero_oficial`.
+  4. Criterio 5: **ninguna lista por sentido trae marcas de Querétaro**, tampoco las 21 de D-33
+     (031 incluida). La mezcla de D-33 era de la lista general de la página, no de «Ver ruta».
+     Prueba extra (sin guardar, en la copia local): las rutas que pasan por cada parada son
+     todas de las 42 de San Juan, salvo «L166» en una parada de la 023 regreso y «62» (la 062
+     escrita sin cero). Nada queda «sin datos».
+  5. Criterio 6 (regla 10): ninguna vuelta es igual a su ida.
+  6. Criterio 7: `datos/investigacion/paradas-cruce.json`. En las 20 rutas con lista general,
+     **940 de 1,021 paradas oficiales (92 %) coinciden** con un renglón de la lista general;
+     `cruces.json` no cambió. Hallazgo para R-03: las 22 rutas restantes ya tienen lista por
+     sentido, así que R-03 puede tener hasta **84 secuencias** con texto oficial (antes 40).
+  7. Criterio 8 (lecciones 15 y 17): con un defecto puesto a la vez y la generación en código 0,
+     las pruebas fallaron en los 5 casos: coordenada metida (2), vuelta copiada de la ida (2),
+     031 quitada (2), marca de Querétaro ignorada (1), vuelta copiada sin su huella (3). Todo
+     restaurado: 9 de 9. Copia limpia sin archivos ignorados y en UTC (lección 5): 185 pasan,
+     2 se saltan (la revisión local de la copia completa), 0 fallan. `npm run verificar`:
+     **TODO PASÓ** (187 de 187, 91 de 91 en navegador, sin secretos), después de regenerar
+     `web/public/datos/` (fuera de git; traía 39 rutas de la rama anterior).
+
+## D-72 · 25 nov 2026 · «Calcula tu ruta» confusa y teclado en horizontal: lo que Miguel espera · PROPUESTA (Miguel, 25 nov 2026, 3:46 a 3:55 pm)
+- **Origen:** Miguel usó v0.4 como usuario y se lo dijo al chat anterior de SJDR Bus (D-70),
+  que lo pasó a este chat para registrarlo (3:46 pm; partes A a C pedidas a las 3:52 pm, parte
+  D a las 3:55 pm). Registro de documentos, **sin construir**.
+- **Lo que vio:** en «Calcula tu ruta» escribe «Centro»; aparece «Centro · inicio o fin de ruta
+  aproximado», luego «parada más cercana a tu destino, 280 m», luego «rutas que empiezan o
+  terminan cerca» (R1). Al tocar R1 solo muestra la ruta. Le pareció confuso y repetido, y no
+  le dice cómo llegar.
+- **Lo que espera:**
+  - **A) Resultado:** UNA sola parada recomendada; al tocarla, las rutas que pasan ahí; al tocar
+    una ruta (R1), su información y, en el mapa, la ruta. Sin repetir «Centro» como lugar y como
+    parada. Defecto de lo publicado (D-56 fase 2). Maqueta primero (D-54), **justo después del
+    paso 1 de R-03**.
+  - **B) Indicaciones:** «estás aquí; camina a esta parada (X m); ahí puedes tomar la 1, 2, 3,
+    4». Necesita qué rutas pasan por cada parada (D-71 + R-03). Va como **B6 fase 3, después de
+    R-03**.
+  - **C) Siguiente camión:** al elegir una ruta, «el siguiente camión pasa en ~10 min»,
+    estimado con los camiones del día y la duración del recorrido. **Bloque B4**, siempre
+    ESTIMADO (regla 2).
+  - **D) Teléfono acostado:** al escribir en «¿A dónde quieres ir?» el teclado tapa lo que se
+    escribe. Misma solución que avisos-sjr: en horizontal no se abre el teclado; un aviso pide
+    girar el teléfono a vertical, con una animación muy sencilla (lección 5 de Miguel: sin salto
+    al final y sin resorte). Maqueta primero, **junto con A**. Fuente para aprender (solo leer,
+    sin copiar datos, estándar 4; Miguel lo autorizó): en avisos-sjr, `Girar.tsx` y su CSS,
+    `PasoUbicacion.tsx`, la prueba «B8b-17» de `tests/e2e/reportar.spec.ts` y sus lecciones 3
+    (al cambiar lo que permite una pantalla, auditar todos sus textos y avisos) y B8b-15.
+    avisos-sjr es React; aquí es TypeScript sin marco (`web/src/main.ts`): se adapta la idea,
+    no el código.
+- **Corrección de Miguel (D-69, lección 5):** «antes de proponer, siempre actúa como un
+  usuario». Antes de la maqueta de A, se usa «Calcula tu ruta» desde cero en WebKit con iPhone
+  (como `docs/evidencia/d70/probar-iphone.mjs`) y se reporta lo que se ve. El chat de D-70 solo
+  probó las 3 rutas nuevas.
+- **Impacta:** D-56 fase 2, D-65, B6 (fase 3), B4, `web/src/main.ts`.
+- **Estado:** PROPUESTA. A y D se diseñan (maqueta) después del paso 1 de R-03, con el sí de
+  Miguel.
