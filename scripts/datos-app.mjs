@@ -152,11 +152,12 @@ export function armarParadasApp() {
 // quieres ir?» y «¿Desde dónde sales?». Se copian tal cual de lugares-amplio.json
 // (una sola consulta, con su huella sha256): nombre, tipo en español, id de OSM y
 // centro. Ninguna coordenada se mueve.
-// D-66: lista oficial de paradas por ruta para la página de campo (web/public/campo.html).
-// Sale de datos/investigacion/cruces.json (lista de qrobus.gob.mx, AMEQ, R-03) en el
-// orden oficial. La lista junta ida y vuelta (hallazgo c): Miguel responde en campo
-// cuáles son de su sentido. Una ruta sin lista utilizable (D-33, D-43) va con
-// paradas vacías y su motivo; ninguna se completa con datos supuestos (regla 9).
+// D-66 y D-74: lista oficial de paradas por ruta y SENTIDO para la página de campo
+// (web/public/campo.html). La lista sale de datos/cache/qrobus/paradas-sentido.json (D-71: solo
+// texto, cada sentido con su propia respuesta, regla 10). El punto de una parada solo se toma
+// de la lista general de ESA ruta (datos/investigacion/cruces.json) cuando el texto oficial
+// coincide letra por letra (misma normalización que scripts/paradas-sentido.mjs); si no
+// coincide, la parada va sin punto. Ningún punto se inventa ni se mueve (regla 9).
 const MINUSCULAS = new Set(['de', 'del', 'la', 'las', 'los', 'y', 'el', 'a']);
 export function titulo(texto) {
   return String(texto ?? '')
@@ -167,36 +168,40 @@ export function titulo(texto) {
     .join(' ');
 }
 
+export const normaTexto = (t) => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z0-9]+/g, ' ').trim();
+export const nombreParada = (t) => String(t).split(/\s*-\s*/).map(titulo).join(' – ');
+const SENTIDOS_CAMPO = [['IDA', 'I'], ['REGRESO', 'V']];
+
 export function armarCampoApp() {
   const rutas = leerCSV(join(raiz, 'datos/gtfs-sjr/routes.txt'));
+  const sentidos = JSON.parse(readFileSync(join(raiz, 'datos/cache/qrobus/paradas-sentido.json'), 'utf8'));
   const cruces = JSON.parse(readFileSync(join(raiz, 'datos/investigacion/cruces.json'), 'utf8'));
   const porId = new Map(cruces.rutas.map((r) => [r.route_id, r]));
+  const porSentido = new Map(sentidos.rutas.map((r) => [r.route_id, r]));
   return {
     descripcion:
-      'Lista oficial de paradas por ruta para la página de campo (D-66). Archivo generado por scripts/datos-app.mjs desde datos/investigacion/cruces.json; no se edita a mano. La lista junta ida y vuelta: el sentido se responde en campo.',
-    // Sin la dirección del sitio: la app no lleva la marca (D-02); la dirección queda en cruces.json.
+      'Lista oficial de paradas por ruta y sentido para la página de campo (D-66, D-74). Archivo generado por scripts/datos-app.mjs desde la lectura de paradas por sentido (D-71, texto) y datos/investigacion/cruces.json (punto, solo con texto idéntico de la misma ruta); no se edita a mano.',
+    // Sin la dirección del sitio: la app no lleva la marca (D-02); la fuente completa queda en los archivos de datos.
     fuente: {
-      editor: cruces.fuente.lista.editor,
-      oficial: cruces.fuente.lista.oficial,
-      consultado: cruces.fuente.lista.consultado,
-      sha256: cruces.fuente.lista.sha256,
-      detalle: 'datos/investigacion/cruces.json',
+      lista: 'texto oficial por sentido de la AMEQ, consulta del 25 nov 2026 (D-71)',
+      punto: 'lista general de la misma ruta con texto idéntico (datos/investigacion/cruces.json, R-01 y R-03)',
     },
     rutas: rutas.map((r) => {
-      const c = porId.get(r.route_id);
-      const tipo = TIPOS[r.route_id.split('-')[0]];
-      const base = { route_id: r.route_id, numero: r.route_short_name, nombre: r.route_long_name, tipo };
-      if (!c || !Array.isArray(c.cruces)) return { ...base, paradas: [], sin_lista: c?.estado ?? 'sin lista oficial' };
-      return {
-        ...base,
-        paradas: c.cruces.map((x) => ({
-          orden: x.orden,
-          nombre: x.cruce_con ? `${titulo(x.calle)} – ${titulo(x.cruce_con)}` : titulo(x.texto),
-          texto: x.texto,
-          estado: x.estado,
-          ...(x.lat != null && x.lon != null ? { lat: x.lat, lon: x.lon } : {}),
-        })),
-      };
+      const fuente = porSentido.get(r.route_id), c = porId.get(r.route_id);
+      const puntos = new Map();
+      if (c && Array.isArray(c.cruces)) for (const x of c.cruces) if (x.lat != null && x.lon != null && !puntos.has(normaTexto(x.texto))) puntos.set(normaTexto(x.texto), x);
+      const base = { route_id: r.route_id, numero: r.route_short_name, nombre: r.route_long_name, tipo: TIPOS[r.route_id.split('-')[0]] };
+      const sent = {};
+      for (const [s, letra] of SENTIDOS_CAMPO) {
+        const v = fuente?.sentidos?.[s];
+        sent[s] = { letra, paradas: (v?.paradas ?? []).map((p) => {
+          const x = puntos.get(normaTexto(p.nombre));
+          return { orden: p.orden, numero: p.numero ?? null, nombre: nombreParada(p.nombre), texto: p.nombre,
+            ...(x ? { lat: x.lat, lon: x.lon, estado_punto: x.estado } : {}) };
+        }) };
+        if (!v || v.estado !== 'con datos') sent[s].sin_lista = v?.motivo ?? 'sin lista oficial';
+      }
+      return { ...base, sentidos: sent };
     }),
   };
 }
@@ -230,5 +235,6 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const salidaCampo = join(dirname(salida), 'campo.json');
   const campo = armarCampoApp();
   writeFileSync(salidaCampo, JSON.stringify(campo) + '\n');
-  console.log(`DATOS DE LA APP: ${campo.rutas.filter((r) => r.paradas.length).length} rutas con lista oficial para campo → ${salidaCampo.replace(raiz, '')}`);
+  const sc = campo.rutas.flatMap((r) => Object.values(r.sentidos));
+  console.log(`DATOS DE LA APP: ${sc.filter((x) => x.paradas.length).length} ruta-sentidos con lista oficial para campo (${sc.reduce((n, x) => n + x.paradas.filter((p) => p.lat != null).length, 0)} paradas con punto) → ${salidaCampo.replace(raiz, '')}`);
 }
