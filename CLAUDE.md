@@ -161,7 +161,17 @@ puede, convertir la regla en una prueba automática.
      (`docs/evidencia/d66/probar-iphone.mjs`), solo con toques y sin pasos que el usuario no
      sabría dar. **Corrección de Miguel:** antes de entregarle algo, Claude lo usa como si
      fuera él, desde cero.
-   Ocurrencias: 5 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de Miguel): sumar
+   - 2026-11-25 (6.ª vez, Miguel lo reportó a las 6:42 pm): al publicar v0.6 Claude le dio el
+     link de la página de campo como código (`sjdrbus-sjr.vercel.app/campo.html`, sin
+     `https://`); en su iPhone no salió como link («no abre nada, no me aparece activo»). La
+     página sí funcionaba (probada en línea en WebKit con iPhone 13:
+     `docs/evidencia/d74/probar-en-linea.mjs`). Antes, el link de la vista previa de Vercel
+     pedía iniciar sesión en Vercel. Misma causa: se probó la página, pero no el camino por el
+     que Miguel llega a ella desde su teléfono. Regla añadida: todo link para Miguel va completo
+     (`https://…`), como texto normal (nunca entre comillas invertidas) y apuntando al sitio
+     publicado, no a una vista previa con candado. Detección temprana: antes de mandar un link,
+     preguntarse «¿lo puede tocar en su iPhone y abre sin iniciar sesión?».
+   Ocurrencias: 6 · Estado: ACTIVA · **PROPUESTA DE CONTROL** (con el sí de Miguel): sumar
    a `npm run verificar` la prueba de usuario en WebKit con iPhone de cada página que Miguel
    use en su teléfono; además, toda prueba de posición o tamaño corre también a 320 px y con una fuente más ancha
    que la de la Mac (proyecto extra de Playwright), para ver en la Mac lo que verá
