@@ -1,0 +1,9 @@
+(a) un lugar a 400 m se acepta (tope de 150 a 450 m): generación OK · pruebas: 6 pasan, 2 fallan → D-76: el lugar queda a ≤ 150 m de la calle del cruce | D-76: si dos lugares cumplen, no se adivina
+(b) un UBICADO se mueve (después de generar): generación OK · pruebas: 7 pasan, 1 fallan → D-76: fuera de REFERENCIA de negocio → UBICADO POR LUGAR, ni
+(c) sin ajuste A y con el lado equivocado: «SAN JUAN DEL RÍO» → Unidad Deportiva se acepta: generación OK · pruebas: 6 pasan, 2 fallan → D-76 ajuste A: el nombre de la ciudad no cuenta | D-76: si dos lugares cumplen, no se adivina
+(c2) control: el mismo lado equivocado CON ajuste A (no debe aceptar la Unidad Deportiva): generación OK · pruebas: 8 pasan, 0 fallan ← control OK: el ajuste A lo detiene
+(d) una REFERENCIA de negocio se queda sin estado: generación OK · pruebas: 7 pasan, 1 fallan → D-76: las REFERENCIA de negocio salen todas con estado y mot
+(e) con dos lugares que cumplen se toma uno (lugar gemelo de Office Depot a 20 m): generación OK · pruebas: 7 pasan, 1 fallan → D-76: si dos lugares cumplen, no se adivina
+(f) los puntos nuevos entran a la página de campo (sin el filtro): generación OK · pruebas: 7 pasan, 1 fallan → D-76: los puntos nuevos no entran a la página de campo hasta
+Restaurado: generación OK · pruebas 8 pasan, 0 fallan · datos/cache/, cruces.mjs y datos-app.mjs iguales que antes (sha256)
+git status: datos/cache limpio

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D-76 · Hallazgo b · visual para decidir</title>
+<link rel="stylesheet" href="../../../node_modules/leaflet/dist/leaflet.css">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.35 system-ui, -apple-system, sans-serif; color: #1f2933; background: #f4f5f2; }
+  .marco { display: flex; flex-direction: column; min-height: 100vh; }
+  header { padding: 10px 14px; background: #fff; border-bottom: 1px solid #d9dcd5; }
+  h1 { font-size: 16px; margin: 0 0 4px; }
+  .sello { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em; padding: 2px 6px; border-radius: 4px; background: #fff3cd; color: #7a5200; margin-right: 6px; }
+  .nota { font-size: 12px; color: #52606d; margin: 4px 0 0; }
+  .leyenda { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; margin-top: 8px; font-size: 11.5px; }
+  @media (min-width: 900px) { .leyenda { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; } }
+  .leyenda span { display: inline-flex; align-items: center; gap: 5px; }
+  .bola { width: 12px; height: 12px; border-radius: 50%; display: inline-block; border: 2px solid #fff; box-shadow: 0 0 0 1px #0003; }
+  #mapa { height: 58vh; min-height: 300px; }
+  .lista { padding: 10px 12px 24px; }
+  .grupo h2 { font-size: 13px; margin: 14px 0 6px; text-transform: uppercase; letter-spacing: .04em; color: #3e4c59; }
+  .caso { background: #fff; border: 1px solid #d9dcd5; border-left: 5px solid var(--c); border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; cursor: pointer; }
+  .caso b { display: block; font-size: 13px; }
+  .caso small { color: #52606d; display: block; }
+  .caso .dist { font-weight: 700; color: var(--c); }
+  @media (min-width: 900px) {
+    .marco { flex-direction: row; height: 100vh; }
+    .izq { flex: 1 1 auto; display: flex; flex-direction: column; }
+    #mapa { flex: 1 1 auto; height: auto; }
+    .lista { width: 380px; flex: 0 0 380px; overflow-y: auto; border-left: 1px solid #d9dcd5; }
+  }
+  .lejos .leaflet-tooltip-pane { display: none; }
+  .etq { background: #fff; border: 1px solid #0003; border-radius: 4px; padding: 1px 5px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="izq">
+    <header>
+      <h1>D-76 · Hallazgo b: paradas de negocio contra los 294 lugares de OSM</h1>
+      <span class="sello">ESTIMADO</span><span class="sello">VISUAL PARA DECIDIR · NO CAMBIA DATOS</span>
+      <p class="nota" id="resumen"></p>
+      <div class="leyenda">
+        <span><i class="bola" style="background:#1a7f37"></i>Punto nuevo (≤ 150 m)</span>
+        <span><i class="bola" style="background:#d97706"></i>Dudoso: decide Miguel</span>
+        <span><i class="bola" style="background:#c62828"></i>Falso que el criterio aceptaba</span>
+        <span><i class="bola" style="background:#6b7280"></i>Dudoso lejano (&gt; 300 m)</span>
+        <span style="grid-column:1/-1">Línea gris: calle del cruce · círculo punteado: 150 m alrededor del lugar · toca una tarjeta para acercar</span>
+      </div>
+    </header>
+    <div id="mapa"></div>
+  </div>
+  <div class="lista" id="lista"></div>
+</div>
+<script src="../../../node_modules/leaflet/dist/leaflet.js"></script>
+<script src="datos.js"></script>
+<script>
+const COLOR = { 'PUNTO NUEVO': '#1a7f37', 'DUDOSO': '#d97706', 'FALSO ACEPTADO': '#c62828', 'DUDOSO LEJANO': '#6b7280' };
+const TITULO = { 'PUNTO NUEVO': 'Puntos nuevos', 'DUDOSO': 'Dudosos (Pareto: más veces primero)', 'FALSO ACEPTADO': 'Falsos que el criterio escrito aceptaba', 'DUDOSO LEJANO': 'Dudosos lejanos (> 300 m)' };
+const D = window.D76, R = D.resumen;
+document.getElementById('resumen').textContent =
+  `${R.referencias_de_negocio} paradas de negocio en las listas (${R.paradas_distintas} distintas). ` +
+  `Punto nuevo: ${R['PUNTO NUEVO'].veces_en_listas} · Dudoso: ${R['DUDOSO'].veces_en_listas} · ` +
+  `Falso aceptado: ${R['FALSO ACEPTADO'].veces_en_listas} · Lejano: ${R['DUDOSO LEJANO'].veces_en_listas} · ` +
+  `Siguen REFERENCIA (ningún lugar parecido): ${R['SIGUE REFERENCIA'].veces_en_listas}. Distancias en línea recta sobre OSM, no medidas en campo.`;
+const mapa = L.map('mapa', { zoomControl: true });
+// Etiquetas solo de cerca (en el panorama se enciman).
+const etiquetas = () => mapa.getContainer().classList.toggle('lejos', mapa.getZoom() < 15);
+mapa.on('zoomend', etiquetas);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© Colaboradores de OpenStreetMap' }).addTo(mapa);
+const capas = {}; const todo = [];
+const lista = document.getElementById('lista');
+let grupoActual = null;
+const dibujados = D.casos.filter((c) => c.estado !== 'SIGUE REFERENCIA');
+const bolas = [];
+dibujados.forEach((c, i) => {
+  const col = COLOR[c.estado]; const g = L.featureGroup().addTo(mapa);
+  for (const tr of c.trazos_calle ?? []) L.polyline(tr, { color: '#374151', weight: 3, opacity: .7 }).addTo(g);
+  const k = c.candidatos[0];
+  L.circle(k.centro, { radius: 150, color: col, weight: 1.5, dashArray: '4 4', fill: false }).addTo(g);
+  if (k.punto_calle) L.polyline([k.centro, k.punto_calle], { color: col, weight: 2, dashArray: '2 4' }).addTo(g);
+  const bola = L.circleMarker(k.centro, { radius: 8, color: '#fff', weight: 2, fillColor: col, fillOpacity: 1 }).addTo(g); bolas.push(bola); bola
+    .bindTooltip(`<span class="etq" style="color:${col}">${k.nombre} · ${k.distancia_calle_m} m</span>`, { permanent: true, direction: 'right', offset: [8, 0], className: '' });
+  capas[i] = [k.centro, k.punto_calle ?? k.centro]; todo.push(k.centro);
+  if (grupoActual !== c.estado) {
+    grupoActual = c.estado;
+    const h = document.createElement('div'); h.className = 'grupo';
+    h.innerHTML = `<h2>${TITULO[c.estado]}</h2>`; lista.appendChild(h);
+  }
+  const d = document.createElement('div'); d.className = 'caso'; d.style.setProperty('--c', col); d.dataset.i = i;
+  d.innerHTML = `<b>«${c.texto}»</b><small>×${c.veces} en las listas · rutas ${c.rutas.join(', ')}</small>` +
+    `<small>OSM: ${k.nombre} (${k.tipo}) · <span class="dist">${k.distancia_calle_m} m</span> de ${c.osm_calle}</small><small>${c.estado === 'PUNTO NUEVO' ? 'único lugar que cumple nombre y distancia' : c.motivo}</small>`;
+  d.onclick = () => ver(i);
+  lista.appendChild(d);
+});
+const sigue = document.createElement('div'); sigue.className = 'grupo';
+sigue.innerHTML = `<h2>Siguen REFERENCIA</h2><div class="caso" style="--c:#9aa5b1"><b>${R['SIGUE REFERENCIA'].veces_en_listas} paradas (${R['SIGUE REFERENCIA'].paradas_distintas} distintas)</b><small>Ningún lugar de los 294 tiene un nombre parecido. Quedan como están: confirman la calle, sin punto propio.</small></div>`;
+lista.appendChild(sigue);
+function ver(i) { const b = L.latLngBounds(capas[i]); const c = b.getCenter(); const m = 0.0018; b.extend([c.lat - m, c.lng - m]).extend([c.lat + m, c.lng + m]); mapa.fitBounds(b.pad(0.15), { maxZoom: 17 }); }
+window.verCaso = (texto) => ver(D.casos.filter((c) => c.estado !== 'SIGUE REFERENCIA').findIndex((c) => c.texto === texto));
+bolas.slice().reverse().forEach((b) => b.bringToFront());
+mapa.fitBounds(L.latLngBounds(todo).pad(0.08));
+etiquetas();
+
+</script>
+</body>
+</html>

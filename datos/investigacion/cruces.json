@@ -9,11 +9,12 @@
    "sha256": "6f4e10efa559bda5811cc82a664424b59029a5a48188db26b539141fdf608fb3"
   },
   "calles": "OpenStreetMap vía Overpass, 19 nov 2026 (datos/cache/overpass/calles.json), ODbL 1.0",
-  "lugares": "OpenStreetMap vía Overpass, 19 nov 2026 (datos/cache/overpass/lugares.json), ODbL 1.0"
+  "lugares": "OpenStreetMap vía Overpass, 19 nov 2026 (datos/cache/overpass/lugares.json), ODbL 1.0",
+  "lugares_d76": "OpenStreetMap vía Overpass, 22 nov 2026 (datos/cache/overpass/lugares-amplio.json, D-56), ODbL 1.0"
  },
  "como_leer": [
   "UBICADO: las dos calles del cruce existen en OSM y se tocan (≤ 30 m); el punto es donde se tocan. Las abreviaturas y erratas corregidas se anotan en «correcciones» y solo se aceptan con esa prueba.",
-  "UBICADO POR LUGAR: el cruce es un lugar que OSM tiene junto a la calle.",
+  "UBICADO POR LUGAR: el cruce es un lugar que OSM tiene junto a la calle. Los de «metodo: D-76» (hallazgo b) salen del catálogo de 294 lugares, a ≤ 150 m de la calle, ESTIMADO; no entran a la página de campo hasta la revisión de Miguel (fase 4).",
   "REFERENCIA: la calle existe en OSM y el cruce es un negocio que OSM no tiene; confirma la calle por donde pasa el camión, sin punto propio.",
   "APROXIMADO (D-45): sin cruce exacto en OSM; el punto es la mejor aproximación de hoy (método en «metodo»), ESTIMADO y de nivel C. Se verifica con el uso o en campo.",
   "CALLES SIN CRUCE EN OSM / SIN UBICAR: POR VERIFICAR; la nota dice por qué ningún método de D-45 lo alcanzó.",
@@ -24,9 +25,9 @@
   "rutas_con_lista_usable": 20,
   "cruces": 1036,
   "UBICADO": 765,
-  "UBICADO POR LUGAR": 3,
+  "UBICADO POR LUGAR": 11,
   "APROXIMADO": 30,
-  "REFERENCIA": 213,
+  "REFERENCIA": 205,
   "CALLES SIN CRUCE EN OSM": 13,
   "SIN UBICAR": 12,
   "con_correccion": 323
@@ -40,9 +41,9 @@
    "total": 50,
    "conteo": {
     "UBICADO": 37,
-    "UBICADO POR LUGAR": 1,
+    "UBICADO POR LUGAR": 3,
     "APROXIMADO": 0,
-    "REFERENCIA": 12,
+    "REFERENCIA": 10,
     "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 0
    },
@@ -137,9 +138,19 @@
      "texto": "RÍO MOCTEZUMA-PARQUE LAS GARZAS",
      "calle": "RÍO MOCTEZUMA",
      "cruce_con": "PARQUE LAS GARZAS",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO POR LUGAR",
+     "lat": 20.38743,
+     "lon": -99.96485,
      "osm_calle": "Avenida Río Moctezuma",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_lugar": "Parque Las Garzas (way/1161205087)",
+     "tipo_lugar": "Parque",
+     "distancia_calle_m": 97,
+     "etiqueta": "ESTIMADO",
+     "metodo": "D-76",
+     "evidencia": "«PARQUE LAS GARZAS» = «Parque Las Garzas» de OSM (2 palabras en común), a 97 m de «Avenida Río Moctezuma»; único lugar del catálogo de 294 que cumple (D-76)",
+     "verificacion": "pendiente: Miguel lo revisa en la fase 4 de R-03; no entra a la página de campo hasta entonces (D-76)",
+     "antes": "REFERENCIA",
+     "nota_antes": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 9,
@@ -234,9 +245,19 @@
      "texto": "PASEO CENTRAL-OFFICE DEPOT",
      "calle": "PASEO CENTRAL",
      "cruce_con": "OFFICE DEPOT",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO POR LUGAR",
+     "lat": 20.38604,
+     "lon": -99.9854,
      "osm_calle": "Avenida Central",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_lugar": "Office Depot (node/14021519407)",
+     "tipo_lugar": "Tienda",
+     "distancia_calle_m": 47,
+     "etiqueta": "ESTIMADO",
+     "metodo": "D-76",
+     "evidencia": "«OFFICE DEPOT» = «Office Depot» de OSM (2 palabras en común), a 47 m de «Avenida Central»; único lugar del catálogo de 294 que cumple (D-76)",
+     "verificacion": "pendiente: Miguel lo revisa en la fase 4 de R-03; no entra a la página de campo hasta entonces (D-76)",
+     "antes": "REFERENCIA",
+     "nota_antes": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 17,
@@ -667,9 +688,9 @@
    "total": 82,
    "conteo": {
     "UBICADO": 63,
-    "UBICADO POR LUGAR": 1,
+    "UBICADO POR LUGAR": 2,
     "APROXIMADO": 1,
-    "REFERENCIA": 13,
+    "REFERENCIA": 12,
     "CALLES SIN CRUCE EN OSM": 3,
     "SIN UBICAR": 1
    },
@@ -740,9 +761,19 @@
      "texto": "RÍO MOCTEZUMA-PARQUE LAS GARZAS",
      "calle": "RÍO MOCTEZUMA",
      "cruce_con": "PARQUE LAS GARZAS",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO POR LUGAR",
+     "lat": 20.38743,
+     "lon": -99.96485,
      "osm_calle": "Avenida Río Moctezuma",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_lugar": "Parque Las Garzas (way/1161205087)",
+     "tipo_lugar": "Parque",
+     "distancia_calle_m": 97,
+     "etiqueta": "ESTIMADO",
+     "metodo": "D-76",
+     "evidencia": "«PARQUE LAS GARZAS» = «Parque Las Garzas» de OSM (2 palabras en común), a 97 m de «Avenida Río Moctezuma»; único lugar del catálogo de 294 que cumple (D-76)",
+     "verificacion": "pendiente: Miguel lo revisa en la fase 4 de R-03; no entra a la página de campo hasta entonces (D-76)",
+     "antes": "REFERENCIA",
+     "nota_antes": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 7,
@@ -1679,9 +1710,9 @@
    "total": 62,
    "conteo": {
     "UBICADO": 48,
-    "UBICADO POR LUGAR": 1,
+    "UBICADO POR LUGAR": 2,
     "APROXIMADO": 1,
-    "REFERENCIA": 11,
+    "REFERENCIA": 10,
     "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 1
    },
@@ -1815,9 +1846,19 @@
      "texto": "RÍO MOCTEZUMA-PARQUE LAS GARZAS",
      "calle": "RÍO MOCTEZUMA",
      "cruce_con": "PARQUE LAS GARZAS",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO POR LUGAR",
+     "lat": 20.38743,
+     "lon": -99.96485,
      "osm_calle": "Avenida Río Moctezuma",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_lugar": "Parque Las Garzas (way/1161205087)",
+     "tipo_lugar": "Parque",
+     "distancia_calle_m": 97,
+     "etiqueta": "ESTIMADO",
+     "metodo": "D-76",
+     "evidencia": "«PARQUE LAS GARZAS» = «Parque Las Garzas» de OSM (2 palabras en común), a 97 m de «Avenida Río Moctezuma»; único lugar del catálogo de 294 que cumple (D-76)",
+     "verificacion": "pendiente: Miguel lo revisa en la fase 4 de R-03; no entra a la página de campo hasta entonces (D-76)",
+     "antes": "REFERENCIA",
+     "nota_antes": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 12,
@@ -3533,9 +3574,9 @@
    "total": 80,
    "conteo": {
     "UBICADO": 56,
-    "UBICADO POR LUGAR": 0,
+    "UBICADO POR LUGAR": 2,
     "APROXIMADO": 1,
-    "REFERENCIA": 22,
+    "REFERENCIA": 20,
     "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 0
    },
@@ -3686,9 +3727,19 @@
      "texto": "RÍO MOCTEZUMA-PARQUE LAS GARZAS",
      "calle": "RÍO MOCTEZUMA",
      "cruce_con": "PARQUE LAS GARZAS",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO POR LUGAR",
+     "lat": 20.38743,
+     "lon": -99.96485,
      "osm_calle": "Avenida Río Moctezuma",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_lugar": "Parque Las Garzas (way/1161205087)",
+     "tipo_lugar": "Parque",
+     "distancia_calle_m": 97,
+     "etiqueta": "ESTIMADO",
+     "metodo": "D-76",
+     "evidencia": "«PARQUE LAS GARZAS» = «Parque Las Garzas» de OSM (2 palabras en común), a 97 m de «Avenida Río Moctezuma»; único lugar del catálogo de 294 que cumple (D-76)",
+     "verificacion": "pendiente: Miguel lo revisa en la fase 4 de R-03; no entra a la página de campo hasta entonces (D-76)",
+     "antes": "REFERENCIA",
+     "nota_antes": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 14,
@@ -3783,9 +3834,19 @@
      "texto": "PASEO CENTRAL-OFFICE DEPOT",
      "calle": "PASEO CENTRAL",
      "cruce_con": "OFFICE DEPOT",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO POR LUGAR",
+     "lat": 20.38604,
+     "lon": -99.9854,
      "osm_calle": "Avenida Central",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_lugar": "Office Depot (node/14021519407)",
+     "tipo_lugar": "Tienda",
+     "distancia_calle_m": 47,
+     "etiqueta": "ESTIMADO",
+     "metodo": "D-76",
+     "evidencia": "«OFFICE DEPOT» = «Office Depot» de OSM (2 palabras en común), a 47 m de «Avenida Central»; único lugar del catálogo de 294 que cumple (D-76)",
+     "verificacion": "pendiente: Miguel lo revisa en la fase 4 de R-03; no entra a la página de campo hasta entonces (D-76)",
+     "antes": "REFERENCIA",
+     "nota_antes": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 22,
@@ -7763,9 +7824,9 @@
    "total": 71,
    "conteo": {
     "UBICADO": 49,
-    "UBICADO POR LUGAR": 0,
+    "UBICADO POR LUGAR": 1,
     "APROXIMADO": 2,
-    "REFERENCIA": 17,
+    "REFERENCIA": 16,
     "CALLES SIN CRUCE EN OSM": 0,
     "SIN UBICAR": 3
    },
@@ -7964,9 +8025,19 @@
      "texto": "PASEO CENTRAL-OFFICE DEPOT",
      "calle": "PASEO CENTRAL",
      "cruce_con": "OFFICE DEPOT",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO POR LUGAR",
+     "lat": 20.38604,
+     "lon": -99.9854,
      "osm_calle": "Avenida Central",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_lugar": "Office Depot (node/14021519407)",
+     "tipo_lugar": "Tienda",
+     "distancia_calle_m": 47,
+     "etiqueta": "ESTIMADO",
+     "metodo": "D-76",
+     "evidencia": "«OFFICE DEPOT» = «Office Depot» de OSM (2 palabras en común), a 47 m de «Avenida Central»; único lugar del catálogo de 294 que cumple (D-76)",
+     "verificacion": "pendiente: Miguel lo revisa en la fase 4 de R-03; no entra a la página de campo hasta entonces (D-76)",
+     "antes": "REFERENCIA",
+     "nota_antes": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 18,
@@ -9427,9 +9498,9 @@
    "total": 64,
    "conteo": {
     "UBICADO": 43,
-    "UBICADO POR LUGAR": 0,
+    "UBICADO POR LUGAR": 1,
     "APROXIMADO": 1,
-    "REFERENCIA": 19,
+    "REFERENCIA": 18,
     "CALLES SIN CRUCE EN OSM": 1,
     "SIN UBICAR": 0
    },
@@ -9649,9 +9720,19 @@
      "texto": "PASEO CENTRAL-OFFICE DEPOT",
      "calle": "PASEO CENTRAL",
      "cruce_con": "OFFICE DEPOT",
-     "estado": "REFERENCIA",
+     "estado": "UBICADO POR LUGAR",
+     "lat": 20.38604,
+     "lon": -99.9854,
      "osm_calle": "Avenida Central",
-     "nota": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
+     "osm_lugar": "Office Depot (node/14021519407)",
+     "tipo_lugar": "Tienda",
+     "distancia_calle_m": 47,
+     "etiqueta": "ESTIMADO",
+     "metodo": "D-76",
+     "evidencia": "«OFFICE DEPOT» = «Office Depot» de OSM (2 palabras en común), a 47 m de «Avenida Central»; único lugar del catálogo de 294 que cumple (D-76)",
+     "verificacion": "pendiente: Miguel lo revisa en la fase 4 de R-03; no entra a la página de campo hasta entonces (D-76)",
+     "antes": "REFERENCIA",
+     "nota_antes": "la calle existe en OSM; la referencia es un negocio o lugar que OSM no tiene: confirma la calle, sin punto propio"
     },
     {
      "orden": 19,

@@ -1,0 +1,1041 @@
+{
+ "tarea": "R-03 fase 1, hallazgo b (D-68, D-76)",
+ "fuente": {
+  "cruces": "REFERENCIA de negocio de datos/investigacion/cruces.json (antes de D-76)",
+  "lugares": "OpenStreetMap vía Overpass, 22 nov 2026 (datos/cache/overpass/lugares-amplio.json, D-56), ODbL 1.0",
+  "calles": "OpenStreetMap vía Overpass, 19 nov 2026 (datos/cache/overpass/calles.json), ODbL 1.0"
+ },
+ "como_leer": [
+  "Cada renglón es una parada de negocio distinta (mismo texto y misma calle); «veces» = cuántas veces aparece en las listas.",
+  "UBICADO POR LUGAR: un solo lugar de OSM con 2 o más palabras en común (≥ 60 % de las de la parada) a ≤ 150 m de la calle.",
+  "DUDOSO: lo decide Miguel; mientras tanto sigue REFERENCIA en cruces.json. En orden de Pareto: los que más veces aparecen, primero.",
+  "SIGUE REFERENCIA: ningún lugar parecido, o el más cercano a más de 300 m (ajuste B).",
+  "El nombre de la ciudad (SAN, JUAN, RÍO, SJR, QUERÉTARO) no cuenta para el parecido (ajuste A).",
+  "Toda distancia es ESTIMADA: en línea recta sobre OSM, no medida en campo."
+ ],
+ "resumen": {
+  "referencias_de_negocio": 162,
+  "paradas_distintas": 53,
+  "UBICADO POR LUGAR": {
+   "veces_en_listas": 8,
+   "paradas_distintas": 2
+  },
+  "DUDOSO": {
+   "veces_en_listas": 8,
+   "paradas_distintas": 5
+  },
+  "SIGUE REFERENCIA": {
+   "veces_en_listas": 146,
+   "paradas_distintas": 46
+  }
+ },
+ "dudosos": [
+  {
+   "texto": "CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2-WALMART",
+   "osm_calle": "Avenida Central",
+   "veces": 3,
+   "rutas": [
+    "009B",
+    "016",
+    "030"
+   ],
+   "referencia": "WALMART",
+   "estado": "DUDOSO",
+   "motivo": "una sola palabra en común con el lugar de OSM",
+   "candidatos": [
+    {
+     "nombre": "Walmart",
+     "osm": "way/1536389227",
+     "tipo": "Tienda",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 122
+    }
+   ]
+  },
+  {
+   "texto": "PASEO CENTRAL-AURRERA SJR",
+   "osm_calle": "Avenida Central",
+   "veces": 2,
+   "rutas": [
+    "016",
+    "030"
+   ],
+   "referencia": "AURRERA SJR",
+   "estado": "DUDOSO",
+   "motivo": "una sola palabra en común con el lugar de OSM",
+   "candidatos": [
+    {
+     "nombre": "Bodega Aurrera",
+     "osm": "way/550793659",
+     "tipo": "Supermercado",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 120
+    },
+    {
+     "nombre": "Bodega Aurrera",
+     "osm": "node/14005906301",
+     "tipo": "Supermercado",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 1555
+    },
+    {
+     "nombre": "Bodega Aurrera",
+     "osm": "way/550791726",
+     "tipo": "Supermercado",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 1558
+    }
+   ]
+  },
+  {
+   "texto": "AV. ISIDRO ZÚÑIGA SOLÓRZANO-PRIMARIA JAIME TORRES BODET",
+   "osm_calle": "Andador Isidro Zuñiga Solorzano",
+   "veces": 1,
+   "rutas": [
+    "008"
+   ],
+   "referencia": "PRIMARIA JAIME TORRES BODET",
+   "estado": "DUDOSO",
+   "motivo": "el lugar más cercano está a 178 m de la calle (más de 150 m)",
+   "candidatos": [
+    {
+     "nombre": "Jaime Torres Bodet",
+     "osm": "way/1531739371",
+     "tipo": "Escuela",
+     "palabras_en_comun": 3,
+     "distancia_calle_m": 178
+    }
+   ]
+  },
+  {
+   "texto": "AV. LIC. BENITO JUÁREZ PONIENTE-LA COMER SJR",
+   "osm_calle": "Avenida Benito Juárez Poniente",
+   "veces": 1,
+   "rutas": [
+    "002"
+   ],
+   "referencia": "LA COMER SJR",
+   "estado": "DUDOSO",
+   "motivo": "una sola palabra en común con el lugar de OSM",
+   "candidatos": [
+    {
+     "nombre": "La Comer",
+     "osm": "node/633812296",
+     "tipo": "Supermercado",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 112
+    }
+   ]
+  },
+  {
+   "texto": "LUIS DONALDO COLOSIO-HOSPITAL GENERAL SJR",
+   "osm_calle": "Avenida Luis Donaldo Colosio",
+   "veces": 1,
+   "rutas": [
+    "011"
+   ],
+   "referencia": "HOSPITAL GENERAL SJR",
+   "estado": "DUDOSO",
+   "motivo": "una sola palabra en común con el lugar de OSM",
+   "candidatos": [
+    {
+     "nombre": "Hospital General",
+     "osm": "way/694152269",
+     "tipo": "Hospital",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 130
+    },
+    {
+     "nombre": "Hospital San José",
+     "osm": "node/6262522980",
+     "tipo": "Clínica",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 2529
+    },
+    {
+     "nombre": "IMSS Hospital General de Zona 3",
+     "osm": "way/51652707",
+     "tipo": "Hospital",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 3089
+    }
+   ]
+  }
+ ],
+ "clasificacion": [
+  {
+   "texto": "PASEO CENTRAL-OFFICE DEPOT",
+   "osm_calle": "Avenida Central",
+   "veces": 4,
+   "rutas": [
+    "001",
+    "011",
+    "024C",
+    "030"
+   ],
+   "referencia": "OFFICE DEPOT",
+   "estado": "UBICADO POR LUGAR",
+   "motivo": "único lugar que cumple: Office Depot a 47 m de Avenida Central",
+   "candidatos": [
+    {
+     "nombre": "Office Depot",
+     "osm": "node/14021519407",
+     "tipo": "Tienda",
+     "palabras_en_comun": 2,
+     "distancia_calle_m": 47
+    }
+   ]
+  },
+  {
+   "texto": "RÍO MOCTEZUMA-PARQUE LAS GARZAS",
+   "osm_calle": "Avenida Río Moctezuma",
+   "veces": 4,
+   "rutas": [
+    "001",
+    "002",
+    "004",
+    "011"
+   ],
+   "referencia": "PARQUE LAS GARZAS",
+   "estado": "UBICADO POR LUGAR",
+   "motivo": "único lugar que cumple: Parque Las Garzas a 97 m de Avenida Río Moctezuma",
+   "candidatos": [
+    {
+     "nombre": "Parque Las Garzas",
+     "osm": "way/1161205087",
+     "tipo": "Parque",
+     "palabras_en_comun": 2,
+     "distancia_calle_m": 97
+    }
+   ]
+  },
+  {
+   "texto": "CARRETERA SAN JUAN DEL RÍO–TEQUISQUIAPAN KM 3.2-WALMART",
+   "osm_calle": "Avenida Central",
+   "veces": 3,
+   "rutas": [
+    "009B",
+    "016",
+    "030"
+   ],
+   "referencia": "WALMART",
+   "estado": "DUDOSO",
+   "motivo": "una sola palabra en común con el lugar de OSM",
+   "candidatos": [
+    {
+     "nombre": "Walmart",
+     "osm": "way/1536389227",
+     "tipo": "Tienda",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 122
+    }
+   ]
+  },
+  {
+   "texto": "PASEO CENTRAL-AURRERA SJR",
+   "osm_calle": "Avenida Central",
+   "veces": 2,
+   "rutas": [
+    "016",
+    "030"
+   ],
+   "referencia": "AURRERA SJR",
+   "estado": "DUDOSO",
+   "motivo": "una sola palabra en común con el lugar de OSM",
+   "candidatos": [
+    {
+     "nombre": "Bodega Aurrera",
+     "osm": "way/550793659",
+     "tipo": "Supermercado",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 120
+    },
+    {
+     "nombre": "Bodega Aurrera",
+     "osm": "node/14005906301",
+     "tipo": "Supermercado",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 1555
+    },
+    {
+     "nombre": "Bodega Aurrera",
+     "osm": "way/550791726",
+     "tipo": "Supermercado",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 1558
+    }
+   ]
+  },
+  {
+   "texto": "AV. ISIDRO ZÚÑIGA SOLÓRZANO-PRIMARIA JAIME TORRES BODET",
+   "osm_calle": "Andador Isidro Zuñiga Solorzano",
+   "veces": 1,
+   "rutas": [
+    "008"
+   ],
+   "referencia": "PRIMARIA JAIME TORRES BODET",
+   "estado": "DUDOSO",
+   "motivo": "el lugar más cercano está a 178 m de la calle (más de 150 m)",
+   "candidatos": [
+    {
+     "nombre": "Jaime Torres Bodet",
+     "osm": "way/1531739371",
+     "tipo": "Escuela",
+     "palabras_en_comun": 3,
+     "distancia_calle_m": 178
+    }
+   ]
+  },
+  {
+   "texto": "AV. LIC. BENITO JUÁREZ PONIENTE-LA COMER SJR",
+   "osm_calle": "Avenida Benito Juárez Poniente",
+   "veces": 1,
+   "rutas": [
+    "002"
+   ],
+   "referencia": "LA COMER SJR",
+   "estado": "DUDOSO",
+   "motivo": "una sola palabra en común con el lugar de OSM",
+   "candidatos": [
+    {
+     "nombre": "La Comer",
+     "osm": "node/633812296",
+     "tipo": "Supermercado",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 112
+    }
+   ]
+  },
+  {
+   "texto": "LUIS DONALDO COLOSIO-HOSPITAL GENERAL SJR",
+   "osm_calle": "Avenida Luis Donaldo Colosio",
+   "veces": 1,
+   "rutas": [
+    "011"
+   ],
+   "referencia": "HOSPITAL GENERAL SJR",
+   "estado": "DUDOSO",
+   "motivo": "una sola palabra en común con el lugar de OSM",
+   "candidatos": [
+    {
+     "nombre": "Hospital General",
+     "osm": "way/694152269",
+     "tipo": "Hospital",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 130
+    },
+    {
+     "nombre": "Hospital San José",
+     "osm": "node/6262522980",
+     "tipo": "Clínica",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 2529
+    },
+    {
+     "nombre": "IMSS Hospital General de Zona 3",
+     "osm": "way/51652707",
+     "tipo": "Hospital",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 3089
+    }
+   ]
+  },
+  {
+   "texto": "5 DE MAYO-SEUZ",
+   "osm_calle": "Calle 5 de Mayo",
+   "veces": 13,
+   "rutas": [
+    "001",
+    "004",
+    "008",
+    "009B",
+    "011",
+    "016",
+    "022",
+    "23",
+    "024C",
+    "030",
+    "032",
+    "046",
+    "047"
+   ],
+   "referencia": "SEUZ",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "PLAZA MORELOS ORIENTE-PANAMERICANA",
+   "osm_calle": "Avenida Panamericana",
+   "veces": 13,
+   "rutas": [
+    "001",
+    "002",
+    "004",
+    "008",
+    "011",
+    "016",
+    "23",
+    "024C",
+    "025",
+    "030",
+    "046",
+    "047"
+   ],
+   "referencia": "PLAZA MORELOS ORIENTE",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "PLAZA MORELOS ORIENTE-ARTICULO 3°",
+   "osm_calle": "Calle Artículo Tercero",
+   "veces": 12,
+   "rutas": [
+    "001",
+    "002",
+    "004",
+    "008",
+    "011",
+    "23",
+    "024C",
+    "025",
+    "030",
+    "046",
+    "047"
+   ],
+   "referencia": "PLAZA MORELOS ORIENTE",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "MONUMENTO A BENITO JUÁREZ-JURICA",
+   "osm_calle": "Avenida Belisario Domínguez",
+   "veces": 8,
+   "rutas": [
+    "004",
+    "009B",
+    "011",
+    "016",
+    "23",
+    "024C",
+    "030",
+    "046"
+   ],
+   "referencia": "MONUMENTO A BENITO JUÁREZ",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "el lugar parecido más cercano está a 1403 m de la calle (más de 300 m): casi seguro es otro (ajuste B)",
+   "candidatos": [
+    {
+     "nombre": "Primaria Benito Juárez",
+     "osm": "way/1539854582",
+     "tipo": "Escuela",
+     "palabras_en_comun": 2,
+     "distancia_calle_m": 1403
+    }
+   ]
+  },
+  {
+   "texto": "PLAZA MORELOS ORIENTE-AGUSTÍN MELGAR",
+   "osm_calle": "Calle Agustin Melgar",
+   "veces": 8,
+   "rutas": [
+    "001",
+    "011",
+    "016",
+    "23",
+    "024C",
+    "030",
+    "046"
+   ],
+   "referencia": "PLAZA MORELOS ORIENTE",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "PLAZA MORELOS ORIENTE-CASTILLO DE CHAPULTEPEC",
+   "osm_calle": "Avenida Castillo de Chapultepec",
+   "veces": 8,
+   "rutas": [
+    "001",
+    "011",
+    "016",
+    "23",
+    "024C",
+    "030",
+    "046"
+   ],
+   "referencia": "PLAZA MORELOS ORIENTE",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "AV. RÍO MOCTEZUMA-RÍO NEGRO",
+   "osm_calle": "Avenida Río Moctezuma",
+   "veces": 7,
+   "rutas": [
+    "001",
+    "004",
+    "011",
+    "011B",
+    "015B",
+    "024C",
+    "025"
+   ],
+   "referencia": "RÍO NEGRO",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "C. MIGUEL HIDALGO-SAGITARIO",
+   "osm_calle": "Avenida Miguel Hidalgo",
+   "veces": 6,
+   "rutas": [
+    "008",
+    "011",
+    "024C",
+    "030",
+    "032",
+    "047"
+   ],
+   "referencia": "SAGITARIO",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "C.MIGUEL HIDALGO-HUERTA GRANDE HIDALGO",
+   "osm_calle": "Avenida Miguel Hidalgo",
+   "veces": 5,
+   "rutas": [
+    "008",
+    "024C",
+    "030",
+    "032",
+    "047"
+   ],
+   "referencia": "HUERTA GRANDE HIDALGO",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "PASEO CENTRAL-HDA. LOS ARRAYANES",
+   "osm_calle": "Avenida Central",
+   "veces": 5,
+   "rutas": [
+    "022",
+    "23",
+    "039",
+    "046"
+   ],
+   "referencia": "HDA. LOS ARRAYANES",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "AV. LIC. BENITO JUÁREZ PONIENTE-SECRETARÍA DE FINANZAS",
+   "osm_calle": "Avenida Benito Juárez Poniente",
+   "veces": 4,
+   "rutas": [
+    "002",
+    "024C",
+    "030",
+    "047"
+   ],
+   "referencia": "SECRETARÍA DE FINANZAS",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "AV. UNIVERSIDAD-COLEGIO CONSTANTINO",
+   "osm_calle": "Avenida Universidad",
+   "veces": 4,
+   "rutas": [
+    "011B",
+    "015B"
+   ],
+   "referencia": "COLEGIO CONSTANTINO",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "CALLE JOSE MARIA MORELOS Y PAVÓN-ANTIGUA CALLE DON EUSEBIO BO. DE SAN JUAN",
+   "osm_calle": "Calle José María Morelos y Pavón",
+   "veces": 4,
+   "rutas": [
+    "002",
+    "024C",
+    "030",
+    "047"
+   ],
+   "referencia": "ANTIGUA CALLE DON EUSEBIO BO. DE SAN JUAN",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "PASEO CENTRAL-PLAZA ARAMIL",
+   "osm_calle": "Avenida Central",
+   "veces": 4,
+   "rutas": [
+    "009B",
+    "011",
+    "016",
+    "030"
+   ],
+   "referencia": "PLAZA ARAMIL",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "C. MIGUEL HIDALGO-UNIVERSIDAD THOMPSON SJR (QUERÉTARO)",
+   "osm_calle": "Avenida Miguel Hidalgo",
+   "veces": 3,
+   "rutas": [
+    "008",
+    "011",
+    "032"
+   ],
+   "referencia": "UNIVERSIDAD THOMPSON SJR (QUERÉTARO)",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "CARR. SAN JUAN DEL RÍO-JALPAN DE SERRA",
+   "osm_calle": "Avenida Central",
+   "veces": 3,
+   "rutas": [
+    "009B",
+    "032",
+    "047"
+   ],
+   "referencia": "JALPAN DE SERRA",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "HACIENDA LOS ARRAYANES-PACESO CENTRAL",
+   "osm_calle": "Avenida Hacienda Los Arrayanes",
+   "veces": 3,
+   "rutas": [
+    "022",
+    "039"
+   ],
+   "referencia": "PACESO CENTRAL",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "PASEO CENTRAL-CONDUMEX",
+   "osm_calle": "Avenida Central",
+   "veces": 3,
+   "rutas": [
+    "009B",
+    "032",
+    "047"
+   ],
+   "referencia": "CONDUMEX",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "TERMINAL DE AUTOBUSES DE SAN JUAN DEL RIO (B) PROF. MERCEDES CAMACHO-ÁLVARO OBREGÓN",
+   "osm_calle": "Avenida Álvaro Obregón",
+   "veces": 3,
+   "rutas": [
+    "015B",
+    "018",
+    "042"
+   ],
+   "referencia": "TERMINAL DE AUTOBUSES DE SAN JUAN DEL RIO (B) PROF. MERCEDES CAMACHO",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "LUIS DONALDO COLOSIO-PLAZA PUNTA ORIENTE",
+   "osm_calle": "Avenida Luis Donaldo Colosio",
+   "veces": 2,
+   "rutas": [
+    "011"
+   ],
+   "referencia": "PLAZA PUNTA ORIENTE",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "el lugar parecido más cercano está a 6715 m de la calle (más de 300 m): casi seguro es otro (ajuste B)",
+   "candidatos": [
+    {
+     "nombre": "Plaza Punta Victoria",
+     "osm": "way/1552644577",
+     "tipo": "Plaza comercial",
+     "palabras_en_comun": 2,
+     "distancia_calle_m": 6715
+    }
+   ]
+  },
+  {
+   "texto": "PASEO LOMA ALTA-LOMA SECA PASEO LOMA ALTA",
+   "osm_calle": "Paseo Loma Alta",
+   "veces": 2,
+   "rutas": [
+    "011",
+    "011B"
+   ],
+   "referencia": "LOMA SECA PASEO LOMA ALTA",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "ZARAGOZA-CAMPO DE FÚTBOL SAN PEDRO 1",
+   "osm_calle": "Avenida Zaragoza",
+   "veces": 2,
+   "rutas": [
+    "009B",
+    "047"
+   ],
+   "referencia": "CAMPO DE FÚTBOL SAN PEDRO 1",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "A. AMEALCO-CARR.",
+   "osm_calle": "Amealco",
+   "veces": 1,
+   "rutas": [
+    "002"
+   ],
+   "referencia": "CARR.",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "AV. 1 PONIENTE-FULTÓN",
+   "osm_calle": "Avenida Uno Poniente",
+   "veces": 1,
+   "rutas": [
+    "015B"
+   ],
+   "referencia": "FULTÓN",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "AV. DE LAS GARZAS-CIUDAD VIVE ORIENTE",
+   "osm_calle": "Avenida de las Garzas",
+   "veces": 1,
+   "rutas": [
+    "011"
+   ],
+   "referencia": "CIUDAD VIVE ORIENTE",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "AV. DE LAS GARZAS-SCOUTES GRUPO III ECLIPSE",
+   "osm_calle": "Avenida de las Garzas",
+   "veces": 1,
+   "rutas": [
+    "002"
+   ],
+   "referencia": "SCOUTES GRUPO III ECLIPSE",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "AV. GRAL. FELIPE ÁNGELES-CALLE 22",
+   "osm_calle": "General Felipe Ángeles",
+   "veces": 1,
+   "rutas": [
+    "018"
+   ],
+   "referencia": "CALLE 22",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "AV. GRAL. FELIPE ÁNGELES-CENTRO CÍVICO MUNICIPAL SJR",
+   "osm_calle": "General Felipe Ángeles",
+   "veces": 1,
+   "rutas": [
+    "018"
+   ],
+   "referencia": "CENTRO CÍVICO MUNICIPAL SJR",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "AV. GRAL. FELIPE ÁNGELES-PARQUE PASO DE LOS GUZMÁN SJR",
+   "osm_calle": "General Felipe Ángeles",
+   "veces": 1,
+   "rutas": [
+    "018"
+   ],
+   "referencia": "PARQUE PASO DE LOS GUZMÁN SJR",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "AV. TECNOLÓGICO-PRIMARIA HÉROE DE NACOZARI",
+   "osm_calle": "Avenida Tecnológico",
+   "veces": 1,
+   "rutas": [
+    "022"
+   ],
+   "referencia": "PRIMARIA HÉROE DE NACOZARI",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "AV. TECNOLÓGICO-PRIMARIA HÉROE DE NACOZARI AV. MARMOL",
+   "osm_calle": "Avenida Tecnológico",
+   "veces": 1,
+   "rutas": [
+    "039"
+   ],
+   "referencia": "PRIMARIA HÉROE DE NACOZARI AV. MARMOL",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "C.MIGUEL HIDALGO-HUERTA GRANDE HIDALGO HIDALGO",
+   "osm_calle": "Avenida Miguel Hidalgo",
+   "veces": 1,
+   "rutas": [
+    "011"
+   ],
+   "referencia": "HUERTA GRANDE HIDALGO HIDALGO",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "CARRETERA QUERÉTARO 300-SECRETARIA DE FINANZAS",
+   "osm_calle": "Carretera Panamericana a Querétaro",
+   "veces": 1,
+   "rutas": [
+    "002"
+   ],
+   "referencia": "SECRETARIA DE FINANZAS",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "EL CANELO-CAMINO REAL DEL ESPIRITU SANTO",
+   "osm_calle": "Calle El Canelo",
+   "veces": 1,
+   "rutas": [
+    "018"
+   ],
+   "referencia": "CAMINO REAL DEL ESPIRITU SANTO",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "LABRADORITA-PRIMARIA FEDERAL PROCORO",
+   "osm_calle": "Calle Labradorita",
+   "veces": 1,
+   "rutas": [
+    "001"
+   ],
+   "referencia": "PRIMARIA FEDERAL PROCORO",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "el lugar parecido más cercano está a 1603 m de la calle (más de 300 m): casi seguro es otro (ajuste B)",
+   "candidatos": [
+    {
+     "nombre": "Primaria Federal Alfonso Ballesteros",
+     "osm": "way/550996063",
+     "tipo": "Escuela",
+     "palabras_en_comun": 2,
+     "distancia_calle_m": 1603
+    }
+   ]
+  },
+  {
+   "texto": "LAS TORRES-MIRLO",
+   "osm_calle": "Avenida Las Torres",
+   "veces": 1,
+   "rutas": [
+    "024C"
+   ],
+   "referencia": "MIRLO",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "LUIS DONALDO COLOSIO-CONEJOS",
+   "osm_calle": "Avenida Luis Donaldo Colosio",
+   "veces": 1,
+   "rutas": [
+    "011"
+   ],
+   "referencia": "CONEJOS",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "MEXICAN FEDERAL HWY 120-CENTRO EXPOSITOR SAN JUAN DEL RÍO SAN NICOLAS",
+   "osm_calle": "San Juan del Río - Xilitla",
+   "veces": 1,
+   "rutas": [
+    "032"
+   ],
+   "referencia": "CENTRO EXPOSITOR SAN JUAN DEL RÍO SAN NICOLAS",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "MEXICAN FEDERAL HWY 120-DISTRIBUIDORA MOYEL",
+   "osm_calle": "San Juan del Río - Xilitla",
+   "veces": 1,
+   "rutas": [
+    "032"
+   ],
+   "referencia": "DISTRIBUIDORA MOYEL",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "MEXICAN FEDERAL HWY 120-INTERNACIONAL CAMSOLSAN JUAN DEL RÍO",
+   "osm_calle": "San Juan del Río - Xilitla",
+   "veces": 1,
+   "rutas": [
+    "032"
+   ],
+   "referencia": "INTERNACIONAL CAMSOLSAN JUAN DEL RÍO",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "MEXICAN FEDERAL HWY 120-SERTEK GLOBAL",
+   "osm_calle": "San Juan del Río - Xilitla",
+   "veces": 1,
+   "rutas": [
+    "032"
+   ],
+   "referencia": "SERTEK GLOBAL",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "PASEO CENTRAL-CALLE 7 ORIENTE",
+   "osm_calle": "Avenida Central",
+   "veces": 1,
+   "rutas": [
+    "009B"
+   ],
+   "referencia": "CALLE 7 ORIENTE",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "el lugar parecido más cercano está a 1450 m de la calle (más de 300 m): casi seguro es otro (ajuste B)",
+   "candidatos": [
+    {
+     "nombre": "Mercado Oriente",
+     "osm": "node/14005898701",
+     "tipo": "Mercado",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 1450
+    },
+    {
+     "nombre": "Centro de Salud de Oriente",
+     "osm": "way/550996034",
+     "tipo": "Hospital",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 1993
+    },
+    {
+     "nombre": "Acuática Municipal Oriente Pedregoso",
+     "osm": "way/1161544229",
+     "tipo": "Deportivo",
+     "palabras_en_comun": 1,
+     "distancia_calle_m": 2472
+    }
+   ]
+  },
+  {
+   "texto": "PASEO CENTRAL-HOME DEPOT SJR",
+   "osm_calle": "Avenida Central",
+   "veces": 1,
+   "rutas": [
+    "030"
+   ],
+   "referencia": "HOME DEPOT SJR",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "PROL. PALMAS-PARQUE VILLAS DEL PUENTE Y AMPLIACIÓN BANDHI",
+   "osm_calle": "Calle Palmas",
+   "veces": 1,
+   "rutas": [
+    "024C"
+   ],
+   "referencia": "PARQUE VILLAS DEL PUENTE Y AMPLIACIÓN BANDHI",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "QUERÉTERO-IXMIQUILPAN",
+   "osm_calle": "Avenida Querétaro",
+   "veces": 1,
+   "rutas": [
+    "002"
+   ],
+   "referencia": "IXMIQUILPAN",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "ningún lugar de los 294 con nombre parecido",
+   "candidatos": []
+  },
+  {
+   "texto": "SAN JUAN DEL RÍO-MERCADO JUÁREZ",
+   "osm_calle": "Avenida Central",
+   "veces": 1,
+   "rutas": [
+    "022"
+   ],
+   "referencia": "MERCADO JUÁREZ",
+   "estado": "SIGUE REFERENCIA",
+   "motivo": "el lugar parecido más cercano está a 467 m de la calle (más de 300 m): casi seguro es otro (ajuste B)",
+   "candidatos": [
+    {
+     "nombre": "Mercado Juárez",
+     "osm": "node/4704509293",
+     "tipo": "Supermercado",
+     "palabras_en_comun": 2,
+     "distancia_calle_m": 467
+    }
+   ]
+  }
+ ]
+}

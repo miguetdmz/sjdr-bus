@@ -898,6 +898,96 @@ function aproximarTodo(rutas) {
   }
 }
 
+// ---------- D-76: hallazgo b (Miguel, 26 nov 2026, 1:31 pm: «Sí, con A y B») ----------
+// Las REFERENCIA de negocio se cruzan contra los 294 lugares de OSM ya guardados
+// (lugares-amplio.json, D-56), sin consultas nuevas. Corre DESPUÉS de D-45 para no
+// cambiar ningún APROXIMADO (sus vecinos siguen siendo los de antes). Solo convierte
+// REFERENCIA de negocio en UBICADO POR LUGAR; lo dudoso va a Miguel en
+// lugares-dudosos.json y aquí sigue REFERENCIA. Toda distancia es ESTIMADA.
+const lugaresAmplio = leer('datos/cache/overpass/lugares-amplio.json');
+const D76_TOPE_M = 150; // el lugar queda a ≤ 150 m de la calle del cruce (D-76, ESTIMADO)
+const D76_LEJOS_M = 300; // más lejos no se pregunta: sigue REFERENCIA (ajuste B)
+// Ajuste A: el nombre de la ciudad no identifica un lugar («SAN JUAN DEL RÍO» ≠
+// «Unidad Deportiva San Juan del Río»).
+const D76_CIUDAD = new Set(['SAN', 'JUAN', 'RIO', 'SJR', 'QUERETARO']);
+const NOTA_NEGOCIO = /la referencia es un negocio o lugar que OSM no tiene/;
+const nucleoD76 = (t) => [...new Set(nucleo(t).filter((w) => !VACIAS.has(w) && w.length >= 3 && !D76_CIUDAD.has(w)))];
+const nucleosLugares = lugaresAmplio.lugares.map((l) => ({ l, ws: new Set(nucleoD76(l.nombre)) }));
+function clasificarD76(c) {
+  const ref = esLugar(c.calle) && !esLugar(c.cruce_con ?? '') ? c.calle : c.cruce_con ?? c.texto;
+  const calle = calles.get(c.osm_calle);
+  const ws = nucleoD76(ref);
+  const cands = [];
+  for (const { l, ws: lw } of nucleosLugares) {
+    if (!ws.length || !calle) break;
+    const comunes = ws.filter((w) => lw.has(w)).length;
+    if (comunes < 1 || comunes / ws.length < 0.6) continue;
+    const { d } = puntoEn(calle, l.centro);
+    cands.push({ nombre: l.nombre, osm: l.osm, tipo: l.tipo, centro: l.centro, palabras_en_comun: comunes, distancia_calle_m: Math.round(d) });
+  }
+  cands.sort((a, b) => a.distancia_calle_m - b.distancia_calle_m || a.osm.localeCompare(b.osm));
+  const buenos = cands.filter((x) => x.palabras_en_comun >= 2 && x.distancia_calle_m <= D76_TOPE_M);
+  const sale = (estado, motivo, extra = {}) => ({ referencia: ref, estado, motivo, candidatos: cands.slice(0, 5).map(({ centro, ...x }) => x), ...extra });
+  if (!cands.length) return sale('SIGUE REFERENCIA', 'ningún lugar de los 294 con nombre parecido');
+  if (buenos.length === 1) return sale('UBICADO POR LUGAR', `único lugar que cumple: ${buenos[0].nombre} a ${buenos[0].distancia_calle_m} m de ${c.osm_calle}`, { lugar: buenos[0] });
+  if (buenos.length > 1) return sale('DUDOSO', `${buenos.length} lugares cumplen nombre y distancia: no se adivina`);
+  if (cands.some((x) => x.distancia_calle_m <= D76_TOPE_M)) return sale('DUDOSO', 'una sola palabra en común con el lugar de OSM');
+  if (cands[0].distancia_calle_m <= D76_LEJOS_M) return sale('DUDOSO', `el lugar más cercano está a ${cands[0].distancia_calle_m} m de la calle (más de ${D76_TOPE_M} m)`);
+  return sale('SIGUE REFERENCIA', `el lugar parecido más cercano está a ${cands[0].distancia_calle_m} m de la calle (más de ${D76_LEJOS_M} m): casi seguro es otro (ajuste B)`);
+}
+function hallazgoB(rutas) {
+  const casos = new Map(); // texto + calle -> caso (la misma parada en varias rutas)
+  for (const r of rutas) {
+    if (!r.cruces) continue;
+    r.cruces = r.cruces.map((c) => {
+      if (c.estado !== 'REFERENCIA' || !NOTA_NEGOCIO.test(c.nota ?? '')) return c;
+      const k = `${c.texto}|${c.osm_calle}`;
+      if (!casos.has(k)) casos.set(k, { texto: c.texto, osm_calle: c.osm_calle, veces: 0, rutas: [], ...clasificarD76(c) });
+      const caso = casos.get(k);
+      caso.veces++;
+      if (!caso.rutas.includes(r.numero)) caso.rutas.push(r.numero);
+      if (caso.estado !== 'UBICADO POR LUGAR') return c;
+      const l = caso.lugar;
+      return {
+        orden: c.orden, texto: c.texto, calle: c.calle, cruce_con: c.cruce_con,
+        estado: 'UBICADO POR LUGAR', lat: l.centro[0], lon: l.centro[1],
+        osm_calle: c.osm_calle, osm_lugar: `${l.nombre} (${l.osm})`, tipo_lugar: l.tipo,
+        distancia_calle_m: l.distancia_calle_m, etiqueta: 'ESTIMADO', metodo: 'D-76',
+        evidencia: `«${caso.referencia}» = «${l.nombre}» de OSM (${l.palabras_en_comun} palabras en común), a ${l.distancia_calle_m} m de «${c.osm_calle}»; único lugar del catálogo de 294 que cumple (D-76)`,
+        verificacion: 'pendiente: Miguel lo revisa en la fase 4 de R-03; no entra a la página de campo hasta entonces (D-76)',
+        antes: 'REFERENCIA', nota_antes: c.nota,
+      };
+    });
+  }
+  const lista = [...casos.values()].map(({ lugar, ...x }) => x);
+  const orden = { 'UBICADO POR LUGAR': 0, DUDOSO: 1, 'SIGUE REFERENCIA': 2 };
+  // Pareto: dentro de cada estado, las que más veces aparecen en las listas primero (como D-43)
+  lista.sort((a, b) => orden[a.estado] - orden[b.estado] || b.veces - a.veces || a.texto.localeCompare(b.texto));
+  const suma = (e) => lista.filter((x) => x.estado === e).reduce((n, x) => n + x.veces, 0);
+  const resumen = { referencias_de_negocio: lista.reduce((n, x) => n + x.veces, 0), paradas_distintas: lista.length };
+  for (const e of Object.keys(orden)) resumen[e] = { veces_en_listas: suma(e), paradas_distintas: lista.filter((x) => x.estado === e).length };
+  writeFileSync(`${raiz}datos/investigacion/lugares-dudosos.json`, JSON.stringify({
+    tarea: 'R-03 fase 1, hallazgo b (D-68, D-76)',
+    fuente: {
+      cruces: 'REFERENCIA de negocio de datos/investigacion/cruces.json (antes de D-76)',
+      lugares: 'OpenStreetMap vía Overpass, 22 nov 2026 (datos/cache/overpass/lugares-amplio.json, D-56), ODbL 1.0',
+      calles: 'OpenStreetMap vía Overpass, 19 nov 2026 (datos/cache/overpass/calles.json), ODbL 1.0',
+    },
+    como_leer: [
+      'Cada renglón es una parada de negocio distinta (mismo texto y misma calle); «veces» = cuántas veces aparece en las listas.',
+      `UBICADO POR LUGAR: un solo lugar de OSM con 2 o más palabras en común (≥ 60 % de las de la parada) a ≤ ${D76_TOPE_M} m de la calle.`,
+      `DUDOSO: lo decide Miguel; mientras tanto sigue REFERENCIA en cruces.json. En orden de Pareto: los que más veces aparecen, primero.`,
+      `SIGUE REFERENCIA: ningún lugar parecido, o el más cercano a más de ${D76_LEJOS_M} m (ajuste B).`,
+      'El nombre de la ciudad (SAN, JUAN, RÍO, SJR, QUERÉTARO) no cuenta para el parecido (ajuste A).',
+      'Toda distancia es ESTIMADA: en línea recta sobre OSM, no medida en campo.',
+    ],
+    resumen,
+    dudosos: lista.filter((x) => x.estado === 'DUDOSO'),
+    clasificacion: lista,
+  }, null, 1) + '\n');
+  return resumen;
+}
+
 // ---------- salida ----------
 const ESTADOS = ['UBICADO', 'UBICADO POR LUGAR', 'APROXIMADO', 'REFERENCIA', 'CALLES SIN CRUCE EN OSM', 'SIN UBICAR'];
 const rutas = [];
@@ -942,6 +1032,7 @@ for (const r of oficiales.rutas) {
   });
 }
 aproximarTodo(rutas);
+const d76 = hallazgoB(rutas);
 for (const r of rutas) if (r.cruces) r.conteo = Object.fromEntries(ESTADOS.map((e) => [e, r.cruces.filter((c) => c.estado === e).length]));
 const usadas = rutas.filter((r) => r.cruces);
 const total = usadas.reduce((s, r) => s + r.total, 0);
@@ -955,10 +1046,11 @@ writeFileSync(`${raiz}datos/investigacion/cruces.json`, JSON.stringify({
     lista: oficiales.fuente,
     calles: 'OpenStreetMap vía Overpass, 19 nov 2026 (datos/cache/overpass/calles.json), ODbL 1.0',
     lugares: 'OpenStreetMap vía Overpass, 19 nov 2026 (datos/cache/overpass/lugares.json), ODbL 1.0',
+    lugares_d76: 'OpenStreetMap vía Overpass, 22 nov 2026 (datos/cache/overpass/lugares-amplio.json, D-56), ODbL 1.0',
   },
   como_leer: [
     'UBICADO: las dos calles del cruce existen en OSM y se tocan (≤ 30 m); el punto es donde se tocan. Las abreviaturas y erratas corregidas se anotan en «correcciones» y solo se aceptan con esa prueba.',
-    'UBICADO POR LUGAR: el cruce es un lugar que OSM tiene junto a la calle.',
+    'UBICADO POR LUGAR: el cruce es un lugar que OSM tiene junto a la calle. Los de «metodo: D-76» (hallazgo b) salen del catálogo de 294 lugares, a ≤ 150 m de la calle, ESTIMADO; no entran a la página de campo hasta la revisión de Miguel (fase 4).',
     'REFERENCIA: la calle existe en OSM y el cruce es un negocio que OSM no tiene; confirma la calle por donde pasa el camión, sin punto propio.',
     'APROXIMADO (D-45): sin cruce exacto en OSM; el punto es la mejor aproximación de hoy (método en «metodo»), ESTIMADO y de nivel C. Se verifica con el uso o en campo.',
     'CALLES SIN CRUCE EN OSM / SIN UBICAR: POR VERIFICAR; la nota dice por qué ningún método de D-45 lo alcanzó.',
@@ -969,3 +1061,4 @@ writeFileSync(`${raiz}datos/investigacion/cruces.json`, JSON.stringify({
   rutas,
 }, null, 1) + '\n');
 console.log('cruces.json:', JSON.stringify(resumen));
+console.log('D-76 lugares-dudosos.json:', JSON.stringify(d76));
