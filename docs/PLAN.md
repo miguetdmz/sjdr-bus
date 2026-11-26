@@ -43,13 +43,16 @@ Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
    precisión típica 2 m. Veredicto NO CORRESPONDE (7 de 10 paradas de la 001 IDA): esperado, el coche
    cortó camino donde el camión baja por la carretera a Benito Juárez (P-3011, P-3056 y P-3143, a 400
    a 880 m). D-75 cumplió. Falta la ruta caminando antes del lunes 30.
-2. **Pendiente de Miguel:** el sí para subir `b3/r03-fase1` y abrir el PR (v0.8); él lo integra
-   (D-73). Después, sus respuestas a los 5 dudosos de `lugares-dudosos.json` (Walmart, Bodega
+2. **Pendiente de Miguel:** integrar el PR 11 (https://github.com/miguetdmz/sjdr-bus/pull/11, v0.8;
+   subido con su sí del 26 nov, 1:57 pm; él lo integra, D-73). Después, sus respuestas a los 5 dudosos de `lugares-dudosos.json` (Walmart, Bodega
    Aurrera, La Comer, Hospital General, Primaria Jaime Torres Bodet); Walmart tiene decisión anterior
    en D-43 («sin punto propio»).
 3. **Siguiente:** R-03 fase 3 (secuencias por sentido, hasta 84) y fase 4 (página de revisión,
    maqueta primero). Limpieza de ramas, control de la lección 5 y D-72 (A y D), con el sí de Miguel.
 4. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+5. **Fallas (Miguel, 26 nov, 1:57 pm):** ya no se vuelven lección al momento. Un subagente las anota en
+   `docs/FALLAS-PENDIENTES.md` (hoy F-01 y F-02) y el **domingo 29 nov**, en el chat en que Miguel
+   trabaje, un subagente se las presenta una por una para que decida.
 
 ### Relevo anterior (25 nov 2026, 11:40 pm)
 
