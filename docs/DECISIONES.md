@@ -2413,3 +2413,53 @@ Miguel).
      como evidencia de la v3 y ya no corren.
 - **Estado:** VIGENTE, construido. Falta la puerta de calidad, subir (con el sí de Miguel) y la
   prueba de Miguel en su iPhone antes del lunes 30.
+
+## D-75 · 25 nov 2026 · Aviso de GPS vivo en la página de campo (prueba en carro): criterio medible · PROPUESTA (Miguel pidió hacerlo hoy a las 8:10 pm)
+- **Tarea:** B3 · D-66 · ajuste de `web/public/campo.html` antes de la prueba en carro de Miguel
+  del 26 nov 2026. Rama del día `b3/r03-secuencias` (D-73). Maqueta primero (D-54):
+  `docs/maquetas/d75-gps/`.
+- **Hallazgo (Claude, 25 nov 2026, 8:03 pm; WebKit con iPhone 13 contra el sitio publicado):**
+  con una prueba abierta y 75 s sin ubicaciones nuevas, la barra seguía en verde con la hora
+  (20:04): el punto verde dice «hubo señal alguna vez», no «hay señal ahora». Además el resumen
+  de la prueba en carro no muestra los huecos del GPS (el del recorrido sí). Miguel no podría
+  saber si el GPS siguió todo el camino.
+- **Criterio medible (escrito antes de la maqueta; se construye con el sí de Miguel):**
+  1. **Barra:** verde con la hora solo si la última ubicación llegó hace 60 s o menos (el mismo
+     umbral de hueco que ya usa el recorrido, ESTIMADO); si pasan más de 60 s sin ubicación,
+     naranja «GPS perdido». Vale en recorrido y en prueba. Se revisa cada 5 s.
+  2. **Pantalla de prueba:** debajo del número grande, «N puntos de GPS · último hace X s»; el
+     conteo sube mientras se maneja; naranja si pasan más de 60 s.
+  3. **Resumen de prueba:** el mismo bloque «GPS: sin huecos / N huecos» con su barra de tiempo
+     que ya tiene el resumen del recorrido (mismo dibujo y mismo cálculo; lección 3).
+  4. **Nada más cambia** (lección 14): veredicto, umbrales, listas, exportación y textos quedan
+     igual.
+  5. **Prueba como usuario (lección 5):** WebKit con iPhone 13, solo toques: iniciar una prueba,
+     ver el conteo subir, quedarse sin GPS más de 60 s (reloj simulado) y ver «GPS perdido»,
+     terminar y ver los huecos en el resumen. Capturas a 390 y 1280 px y medida a 320 px (la
+     barra no se encima).
+  6. **Lecciones 15 y 17:** cada prueba nueva se corre con el defecto puesto (barra que no mira
+     la edad de la última ubicación; resumen de prueba sin huecos) y debe fallar; compilación en
+     código 0 en cada corrida.
+- **Límite que se dice tal cual:** el GPS de una página web solo registra con la página al
+  frente y la pantalla encendida; este aviso no lo cambia, solo lo hace visible. Si el iPhone
+  deja de mandar ubicaciones con el carro detenido (semáforo) más de 60 s, saldrá como hueco:
+  [sin verificar] en el iPhone de Miguel; lo dirá la prueba del 26 nov.
+- **Impacta:** D-66, D-74, `web/public/campo.html`, `pruebas-navegador/d66.spec.mjs`.
+- **Maqueta (Claude, 25 nov 2026, 8:22 pm):** `docs/maquetas/d75-gps/` (copia de `campo.html`
+  con solo los cambios 1 a 3). Prueba de usuario en WebKit con iPhone 13, solo toques y reloj
+  real (`probar.mjs`): **22 de 22** a 390, 1280 y 320 px. Capturas: prueba con GPS vivo, «GPS
+  perdido» tras 65 s sin ubicación, resumen de prueba con el hueco en medio; extra a 320 px.
+  Hallazgos al hacerla, ya resueltos en la maqueta:
+  1. A 320 px «PERDIDO» se salía de su casilla. Ya pasaba antes con «Buscando GPS» (18 px) y
+     «Sin permiso de GPS» (10 px), y el punto de color se aplastaba a 0 px: las reglas de la
+     barra para pantallas chicas estaban antes de la regla general y no aplicaban. Arreglo: se
+     movieron después (mismo selector, inventario: `.barra .gps` sale de la línea de `.cerca` y
+     queda en su propio bloque), letra de 11 px a ≤ 380 px, el punto no se aplasta y a ≤ 380 px
+     se oculta solo cuando el aviso es naranja (el texto ya es naranja). Medido a 320, 360 y
+     390 px: 0 px fuera en los tres avisos.
+  2. En el simulador (WebKit de Playwright) la hora de cada punto de GPS llega en el año 58872;
+     el «1 hueco» de la primera corrida salió por eso y no por medir (todos los puntos quedaban
+     fuera del viaje). Arreglo: si la hora del punto difiere más de un día del reloj del
+     teléfono, se usa la hora en que llegó. En el iPhone real la hora del punto debería ser
+     buena [sin verificar]; este cambio la deja igual si lo es. La prueba ahora exige el hueco
+     EN MEDIO, con señal antes y después (18 % · 64 % · 18 %).
