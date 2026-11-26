@@ -189,7 +189,8 @@ export function armarCampoApp() {
     rutas: rutas.map((r) => {
       const fuente = porSentido.get(r.route_id), c = porId.get(r.route_id);
       const puntos = new Map();
-      if (c && Array.isArray(c.cruces)) for (const x of c.cruces) if (x.lat != null && x.lon != null && !puntos.has(normaTexto(x.texto))) puntos.set(normaTexto(x.texto), x);
+      // D-76: los puntos del hallazgo b no entran a campo hasta la revisión de Miguel (fase 4 de R-03).
+      if (c && Array.isArray(c.cruces)) for (const x of c.cruces) if (x.lat != null && x.lon != null && x.metodo !== 'D-76' && !puntos.has(normaTexto(x.texto))) puntos.set(normaTexto(x.texto), x);
       const base = { route_id: r.route_id, numero: r.route_short_name, nombre: r.route_long_name, tipo: TIPOS[r.route_id.split('-')[0]] };
       const sent = {};
       for (const [s, letra] of SENTIDOS_CAMPO) {

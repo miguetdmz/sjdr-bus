@@ -2477,3 +2477,100 @@ Miguel).
   navegador y gitleaks sin secretos).
 - **Estado:** VIGENTE, construido. Falta subirlo (con el sí de Miguel), su merge y la prueba de
   Miguel en carro.
+
+## D-76 · 25 nov 2026 · R-03 fase 1 (hallazgo b): REFERENCIA contra los 294 lugares de OSM · VIGENTE (aprobada por Miguel con los ajustes A y B, 26 nov 2026, 1:31 pm)
+- **Tarea:** B3 · R-03 fase 1 (D-68). Rama del día `b3/r03-fase1` (D-73). Sin pantalla nueva
+  (D-54 no aplica): cambia un dato de investigación, no la app.
+- **Lo medido antes de escribir el criterio (Claude, 25 nov 2026, 11:49 pm; estándar 12):**
+  1. **Los números de D-68 ya no son los de hoy.** `datos/investigacion/cruces.json` trae 1,036
+     cruces de 20 rutas (D-68 decía 936 de 18; D-70 sumó listas) y **213 REFERENCIA, no 191**.
+  2. De las 213, **162 son «un negocio o lugar que OSM no tiene»**: ese es el universo del
+     hallazgo b. Las otras 51 no son negocios (45 calles sueltas, 6 laterales) y no se tocan.
+  3. Ya existen **3 UBICADO POR LUGAR** (IMSS UMF 7, rutas 001, 002 y 004), hechos con el
+     catálogo viejo de 80 lugares (`lugares.json`, 19 nov) y un tope de **300 m** a la calle.
+  4. **Medición preliminar (solo nombres, sin distancia a la calle; ESTIMADO):** 52 de las 162
+     tienen nombre parecido a uno de los 294 lugares (33 de ellos fuera del catálogo viejo).
+     Hay aciertos claros (Parque Las Garzas a 142 m de su vecino en la lista, Office Depot,
+     Primaria Jaime Torres Bodet, Hospital General) y falsos claros («SAN JUAN DEL RÍO» →
+     C.E.R.E.S.O., a 6.8 km de la ruta; «PLAZA PUNTA ORIENTE» → Plaza Punta Victoria). Por eso
+     la distancia a la calle es el filtro principal.
+  5. `scripts/datos-app.mjs` copia los puntos de `cruces.json` a `web/public/datos/campo.json`:
+     un punto nuevo cambiaría lo que muestra la página de campo, la que Miguel prueba el 26 nov.
+- **Criterio medible (escrito antes de construir; se construye con el sí de Miguel):**
+  1. **162 de 162** REFERENCIA de negocio salen con uno de tres estados y su motivo:
+     **UBICADO POR LUGAR** (punto nuevo), **DUDOSO** (va a Miguel) o siguen **REFERENCIA**
+     (ningún lugar parecido). Ninguna sin estado; la prueba compara contra la lista de hoy.
+  2. **Cero consultas nuevas:** solo los 294 lugares de `datos/cache/overpass/lugares-amplio.json`
+     (consulta del 22 nov, D-56) y las calles ya guardadas. Ningún archivo de `datos/cache/`
+     cambia (huella sha256 igual antes y después).
+  3. **Punto nuevo (UBICADO POR LUGAR)** solo si se cumplen las tres: (a) nombre: dos o más
+     palabras en común y al menos 60 % de las palabras de la referencia (la regla que ya usa
+     `scripts/cruces.mjs`); (b) **un solo** lugar que cumple; (c) el lugar queda a **≤ 150 m de
+     la calle OSM del cruce** (ESTIMADO, D-68). Cada punto guarda el nombre y el id del lugar en
+     OSM, su tipo, su distancia a la calle en metros y la marca ESTIMADO (no medido en campo).
+  4. **DUDOSO** (no se adivina): nombre parecido pero a más de 150 m, dos o más lugares que
+     cumplen, o una sola palabra en común (marcas como «WALMART»). Van a
+     `datos/investigacion/lugares-dudosos.json` en **orden de Pareto** (los que más veces
+     aparecen en las listas, primero; como D-43), con los candidatos y sus distancias. Miguel
+     decide cada uno; sin su respuesta siguen REFERENCIA.
+  5. **Nada más cambia** (lección 14): ningún UBICADO, APROXIMADO ni POR VERIFICAR se mueve; los
+     3 UBICADO POR LUGAR de hoy se quedan como están (su tope de 300 m no se revisa aquí); las 51
+     REFERENCIA que no son negocio no se tocan. La prueba compara cada cruce contra la versión
+     de `main`: el único cambio permitido es REFERENCIA de negocio → UBICADO POR LUGAR.
+  6. **La página de campo no cambia en esta fase:** `web/public/datos/campo.json` sale idéntico
+     (huella igual). Los puntos nuevos entran a campo hasta la fase 4 (revisión de Miguel).
+  7. **Lecciones 15 y 17:** cada prueba nueva se corre con el defecto puesto y debe fallar, con
+     la generación en código 0 antes de cada corrida: (a) un lugar a 400 m aceptado; (b) un
+     UBICADO movido; (c) «SAN JUAN DEL RÍO» → C.E.R.E.S.O. aceptado; (d) una REFERENCIA de
+     negocio sin estado; (e) con dos candidatos, se toma uno; (f) un punto nuevo que entra a
+     `campo.json`.
+  8. **Lección 5:** las pruebas pasan en una copia sin archivos ignorados y en UTC; `npm run
+     verificar` en código 0. Resultado con conteos: cuántos puntos nuevos, cuántos dudosos y
+     cuántos siguen REFERENCIA.
+- **Visual para decidir (pedido por Miguel, 26 nov 2026, 1:21 pm; hecho a la 1:26 pm):**
+  `docs/evidencia/d76/` (`candidatos.mjs` → `candidatos.json`, `mapa.html` y capturas a 390 y
+  1280 px con `capturas.mjs`). No cambia ningún dato. Resultado sobre las 162 (ESTIMADO):
+  **8 con punto nuevo** (2 paradas: Office Depot a 47 m de Avenida Central y Parque Las Garzas
+  a 97 m de Avenida Río Moctezuma, 4 veces cada una), **10 dudosas** (Walmart 122 m, Bodega
+  Aurrera 120 m, La Comer 112 m, Hospital General 130 m, Jaime Torres Bodet 178 m, Loma Alta
+  con 2 lugares), **13 lejanas** (> 300 m) y **128 siguen REFERENCIA** (ningún lugar parecido).
+  - **Hallazgo del visual:** el criterio 3 tal como está escrito **acepta un punto falso**:
+    «CARR. SAN JUAN DEL RÍO-JALPAN DE SERRA» (3 veces) → «Unidad Deportiva San Juan del Río» a
+    64 m, porque solo coinciden las palabras del nombre de la ciudad.
+  - **Ajustes propuestos (no aplicados; los decide Miguel):** (A) las palabras del nombre de la
+    ciudad (SAN, JUAN, RÍO, SJR, QUERÉTARO) no cuentan para el parecido; (B) un candidato a más
+    de 300 m de la calle no va a la lista de dudas: sigue REFERENCIA (hoy serían 13 preguntas
+    casi seguras de «no»).
+- **Aprobación (Miguel, 26 nov 2026, 1:31 pm: «Sí, con A y B»):** se construye con los dos
+  ajustes: (A) el nombre de la ciudad no cuenta para el parecido; (B) un candidato a más de
+  300 m sigue REFERENCIA y no se pregunta.
+- **Resultado (Claude, 26 nov 2026, 1:45 pm; rama `b3/r03-fase1`):**
+  1. `scripts/cruces.mjs` hace el hallazgo b al final, después de D-45 (los APROXIMADOS no
+     cambian: sus vecinos son los de antes). Escribe `datos/investigacion/lugares-dudosos.json`
+     (las 162 con estado y motivo, y los dudosos en orden de Pareto).
+  2. Criterio 1: **162 de 162** con estado: **8 UBICADO POR LUGAR** (Office Depot ×4, Parque Las
+     Garzas ×4), **8 DUDOSO** (5 paradas: Walmart ×3, Bodega Aurrera ×2, La Comer, Hospital
+     General, Primaria Jaime Torres Bodet a 178 m) y **146 siguen REFERENCIA**. `cruces.json`:
+     UBICADO POR LUGAR de 3 a 11, REFERENCIA de 213 a 205; todo lo demás igual.
+  3. **Dos diferencias con el visual, explicadas:** (a) el falso «Unidad Deportiva San Juan del
+     Río» no sale ni sin el ajuste A: `cruces.mjs` toma «JALPAN DE SERRA» como el negocio y el
+     visual había tomado el otro lado. El ajuste A queda de resguardo y se probó con ese caso
+     (defectos c y c2). (b) «Loma Alta» no queda dudosa: con el lado que toma `cruces.mjs`
+     («LOMA SECA PASEO LOMA ALTA») el parecido es de 50 %, menos del 60 %.
+  4. Criterio 2: cero consultas; `datos/cache/` con la misma huella sha256 antes y después.
+  5. Criterio 5: contra `origin/main`, deshaciendo los 8 puntos nuevos, `cruces.json` queda
+     idéntico (prueba nueva; en GitHub Actions se salta porque el clon es corto).
+  6. Criterio 6: `web/public/datos/campo.json` con la misma huella sha256 que antes
+     (`62129005…9a3c`); `scripts/datos-app.mjs` deja fuera los puntos con `metodo: D-76`.
+     `datos/investigacion/paradas-cruce.json` tampoco cambió.
+  7. Criterio 7 (lecciones 15 y 17): `docs/evidencia/d76/validar-defectos.mjs`, resultado en
+     `validar-defectos.txt`: los 6 defectos (a–f) hacen fallar al menos una prueba, con la
+     generación en código 0, y el control c2 pasa. **Falla encontrada al validar:** la primera
+     versión del guion restauraba en orden equivocado cuando un defecto cambiaba dos veces el
+     mismo archivo, y dejó el ajuste A desactivado en `cruces.mjs`. Lo delató el control c2 (y
+     los conteos que cambiaron). Arreglo: restaurar en orden inverso, y el guion compara al final
+     la huella de `cruces.mjs` y `datos-app.mjs` contra la de antes.
+- **Impacta:** R-03 (D-68 fase 1), `scripts/cruces.mjs`, `scripts/datos-app.mjs`,
+  `datos/investigacion/cruces.json`, `datos/investigacion/lugares-dudosos.json`.
+- **Estado:** VIGENTE, construido. Faltan: las respuestas de Miguel a los 5 dudosos, subirlo
+  (con su sí) y su merge.
