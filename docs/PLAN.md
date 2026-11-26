@@ -4,16 +4,16 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (25 nov 2026, 6:02 pm)
+## Estado actual (25 nov 2026, 8:30 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
-| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.5** (`6a7a6ca`, 25 nov 2026, 5:27 pm según GitHub): Miguel integró el PR 8 (R-03 paso 1 D-71, página de campo D-66 a D-69, carril único D-73). Verificado a las 5:31 pm: Actions y Vercel en verde, el sitio trae 42 rutas y `/campo.html` abre (sin enlace en la app). Antes: v0.4 (`972e832`, 25 nov), v0.3 (`7b20c7e`, 23 nov), v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | Ninguna. Rama del día: **`b3/d66-pendientes-campo`** (desde `main`, única rama de trabajo viva, D-73), con los 2 commits de relevo traídos por cherry-pick |
+| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.6** (`5067371`, 25 nov 2026, 6:33 pm según GitHub): Miguel integró el PR 9 «B3 · D-74 · Pendientes de campo por sentido». Verificado a las 6:36 pm: Actions y Vercel en verde; el sitio trae 42 rutas y `/campo.html` con 84 ruta-sentidos (768 paradas con punto) y «Más cercana». Antes: v0.5 (`6a7a6ca`, 25 nov), v0.4 (`972e832`, 25 nov), v0.3 (`7b20c7e`, 23 nov), v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
+| Versión en espera | **v0.7 · D-75 aviso de GPS vivo** en la página de campo (aprobada por Miguel a las 8:23 pm; construida y con la puerta en verde a las 8:30 pm), en la rama del día **`b3/r03-secuencias`**, por subir con el sí de Miguel. Miguel (8:23 pm): **es el último cambio a la página de campo**; después se vuelve a los pasos originales (R-03) |
 | Bloque en curso | **B3 · Trazos**: un solo plan (D-68, ajustado por D-69 y D-71) con R-03 y los pendientes de D-66 |
-| Tarea en curso | **B3 · D-74 · Pendientes de campo (a–d): CONSTRUIDOS** (maqueta aprobada por Miguel a las 5:51 pm): lista oficial por sentido con P- e identificador (R11-I-07), primera pregunta = parada 1 del sentido, «Más cercana», modo prueba CORRESPONDE / NO CORRESPONDE / SIN CALIFICACIÓN. Puerta de calidad: TODO PASÓ (6:02 pm). Falta: subir con el sí de Miguel, integrar (D-73) y su prueba en el iPhone antes del lunes 30. Hallazgo: solo 768 de 2,203 paradas tienen punto (44 de 84 ruta-sentidos sin ninguno) |
+| Tarea en curso | **B3 · R-03 fases 1, 3 y 4** (paso 3 del orden del 25 nov, 12:57 am): hallazgo b, secuencias por sentido (hasta 84) y revisión de Miguel. **D-74 publicada en v0.6**; falta la prueba de Miguel en su iPhone antes del lunes 30 |
 | Hecho antes | **B3 · R-03 paso 1 · Paradas oficiales por sentido** (D-71, 25 nov): 84 de 84 ruta-sentidos con datos, publicado en v0.5. **D-66 · Página de campo** publicada en v0.5 sin enlace; falta la prueba de Miguel en su iPhone |
 | Tarea en pausa | Ninguna |
 | Pendiente registrado | **D-72 PROPUESTA** (Miguel, 3:46 a 3:55 pm): «Calcula tu ruta» confusa (A: una sola parada recomendada; B: indicaciones; C: siguiente camión ESTIMADO) y teclado con el teléfono acostado (D). A y D con maqueta primero después del paso 1, probando antes la app como usuario |
@@ -31,7 +31,22 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (25 nov 2026, 6:02 pm)
+### Relevo para la siguiente sesión (25 nov 2026, 6:36 pm)
+
+0. **25 nov, tarde:** D-74 (pendientes de campo a–d) aprobada en maqueta (5:51 pm), construida
+   y publicada en **v0.6** (PR 9, 6:33 pm; verificada a las 6:36 pm). Rama `b3/r03-secuencias`
+   creada desde `main` solo con este relevo (sin subir).
+1. **Miguel, antes del lunes 30:** probar `sjdrbus-sjr.vercel.app/campo.html` en su iPhone: una
+   ruta caminando y una «Prueba en carro» casa → trabajo (teléfono fijo, sin tocarlo).
+2. **Siguiente (chat nuevo):** R-03 fase 1 (hallazgo b) con criterio medible antes de construir,
+   en `b3/r03-secuencias`. D-72 A y D después, en su propia rama, con el sí de Miguel.
+3. **Limpieza pendiente (con el sí de Miguel):** ramas locales viejas (`b3/d66-campo`,
+   `b3/r03-cruces`, 7 `cierre/*`, `noche/2026-11-19`, `archivo-main`, `b3/r03-paradas-oficiales`,
+   `b3/d66-pendientes-campo`) y 7 en GitHub (más `b3/d66-pendientes-campo`). Borrar ramas está
+   negado a Claude sin ese sí (el candado lo frenó al cerrar D-74).
+4. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+
+### Relevo anterior (25 nov 2026, 6:02 pm)
 
 0. **D-74 construida** en `b3/d66-pendientes-campo` (sin subir): `campo.html` por sentido y
    `campo.json` nuevo. Pruebas nuevas validadas con 5 defectos puestos; prueba de usuario en

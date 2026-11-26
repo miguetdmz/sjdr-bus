@@ -251,3 +251,60 @@ for (const [w, h] of [[320, 640], [1280, 800]]) {
     expect(await sinScrollDeLado(page)).toBe(0);
   });
 }
+
+// D-75 (maqueta docs/maquetas/d75-gps/, aprobada el 25 nov 2026): aviso de GPS vivo.
+// El reloj se simula (page.clock) para no esperar 60 s reales.
+const REGp = REG.filter((p) => p.lat != null && p.orden > 5); // paradas con punto después de la 5
+test('c15 (D-75): en la prueba el conteo de puntos se ve y tras más de 60 s sin ubicación la barra dice «GPS perdido»', async ({ page, context }) => {
+  await context.setGeolocation(g(P(REG, 5)));
+  await page.clock.install();
+  await abrir(page);
+  await iniciar(page, 'U-011', 'REGRESO', true);
+  await expect(page.locator('#pulso')).toContainText(/punto.* de GPS · último hace \d+ s/i);
+  await expect(page.locator('#gps')).not.toHaveClass(/mal/);
+  await page.clock.fastForward(65_000);
+  await expect(page.locator('#gps')).toHaveText(/GPS perdido/i);
+  await expect(page.locator('#gps')).toHaveClass(/mal/);
+  await expect(page.locator('#pulso')).toHaveClass(/mal/);
+  await context.setGeolocation(g(REGp[0])); // vuelve la señal
+  await expect(page.locator('#gps')).not.toHaveClass(/mal/);
+});
+
+test('c16 (D-75): el resumen de la prueba muestra los huecos del GPS igual que el del recorrido', async ({ page }) => {
+  await abrir(page);
+  const t = (s) => new Date(Date.UTC(2026, 10, 30, 18, 0, s)).toISOString();
+  const con = REG.filter((p) => p.lat != null && p.orden >= 5 && p.orden <= 24);
+  const trazo = con.map((p, k) => ({ lat: p.lat, lon: p.lon, prec: 5, t: t(k < 7 ? k * 5 : 100 + k * 5) }));
+  const viaje = { id: 'chueco', route_id: 'U-011', sentido: 'REGRESO', prueba: true, desde: REG[0].nombre, hacia: REG.at(-1).nombre, inicio: t(0), fin: trazo.at(-1).t, actual: 1, respuestas: [], trazo };
+  await page.evaluate((v) => localStorage.setItem('sjdrbus.campo.v1', JSON.stringify({ viajes: [v], abierto: v.id })), viaje);
+  await page.reload();
+  await expect(page.locator('.veredicto b')).toHaveText('CORRESPONDE');
+  await expect(page.locator('.huecos')).toContainText(/GPS: 1 hueco/i);
+  await expect(page.locator('.barrag .h')).toHaveCount(1);
+});
+
+test('c17 (D-75): cada punto guardado lleva una hora creíble (el simulador manda horas del año 58872)', async ({ page, context }) => {
+  await context.setGeolocation(g(P(REG, 5)));
+  // Como el WebKit de Playwright: cada ubicación llega con la hora multiplicada por 1000 (año 58872).
+  // Chromium manda la hora bien, así que la hora mala se pone a propósito.
+  await page.addInitScript(() => { const w = navigator.geolocation.watchPosition.bind(navigator.geolocation);
+    navigator.geolocation.watchPosition = (ok, mal, o) => w((p) => ok({ coords: p.coords, timestamp: p.timestamp * 1000 }), mal, o); });
+  await abrir(page);
+  await iniciar(page, 'U-011', 'REGRESO', true);
+  await context.setGeolocation(g(REGp[0])); await page.waitForTimeout(3100);
+  await context.setGeolocation(g(REGp[1])); await page.waitForTimeout(500);
+  const v = await guardado(page);
+  expect(v.trazo.length).toBeGreaterThanOrEqual(2);
+  for (const p of v.trazo) expect(Math.abs(Date.parse(p.t) - Date.now())).toBeLessThan(5 * 60_000);
+});
+
+test('c18 (D-75): a 320 px, caminando, «GPS perdido» cabe en su casilla', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.clock.install();
+  await abrir(page);
+  await iniciar(page, 'U-011');
+  await page.clock.fastForward(65_000);
+  await expect(page.locator('#gps')).toHaveText(/GPS perdido/i);
+  expect(await page.evaluate(() => { const e = document.querySelector('#gps'); return e.scrollWidth - e.clientWidth; })).toBeLessThanOrEqual(0);
+  expect(await sinScrollDeLado(page)).toBe(0);
+});
