@@ -42,7 +42,7 @@ svg.i{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.4;stro
 .cerca svg.i{width:18px;height:18px}
 .cerca.off{color:var(--gris)}
 .cerca.tag{color:var(--mostaza)}
-@media(max-width:380px){.cerca{padding:0 8px;font-size:11px;line-height:1.1;gap:5px}.cerca .t{width:min-content}.barra .gps{padding:0 8px;gap:6px}}
+@media(max-width:380px){.cerca{padding:0 8px;font-size:11px;line-height:1.1;gap:5px}.cerca .t{width:min-content}}
 .parada .ids{grid-column:2;font-family:var(--pixel);font-size:13px;font-weight:700;letter-spacing:.02em;opacity:.8}
 .sentidos button small{display:block;font-family:var(--pixel);font-size:11px;font-weight:700;text-transform:uppercase;opacity:.75;margin-top:2px}
 .sentidos button[data-s]{flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
@@ -54,6 +54,7 @@ svg.i{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.4;stro
 .prueba .px{color:var(--mostaza)}
 .prueba b{display:block;font-weight:900;font-size:64px;line-height:1;margin:10px 0 4px}
 .prueba p{margin:6px 0 0;color:var(--suave)}
+.prueba .pulso{margin-top:10px;font-size:11px;color:var(--verde)}.prueba .pulso.mal{color:var(--naranja)}
 .veredicto{padding:16px 14px;border-bottom:1px solid var(--linea);color:#08140a;background:var(--verde)}
 .veredicto.no{background:var(--naranja);color:#1a0c02}
 .veredicto.sin{background:var(--gris);color:var(--tinta)}
@@ -62,9 +63,12 @@ svg.i{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.4;stro
 .veredicto small{display:block;margin-top:6px;font-family:var(--pixel);font-size:11px;text-transform:uppercase;opacity:.85}
 .barra .ruta{font-weight:900;font-size:26px;padding:8px 14px;border-right:1px solid var(--linea);line-height:1}
 .barra .gps{display:flex;align-items:center;gap:8px;padding:0 12px;color:var(--verde)}
-.barra .gps i{width:10px;height:10px;background:var(--verde);box-shadow:0 0 0 4px rgba(47,174,42,.25)}
+.barra .gps i{flex:none;width:10px;height:10px;background:var(--verde);box-shadow:0 0 0 4px rgba(47,174,42,.25)}
 .barra .gps.mal{color:var(--naranja)}.barra .gps.mal i{background:var(--naranja);box-shadow:none}
 .barra .gps.quieto{color:var(--suave)}.barra .gps.quieto i{display:none}
+/* D-75: van después de .barra .gps para que sí apliquen; el aviso cabe en su casilla a 390 y 320 px */
+@media(max-width:400px){.barra .gps{padding:0 10px}}
+@media(max-width:380px){.barra .gps{padding:0 6px;gap:5px;font-size:11px;line-height:1.1}.barra .gps.mal i{display:none}}
 .franjas{display:flex;width:56px;border-left:1px solid var(--linea)}
 .franjas i{flex:1}.franjas i:nth-child(1){background:var(--cian)}.franjas i:nth-child(2){background:var(--verde);flex:.3}.franjas i:nth-child(3){background:var(--mostaza)}.franjas i:nth-child(4){background:var(--naranja)}.franjas i:nth-child(5){background:var(--rosa)}
 .metro{position:relative;display:flex;justify-content:space-between;align-items:center;padding:16px 18px 10px;border-bottom:1px solid var(--linea)}
@@ -198,7 +202,7 @@ const ICONO = { si: 'si', posible: 'lapiz', otro: 'cruce', salto: 'salta', nueva
 const SENTIDOS = ['IDA', 'REGRESO'];
 
 let RUTAS = [], FUENTE = '', S = { viajes: [] }, borrar = null, hoja = null, marca = null;
-let eleccion = { ruta: '', sentido: 'IDA', prueba: false }, pos = null, gpsEstado = 'buscando', watch = null, candado = null;
+let eleccion = { ruta: '', sentido: 'IDA', prueba: false }, pos = null, gpsEstado = 'buscando', watch = null, candado = null, ultimo = 0;
 try { const g = JSON.parse(localStorage.getItem(CLAVE)); if (g && Array.isArray(g.viajes)) S = g; } catch {}
 const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify(S)); } catch { aviso('Sin espacio en el teléfono', 'aviso'); } };
 const actual = () => S.viajes.find((v) => v.id === S.abierto);
@@ -241,8 +245,11 @@ function arrancarGPS() {
   if (watch != null) return;
   if (!('geolocation' in navigator)) { gpsEstado = 'sin'; pintarBarra(); return; }
   watch = navigator.geolocation.watchPosition((p) => {
-    pos = { lat: p.coords.latitude, lon: p.coords.longitude, prec: Math.round(p.coords.accuracy), t: new Date(p.timestamp).toISOString() };
-    gpsEstado = 'ok';
+    // D-75: si la hora del punto no es creíble (más de un día de diferencia con el reloj del teléfono),
+    // se usa la hora en que llegó; sin esto los huecos del GPS no se pueden calcular.
+    const t = Math.abs(p.timestamp - Date.now()) < 864e5 ? p.timestamp : Date.now();
+    pos = { lat: p.coords.latitude, lon: p.coords.longitude, prec: Math.round(p.coords.accuracy), t: new Date(t).toISOString() };
+    gpsEstado = 'ok'; ultimo = Date.now();
     const v = actual();
     if (v && !v.fin) {
       const u = v.trazo[v.trazo.length - 1];
@@ -254,11 +261,21 @@ function arrancarGPS() {
 }
 function pintarBarra() {
   const g = $('#gps'); if (!g) return; const v = actual();
+  const u = $('#pulso'); if (u && v) u.outerHTML = pulsoHTML(v);
   if (v && v.fin) { g.className = 'gps px quieto'; g.textContent = `${hhmm(v.inicio)} → ${hhmm(v.fin)}`; return; }
-  const sin = gpsEstado !== 'ok' || !pos;
-  g.className = 'gps px' + (sin ? ' mal' : '');
-  g.innerHTML = `<i></i>${sin ? (gpsEstado === 'negado' ? 'Sin permiso de GPS' : 'Buscando GPS') : hhmm(new Date().toISOString())}`;
+  // D-75: verde solo si la última ubicación llegó hace HUECO_S o menos; si no, «GPS perdido».
+  const vivo = gpsEstado === 'ok' && pos && Date.now() - ultimo <= HUECO_S * 1000;
+  const perdido = !vivo && pos && gpsEstado !== 'negado';
+  g.className = 'gps px' + (vivo ? '' : ' mal');
+  g.innerHTML = `<i></i>${vivo ? hhmm(new Date().toISOString()) : perdido ? 'GPS perdido' : gpsEstado === 'negado' ? 'Sin permiso de GPS' : 'Buscando GPS'}`;
   const c = $('#cerca'); if (c && v && !v.prueba) c.classList.toggle('off', !(pos && conPunto(listaDe(v))));
+}
+// D-75: en la prueba, cuántos puntos van y hace cuánto llegó la última ubicación.
+function pulsoHTML(v) {
+  const n = v.trazo.length, pts = `${n} punto${n === 1 ? '' : 's'} de GPS`;
+  if (!ultimo) return `<p class="pulso px mal" id="pulso">${pts} · esperando ubicación</p>`;
+  const s = Math.round((Date.now() - ultimo) / 1000);
+  return `<p class="pulso px${s > HUECO_S ? ' mal' : ''}" id="pulso">${pts} · último hace ${s} s</p>`;
 }
 function distanciaHTML(v) {
   const of = paradaActual(v);
@@ -338,7 +355,7 @@ const tarjeta = (v, of) => `<div class="parada"><span class="no">${of.orden}</sp
 function vistaPrueba(v) {
   const ruta = rutaDe(v), q = calificar({ ...v });
   return `<div class="tel"><div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px" id="gps"></span><span class="cerca tag px">Prueba</span>${franjas}</div>
-    <div class="prueba"><span class="px">No toques el teléfono manejando</span><b>${q.cerca}</b><span class="px" style="color:var(--suave)">paradas cerca de tu camino</span>
+    <div class="prueba"><span class="px">No toques el teléfono manejando</span><b>${q.cerca}</b><span class="px" style="color:var(--suave)">paradas cerca de tu camino</span>${pulsoHTML(v)}
     <p>${esc(v.desde)} → ${esc(v.hacia)}</p><p class="px" style="font-size:11px">${conPunto(listaDe(v))} de ${listaDe(v).length} paradas del sentido tienen punto</p></div>
     <div class="pie"><button class="px" data-a="volver-prueba">${ic('atras')}Viajes</button><button class="px" data-a="terminar">${ic('fin')}Terminar</button></div></div>`;
 }
@@ -369,6 +386,16 @@ function vistaViaje(v) {
     <button class="aqui" data-a="nueva">${ic('pinmas')}<span class="px">Parada aquí</span></button>${pie}</div>`;
 }
 
+// Huecos del GPS: el mismo bloque en el resumen del recorrido y en el de la prueba (D-75).
+function huecosHTML(v) {
+  const ini = Date.parse(v.inicio), fin = Date.parse(v.fin ?? v.inicio), hs = v.fin ? huecos(v) : [];
+  let barra = '', t0 = ini;
+  for (const [a, b] of hs) { barra += `<i style="flex:${Math.max(1, a - t0)}"></i><i class="h" style="flex:${b - a}"></i>`; t0 = b; }
+  barra += `<i style="flex:${Math.max(1, fin - t0)}"></i>`;
+  return `<div class="huecos"><span class="px${hs.length ? '' : ' bien'}">${ic(hs.length ? 'aviso' : 'si')}GPS: ${hs.length ? `${hs.length} hueco${hs.length > 1 ? 's' : ''}` : 'sin huecos'}</span>
+      <div class="barrag">${barra}</div><div class="horas"><span>${hhmm(v.inicio)}</span>${hs.map(([a]) => `<span>${hhmm(new Date(a).toISOString())}</span>`).join('')}<span>${v.fin ? hhmm(v.fin) : '—'}</span></div></div>`;
+}
+
 function vistaResumenPrueba(v) {
   const ruta = rutaDe(v), q = calificar(v), pc = q.tramo ? Math.round((100 * q.cerca) / q.tramo) : 0;
   const titulo = q.estado === 'si' ? 'CORRESPONDE' : q.estado === 'no' ? 'NO CORRESPONDE' : 'SIN CALIFICACIÓN';
@@ -376,6 +403,7 @@ function vistaResumenPrueba(v) {
   return `<div class="tel">
     <div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px quieto" id="gps"></span><span class="cerca tag px">Prueba</span>${franjas}</div>
     <div class="veredicto ${q.estado === 'si' ? '' : q.estado}"><b>${titulo}</b><span>${esc(cuenta)}</span><small>Prueba · no es medición de campo · umbral ${Math.round(UMBRAL * 100)} % y ${MINIMO} paradas: ESTIMADO</small></div>
+    ${huecosHTML(v)}
     <div class="titulo px">${esc(v.desde)} → ${esc(v.hacia)}</div>
     <ul class="linea">${q.filas.map((f) => `<li class="${f.d <= REVISAR_M ? 'si' : 'salto'}"><i></i><span class="n">${f.p.orden} · ${esc(f.p.nombre.split(' – ').pop())}</span><span class="m${f.d > REVISAR_M ? ' lejos' : ''}">${f.d} m</span></li>`).join('')}</ul>
     <button class="exportar px" data-a="exportar">${ic('sube')}Exportar</button>
@@ -386,10 +414,6 @@ function vistaResumenPrueba(v) {
 function vistaResumen(v) {
   if (v.prueba) return vistaResumenPrueba(v);
   const ruta = rutaDe(v), c = (e) => v.respuestas.filter((r) => r.estado === e).length;
-  const ini = Date.parse(v.inicio), fin = Date.parse(v.fin ?? v.inicio), hs = v.fin ? huecos(v) : [];
-  let barra = '', t0 = ini;
-  for (const [a, b] of hs) { barra += `<i style="flex:${Math.max(1, a - t0)}"></i><i class="h" style="flex:${b - a}"></i>`; t0 = b; }
-  barra += `<i style="flex:${Math.max(1, fin - t0)}"></i>`;
   const fila = (r, k) => {
     const lado = r.estado === 'nueva' || r.estado === 'posible'
       ? `<input data-k="${k}" value="${esc(r.nombre)}" placeholder="Ponle nombre" aria-label="Nombre de la parada">`
@@ -403,8 +427,7 @@ function vistaResumen(v) {
       <div class="c-si">${ic('si')}<b>${c('si')}</b></div><div class="c-ren">${ic('lapiz')}<b>${c('posible')}</b></div>
       <div class="c-salto">${ic('salta')}<b>${c('salto')}</b></div><div class="c-nueva">${ic('pinmas')}<b>${c('nueva')}</b></div>
     </div>
-    <div class="huecos"><span class="px${hs.length ? '' : ' bien'}">${ic(hs.length ? 'aviso' : 'si')}GPS: ${hs.length ? `${hs.length} hueco${hs.length > 1 ? 's' : ''}` : 'sin huecos'}</span>
-      <div class="barrag">${barra}</div><div class="horas"><span>${hhmm(v.inicio)}</span>${hs.map(([a]) => `<span>${hhmm(new Date(a).toISOString())}</span>`).join('')}<span>${v.fin ? hhmm(v.fin) : '—'}</span></div></div>
+    ${huecosHTML(v)}
     <ul class="linea">${v.respuestas.map(fila).join('')}</ul>
     <button class="exportar px" data-a="exportar">${ic('sube')}Exportar</button>
     <div class="pie"><button class="px" data-a="volver">${ic('atras')}Viajes</button>${esViejo(v) ? '<button class="px" disabled>Versión anterior</button>' : `<button class="px" data-a="reabrir">${ic('deshacer')}Seguir viaje</button>`}</div>
@@ -416,7 +439,7 @@ function pintar() {
   $('#vista').innerHTML = !v ? vistaInicio() : v.fin || esViejo(v) ? vistaResumen(v) : vistaViaje(v);
   pintarBarra(); const n = $('#nombre'); if (n) { n.focus(); n.select(); }
 }
-setInterval(() => { const v = actual(); if (v && !v.fin) pintarBarra(); }, 15000);
+setInterval(() => { const v = actual(); if (v && !v.fin) pintarBarra(); }, 5000);
 
 async function exportar(v) {
   const ruta = rutaDe(v);

@@ -2414,7 +2414,7 @@ Miguel).
 - **Estado:** VIGENTE, construido. Falta la puerta de calidad, subir (con el sí de Miguel) y la
   prueba de Miguel en su iPhone antes del lunes 30.
 
-## D-75 · 25 nov 2026 · Aviso de GPS vivo en la página de campo (prueba en carro): criterio medible · PROPUESTA (Miguel pidió hacerlo hoy a las 8:10 pm)
+## D-75 · 25 nov 2026 · Aviso de GPS vivo en la página de campo (prueba en carro): criterio medible · VIGENTE (maqueta aprobada por Miguel el 25 nov, 8:23 pm)
 - **Tarea:** B3 · D-66 · ajuste de `web/public/campo.html` antes de la prueba en carro de Miguel
   del 26 nov 2026. Rama del día `b3/r03-secuencias` (D-73). Maqueta primero (D-54):
   `docs/maquetas/d75-gps/`.
@@ -2463,3 +2463,17 @@ Miguel).
      teléfono, se usa la hora en que llegó. En el iPhone real la hora del punto debería ser
      buena [sin verificar]; este cambio la deja igual si lo es. La prueba ahora exige el hueco
      EN MEDIO, con señal antes y después (18 % · 64 % · 18 %).
+- **Aprobación (Miguel, 25 nov 2026, 8:23 pm: «Sí, construye… es tu último cambio»):** maqueta
+  aprobada. Miguel cierra aquí los cambios a la página de campo: lo siguiente son los pasos
+  originales (R-03 fase 1).
+- **Construido (Claude, 25 nov 2026, 8:30 pm; rama `b3/r03-secuencias`):** `web/public/campo.html`
+  es idéntico a la maqueta probada (y la compilación `web/dist/campo.html` también). Pruebas
+  nuevas c15 a c18 en `pruebas-navegador/d66.spec.mjs`. Lecciones 15 y 17
+  (`docs/evidencia/d75/validar-defectos.mjs`): con cada defecto puesto y compilación en código
+  0, fallan sus pruebas en los 4 casos (barra sin edad, resumen sin huecos, hora del punto sin
+  revisar, reglas de 320 px sin aplicar). La primera versión de c17 pasaba con el defecto
+  puesto, porque las pruebas corren en Chromium, que manda bien la hora; ahora pone a propósito
+  la hora mala y sí lo ve. Puerta `npm run verificar`: código 0 (190 pruebas de node, 111 de
+  navegador y gitleaks sin secretos).
+- **Estado:** VIGENTE, construido. Falta subirlo (con el sí de Miguel), su merge y la prueba de
+  Miguel en carro.

@@ -4,14 +4,14 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (25 nov 2026, 6:36 pm)
+## Estado actual (25 nov 2026, 8:30 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.6** (`5067371`, 25 nov 2026, 6:33 pm según GitHub): Miguel integró el PR 9 «B3 · D-74 · Pendientes de campo por sentido». Verificado a las 6:36 pm: Actions y Vercel en verde; el sitio trae 42 rutas y `/campo.html` con 84 ruta-sentidos (768 paradas con punto) y «Más cercana». Antes: v0.5 (`6a7a6ca`, 25 nov), v0.4 (`972e832`, 25 nov), v0.3 (`7b20c7e`, 23 nov), v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | Ninguna. Rama del día: **`b3/r03-secuencias`** (desde `main`, solo con este relevo, sin subir) |
+| Versión en espera | **v0.7 · D-75 aviso de GPS vivo** en la página de campo (aprobada por Miguel a las 8:23 pm; construida y con la puerta en verde a las 8:30 pm), en la rama del día **`b3/r03-secuencias`**, por subir con el sí de Miguel. Miguel (8:23 pm): **es el último cambio a la página de campo**; después se vuelve a los pasos originales (R-03) |
 | Bloque en curso | **B3 · Trazos**: un solo plan (D-68, ajustado por D-69 y D-71) con R-03 y los pendientes de D-66 |
 | Tarea en curso | **B3 · R-03 fases 1, 3 y 4** (paso 3 del orden del 25 nov, 12:57 am): hallazgo b, secuencias por sentido (hasta 84) y revisión de Miguel. **D-74 publicada en v0.6**; falta la prueba de Miguel en su iPhone antes del lunes 30 |
 | Hecho antes | **B3 · R-03 paso 1 · Paradas oficiales por sentido** (D-71, 25 nov): 84 de 84 ruta-sentidos con datos, publicado en v0.5. **D-66 · Página de campo** publicada en v0.5 sin enlace; falta la prueba de Miguel en su iPhone |
