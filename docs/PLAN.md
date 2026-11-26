@@ -4,7 +4,7 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (25 nov 2026, 5:31 pm)
+## Estado actual (25 nov 2026, 6:02 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
@@ -13,7 +13,7 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 | Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.5** (`6a7a6ca`, 25 nov 2026, 5:27 pm según GitHub): Miguel integró el PR 8 (R-03 paso 1 D-71, página de campo D-66 a D-69, carril único D-73). Verificado a las 5:31 pm: Actions y Vercel en verde, el sitio trae 42 rutas y `/campo.html` abre (sin enlace en la app). Antes: v0.4 (`972e832`, 25 nov), v0.3 (`7b20c7e`, 23 nov), v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
 | Versión en espera | Ninguna. Rama del día: **`b3/d66-pendientes-campo`** (desde `main`, única rama de trabajo viva, D-73), con los 2 commits de relevo traídos por cherry-pick |
 | Bloque en curso | **B3 · Trazos**: un solo plan (D-68, ajustado por D-69 y D-71) con R-03 y los pendientes de D-66 |
-| Tarea en curso | **B3 · D-66 · Pendientes de campo (paso 2 del orden)**: (a) primera pregunta = inicio del sentido; (b) botón «Más cercana»; (c) modo prueba CORRESPONDE / NO CORRESPONDE; (d) número oficial P- e identificador simple por sentido (de `paradas-sentido.json`, D-71); (e) foto sigue IDEA. Maqueta primero (D-54), para el recorrido del lunes 30 nov |
+| Tarea en curso | **B3 · D-74 · Pendientes de campo (a–d): CONSTRUIDOS** (maqueta aprobada por Miguel a las 5:51 pm): lista oficial por sentido con P- e identificador (R11-I-07), primera pregunta = parada 1 del sentido, «Más cercana», modo prueba CORRESPONDE / NO CORRESPONDE / SIN CALIFICACIÓN. Puerta de calidad: TODO PASÓ (6:02 pm). Falta: subir con el sí de Miguel, integrar (D-73) y su prueba en el iPhone antes del lunes 30. Hallazgo: solo 768 de 2,203 paradas tienen punto (44 de 84 ruta-sentidos sin ninguno) |
 | Hecho antes | **B3 · R-03 paso 1 · Paradas oficiales por sentido** (D-71, 25 nov): 84 de 84 ruta-sentidos con datos, publicado en v0.5. **D-66 · Página de campo** publicada en v0.5 sin enlace; falta la prueba de Miguel en su iPhone |
 | Tarea en pausa | Ninguna |
 | Pendiente registrado | **D-72 PROPUESTA** (Miguel, 3:46 a 3:55 pm): «Calcula tu ruta» confusa (A: una sola parada recomendada; B: indicaciones; C: siguiente camión ESTIMADO) y teclado con el teléfono acostado (D). A y D con maqueta primero después del paso 1, probando antes la app como usuario |
@@ -31,7 +31,17 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (25 nov 2026, 5:31 pm)
+### Relevo para la siguiente sesión (25 nov 2026, 6:02 pm)
+
+0. **D-74 construida** en `b3/d66-pendientes-campo` (sin subir): `campo.html` por sentido y
+   `campo.json` nuevo. Pruebas nuevas validadas con 5 defectos puestos; prueba de usuario en
+   WebKit con iPhone 17 de 17; puerta de calidad TODO PASÓ.
+1. **Miguel:** dar el sí para subir la rama y abrir su PR; integrarlo (D-73); después probar
+   `/campo.html` en su iPhone (una ruta caminando y una «Prueba en carro»), antes del lunes 30.
+2. Lo demás como en el relevo de las 5:31 pm (limpieza de ramas con su sí; R-03 fases 1, 3 y 4;
+   D-72 A y D en su propia rama).
+
+### Relevo anterior (25 nov 2026, 5:31 pm)
 
 0. **25 nov, 5:27 pm:** Miguel integró el PR 8 → **v0.5 publicada** (Actions y Vercel en verde,
    42 rutas, `/campo.html` abre). Rama del día `b3/d66-pendientes-campo` desde `main`, con

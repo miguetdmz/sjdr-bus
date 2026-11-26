@@ -2336,7 +2336,7 @@ Miguel).
      cosecha y su propuesta a `standards.md` (no se sube sin el sí de Miguel).
 - **Impacta:** D-44, D-47, D-66, lección 12, lección 18, estándar 13.
 
-## D-74 · 25 nov 2026 · Pendientes de campo (a–d) con la lista oficial por sentido: criterio medible · PROPUESTA (orden aprobado por Miguel el 25 nov, 12:57 am)
+## D-74 · 25 nov 2026 · Pendientes de campo (a–d) con la lista oficial por sentido: criterio medible · VIGENTE (maqueta aprobada por Miguel el 25 nov, 5:51 pm)
 - **Tarea:** B3 · D-66 · pendientes (a) a (d) de D-68 y D-69 para `web/public/campo.html`, por el
   recorrido del lunes 30 nov 2026. (e) foto de la parada sigue IDEA. Rama del día
   `b3/d66-pendientes-campo` (D-73). Maqueta primero (D-54): `docs/maquetas/d66-pendientes/`.
@@ -2392,4 +2392,24 @@ Miguel).
   inicio; a 320 px «Más cercana» tapaba la hora (la medición daba falla antes del arreglo y pasa
   después). Ojo: el veredicto de la captura sale 14 de 14 porque la simulación pasa justo por
   cada parada; en la calle habrá diferencias.
-- **Estado:** PROPUESTA. Maqueta lista; se construye con el sí de Miguel.
+- **Aprobación (Miguel, 25 nov 2026, 5:51 pm: «Sí, constrúyela»):** maqueta aprobada con el
+  umbral propuesto (80 % y 5 paradas, ESTIMADO) y el estado SIN CALIFICACIÓN.
+- **Construido (Claude, 25 nov 2026, 5:59 pm; rama `b3/d66-pendientes-campo`):**
+  1. `scripts/datos-app.mjs` arma `datos/campo.json` por sentido: 84 de 84 ruta-sentidos con
+     lista, 768 paradas con punto. `web/public/campo.html` = la maqueta aprobada, con la misma
+     llave de guardado que antes (los viajes del teléfono no se pierden) y los viajes de antes de
+     D-74 (sin sentido) solo para leer y exportar (criterio 7).
+  2. Pruebas: `scripts/pruebas/campo-sentido.test.mjs` (3, sin archivos generados) y
+     `pruebas-navegador/d66.spec.mjs` reescrita para D-74 (16). La v3 «empieza en la más
+     cercana» y la lista mezclada ya no existen; sus pruebas se cambiaron por las de (a)–(d).
+  3. Criterio 9 (lecciones 15 y 17, `docs/evidencia/d74/validar-defectos.mjs`): con cada defecto
+     puesto y la compilación en código 0, fallan las pruebas en los 5 casos (vuelta copiada de la
+     ida, primera pregunta por GPS, «Más cercana» hacia una parada sin punto, veredicto sin tramo
+     mínimo, barra encimada a 320 px). Todo restaurado.
+  4. Criterio 8: prueba de usuario en WebKit con iPhone 13 sobre lo compilado
+     (`docs/evidencia/d74/probar-iphone.mjs`): **17 de 17**; las 14 capturas a 390 y 1280 px miden
+     igual que las de la maqueta.
+  5. Los guiones viejos de `docs/evidencia/d66/` leen el formato anterior de `campo.json`: quedan
+     como evidencia de la v3 y ya no corren.
+- **Estado:** VIGENTE, construido. Falta la puerta de calidad, subir (con el sí de Miguel) y la
+  prueba de Miguel en su iPhone antes del lunes 30.

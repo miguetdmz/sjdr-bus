@@ -7,12 +7,13 @@
 <meta name="theme-color" content="#17160f" />
 <title>Recorrido de campo · SJDR Bus (herramienta de trabajo)</title>
 <!--
-  D-66 · HERRAMIENTA DE TRABAJO, no es parte de la app: nada la enlaza. Construida igual a
-  la maqueta v3 aprobada por Miguel (docs/maquetas/d66-gps/, 24 nov 2026, 12:16 am): la
-  pregunta sigue al GPS (empieza en la parada oficial más cercana y ofrece la de enfrente),
-  «No la vi», «Parada aquí» al instante con nombre después, y huecos del GPS en el resumen.
-  Lista oficial por ruta: datos/campo.json (sale de datos/investigacion/cruces.json, lista
-  oficial de la AMEQ). GPS del teléfono solo con la página abierta; todo se guarda en el
+  D-66 · HERRAMIENTA DE TRABAJO, no es parte de la app: nada la enlaza. Versión D-74 (maqueta
+  docs/maquetas/d66-pendientes/, aprobada por Miguel el 25 nov 2026, 5:51 pm): lista oficial
+  POR SENTIDO con número P- e identificador (R11-I-07), la primera pregunta es la parada 1 del
+  sentido, botón «Más cercana» y modo prueba con veredicto. Antes (v3, d66-gps): «enfrente»,
+  «No la vi», «Parada aquí» al instante, huecos del GPS.
+  Lista: datos/campo.json (texto de paradas-sentido.json; punto solo con texto idéntico de la
+  lista general de la misma ruta). GPS solo con la página abierta; todo se guarda en el
   teléfono (localStorage) y se exporta a mano (JSON). Sin mapas en vivo ni fuentes externas
   (reglas 6 y 7).
 -->
@@ -36,7 +37,29 @@ button:disabled{opacity:.4}
 :focus-visible{outline:3px solid var(--mostaza);outline-offset:-3px}
 .tel{background:var(--papel) var(--grano);border:1px solid var(--linea)}
 svg.i{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.barra{display:grid;grid-template-columns:auto minmax(0,1fr) auto;border-bottom:1px solid var(--linea)}
+.barra{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;border-bottom:1px solid var(--linea)}
+.cerca{display:flex;align-items:center;gap:6px;padding:0 12px;border-left:1px solid var(--linea);color:var(--cian);font-size:12px}
+.cerca svg.i{width:18px;height:18px}
+.cerca.off{color:var(--gris)}
+.cerca.tag{color:var(--mostaza)}
+@media(max-width:380px){.cerca{padding:0 8px;font-size:11px;line-height:1.1;gap:5px}.cerca .t{width:min-content}.barra .gps{padding:0 8px;gap:6px}}
+.parada .ids{grid-column:2;font-family:var(--pixel);font-size:13px;font-weight:700;letter-spacing:.02em;opacity:.8}
+.sentidos button small{display:block;font-family:var(--pixel);font-size:11px;font-weight:700;text-transform:uppercase;opacity:.75;margin-top:2px}
+.sentidos button[data-s]{flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
+.modo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--linea);margin-top:12px}
+.modo button{min-height:52px;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px}
+.modo button+button{border-left:1px solid var(--linea)}
+.modo button[aria-pressed="true"]{background:var(--tinta);color:#141209}
+.prueba{padding:18px 14px;border-bottom:1px solid var(--linea);text-align:center}
+.prueba .px{color:var(--mostaza)}
+.prueba b{display:block;font-weight:900;font-size:64px;line-height:1;margin:10px 0 4px}
+.prueba p{margin:6px 0 0;color:var(--suave)}
+.veredicto{padding:16px 14px;border-bottom:1px solid var(--linea);color:#08140a;background:var(--verde)}
+.veredicto.no{background:var(--naranja);color:#1a0c02}
+.veredicto.sin{background:var(--gris);color:var(--tinta)}
+.veredicto b{display:block;font-weight:900;font-size:30px;line-height:1.05}
+.veredicto span{display:block;margin-top:6px}
+.veredicto small{display:block;margin-top:6px;font-family:var(--pixel);font-size:11px;text-transform:uppercase;opacity:.85}
 .barra .ruta{font-weight:900;font-size:26px;padding:8px 14px;border-right:1px solid var(--linea);line-height:1}
 .barra .gps{display:flex;align-items:center;gap:8px;padding:0 12px;color:var(--verde)}
 .barra .gps i{width:10px;height:10px;background:var(--verde);box-shadow:0 0 0 4px rgba(47,174,42,.25)}
@@ -150,6 +173,7 @@ svg.i{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.4;stro
   <symbol id="deshacer" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></symbol>
   <symbol id="fin" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14"/></symbol>
   <symbol id="atras" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="mira" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
 </svg>
 <main id="vista"><p class="px" style="color:var(--suave)">Cargando la lista oficial…</p></main>
 <div class="aviso px" id="toast" role="status" aria-live="polite"></div>
@@ -158,7 +182,8 @@ svg.i{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.4;stro
 const CLAVE = 'sjdrbus.campo.v1', TZ = 'America/Mexico_City';
 // Criterios de trabajo (ESTIMADO): «revisar» a más de 150 m del punto oficial; «enfrente» a
 // 60 m o menos de la parada que se pregunta; hueco del GPS cuando pasan más de 60 s sin punto.
-const REVISAR_M = 150, ENFRENTE_M = 60, HUECO_S = 60;
+// Modo prueba (D-74, ESTIMADO, decide Miguel): CORRESPONDE con 80 % o más y al menos 5 paradas.
+const REVISAR_M = 150, ENFRENTE_M = 60, HUECO_S = 60, UMBRAL = 0.8, MINIMO = 5;
 const $ = (s) => document.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const ic = (id) => `<svg class="i" aria-hidden="true"><use href="#${id}"/></svg>`;
@@ -170,43 +195,48 @@ function metros(a, b) { const R = 6371000, r = Math.PI / 180, dl = (b.lat - a.la
 const franjas = '<span class="franjas"><i></i><i></i><i></i><i></i><i></i></span>';
 const FRASE = { si: 'Sí, aquí', posible: 'Otro nombre', otro: 'Otro sentido', salto: 'No la vi', nueva: 'Parada aquí' };
 const ICONO = { si: 'si', posible: 'lapiz', otro: 'cruce', salto: 'salta', nueva: 'pinmas' };
+const SENTIDOS = ['IDA', 'REGRESO'];
 
-let RUTAS = [], S = { viajes: [] }, borrar = null, hoja = null, marca = null;
-let eleccion = { ruta: '', desde: '', hacia: '' }, pos = null, gpsEstado = 'buscando', watch = null, candado = null;
+let RUTAS = [], FUENTE = '', S = { viajes: [] }, borrar = null, hoja = null, marca = null;
+let eleccion = { ruta: '', sentido: 'IDA', prueba: false }, pos = null, gpsEstado = 'buscando', watch = null, candado = null;
 try { const g = JSON.parse(localStorage.getItem(CLAVE)); if (g && Array.isArray(g.viajes)) S = g; } catch {}
 const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify(S)); } catch { aviso('Sin espacio en el teléfono', 'aviso'); } };
 const actual = () => S.viajes.find((v) => v.id === S.abierto);
 const rutaDe = (v) => RUTAS.find((r) => r.route_id === v.route_id);
+// (d) Cada viaje usa SOLO la lista de su sentido (regla 10).
+const listaDe = (v) => rutaDe(v).sentidos[v.sentido]?.paradas ?? [];
+const esViejo = (v) => !v.sentido; // viaje de antes de D-74: lista sin sentido; se lee y se exporta, no se sigue
+const idSimple = (r, sentido, p) => `${insignia(r)}-${r.sentidos[sentido].letra}-${String(p.orden).padStart(2, '0')}`;
+const extremos = (r, s) => { const L = r.sentidos[s].paradas; return L.length ? [L[0].nombre, L[L.length - 1].nombre] : ['—', '—']; };
+const conPunto = (L) => L.filter((p) => p.lat != null).length;
 function aviso(t, icono = 'si') { const a = $('#toast'); a.innerHTML = ic(icono) + esc(t); a.classList.add('ver'); clearTimeout(aviso.t); aviso.t = setTimeout(() => a.classList.remove('ver'), 2400); }
 
-// Qué parada se pregunta: la más cercana al empezar; luego el orden de la lista.
 const respondidas = (v) => new Set(v.respuestas.filter((r) => r.orden != null).map((r) => r.orden));
-function masCercana(ruta, hechas, punto) {
+function masCercana(L, hechas, punto) {
   let mejor = null;
-  for (const p of ruta.paradas) if (!hechas.has(p.orden) && p.lat != null) { const d = metros(punto, p); if (!mejor || d < mejor.d) mejor = { p, d }; }
+  for (const p of L) if (!hechas.has(p.orden) && p.lat != null) { const d = metros(punto, p); if (!mejor || d < mejor.d) mejor = { p, d }; }
   return mejor;
 }
-function siguienteDe(ruta, hechas, desdeOrden) {
-  const L = ruta.paradas, k = L.findIndex((p) => p.orden === desdeOrden);
+function siguienteDe(L, hechas, desdeOrden) {
+  const k = L.findIndex((p) => p.orden === desdeOrden);
   for (let j = 1; j <= L.length; j++) { const p = L[(k + j + L.length) % L.length]; if (!hechas.has(p.orden)) return p.orden; }
   return null;
 }
+// (a) La primera pregunta es el inicio del sentido (orden 1); el GPS ya no la cambia.
 function elegirActual(v) {
-  const ruta = rutaDe(v), hechas = respondidas(v);
-  if (!ruta.paradas.length) { v.actual = null; return; }
+  const L = listaDe(v), hechas = respondidas(v);
+  if (!L.length) { v.actual = null; return; }
   if (v.actual != null && !hechas.has(v.actual)) return;
-  if (v.actual == null && pos && !v.respuestas.some((r) => r.orden != null)) { const m = masCercana(ruta, hechas, pos); if (m) { v.actual = m.p.orden; return; } }
-  v.actual = v.actual == null ? (ruta.paradas.find((p) => !hechas.has(p.orden))?.orden ?? null) : siguienteDe(ruta, hechas, v.actual);
+  v.actual = v.actual == null ? (L.find((p) => !hechas.has(p.orden))?.orden ?? null) : siguienteDe(L, hechas, v.actual);
 }
-const paradaActual = (v) => rutaDe(v).paradas.find((p) => p.orden === v.actual);
+const paradaActual = (v) => listaDe(v).find((p) => p.orden === v.actual);
 function enfrenteDe(v) {
   const of = paradaActual(v); if (!of || of.lat == null) return null;
   const hechas = respondidas(v); let mejor = null;
-  for (const p of rutaDe(v).paradas) if (p.orden !== of.orden && !hechas.has(p.orden) && p.lat != null) { const d = metros(of, p); if (d <= ENFRENTE_M && (!mejor || d < mejor.d)) mejor = { p, d }; }
+  for (const p of listaDe(v)) if (p.orden !== of.orden && !hechas.has(p.orden) && p.lat != null) { const d = metros(of, p); if (d <= ENFRENTE_M && (!mejor || d < mejor.d)) mejor = { p, d }; }
   return mejor;
 }
 
-// GPS (solo con la página abierta y al frente)
 function arrancarGPS() {
   if (watch != null) return;
   if (!('geolocation' in navigator)) { gpsEstado = 'sin'; pintarBarra(); return; }
@@ -217,11 +247,7 @@ function arrancarGPS() {
     if (v && !v.fin) {
       const u = v.trazo[v.trazo.length - 1];
       if (!u || Date.parse(pos.t) - Date.parse(u.t) >= 3000) { v.trazo.push(pos); guardar(); }
-      // Sin respuestas todavía: la primera pregunta sigue a la parada más cercana.
-      if (!hoja && rutaDe(v).paradas.length && !v.respuestas.some((r) => r.orden != null) && !v.elegidaAMano) {
-        const m = masCercana(rutaDe(v), new Set(), pos);
-        if (m && m.p.orden !== v.actual) { v.actual = m.p.orden; guardar(); pintar(); return; }
-      }
+      if (v.prueba) { pintar(); return; }
     }
     pintarBarra(); pintarDistancia();
   }, (e) => { gpsEstado = e.code === 1 ? 'negado' : 'buscando'; pintarBarra(); }, { enableHighAccuracy: true, maximumAge: 0, timeout: 20000 });
@@ -232,6 +258,7 @@ function pintarBarra() {
   const sin = gpsEstado !== 'ok' || !pos;
   g.className = 'gps px' + (sin ? ' mal' : '');
   g.innerHTML = `<i></i>${sin ? (gpsEstado === 'negado' ? 'Sin permiso de GPS' : 'Buscando GPS') : hhmm(new Date().toISOString())}`;
+  const c = $('#cerca'); if (c && v && !v.prueba) c.classList.toggle('off', !(pos && conPunto(listaDe(v))));
 }
 function distanciaHTML(v) {
   const of = paradaActual(v);
@@ -245,11 +272,10 @@ function pintarDistancia() { const d = $('#dist'), v = actual(); if (d && v && !
 async function pantallaEncendida() { try { if ('wakeLock' in navigator) { candado = await navigator.wakeLock.request('screen'); return true; } } catch {} return false; }
 document.addEventListener('visibilitychange', () => { const v = actual(); if (document.visibilityState === 'visible' && v && !v.fin) pantallaEncendida(); });
 
-// Cada respuesta guarda la hora y el punto del toque (marca), no del guardado.
 function responder(estado, nombre) {
   const v = actual(), m = marca ?? { t: new Date().toISOString(), pos, orden: v.actual }; marca = null; hoja = null;
-  const of = estado === 'nueva' ? null : rutaDe(v).paradas.find((p) => p.orden === m.orden);
-  const r = { estado, orden: of ? of.orden : null, oficial: of ? of.nombre : null, nombre: nombre ?? (of ? of.nombre : ''), t: m.t };
+  const of = estado === 'nueva' ? null : listaDe(v).find((p) => p.orden === m.orden);
+  const r = { estado, orden: of ? of.orden : null, numero: of ? of.numero : null, id: of ? idSimple(rutaDe(v), v.sentido, of) : null, oficial: of ? of.nombre : null, nombre: nombre ?? (of ? of.nombre : ''), t: m.t };
   if (m.pos) { r.lat = m.pos.lat; r.lon = m.pos.lon; r.prec = m.pos.prec; }
   if (of && of.lat != null && m.pos && (estado === 'si' || estado === 'posible')) r.dist_m = metros(m.pos, of);
   v.respuestas.push(r);
@@ -258,58 +284,80 @@ function responder(estado, nombre) {
   aviso(estado === 'nueva' ? `Guardada · ${hhmm(r.t)}` : FRASE[estado], ICONO[estado]);
 }
 
-// Huecos del GPS: tramos de más de 60 s sin punto entre el inicio y el fin del viaje.
 function huecos(v) {
-  const ini = Date.parse(v.inicio), fin = Date.parse(v.fin);
+  const ini = Date.parse(v.inicio), fin = Date.parse(v.fin ?? new Date().toISOString());
   const t = [ini, ...v.trazo.map((p) => Date.parse(p.t)).filter((x) => x >= ini && x <= fin), fin].sort((a, b) => a - b);
   const out = []; for (let k = 1; k < t.length; k++) if (t[k] - t[k - 1] > HUECO_S * 1000) out.push([t[k - 1], t[k]]);
   return out;
 }
 
-// Pantallas
+// (c) Modo prueba: distancia de cada parada con punto a la traza; tramo = de la primera a la
+// última que quedó cerca; veredicto con umbral ESTIMADO.
+function calificar(v) {
+  const L = listaDe(v).filter((p) => p.lat != null);
+  const filas = L.map((p) => ({ p, d: v.trazo.length ? Math.min(...v.trazo.map((t) => metros(t, p))) : null }));
+  const cerca = filas.filter((f) => f.d != null && f.d <= REVISAR_M);
+  if (!L.length) return { estado: 'sin', motivo: 'Este sentido no tiene paradas con punto en el mapa', filas: [], cerca: 0, tramo: 0 };
+  if (!cerca.length) return { estado: 'sin', motivo: 'Ninguna parada con punto quedó cerca de tu camino', filas: [], cerca: 0, tramo: 0 };
+  const a = cerca[0].p.orden, b = cerca[cerca.length - 1].p.orden;
+  const tramo = filas.filter((f) => f.p.orden >= a && f.p.orden <= b), n = tramo.filter((f) => f.d <= REVISAR_M).length;
+  if (tramo.length < MINIMO) return { estado: 'sin', motivo: `El tramo tiene ${tramo.length} parada${tramo.length === 1 ? '' : 's'} con punto (mínimo ${MINIMO})`, filas: tramo, cerca: n, tramo: tramo.length, a, b };
+  return { estado: n / tramo.length >= UMBRAL ? 'si' : 'no', filas: tramo, cerca: n, tramo: tramo.length, a, b };
+}
+
 function vistaInicio() {
-  const r = RUTAS.find((x) => x.route_id === eleccion.ruta), p = r ? r.nombre.split(' – ') : [], a = p[0], b = p[p.length - 1];
+  const r = RUTAS.find((x) => x.route_id === eleccion.ruta);
   const lista = S.viajes.slice().sort((x, y) => y.inicio.localeCompare(x.inicio));
+  const boton = (s) => { const [a, b] = extremos(r, s), L = r.sentidos[s].paradas;
+    return `<button data-a="sentido" data-s="${s}" aria-pressed="${eleccion.sentido === s}">${esc(a)} → ${esc(b)}<small>${s === 'IDA' ? 'Ida' : 'Regreso'} · ${L.length} paradas · ${conPunto(L)} con punto</small></button>`; };
   return `<div class="tel">
-    <div class="barra"><span class="ruta">Campo</span><span class="gps px" id="gps"></span>${franjas}</div>
+    <div class="barra"><span class="ruta">Campo</span><span class="gps px" id="gps"></span><span></span>${franjas}</div>
     <div class="inicio">
       <label class="px" for="ruta">Ruta</label>
-      <select class="sel" id="ruta"><option value="">Elige…</option>${RUTAS.map((x) => `<option value="${esc(x.route_id)}"${x.route_id === eleccion.ruta ? ' selected' : ''}>${esc(insignia(x))} · ${esc(x.nombre)}${x.paradas.length ? '' : ' (sin lista)'}</option>`).join('')}</select>
-      ${r ? `<div class="sentidos">
-        <button data-a="sentido" data-d="${esc(a)}" data-h="${esc(b)}" aria-pressed="${eleccion.desde === a}">${esc(a)} → ${esc(b)}</button>
-        <button data-a="sentido" data-d="${esc(b)}" data-h="${esc(a)}" aria-pressed="${eleccion.desde === b}">${esc(b)} → ${esc(a)}</button></div>
-        <div class="dato"><b>${r.paradas.length || '—'}</b><span class="px">${r.paradas.length ? 'paradas en la lista oficial' : 'sin lista oficial'}</span></div>` : ''}
+      <select class="sel" id="ruta"><option value="">Elige…</option>${RUTAS.map((x) => `<option value="${esc(x.route_id)}"${x.route_id === eleccion.ruta ? ' selected' : ''}>${esc(insignia(x))} · ${esc(x.nombre)}</option>`).join('')}</select>
+      ${r ? `<label class="px" style="margin-top:12px">Sentido (empieza en su primera parada)</label><div class="sentidos" style="margin-top:0">${SENTIDOS.map(boton).join('')}</div>
+        <div class="modo"><button class="px" data-a="modo" data-m="0" aria-pressed="${!eleccion.prueba}">Recorrido</button><button class="px" data-a="modo" data-m="1" aria-pressed="${eleccion.prueba}">Prueba en carro</button></div>` : ''}
     </div>
-    <button class="iniciar px" data-a="iniciar">Iniciar viaje</button>
+    <button class="iniciar px" data-a="iniciar">${eleccion.prueba ? 'Iniciar prueba' : 'Iniciar viaje'}</button>
     ${lista.length ? `<div class="titulo px">Viajes en este teléfono</div>${lista.map((v) => { const rr = rutaDe(v);
-      return `<div class="viaje"><button class="abrir" data-a="abrir" data-id="${esc(v.id)}"><b>${esc(rr ? insignia(rr) : '?')} · ${esc(v.desde)} → ${esc(v.hacia)}</b><small>${esc(fecha(v.inicio))} · ${v.respuestas.length} respuestas${v.fin ? '' : ' · en curso'}</small></button>
+      return `<div class="viaje"><button class="abrir" data-a="abrir" data-id="${esc(v.id)}"><b>${esc(rr ? insignia(rr) : '?')} · ${esc(v.desde)} → ${esc(v.hacia)}</b><small>${v.prueba ? 'Prueba · ' : ''}${esc(fecha(v.inicio))} · ${v.prueba ? 'sin toques' : v.respuestas.length + ' respuestas'}${v.fin ? '' : ' · en curso'}</small></button>
       <button class="borrar px" data-a="borrar" data-id="${esc(v.id)}" aria-label="Borrar este viaje">Borrar</button>
       ${borrar === v.id ? `<div class="conf"><button class="si px" data-a="borrar-si" data-id="${esc(v.id)}">Sí, borrar</button><button class="px" data-a="borrar-no">No</button></div>` : ''}</div>`; }).join('')}` : ''}
   </div>`;
 }
 
-// Línea tipo metro: las últimas respuestas, la parada actual y las que siguen (5 en total).
-function metroHTML(v, ruta) {
+function metroHTML(v, L) {
   const prev = v.respuestas.slice(-3).map((r) => `<span class="${r.estado}"><i></i>${r.orden ?? '+'}</span>`);
   const usadas = new Set([...respondidas(v), v.actual]), sig = []; let o = v.actual;
-  while (sig.length < 4 - prev.length) { o = siguienteDe(ruta, usadas, o); if (o == null) break; sig.push(o); usadas.add(o); }
+  while (sig.length < 4 - prev.length) { o = siguienteDe(L, usadas, o); if (o == null) break; sig.push(o); usadas.add(o); }
   return `<div class="metro" aria-hidden="true">${prev.join('')}<span class="ya"><i></i>${v.actual}</span>${sig.map((n) => `<span><i></i>${n}</span>`).join('')}</div>`;
+}
+const cercaBtn = (v) => `<button class="cerca px${pos && conPunto(listaDe(v)) ? '' : ' off'}" id="cerca" data-a="cercana" aria-label="Saltar a la parada más cercana">${ic('mira')}<span class="t">Más cercana</span></button>`;
+const tarjeta = (v, of) => `<div class="parada"><span class="no">${of.orden}</span><span class="nom">${esc(of.nombre)}</span><span class="ids">${esc(of.numero ?? 'sin número')} · ${esc(idSimple(rutaDe(v), v.sentido, of))}</span></div>`;
+
+function vistaPrueba(v) {
+  const ruta = rutaDe(v), q = calificar({ ...v });
+  return `<div class="tel"><div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px" id="gps"></span><span class="cerca tag px">Prueba</span>${franjas}</div>
+    <div class="prueba"><span class="px">No toques el teléfono manejando</span><b>${q.cerca}</b><span class="px" style="color:var(--suave)">paradas cerca de tu camino</span>
+    <p>${esc(v.desde)} → ${esc(v.hacia)}</p><p class="px" style="font-size:11px">${conPunto(listaDe(v))} de ${listaDe(v).length} paradas del sentido tienen punto</p></div>
+    <div class="pie"><button class="px" data-a="volver-prueba">${ic('atras')}Viajes</button><button class="px" data-a="terminar">${ic('fin')}Terminar</button></div></div>`;
 }
 
 function vistaViaje(v) {
-  const ruta = rutaDe(v), of = paradaActual(v);
-  const barra = `<div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px" id="gps"></span>${franjas}</div>`;
+  if (v.prueba) return vistaPrueba(v);
+  const ruta = rutaDe(v), L = listaDe(v), of = paradaActual(v);
+  const barra = `<div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px" id="gps"></span>${cercaBtn(v)}${franjas}</div>`;
   const pie = `<div class="pie"><button class="px" data-a="deshacer"${v.respuestas.length ? '' : ' disabled'}>${ic('deshacer')}Deshacer</button><button class="px" data-a="terminar">${ic('fin')}Terminar</button></div>`;
   if (hoja && of) {
-    return `<div class="tel">${barra}<div class="parada"><span class="no">${of.orden}</span><span class="nom">${esc(of.nombre)}</span></div>
+    return `<div class="tel">${barra}${tarjeta(v, of)}
       <div class="hoja"><label class="px" for="nombre">Otro nombre · ${hhmm(marca.t)}</label><input id="nombre" value="${esc(of.nombre)}" autocomplete="off" enterkeyhint="done">
       <div class="fila"><button class="px ok" data-a="guardar-nombre">${ic('si')}Guardar</button><button class="px" data-a="cancelar">Cancelar</button></div></div></div>`;
   }
-  if (!of) return `<div class="tel">${barra}<div class="parada"><span class="no">${ruta.paradas.length ? '✓' : '—'}</span><span class="nom">${ruta.paradas.length ? 'Lista completa' : 'Sin lista oficial'}</span></div>
+  if (!of) return `<div class="tel">${barra}<div class="parada"><span class="no">${L.length ? '✓' : '—'}</span><span class="nom">${L.length ? 'Lista completa' : 'Sin lista oficial'}</span></div>
     <button class="aqui" data-a="nueva">${ic('pinmas')}<span class="px">Parada aquí</span></button>${pie}</div>`;
   const enf = enfrenteDe(v);
-  return `<div class="tel">${barra}${metroHTML(v, ruta)}
-    <div class="parada"><span class="no">${of.orden}</span><span class="nom">${esc(of.nombre)}</span></div>
+  return `<div class="tel">${barra}${metroHTML(v, L)}
+    ${tarjeta(v, of)}
     ${distanciaHTML(v)}
     ${enf ? `<button class="enfrente" data-a="enfrente" data-o="${enf.p.orden}">${ic('cruce')}<span><span class="px">Enfrente</span><br><b>${enf.p.orden} · ${esc(enf.p.nombre.split(' – ').pop())} · ${pos ? metros(pos, enf.p) : enf.d} m</b></span></button>` : ''}
     <button class="si-b" data-a="si">${ic('si')}<span class="px">Sí, aquí</span></button>
@@ -321,65 +369,85 @@ function vistaViaje(v) {
     <button class="aqui" data-a="nueva">${ic('pinmas')}<span class="px">Parada aquí</span></button>${pie}</div>`;
 }
 
+function vistaResumenPrueba(v) {
+  const ruta = rutaDe(v), q = calificar(v), pc = q.tramo ? Math.round((100 * q.cerca) / q.tramo) : 0;
+  const titulo = q.estado === 'si' ? 'CORRESPONDE' : q.estado === 'no' ? 'NO CORRESPONDE' : 'SIN CALIFICACIÓN';
+  const cuenta = q.estado === 'sin' ? q.motivo : `${q.cerca} de ${q.tramo} paradas con punto a ≤ ${REVISAR_M} m de tu camino (${pc} %) · tramo ${q.a} a ${q.b}`;
+  return `<div class="tel">
+    <div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px quieto" id="gps"></span><span class="cerca tag px">Prueba</span>${franjas}</div>
+    <div class="veredicto ${q.estado === 'si' ? '' : q.estado}"><b>${titulo}</b><span>${esc(cuenta)}</span><small>Prueba · no es medición de campo · umbral ${Math.round(UMBRAL * 100)} % y ${MINIMO} paradas: ESTIMADO</small></div>
+    <div class="titulo px">${esc(v.desde)} → ${esc(v.hacia)}</div>
+    <ul class="linea">${q.filas.map((f) => `<li class="${f.d <= REVISAR_M ? 'si' : 'salto'}"><i></i><span class="n">${f.p.orden} · ${esc(f.p.nombre.split(' – ').pop())}</span><span class="m${f.d > REVISAR_M ? ' lejos' : ''}">${f.d} m</span></li>`).join('')}</ul>
+    <button class="exportar px" data-a="exportar">${ic('sube')}Exportar</button>
+    <div class="pie"><button class="px" data-a="volver">${ic('atras')}Viajes</button><button class="px" data-a="reabrir">${ic('deshacer')}Seguir prueba</button></div>
+  </div>`;
+}
+
 function vistaResumen(v) {
+  if (v.prueba) return vistaResumenPrueba(v);
   const ruta = rutaDe(v), c = (e) => v.respuestas.filter((r) => r.estado === e).length;
-  const ini = Date.parse(v.inicio), fin = Date.parse(v.fin), hs = huecos(v);
+  const ini = Date.parse(v.inicio), fin = Date.parse(v.fin ?? v.inicio), hs = v.fin ? huecos(v) : [];
   let barra = '', t0 = ini;
   for (const [a, b] of hs) { barra += `<i style="flex:${Math.max(1, a - t0)}"></i><i class="h" style="flex:${b - a}"></i>`; t0 = b; }
   barra += `<i style="flex:${Math.max(1, fin - t0)}"></i>`;
   const fila = (r, k) => {
     const lado = r.estado === 'nueva' || r.estado === 'posible'
       ? `<input data-k="${k}" value="${esc(r.nombre)}" placeholder="Ponle nombre" aria-label="Nombre de la parada">`
-      : `<span class="n">${r.orden} · ${esc(r.nombre.split(' – ').pop())}</span>`;
+      : `<span class="n">${esc(r.id ?? r.orden)} · ${esc(r.nombre.split(' – ').pop())}</span>`;
     const m = r.estado === 'salto' ? 'no la vi' : r.estado === 'otro' ? 'otro sentido' : r.estado === 'nueva' ? hhmm(r.t) : r.dist_m != null ? `${r.dist_m} m` : '—';
     return `<li class="${r.estado}"><i></i>${lado}<span class="m${r.dist_m > REVISAR_M ? ' lejos' : ''}">${esc(m)}</span></li>`;
   };
   return `<div class="tel">
-    <div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px quieto" id="gps"></span>${franjas}</div>
+    <div class="barra"><span class="ruta">${esc(insignia(ruta))}</span><span class="gps px quieto" id="gps"></span><span></span>${franjas}</div>
     <div class="cuenta">
       <div class="c-si">${ic('si')}<b>${c('si')}</b></div><div class="c-ren">${ic('lapiz')}<b>${c('posible')}</b></div>
       <div class="c-salto">${ic('salta')}<b>${c('salto')}</b></div><div class="c-nueva">${ic('pinmas')}<b>${c('nueva')}</b></div>
     </div>
     <div class="huecos"><span class="px${hs.length ? '' : ' bien'}">${ic(hs.length ? 'aviso' : 'si')}GPS: ${hs.length ? `${hs.length} hueco${hs.length > 1 ? 's' : ''}` : 'sin huecos'}</span>
-      <div class="barrag">${barra}</div><div class="horas"><span>${hhmm(v.inicio)}</span>${hs.map(([a]) => `<span>${hhmm(new Date(a).toISOString())}</span>`).join('')}<span>${hhmm(v.fin)}</span></div></div>
+      <div class="barrag">${barra}</div><div class="horas"><span>${hhmm(v.inicio)}</span>${hs.map(([a]) => `<span>${hhmm(new Date(a).toISOString())}</span>`).join('')}<span>${v.fin ? hhmm(v.fin) : '—'}</span></div></div>
     <ul class="linea">${v.respuestas.map(fila).join('')}</ul>
     <button class="exportar px" data-a="exportar">${ic('sube')}Exportar</button>
-    <div class="pie"><button class="px" data-a="volver">${ic('atras')}Viajes</button><button class="px" data-a="reabrir">${ic('deshacer')}Seguir viaje</button></div>
+    <div class="pie"><button class="px" data-a="volver">${ic('atras')}Viajes</button>${esViejo(v) ? '<button class="px" disabled>Versión anterior</button>' : `<button class="px" data-a="reabrir">${ic('deshacer')}Seguir viaje</button>`}</div>
   </div>`;
 }
 
 function pintar() {
   const v = actual();
-  $('#vista').innerHTML = !v ? vistaInicio() : v.fin ? vistaResumen(v) : vistaViaje(v);
+  $('#vista').innerHTML = !v ? vistaInicio() : v.fin || esViejo(v) ? vistaResumen(v) : vistaViaje(v);
   pintarBarra(); const n = $('#nombre'); if (n) { n.focus(); n.select(); }
 }
 setInterval(() => { const v = actual(); if (v && !v.fin) pintarBarra(); }, 15000);
 
 async function exportar(v) {
   const ruta = rutaDe(v);
-  const datos = { herramienta: 'SJDR Bus · recorrido de campo (D-66)', etiqueta: 'MEDIDO EN CAMPO', exportado: new Date().toISOString(),
-    fuente_lista: 'lista oficial de rutas de la AMEQ, consulta del 19 nov 2026, vía datos/investigacion/cruces.json',
-    ruta: { route_id: ruta.route_id, numero: ruta.numero, nombre: ruta.nombre }, huecos_gps: huecos(v).map(([a, b]) => [new Date(a).toISOString(), new Date(b).toISOString()]), ...v };
-  const nombre = `campo-${v.inicio.slice(0, 10)}-${insignia(ruta)}-${v.desde.replace(/[^\wÁÉÍÓÚÑáéíóúñ]+/g, '')}.json`;
+  const datos = { herramienta: 'SJDR Bus · recorrido de campo (D-66, D-74)', etiqueta: v.prueba ? 'PRUEBA' : 'MEDIDO EN CAMPO', exportado: new Date().toISOString(),
+    fuente_lista: FUENTE, ruta: { route_id: ruta.route_id, numero: ruta.numero, nombre: ruta.nombre }, sentido: v.sentido ?? 'sin sentido (versión anterior a D-74)',
+    ...(v.prueba ? { veredicto: calificar(v) } : {}), huecos_gps: huecos(v).map(([a, b]) => [new Date(a).toISOString(), new Date(b).toISOString()]), ...v };
+  const nombre = `campo-${v.inicio.slice(0, 10)}-${insignia(ruta)}-${esViejo(v) ? 'v1' : ruta.sentidos[v.sentido].letra}${v.prueba ? '-prueba' : ''}.json`;
   const archivo = new File([JSON.stringify(datos, null, 2)], nombre, { type: 'application/json' });
   try { if (navigator.canShare && navigator.canShare({ files: [archivo] })) { await navigator.share({ files: [archivo], title: nombre }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
   const a = document.createElement('a'); a.href = URL.createObjectURL(archivo); a.download = nombre; document.body.append(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 4000); aviso('Archivo descargado', 'sube');
 }
 
-document.addEventListener('change', (e) => { if (e.target.id === 'ruta') { const r = RUTAS.find((x) => x.route_id === e.target.value), p = r ? r.nombre.split(' – ') : [];
-    eleccion = { ruta: e.target.value, desde: p[0] ?? '', hacia: p[p.length - 1] ?? '' }; borrar = null; pintar(); } });
+document.addEventListener('change', (e) => { if (e.target.id === 'ruta') { eleccion.ruta = e.target.value; eleccion.sentido = 'IDA'; borrar = null; pintar(); } });
 document.addEventListener('input', (e) => { const k = e.target.dataset.k, v = actual(); if (k != null && v) { v.respuestas[+k].nombre = e.target.value; guardar(); } });
 document.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.id === 'nombre') $('[data-a="guardar-nombre"]')?.click(); });
 document.addEventListener('click', async (e) => {
   const b = e.target.closest('[data-a]'); if (!b || b.disabled) return; const a = b.dataset.a, v = actual();
-  if (a === 'sentido') { eleccion.desde = b.dataset.d; eleccion.hacia = b.dataset.h; pintar(); }
-  else if (a === 'iniciar' && !(eleccion.ruta && eleccion.desde)) aviso('Primero elige la ruta', 'aviso');
+  if (a === 'sentido') { eleccion.sentido = b.dataset.s; pintar(); }
+  else if (a === 'modo') { eleccion.prueba = b.dataset.m === '1'; pintar(); }
+  else if (a === 'iniciar' && !eleccion.ruta) aviso('Primero elige la ruta', 'aviso');
   else if (a === 'iniciar') {
-    const id = 'c' + Date.now().toString(36);
-    const nuevo = { id, route_id: eleccion.ruta, desde: eleccion.desde, hacia: eleccion.hacia, inicio: new Date().toISOString(), fin: null, actual: null, respuestas: [], trazo: pos ? [pos] : [] };
+    const r = RUTAS.find((x) => x.route_id === eleccion.ruta), [desde, hacia] = extremos(r, eleccion.sentido), id = 'c' + Date.now().toString(36);
+    const nuevo = { id, route_id: eleccion.ruta, sentido: eleccion.sentido, prueba: eleccion.prueba, desde, hacia, inicio: new Date().toISOString(), fin: null, actual: null, respuestas: [], trazo: pos ? [pos] : [] };
     S.viajes.push(nuevo); S.abierto = id; elegirActual(nuevo); guardar(); arrancarGPS(); pintar();
     if (!(await pantallaEncendida())) aviso('No bloquees la pantalla', 'aviso');
+  }
+  else if (a === 'cercana') {
+    if (!conPunto(listaDe(v))) aviso('Este sentido no tiene paradas con punto', 'aviso');
+    else if (!pos) aviso('Sin GPS todavía', 'aviso');
+    else { const m = masCercana(listaDe(v), respondidas(v), pos); if (!m) aviso('No quedan paradas con punto', 'aviso'); else { v.actual = m.p.orden; v.elegidaAMano = true; guardar(); pintar(); aviso(`Más cercana: ${m.p.orden} · ${m.d} m`, 'pin'); } }
   }
   else if (a === 'si' || a === 'otro' || a === 'salto') responder(a);
   else if (a === 'renombrar') { marca = { t: new Date().toISOString(), pos, orden: v.actual }; hoja = 'posible'; pintar(); }
@@ -391,7 +459,7 @@ document.addEventListener('click', async (e) => {
   else if (a === 'terminar') { v.fin = new Date().toISOString(); if (pos) v.trazo.push(pos); guardar(); try { await candado?.release(); } catch {} candado = null; pintar(); }
   else if (a === 'reabrir') { v.fin = null; guardar(); pintar(); pantallaEncendida(); }
   else if (a === 'exportar') exportar(v);
-  else if (a === 'volver') { S.abierto = null; guardar(); pintar(); }
+  else if (a === 'volver' || a === 'volver-prueba') { S.abierto = null; guardar(); pintar(); }
   else if (a === 'abrir') { S.abierto = b.dataset.id; borrar = null; guardar(); pintar(); }
   else if (a === 'borrar') { borrar = borrar === b.dataset.id ? null : b.dataset.id; pintar(); }
   else if (a === 'borrar-no') { borrar = null; pintar(); }
@@ -400,7 +468,7 @@ document.addEventListener('click', async (e) => {
 
 if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('./sw.js').catch(() => {});
 fetch('datos/campo.json').then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }).then((d) => {
-  RUTAS = d.rutas; arrancarGPS(); pintar();
+  RUTAS = d.rutas; FUENTE = d.fuente; arrancarGPS(); pintar();
   const v = actual(); if (v && !v.fin) pantallaEncendida();
 }).catch(() => { $('#vista').innerHTML = '<p class="px" style="color:var(--naranja)">No se pudo cargar la lista oficial. Revisa la señal y recarga.</p>'; });
 }

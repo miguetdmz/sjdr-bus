@@ -260,7 +260,7 @@ function pintarBarra() {
   if (v && v.fin) { g.className = 'gps px quieto'; g.textContent = `${hhmm(v.inicio)} → ${hhmm(v.fin)}`; return; }
   const sin = gpsEstado !== 'ok' || !pos;
   g.className = 'gps px' + (sin ? ' mal' : '');
-  g.innerHTML = `<i></i>${sin ? (gpsEstado === 'negado' ? 'Sin permiso' : 'Buscando GPS') : hhmm(new Date().toISOString())}`;
+  g.innerHTML = `<i></i>${sin ? (gpsEstado === 'negado' ? 'Sin permiso de GPS' : 'Buscando GPS') : hhmm(new Date().toISOString())}`;
   const c = $('#cerca'); if (c && v && !v.prueba) c.classList.toggle('off', !(pos && conPunto(listaDe(v))));
 }
 function distanciaHTML(v) {
