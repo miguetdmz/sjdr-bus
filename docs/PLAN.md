@@ -4,16 +4,16 @@ Estado: v2 · 17 nov 2026
 Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 (manda sobre el HANDOFF).
 
-## Estado actual (25 nov 2026, 8:30 pm)
+## Estado actual (25 nov 2026, 11:40 pm)
 
 **Dónde vamos (D-47: Bloque · Tarea · Versión)**
 
 | Nivel | Hoy |
 |---|---|
-| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.6** (`5067371`, 25 nov 2026, 6:33 pm según GitHub): Miguel integró el PR 9 «B3 · D-74 · Pendientes de campo por sentido». Verificado a las 6:36 pm: Actions y Vercel en verde; el sitio trae 42 rutas y `/campo.html` con 84 ruta-sentidos (768 paradas con punto) y «Más cercana». Antes: v0.5 (`6a7a6ca`, 25 nov), v0.4 (`972e832`, 25 nov), v0.3 (`7b20c7e`, 23 nov), v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
-| Versión en espera | **v0.7 · D-75 aviso de GPS vivo** en la página de campo (aprobada por Miguel a las 8:23 pm; construida y con la puerta en verde a las 8:30 pm), en la rama del día **`b3/r03-secuencias`**, por subir con el sí de Miguel. Miguel (8:23 pm): **es el último cambio a la página de campo**; después se vuelve a los pasos originales (R-03) |
+| Versión publicada (`main`, https://sjdrbus-sjr.vercel.app) | **v0.7** (`826f933`, 25 nov 2026, 11:34 pm según GitHub): Miguel integró el PR 10 «B3 · D-75 · Aviso de GPS vivo en la página de campo». Verificado a las 11:37 pm: Actions en verde sobre `main` y `/campo.html` probada en línea en WebKit con iPhone 13 (`docs/evidencia/d75/probar-en-linea.mjs`): «GPS PERDIDO» tras 69 s sin ubicación, vuelve a verde con la señal, 42 rutas, sin errores. Miguel (8:23 pm): **es el último cambio a la página de campo**. Antes: v0.6 (`5067371`, 25 nov), v0.5 (`6a7a6ca`, 25 nov), v0.4 (`972e832`, 25 nov), v0.3 (`7b20c7e`, 23 nov), v0.2 (`9b8fca8`, 22 nov), v0.1 (`06efa8c`, 19 nov) |
+| Versión en espera | Ninguna. Rama del día **`b3/r03-fase1`** (desde `main`, 25 nov, 11:40 pm) solo con este relevo y la evidencia en línea de v0.7 |
 | Bloque en curso | **B3 · Trazos**: un solo plan (D-68, ajustado por D-69 y D-71) con R-03 y los pendientes de D-66 |
-| Tarea en curso | **B3 · R-03 fases 1, 3 y 4** (paso 3 del orden del 25 nov, 12:57 am): hallazgo b, secuencias por sentido (hasta 84) y revisión de Miguel. **D-74 publicada en v0.6**; falta la prueba de Miguel en su iPhone antes del lunes 30 |
+| Tarea en curso | **B3 · R-03 fases 1, 3 y 4** (paso 3 del orden del 25 nov, 12:57 am): hallazgo b, secuencias por sentido (hasta 84) y revisión de Miguel. **D-74 en v0.6 y D-75 en v0.7**; falta la prueba de Miguel en su iPhone (en carro el 26 nov, caminando antes del lunes 30) |
 | Hecho antes | **B3 · R-03 paso 1 · Paradas oficiales por sentido** (D-71, 25 nov): 84 de 84 ruta-sentidos con datos, publicado en v0.5. **D-66 · Página de campo** publicada en v0.5 sin enlace; falta la prueba de Miguel en su iPhone |
 | Tarea en pausa | Ninguna |
 | Pendiente registrado | **D-72 PROPUESTA** (Miguel, 3:46 a 3:55 pm): «Calcula tu ruta» confusa (A: una sola parada recomendada; B: indicaciones; C: siguiente camión ESTIMADO) y teclado con el teléfono acostado (D). A y D con maqueta primero después del paso 1, probando antes la app como usuario |
@@ -31,7 +31,23 @@ Referencias: `docs/HANDOFF.md` (contrato de origen) y `docs/DECISIONES.md`
 
 Nombre visible: **SJDR Bus** (D-28). Hosting: Vercel Hobby, $0 (D-26).
 
-### Relevo para la siguiente sesión (25 nov 2026, 6:36 pm)
+### Relevo para la siguiente sesión (25 nov 2026, 11:40 pm)
+
+0. **25 nov, noche:** D-75 (aviso de GPS vivo) aprobada en maqueta (8:23 pm), construida y
+   publicada en **v0.7** (PR 10, 11:34 pm; verificada en línea a las 11:37 pm). Miguel: último
+   cambio a la página de campo. Rama del día **`b3/r03-fase1`** creada desde `main` con este
+   relevo y la evidencia en línea (`docs/evidencia/d75/`).
+1. **Miguel:** «Prueba en carro» de https://sjdrbus-sjr.vercel.app/campo.html el 26 nov (página
+   al frente, pantalla encendida, cargador; vigilar «GPS PERDIDO») y una ruta caminando antes del
+   lunes 30. Al volver: veredicto y huecos del GPS.
+2. **Siguiente (chat nuevo):** R-03 fase 1 (hallazgo b) con criterio medible antes de construir,
+   en `b3/r03-fase1`; después fases 3 y 4. D-72 A y D después, con el sí de Miguel.
+3. **Limpieza pendiente (con el sí de Miguel):** las mismas ramas del relevo de las 6:36 pm, más
+   `b3/r03-secuencias` (ya integrada en v0.7). Mientras no se borren, `git branch --no-merged
+   origin/main` las lista: no son trabajo vivo.
+4. **Turno nocturno:** sin tareas APROBADA; bandera EN SESIÓN.
+
+### Relevo anterior (25 nov 2026, 6:36 pm)
 
 0. **25 nov, tarde:** D-74 (pendientes de campo a–d) aprobada en maqueta (5:51 pm), construida
    y publicada en **v0.6** (PR 9, 6:33 pm; verificada a las 6:36 pm). Rama `b3/r03-secuencias`
